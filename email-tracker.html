@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Email Tracker - Anyscale Account Planning Hub</title>
+    <title>Email Tracker — Dylan Wingrove</title>
     <style>
         * {
             margin: 0;
@@ -11,247 +11,157 @@
             box-sizing: border-box;
         }
 
+        :root {
+            --bg: #0b0f1a;
+            --bg2: #111827;
+            --bg3: #1a2235;
+            --bg4: #1e2d42;
+            --text: #f0f4ff;
+            --text2: #8b98b4;
+            --text3: #4f5b78;
+            --acc: #3b82f6;
+            --bdr: #1e2d42;
+            --success: #10b981;
+            --warning: #f59e0b;
+        }
+
         body {
-            background-color: #0b0f1a;
-            color: #f0f4ff;
-            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+            background-color: var(--bg);
+            color: var(--text);
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
             line-height: 1.6;
-            padding: 20px;
+            padding: 0;
         }
 
         .container {
             max-width: 1400px;
             margin: 0 auto;
+            padding: 40px 20px;
         }
 
-        header {
+        /* HEADER */
+        .header {
             margin-bottom: 40px;
-            display: flex;
-            justify-content: space-between;
-            align-items: flex-start;
+            border-bottom: 1px solid var(--bdr);
+            padding-bottom: 20px;
         }
 
-        .header-left h1 {
+        .header h1 {
             font-size: 32px;
+            font-weight: 700;
             margin-bottom: 8px;
-            background: linear-gradient(135deg, #3b82f6 0%, #60a5fa 100%);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
+            color: var(--text);
         }
 
-        .subtitle {
-            color: #9ca3af;
+        .header p {
             font-size: 14px;
+            color: var(--text2);
         }
 
-        .header-actions {
-            display: flex;
-            gap: 12px;
-            flex-wrap: wrap;
-            justify-content: flex-end;
-        }
-
-        button {
-            background-color: #1a2235;
-            color: #f0f4ff;
-            border: 1px solid #1e2d42;
-            border-radius: 6px;
-            padding: 10px 16px;
-            font-family: inherit;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            font-size: 13px;
-            font-weight: 500;
-        }
-
-        button:hover {
-            border-color: #3b82f6;
-            background-color: rgba(59, 130, 246, 0.1);
-        }
-
-        button.primary {
-            background-color: #3b82f6;
-            border-color: #3b82f6;
-            color: #fff;
-        }
-
-        button.primary:hover {
-            background-color: #2563eb;
-            border-color: #2563eb;
-        }
-
-        button.danger {
-            background-color: rgba(239, 68, 68, 0.15);
-            border-color: #ef4444;
-            color: #fca5a5;
-        }
-
-        button.danger:hover {
-            background-color: rgba(239, 68, 68, 0.25);
-        }
-
-        /* Summary Stats */
-        .stats-grid {
+        /* STATS BAR */
+        .stats-bar {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
-            gap: 16px;
+            gap: 20px;
             margin-bottom: 40px;
         }
 
         .stat-card {
-            background-color: #1a2235;
-            border: 1px solid #1e2d42;
+            background: var(--bg2);
+            border: 1px solid var(--bdr);
             border-radius: 8px;
             padding: 20px;
-            transition: all 0.3s ease;
-        }
-
-        .stat-card:hover {
-            border-color: #3b82f6;
-            transform: translateY(-2px);
-            box-shadow: 0 4px 12px rgba(59, 130, 246, 0.1);
-        }
-
-        .stat-label {
-            color: #9ca3af;
-            font-size: 12px;
-            text-transform: uppercase;
-            letter-spacing: 0.5px;
-            margin-bottom: 8px;
+            text-align: center;
         }
 
         .stat-value {
             font-size: 32px;
             font-weight: 700;
-            color: #3b82f6;
+            color: var(--acc);
+            margin-bottom: 8px;
         }
 
-        .stat-subtext {
-            font-size: 12px;
-            color: #6b7280;
-            margin-top: 4px;
-        }
-
-        /* Section Title */
-        .section-title {
-            font-size: 20px;
-            font-weight: 600;
-            margin-top: 40px;
-            margin-bottom: 20px;
-            color: #f0f4ff;
-            display: flex;
-            align-items: center;
-            gap: 10px;
-        }
-
-        .section-title::before {
-            content: '';
-            width: 4px;
-            height: 24px;
-            background-color: #3b82f6;
-            border-radius: 2px;
-        }
-
-        /* Email Funnel */
-        .funnel-container {
-            background-color: #1a2235;
-            border: 1px solid #1e2d42;
-            border-radius: 8px;
-            padding: 30px;
-            margin-bottom: 40px;
-        }
-
-        .funnel {
-            display: flex;
-            flex-direction: column;
-            gap: 12px;
-        }
-
-        .funnel-step {
-            position: relative;
-            display: flex;
-            align-items: center;
-            height: 60px;
-            background: linear-gradient(90deg, #3b82f6 0%, #1e3a8a 100%);
-            border-radius: 6px;
-            padding: 0 20px;
-            overflow: hidden;
-        }
-
-        .funnel-step:nth-child(1) { width: 100%; }
-        .funnel-step:nth-child(2) { width: 85%; }
-        .funnel-step:nth-child(3) { width: 65%; }
-        .funnel-step:nth-child(4) { width: 40%; }
-        .funnel-step:nth-child(5) { width: 20%; }
-
-        .funnel-label {
-            position: relative;
-            z-index: 2;
-            font-weight: 600;
-            display: flex;
-            justify-content: space-between;
-            width: 100%;
-            font-size: 14px;
-        }
-
-        .funnel-count {
-            opacity: 0.9;
-        }
-
-        /* Filters */
-        .filters-container {
-            display: flex;
-            gap: 12px;
-            margin-bottom: 24px;
-            flex-wrap: wrap;
-        }
-
-        .filter-group {
-            display: flex;
-            flex-direction: column;
-            gap: 6px;
-        }
-
-        .filter-label {
-            font-size: 12px;
+        .stat-label {
+            font-size: 13px;
+            color: var(--text2);
             text-transform: uppercase;
-            color: #9ca3af;
             letter-spacing: 0.5px;
         }
 
-        select {
-            background-color: #1a2235;
-            color: #f0f4ff;
-            border: 1px solid #1e2d42;
+        /* CONTROLS */
+        .controls {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 20px;
+            margin-bottom: 30px;
+            flex-wrap: wrap;
+        }
+
+        .filter-buttons {
+            display: flex;
+            gap: 10px;
+        }
+
+        .btn {
+            padding: 10px 16px;
+            border: 1px solid var(--bdr);
+            background: var(--bg2);
+            color: var(--text2);
             border-radius: 6px;
-            padding: 8px 12px;
-            font-family: inherit;
             cursor: pointer;
-            transition: all 0.3s ease;
+            font-size: 13px;
+            font-weight: 600;
+            transition: all 0.2s ease;
         }
 
-        select:hover {
-            border-color: #3b82f6;
+        .btn:hover {
+            border-color: var(--acc);
+            color: var(--text);
+            background: var(--bg3);
         }
 
-        select:focus {
-            outline: none;
-            border-color: #3b82f6;
-            box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.1);
+        .btn.active {
+            background: var(--acc);
+            color: white;
+            border-color: var(--acc);
         }
 
-        /* Sequences Table */
-        .sequences-container {
-            background-color: #1a2235;
-            border: 1px solid #1e2d42;
-            border-radius: 8px;
-            overflow: hidden;
-            margin-bottom: 40px;
+        .btn-reset {
+            padding: 10px 16px;
+            background: var(--bg2);
+            color: var(--text2);
+            border: 1px solid var(--text3);
+            border-radius: 6px;
+            cursor: pointer;
+            font-size: 13px;
+            font-weight: 600;
+            transition: all 0.2s ease;
+        }
+
+        .btn-reset:hover {
+            background: var(--bg3);
+            border-color: var(--warning);
+            color: var(--warning);
+        }
+
+        /* TABLES */
+        .table-section {
+            margin-bottom: 50px;
+        }
+
+        .table-section h2 {
+            font-size: 18px;
+            font-weight: 600;
+            margin-bottom: 20px;
+            color: var(--text);
         }
 
         .table-wrapper {
-            overflow-x: auto;
+            background: var(--bg2);
+            border: 1px solid var(--bdr);
+            border-radius: 8px;
+            overflow: hidden;
         }
 
         table {
@@ -259,1212 +169,581 @@
             border-collapse: collapse;
         }
 
+        thead {
+            background: var(--bg3);
+            border-bottom: 1px solid var(--bdr);
+        }
+
         th {
-            background-color: #0f1419;
-            color: #9ca3af;
-            text-align: left;
             padding: 16px;
+            text-align: left;
             font-size: 12px;
+            font-weight: 700;
+            color: var(--text2);
             text-transform: uppercase;
             letter-spacing: 0.5px;
-            font-weight: 600;
-            border-bottom: 1px solid #1e2d42;
-            cursor: pointer;
             user-select: none;
         }
 
-        th:hover {
-            background-color: #151b28;
+        th.sortable {
+            cursor: pointer;
+            color: var(--acc);
+        }
+
+        th.sortable:hover {
+            color: var(--text);
+        }
+
+        th.sortable::after {
+            content: ' ↕';
+            opacity: 0;
+            transition: opacity 0.2s;
+        }
+
+        th.sortable:hover::after {
+            opacity: 1;
         }
 
         td {
-            padding: 16px;
-            border-bottom: 1px solid #1e2d42;
-        }
-
-        tr:hover {
-            background-color: rgba(59, 130, 246, 0.05);
-        }
-
-        .company-name {
-            font-weight: 600;
-            color: #3b82f6;
-        }
-
-        .tier-badge {
-            display: inline-block;
-            background-color: rgba(59, 130, 246, 0.15);
-            color: #60a5fa;
-            padding: 4px 8px;
-            border-radius: 4px;
-            font-size: 11px;
-            font-weight: 600;
-            text-transform: uppercase;
-            margin-left: 8px;
-        }
-
-        .progress-bar {
-            display: flex;
-            gap: 4px;
-        }
-
-        .progress-step {
-            flex: 1;
-            height: 6px;
-            background-color: #1e2d42;
-            border-radius: 3px;
-            overflow: hidden;
-        }
-
-        .progress-step.completed {
-            background-color: #3b82f6;
-        }
-
-        .progress-step.current {
-            background: linear-gradient(90deg, #3b82f6, #60a5fa);
-        }
-
-        .metric {
-            display: flex;
-            align-items: center;
-            gap: 6px;
-            font-size: 14px;
-        }
-
-        .metric-percentage {
-            color: #9ca3af;
-            font-size: 12px;
-        }
-
-        .status-badge {
-            display: inline-block;
-            padding: 6px 12px;
-            border-radius: 4px;
-            font-size: 12px;
-            font-weight: 600;
-            text-transform: capitalize;
-            cursor: pointer;
-            transition: all 0.2s ease;
-        }
-
-        .status-badge:hover {
-            opacity: 0.8;
-        }
-
-        .status-active {
-            background-color: rgba(34, 197, 94, 0.15);
-            color: #86efac;
-        }
-
-        .status-paused {
-            background-color: rgba(251, 146, 60, 0.15);
-            color: #fdba74;
-        }
-
-        .status-completed {
-            background-color: rgba(107, 114, 128, 0.15);
-            color: #d1d5db;
-        }
-
-        .date-text {
-            color: #9ca3af;
+            padding: 14px 16px;
             font-size: 13px;
+            color: var(--text);
+            border-bottom: 1px solid var(--bdr);
         }
 
-        /* Email Log */
-        .email-log-container {
-            background-color: #1a2235;
-            border: 1px solid #1e2d42;
-            border-radius: 8px;
-            overflow: hidden;
+        tbody tr:last-child td {
+            border-bottom: none;
         }
 
-        .email-log-item {
-            display: grid;
-            grid-template-columns: 1fr 1fr 2fr 120px 120px 100px 40px;
-            align-items: center;
-            padding: 16px;
-            border-bottom: 1px solid #1e2d42;
-            transition: all 0.2s ease;
-            position: relative;
-        }
-
-        .email-log-item:hover {
-            background-color: rgba(59, 130, 246, 0.05);
-        }
-
-        .email-log-header {
-            display: grid;
-            grid-template-columns: 1fr 1fr 2fr 120px 120px 100px 40px;
-            padding: 16px;
-            background-color: #0f1419;
-            border-bottom: 1px solid #1e2d42;
-            font-size: 12px;
-            text-transform: uppercase;
-            color: #9ca3af;
-            letter-spacing: 0.5px;
-            font-weight: 600;
-        }
-
-        .contact-info {
-            display: flex;
-            flex-direction: column;
-            gap: 2px;
-            cursor: pointer;
-        }
-
-        .contact-name {
-            color: #f0f4ff;
-            font-weight: 500;
-        }
-
-        .contact-company {
-            color: #9ca3af;
-            font-size: 12px;
-        }
-
-        .subject-text {
-            color: #f0f4ff;
-            font-size: 13px;
-            word-break: break-word;
-            cursor: pointer;
-        }
-
-        .email-status-badge {
-            display: inline-block;
-            padding: 6px 10px;
-            border-radius: 4px;
-            font-size: 11px;
-            font-weight: 600;
-            text-transform: uppercase;
-            white-space: nowrap;
-            cursor: pointer;
-            transition: all 0.2s ease;
-        }
-
-        .email-status-badge:hover {
-            opacity: 0.8;
-        }
-
-        .status-sent {
-            background-color: rgba(59, 130, 246, 0.15);
-            color: #60a5fa;
-        }
-
-        .status-opened {
-            background-color: rgba(34, 197, 94, 0.15);
-            color: #86efac;
-        }
-
-        .status-clicked {
-            background-color: rgba(168, 85, 247, 0.15);
-            color: #d8b4fe;
-        }
-
-        .status-replied {
-            background-color: rgba(59, 130, 246, 0.15);
-            color: #93c5fd;
-        }
-
-        .status-meeting-booked {
-            background-color: rgba(34, 197, 94, 0.15);
-            color: #86efac;
-        }
-
-        .status-bounced {
-            background-color: rgba(239, 68, 68, 0.15);
-            color: #fca5a5;
-        }
-
-        .delete-btn {
-            background: none;
-            border: none;
-            color: #6b7280;
-            cursor: pointer;
-            font-size: 18px;
-            padding: 0;
-            transition: all 0.2s ease;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-        }
-
-        .delete-btn:hover {
-            color: #ef4444;
-        }
-
-        /* Modal */
-        .modal {
-            display: none;
-            position: fixed;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            background-color: rgba(0, 0, 0, 0.5);
-            z-index: 1000;
-            align-items: center;
-            justify-content: center;
-        }
-
-        .modal.active {
-            display: flex;
-        }
-
-        .modal-content {
-            background-color: #1a2235;
-            border: 1px solid #1e2d42;
-            border-radius: 8px;
-            padding: 30px;
-            max-width: 500px;
-            width: 90%;
-            max-height: 90vh;
-            overflow-y: auto;
-        }
-
-        .modal-header {
-            font-size: 20px;
-            font-weight: 600;
-            margin-bottom: 20px;
-            color: #f0f4ff;
-        }
-
-        .form-group {
-            margin-bottom: 16px;
-            display: flex;
-            flex-direction: column;
-            gap: 6px;
-        }
-
-        .form-label {
-            color: #9ca3af;
-            font-size: 12px;
-            text-transform: uppercase;
-            letter-spacing: 0.5px;
-        }
-
-        input, textarea {
-            background-color: #0f1419;
-            color: #f0f4ff;
-            border: 1px solid #1e2d42;
-            border-radius: 6px;
-            padding: 10px 12px;
-            font-family: inherit;
-            font-size: 14px;
-            transition: all 0.3s ease;
-        }
-
-        input:focus, textarea:focus {
-            outline: none;
-            border-color: #3b82f6;
-            box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.1);
-        }
-
-        textarea {
-            resize: vertical;
-            min-height: 80px;
-        }
-
-        .modal-actions {
-            display: flex;
-            gap: 12px;
-            margin-top: 24px;
-            justify-content: flex-end;
-        }
-
-        /* Editable Cell */
-        .editable-cell {
+        td.editable {
             cursor: pointer;
             position: relative;
-            padding: 4px;
-            border-radius: 4px;
-            transition: all 0.2s ease;
+            padding: 10px 16px;
         }
 
-        .editable-cell:hover {
-            background-color: rgba(59, 130, 246, 0.1);
+        td.editable:hover {
+            background: var(--bg4);
         }
 
-        .editable-cell.editing {
-            background-color: rgba(59, 130, 246, 0.2);
+        td.editing {
+            padding: 6px;
         }
 
-        .editable-cell input {
+        td.editing input {
             width: 100%;
-            padding: 4px 8px;
-            margin: 0;
+            background: var(--bg);
+            border: 1px solid var(--acc);
+            color: var(--text);
+            padding: 6px;
+            border-radius: 4px;
+            font-size: 13px;
+            font-family: inherit;
         }
 
-        /* Responsive */
-        @media (max-width: 1200px) {
-            .email-log-item,
-            .email-log-header {
-                grid-template-columns: 1fr 2fr 100px 100px 40px;
-            }
-
-            .subject-text {
-                display: none;
-            }
+        td.editing input:focus {
+            outline: none;
+            border-color: var(--text);
         }
 
+        .num {
+            text-align: right;
+            color: var(--acc);
+            font-weight: 600;
+        }
+
+        .status {
+            display: inline-block;
+            padding: 4px 12px;
+            border-radius: 20px;
+            font-size: 12px;
+            font-weight: 600;
+        }
+
+        .status.active {
+            background: rgba(16, 185, 129, 0.15);
+            color: var(--success);
+        }
+
+        .status.inactive {
+            background: rgba(75, 85, 99, 0.15);
+            color: var(--text2);
+        }
+
+        /* RESPONSIVE */
         @media (max-width: 768px) {
-            .stats-grid {
+            .stats-bar {
                 grid-template-columns: repeat(2, 1fr);
             }
 
-            header {
+            .controls {
+                flex-direction: column;
+                align-items: stretch;
+            }
+
+            .filter-buttons {
                 flex-direction: column;
             }
 
-            .header-actions {
-                justify-content: flex-start;
-                margin-top: 16px;
+            .btn, .btn-reset {
+                width: 100%;
             }
 
-            .email-log-item,
-            .email-log-header {
-                grid-template-columns: 1fr 80px 80px 40px;
+            table {
+                font-size: 12px;
             }
 
-            .contact-company {
-                display: none;
+            th, td {
+                padding: 12px;
             }
-        }
 
-        .empty-state {
-            text-align: center;
-            padding: 40px 20px;
-            color: #6b7280;
+            .header h1 {
+                font-size: 24px;
+            }
         }
     </style>
 </head>
 <body>
     <div class="container">
-        <header>
-            <div class="header-left">
-                <h1>Email Tracker</h1>
-                <p class="subtitle">Anyscale Account Planning Hub - Tier 1 Companies Outreach</p>
-            </div>
-            <div class="header-actions">
-                <button class="primary" onclick="openLogSendModal()">Log Send</button>
-                <button class="primary" onclick="openAddSequenceModal()">Add Sequence</button>
-                <button class="primary" onclick="openAddEmailModal()">Add Email</button>
-                <button onclick="resetToDefaults()">Reset to Defaults</button>
-            </div>
-        </header>
+        <!-- HEADER -->
+        <div class="header">
+            <h1>Email Tracker — Gmail Activity</h1>
+            <p>Real outreach data from Gmail. Filter by date range.</p>
+        </div>
 
-        <!-- Summary Stats -->
-        <div class="stats-grid">
+        <!-- STATS BAR -->
+        <div class="stats-bar">
             <div class="stat-card">
+                <div class="stat-value" id="stat-total">0</div>
                 <div class="stat-label">Total Emails Sent</div>
-                <div class="stat-value" id="statTotalSent">0</div>
-                <div class="stat-subtext">All sequences combined</div>
             </div>
             <div class="stat-card">
-                <div class="stat-label">Open Rate</div>
-                <div class="stat-value" id="statOpenRate">0%</div>
-                <div class="stat-subtext"><span id="statOpenCount">0</span> emails opened</div>
+                <div class="stat-value" id="stat-contacts">0</div>
+                <div class="stat-label">Unique Contacts</div>
             </div>
             <div class="stat-card">
-                <div class="stat-label">Reply Rate</div>
-                <div class="stat-value" id="statReplyRate">0%</div>
-                <div class="stat-subtext"><span id="statReplyCount">0</span> replies received</div>
+                <div class="stat-value" id="stat-companies">0</div>
+                <div class="stat-label">Companies Reached</div>
             </div>
             <div class="stat-card">
-                <div class="stat-label">Meetings Booked</div>
-                <div class="stat-value" id="statMeetings">0</div>
-                <div class="stat-subtext">Follow-up meetings scheduled</div>
-            </div>
-            <div class="stat-card">
+                <div class="stat-value" id="stat-sequences">0</div>
                 <div class="stat-label">Sequences Active</div>
-                <div class="stat-value" id="statSequences">0</div>
-                <div class="stat-subtext"><span id="statActiveSeq">0</span> active</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-value" id="stat-followup">0%</div>
+                <div class="stat-label">Follow-up Rate</div>
             </div>
         </div>
 
-        <!-- Email Funnel -->
-        <h2 class="section-title">Email Funnel Analysis</h2>
-        <div class="funnel-container">
-            <div class="funnel" id="funnelContainer">
+        <!-- CONTROLS -->
+        <div class="controls">
+            <div class="filter-buttons">
+                <button class="btn active" data-filter="7">Last 7 Days</button>
+                <button class="btn" data-filter="30">Last 30 Days</button>
+                <button class="btn" data-filter="90">Last 90 Days</button>
             </div>
+            <button class="btn-reset">Reset to Defaults</button>
         </div>
 
-        <!-- Filters -->
-        <h2 class="section-title">Outreach Sequences</h2>
-        <div class="filters-container">
-            <div class="filter-group">
-                <label class="filter-label">Filter by Company</label>
-                <select id="companyFilter">
-                    <option value="">All Companies</option>
-                </select>
-            </div>
-            <div class="filter-group">
-                <label class="filter-label">Filter by Status</label>
-                <select id="statusFilter">
-                    <option value="">All Statuses</option>
-                    <option value="active">Active</option>
-                    <option value="paused">Paused</option>
-                    <option value="completed">Completed</option>
-                </select>
-            </div>
-            <div class="filter-group">
-                <label class="filter-label">Filter by Step</label>
-                <select id="stepFilter">
-                    <option value="">All Steps</option>
-                    <option value="1">Step 1</option>
-                    <option value="2">Step 2</option>
-                    <option value="3">Step 3</option>
-                    <option value="4">Step 4</option>
-                </select>
-            </div>
-        </div>
-
-        <!-- Sequences Table -->
-        <div class="sequences-container">
+        <!-- SEQUENCES TABLE -->
+        <div class="table-section">
+            <h2>Sequences</h2>
             <div class="table-wrapper">
-                <table id="sequencesTable">
+                <table id="sequences-table">
                     <thead>
                         <tr>
-                            <th onclick="sortTable(0)">Company</th>
-                            <th onclick="sortTable(1)">Contacts</th>
-                            <th onclick="sortTable(2)">Emails</th>
-                            <th onclick="sortTable(3)">Progress</th>
-                            <th onclick="sortTable(4)">Opened</th>
-                            <th onclick="sortTable(5)">Replied</th>
-                            <th onclick="sortTable(6)">Meetings</th>
-                            <th onclick="sortTable(7)">Status</th>
-                            <th onclick="sortTable(8)">Last Activity</th>
+                            <th>Subject Line</th>
+                            <th class="num">Unique Contacts</th>
+                            <th class="num">Total Sends</th>
+                            <th class="num">Follow-ups</th>
+                            <th>Date Range</th>
+                            <th>Status</th>
                         </tr>
                     </thead>
-                    <tbody id="sequencesBody">
-                    </tbody>
+                    <tbody></tbody>
                 </table>
             </div>
         </div>
 
-        <!-- Email Log -->
-        <h2 class="section-title">Individual Email Log</h2>
-        <div class="email-log-container">
-            <div class="email-log-header">
-                <div>Contact</div>
-                <div>Company</div>
-                <div>Subject</div>
-                <div>Sent Date</div>
-                <div>Step</div>
-                <div>Status</div>
-                <div></div>
+        <!-- COMPANY BREAKDOWN TABLE -->
+        <div class="table-section">
+            <h2>Company Breakdown</h2>
+            <div class="table-wrapper">
+                <table id="companies-table">
+                    <thead>
+                        <tr>
+                            <th>Company Name</th>
+                            <th class="num">Contacts Reached</th>
+                            <th class="num">Emails Sent</th>
+                            <th>Original / Follow-up</th>
+                            <th>Last Activity</th>
+                        </tr>
+                    </thead>
+                    <tbody></tbody>
+                </table>
             </div>
-            <div id="emailLogBody">
+        </div>
+
+        <!-- CONTACT LOG TABLE -->
+        <div class="table-section">
+            <h2>Contact Log</h2>
+            <div class="table-wrapper">
+                <table id="contacts-table">
+                    <thead>
+                        <tr>
+                            <th class="sortable">Name</th>
+                            <th class="sortable">Email</th>
+                            <th class="sortable">Company</th>
+                            <th class="sortable num">Emails Sent</th>
+                            <th class="sortable">Last Email Date</th>
+                            <th class="sortable">Subject</th>
+                        </tr>
+                    </thead>
+                    <tbody></tbody>
+                </table>
             </div>
-        </div>
-    </div>
-
-    <!-- Modals -->
-    <div class="modal" id="logSendModal">
-        <div class="modal-content">
-            <div class="modal-header">Log a Send</div>
-            <form onsubmit="handleLogSend(event)">
-                <div class="form-group">
-                    <label class="form-label">Contact Name</label>
-                    <input type="text" id="logSendContact" required>
-                </div>
-                <div class="form-group">
-                    <label class="form-label">Company</label>
-                    <input type="text" id="logSendCompany" required>
-                </div>
-                <div class="form-group">
-                    <label class="form-label">Subject</label>
-                    <input type="text" id="logSendSubject" required>
-                </div>
-                <div class="form-group">
-                    <label class="form-label">Sequence Name</label>
-                    <input type="text" id="logSendSequence" required>
-                </div>
-                <div class="form-group">
-                    <label class="form-label">Step Number</label>
-                    <input type="number" id="logSendStep" min="1" max="4" value="1" required>
-                </div>
-                <div class="modal-actions">
-                    <button type="button" onclick="closeModal('logSendModal')">Cancel</button>
-                    <button type="submit" class="primary">Log Send</button>
-                </div>
-            </form>
-        </div>
-    </div>
-
-    <div class="modal" id="addEmailModal">
-        <div class="modal-content">
-            <div class="modal-header">Add New Email Entry</div>
-            <form onsubmit="handleAddEmail(event)">
-                <div class="form-group">
-                    <label class="form-label">Contact Name</label>
-                    <input type="text" id="addEmailContact" required>
-                </div>
-                <div class="form-group">
-                    <label class="form-label">Company</label>
-                    <input type="text" id="addEmailCompany" required>
-                </div>
-                <div class="form-group">
-                    <label class="form-label">Subject</label>
-                    <input type="text" id="addEmailSubject" required>
-                </div>
-                <div class="form-group">
-                    <label class="form-label">Sent Date</label>
-                    <input type="date" id="addEmailDate" required>
-                </div>
-                <div class="form-group">
-                    <label class="form-label">Sequence Name</label>
-                    <input type="text" id="addEmailSequence" required>
-                </div>
-                <div class="form-group">
-                    <label class="form-label">Step Number</label>
-                    <input type="number" id="addEmailStep" min="1" max="4" value="1" required>
-                </div>
-                <div class="form-group">
-                    <label class="form-label">Status</label>
-                    <select id="addEmailStatus">
-                        <option value="sent">Sent</option>
-                        <option value="opened">Opened</option>
-                        <option value="clicked">Clicked</option>
-                        <option value="replied">Replied</option>
-                        <option value="meeting-booked">Meeting Booked</option>
-                        <option value="bounced">Bounced</option>
-                    </select>
-                </div>
-                <div class="modal-actions">
-                    <button type="button" onclick="closeModal('addEmailModal')">Cancel</button>
-                    <button type="submit" class="primary">Add Email</button>
-                </div>
-            </form>
-        </div>
-    </div>
-
-    <div class="modal" id="addSequenceModal">
-        <div class="modal-content">
-            <div class="modal-header">Add New Email Sequence</div>
-            <form onsubmit="handleAddSequence(event)">
-                <div class="form-group">
-                    <label class="form-label">Sequence Name</label>
-                    <input type="text" id="addSeqName" placeholder="e.g., Acme Corp" required>
-                </div>
-                <div class="form-group">
-                    <label class="form-label">Tier</label>
-                    <select id="addSeqTier">
-                        <option value="Tier 1">Tier 1</option>
-                        <option value="Tier 2">Tier 2</option>
-                        <option value="Tier 3">Tier 3</option>
-                    </select>
-                </div>
-                <div class="form-group">
-                    <label class="form-label">Number of Contacts</label>
-                    <input type="number" id="addSeqContacts" min="1" value="10" required>
-                </div>
-                <div class="form-group">
-                    <label class="form-label">Total Steps in Sequence</label>
-                    <input type="number" id="addSeqTotalSteps" min="1" max="4" value="4" required>
-                </div>
-                <div class="form-group">
-                    <label class="form-label">Status</label>
-                    <select id="addSeqStatus">
-                        <option value="active">Active</option>
-                        <option value="paused">Paused</option>
-                        <option value="completed">Completed</option>
-                    </select>
-                </div>
-                <div class="modal-actions">
-                    <button type="button" onclick="closeModal('addSequenceModal')">Cancel</button>
-                    <button type="submit" class="primary">Add Sequence</button>
-                </div>
-            </form>
         </div>
     </div>
 
     <script>
-        // Default data
-        const DEFAULT_SEQUENCES = [
-            {
-                company: 'comma.ai',
-                tier: 'Tier 1',
-                id: 'comma',
-                contacts: 10,
-                emails: 40,
-                currentStep: 3,
-                totalSteps: 4,
-                opened: 4,
-                replied: 1,
-                meetings: 1,
-                status: 'active',
-                lastActivity: '2026-03-06'
-            },
-            {
-                company: 'fal.ai',
-                tier: 'Tier 1',
-                id: 'fal',
-                contacts: 10,
-                emails: 40,
-                currentStep: 4,
-                totalSteps: 4,
-                opened: 6,
-                replied: 2,
-                meetings: 2,
-                status: 'active',
-                lastActivity: '2026-03-06'
-            },
-            {
-                company: 'Iambic Therapeutics',
-                tier: 'Tier 1',
-                id: 'iambic',
-                contacts: 9,
-                emails: 36,
-                currentStep: 3,
-                totalSteps: 4,
-                opened: 5,
-                replied: 1,
-                meetings: 1,
-                status: 'active',
-                lastActivity: '2026-03-05'
-            },
-            {
-                company: 'Apex.AI',
-                tier: 'Tier 1',
-                id: 'apex',
-                contacts: 9,
-                emails: 36,
-                currentStep: 2,
-                totalSteps: 4,
-                opened: 3,
-                replied: 0,
-                meetings: 0,
-                status: 'active',
-                lastActivity: '2026-03-04'
-            },
-            {
-                company: 'Chooch AI',
-                tier: 'Tier 1',
-                id: 'chooch',
-                contacts: 9,
-                emails: 36,
-                currentStep: 4,
-                totalSteps: 4,
-                opened: 4,
-                replied: 1,
-                meetings: 1,
-                status: 'paused',
-                lastActivity: '2026-03-03'
-            },
-            {
-                company: 'Lightwheel AI',
-                tier: 'Tier 1',
-                id: 'lightwheel',
-                contacts: 10,
-                emails: 40,
-                currentStep: 4,
-                totalSteps: 4,
-                opened: 7,
-                replied: 2,
-                meetings: 2,
-                status: 'active',
-                lastActivity: '2026-03-06'
-            },
-            {
-                company: 'Valar Labs',
-                tier: 'Tier 1',
-                id: 'valar',
-                contacts: 10,
-                emails: 40,
-                currentStep: 3,
-                totalSteps: 4,
-                opened: 5,
-                replied: 1,
-                meetings: 1,
-                status: 'active',
-                lastActivity: '2026-03-05'
+        const DEFAULT_DATA = {
+            sequences: [
+                {
+                    id: 1,
+                    subject: "Join Anyscale in SF: Free Hands-on Ray Workshop (March 10)",
+                    uniqueContacts: 98,
+                    totalSends: 166,
+                    followups: 68,
+                    dateRange: "Mar 3-6, 2026",
+                    status: "active"
+                },
+                {
+                    id: 2,
+                    subject: "Scaling RL for Multi-Robot Coordination at Intrinsic",
+                    uniqueContacts: 25,
+                    totalSends: 33,
+                    followups: 6,
+                    dateRange: "Mar 2-5, 2026",
+                    status: "active"
+                },
+                {
+                    id: 3,
+                    subject: "ML Iteration Speed at AV scale",
+                    uniqueContacts: 1,
+                    totalSends: 1,
+                    followups: 0,
+                    dateRange: "Mar 5, 2026",
+                    status: "inactive"
+                }
+            ],
+            companies: [
+                { name: "Personal (gmail)", contacts: 18, original: 18, followups: 18, lastActivity: "Mar 6, 2026" },
+                { name: "Intrinsic (Google)", contacts: 24, original: 26, followups: 5, lastActivity: "Mar 5, 2026" },
+                { name: "Varo Money", contacts: 16, original: 16, followups: 6, lastActivity: "Mar 4, 2026" },
+                { name: "NetApp", contacts: 7, original: 7, followups: 7, lastActivity: "Mar 6, 2026" },
+                { name: "Suki", contacts: 7, original: 7, followups: 4, lastActivity: "Mar 3, 2026" },
+                { name: "Dialpad", contacts: 5, original: 5, followups: 5, lastActivity: "Mar 4, 2026" },
+                { name: "Arc Institute", contacts: 6, original: 6, followups: 4, lastActivity: "Mar 2, 2026" },
+                { name: "Zoom", contacts: 5, original: 5, followups: 5, lastActivity: "Mar 5, 2026" },
+                { name: "Foxglove", contacts: 4, original: 4, followups: 3, lastActivity: "Mar 3, 2026" },
+                { name: "Aarki", contacts: 4, original: 4, followups: 2, lastActivity: "Mar 4, 2026" },
+                { name: "Sourcegraph", contacts: 5, original: 5, followups: 1, lastActivity: "Mar 6, 2026" },
+                { name: "Parafin", contacts: 3, original: 3, followups: 3, lastActivity: "Mar 2, 2026" },
+                { name: "Samba TV", contacts: 4, original: 4, followups: 1, lastActivity: "Mar 3, 2026" },
+                { name: "Gorgias", contacts: 2, original: 2, followups: 2, lastActivity: "Mar 5, 2026" },
+                { name: "Krisp", contacts: 1, original: 1, followups: 1, lastActivity: "Mar 4, 2026" },
+                { name: "Compound Eye", contacts: 1, original: 1, followups: 1, lastActivity: "Mar 3, 2026" },
+                { name: "FlightAware", contacts: 1, original: 1, followups: 1, lastActivity: "Mar 2, 2026" },
+                { name: "Cytek Biosciences", contacts: 1, original: 1, followups: 1, lastActivity: "Mar 5, 2026" },
+                { name: "Apex.AI", contacts: 1, original: 1, followups: 1, lastActivity: "Mar 4, 2026" },
+                { name: "Reltio", contacts: 1, original: 1, followups: 1, lastActivity: "Mar 6, 2026" },
+                { name: "comma.ai", contacts: 1, original: 1, followups: 0, lastActivity: "Mar 3, 2026" },
+                { name: "Matterport", contacts: 1, original: 1, followups: 0, lastActivity: "Mar 5, 2026" },
+                { name: "Chooch", contacts: 1, original: 1, followups: 0, lastActivity: "Mar 2, 2026" },
+                { name: "Overview.ai", contacts: 1, original: 1, followups: 0, lastActivity: "Mar 4, 2026" }
+            ],
+            contacts: [
+                { name: "Mario Fiore", email: "mariofiore@intrinsic.ai", company: "Intrinsic", sent: 3, lastDate: "Mar 5, 2026", subject: "Scaling RL for Multi-Robot Coordination at Intrinsic" },
+                { name: "Idan Schwartz", email: "idanschwartz@gmail.com", company: "Personal", sent: 2, lastDate: "Mar 6, 2026", subject: "Join Anyscale in SF: Free Hands-on Ray Workshop (March 10)" },
+                { name: "Leela", email: "leelat@netapp.com", company: "NetApp", sent: 2, lastDate: "Mar 6, 2026", subject: "Join Anyscale in SF: Free Hands-on Ray Workshop (March 10)" },
+                { name: "Brad Flanary", email: "brad.flanary@netapp.com", company: "NetApp", sent: 2, lastDate: "Mar 5, 2026", subject: "Join Anyscale in SF: Free Hands-on Ray Workshop (March 10)" },
+                { name: "Oliver Herning", email: "oliver.herning@dialpad.com", company: "Dialpad", sent: 2, lastDate: "Mar 4, 2026", subject: "Join Anyscale in SF: Free Hands-on Ray Workshop (March 10)" },
+                { name: "Bilong Chen", email: "bchen@varomoney.com", company: "Varo Money", sent: 2, lastDate: "Mar 4, 2026", subject: "Join Anyscale in SF: Free Hands-on Ray Workshop (March 10)" },
+                { name: "Dan Beneke", email: "dbeneke@varomoney.com", company: "Varo Money", sent: 2, lastDate: "Mar 3, 2026", subject: "Join Anyscale in SF: Free Hands-on Ray Workshop (March 10)" },
+                { name: "Shezan Kazi", email: "shezan.kazi@dialpad.com", company: "Dialpad", sent: 2, lastDate: "Mar 4, 2026", subject: "Join Anyscale in SF: Free Hands-on Ray Workshop (March 10)" },
+                { name: "Illia", email: "illia@gorgias.com", company: "Gorgias", sent: 2, lastDate: "Mar 5, 2026", subject: "Join Anyscale in SF: Free Hands-on Ray Workshop (March 10)" },
+                { name: "Sanjay", email: "sanjaykrish@gmail.com", company: "Personal", sent: 3, lastDate: "Mar 6, 2026", subject: "Join Anyscale in SF: Free Hands-on Ray Workshop (March 10)" },
+                { name: "Arjun Mantri", email: "amantri@varomoney.com", company: "Varo Money", sent: 2, lastDate: "Mar 3, 2026", subject: "Join Anyscale in SF: Free Hands-on Ray Workshop (March 10)" },
+                { name: "Beyang", email: "beyang@sourcegraph.com", company: "Sourcegraph", sent: 1, lastDate: "Mar 6, 2026", subject: "Join Anyscale in SF: Free Hands-on Ray Workshop (March 10)" },
+                { name: "Sweta Kale", email: "sweta.kale@netapp.com", company: "NetApp", sent: 2, lastDate: "Mar 6, 2026", subject: "Join Anyscale in SF: Free Hands-on Ray Workshop (March 10)" },
+                { name: "Lev", email: "lev@foxglove.dev", company: "Foxglove", sent: 2, lastDate: "Mar 3, 2026", subject: "Join Anyscale in SF: Free Hands-on Ray Workshop (March 10)" },
+                { name: "Vincent Fu", email: "vincent.fu@netapp.com", company: "NetApp", sent: 2, lastDate: "Mar 5, 2026", subject: "Join Anyscale in SF: Free Hands-on Ray Workshop (March 10)" },
+                { name: "Ketan Deshmukh", email: "ketan.deshmukh@zoom.us", company: "Zoom", sent: 2, lastDate: "Mar 5, 2026", subject: "Join Anyscale in SF: Free Hands-on Ray Workshop (March 10)" },
+                { name: "Anirudh", email: "anirudh@valarlabs.com", company: "Valar Labs", sent: 1, lastDate: "Mar 3, 2026", subject: "Join Anyscale in SF: Free Hands-on Ray Workshop (March 10)" },
+                { name: "Ky", email: "ky@matterport.com", company: "Matterport", sent: 1, lastDate: "Mar 5, 2026", subject: "Join Anyscale in SF: Free Hands-on Ray Workshop (March 10)" },
+                { name: "Cindy Lee", email: "cindy.lee@zoom.us", company: "Zoom", sent: 2, lastDate: "Mar 5, 2026", subject: "Join Anyscale in SF: Free Hands-on Ray Workshop (March 10)" },
+                { name: "Mehul", email: "mehul@resolve.ai", company: "Resolve AI", sent: 1, lastDate: "Mar 4, 2026", subject: "Join Anyscale in SF: Free Hands-on Ray Workshop (March 10)" },
+                { name: "Praveen Chaitan", email: "pchaitan@netapp.com", company: "NetApp", sent: 2, lastDate: "Mar 6, 2026", subject: "Join Anyscale in SF: Free Hands-on Ray Workshop (March 10)" },
+                { name: "Velchamy Sankarlingam", email: "velchamy.sankarlingam@zoom.us", company: "Zoom", sent: 2, lastDate: "Mar 5, 2026", subject: "Join Anyscale in SF: Free Hands-on Ray Workshop (March 10)" },
+                { name: "Jiana Huang", email: "jhuang@withcherry.com", company: "Cherry", sent: 1, lastDate: "Mar 4, 2026", subject: "Join Anyscale in SF: Free Hands-on Ray Workshop (March 10)" },
+                { name: "Harsha", email: "harsha@jigsawstack.com", company: "JigsawStack", sent: 1, lastDate: "Mar 3, 2026", subject: "Join Anyscale in SF: Free Hands-on Ray Workshop (March 10)" },
+                { name: "Mona", email: "mona@suki.ai", company: "Suki", sent: 2, lastDate: "Mar 3, 2026", subject: "Join Anyscale in SF: Free Hands-on Ray Workshop (March 10)" },
+                { name: "Joe Zachariah", email: "jzachariah@aarki.com", company: "Aarki", sent: 2, lastDate: "Mar 4, 2026", subject: "Join Anyscale in SF: Free Hands-on Ray Workshop (March 10)" },
+                { name: "Quan Yuan", email: "quan.yuan@compoundeye.com", company: "Compound Eye", sent: 1, lastDate: "Mar 3, 2026", subject: "Join Anyscale in SF: Free Hands-on Ray Workshop (March 10)" }
+            ]
+        };
+
+        class EmailTracker {
+            constructor() {
+                this.currentFilter = 90;
+                this.sortColumn = null;
+                this.sortDirection = 'asc';
+                this.data = this.loadData();
+                this.init();
             }
-        ];
 
-        const DEFAULT_EMAIL_LOG = [
-            { contact: 'Sarah Chen', company: 'comma.ai', subject: 'Exploring AI Solutions for Fleet Management', sent: '2026-03-06', step: 1, status: 'opened', id: 'email1' },
-            { contact: 'Alex Rodriguez', company: 'comma.ai', subject: 'Computer Vision for Autonomous Vehicles', sent: '2026-03-06', step: 1, status: 'sent', id: 'email2' },
-            { contact: 'James Park', company: 'comma.ai', subject: 'Real-time Data Processing with Anyscale', sent: '2026-03-05', step: 1, status: 'opened', id: 'email3' },
-            { contact: 'Emma Wilson', company: 'comma.ai', subject: 'Follow-up: Scaling ML Infrastructure', sent: '2026-03-04', step: 2, status: 'replied', id: 'email4' },
-            { contact: 'Michael Zhang', company: 'comma.ai', subject: 'Custom ML Pipeline Solution', sent: '2026-03-03', step: 2, status: 'opened', id: 'email5' },
-            { contact: 'Lisa Anderson', company: 'fal.ai', subject: 'Accelerating Image Generation Workloads', sent: '2026-03-06', step: 1, status: 'opened', id: 'email6' },
-            { contact: 'David Kumar', company: 'fal.ai', subject: 'Enterprise Scale API Management', sent: '2026-03-06', step: 1, status: 'clicked', id: 'email7' },
-            { contact: 'Rachel Thomas', company: 'fal.ai', subject: 'Inference Optimization for Production', sent: '2026-03-05', step: 1, status: 'opened', id: 'email8' },
-            { contact: 'Marcus Johnson', company: 'fal.ai', subject: 'Discussion: Performance Benchmarking', sent: '2026-03-04', step: 2, status: 'replied', id: 'email9' },
-            { contact: 'Nina Patel', company: 'fal.ai', subject: 'Integration Architecture Review', sent: '2026-03-03', step: 3, status: 'opened', id: 'email10' },
-            { contact: 'Oliver Smith', company: 'Iambic Therapeutics', subject: 'AI for Drug Discovery Acceleration', sent: '2026-03-06', step: 1, status: 'sent', id: 'email11' },
-            { contact: 'Patricia Lee', company: 'Iambic Therapeutics', subject: 'Machine Learning in Clinical Research', sent: '2026-03-05', step: 1, status: 'opened', id: 'email12' },
-            { contact: 'Robert Garcia', company: 'Iambic Therapeutics', subject: 'Scalable Bioinformatics Pipeline', sent: '2026-03-04', step: 2, status: 'clicked', id: 'email13' },
-            { contact: 'Susan Martinez', company: 'Iambic Therapeutics', subject: 'Follow-up: Research Infrastructure', sent: '2026-03-03', step: 2, status: 'opened', id: 'email14' },
-            { contact: 'Thomas Brown', company: 'Iambic Therapeutics', subject: 'Meeting Request: Technology Alignment', sent: '2026-03-02', step: 3, status: 'replied', id: 'email15' },
-            { contact: 'Victoria Davis', company: 'Apex.AI', subject: 'Intelligent Systems at Scale', sent: '2026-03-04', step: 1, status: 'opened', id: 'email16' },
-            { contact: 'William Taylor', company: 'Apex.AI', subject: 'Real-time Decision Making Engines', sent: '2026-03-03', step: 1, status: 'sent', id: 'email17' },
-            { contact: 'Yuki Tanaka', company: 'Apex.AI', subject: 'Autonomous System Optimization', sent: '2026-03-02', step: 1, status: 'bounced', id: 'email18' },
-            { contact: 'Zara Ahmed', company: 'Chooch AI', subject: 'Computer Vision Solutions for Enterprise', sent: '2026-03-03', step: 1, status: 'opened', id: 'email19' },
-            { contact: 'Adam Foster', company: 'Chooch AI', subject: 'Visual Intelligence Platform Integration', sent: '2026-03-02', step: 1, status: 'opened', id: 'email20' },
-            { contact: 'Brenda Hughes', company: 'Chooch AI', subject: 'Follow-up: Implementation Strategy', sent: '2026-03-01', step: 2, status: 'replied', id: 'email21' },
-            { contact: 'Carlos Mendez', company: 'Lightwheel AI', subject: 'Finance AI Solutions Scaling', sent: '2026-03-06', step: 1, status: 'opened', id: 'email22' },
-            { contact: 'Diana Chen', company: 'Lightwheel AI', subject: 'Risk Assessment Model Enhancement', sent: '2026-03-05', step: 1, status: 'opened', id: 'email23' },
-            { contact: 'Eric Johnson', company: 'Lightwheel AI', subject: 'Predictive Analytics Infrastructure', sent: '2026-03-04', step: 2, status: 'clicked', id: 'email24' },
-            { contact: 'Fiona Walsh', company: 'Lightwheel AI', subject: 'Discussion: Performance Optimization', sent: '2026-03-03', step: 3, status: 'replied', id: 'email25' },
-            { contact: 'Gregory Mills', company: 'Lightwheel AI', subject: 'Strategic Partnership Opportunity', sent: '2026-03-02', step: 4, status: 'opened', id: 'email26' },
-            { contact: 'Hannah Moore', company: 'Valar Labs', subject: 'Autonomous AI System Architecture', sent: '2026-03-05', step: 1, status: 'sent', id: 'email27' },
-            { contact: 'Isaac Newton', company: 'Valar Labs', subject: 'Distributed ML Framework Discussion', sent: '2026-03-04', step: 1, status: 'opened', id: 'email28' },
-            { contact: 'Julia Roberts', company: 'Valar Labs', subject: 'Scaling Challenges and Solutions', sent: '2026-03-03', step: 2, status: 'clicked', id: 'email29' },
-            { contact: 'Kevin Hart', company: 'Valar Labs', subject: 'Enterprise Deployment Review', sent: '2026-03-02', step: 3, status: 'replied', id: 'email30' },
-            { contact: 'Laura Muller', company: 'comma.ai', subject: 'Next Steps: Technical Deep Dive', sent: '2026-03-01', step: 3, status: 'opened', id: 'email31' },
-            { contact: 'Mark Wilson', company: 'fal.ai', subject: 'Executive Alignment Meeting', sent: '2026-02-28', step: 4, status: 'replied', id: 'email32' },
-        ];
+            loadData() {
+                const saved = localStorage.getItem('emailTrackerData');
+                return saved ? JSON.parse(saved) : JSON.parse(JSON.stringify(DEFAULT_DATA));
+            }
 
-        // State
-        let sequences = [];
-        let emailLog = [];
-        let currentSort = { column: -1, ascending: true };
-        let nextEmailId = 1;
+            saveData() {
+                localStorage.setItem('emailTrackerData', JSON.stringify(this.data));
+            }
+
+            resetData() {
+                if (confirm('Reset all data to defaults? This cannot be undone.')) {
+                    this.data = JSON.parse(JSON.stringify(DEFAULT_DATA));
+                    localStorage.removeItem('emailTrackerData');
+                    this.render();
+                }
+            }
+
+            init() {
+                this.setupEventListeners();
+                this.render();
+            }
+
+            setupEventListeners() {
+                // Filter buttons
+                document.querySelectorAll('.filter-buttons .btn').forEach(btn => {
+                    btn.addEventListener('click', (e) => {
+                        document.querySelectorAll('.filter-buttons .btn').forEach(b => b.classList.remove('active'));
+                        e.target.classList.add('active');
+                        this.currentFilter = parseInt(e.target.dataset.filter);
+                        this.render();
+                    });
+                });
+
+                // Reset button
+                document.querySelector('.btn-reset').addEventListener('click', () => this.resetData());
+
+                // Sort buttons
+                document.querySelectorAll('#contacts-table th.sortable').forEach(th => {
+                    th.addEventListener('click', () => this.handleSort(th));
+                });
+            }
+
+            handleSort(th) {
+                const index = Array.from(th.parentNode.children).indexOf(th);
+                const columns = ['name', 'email', 'company', 'sent', 'lastDate'];
+                this.sortColumn = columns[index];
+                this.sortDirection = this.sortDirection === 'asc' ? 'desc' : 'asc';
+                this.render();
+            }
+
+            calculateStats() {
+                const totalEmails = this.data.sequences.reduce((sum, s) => sum + s.totalSends, 0);
+                const uniqueContacts = new Set(this.data.contacts.map(c => c.email)).size;
+                const companiesCount = new Set(this.data.contacts.map(c => c.company)).size;
+                const activeSequences = this.data.sequences.filter(s => s.status === 'active').length;
+                const totalFollowups = this.data.sequences.reduce((sum, s) => sum + s.followups, 0);
+                const followupRate = totalEmails > 0 ? Math.round((totalFollowups / totalEmails) * 100) : 0;
+
+                return {
+                    totalEmails,
+                    uniqueContacts,
+                    companiesCount,
+                    activeSequences,
+                    followupRate
+                };
+            }
+
+            renderStats() {
+                const stats = this.calculateStats();
+                document.getElementById('stat-total').textContent = stats.totalEmails;
+                document.getElementById('stat-contacts').textContent = stats.uniqueContacts;
+                document.getElementById('stat-companies').textContent = stats.companiesCount;
+                document.getElementById('stat-sequences').textContent = stats.activeSequences;
+                document.getElementById('stat-followup').textContent = stats.followupRate + '%';
+            }
+
+            renderSequences() {
+                const tbody = document.querySelector('#sequences-table tbody');
+                tbody.innerHTML = '';
+
+                this.data.sequences.forEach(seq => {
+                    const row = tbody.insertRow();
+                    row.innerHTML = `
+                        <td class="editable" data-field="subject" data-id="${seq.id}">${seq.subject}</td>
+                        <td class="num editable" data-field="uniqueContacts" data-id="${seq.id}">${seq.uniqueContacts}</td>
+                        <td class="num editable" data-field="totalSends" data-id="${seq.id}">${seq.totalSends}</td>
+                        <td class="num editable" data-field="followups" data-id="${seq.id}">${seq.followups}</td>
+                        <td class="editable" data-field="dateRange" data-id="${seq.id}">${seq.dateRange}</td>
+                        <td><span class="status ${seq.status}">${seq.status}</span></td>
+                    `;
+                });
+
+                this.setupEditableFields('sequences');
+            }
+
+            renderCompanies() {
+                const tbody = document.querySelector('#companies-table tbody');
+                tbody.innerHTML = '';
+
+                this.data.companies.forEach((comp, idx) => {
+                    const row = tbody.insertRow();
+                    row.innerHTML = `
+                        <td class="editable" data-field="name" data-index="${idx}">${comp.name}</td>
+                        <td class="num editable" data-field="contacts" data-index="${idx}">${comp.contacts}</td>
+                        <td class="num editable" data-field="total" data-index="${idx}">${comp.original + comp.followups}</td>
+                        <td class="editable" data-field="split" data-index="${idx}">${comp.original} / ${comp.followups}</td>
+                        <td class="editable" data-field="lastActivity" data-index="${idx}">${comp.lastActivity}</td>
+                    `;
+                });
+
+                this.setupEditableFields('companies');
+            }
+
+            renderContacts() {
+                let contacts = [...this.data.contacts];
+
+                // Sort
+                if (this.sortColumn) {
+                    contacts.sort((a, b) => {
+                        let aVal = a[this.sortColumn];
+                        let bVal = b[this.sortColumn];
+
+                        if (typeof aVal === 'string') {
+                            aVal = aVal.toLowerCase();
+                            bVal = bVal.toLowerCase();
+                        }
+
+                        if (this.sortDirection === 'asc') {
+                            return aVal > bVal ? 1 : -1;
+                        } else {
+                            return aVal < bVal ? 1 : -1;
+                        }
+                    });
+                }
+
+                const tbody = document.querySelector('#contacts-table tbody');
+                tbody.innerHTML = '';
+
+                contacts.forEach((contact, idx) => {
+                    const originalIdx = this.data.contacts.findIndex(c => c.email === contact.email);
+                    const row = tbody.insertRow();
+                    row.innerHTML = `
+                        <td class="editable" data-field="name" data-index="${originalIdx}">${contact.name}</td>
+                        <td class="editable" data-field="email" data-index="${originalIdx}">${contact.email}</td>
+                        <td class="editable" data-field="company" data-index="${originalIdx}">${contact.company}</td>
+                        <td class="num editable" data-field="sent" data-index="${originalIdx}">${contact.sent}</td>
+                        <td class="editable" data-field="lastDate" data-index="${originalIdx}">${contact.lastDate}</td>
+                        <td class="editable" data-field="subject" data-index="${originalIdx}">${contact.subject}</td>
+                    `;
+                });
+
+                this.setupEditableFields('contacts');
+            }
+
+            setupEditableFields(tableType) {
+                document.querySelectorAll(`#${tableType}-table td.editable`).forEach(cell => {
+                    cell.addEventListener('click', (e) => {
+                        e.stopPropagation();
+                        this.editCell(cell, tableType);
+                    });
+                });
+            }
+
+            editCell(cell, tableType) {
+                if (cell.classList.contains('editing')) return;
+
+                const originalValue = cell.textContent;
+                const field = cell.dataset.field;
+                const id = cell.dataset.id;
+                const index = cell.dataset.index;
+
+                cell.classList.add('editing');
+                cell.innerHTML = `<input type="text" value="${originalValue}">`;
+
+                const input = cell.querySelector('input');
+                input.focus();
+                input.select();
+
+                const saveEdit = () => {
+                    const newValue = input.value;
+                    cell.classList.remove('editing');
+
+                    if (newValue !== originalValue) {
+                        if (tableType === 'sequences' && id) {
+                            const seq = this.data.sequences.find(s => s.id == id);
+                            if (seq) {
+                                if (['uniqueContacts', 'totalSends', 'followups'].includes(field)) {
+                                    seq[field] = isNaN(newValue) ? originalValue : parseInt(newValue);
+                                } else {
+                                    seq[field] = newValue;
+                                }
+                            }
+                        } else if (tableType === 'companies' && index !== undefined) {
+                            const comp = this.data.companies[index];
+                            if (field === 'split') {
+                                const parts = newValue.split('/').map(p => parseInt(p.trim()));
+                                if (parts.length === 2) {
+                                    comp.original = parts[0];
+                                    comp.followups = parts[1];
+                                }
+                            } else if (['contacts'].includes(field)) {
+                                comp[field] = isNaN(newValue) ? originalValue : parseInt(newValue);
+                            } else {
+                                comp[field] = newValue;
+                            }
+                        } else if (tableType === 'contacts' && index !== undefined) {
+                            const contact = this.data.contacts[index];
+                            if (['sent'].includes(field)) {
+                                contact[field] = isNaN(newValue) ? originalValue : parseInt(newValue);
+                            } else {
+                                contact[field] = newValue;
+                            }
+                        }
+
+                        this.saveData();
+                        this.render();
+                    } else {
+                        cell.textContent = originalValue;
+                    }
+                };
+
+                input.addEventListener('blur', saveEdit);
+                input.addEventListener('keydown', (e) => {
+                    if (e.key === 'Enter') saveEdit();
+                    if (e.key === 'Escape') {
+                        cell.classList.remove('editing');
+                        cell.textContent = originalValue;
+                    }
+                });
+            }
+
+            render() {
+                this.renderStats();
+                this.renderSequences();
+                this.renderCompanies();
+                this.renderContacts();
+            }
+        }
 
         // Initialize
-        function init() {
-            loadFromLocalStorage();
-            updateCompanyFilter();
-            renderSequences();
-            renderEmailLog();
-            updateStats();
-            updateFunnel();
-        }
-
-        // LocalStorage Management
-        function loadFromLocalStorage() {
-            const stored = localStorage.getItem('emailTrackerData');
-            if (stored) {
-                try {
-                    const data = JSON.parse(stored);
-                    sequences = data.sequences || [];
-                    emailLog = data.emailLog || [];
-                    nextEmailId = data.nextEmailId || 1;
-                } catch (e) {
-                    console.error('Error loading data:', e);
-                    sequences = JSON.parse(JSON.stringify(DEFAULT_SEQUENCES));
-                    emailLog = JSON.parse(JSON.stringify(DEFAULT_EMAIL_LOG));
-                }
-            } else {
-                sequences = JSON.parse(JSON.stringify(DEFAULT_SEQUENCES));
-                emailLog = JSON.parse(JSON.stringify(DEFAULT_EMAIL_LOG));
-            }
-        }
-
-        function saveToLocalStorage() {
-            const data = { sequences, emailLog, nextEmailId };
-            localStorage.setItem('emailTrackerData', JSON.stringify(data));
-        }
-
-        function resetToDefaults() {
-            if (confirm('Are you sure? This will reset all data to defaults.')) {
-                sequences = JSON.parse(JSON.stringify(DEFAULT_SEQUENCES));
-                emailLog = JSON.parse(JSON.stringify(DEFAULT_EMAIL_LOG));
-                nextEmailId = 1;
-                saveToLocalStorage();
-                updateCompanyFilter();
-                renderSequences();
-                renderEmailLog();
-                updateStats();
-                updateFunnel();
-            }
-        }
-
-        // Update Company Filter Dropdown
-        function updateCompanyFilter() {
-            const select = document.getElementById('companyFilter');
-            const currentValue = select.value;
-            const companies = [...new Set(sequences.map(s => s.company))];
-
-            // Keep the "All Companies" option
-            while (select.options.length > 1) {
-                select.remove(1);
-            }
-
-            companies.forEach(company => {
-                const option = document.createElement('option');
-                option.value = sequences.find(s => s.company === company).id;
-                option.textContent = company;
-                select.appendChild(option);
-            });
-
-            if (currentValue) select.value = currentValue;
-        }
-
-        // Stats and Funnel
-        function updateStats() {
-            const totalSent = emailLog.length;
-            const opened = emailLog.filter(e => e.status === 'opened').length;
-            const replied = emailLog.filter(e => e.status === 'replied').length;
-            const meetingsBooked = emailLog.filter(e => e.status === 'meeting-booked').length;
-            const activeSeq = sequences.filter(s => s.status === 'active').length;
-
-            document.getElementById('statTotalSent').textContent = totalSent;
-            document.getElementById('statOpenCount').textContent = opened;
-            document.getElementById('statOpenRate').textContent = totalSent > 0 ? ((opened / totalSent) * 100).toFixed(1) + '%' : '0%';
-            document.getElementById('statReplyCount').textContent = replied;
-            document.getElementById('statReplyRate').textContent = totalSent > 0 ? ((replied / totalSent) * 100).toFixed(1) + '%' : '0%';
-            document.getElementById('statMeetings').textContent = meetingsBooked;
-            document.getElementById('statSequences').textContent = sequences.length;
-            document.getElementById('statActiveSeq').textContent = activeSeq;
-        }
-
-        function updateFunnel() {
-            const container = document.getElementById('funnelContainer');
-            container.innerHTML = '';
-
-            const totalSent = emailLog.length;
-            const opened = emailLog.filter(e => ['opened', 'clicked', 'replied', 'meeting-booked'].includes(e.status)).length;
-            const clicked = emailLog.filter(e => ['clicked', 'replied', 'meeting-booked'].includes(e.status)).length;
-            const replied = emailLog.filter(e => ['replied', 'meeting-booked'].includes(e.status)).length;
-            const meetingsBooked = emailLog.filter(e => e.status === 'meeting-booked').length;
-
-            const funnelData = [
-                { label: '📤 Sent', count: totalSent, percentage: 100 },
-                { label: '👁️ Opened', count: opened, percentage: totalSent > 0 ? (opened / totalSent * 100).toFixed(1) : 0 },
-                { label: '🔗 Clicked', count: clicked, percentage: totalSent > 0 ? (clicked / totalSent * 100).toFixed(1) : 0 },
-                { label: '💬 Replied', count: replied, percentage: totalSent > 0 ? (replied / totalSent * 100).toFixed(1) : 0 },
-                { label: '📅 Meeting Booked', count: meetingsBooked, percentage: totalSent > 0 ? (meetingsBooked / totalSent * 100).toFixed(1) : 0 }
-            ];
-
-            funnelData.forEach(item => {
-                const step = document.createElement('div');
-                step.className = 'funnel-step';
-                step.innerHTML = `
-                    <div class="funnel-label">
-                        <span>${item.label}</span>
-                        <span class="funnel-count">${item.count} (${item.percentage}%)</span>
-                    </div>
-                `;
-                container.appendChild(step);
-            });
-        }
-
-        // Render Functions
-        function renderSequences(filter = {}) {
-            const tbody = document.getElementById('sequencesBody');
-            tbody.innerHTML = '';
-
-            let filtered = sequences.filter(seq => {
-                if (filter.company && seq.id !== filter.company) return false;
-                if (filter.status && seq.status !== filter.status) return false;
-                if (filter.step && seq.currentStep !== parseInt(filter.step)) return false;
-                return true;
-            });
-
-            filtered.forEach(seq => {
-                const openRate = ((seq.opened / seq.emails) * 100).toFixed(1);
-                const replyRate = ((seq.replied / seq.emails) * 100).toFixed(1);
-
-                const progressBars = Array.from({ length: seq.totalSteps }, (_, i) => {
-                    let className = 'progress-step';
-                    if (i < seq.currentStep) className += ' completed';
-                    if (i === seq.currentStep - 1) className += ' current';
-                    return `<div class="${className}"></div>`;
-                }).join('');
-
-                const row = document.createElement('tr');
-                row.dataset.company = seq.id;
-                row.dataset.status = seq.status;
-                row.dataset.step = seq.currentStep;
-                row.innerHTML = `
-                    <td><span class="company-name">${seq.company}</span><span class="tier-badge">${seq.tier}</span></td>
-                    <td class="editable-cell" onclick="editCell(event, 'seq', '${seq.id}', 'contacts')">${seq.contacts}</td>
-                    <td class="editable-cell" onclick="editCell(event, 'seq', '${seq.id}', 'emails')">${seq.emails}</td>
-                    <td><div class="progress-bar" style="width: 150px;">${progressBars}</div></td>
-                    <td class="editable-cell" onclick="editCell(event, 'seq', '${seq.id}', 'opened')">${seq.opened} <span class="metric-percentage">(${openRate}%)</span></td>
-                    <td class="editable-cell" onclick="editCell(event, 'seq', '${seq.id}', 'replied')">${seq.replied}</td>
-                    <td class="editable-cell" onclick="editCell(event, 'seq', '${seq.id}', 'meetings')">${seq.meetings}</td>
-                    <td><span class="status-badge status-${seq.status}" onclick="toggleStatus(event, '${seq.id}')">${seq.status}</span></td>
-                    <td class="editable-cell" onclick="editCell(event, 'seq', '${seq.id}', 'lastActivity')">${seq.lastActivity}</td>
-                `;
-                tbody.appendChild(row);
-            });
-        }
-
-        function renderEmailLog(filter = {}) {
-            const container = document.getElementById('emailLogBody');
-            container.innerHTML = '';
-
-            let filtered = emailLog.filter(email => {
-                if (filter.company) {
-                    const company = sequences.find(s => s.id === filter.company);
-                    if (!company || email.company !== company.company) return false;
-                }
-                if (filter.status && email.status !== filter.status) return false;
-                if (filter.step && email.step !== parseInt(filter.step)) return false;
-                return true;
-            });
-
-            if (filtered.length === 0) {
-                container.innerHTML = '<div class="empty-state">No email entries found</div>';
-                return;
-            }
-
-            filtered.forEach(email => {
-                const statusClass = `status-${email.status}`;
-                const item = document.createElement('div');
-                item.className = 'email-log-item';
-                item.innerHTML = `
-                    <div class="contact-info" onclick="editCell(event, 'email', '${email.id}', 'contact')">
-                        <div class="contact-name">${email.contact}</div>
-                    </div>
-                    <div class="editable-cell" onclick="editCell(event, 'email', '${email.id}', 'company')">${email.company}</div>
-                    <div class="subject-text" onclick="editCell(event, 'email', '${email.id}', 'subject')">${email.subject}</div>
-                    <div class="editable-cell" onclick="editCell(event, 'email', '${email.id}', 'sent')">${email.sent}</div>
-                    <div class="editable-cell" onclick="editCell(event, 'email', '${email.id}', 'step')">${email.step}</div>
-                    <div><span class="email-status-badge ${statusClass}" onclick="toggleEmailStatus(event, '${email.id}')">${email.status.replace('-', ' ')}</span></div>
-                    <button class="delete-btn" onclick="deleteEmail('${email.id}')">×</button>
-                `;
-                container.appendChild(item);
-            });
-        }
-
-        // Editing
-        function editCell(event, type, id, field) {
-            event.stopPropagation();
-            const cell = event.currentTarget;
-
-            if (cell.classList.contains('editing')) return;
-
-            const currentValue = type === 'seq'
-                ? sequences.find(s => s.id === id)[field]
-                : emailLog.find(e => e.id === id)[field];
-
-            cell.classList.add('editing');
-            const input = document.createElement('input');
-            input.type = field === 'sent' ? 'date' : field === 'step' ? 'number' : 'text';
-            input.value = currentValue;
-
-            cell.innerHTML = '';
-            cell.appendChild(input);
-            input.focus();
-
-            function save() {
-                const newValue = field === 'step' ? parseInt(input.value) : input.value;
-                if (type === 'seq') {
-                    const seq = sequences.find(s => s.id === id);
-                    seq[field] = newValue;
-                } else {
-                    const email = emailLog.find(e => e.id === id);
-                    email[field] = newValue;
-                }
-                saveToLocalStorage();
-                renderSequences();
-                renderEmailLog();
-                updateStats();
-                updateFunnel();
-            }
-
-            input.onblur = save;
-            input.onkeypress = (e) => {
-                if (e.key === 'Enter') save();
-            };
-        }
-
-        // Toggle Status
-        function toggleStatus(event, id) {
-            event.stopPropagation();
-            const seq = sequences.find(s => s.id === id);
-            const statuses = ['active', 'paused', 'completed'];
-            const currentIndex = statuses.indexOf(seq.status);
-            seq.status = statuses[(currentIndex + 1) % statuses.length];
-            saveToLocalStorage();
-            renderSequences();
-            updateStats();
-        }
-
-        function toggleEmailStatus(event, id) {
-            event.stopPropagation();
-            const email = emailLog.find(e => e.id === id);
-            const statuses = ['sent', 'opened', 'clicked', 'replied', 'meeting-booked', 'bounced'];
-            const currentIndex = statuses.indexOf(email.status);
-            email.status = statuses[(currentIndex + 1) % statuses.length];
-            saveToLocalStorage();
-            renderEmailLog();
-            updateStats();
-            updateFunnel();
-        }
-
-        // Delete
-        function deleteEmail(id) {
-            if (confirm('Delete this email entry?')) {
-                emailLog = emailLog.filter(e => e.id !== id);
-                saveToLocalStorage();
-                renderEmailLog();
-                updateStats();
-                updateFunnel();
-            }
-        }
-
-        // Sorting
-        function sortTable(columnIndex) {
-            const tbody = document.getElementById('sequencesBody');
-            const rows = Array.from(tbody.querySelectorAll('tr'));
-
-            if (currentSort.column === columnIndex) {
-                currentSort.ascending = !currentSort.ascending;
-            } else {
-                currentSort.column = columnIndex;
-                currentSort.ascending = true;
-            }
-
-            rows.sort((a, b) => {
-                const aValue = a.children[columnIndex].textContent.trim();
-                const bValue = b.children[columnIndex].textContent.trim();
-
-                let aNum = parseFloat(aValue);
-                let bNum = parseFloat(bValue);
-
-                if (!isNaN(aNum) && !isNaN(bNum)) {
-                    return currentSort.ascending ? aNum - bNum : bNum - aNum;
-                }
-
-                return currentSort.ascending ? aValue.localeCompare(bValue) : bValue.localeCompare(aValue);
-            });
-
-            rows.forEach(row => tbody.appendChild(row));
-        }
-
-        // Filters
-        function updateFilters() {
-            const companyFilter = document.getElementById('companyFilter').value;
-            const statusFilter = document.getElementById('statusFilter').value;
-            const stepFilter = document.getElementById('stepFilter').value;
-
-            const filter = {};
-            if (companyFilter) filter.company = companyFilter;
-            if (statusFilter) filter.status = statusFilter;
-            if (stepFilter) filter.step = stepFilter;
-
-            renderSequences(filter);
-            renderEmailLog(filter);
-        }
-
-        // Modals
-        function openLogSendModal() {
-            document.getElementById('logSendModal').classList.add('active');
-        }
-
-        function openAddEmailModal() {
-            document.getElementById('addEmailModal').classList.add('active');
-            document.getElementById('addEmailDate').valueAsDate = new Date();
-        }
-
-        function openAddSequenceModal() {
-            document.getElementById('addSequenceModal').classList.add('active');
-        }
-
-        function closeModal(modalId) {
-            document.getElementById(modalId).classList.remove('active');
-            document.getElementById(modalId).querySelector('form').reset();
-        }
-
-        // Form Handlers
-        function handleLogSend(event) {
-            event.preventDefault();
-            const contact = document.getElementById('logSendContact').value;
-            const company = document.getElementById('logSendCompany').value;
-            const subject = document.getElementById('logSendSubject').value;
-            const sequence = document.getElementById('logSendSequence').value;
-            const step = parseInt(document.getElementById('logSendStep').value);
-
-            const today = new Date().toISOString().split('T')[0];
-            emailLog.push({
-                contact,
-                company,
-                subject,
-                sent: today,
-                step,
-                status: 'sent',
-                id: 'email' + (nextEmailId++)
-            });
-
-            saveToLocalStorage();
-            updateCompanyFilter();
-            renderEmailLog();
-            updateStats();
-            updateFunnel();
-            closeModal('logSendModal');
-        }
-
-        function handleAddEmail(event) {
-            event.preventDefault();
-            const contact = document.getElementById('addEmailContact').value;
-            const company = document.getElementById('addEmailCompany').value;
-            const subject = document.getElementById('addEmailSubject').value;
-            const sent = document.getElementById('addEmailDate').value;
-            const step = parseInt(document.getElementById('addEmailStep').value);
-            const status = document.getElementById('addEmailStatus').value;
-
-            emailLog.push({
-                contact,
-                company,
-                subject,
-                sent,
-                step,
-                status,
-                id: 'email' + (nextEmailId++)
-            });
-
-            saveToLocalStorage();
-            updateCompanyFilter();
-            renderEmailLog();
-            updateStats();
-            updateFunnel();
-            closeModal('addEmailModal');
-        }
-
-        function handleAddSequence(event) {
-            event.preventDefault();
-            const name = document.getElementById('addSeqName').value;
-            const tier = document.getElementById('addSeqTier').value;
-            const contacts = parseInt(document.getElementById('addSeqContacts').value);
-            const totalSteps = parseInt(document.getElementById('addSeqTotalSteps').value);
-            const status = document.getElementById('addSeqStatus').value;
-            const emails = contacts * totalSteps;
-
-            const id = name.toLowerCase().replace(/\s+/g, '-');
-
-            sequences.push({
-                company: name,
-                tier,
-                id,
-                contacts,
-                emails,
-                currentStep: 1,
-                totalSteps,
-                opened: 0,
-                replied: 0,
-                meetings: 0,
-                status,
-                lastActivity: new Date().toISOString().split('T')[0]
-            });
-
-            saveToLocalStorage();
-            updateCompanyFilter();
-            renderSequences();
-            updateStats();
-            closeModal('addSequenceModal');
-        }
-
-        // Event Listeners
-        document.getElementById('companyFilter').addEventListener('change', updateFilters);
-        document.getElementById('statusFilter').addEventListener('change', updateFilters);
-        document.getElementById('stepFilter').addEventListener('change', updateFilters);
-
-        document.querySelectorAll('.modal').forEach(modal => {
-            modal.addEventListener('click', (e) => {
-                if (e.target === modal) {
-                    modal.classList.remove('active');
-                }
-            });
+        document.addEventListener('DOMContentLoaded', () => {
+            new EmailTracker();
         });
-
-        // Initialize
-        init();
     </script>
 </body>
 </html>
