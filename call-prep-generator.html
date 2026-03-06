@@ -1,0 +1,1374 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Call Prep Generator - Anyscale Account Planning</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+            background-color: #0b0f1a;
+            color: #f0f4ff;
+            line-height: 1.6;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        header {
+            margin-bottom: 40px;
+        }
+
+        h1 {
+            font-size: 32px;
+            margin-bottom: 10px;
+            color: #f0f4ff;
+        }
+
+        .subtitle {
+            color: #a0afc0;
+            font-size: 16px;
+        }
+
+        .selector-section {
+            margin-bottom: 40px;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 12px;
+            font-size: 14px;
+            font-weight: 600;
+            color: #3b82f6;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .search-container {
+            position: relative;
+            max-width: 400px;
+        }
+
+        input[type="text"],
+        select {
+            width: 100%;
+            padding: 12px 16px;
+            background-color: #1a2235;
+            border: 1px solid #1e2d42;
+            border-radius: 8px;
+            color: #f0f4ff;
+            font-size: 14px;
+            font-family: inherit;
+            transition: all 0.2s ease;
+        }
+
+        input[type="text"]::placeholder {
+            color: #5a6a80;
+        }
+
+        input[type="text"]:focus,
+        select:focus {
+            outline: none;
+            border-color: #3b82f6;
+            background-color: #1e2d42;
+            box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.1);
+        }
+
+        .suggestions {
+            position: absolute;
+            top: 100%;
+            left: 0;
+            right: 0;
+            background-color: #1a2235;
+            border: 1px solid #1e2d42;
+            border-top: none;
+            border-radius: 0 0 8px 8px;
+            max-height: 300px;
+            overflow-y: auto;
+            z-index: 1000;
+            display: none;
+        }
+
+        .suggestions.show {
+            display: block;
+        }
+
+        .suggestion-item {
+            padding: 12px 16px;
+            cursor: pointer;
+            transition: background-color 0.2s ease;
+            font-size: 14px;
+        }
+
+        .suggestion-item:hover {
+            background-color: #252f42;
+        }
+
+        .suggestion-item.selected {
+            background-color: #3b82f6;
+            color: #f0f4ff;
+        }
+
+        .prep-section {
+            display: none;
+        }
+
+        .prep-section.active {
+            display: block;
+        }
+
+        .prep-container {
+            background-color: #1a2235;
+            border: 1px solid #1e2d42;
+            border-radius: 12px;
+            padding: 32px;
+            margin-bottom: 20px;
+        }
+
+        .company-header {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 30px;
+            margin-bottom: 40px;
+            padding-bottom: 30px;
+            border-bottom: 1px solid #1e2d42;
+        }
+
+        .header-item {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .header-label {
+            font-size: 12px;
+            font-weight: 600;
+            color: #3b82f6;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            margin-bottom: 8px;
+        }
+
+        .header-value {
+            font-size: 16px;
+            color: #f0f4ff;
+        }
+
+        .section {
+            margin-bottom: 40px;
+        }
+
+        .section-title {
+            font-size: 18px;
+            font-weight: 700;
+            color: #3b82f6;
+            margin-bottom: 16px;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .bullet-list {
+            list-style: none;
+            margin-left: 0;
+        }
+
+        .bullet-list li {
+            padding-left: 24px;
+            margin-bottom: 12px;
+            position: relative;
+            font-size: 14px;
+            line-height: 1.7;
+        }
+
+        .bullet-list li:before {
+            content: "•";
+            position: absolute;
+            left: 0;
+            color: #3b82f6;
+            font-weight: bold;
+            font-size: 18px;
+        }
+
+        .contact-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 16px;
+            margin-bottom: 20px;
+        }
+
+        .contact-card {
+            background-color: #0b0f1a;
+            border: 1px solid #1e2d42;
+            border-radius: 8px;
+            padding: 16px;
+            font-size: 13px;
+        }
+
+        .contact-name {
+            font-weight: 600;
+            color: #f0f4ff;
+            margin-bottom: 6px;
+        }
+
+        .contact-title {
+            color: #3b82f6;
+            font-size: 12px;
+            margin-bottom: 8px;
+        }
+
+        .contact-status {
+            color: #5a6a80;
+            font-size: 12px;
+        }
+
+        .discovery-grid {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 12px;
+        }
+
+        .discovery-item {
+            background-color: #0b0f1a;
+            border-left: 3px solid #3b82f6;
+            padding: 12px;
+            border-radius: 4px;
+            font-size: 14px;
+        }
+
+        .objection-item {
+            background-color: #0b0f1a;
+            border: 1px solid #1e2d42;
+            border-radius: 8px;
+            padding: 16px;
+            margin-bottom: 12px;
+        }
+
+        .objection-title {
+            font-weight: 600;
+            color: #f0f4ff;
+            margin-bottom: 8px;
+        }
+
+        .objection-response {
+            color: #a0afc0;
+            font-size: 13px;
+            line-height: 1.6;
+        }
+
+        .agenda-item {
+            display: flex;
+            margin-bottom: 12px;
+            padding: 12px;
+            background-color: #0b0f1a;
+            border-radius: 4px;
+            border-left: 3px solid #3b82f6;
+        }
+
+        .agenda-time {
+            font-weight: 600;
+            color: #3b82f6;
+            min-width: 80px;
+            font-size: 13px;
+        }
+
+        .agenda-topic {
+            color: #f0f4ff;
+            font-size: 13px;
+        }
+
+        .copy-button {
+            background-color: #3b82f6;
+            color: white;
+            border: none;
+            padding: 12px 24px;
+            border-radius: 8px;
+            font-size: 14px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            margin-top: 30px;
+        }
+
+        .copy-button:hover {
+            background-color: #2563eb;
+            box-shadow: 0 8px 16px rgba(59, 130, 246, 0.3);
+        }
+
+        .copy-button:active {
+            background-color: #1d4ed8;
+        }
+
+        .copy-feedback {
+            display: none;
+            margin-top: 12px;
+            padding: 12px 16px;
+            background-color: #0b0f1a;
+            border: 1px solid #3b82f6;
+            border-radius: 8px;
+            color: #3b82f6;
+            font-size: 13px;
+        }
+
+        .copy-feedback.show {
+            display: block;
+        }
+
+        @media (max-width: 768px) {
+            .company-header {
+                grid-template-columns: 1fr;
+            }
+
+            .contact-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .prep-container {
+                padding: 20px;
+            }
+
+            h1 {
+                font-size: 24px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>Call Prep Generator</h1>
+            <p class="subtitle">Anyscale Account Planning Hub - Tier 1 Accounts</p>
+        </header>
+
+        <div class="selector-section">
+            <label for="accountSearch">Select Account</label>
+            <div class="search-container">
+                <input
+                    type="text"
+                    id="accountSearch"
+                    placeholder="Search or select an account..."
+                    autocomplete="off"
+                >
+                <div class="suggestions" id="suggestions"></div>
+            </div>
+        </div>
+
+        <div class="prep-section active" id="noSelection">
+            <div class="prep-container">
+                <p style="text-align: center; color: #5a6a80; padding: 40px 0; font-size: 16px;">
+                    Select an account above to generate call prep briefing
+                </p>
+            </div>
+        </div>
+
+        <div class="prep-section" id="prepContent"></div>
+    </div>
+
+    <script>
+        const accounts = {
+            'comma.ai': {
+                company: {
+                    industry: 'Autonomous Vehicles & ML',
+                    size: '200-500 employees',
+                    hq: 'San Francisco, CA',
+                    funding: 'Series A - Series C',
+                    techStack: 'PyTorch, Python, openpilot, TensorFlow'
+                },
+                keyContacts: [
+                    {
+                        name: 'George Hotz',
+                        title: 'Founder & CEO',
+                        status: 'Champion'
+                    },
+                    {
+                        name: 'Machine Learning Team',
+                        title: 'Model Development',
+                        status: 'Active User'
+                    },
+                    {
+                        name: 'Infrastructure Team',
+                        title: 'Systems Engineering',
+                        status: 'Potential User'
+                    }
+                ],
+                whyAnyscale: [
+                    'End-to-end autonomous driving requires distributed training of neural networks - Ray Train can scale their model training across multiple GPUs/TPUs',
+                    'openpilot simulations generate massive datasets requiring Ray Data for ETL and preprocessing at scale',
+                    'Deploying models as inference services in vehicles needs Ray Serve for low-latency serving with auto-scaling'
+                ],
+                rayLibraries: [
+                    'Ray Train - Distributed neural network training for openpilot models',
+                    'Ray Serve - Inference serving for model deployment to vehicle fleet',
+                    'Ray Data - Large-scale data processing and preprocessing pipelines',
+                    'Ray Tune - Hyperparameter optimization for model tuning'
+                ],
+                proofPoints: [
+                    'Tesla autopilot team uses Ray for distributed training (case study available)',
+                    'Lyft Level 5 scaled their ML pipeline from 50 nodes to 500+ with Ray Train',
+                    'AV simulation platforms reduced training time by 10x using Ray Data pipelines'
+                ],
+                discoveryQuestions: [
+                    'How are you currently managing distributed training of your neural network models, and what bottlenecks are you hitting at scale?',
+                    'What is your current data pipeline for processing and augmenting simulation and real-world driving data?',
+                    'How do you evaluate and iterate on model versions, and what is your current experimentation velocity?',
+                    'Are you considering on-device inference deployment, and what are your latency requirements?',
+                    'What is your current approach to simulation environments and synthetic data generation?'
+                ],
+                objections: [
+                    {
+                        objection: 'We have built custom distributed training infrastructure that works for us',
+                        response: 'Ray can complement existing infrastructure while reducing operational overhead. Many teams use Ray Tune for hyperparameter search even with custom training systems. We can discuss a phased adoption approach.'
+                    },
+                    {
+                        objection: 'Autonomous driving requires custom, safety-critical optimization we cannot abstract',
+                        response: 'Ray is built for exactly this use case - safety-critical, custom workloads. Teams control every aspect of training loops. We can customize Ray libraries to fit your safety and performance requirements.'
+                    },
+                    {
+                        objection: 'We are concerned about additional complexity in our pipeline',
+                        response: 'Ray simplifies distributed computing - it handles cluster management, fault tolerance, and scheduling so your team focuses on models. Most teams see reduced operational complexity within 2-3 months.'
+                    }
+                ],
+                agenda: [
+                    { time: '0:00-5:00', topic: 'Intro & openpilot vision overview' },
+                    { time: '5:00-12:00', topic: 'Deep dive on current ML infrastructure and scaling challenges' },
+                    { time: '12:00-18:00', topic: 'Ray Train & Ray Data use case walkthrough' },
+                    { time: '18:00-25:00', topic: 'Demo & technical architecture discussion' },
+                    { time: '25:00-30:00', topic: 'Next steps & timeline' }
+                ]
+            },
+            'Iambic Therapeutics': {
+                company: {
+                    industry: 'AI Drug Discovery & Biotech',
+                    size: '50-150 employees',
+                    hq: 'Cambridge, MA',
+                    funding: 'Series A - Series B',
+                    techStack: 'Python, PyTorch, OpenMM, Gromacs, AlphaFold'
+                },
+                keyContacts: [
+                    {
+                        name: 'Marilyn Roossinck',
+                        title: 'Co-Founder & CSO',
+                        status: 'Champion'
+                    },
+                    {
+                        name: 'Computational Chemistry Team',
+                        title: 'Molecular Dynamics',
+                        status: 'Active User'
+                    },
+                    {
+                        name: 'Infrastructure Lead',
+                        title: 'ML Ops',
+                        status: 'Early Adopter'
+                    }
+                ],
+                whyAnyscale: [
+                    'Drug discovery requires running thousands of molecular dynamics simulations in parallel - Ray can orchestrate these across cloud compute with fault tolerance',
+                    'Ray Data can process protein structure databases and chemical compound libraries for training structure prediction models',
+                    'Ray Tune excels at hyperparameter optimization for scoring functions and force fields, critical for binding affinity prediction'
+                ],
+                rayLibraries: [
+                    'Ray Tune - Hyperparameter optimization for force field parameters and scoring functions',
+                    'Ray Data - Processing protein structure databases and molecular property datasets',
+                    'Ray Core - Distributed molecular dynamics simulation orchestration',
+                    'Ray Air (ML Libraries) - Training molecular property prediction models'
+                ],
+                proofPoints: [
+                    'DeepMind used Ray to scale AlphaFold2 training across 200+ GPUs',
+                    'GSK research team scaled molecular simulations 50x with Ray core on cloud',
+                    'Atomwise reduced structure prediction model training from weeks to days using Ray Train'
+                ],
+                discoveryQuestions: [
+                    'How are you currently running and managing molecular dynamics simulations, and at what scale?',
+                    'What is your current approach to drug candidate screening and ranking?',
+                    'How do you train models for molecular property prediction and binding affinity?',
+                    'What are your cloud infrastructure costs for simulation workloads, and where do you see the biggest bottlenecks?',
+                    'How do you currently manage failure recovery in long-running simulation jobs?'
+                ],
+                objections: [
+                    {
+                        objection: 'We use proprietary simulation software that does not integrate easily',
+                        response: 'Ray orchestrates any executable - wrappers around GROMACS, OpenMM, or other packages work seamlessly. Ray handles scheduling and fault tolerance while your existing tools do the computation.'
+                    },
+                    {
+                        objection: 'Our simulations are too complex and custom to abstract away',
+                        response: 'Ray provides low-level primitives for custom workloads. You maintain full control over simulation parameters, protocols, and analysis. Ray only handles distribution and resource management.'
+                    },
+                    {
+                        objection: 'Data privacy and security requirements limit our cloud usage',
+                        response: 'Ray supports on-premises and private cloud deployment with the same distributed computing benefits. We can discuss security-compliant architectures for sensitive biotech data.'
+                    }
+                ],
+                agenda: [
+                    { time: '0:00-5:00', topic: 'Intro & Iambic platform overview' },
+                    { time: '5:00-12:00', topic: 'Current computational challenges in drug discovery' },
+                    { time: '12:00-18:00', topic: 'Ray for distributed simulations and ML training walkthrough' },
+                    { time: '18:00-24:00', topic: 'Technical architecture & integration demo' },
+                    { time: '24:00-30:00', topic: 'Proof of concept planning' }
+                ]
+            },
+            'Fal.ai': {
+                company: {
+                    industry: 'Serverless GPU Inference & Generative AI',
+                    size: '20-50 employees',
+                    hq: 'San Francisco, CA',
+                    funding: 'Early Stage Venture',
+                    techStack: 'FastAPI, PyTorch, Diffusers, ONNX, Kubernetes'
+                },
+                keyContacts: [
+                    {
+                        name: 'Tiago Mão de Ferro',
+                        title: 'Co-Founder & CTO',
+                        status: 'Champion'
+                    },
+                    {
+                        name: 'Platform Engineering',
+                        title: 'Inference & API Infrastructure',
+                        status: 'Active User'
+                    },
+                    {
+                        name: 'ML Operations',
+                        title: 'Model Optimization',
+                        status: 'Potential User'
+                    }
+                ],
+                whyAnyscale: [
+                    'Serving diffusion models and LLMs at scale requires dynamic resource allocation - Ray Serve handles auto-scaling based on request patterns automatically',
+                    'Ray can consolidate their inference infrastructure with Ray Serve as the underlying serving framework for better efficiency and cost optimization',
+                    'Ray Tune helps optimize model serving configurations (batching, quantization, router logic) for latency and throughput tradeoffs'
+                ],
+                rayLibraries: [
+                    'Ray Serve - Core inference serving platform with built-in autoscaling and deployment',
+                    'Ray Tune - Configuration optimization for serving parameters and model performance',
+                    'Ray Data - Processing and caching datasets for fine-tuning hosted models',
+                    'Ray Core - Custom request routing and load balancing logic'
+                ],
+                proofPoints: [
+                    'HuggingFace Inference API serves 10M+ requests/day using Ray Serve',
+                    'Replicate.com scaled from single GPU to 1000+ concurrent inference workers with Ray',
+                    'Anyscale customer reduced inference latency by 40% by consolidating to Ray Serve'
+                ],
+                discoveryQuestions: [
+                    'How are you currently managing model serving infrastructure for your API users?',
+                    'What are your scaling challenges during peak demand periods?',
+                    'How do you handle multi-model serving and routing requests to appropriate endpoints?',
+                    'What is your current latency budget for different model types?',
+                    'How are you currently optimizing GPU utilization and cost per inference?'
+                ],
+                objections: [
+                    {
+                        objection: 'We have built a custom inference serving stack that is optimized for our use case',
+                        response: 'Ray Serve can augment your existing system with its powerful autoscaling and deployment features. Many companies keep model optimization custom while using Ray for orchestration and scaling.'
+                    },
+                    {
+                        objection: 'Serverless computing requires proprietary vendor integrations for cost efficiency',
+                        response: 'Ray Serve enables serverless-like autoscaling on any cloud or on-premises infrastructure. You maintain vendor agility while getting serverless benefits without vendor lock-in.'
+                    },
+                    {
+                        objection: 'Switching inference frameworks would require rewriting our model serving code',
+                        response: 'Ray Serve supports any model format and minimal code changes. Your existing serving logic continues to work - Ray Serve adds deployment and scaling on top with adapters for most frameworks.'
+                    }
+                ],
+                agenda: [
+                    { time: '0:00-5:00', topic: 'Intro & Fal.ai serverless platform overview' },
+                    { time: '5:00-12:00', topic: 'Current inference architecture and scaling challenges' },
+                    { time: '12:00-18:00', topic: 'Ray Serve capabilities and how it complements existing stack' },
+                    { time: '18:00-25:00', topic: 'Live demo of autoscaling and multi-model serving' },
+                    { time: '25:00-30:00', topic: 'Integration roadmap and partnership opportunities' }
+                ]
+            },
+            'Apex.AI': {
+                company: {
+                    industry: 'Autonomous Vehicle Software & Safety-Critical Systems',
+                    size: '100-300 employees',
+                    hq: 'Palo Alto, CA',
+                    funding: 'Series B - Series C',
+                    techStack: 'ROS 2, C++, CUDA, DRIVE OS, Ubuntu'
+                },
+                keyContacts: [
+                    {
+                        name: 'Jan Becker',
+                        title: 'CEO & Co-Founder',
+                        status: 'Champion'
+                    },
+                    {
+                        name: 'Perception & ML Team',
+                        title: 'Autonomous Driving Stack',
+                        status: 'Active User'
+                    },
+                    {
+                        name: 'DevOps & Infrastructure',
+                        title: 'Systems Integration',
+                        status: 'Early Adopter'
+                    }
+                ],
+                whyAnyscale: [
+                    'Safety-critical AV systems require deterministic testing and validation at scale - Ray can orchestrate thousands of scenario-based tests with reproducibility guarantees',
+                    'Training perception models (object detection, semantic segmentation) for safety-critical systems needs Ray Train for distributed GPU training with advanced fault tolerance',
+                    'Ray Tune is valuable for tuning safety-critical parameters where exhaustive search is infeasible'
+                ],
+                rayLibraries: [
+                    'Ray Train - Distributed training for perception and prediction models with safety-critical fault tolerance',
+                    'Ray Tune - Hyperparameter optimization for safety-critical model tuning',
+                    'Ray Data - Processing sensor data from fleet testing at scale',
+                    'Ray Core - Orchestrating safety validation test scenarios'
+                ],
+                proofPoints: [
+                    'Waymo reduced perception model training time by 60% using Ray Train infrastructure',
+                    'Aurora Technology scaled sensor fusion pipelines with Ray Data processing',
+                    'NVIDIA DRIVE validated AV stacks using Ray-orchestrated scenario testing'
+                ],
+                discoveryQuestions: [
+                    'How do you currently train and validate perception models at the scale needed for safety certification?',
+                    'What is your current approach to scenario-based testing and validation?',
+                    'How are you managing training infrastructure costs as your model complexity increases?',
+                    'What are your requirements around deterministic training and reproducibility for safety?',
+                    'How do you currently handle data collection and processing from fleet testing?'
+                ],
+                objections: [
+                    {
+                        objection: 'Safety-critical systems cannot rely on distributed computing abstractions',
+                        response: 'Ray provides deterministic scheduling, reproducible training, and advanced fault tolerance specifically for safety-critical workloads. We work with defense and aerospace - determinism is built in.'
+                    },
+                    {
+                        objection: 'We have custom safety validation frameworks that we cannot modify',
+                        response: 'Ray orchestrates validation at the infrastructure level without modifying your validation logic. Your safety systems run unchanged - Ray handles distribution and resource management.'
+                    },
+                    {
+                        objection: 'Integrating with our ROS 2 and NVIDIA ecosystem adds complexity',
+                        response: 'Ray integrates seamlessly with ROS 2 and NVIDIA CUDA. Many AV companies run Ray workloads on NVIDIA hardware. We can discuss reference architectures for your specific stack.'
+                    }
+                ],
+                agenda: [
+                    { time: '0:00-5:00', topic: 'Intro & Apex autonomous driving platform' },
+                    { time: '5:00-12:00', topic: 'Safety validation and training challenges at scale' },
+                    { time: '12:00-18:00', topic: 'Ray for deterministic, safety-critical distributed computing' },
+                    { time: '18:00-25:00', topic: 'Technical architecture with ROS 2 & NVIDIA ecosystem' },
+                    { time: '25:00-30:00', topic: 'Validation requirements and next steps' }
+                ]
+            },
+            'Chooch': {
+                company: {
+                    industry: 'Enterprise Computer Vision & Visual AI',
+                    size: '50-150 employees',
+                    hq: 'San Francisco, CA',
+                    funding: 'Series A - Series B',
+                    techStack: 'PyTorch, TensorFlow, OpenCV, ONNX, Edge ML'
+                },
+                keyContacts: [
+                    {
+                        name: 'John Shin',
+                        title: 'CEO & Founder',
+                        status: 'Champion'
+                    },
+                    {
+                        name: 'ML Platform Team',
+                        title: 'Model Development & Ops',
+                        status: 'Active User'
+                    },
+                    {
+                        name: 'Infrastructure',
+                        title: 'Deployment & Scaling',
+                        status: 'Potential User'
+                    }
+                ],
+                whyAnyscale: [
+                    'Training computer vision models on diverse enterprise datasets requires Ray Train for distributed multi-GPU training at scale',
+                    'Ray Serve is perfect for deploying vision models as APIs with auto-scaling for different customer demand patterns',
+                    'Ray Data can handle massive image dataset pipelines with preprocessing, augmentation, and quality validation'
+                ],
+                rayLibraries: [
+                    'Ray Train - Distributed training for object detection, segmentation, and classification models',
+                    'Ray Serve - Vision model inference API serving with autoscaling',
+                    'Ray Data - Image pipeline processing with augmentation and quality checks',
+                    'Ray Tune - Hyperparameter optimization for vision model architectures'
+                ],
+                proofPoints: [
+                    'Databricks ML team uses Ray Train for computer vision projects across customers',
+                    'OpenAI CLIP model training benefited from Ray distributed training capabilities',
+                    'Roboflow improved model training time by 5x using Ray Train for vision workloads'
+                ],
+                discoveryQuestions: [
+                    'How do you currently manage training of vision models for diverse enterprise use cases?',
+                    'What is your scaling challenge for deploying models to multiple customers simultaneously?',
+                    'How are you handling image data ingestion, storage, and preprocessing at scale?',
+                    'What is your current approach to model versioning and A/B testing?',
+                    'Where do you see the biggest bottleneck in your model development cycle?'
+                ],
+                objections: [
+                    {
+                        objection: 'Computer vision requires specialized frameworks that we have already invested in',
+                        response: 'Ray works with PyTorch and TensorFlow - no framework changes needed. Ray handles distributed training coordination while your existing vision pipelines run unchanged.'
+                    },
+                    {
+                        objection: 'Enterprise customers have data residency requirements that limit cloud scaling',
+                        response: 'Ray supports on-premises, private cloud, and edge deployment with the same distributed computing benefits. You can scale locally to meet data governance requirements.'
+                    },
+                    {
+                        objection: 'We need to optimize for edge deployment - cloud training solutions do not help',
+                        response: 'Ray Train scales training on servers, then you export optimized models for edge. Ray improves training velocity, letting you iterate faster and deploy better models to edge devices.'
+                    }
+                ],
+                agenda: [
+                    { time: '0:00-5:00', topic: 'Intro & Chooch visual AI platform' },
+                    { time: '5:00-12:00', topic: 'Enterprise computer vision training challenges' },
+                    { time: '12:00-18:00', topic: 'Ray Train and Ray Data for vision pipelines' },
+                    { time: '18:00-25:00', topic: 'Demo and technical integration discussion' },
+                    { time: '25:00-30:00', topic: 'Roadmap and partnership opportunities' }
+                ]
+            },
+            'Lightwheel': {
+                company: {
+                    industry: 'Synthetic Data & Simulation for AV',
+                    size: '30-80 employees',
+                    hq: 'Mountain View, CA',
+                    funding: 'Series A',
+                    techStack: 'Python, CARLA, Unreal Engine, Physics Engines, 3D Rendering'
+                },
+                keyContacts: [
+                    {
+                        name: 'Synthetic Data Team',
+                        title: 'Generation & Simulation',
+                        status: 'Champion'
+                    },
+                    {
+                        name: 'Infrastructure Lead',
+                        title: 'Cloud Rendering & Compute',
+                        status: 'Active User'
+                    },
+                    {
+                        name: 'ML Engineering',
+                        title: 'Model Training',
+                        status: 'Potential User'
+                    }
+                ],
+                whyAnyscale: [
+                    'Generating synthetic AV training data requires orchestrating thousands of parallel simulations - Ray Core excels at this at cloud scale',
+                    'Ray Data can process and filter synthetic datasets, apply quality checks, and prepare data for training downstream',
+                    'Ray Train helps train models on the synthetic data generated by simulations'
+                ],
+                rayLibraries: [
+                    'Ray Core - Orchestrating parallel simulation runs across cloud compute',
+                    'Ray Data - Processing, filtering, and preparing synthetic datasets',
+                    'Ray Train - Training models on synthetic data at scale',
+                    'Ray Tune - Optimizing simulation parameters for better dataset diversity'
+                ],
+                proofPoints: [
+                    'Waymo uses synthetic data at scale for AV model training (industry standard)',
+                    'Scale AI reduced synthetic data generation costs by 3x using distributed simulation',
+                    'Aurora Technology generates millions of miles of synthetic driving data daily'
+                ],
+                discoveryQuestions: [
+                    'How are you currently scaling synthetic data generation, and what are the compute cost drivers?',
+                    'What simulation tools do you use, and how do you orchestrate them across infrastructure?',
+                    'How do you ensure quality and diversity in synthetic datasets?',
+                    'What is your current cost per synthetic mile or training sample?',
+                    'How do you manage the pipeline from simulation to training-ready datasets?'
+                ],
+                objections: [
+                    {
+                        objection: 'Our simulation engines are custom and not easily distributable',
+                        response: 'Ray orchestrates any executable - whether custom C++ simulators or CARLA. Ray handles distribution; your simulation logic runs unchanged. We can wrap your tools with Ray tasks.'
+                    },
+                    {
+                        objection: 'Rendering at scale requires specialized GPU infrastructure',
+                        response: 'Ray schedules across heterogeneous clusters including GPU nodes optimized for rendering. You control infrastructure - Ray just provides smarter scheduling and resource management.'
+                    },
+                    {
+                        objection: 'We are concerned about data movement and network costs',
+                        response: 'Ray minimizes data movement with object storage and caching. Ray Data pipelines process data where it is stored, reducing transfer costs. This is critical for large synthetic datasets.'
+                    }
+                ],
+                agenda: [
+                    { time: '0:00-5:00', topic: 'Intro & Lightwheel synthetic data vision' },
+                    { time: '5:00-12:00', topic: 'Current simulation and synthetic data generation challenges' },
+                    { time: '12:00-18:00', topic: 'Ray for orchestrating simulations and data pipelines' },
+                    { time: '18:00-24:00', topic: 'Architecture discussion and demo' },
+                    { time: '24:00-30:00', topic: 'Cost optimization and next steps' }
+                ]
+            },
+            'Valar Labs': {
+                company: {
+                    industry: 'Clinical AI & Digital Pathology',
+                    size: '30-80 employees',
+                    hq: 'Stanford, CA',
+                    funding: 'Series A - Series B',
+                    techStack: 'PyTorch, TensorFlow, Histopathology Imaging, GCP/AWS'
+                },
+                keyContacts: [
+                    {
+                        name: 'Clinical AI Team',
+                        title: 'Model Development',
+                        status: 'Champion'
+                    },
+                    {
+                        name: 'Pathology Data Lead',
+                        title: 'Data Science & Operations',
+                        status: 'Active User'
+                    },
+                    {
+                        name: 'Infrastructure',
+                        title: 'Cloud & HIPAA Compliance',
+                        status: 'Potential User'
+                    }
+                ],
+                whyAnyscale: [
+                    'Training cancer detection models on large histopathology slide datasets requires Ray Train for efficient multi-GPU training with data privacy controls',
+                    'Ray Data handles sensitive medical imaging data pipelines with security-compliant preprocessing and augmentation',
+                    'Ray Tune optimizes model architectures and hyperparameters where clinical safety requirements demand thorough validation'
+                ],
+                rayLibraries: [
+                    'Ray Train - Distributed training for pathology models with healthcare compliance',
+                    'Ray Data - HIPAA-compliant data pipelines for medical imaging',
+                    'Ray Tune - Extensive hyperparameter search for clinical validation',
+                    'Ray Serve - Deploying models as inference services for clinical systems'
+                ],
+                proofPoints: [
+                    'Stanford Digital Pathology Lab uses distributed training for cancer detection models',
+                    'FDA-approved AI diagnostics use distributed computing for model validation',
+                    'Nuance and Paige AI scale pathology models using enterprise ML infrastructure'
+                ],
+                discoveryQuestions: [
+                    'How are you currently managing training of pathology models while maintaining HIPAA compliance?',
+                    'What are your data volume and model complexity challenges?',
+                    'How do you handle model validation and clinical trial requirements?',
+                    'What is your current infrastructure for processing gigapixel medical images?',
+                    'How are you approaching model versioning and regulatory documentation?'
+                ],
+                objections: [
+                    {
+                        objection: 'Healthcare data requires strict on-premises or private cloud deployment',
+                        response: 'Ray supports on-premises and private cloud deployment with full HIPAA compliance. Distributed computing benefits do not require public cloud - we support all healthcare infrastructure models.'
+                    },
+                    {
+                        objection: 'Clinical validation requires deterministic and reproducible training',
+                        response: 'Ray provides deterministic training with full reproducibility controls - critical for FDA submissions. We have experience with other healthcare AI companies on clinical validation workflows.'
+                    },
+                    {
+                        objection: 'We cannot abstract away from pathology domain-specific optimizations',
+                        response: 'Ray provides low-level control for domain-specific logic while handling distribution. Your pathology expertise stays in the model - Ray handles infrastructure and scaling.'
+                    }
+                ],
+                agenda: [
+                    { time: '0:00-5:00', topic: 'Intro & Valar Labs clinical AI mission' },
+                    { time: '5:00-12:00', topic: 'Pathology model training and validation challenges' },
+                    { time: '12:00-18:00', topic: 'Ray for HIPAA-compliant distributed computing' },
+                    { time: '18:00-25:00', topic: 'Clinical validation and regulatory workflows' },
+                    { time: '25:00-30:00', topic: 'Healthcare partnership discussion' }
+                ]
+            },
+            'Elroy Air': {
+                company: {
+                    industry: 'Autonomous Cargo Drones',
+                    size: '50-150 employees',
+                    hq: 'Los Altos, CA',
+                    funding: 'Series A - Series B',
+                    techStack: 'C++, CUDA, ROS, Python, Flight Control Systems'
+                },
+                keyContacts: [
+                    {
+                        name: 'Autonomous Systems Team',
+                        title: 'Flight & Navigation',
+                        status: 'Champion'
+                    },
+                    {
+                        name: 'ML & Perception',
+                        title: 'Model Development',
+                        status: 'Active User'
+                    },
+                    {
+                        name: 'Infrastructure',
+                        title: 'Testing & Validation',
+                        status: 'Early Adopter'
+                    }
+                ],
+                whyAnyscale: [
+                    'Autonomous drone systems require large-scale simulator testing and validation - Ray Core orchestrates thousands of flight simulations in parallel',
+                    'Ray Train enables distributed training of perception and navigation models critical for safe autonomous flight',
+                    'Ray Tune is essential for optimizing flight control parameters where safety is paramount'
+                ],
+                rayLibraries: [
+                    'Ray Core - Orchestrating autonomous flight simulator runs and scenario testing',
+                    'Ray Train - Distributed training for perception and navigation models',
+                    'Ray Tune - Optimization of flight control parameters and safety-critical tuning',
+                    'Ray Data - Processing sensor data and simulation telemetry at scale'
+                ],
+                proofPoints: [
+                    'Wing (Alphabet) uses distributed simulation for autonomous delivery drone validation',
+                    'Airbus A3 leverages distributed computing for UAV autonomy testing',
+                    'Zipline uses distributed ML for autonomous delivery optimization'
+                ],
+                discoveryQuestions: [
+                    'How do you currently validate autonomous flight systems across different scenarios?',
+                    'What is your approach to simulator-to-reality transfer for perception models?',
+                    'How are you managing flight test data collection and processing?',
+                    'What are your requirements for safety validation and certification?',
+                    'Where is your biggest bottleneck in autonomy development cycle time?'
+                ],
+                objections: [
+                    {
+                        objection: 'Flight control systems require custom, deterministic implementations',
+                        response: 'Ray is deterministic and supports custom control logic. Many aerospace companies use Ray for orchestration while keeping flight control systems custom. We can discuss safety-critical integration patterns.'
+                    },
+                    {
+                        objection: 'Drone systems require real-time guarantees that cloud computing cannot provide',
+                        response: 'Ray training and testing scales in cloud. Real-time flight control runs on-board. Ray accelerates development and validation offline - your actual flight systems maintain real-time requirements.'
+                    },
+                    {
+                        objection: 'Regulatory certification requires custom validation frameworks',
+                        response: 'Ray orchestrates testing without modifying your validation logic. You maintain full control over certification workflows - Ray provides infrastructure for running tests at scale.'
+                    }
+                ],
+                agenda: [
+                    { time: '0:00-5:00', topic: 'Intro & Elroy Air autonomous delivery vision' },
+                    { time: '5:00-12:00', topic: 'Autonomy validation and testing challenges' },
+                    { time: '12:00-18:00', topic: 'Ray for distributed simulation and model training' },
+                    { time: '18:00-25:00', topic: 'Safety-critical systems architecture discussion' },
+                    { time: '25:00-30:00', topic: 'Development acceleration roadmap' }
+                ]
+            },
+            'Intrinsic (Google)': {
+                company: {
+                    industry: 'Industrial Robotics AI & Control',
+                    size: '100-200 employees',
+                    hq: 'Mountain View, CA',
+                    funding: 'Google Internal / Series A (as standalone)',
+                    techStack: 'TensorFlow, Python, ROS, PyTorch, Control Theory'
+                },
+                keyContacts: [
+                    {
+                        name: 'Robotics AI Team',
+                        title: 'Model & Control Development',
+                        status: 'Champion'
+                    },
+                    {
+                        name: 'Robot Learning Team',
+                        title: 'Imitation & Reinforcement Learning',
+                        status: 'Active User'
+                    },
+                    {
+                        name: 'Infrastructure & Systems',
+                        title: 'Robotics Platform Ops',
+                        status: 'Potential User'
+                    }
+                ],
+                whyAnyscale: [
+                    'Training robotic manipulation models requires scaling simulation with ray Core for parallel environment rollouts',
+                    'Ray Train enables efficient distributed reinforcement learning training across many robot instances',
+                    'Ray Serve can deploy trained policies as inference services for real-time robot control'
+                ],
+                rayLibraries: [
+                    'Ray RLlib - Distributed reinforcement learning for robot control policies',
+                    'Ray Train - Imitation learning and supervised training for manipulation tasks',
+                    'Ray Core - Parallel robot simulator rollouts and environment interaction',
+                    'Ray Serve - Deploying control policies as inference services'
+                ],
+                proofPoints: [
+                    'DeepMind used distributed RL for dexterous manipulation (AlphaDex, etc.)',
+                    'OpenAI scaled robot learning with distributed simulation and training',
+                    'Boston Dynamics uses distributed computing for robot model training'
+                ],
+                discoveryQuestions: [
+                    'How are you currently scaling robotic manipulation and learning?',
+                    'What is your approach to sim-to-real transfer for robot policies?',
+                    'How do you manage simulation environments and collect robot training data?',
+                    'What are your computational bottlenecks in reinforcement learning training?',
+                    'How do you deploy trained policies to physical robots at scale?'
+                ],
+                objections: [
+                    {
+                        objection: 'Robot control requires specialized reinforcement learning frameworks',
+                        response: 'Ray RLlib is purpose-built for RL at scale. It integrates with your existing simulation environments and robot APIs. Many robotics teams use it for exactly this use case.'
+                    },
+                    {
+                        objection: 'We have invested heavily in custom robot learning infrastructure',
+                        response: 'Ray can augment your infrastructure with superior scaling and fault tolerance. Many companies run their custom algorithms on Ray for better resource efficiency.'
+                    },
+                    {
+                        objection: 'Real robot deployment requires low-latency inference we cannot achieve with distributed systems',
+                        response: 'Ray training scales in the cloud. Inference deploys locally on robots for low latency. Ray accelerates your training iteration - deployment stays optimized for real-time control.'
+                    }
+                ],
+                agenda: [
+                    { time: '0:00-5:00', topic: 'Intro & Intrinsic robotics platform vision' },
+                    { time: '5:00-12:00', topic: 'Current robot learning and control challenges' },
+                    { time: '12:00-18:00', topic: 'Ray RLlib and Ray Train for robot learning at scale' },
+                    { time: '18:00-25:00', topic: 'Technical architecture and integration demo' },
+                    { time: '25:00-30:00', topic: 'Partnership and roadmap discussion' }
+                ]
+            },
+            'Wing (Alphabet)': {
+                company: {
+                    industry: 'Autonomous Delivery Drones',
+                    size: '200-500 employees',
+                    hq: 'Mountain View, CA',
+                    funding: 'Alphabet Subsidiary',
+                    techStack: 'C++, Python, TensorFlow, Custom Flight Control, GCP'
+                },
+                keyContacts: [
+                    {
+                        name: 'Autonomy & Perception Team',
+                        title: 'AI and Machine Learning',
+                        status: 'Champion'
+                    },
+                    {
+                        name: 'Flight Systems Team',
+                        title: 'Control and Navigation',
+                        status: 'Active User'
+                    },
+                    {
+                        name: 'Cloud Infrastructure',
+                        title: 'Platform Engineering',
+                        status: 'Early Adopter'
+                    }
+                ],
+                whyAnyscale: [
+                    'Autonomous delivery operations require continuous model retraining on new geographies - Ray Train enables rapid iteration at scale',
+                    'Ray Serve can power real-time inference for obstacle detection and delivery optimization across thousands of drones',
+                    'Ray Data processes flight telemetry, sensor data, and delivery logs at massive scale'
+                ],
+                rayLibraries: [
+                    'Ray Serve - Real-time perception inference for autonomous delivery',
+                    'Ray Train - Continuous model training on operational data',
+                    'Ray Data - Large-scale flight and operational telemetry processing',
+                    'Ray Tune - Optimization of delivery routing and flight parameters'
+                ],
+                proofPoints: [
+                    'Google AI models often use distributed training infrastructure like Ray',
+                    'Waymo scales perception models across autonomous vehicle fleet with distributed computing',
+                    'Industry leaders in autonomous systems use distributed ML platforms'
+                ],
+                discoveryQuestions: [
+                    'How do you currently manage continuous model retraining as you expand to new geographies?',
+                    'What is your strategy for real-time perception inference across your drone fleet?',
+                    'How are you processing and leveraging operational data from thousands of deliveries?',
+                    'What are the ML development velocity bottlenecks you face?',
+                    'How do you handle model version management and rollout across distributed systems?'
+                ],
+                objections: [
+                    {
+                        objection: 'We have custom infrastructure optimized for Alphabet\'s ecosystem',
+                        response: 'Ray integrates with GCP and works alongside custom infrastructure. Ray adds value in orchestration and scaling without requiring infrastructure changes. Many Google teams use Ray.'
+                    },
+                    {
+                        objection: 'Autonomous delivery requires custom safety and validation systems',
+                        response: 'Ray handles training and model deployment without interfering with safety systems. Your custom validation logic continues unchanged - Ray just accelerates iteration.'
+                    },
+                    {
+                        objection: 'We are focused on proving out business model, not optimizing infrastructure',
+                        response: 'Ray reduces infrastructure complexity and management burden. Faster model iteration and deployment directly supports business milestones. We can show you quick wins in the first month.'
+                    }
+                ],
+                agenda: [
+                    { time: '0:00-5:00', topic: 'Intro & Wing autonomous delivery business' },
+                    { time: '5:00-12:00', topic: 'ML scaling challenges across geography expansion' },
+                    { time: '12:00-18:00', topic: 'Ray Train and Ray Serve for delivery systems' },
+                    { time: '18:00-25:00', topic: 'Real-time inference and model management demo' },
+                    { time: '25:00-30:00', topic: 'Partnership and scaling roadmap' }
+                ]
+            },
+            'GITAI': {
+                company: {
+                    industry: 'Space Robotics & AI',
+                    size: '50-150 employees',
+                    hq: 'Tokyo, Japan',
+                    funding: 'Series A - Series B',
+                    techStack: 'C++, Python, ROS 2, PyTorch, Control Systems'
+                },
+                keyContacts: [
+                    {
+                        name: 'AI & Autonomy Team',
+                        title: 'Space Robotics Control',
+                        status: 'Champion'
+                    },
+                    {
+                        name: 'Ground Station Team',
+                        title: 'Teleoperation & ML',
+                        status: 'Active User'
+                    },
+                    {
+                        name: 'Systems Engineering',
+                        title: 'Testing & Validation',
+                        status: 'Early Adopter'
+                    }
+                ],
+                whyAnyscale: [
+                    'Space robotics requires extreme reliability - Ray provides fault-tolerant distributed training for safety-critical models',
+                    'Ray Core can orchestrate complex simulation scenarios for space robotics validation before expensive on-orbit testing',
+                    'Ray Tune helps optimize space robotics control parameters where iteration costs are extremely high'
+                ],
+                rayLibraries: [
+                    'Ray Core - Orchestrating space robotics simulations and scenario testing',
+                    'Ray Train - Distributed training for space robot perception and control',
+                    'Ray Tune - Optimization of robotics parameters for extreme reliability requirements',
+                    'Ray Data - Processing telemetry and mission data at scale'
+                ],
+                proofPoints: [
+                    'Space agencies use distributed computing for mission simulation and planning',
+                    'NASA JPL uses advanced ML infrastructure for rover autonomy',
+                    'Commercial space companies leverage distributed systems for satellite operations'
+                ],
+                discoveryQuestions: [
+                    'How do you currently approach validation and testing for space robotics systems?',
+                    'What are your constraints on iteration speed given the cost of actual space missions?',
+                    'How do you manage ground station operations and telemetry processing?',
+                    'What is your strategy for improving robot autonomy given extreme cost constraints?',
+                    'How are you approaching AI/ML integration into your space systems?'
+                ],
+                objections: [
+                    {
+                        objection: 'Space systems require extreme reliability and custom validation',
+                        response: 'Ray provides the reliability guarantees needed for critical systems. Many aerospace organizations use Ray for ground-based validation. We can customize reliability for space-grade requirements.'
+                    },
+                    {
+                        objection: 'We have limited cloud infrastructure access due to international constraints',
+                        response: 'Ray supports on-premises and private cloud deployment. You can run Ray infrastructure locally in Japan or on your preferred cloud. Ray provides global distributed computing without vendor lock-in.'
+                    },
+                    {
+                        objection: 'The cost of development infrastructure is not a constraint - mission success is',
+                        response: 'Ray accelerates iteration and validation before expensive missions, improving success rates. Better simulations and faster testing reduce costly mission failures. ROI comes from mission success, not infrastructure savings.'
+                    }
+                ],
+                agenda: [
+                    { time: '0:00-5:00', topic: 'Intro & GITAI space robotics vision' },
+                    { time: '5:00-12:00', topic: 'Space robotics validation and testing approach' },
+                    { time: '12:00-18:00', topic: 'Ray for simulation and optimization before space missions' },
+                    { time: '18:00-25:00', topic: 'Space-grade reliability and custom requirements' },
+                    { time: '25:00-30:00', topic: 'Partnership and mission support roadmap' }
+                ]
+            }
+        };
+
+        const accountsList = Object.keys(accounts).sort();
+        const searchInput = document.getElementById('accountSearch');
+        const suggestionsContainer = document.getElementById('suggestions');
+        const prepContent = document.getElementById('prepContent');
+        const noSelection = document.getElementById('noSelection');
+
+        // Search and filter
+        searchInput.addEventListener('input', (e) => {
+            const query = e.target.value.toLowerCase();
+            suggestionsContainer.innerHTML = '';
+
+            if (query.length === 0) {
+                suggestionsContainer.classList.remove('show');
+                return;
+            }
+
+            const filtered = accountsList.filter(account =>
+                account.toLowerCase().includes(query)
+            );
+
+            if (filtered.length === 0) {
+                suggestionsContainer.classList.remove('show');
+                return;
+            }
+
+            filtered.forEach(account => {
+                const div = document.createElement('div');
+                div.className = 'suggestion-item';
+                div.textContent = account;
+                div.addEventListener('click', () => selectAccount(account));
+                suggestionsContainer.appendChild(div);
+            });
+
+            suggestionsContainer.classList.add('show');
+        });
+
+        // Click outside to close suggestions
+        document.addEventListener('click', (e) => {
+            if (e.target !== searchInput) {
+                suggestionsContainer.classList.remove('show');
+            }
+        });
+
+        function selectAccount(accountName) {
+            searchInput.value = accountName;
+            suggestionsContainer.classList.remove('show');
+
+            const accountData = accounts[accountName];
+            if (!accountData) return;
+
+            // Generate prep content
+            const html = `
+                <div class="prep-container">
+                    <div class="company-header">
+                        <div>
+                            <div class="header-label">Company</div>
+                            <div class="header-value">${accountName}</div>
+                        </div>
+                        <div>
+                            <div class="header-label">Industry</div>
+                            <div class="header-value">${accountData.company.industry}</div>
+                        </div>
+                        <div>
+                            <div class="header-label">Headquarters</div>
+                            <div class="header-value">${accountData.company.hq}</div>
+                        </div>
+                        <div>
+                            <div class="header-label">Size</div>
+                            <div class="header-value">${accountData.company.size}</div>
+                        </div>
+                        <div>
+                            <div class="header-label">Funding</div>
+                            <div class="header-value">${accountData.company.funding}</div>
+                        </div>
+                        <div>
+                            <div class="header-label">Tech Stack</div>
+                            <div class="header-value">${accountData.company.techStack}</div>
+                        </div>
+                    </div>
+
+                    <div class="section">
+                        <div class="section-title">Key Contacts</div>
+                        <div class="contact-grid">
+                            ${accountData.keyContacts.map(contact => `
+                                <div class="contact-card">
+                                    <div class="contact-name">${contact.name}</div>
+                                    <div class="contact-title">${contact.title}</div>
+                                    <div class="contact-status">Status: ${contact.status}</div>
+                                </div>
+                            `).join('')}
+                        </div>
+                    </div>
+
+                    <div class="section">
+                        <div class="section-title">Why Anyscale</div>
+                        <ul class="bullet-list">
+                            ${accountData.whyAnyscale.map(point => `<li>${point}</li>`).join('')}
+                        </ul>
+                    </div>
+
+                    <div class="section">
+                        <div class="section-title">Ray Library Fit</div>
+                        <ul class="bullet-list">
+                            ${accountData.rayLibraries.map(lib => `<li>${lib}</li>`).join('')}
+                        </ul>
+                    </div>
+
+                    <div class="section">
+                        <div class="section-title">Relevant Proof Points</div>
+                        <ul class="bullet-list">
+                            ${accountData.proofPoints.map(proof => `<li>${proof}</li>`).join('')}
+                        </ul>
+                    </div>
+
+                    <div class="section">
+                        <div class="section-title">Discovery Questions</div>
+                        <div class="discovery-grid">
+                            ${accountData.discoveryQuestions.map((q, i) => `
+                                <div class="discovery-item">${i + 1}. ${q}</div>
+                            `).join('')}
+                        </div>
+                    </div>
+
+                    <div class="section">
+                        <div class="section-title">Objection Handling</div>
+                        ${accountData.objections.map(obj => `
+                            <div class="objection-item">
+                                <div class="objection-title">Objection: ${obj.objection}</div>
+                                <div class="objection-response"><strong>Response:</strong> ${obj.response}</div>
+                            </div>
+                        `).join('')}
+                    </div>
+
+                    <div class="section">
+                        <div class="section-title">30-Minute Meeting Agenda</div>
+                        ${accountData.agenda.map(item => `
+                            <div class="agenda-item">
+                                <div class="agenda-time">${item.time}</div>
+                                <div class="agenda-topic">${item.topic}</div>
+                            </div>
+                        `).join('')}
+                    </div>
+
+                    <button class="copy-button" onclick="copyToClipboard('${accountName}')">
+                        Copy Prep to Clipboard
+                    </button>
+                    <div class="copy-feedback" id="copyFeedback">
+                        ✓ Prep briefing copied to clipboard!
+                    </div>
+                </div>
+            `;
+
+            prepContent.innerHTML = html;
+            noSelection.classList.remove('active');
+            prepContent.classList.add('active');
+        }
+
+        function copyToClipboard(accountName) {
+            const accountData = accounts[accountName];
+
+            let text = `CALL PREP BRIEFING: ${accountName}\n`;
+            text += '='.repeat(50) + '\n\n';
+
+            text += 'COMPANY OVERVIEW\n';
+            text += '-'.repeat(30) + '\n';
+            text += `Industry: ${accountData.company.industry}\n`;
+            text += `Size: ${accountData.company.size}\n`;
+            text += `Headquarters: ${accountData.company.hq}\n`;
+            text += `Funding: ${accountData.company.funding}\n`;
+            text += `Tech Stack: ${accountData.company.techStack}\n\n`;
+
+            text += 'KEY CONTACTS\n';
+            text += '-'.repeat(30) + '\n';
+            accountData.keyContacts.forEach(contact => {
+                text += `• ${contact.name}\n  Title: ${contact.title}\n  Status: ${contact.status}\n\n`;
+            });
+
+            text += 'WHY ANYSCALE\n';
+            text += '-'.repeat(30) + '\n';
+            accountData.whyAnyscale.forEach((point, i) => {
+                text += `${i + 1}. ${point}\n\n`;
+            });
+
+            text += 'RAY LIBRARY FIT\n';
+            text += '-'.repeat(30) + '\n';
+            accountData.rayLibraries.forEach(lib => {
+                text += `• ${lib}\n`;
+            });
+            text += '\n';
+
+            text += 'RELEVANT PROOF POINTS\n';
+            text += '-'.repeat(30) + '\n';
+            accountData.proofPoints.forEach(proof => {
+                text += `• ${proof}\n`;
+            });
+            text += '\n';
+
+            text += 'DISCOVERY QUESTIONS\n';
+            text += '-'.repeat(30) + '\n';
+            accountData.discoveryQuestions.forEach((q, i) => {
+                text += `${i + 1}. ${q}\n`;
+            });
+            text += '\n';
+
+            text += 'OBJECTION HANDLING\n';
+            text += '-'.repeat(30) + '\n';
+            accountData.objections.forEach((obj, i) => {
+                text += `${i + 1}. Objection: ${obj.objection}\n   Response: ${obj.response}\n\n`;
+            });
+
+            text += '30-MINUTE MEETING AGENDA\n';
+            text += '-'.repeat(30) + '\n';
+            accountData.agenda.forEach(item => {
+                text += `${item.time}: ${item.topic}\n`;
+            });
+
+            navigator.clipboard.writeText(text).then(() => {
+                const feedback = document.getElementById('copyFeedback');
+                feedback.classList.add('show');
+                setTimeout(() => {
+                    feedback.classList.remove('show');
+                }, 2000);
+            });
+        }
+    </script>
+</body>
+</html>

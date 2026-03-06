@@ -35,8 +35,19 @@ body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif;b
 .chip:hover{border-color:var(--acc);color:var(--acc-l);}
 .chip.on{color:#fff;border-color:transparent;}
 .chip.on.all{background:var(--acc);}.chip.on.t1{background:#ef4444;}.chip.on.t2{background:#f59e0b;}
-.chip.on.t3{background:#22c55e;}.chip.on.seq{background:#10b981;}.chip.on.pin{background:var(--purple);}
-.chip.on.cust{background:#06b6d4;}
+.chip.on.t3{background:#22c55e;}.chip.on.t4{background:#6b7280;}.chip.on.seq{background:#10b981;}.chip.on.pin{background:var(--purple);}
+.chip.on.cust{background:#06b6d4;}.chip.on.new{background:#8b5cf6;}
+
+/* Light mode */
+body.light{--bg:#f8fafc;--bg-sb:#ffffff;--bg-card:#f1f5f9;--bg-hov:#e2e8f0;--bg-act:rgba(59,130,246,0.08);--text:#0f172a;--text2:#475569;--text3:#94a3b8;--bdr:#e2e8f0;--bdr-l:#cbd5e1;}
+body.light .c-frame{background:#fff;}
+body.light .status-sel{background:var(--bg-card);}
+.theme-toggle{width:26px;height:26px;border-radius:6px;border:1px solid var(--bdr-l);background:transparent;color:var(--text2);cursor:pointer;display:flex;align-items:center;justify-content:center;font-size:14px;transition:all .15s;}
+.theme-toggle:hover{background:var(--bg-hov);color:var(--text);}
+
+/* Export button */
+.export-btn{padding:4px 8px;border-radius:6px;border:1px solid var(--bdr-l);background:transparent;color:var(--text2);font-size:11px;cursor:pointer;transition:all .15s;display:flex;align-items:center;gap:3px;}
+.export-btn:hover{background:var(--bg-hov);color:var(--text);}
 
 /* Search */
 .sb-search{padding:7px 10px;border-bottom:1px solid var(--bdr);position:relative;}
@@ -353,6 +364,7 @@ body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif;b
     <div class="sb-head-btns">
       <button class="ib" onclick="openCmd()" title="Command palette (⌘K)">⌘</button>
       <button class="ib" onclick="showKb()" title="Shortcuts (?)">⌨</button>
+      <button class="theme-toggle" onclick="toggleTheme()" title="Toggle dark/light mode" id="themeBtn">☀</button>
       <button class="ib" onclick="goHome()" title="Home">⌂</button>
     </div>
   </div>
@@ -405,6 +417,7 @@ body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif;b
       <button class="tb-act" id="starBtn" onclick="toggleFav()">☆ Pin</button>
       <button class="tb-act" id="notesBtn" onclick="toggleNotes()">📝 Notes</button>
       <button class="tb-act" id="splitBtn" onclick="toggleSplit()">⊞ Split</button>
+      <button class="export-btn" onclick="exportPDF()" title="Export current view to PDF">📄 Export</button>
       <button class="tb-act" id="ssBtn" onclick="toggleSlideshow()" title="Slideshow (P)">▶ Slideshow</button>
       <span class="ss-badge" id="ssBadge" style="display:none">1 / 1</span>
       <div class="zoom-ctrl" id="zoomCtrl">
@@ -543,10 +556,10 @@ const DEFAULT_ACCOUNTS = [
   {name:"Tier 2 Account Plans",file:"tier2-account-plans.html",category:"Tier 2 — Growth",tag:"Tier 2",meta:"25 companies • Full strategic plans • Ray library fit mapped"},
   {name:"Tier 3 Account Plans",file:"tier3-account-plans.html",category:"Tier 3 — Prospecting",tag:"Tier 3",meta:"Long-tail account plans"},
   {name:"Tier 3 Prospect Briefs",file:"detailed-prospect-brief-tier3.html",category:"Tier 3 — Prospecting",tag:"Tier 3",meta:"23 companies • 62 contacts • Email & phone"},
-  {name:"Tier 3 Proof Points",file:"tier3-proof-points.html",category:"Tier 3 — Prospecting",tag:"Tier 3",meta:"23 companies • 75 proof cards • Talk tracks"},
-  {name:"Tier 4 Account Plans",file:"tier4-account-plans.html",category:"Tier 4 — Watch List",tag:"Tier 4",meta:"40 accounts • Watch / Light / Low / Skip tiers"},
-  {name:"Tier 4 Proof Points",file:"tier4-proof-points.html",category:"Tier 4 — Watch List",tag:"Tier 4",meta:"22 accounts • 49 proof points • Watch + Light Touch"},
-  {name:"Tier 4 Detailed Prospect Brief",file:"tier4-detailed-prospect-brief.html",category:"Tier 4 — Watch List",tag:"Tier 4",meta:"10 Watch companies • 26 contacts • Email, phone & outreach"},
+  {name:"Tier 3 Proof Points",file:"Tier 3 Accounts/tier3-proof-points.html",category:"Tier 3 — Prospecting",tag:"Tier 3",meta:"23 companies • 75 proof cards • Talk tracks"},
+  {name:"Tier 4 Account Plans",file:"Tier 4 Accounts/tier4-account-plans.html",category:"Tier 4 — Watch List",tag:"Tier 4",meta:"40 accounts • Watch / Light / Low / Skip tiers"},
+  {name:"Tier 4 Proof Points",file:"Tier 4 Accounts/tier4-proof-points.html",category:"Tier 4 — Watch List",tag:"Tier 4",meta:"22 accounts • 49 proof points • Watch + Light Touch"},
+  {name:"Tier 4 Detailed Prospect Brief",file:"Tier 4 Accounts/tier4-detailed-prospect-brief.html",category:"Tier 4 — Watch List",tag:"Tier 4",meta:"10 Watch companies • 26 contacts • Email, phone & outreach"},
   {name:"New Proof Points Addendum",file:"new-proof-points-addendum.html",category:"Cross-Tier Resources",tag:"New",meta:"9 new case studies • Mapped to Tier 1 & Tier 2"},
   {name:"Top 10 Prospects",file:"top-10-prospects.html",category:"Prospecting Lists",tag:"",meta:"Highest-priority prospects"},
   {name:"All 120 Prospects",file:"all-120-prospects.html",category:"Prospecting Lists",tag:"",meta:"Full prospect database"},
@@ -558,7 +571,16 @@ const DEFAULT_ACCOUNTS = [
   {name:"Apex.AI — Personalized Sequences",file:"apexai-personalized-sequences.html",category:"Personalized Email Sequences",tag:"Seq",meta:"9 contacts • 36 emails • AV software platform"},
   {name:"Chooch AI — Personalized Sequences",file:"choochai-personalized-sequences.html",category:"Personalized Email Sequences",tag:"Seq",meta:"9 contacts • 36 emails • Enterprise CV platform"},
   {name:"Lightwheel AI — Personalized Sequences",file:"lightwheel-personalized-sequences.html",category:"Personalized Email Sequences",tag:"Seq",meta:"10 contacts • 40 emails • AV synthetic data"},
-  {name:"Valar Labs — Personalized Sequences",file:"valarlabs-personalized-sequences.html",category:"Personalized Email Sequences",tag:"Seq",meta:"10 contacts • 40 emails • Clinical AI / Oncology"}
+  {name:"Valar Labs — Personalized Sequences",file:"valarlabs-personalized-sequences.html",category:"Personalized Email Sequences",tag:"Seq",meta:"10 contacts • 40 emails • Clinical AI / Oncology"},
+  {name:"Deal Tracker — Pipeline View",file:"deal-tracker.html",category:"Sales Tools",tag:"New",meta:"Kanban pipeline • Drag & drop • Tier 1 & 2 deals"},
+  {name:"Signal Feed",file:"signal-feed.html",category:"Sales Tools",tag:"New",meta:"Live signals • Funding, hiring, news, tech stack"},
+  {name:"Email Tracker",file:"email-tracker.html",category:"Sales Tools",tag:"New",meta:"287 emails • 7 sequences • Open & reply tracking"},
+  {name:"Weekly Sales Briefing",file:"weekly-briefing.html",category:"Sales Tools",tag:"New",meta:"Week of Mar 3 • Priority actions & meetings"},
+  {name:"Champion Mapping",file:"champion-mapping.html",category:"Intelligence",tag:"New",meta:"Org charts • 32 contacts • 5 Tier 1 accounts"},
+  {name:"Call Prep Generator",file:"call-prep-generator.html",category:"Intelligence",tag:"New",meta:"11 Tier 1 accounts • One-click call prep"},
+  {name:"Competitive Battlecards",file:"competitive-battlecards.html",category:"Intelligence",tag:"New",meta:"6 competitors • Talk tracks & objection handling"},
+  {name:"Coverage Heatmap",file:"coverage-heatmap.html",category:"Analytics",tag:"New",meta:"99 accounts • 6 asset types • Gap analysis"},
+  {name:"Territory Dashboard",file:"territory-dashboard.html",category:"Analytics",tag:"New",meta:"$2.8M pipeline • KPIs • Industry breakdown"}
 ];
 
 // ═══════════ STATE ═══════════
@@ -1433,6 +1455,23 @@ document.addEventListener('keydown',e=>{
 });
 
 document.getElementById('searchInput').addEventListener('input',e=>{query=e.target.value;kbHl=-1;renderSidebar();});
+
+// ═══════════ THEME TOGGLE ═══════════
+function toggleTheme(){
+  document.body.classList.toggle('light');
+  const isLight=document.body.classList.contains('light');
+  document.getElementById('themeBtn').textContent=isLight?'🌙':'☀';
+  localStorage.setItem('hub-theme',isLight?'light':'dark');
+  toast(isLight?'Light mode enabled':'Dark mode enabled',isLight?'☀':'🌙');
+}
+(function(){const t=localStorage.getItem('hub-theme');if(t==='light'){document.body.classList.add('light');setTimeout(()=>{const b=document.getElementById('themeBtn');if(b)b.textContent='🌙';},0);}})();
+
+// ═══════════ EXPORT PDF ═══════════
+function exportPDF(){
+  const frame=document.querySelector('.c-frame');
+  if(!frame||!frame.src||frame.src==='about:blank'){toast('Open a document first to export','⚠');return;}
+  try{frame.contentWindow.print();}catch(e){window.open(frame.src,'_blank');toast('Opened in new tab — use Ctrl+P to print/save as PDF','📄');}
+}
 
 // ═══════════ INIT ═══════════
 load();initSidebarResize();goHome();initHoverPreview();

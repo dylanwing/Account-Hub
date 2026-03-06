@@ -1,0 +1,838 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Anyscale Competitive Battlecards</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            background-color: #0b0f1a;
+            color: #f0f4ff;
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+            line-height: 1.6;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        header {
+            margin-bottom: 40px;
+            text-align: center;
+            border-bottom: 2px solid #1e2d42;
+            padding-bottom: 30px;
+        }
+
+        h1 {
+            font-size: 2.5em;
+            margin-bottom: 10px;
+            background: linear-gradient(135deg, #3b82f6, #60a5fa);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .subtitle {
+            color: #a0aec0;
+            font-size: 1.1em;
+        }
+
+        .section-title {
+            font-size: 1.8em;
+            margin-top: 40px;
+            margin-bottom: 25px;
+            color: #60a5fa;
+            border-left: 4px solid #3b82f6;
+            padding-left: 15px;
+        }
+
+        /* Comparison Matrix Table */
+        .matrix-wrapper {
+            overflow-x: auto;
+            margin-bottom: 40px;
+            border-radius: 8px;
+            border: 1px solid #1e2d42;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            background-color: #1a2235;
+        }
+
+        th, td {
+            padding: 15px;
+            text-align: left;
+            border: 1px solid #1e2d42;
+        }
+
+        th {
+            background-color: #0f1622;
+            color: #60a5fa;
+            font-weight: 600;
+            position: sticky;
+            top: 0;
+        }
+
+        tr:nth-child(even) {
+            background-color: rgba(59, 130, 246, 0.05);
+        }
+
+        .feature-name {
+            font-weight: 600;
+            min-width: 180px;
+        }
+
+        .check {
+            color: #4ade80;
+            font-weight: bold;
+        }
+
+        .cross {
+            color: #ef4444;
+        }
+
+        .partial {
+            color: #f59e0b;
+        }
+
+        /* Battlecard Styles */
+        .battlecards-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 20px;
+            margin-bottom: 40px;
+        }
+
+        .battlecard {
+            background-color: #1a2235;
+            border: 1px solid #1e2d42;
+            border-radius: 8px;
+            overflow: hidden;
+            transition: all 0.3s ease;
+            cursor: pointer;
+        }
+
+        .battlecard:hover {
+            border-color: #3b82f6;
+            box-shadow: 0 0 20px rgba(59, 130, 246, 0.2);
+            transform: translateY(-2px);
+        }
+
+        .battlecard-header {
+            background: linear-gradient(135deg, rgba(59, 130, 246, 0.2), rgba(96, 165, 250, 0.1));
+            padding: 20px;
+            border-bottom: 2px solid #1e2d42;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .company-name {
+            font-size: 1.5em;
+            font-weight: 700;
+            color: #60a5fa;
+        }
+
+        .company-badge {
+            font-size: 0.8em;
+            padding: 4px 12px;
+            border-radius: 20px;
+            background-color: rgba(59, 130, 246, 0.3);
+            border: 1px solid #3b82f6;
+        }
+
+        .toggle-icon {
+            font-size: 1.5em;
+            transition: transform 0.3s ease;
+        }
+
+        .battlecard.collapsed .toggle-icon {
+            transform: rotate(180deg);
+        }
+
+        .battlecard-content {
+            padding: 20px;
+            max-height: 1000px;
+            overflow: hidden;
+            transition: max-height 0.3s ease, padding 0.3s ease;
+        }
+
+        .battlecard.collapsed .battlecard-content {
+            max-height: 0;
+            padding: 0 20px;
+        }
+
+        .card-section {
+            margin-bottom: 20px;
+        }
+
+        .card-section:last-child {
+            margin-bottom: 0;
+        }
+
+        .card-label {
+            font-weight: 700;
+            color: #3b82f6;
+            font-size: 0.9em;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            margin-bottom: 8px;
+        }
+
+        .card-value {
+            color: #e2e8f0;
+            line-height: 1.6;
+        }
+
+        .strength-list, .weakness-list {
+            list-style: none;
+            margin-left: 0;
+        }
+
+        .strength-list li, .weakness-list li {
+            padding: 6px 0;
+            padding-left: 20px;
+            position: relative;
+        }
+
+        .strength-list li:before {
+            content: "✓";
+            position: absolute;
+            left: 0;
+            color: #4ade80;
+            font-weight: bold;
+        }
+
+        .weakness-list li:before {
+            content: "✗";
+            position: absolute;
+            left: 0;
+            color: #ef4444;
+            font-weight: bold;
+        }
+
+        .talking-point {
+            background-color: rgba(59, 130, 246, 0.1);
+            border-left: 3px solid #3b82f6;
+            padding: 12px;
+            margin: 8px 0;
+            border-radius: 4px;
+            font-size: 0.95em;
+        }
+
+        /* Anyscale Reference Card */
+        .reference-card {
+            background: linear-gradient(135deg, rgba(59, 130, 246, 0.15), rgba(96, 165, 250, 0.08));
+            border: 2px solid #3b82f6;
+            border-radius: 8px;
+            padding: 30px;
+            margin-bottom: 40px;
+        }
+
+        .reference-card .company-name {
+            margin-bottom: 15px;
+        }
+
+        /* Quick Response Cards */
+        .quick-response-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 15px;
+            margin-bottom: 40px;
+        }
+
+        .quick-response {
+            background-color: #1a2235;
+            border: 1px solid #1e2d42;
+            border-radius: 8px;
+            padding: 20px;
+            transition: all 0.3s ease;
+        }
+
+        .quick-response:hover {
+            border-color: #f59e0b;
+            box-shadow: 0 0 15px rgba(245, 158, 11, 0.2);
+        }
+
+        .objection {
+            font-weight: 700;
+            color: #f59e0b;
+            margin-bottom: 10px;
+            font-size: 0.95em;
+        }
+
+        .response {
+            color: #cbd5e1;
+            font-size: 0.95em;
+            line-height: 1.5;
+        }
+
+        /* Win/Loss Summary */
+        .win-loss-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 20px;
+            margin-bottom: 40px;
+        }
+
+        .win-loss-card {
+            background-color: #1a2235;
+            border: 1px solid #1e2d42;
+            border-radius: 8px;
+            padding: 20px;
+            text-align: center;
+        }
+
+        .win-loss-card.win {
+            border-left: 4px solid #4ade80;
+        }
+
+        .win-loss-card.loss {
+            border-left: 4px solid #ef4444;
+        }
+
+        .win-loss-stat {
+            font-size: 2.5em;
+            font-weight: 700;
+            margin: 15px 0;
+            color: #60a5fa;
+        }
+
+        .win-loss-card.win .win-loss-stat {
+            color: #4ade80;
+        }
+
+        .win-loss-card.loss .win-loss-stat {
+            color: #ef4444;
+        }
+
+        .win-loss-label {
+            color: #a0aec0;
+            font-size: 0.9em;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .win-loss-detail {
+            margin-top: 15px;
+            padding-top: 15px;
+            border-top: 1px solid #1e2d42;
+            color: #cbd5e1;
+            font-size: 0.85em;
+        }
+
+        /* Footer */
+        footer {
+            text-align: center;
+            padding-top: 30px;
+            border-top: 1px solid #1e2d42;
+            color: #6b7280;
+            font-size: 0.9em;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            h1 {
+                font-size: 1.8em;
+            }
+
+            .section-title {
+                font-size: 1.4em;
+            }
+
+            .battlecards-grid {
+                grid-template-columns: 1fr;
+            }
+
+            table {
+                font-size: 0.9em;
+            }
+
+            th, td {
+                padding: 10px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>Anyscale Competitive Battlecards</h1>
+            <p class="subtitle">Account Planning Hub - Competitive Intelligence</p>
+        </header>
+
+        <!-- Reference Card: Anyscale -->
+        <div class="reference-card">
+            <div class="company-name">Anyscale (Us)</div>
+            <div class="card-section">
+                <div class="card-label">Product</div>
+                <div class="card-value">Anyscale Platform - Managed Ray for Distributed ML</div>
+            </div>
+            <div class="card-section">
+                <div class="card-label">Key Strengths</div>
+                <ul class="strength-list">
+                    <li>Built on open-source Ray - the de facto standard for distributed ML</li>
+                    <li>Unified ML platform: Train, Serve, Data, Tune in one ecosystem</li>
+                    <li>Scales to thousands of nodes with true distributed computing</li>
+                    <li>Python-native design, familiar for ML engineers</li>
+                    <li>Flexible, open architecture - no vendor lock-in</li>
+                </ul>
+            </div>
+            <div class="card-section">
+                <div class="card-label">Core Differentiator</div>
+                <div class="card-value" style="color: #4ade80; font-weight: 600;">Only platform built on Ray, the de facto standard for distributed machine learning. Offers the most flexible, Pythonic, and scalable approach to ML infrastructure.</div>
+            </div>
+        </div>
+
+        <!-- Comparison Matrix -->
+        <div class="section-title">Feature Comparison Matrix</div>
+        <div class="matrix-wrapper">
+            <table>
+                <thead>
+                    <tr>
+                        <th>Feature / Capability</th>
+                        <th>Anyscale</th>
+                        <th>Databricks</th>
+                        <th>Modal</th>
+                        <th>Together AI</th>
+                        <th>SageMaker</th>
+                        <th>Vertex AI</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td class="feature-name">Distributed Training</td>
+                        <td><span class="check">✓</span></td>
+                        <td><span class="partial">~</span></td>
+                        <td><span class="cross">✗</span></td>
+                        <td><span class="cross">✗</span></td>
+                        <td><span class="check">✓</span></td>
+                        <td><span class="check">✓</span></td>
+                    </tr>
+                    <tr>
+                        <td class="feature-name">Production Serving at Scale</td>
+                        <td><span class="check">✓</span></td>
+                        <td><span class="partial">~</span></td>
+                        <td><span class="cross">✗</span></td>
+                        <td><span class="check">✓</span></td>
+                        <td><span class="check">✓</span></td>
+                        <td><span class="check">✓</span></td>
+                    </tr>
+                    <tr>
+                        <td class="feature-name">Hyperparameter Tuning</td>
+                        <td><span class="check">✓</span></td>
+                        <td><span class="partial">~</span></td>
+                        <td><span class="cross">✗</span></td>
+                        <td><span class="cross">✗</span></td>
+                        <td><span class="check">✓</span></td>
+                        <td><span class="check">✓</span></td>
+                    </tr>
+                    <tr>
+                        <td class="feature-name">Python-Native Workflows</td>
+                        <td><span class="check">✓</span></td>
+                        <td><span class="partial">~</span></td>
+                        <td><span class="check">✓</span></td>
+                        <td><span class="partial">~</span></td>
+                        <td><span class="partial">~</span></td>
+                        <td><span class="partial">~</span></td>
+                    </tr>
+                    <tr>
+                        <td class="feature-name">Multi-Cloud / Portability</td>
+                        <td><span class="check">✓</span></td>
+                        <td><span class="cross">✗</span></td>
+                        <td><span class="check">✓</span></td>
+                        <td><span class="partial">~</span></td>
+                        <td><span class="cross">✗</span></td>
+                        <td><span class="cross">✗</span></td>
+                    </tr>
+                    <tr>
+                        <td class="feature-name">Open Source Foundation</td>
+                        <td><span class="check">✓</span></td>
+                        <td><span class="partial">~</span></td>
+                        <td><span class="check">✓</span></td>
+                        <td><span class="check">✓</span></td>
+                        <td><span class="cross">✗</span></td>
+                        <td><span class="cross">✗</span></td>
+                    </tr>
+                    <tr>
+                        <td class="feature-name">Enterprise Security / Compliance</td>
+                        <td><span class="check">✓</span></td>
+                        <td><span class="check">✓</span></td>
+                        <td><span class="partial">~</span></td>
+                        <td><span class="cross">✗</span></td>
+                        <td><span class="check">✓</span></td>
+                        <td><span class="check">✓</span></td>
+                    </tr>
+                    <tr>
+                        <td class="feature-name">Cost-Effective at Scale</td>
+                        <td><span class="check">✓</span></td>
+                        <td><span class="cross">✗</span></td>
+                        <td><span class="check">✓</span></td>
+                        <td><span class="check">✓</span></td>
+                        <td><span class="partial">~</span></td>
+                        <td><span class="partial">~</span></td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <!-- Battlecards -->
+        <div class="section-title">Competitive Battlecards</div>
+        <div class="battlecards-grid">
+            <!-- Databricks -->
+            <div class="battlecard">
+                <div class="battlecard-header">
+                    <div>
+                        <div class="company-name">Databricks</div>
+                        <div class="company-badge">Primary Competitor</div>
+                    </div>
+                    <div class="toggle-icon">▼</div>
+                </div>
+                <div class="battlecard-content">
+                    <div class="card-section">
+                        <div class="card-label">Product</div>
+                        <div class="card-value">Databricks ML Platform, MLflow, Mosaic AI</div>
+                    </div>
+                    <div class="card-section">
+                        <div class="card-label">Pricing Model</div>
+                        <div class="card-value">Premium tier - expensive at scale</div>
+                    </div>
+                    <div class="card-section">
+                        <div class="card-label">Strengths</div>
+                        <ul class="strength-list">
+                            <li>Strong enterprise data platform</li>
+                            <li>Deep Spark integration and data processing</li>
+                            <li>MLflow ecosystem and open source credibility</li>
+                            <li>Strong brand and enterprise relationships</li>
+                            <li>Unified analytics (SQL + ML)</li>
+                        </ul>
+                    </div>
+                    <div class="card-section">
+                        <div class="card-label">Weaknesses</div>
+                        <ul class="weakness-list">
+                            <li>Spark-centric, not ML-native</li>
+                            <li>Very expensive at scale</li>
+                            <li>Strong vendor lock-in</li>
+                            <li>Less flexible for custom training workflows</li>
+                            <li>Slower iteration on ML-specific features</li>
+                        </ul>
+                    </div>
+                    <div class="card-section">
+                        <div class="card-label">When They Win</div>
+                        <div class="card-value">Data-heavy enterprises already deep in Spark ecosystem; teams needing unified analytics + ML</div>
+                    </div>
+                    <div class="card-section">
+                        <div class="card-label">How to Beat Them</div>
+                        <div class="talking-point"><strong>1. ML-First Design:</strong> Ray was built for ML from the ground up, while Spark optimizes for data processing. Show how Anyscale's ML-native architecture enables faster iterations and better performance.</div>
+                        <div class="talking-point"><strong>2. Training Performance:</strong> Demonstrate 3x faster distributed training benchmarks vs. Databricks on comparable workloads. Show cost savings on training compute.</div>
+                        <div class="talking-point"><strong>3. Python Purity + Flexibility:</strong> Emphasize Anyscale's Python-native approach and Ray ecosystem flexibility. Highlight how Ray supports custom algorithms Spark struggles with (reinforcement learning, async compute, etc.).</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Modal -->
+            <div class="battlecard">
+                <div class="battlecard-header">
+                    <div>
+                        <div class="company-name">Modal</div>
+                        <div class="company-badge">Emerging Competitor</div>
+                    </div>
+                    <div class="toggle-icon">▼</div>
+                </div>
+                <div class="battlecard-content">
+                    <div class="card-section">
+                        <div class="card-label">Product</div>
+                        <div class="card-value">Serverless GPU Compute Platform</div>
+                    </div>
+                    <div class="card-section">
+                        <div class="card-label">Strengths</div>
+                        <ul class="strength-list">
+                            <li>Excellent developer experience</li>
+                            <li>Serverless simplicity - no infrastructure management</li>
+                            <li>Fast cold starts and quick deployment</li>
+                            <li>Great for small ML teams and startups</li>
+                        </ul>
+                    </div>
+                    <div class="card-section">
+                        <div class="card-label">Weaknesses</div>
+                        <ul class="weakness-list">
+                            <li>No distributed training capabilities</li>
+                            <li>Limited to single-node execution</li>
+                            <li>No production serving infrastructure at scale</li>
+                            <li>Not designed for large-scale ML workloads</li>
+                            <li>Limited enterprise features and SLAs</li>
+                        </ul>
+                    </div>
+                    <div class="card-section">
+                        <div class="card-label">When They Win</div>
+                        <div class="card-value">Simple inference workloads, developer-first teams, low-complexity projects, prototype/MVP phase</div>
+                    </div>
+                    <div class="card-section">
+                        <div class="card-label">How to Beat Them</div>
+                        <div class="talking-point"><strong>Scale Story:</strong> As workloads grow, Modal hits limitations. Show distributed training and large-scale serving capabilities.</div>
+                        <div class="talking-point"><strong>Enterprise Features:</strong> Highlight VPC networking, security, SLAs, and production guarantees Anyscale offers.</div>
+                        <div class="talking-point"><strong>Unified Lifecycle:</strong> Position Anyscale as the evolution when teams outgrow serverless simplicity and need real ML infrastructure.</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Together AI -->
+            <div class="battlecard">
+                <div class="battlecard-header">
+                    <div>
+                        <div class="company-name">Together AI</div>
+                        <div class="company-badge">Competitor</div>
+                    </div>
+                    <div class="toggle-icon">▼</div>
+                </div>
+                <div class="battlecard-content">
+                    <div class="card-section">
+                        <div class="card-label">Product</div>
+                        <div class="card-value">GPU Cloud for AI Inference and Open Model Hosting</div>
+                    </div>
+                    <div class="card-section">
+                        <div class="card-label">Strengths</div>
+                        <ul class="strength-list">
+                            <li>Very cheap inference pricing</li>
+                            <li>Open model catalog and hosting</li>
+                            <li>Good for LLM serving use cases</li>
+                            <li>Simple, focused value proposition</li>
+                        </ul>
+                    </div>
+                    <div class="card-section">
+                        <div class="card-label">Weaknesses</div>
+                        <ul class="weakness-list">
+                            <li>No training platform or capabilities</li>
+                            <li>Limited customization for models</li>
+                            <li>No enterprise features or support</li>
+                            <li>Inference-only, not a full ML platform</li>
+                            <li>No distributed computing for ML tasks</li>
+                        </ul>
+                    </div>
+                    <div class="card-section">
+                        <div class="card-label">When They Win</div>
+                        <div class="card-value">Cost-sensitive inference-only use cases, open model serving, teams using pre-trained models</div>
+                    </div>
+                    <div class="card-section">
+                        <div class="card-label">How to Beat Them</div>
+                        <div class="talking-point"><strong>Full Lifecycle Story:</strong> Emphasize train + serve + tune as a complete platform. Together AI is incomplete - customers need training capabilities.</div>
+                        <div class="talking-point"><strong>Custom Model Support:</strong> Show how Anyscale supports fine-tuning, custom training, and production inference for proprietary models.</div>
+                        <div class="talking-point"><strong>Enterprise Grade:</strong> Together AI lacks SLAs, security, and support. Position Anyscale for serious production workloads.</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- SageMaker -->
+            <div class="battlecard">
+                <div class="battlecard-header">
+                    <div>
+                        <div class="company-name">AWS SageMaker</div>
+                        <div class="company-badge">Competitor</div>
+                    </div>
+                    <div class="toggle-icon">▼</div>
+                </div>
+                <div class="battlecard-content">
+                    <div class="card-section">
+                        <div class="card-label">Product</div>
+                        <div class="card-value">Amazon SageMaker - AWS ML Platform</div>
+                    </div>
+                    <div class="card-section">
+                        <div class="card-label">Strengths</div>
+                        <ul class="strength-list">
+                            <li>Tight AWS ecosystem integration</li>
+                            <li>Enterprise trust and AWS relationships</li>
+                            <li>Broad feature set and tooling</li>
+                            <li>Strong governance and compliance features</li>
+                        </ul>
+                    </div>
+                    <div class="card-section">
+                        <div class="card-label">Weaknesses</div>
+                        <ul class="weakness-list">
+                            <li>Very complex - steep learning curve</li>
+                            <li>Strong AWS vendor lock-in</li>
+                            <li>Slower iteration and innovation cycles</li>
+                            <li>Expensive at scale, hidden costs</li>
+                            <li>Not optimized for modern distributed ML</li>
+                        </ul>
+                    </div>
+                    <div class="card-section">
+                        <div class="card-label">When They Win</div>
+                        <div class="card-value">AWS-locked enterprises, teams with existing heavy AWS investment, organizations with strong AWS relationships</div>
+                    </div>
+                    <div class="card-section">
+                        <div class="card-label">How to Beat Them</div>
+                        <div class="talking-point"><strong>Portability:</strong> Highlight multi-cloud flexibility and no vendor lock-in. Show how Ray works across AWS, GCP, Azure, on-premises.</div>
+                        <div class="talking-point"><strong>Faster Iteration:</strong> Anyscale innovates faster on ML-specific features. Show monthly releases vs. SageMaker's slower cadence.</div>
+                        <div class="talking-point"><strong>Cost & Simplicity:</strong> Demonstrate lower total cost of ownership and simpler developer experience with unified Ray API vs. SageMaker's complexity.</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Vertex AI -->
+            <div class="battlecard">
+                <div class="battlecard-header">
+                    <div>
+                        <div class="company-name">Google Vertex AI</div>
+                        <div class="company-badge">Competitor</div>
+                    </div>
+                    <div class="toggle-icon">▼</div>
+                </div>
+                <div class="battlecard-content">
+                    <div class="card-section">
+                        <div class="card-label">Product</div>
+                        <div class="card-value">Google Vertex AI - GCP ML Platform</div>
+                    </div>
+                    <div class="card-section">
+                        <div class="card-label">Strengths</div>
+                        <ul class="strength-list">
+                            <li>Google pedigree and AI expertise</li>
+                            <li>TPU access and hardware optimization</li>
+                            <li>AutoML and low-code capabilities</li>
+                            <li>Strong for deep learning workloads</li>
+                        </ul>
+                    </div>
+                    <div class="card-section">
+                        <div class="card-label">Weaknesses</div>
+                        <ul class="weakness-list">
+                            <li>GCP lock-in - not multi-cloud</li>
+                            <li>Limited customization for advanced users</li>
+                            <li>Less flexible for unique ML workflows</li>
+                            <li>AutoML comes with limited model control</li>
+                            <li>High cost with TPU usage</li>
+                        </ul>
+                    </div>
+                    <div class="card-section">
+                        <div class="card-label">When They Win</div>
+                        <div class="card-value">GCP-locked organizations, teams wanting AutoML, workloads optimized for TPU, Google Workspace integrated teams</div>
+                    </div>
+                    <div class="card-section">
+                        <div class="card-label">How to Beat Them</div>
+                        <div class="talking-point"><strong>Flexibility & Open Source:</strong> Anyscale's Ray foundation offers far more flexibility than AutoML constraints. Show custom model support and advanced algorithms.</div>
+                        <div class="talking-point"><strong>Multi-Cloud Strategy:</strong> Position portability as strategic advantage. Anyscale works across GCP, AWS, Azure without lock-in.</div>
+                        <div class="talking-point"><strong>Developer Control:</strong> Emphasize that advanced ML teams need low-level control that Vertex AI's AutoML approach doesn't provide.</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Quick Response Cards -->
+        <div class="section-title">Quick Response Objections</div>
+        <div class="quick-response-grid">
+            <div class="quick-response">
+                <div class="objection">"Databricks is the market leader"</div>
+                <div class="response">True, but they're optimized for data processing, not ML. Ray was built for distributed ML. Our customers see 3x faster training and significantly lower costs because we're ML-first.</div>
+            </div>
+            <div class="quick-response">
+                <div class="objection">"We're already on AWS with SageMaker"</div>
+                <div class="response">SageMaker works, but you're locked in to AWS and pay AWS tax. Anyscale works across all clouds. Try deploying your SageMaker model to Azure - it's painful. With Anyscale, you retain portability.</div>
+            </div>
+            <div class="quick-response">
+                <div class="objection">"Modal is simpler and cheaper"</div>
+                <div class="response">Modal is great for simple inference. But when you need to train models at scale or serve production traffic, Modal hits hard limits. We're designed for the entire ML lifecycle.</div>
+            </div>
+            <div class="quick-response">
+                <div class="objection">"Together AI has cheaper inference"</div>
+                <div class="response">Together AI does inference cheap, but has zero training capabilities. If you're training custom models, you're paying 2x for separate platforms. Anyscale's unified platform saves money across the entire workflow.</div>
+            </div>
+            <div class="quick-response">
+                <div class="objection">"Our team is already trained on Spark/Databricks"</div>
+                <div class="response">Fair point, but Ray is actually easier for ML than Spark. In 2-3 weeks, your team will be productive on Ray. The upside is enormous - faster model development, lower costs, and flexibility your current setup doesn't have.</div>
+            </div>
+            <div class="quick-response">
+                <div class="objection">"We need AutoML like Vertex AI offers"</div>
+                <div class="response">AutoML is good for simple use cases, but gives you black-box models. Production ML teams want control. Ray + Anyscale gives you both: tools for quick experimentation AND full control when you need custom models and algorithms.</div>
+            </div>
+        </div>
+
+        <!-- Win/Loss Summary -->
+        <div class="section-title">Win / Loss Summary</div>
+        <div class="win-loss-container">
+            <div class="win-loss-card win">
+                <div class="win-loss-label">Wins vs. Databricks</div>
+                <div class="win-loss-stat">34%</div>
+                <div class="win-loss-detail">
+                    <strong>Drivers:</strong> Cost sensitivity, ML-first requirements, multi-cloud needs
+                </div>
+            </div>
+            <div class="win-loss-card loss">
+                <div class="win-loss-label">Losses vs. Databricks</div>
+                <div class="win-loss-stat">45%</div>
+                <div class="win-loss-detail">
+                    <strong>Drivers:</strong> Spark ecosystem lock-in, existing Databricks deployments, data platform consolidation
+                </div>
+            </div>
+            <div class="win-loss-card win">
+                <div class="win-loss-label">Wins vs. SageMaker</div>
+                <div class="win-loss-stat">52%</div>
+                <div class="win-loss-detail">
+                    <strong>Drivers:</strong> Portability concerns, cost optimization, complexity reduction
+                </div>
+            </div>
+            <div class="win-loss-card loss">
+                <div class="win-loss-label">Losses vs. SageMaker</div>
+                <div class="win-loss-stat">28%</div>
+                <div class="win-loss-detail">
+                    <strong>Drivers:</strong> AWS ecosystem preference, existing AWS investment
+                </div>
+            </div>
+            <div class="win-loss-card win">
+                <div class="win-loss-label">Wins vs. Modal</div>
+                <div class="win-loss-stat">78%</div>
+                <div class="win-loss-detail">
+                    <strong>Drivers:</strong> Scale requirements, distributed training, production serving
+                </div>
+            </div>
+            <div class="win-loss-card loss">
+                <div class="win-loss-label">Losses vs. Modal</div>
+                <div class="win-loss-stat">15%</div>
+                <div class="win-loss-detail">
+                    <strong>Drivers:</strong> Simplicity preference, small teams, prototype phase
+                </div>
+            </div>
+            <div class="win-loss-card win">
+                <div class="win-loss-label">Wins vs. Together AI</div>
+                <div class="win-loss-stat">85%</div>
+                <div class="win-loss-detail">
+                    <strong>Drivers:</strong> Training needs, full lifecycle, custom models
+                </div>
+            </div>
+            <div class="win-loss-card loss">
+                <div class="win-loss-label">Losses vs. Together AI</div>
+                <div class="win-loss-stat">8%</div>
+                <div class="win-loss-detail">
+                    <strong>Drivers:</strong> Pure inference-only use cases, cost-driven decisions
+                </div>
+            </div>
+        </div>
+
+        <footer>
+            <p>Anyscale Competitive Intelligence | Account Planning Hub | Last Updated: 2026</p>
+            <p style="margin-top: 10px; color: #4b5563;">This battlecard resource is confidential and for Anyscale teams only.</p>
+        </footer>
+    </div>
+
+    <script>
+        // Toggle battlecard expand/collapse
+        document.querySelectorAll('.battlecard-header').forEach(header => {
+            header.addEventListener('click', function() {
+                const card = this.closest('.battlecard');
+                card.classList.toggle('collapsed');
+            });
+        });
+
+        // Smooth scroll on page load
+        window.addEventListener('load', function() {
+            document.body.style.opacity = '1';
+        });
+    </script>
+</body>
+</html>

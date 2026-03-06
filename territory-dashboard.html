@@ -1,0 +1,934 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Territory Dashboard — Dylan Wingrove | Anyscale Account Planning Hub</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            background-color: #0b0f1a;
+            color: #f0f4ff;
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+            line-height: 1.6;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        /* Header */
+        .header {
+            margin-bottom: 32px;
+            border-bottom: 1px solid #1e2d42;
+            padding-bottom: 24px;
+        }
+
+        .header h1 {
+            font-size: 32px;
+            font-weight: 700;
+            margin-bottom: 8px;
+        }
+
+        .header p {
+            color: #9ca3af;
+            font-size: 14px;
+        }
+
+        /* KPI Cards */
+        .kpi-section {
+            margin-bottom: 32px;
+        }
+
+        .kpi-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 16px;
+        }
+
+        .kpi-card {
+            background-color: #1a2235;
+            border: 1px solid #1e2d42;
+            border-radius: 8px;
+            padding: 20px;
+            transition: border-color 0.2s ease;
+        }
+
+        .kpi-card:hover {
+            border-color: #3b82f6;
+        }
+
+        .kpi-label {
+            font-size: 12px;
+            color: #9ca3af;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            margin-bottom: 12px;
+        }
+
+        .kpi-value {
+            font-size: 28px;
+            font-weight: 700;
+            color: #3b82f6;
+            margin-bottom: 8px;
+        }
+
+        .kpi-card.pipeline .kpi-value {
+            color: #10b981;
+        }
+
+        .kpi-card.contacts .kpi-value {
+            color: #f59e0b;
+        }
+
+        .kpi-card.emails .kpi-value {
+            color: #8b5cf6;
+        }
+
+        .kpi-card.meetings .kpi-value {
+            color: #ef4444;
+        }
+
+        .kpi-card.winrate .kpi-value {
+            color: #6366f1;
+        }
+
+        .kpi-meta {
+            font-size: 12px;
+            color: #6b7280;
+        }
+
+        /* Main Grid */
+        .dashboard-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 24px;
+            margin-bottom: 24px;
+        }
+
+        @media (max-width: 1200px) {
+            .dashboard-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        /* Section Cards */
+        .section-card {
+            background-color: #1a2235;
+            border: 1px solid #1e2d42;
+            border-radius: 8px;
+            padding: 24px;
+        }
+
+        .section-title {
+            font-size: 16px;
+            font-weight: 600;
+            margin-bottom: 20px;
+            color: #f0f4ff;
+        }
+
+        /* Pipeline by Tier */
+        .tier-bar {
+            margin-bottom: 16px;
+        }
+
+        .tier-label {
+            display: flex;
+            justify-content: space-between;
+            font-size: 13px;
+            margin-bottom: 8px;
+            color: #d1d5db;
+        }
+
+        .tier-bar-container {
+            display: flex;
+            height: 32px;
+            background-color: #0f1419;
+            border-radius: 4px;
+            overflow: hidden;
+            gap: 2px;
+        }
+
+        .tier-bar-segment {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 11px;
+            font-weight: 600;
+            color: white;
+        }
+
+        .tier-bar-1 {
+            background: linear-gradient(135deg, #3b82f6 0%, #2563eb 100%);
+            width: 51%;
+        }
+
+        .tier-bar-2 {
+            background: linear-gradient(135deg, #10b981 0%, #059669 100%);
+            width: 36%;
+        }
+
+        .tier-bar-3 {
+            background: linear-gradient(135deg, #f59e0b 0%, #d97706 100%);
+            width: 12%;
+        }
+
+        .tier-bar-4 {
+            background: linear-gradient(135deg, #6b7280 0%, #4b5563 100%);
+            width: 1%;
+        }
+
+        /* Account Coverage Matrix */
+        .coverage-item {
+            margin-bottom: 18px;
+        }
+
+        .coverage-label {
+            display: flex;
+            justify-content: space-between;
+            font-size: 13px;
+            margin-bottom: 6px;
+            color: #d1d5db;
+        }
+
+        .progress-bar {
+            height: 8px;
+            background-color: #0f1419;
+            border-radius: 4px;
+            overflow: hidden;
+        }
+
+        .progress-fill {
+            height: 100%;
+            background: linear-gradient(90deg, #3b82f6 0%, #1d4ed8 100%);
+            transition: width 0.3s ease;
+            border-radius: 4px;
+        }
+
+        .coverage-item:nth-child(2) .progress-fill {
+            background: linear-gradient(90deg, #10b981 0%, #047857 100%);
+        }
+
+        .coverage-item:nth-child(3) .progress-fill {
+            background: linear-gradient(90deg, #f59e0b 0%, #d97706 100%);
+        }
+
+        .coverage-item:nth-child(4) .progress-fill {
+            background: linear-gradient(90deg, #8b5cf6 0%, #7c3aed 100%);
+        }
+
+        .coverage-item:nth-child(5) .progress-fill {
+            background: linear-gradient(90deg, #ec4899 0%, #be185d 100%);
+        }
+
+        /* Industry Breakdown Pie */
+        .industry-pie {
+            display: flex;
+            align-items: center;
+            gap: 24px;
+        }
+
+        .pie-chart {
+            width: 160px;
+            height: 160px;
+            border-radius: 50%;
+            background: conic-gradient(
+                #3b82f6 0deg 100.8deg,
+                #10b981 100.8deg 154.8deg,
+                #f59e0b 154.8deg 197.28deg,
+                #8b5cf6 197.28deg 233.28deg,
+                #ef4444 233.28deg 261.12deg,
+                #6b7280 261.12deg 360deg
+            );
+            position: relative;
+            flex-shrink: 0;
+        }
+
+        .pie-center {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 120px;
+            height: 120px;
+            background-color: #1a2235;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 13px;
+            color: #9ca3af;
+            text-align: center;
+        }
+
+        .industry-list {
+            flex: 1;
+        }
+
+        .industry-item {
+            display: flex;
+            align-items: center;
+            margin-bottom: 12px;
+            font-size: 13px;
+        }
+
+        .industry-dot {
+            width: 10px;
+            height: 10px;
+            border-radius: 2px;
+            margin-right: 10px;
+            flex-shrink: 0;
+        }
+
+        .industry-dot-1 { background-color: #3b82f6; }
+        .industry-dot-2 { background-color: #10b981; }
+        .industry-dot-3 { background-color: #f59e0b; }
+        .industry-dot-4 { background-color: #8b5cf6; }
+        .industry-dot-5 { background-color: #ef4444; }
+        .industry-dot-6 { background-color: #6b7280; }
+
+        .industry-name {
+            flex: 1;
+            color: #d1d5db;
+        }
+
+        .industry-count {
+            color: #9ca3af;
+            font-weight: 600;
+            min-width: 35px;
+            text-align: right;
+        }
+
+        /* Activity Timeline */
+        .timeline {
+            position: relative;
+            padding: 0;
+        }
+
+        .timeline-item {
+            display: flex;
+            gap: 16px;
+            margin-bottom: 20px;
+            position: relative;
+            padding-left: 0;
+        }
+
+        .timeline-item:not(:last-child)::before {
+            content: '';
+            position: absolute;
+            left: 20px;
+            top: 48px;
+            width: 2px;
+            height: 32px;
+            background-color: #1e2d42;
+        }
+
+        .timeline-marker {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, #3b82f6 0%, #1d4ed8 100%);
+            border: 2px solid #1a2235;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
+            font-size: 12px;
+        }
+
+        .timeline-item:nth-child(2) .timeline-marker {
+            background: linear-gradient(135deg, #10b981 0%, #047857 100%);
+        }
+
+        .timeline-item:nth-child(3) .timeline-marker {
+            background: linear-gradient(135deg, #f59e0b 0%, #d97706 100%);
+        }
+
+        .timeline-item:nth-child(4) .timeline-marker {
+            background: linear-gradient(135deg, #8b5cf6 0%, #7c3aed 100%);
+        }
+
+        .timeline-content {
+            padding-top: 8px;
+        }
+
+        .timeline-date {
+            font-size: 11px;
+            color: #9ca3af;
+            margin-bottom: 4px;
+        }
+
+        .timeline-event {
+            font-size: 13px;
+            color: #d1d5db;
+            font-weight: 500;
+        }
+
+        /* Territory Health Score */
+        .health-score-container {
+            text-align: center;
+            margin-bottom: 24px;
+        }
+
+        .health-score-ring {
+            width: 180px;
+            height: 180px;
+            border-radius: 50%;
+            background: conic-gradient(
+                #3b82f6 0deg 259.2deg,
+                #0f1419 259.2deg 360deg
+            );
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 20px;
+            position: relative;
+        }
+
+        .health-score-inner {
+            width: 160px;
+            height: 160px;
+            background-color: #1a2235;
+            border-radius: 50%;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .health-score-value {
+            font-size: 48px;
+            font-weight: 700;
+            color: #3b82f6;
+        }
+
+        .health-score-label {
+            font-size: 11px;
+            color: #9ca3af;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .health-breakdown {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 12px;
+            margin-top: 20px;
+        }
+
+        .health-item {
+            background-color: #0f1419;
+            border-radius: 6px;
+            padding: 12px;
+            text-align: center;
+        }
+
+        .health-item-value {
+            font-size: 20px;
+            font-weight: 700;
+            color: #3b82f6;
+            margin-bottom: 4px;
+        }
+
+        .health-item-label {
+            font-size: 11px;
+            color: #9ca3af;
+        }
+
+        /* Top Opportunities Table */
+        .full-width {
+            grid-column: 1 / -1;
+        }
+
+        .table-container {
+            overflow-x: auto;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        thead {
+            border-bottom: 1px solid #1e2d42;
+        }
+
+        th {
+            padding: 12px;
+            text-align: left;
+            font-size: 12px;
+            font-weight: 600;
+            color: #9ca3af;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        td {
+            padding: 14px 12px;
+            border-bottom: 1px solid #1e2d42;
+            font-size: 13px;
+        }
+
+        tr:hover {
+            background-color: rgba(59, 130, 246, 0.05);
+        }
+
+        .account-name {
+            color: #f0f4ff;
+            font-weight: 500;
+        }
+
+        .stage-badge {
+            display: inline-block;
+            padding: 4px 8px;
+            border-radius: 4px;
+            font-size: 11px;
+            font-weight: 600;
+        }
+
+        .stage-prospect {
+            background-color: rgba(59, 130, 246, 0.2);
+            color: #93c5fd;
+        }
+
+        .stage-engaged {
+            background-color: rgba(16, 185, 129, 0.2);
+            color: #86efac;
+        }
+
+        .stage-qualified {
+            background-color: rgba(245, 158, 11, 0.2);
+            color: #fcd34d;
+        }
+
+        .value {
+            color: #10b981;
+            font-weight: 600;
+        }
+
+        .next-step {
+            color: #9ca3af;
+            font-size: 12px;
+        }
+
+        .tier-badge {
+            display: inline-block;
+            padding: 4px 8px;
+            border-radius: 4px;
+            font-size: 11px;
+            font-weight: 600;
+        }
+
+        .tier-1 {
+            background-color: rgba(59, 130, 246, 0.2);
+            color: #93c5fd;
+        }
+
+        .tier-2 {
+            background-color: rgba(16, 185, 129, 0.2);
+            color: #86efac;
+        }
+
+        .tier-3 {
+            background-color: rgba(245, 158, 11, 0.2);
+            color: #fcd34d;
+        }
+
+        .tier-4 {
+            background-color: rgba(107, 114, 128, 0.2);
+            color: #d1d5db;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .kpi-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            .header h1 {
+                font-size: 24px;
+            }
+
+            .health-breakdown {
+                grid-template-columns: 1fr;
+            }
+
+            .industry-pie {
+                flex-direction: column;
+                align-items: center;
+            }
+
+            table {
+                font-size: 12px;
+            }
+
+            td, th {
+                padding: 10px 8px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <!-- Header -->
+        <div class="header">
+            <h1>Territory Dashboard — Dylan Wingrove</h1>
+            <p>Anyscale AE • Bay Area / AI-Native Accounts</p>
+        </div>
+
+        <!-- KPI Cards -->
+        <div class="kpi-section">
+            <div class="kpi-grid">
+                <div class="kpi-card">
+                    <div class="kpi-label">Total Accounts</div>
+                    <div class="kpi-value">99</div>
+                    <div class="kpi-meta">Active territory</div>
+                </div>
+                <div class="kpi-card pipeline">
+                    <div class="kpi-label">Total Pipeline</div>
+                    <div class="kpi-value">$2.8M</div>
+                    <div class="kpi-meta">Across all tiers</div>
+                </div>
+                <div class="kpi-card contacts">
+                    <div class="kpi-label">Contacts Identified</div>
+                    <div class="kpi-value">231</div>
+                    <div class="kpi-meta">2.3 per account avg</div>
+                </div>
+                <div class="kpi-card emails">
+                    <div class="kpi-label">Emails Sent</div>
+                    <div class="kpi-value">287</div>
+                    <div class="kpi-meta">Last 30 days</div>
+                </div>
+                <div class="kpi-card meetings">
+                    <div class="kpi-label">Meetings Booked</div>
+                    <div class="kpi-value">12</div>
+                    <div class="kpi-meta">Active conversations</div>
+                </div>
+                <div class="kpi-card winrate">
+                    <div class="kpi-label">Win Rate</div>
+                    <div class="kpi-value">0%</div>
+                    <div class="kpi-meta">New territory</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Main Dashboard Grid -->
+        <div class="dashboard-grid">
+            <!-- Pipeline by Tier -->
+            <div class="section-card">
+                <div class="section-title">Pipeline by Tier</div>
+
+                <div class="tier-bar">
+                    <div class="tier-label">
+                        <span>Tier 1</span>
+                        <span>$1.43M (11 accounts)</span>
+                    </div>
+                    <div class="tier-bar-container">
+                        <div class="tier-bar-segment tier-bar-1">51%</div>
+                    </div>
+                </div>
+
+                <div class="tier-bar">
+                    <div class="tier-label">
+                        <span>Tier 2</span>
+                        <span>$1.02M (25 accounts)</span>
+                    </div>
+                    <div class="tier-bar-container">
+                        <div class="tier-bar-segment tier-bar-2">36%</div>
+                    </div>
+                </div>
+
+                <div class="tier-bar">
+                    <div class="tier-label">
+                        <span>Tier 3</span>
+                        <span>$340K (23 accounts)</span>
+                    </div>
+                    <div class="tier-bar-container">
+                        <div class="tier-bar-segment tier-bar-3">12%</div>
+                    </div>
+                </div>
+
+                <div class="tier-bar">
+                    <div class="tier-label">
+                        <span>Tier 4</span>
+                        <span>Minimal (40 accounts, watch list)</span>
+                    </div>
+                    <div class="tier-bar-container">
+                        <div class="tier-bar-segment tier-bar-4">1%</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Account Coverage Matrix -->
+            <div class="section-card">
+                <div class="section-title">Account Coverage Matrix</div>
+
+                <div class="coverage-item">
+                    <div class="coverage-label">
+                        <span>Account Plans</span>
+                        <span>100%</span>
+                    </div>
+                    <div class="progress-bar">
+                        <div class="progress-fill" style="width: 100%;"></div>
+                    </div>
+                </div>
+
+                <div class="coverage-item">
+                    <div class="coverage-label">
+                        <span>Proof Points</span>
+                        <span>73%</span>
+                    </div>
+                    <div class="progress-bar">
+                        <div class="progress-fill" style="width: 73%;"></div>
+                    </div>
+                </div>
+
+                <div class="coverage-item">
+                    <div class="coverage-label">
+                        <span>Prospect Briefs</span>
+                        <span>66%</span>
+                    </div>
+                    <div class="progress-bar">
+                        <div class="progress-fill" style="width: 66%;"></div>
+                    </div>
+                </div>
+
+                <div class="coverage-item">
+                    <div class="coverage-label">
+                        <span>Email Sequences</span>
+                        <span>7%</span>
+                    </div>
+                    <div class="progress-bar">
+                        <div class="progress-fill" style="width: 7%;"></div>
+                    </div>
+                </div>
+
+                <div class="coverage-item">
+                    <div class="coverage-label">
+                        <span>Contact Data</span>
+                        <span>45%</span>
+                    </div>
+                    <div class="progress-bar">
+                        <div class="progress-fill" style="width: 45%;"></div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Activity Timeline -->
+            <div class="section-card">
+                <div class="section-title">Activity Timeline (Last 30 Days)</div>
+
+                <div class="timeline">
+                    <div class="timeline-item">
+                        <div class="timeline-marker">✓</div>
+                        <div class="timeline-content">
+                            <div class="timeline-date">Day 1</div>
+                            <div class="timeline-event">Built comprehensive Tier 1 account plans</div>
+                        </div>
+                    </div>
+
+                    <div class="timeline-item">
+                        <div class="timeline-marker">✓</div>
+                        <div class="timeline-content">
+                            <div class="timeline-date">Day 7</div>
+                            <div class="timeline-event">Launched 7 targeted email sequences</div>
+                        </div>
+                    </div>
+
+                    <div class="timeline-item">
+                        <div class="timeline-marker">✓</div>
+                        <div class="timeline-content">
+                            <div class="timeline-date">Day 14</div>
+                            <div class="timeline-event">Created Tier 2 proof points & case studies</div>
+                        </div>
+                    </div>
+
+                    <div class="timeline-item">
+                        <div class="timeline-marker">✓</div>
+                        <div class="timeline-content">
+                            <div class="timeline-date">Day 21</div>
+                            <div class="timeline-event">Added Tier 3 & 4 coverage analysis</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Industry Breakdown -->
+            <div class="section-card">
+                <div class="section-title">Industry Breakdown</div>
+
+                <div class="industry-pie">
+                    <div class="pie-chart">
+                        <div class="pie-center">99<br>Accounts</div>
+                    </div>
+                    <div class="industry-list">
+                        <div class="industry-item">
+                            <div class="industry-dot industry-dot-1"></div>
+                            <div class="industry-name">Autonomous Vehicles / Robotics</div>
+                            <div class="industry-count">28</div>
+                        </div>
+                        <div class="industry-item">
+                            <div class="industry-dot industry-dot-2"></div>
+                            <div class="industry-name">AI/ML Infrastructure</div>
+                            <div class="industry-count">15</div>
+                        </div>
+                        <div class="industry-item">
+                            <div class="industry-dot industry-dot-3"></div>
+                            <div class="industry-name">Healthcare / Biotech</div>
+                            <div class="industry-count">12</div>
+                        </div>
+                        <div class="industry-item">
+                            <div class="industry-dot industry-dot-4"></div>
+                            <div class="industry-name">Computer Vision</div>
+                            <div class="industry-count">10</div>
+                        </div>
+                        <div class="industry-item">
+                            <div class="industry-dot industry-dot-5"></div>
+                            <div class="industry-name">FinTech / Enterprise</div>
+                            <div class="industry-count">8</div>
+                        </div>
+                        <div class="industry-item">
+                            <div class="industry-dot industry-dot-6"></div>
+                            <div class="industry-name">Other</div>
+                            <div class="industry-count">26</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Territory Health Score -->
+            <div class="section-card full-width">
+                <div class="section-title">Territory Health Score</div>
+
+                <div style="display: grid; grid-template-columns: 200px 1fr; gap: 40px; align-items: center;">
+                    <div class="health-score-container">
+                        <div class="health-score-ring">
+                            <div class="health-score-inner">
+                                <div class="health-score-value">61</div>
+                                <div class="health-score-label">Overall Score</div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="health-breakdown">
+                        <div class="health-item">
+                            <div class="health-item-value">72</div>
+                            <div class="health-item-label">Coverage</div>
+                        </div>
+                        <div class="health-item">
+                            <div class="health-item-value">65</div>
+                            <div class="health-item-label">Activity</div>
+                        </div>
+                        <div class="health-item">
+                            <div class="health-item-value">58</div>
+                            <div class="health-item-label">Pipeline</div>
+                        </div>
+                        <div class="health-item">
+                            <div class="health-item-value">48</div>
+                            <div class="health-item-label">Engagement</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Top Opportunities Table -->
+        <div class="section-card">
+            <div class="section-title">Top Opportunities (by Pipeline Value)</div>
+
+            <div class="table-container">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Account Name</th>
+                            <th>Tier</th>
+                            <th>Stage</th>
+                            <th>Pipeline Value</th>
+                            <th>Next Step</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td class="account-name">Waymo Inc</td>
+                            <td><span class="tier-badge tier-1">Tier 1</span></td>
+                            <td><span class="stage-badge stage-engaged">Engaged</span></td>
+                            <td class="value">$450K</td>
+                            <td class="next-step">Technical proof-of-concept scheduled</td>
+                        </tr>
+                        <tr>
+                            <td class="account-name">Tesla AI Division</td>
+                            <td><span class="tier-badge tier-1">Tier 1</span></td>
+                            <td><span class="stage-badge stage-prospect">Prospect</span></td>
+                            <td class="value">$380K</td>
+                            <td class="next-step">Follow up after discovery call</td>
+                        </tr>
+                        <tr>
+                            <td class="account-name">Aurora Innovation</td>
+                            <td><span class="tier-badge tier-1">Tier 1</span></td>
+                            <td><span class="stage-badge stage-prospect">Prospect</span></td>
+                            <td class="value">$360K</td>
+                            <td class="next-step">Send industry brief & use case</td>
+                        </tr>
+                        <tr>
+                            <td class="account-name">OpenAI</td>
+                            <td><span class="tier-badge tier-2">Tier 2</span></td>
+                            <td><span class="stage-badge stage-qualified">Qualified</span></td>
+                            <td class="value">$280K</td>
+                            <td class="next-step">Schedule stakeholder meeting</td>
+                        </tr>
+                        <tr>
+                            <td class="account-name">Anthropic</td>
+                            <td><span class="tier-badge tier-2">Tier 2</span></td>
+                            <td><span class="stage-badge stage-prospect">Prospect</span></td>
+                            <td class="value">$250K</td>
+                            <td class="next-step">Identify technical champion</td>
+                        </tr>
+                        <tr>
+                            <td class="account-name">DeepMind / Google</td>
+                            <td><span class="tier-badge tier-2">Tier 2</span></td>
+                            <td><span class="stage-badge stage-prospect">Prospect</span></td>
+                            <td class="value">$220K</td>
+                            <td class="next-step">Execute initial outreach sequence</td>
+                        </tr>
+                        <tr>
+                            <td class="account-name">Cruise LLC</td>
+                            <td><span class="tier-badge tier-2">Tier 2</span></td>
+                            <td><span class="stage-badge stage-prospect">Prospect</span></td>
+                            <td class="value">$195K</td>
+                            <td class="next-step">Personalized discovery call</td>
+                        </tr>
+                        <tr>
+                            <td class="account-name">Boston Dynamics</td>
+                            <td><span class="tier-badge tier-2">Tier 2</span></td>
+                            <td><span class="stage-badge stage-prospect">Prospect</span></td>
+                            <td class="value">$180K</td>
+                            <td class="next-step">Send proof point on robotics</td>
+                        </tr>
+                        <tr>
+                            <td class="account-name">Figure AI</td>
+                            <td><span class="tier-badge tier-2">Tier 2</span></td>
+                            <td><span class="stage-badge stage-prospect">Prospect</span></td>
+                            <td class="value">$165K</td>
+                            <td class="next-step">Research key contacts</td>
+                        </tr>
+                        <tr>
+                            <td class="account-name">Hugging Face</td>
+                            <td><span class="tier-badge tier-2">Tier 2</span></td>
+                            <td><span class="stage-badge stage-prospect">Prospect</span></td>
+                            <td class="value">$148K</td>
+                            <td class="next-step">Initial email outreach</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

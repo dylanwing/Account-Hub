@@ -1,0 +1,461 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Deal Tracker — Pipeline View</title>
+<style>
+:root {
+  --bg: #0b0f1a; --bg2: #111827; --bg3: #1a2235; --bg4: #1e2d42;
+  --text: #f0f4ff; --text2: #8b98b4; --text3: #4f5b78;
+  --bdr: #1e2d42; --acc: #3b82f6;
+}
+* { margin:0; padding:0; box-sizing:border-box; }
+body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; background: var(--bg); color: var(--text); }
+.header { padding: 28px 32px 20px; border-bottom: 1px solid var(--bdr); }
+.header h1 { font-size: 22px; font-weight: 700; }
+.header p { color: var(--text2); font-size: 13px; margin-top: 4px; }
+.stats { display: flex; gap: 16px; padding: 16px 32px; border-bottom: 1px solid var(--bdr); flex-wrap: wrap; }
+.stat { background: var(--bg2); border: 1px solid var(--bdr); border-radius: 10px; padding: 14px 20px; min-width: 140px; }
+.stat-val { font-size: 22px; font-weight: 700; }
+.stat-lbl { font-size: 11px; color: var(--text2); margin-top: 2px; text-transform: uppercase; letter-spacing: .06em; }
+.pipeline { display: flex; gap: 12px; padding: 20px 24px; overflow-x: auto; height: calc(100vh - 180px); }
+.column { min-width: 260px; max-width: 300px; flex: 1; background: var(--bg2); border-radius: 12px; border: 1px solid var(--bdr); display: flex; flex-direction: column; }
+.col-hdr { padding: 14px 16px 10px; border-bottom: 1px solid var(--bdr); display: flex; align-items: center; gap: 10px; }
+.col-dot { width: 10px; height: 10px; border-radius: 50%; }
+.col-name { font-size: 13px; font-weight: 700; flex: 1; }
+.col-cnt { font-size: 11px; background: var(--bg); padding: 2px 8px; border-radius: 10px; color: var(--text2); }
+.col-val { font-size: 10px; color: var(--text3); margin-top: 2px; padding: 0 16px 8px; }
+.col-cards { flex: 1; overflow-y: auto; padding: 8px; display: flex; flex-direction: column; gap: 8px; }
+.col-cards::-webkit-scrollbar { width: 3px; }
+.col-cards::-webkit-scrollbar-thumb { background: var(--bdr); border-radius: 2px; }
+.card { background: var(--bg3); border: 1px solid var(--bdr); border-radius: 10px; padding: 12px 14px; cursor: grab; transition: all .15s; }
+.card:hover { border-color: var(--acc); transform: translateY(-1px); box-shadow: 0 4px 12px rgba(0,0,0,.3); }
+.card-top { display: flex; justify-content: space-between; align-items: start; }
+.card-name { font-size: 13px; font-weight: 600; }
+.card-val { font-size: 12px; font-weight: 700; color: #22c55e; white-space: nowrap; }
+.card-ind { font-size: 11px; color: var(--text2); margin-top: 2px; }
+.card-tier { display: inline-block; font-size: 9px; font-weight: 600; padding: 2px 6px; border-radius: 4px; margin-top: 6px; }
+.t1 { background: rgba(239,68,68,.15); color: #fca5a5; }
+.t2 { background: rgba(245,158,11,.15); color: #fcd34d; }
+.card-contact { font-size: 11px; color: var(--text3); margin-top: 6px; }
+.card-next { font-size: 11px; color: var(--acc); margin-top: 4px; padding: 6px 8px; background: rgba(59,130,246,.08); border-radius: 6px; }
+.card-days { font-size: 10px; color: var(--text3); margin-top: 6px; display: flex; justify-content: space-between; align-items: center; }
+.days-badge { padding: 2px 6px; border-radius: 4px; font-size: 9px; font-weight: 600; }
+.days-ok { background: rgba(34,197,94,.12); color: #86efac; }
+.days-warn { background: rgba(245,158,11,.12); color: #fcd34d; }
+.days-danger { background: rgba(239,68,68,.12); color: #fca5a5; }
+.drag-over { background: rgba(59,130,246,.05); border: 2px dashed var(--acc); }
+.filter-bar { padding: 12px 32px; display: flex; gap: 8px; align-items: center; border-bottom: 1px solid var(--bdr); }
+.fbtn { padding: 5px 12px; border-radius: 6px; border: 1px solid var(--bdr); background: transparent; color: var(--text2); font-size: 11px; cursor: pointer; font-weight: 600; }
+.fbtn:hover { border-color: var(--acc); color: var(--text); }
+.fbtn.on { background: var(--acc); color: #fff; border-color: var(--acc); }
+</style>
+</head>
+<body>
+<div class="header">
+  <h1>Deal Tracker — Pipeline View</h1>
+  <p>Drag accounts between stages to update pipeline. 36 total accounts across Tier 1 & Tier 2.</p>
+</div>
+<div class="stats">
+  <div class="stat"><div class="stat-val">$2,935K</div><div class="stat-lbl">Total Pipeline</div></div>
+  <div class="stat"><div class="stat-val">36</div><div class="stat-lbl">Active Deals</div></div>
+  <div class="stat"><div class="stat-val">3</div><div class="stat-lbl">In POC / Negotiation</div></div>
+  <div class="stat"><div class="stat-val">6</div><div class="stat-lbl">Meetings Booked</div></div>
+  <div class="stat"><div class="stat-val" style="color:#f59e0b">4</div><div class="stat-lbl">Stale (14+ days)</div></div>
+</div>
+<div class="filter-bar">
+  <span style="font-size:11px;color:var(--text3);margin-right:4px;">Filter:</span>
+  <button class="fbtn on" onclick="filterTier('all',this)">All</button>
+  <button class="fbtn" onclick="filterTier('Tier 1',this)">Tier 1</button>
+  <button class="fbtn" onclick="filterTier('Tier 2',this)">Tier 2</button>
+  <span style="font-size:11px;color:var(--text3);margin-left:16px;margin-right:4px;">Sort:</span>
+  <button class="fbtn on" onclick="sortCards('value',this)">By Value</button>
+  <button class="fbtn" onclick="sortCards('days',this)">By Age</button>
+  <button class="fbtn" onclick="sortCards('name',this)">A-Z</button>
+</div>
+<div class="pipeline" id="pipeline">
+  <div class="column" data-stage="cold" ondragover="ev(event)" ondrop="drop(event)">
+    <div class="col-hdr"><div class="col-dot" style="background:#64748b"></div><div class="col-name">Cold</div><div class="col-cnt">17</div></div>
+    <div class="col-val">$1,230K pipeline value</div>
+    <div class="col-cards">
+      <div class="card" draggable="true" ondragstart="ds(event)" data-tier="Tier 1" data-name="Intrinsic (Google)" data-value="200">
+        <div class="card-top"><div class="card-name">Intrinsic (Google)</div><div class="card-val">$200K</div></div>
+        <div class="card-ind">Industrial Robotics</div>
+        <span class="card-tier t1">Tier 1</span>
+        <div class="card-contact">👤 —</div>
+        <div class="card-next">→ Identify champion</div>
+        <div class="card-days"><span>Last activity</span><span class="days-badge days-ok">New</span></div>
+      </div>
+      <div class="card" draggable="true" ondragstart="ds(event)" data-tier="Tier 1" data-name="Elroy Air" data-value="130">
+        <div class="card-top"><div class="card-name">Elroy Air</div><div class="card-val">$130K</div></div>
+        <div class="card-ind">Autonomous Aviation</div>
+        <span class="card-tier t1">Tier 1</span>
+        <div class="card-contact">👤 —</div>
+        <div class="card-next">→ Research & outreach</div>
+        <div class="card-days"><span>Last activity</span><span class="days-badge days-ok">New</span></div>
+      </div>
+      <div class="card" draggable="true" ondragstart="ds(event)" data-tier="Tier 2" data-name="Pyka" data-value="85">
+        <div class="card-top"><div class="card-name">Pyka</div><div class="card-val">$85K</div></div>
+        <div class="card-ind">Autonomous Ag</div>
+        <span class="card-tier t2">Tier 2</span>
+        <div class="card-contact">👤 —</div>
+        <div class="card-next">→ Outreach planned</div>
+        <div class="card-days"><span>Last activity</span><span class="days-badge days-ok">New</span></div>
+      </div>
+      <div class="card" draggable="true" ondragstart="ds(event)" data-tier="Tier 2" data-name="Anyware Robotics" data-value="80">
+        <div class="card-top"><div class="card-name">Anyware Robotics</div><div class="card-val">$80K</div></div>
+        <div class="card-ind">Warehouse AI</div>
+        <span class="card-tier t2">Tier 2</span>
+        <div class="card-contact">👤 —</div>
+        <div class="card-next">→ Outreach planned</div>
+        <div class="card-days"><span>Last activity</span><span class="days-badge days-ok">New</span></div>
+      </div>
+      <div class="card" draggable="true" ondragstart="ds(event)" data-tier="Tier 2" data-name="Samba TV" data-value="75">
+        <div class="card-top"><div class="card-name">Samba TV</div><div class="card-val">$75K</div></div>
+        <div class="card-ind">TV Analytics</div>
+        <span class="card-tier t2">Tier 2</span>
+        <div class="card-contact">👤 —</div>
+        <div class="card-next">→ Sequence #1</div>
+        <div class="card-days"><span>Last activity</span><span class="days-badge days-ok">New</span></div>
+      </div>
+      <div class="card" draggable="true" ondragstart="ds(event)" data-tier="Tier 2" data-name="Fulgent Genetics" data-value="70">
+        <div class="card-top"><div class="card-name">Fulgent Genetics</div><div class="card-val">$70K</div></div>
+        <div class="card-ind">Genomics</div>
+        <span class="card-tier t2">Tier 2</span>
+        <div class="card-contact">👤 —</div>
+        <div class="card-next">→ Research</div>
+        <div class="card-days"><span>Last activity</span><span class="days-badge days-ok">New</span></div>
+      </div>
+      <div class="card" draggable="true" ondragstart="ds(event)" data-tier="Tier 2" data-name="Armstrong Robotics" data-value="65">
+        <div class="card-top"><div class="card-name">Armstrong Robotics</div><div class="card-val">$65K</div></div>
+        <div class="card-ind">Space Robotics</div>
+        <span class="card-tier t2">Tier 2</span>
+        <div class="card-contact">👤 —</div>
+        <div class="card-next">→ Outreach</div>
+        <div class="card-days"><span>Last activity</span><span class="days-badge days-ok">New</span></div>
+      </div>
+      <div class="card" draggable="true" ondragstart="ds(event)" data-tier="Tier 2" data-name="Krisp" data-value="60">
+        <div class="card-top"><div class="card-name">Krisp</div><div class="card-val">$60K</div></div>
+        <div class="card-ind">Audio AI</div>
+        <span class="card-tier t2">Tier 2</span>
+        <div class="card-contact">👤 —</div>
+        <div class="card-next">→ Research</div>
+        <div class="card-days"><span>Last activity</span><span class="days-badge days-ok">New</span></div>
+      </div>
+      <div class="card" draggable="true" ondragstart="ds(event)" data-tier="Tier 2" data-name="Cytek Biosciences" data-value="60">
+        <div class="card-top"><div class="card-name">Cytek Biosciences</div><div class="card-val">$60K</div></div>
+        <div class="card-ind">Flow Cytometry</div>
+        <span class="card-tier t2">Tier 2</span>
+        <div class="card-contact">👤 —</div>
+        <div class="card-next">→ Research</div>
+        <div class="card-days"><span>Last activity</span><span class="days-badge days-ok">New</span></div>
+      </div>
+      <div class="card" draggable="true" ondragstart="ds(event)" data-tier="Tier 2" data-name="Overview.ai" data-value="55">
+        <div class="card-top"><div class="card-name">Overview.ai</div><div class="card-val">$55K</div></div>
+        <div class="card-ind">Industrial CV</div>
+        <span class="card-tier t2">Tier 2</span>
+        <div class="card-contact">👤 —</div>
+        <div class="card-next">→ Email sequence started</div>
+        <div class="card-days"><span>Last activity</span><span class="days-badge days-ok">New</span></div>
+      </div>
+      <div class="card" draggable="true" ondragstart="ds(event)" data-tier="Tier 2" data-name="Culture Biosciences" data-value="55">
+        <div class="card-top"><div class="card-name">Culture Biosciences</div><div class="card-val">$55K</div></div>
+        <div class="card-ind">Biotech AI</div>
+        <span class="card-tier t2">Tier 2</span>
+        <div class="card-contact">👤 —</div>
+        <div class="card-next">→ Research</div>
+        <div class="card-days"><span>Last activity</span><span class="days-badge days-ok">New</span></div>
+      </div>
+      <div class="card" draggable="true" ondragstart="ds(event)" data-tier="Tier 2" data-name="Autonomize AI" data-value="55">
+        <div class="card-top"><div class="card-name">Autonomize AI</div><div class="card-val">$55K</div></div>
+        <div class="card-ind">Health AI</div>
+        <span class="card-tier t2">Tier 2</span>
+        <div class="card-contact">👤 —</div>
+        <div class="card-next">→ Research</div>
+        <div class="card-days"><span>Last activity</span><span class="days-badge days-ok">New</span></div>
+      </div>
+      <div class="card" draggable="true" ondragstart="ds(event)" data-tier="Tier 2" data-name="Formant" data-value="55">
+        <div class="card-top"><div class="card-name">Formant</div><div class="card-val">$55K</div></div>
+        <div class="card-ind">Robot Fleet</div>
+        <span class="card-tier t2">Tier 2</span>
+        <div class="card-contact">👤 —</div>
+        <div class="card-next">→ Research</div>
+        <div class="card-days"><span>Last activity</span><span class="days-badge days-ok">New</span></div>
+      </div>
+      <div class="card" draggable="true" ondragstart="ds(event)" data-tier="Tier 2" data-name="AppliedVR" data-value="50">
+        <div class="card-top"><div class="card-name">AppliedVR</div><div class="card-val">$50K</div></div>
+        <div class="card-ind">VR Therapeutics</div>
+        <span class="card-tier t2">Tier 2</span>
+        <div class="card-contact">👤 —</div>
+        <div class="card-next">→ Research</div>
+        <div class="card-days"><span>Last activity</span><span class="days-badge days-ok">New</span></div>
+      </div>
+      <div class="card" draggable="true" ondragstart="ds(event)" data-tier="Tier 2" data-name="Weave Robotics" data-value="50">
+        <div class="card-top"><div class="card-name">Weave Robotics</div><div class="card-val">$50K</div></div>
+        <div class="card-ind">Robotics</div>
+        <span class="card-tier t2">Tier 2</span>
+        <div class="card-contact">👤 —</div>
+        <div class="card-next">→ Research</div>
+        <div class="card-days"><span>Last activity</span><span class="days-badge days-ok">New</span></div>
+      </div>
+      <div class="card" draggable="true" ondragstart="ds(event)" data-tier="Tier 2" data-name="Techcyte" data-value="45">
+        <div class="card-top"><div class="card-name">Techcyte</div><div class="card-val">$45K</div></div>
+        <div class="card-ind">Medical CV</div>
+        <span class="card-tier t2">Tier 2</span>
+        <div class="card-contact">👤 —</div>
+        <div class="card-next">→ Outreach</div>
+        <div class="card-days"><span>Last activity</span><span class="days-badge days-ok">New</span></div>
+      </div>
+      <div class="card" draggable="true" ondragstart="ds(event)" data-tier="Tier 2" data-name="Kiwibot" data-value="40">
+        <div class="card-top"><div class="card-name">Kiwibot</div><div class="card-val">$40K</div></div>
+        <div class="card-ind">Delivery Robots</div>
+        <span class="card-tier t2">Tier 2</span>
+        <div class="card-contact">👤 —</div>
+        <div class="card-next">→ Research</div>
+        <div class="card-days"><span>Last activity</span><span class="days-badge days-ok">New</span></div>
+      </div>
+    </div>
+  </div>
+  <div class="column" data-stage="contacted" ondragover="ev(event)" ondrop="drop(event)">
+    <div class="col-hdr"><div class="col-dot" style="background:#f59e0b"></div><div class="col-name">Contacted</div><div class="col-cnt">10</div></div>
+    <div class="col-val">$810K pipeline value</div>
+    <div class="col-cards">
+      <div class="card" draggable="true" ondragstart="ds(event)" data-tier="Tier 1" data-name="Wing (Alphabet)" data-value="175">
+        <div class="card-top"><div class="card-name">Wing (Alphabet)</div><div class="card-val">$175K</div></div>
+        <div class="card-ind">Drone Delivery</div>
+        <span class="card-tier t1">Tier 1</span>
+        <div class="card-contact">👤 Engineering Lead</div>
+        <div class="card-next">→ Awaiting response</div>
+        <div class="card-days"><span>Last activity</span><span class="days-badge days-danger">21d ago</span></div>
+      </div>
+      <div class="card" draggable="true" ondragstart="ds(event)" data-tier="Tier 1" data-name="Apex.AI" data-value="150">
+        <div class="card-top"><div class="card-name">Apex.AI</div><div class="card-val">$150K</div></div>
+        <div class="card-ind">AV Software</div>
+        <span class="card-tier t1">Tier 1</span>
+        <div class="card-contact">👤 Jan Becker</div>
+        <div class="card-next">→ Follow-up email #2</div>
+        <div class="card-days"><span>Last activity</span><span class="days-badge days-warn">8d ago</span></div>
+      </div>
+      <div class="card" draggable="true" ondragstart="ds(event)" data-tier="Tier 1" data-name="Valar Labs" data-value="90">
+        <div class="card-top"><div class="card-name">Valar Labs</div><div class="card-val">$90K</div></div>
+        <div class="card-ind">Clinical AI</div>
+        <span class="card-tier t1">Tier 1</span>
+        <div class="card-contact">👤 Anirudh Joshi</div>
+        <div class="card-next">→ Intro call scheduled</div>
+        <div class="card-days"><span>Last activity</span><span class="days-badge days-warn">14d ago</span></div>
+      </div>
+      <div class="card" draggable="true" ondragstart="ds(event)" data-tier="Tier 2" data-name="Suki" data-value="70">
+        <div class="card-top"><div class="card-name">Suki</div><div class="card-val">$70K</div></div>
+        <div class="card-ind">Health AI</div>
+        <span class="card-tier t2">Tier 2</span>
+        <div class="card-contact">👤 VP Eng</div>
+        <div class="card-next">→ Follow-up</div>
+        <div class="card-days"><span>Last activity</span><span class="days-badge days-warn">11d ago</span></div>
+      </div>
+      <div class="card" draggable="true" ondragstart="ds(event)" data-tier="Tier 2" data-name="Compound Eye" data-value="65">
+        <div class="card-top"><div class="card-name">Compound Eye</div><div class="card-val">$65K</div></div>
+        <div class="card-ind">3D Vision</div>
+        <span class="card-tier t2">Tier 2</span>
+        <div class="card-contact">👤 CTO</div>
+        <div class="card-next">→ Follow-up</div>
+        <div class="card-days"><span>Last activity</span><span class="days-badge days-warn">10d ago</span></div>
+      </div>
+      <div class="card" draggable="true" ondragstart="ds(event)" data-tier="Tier 2" data-name="Uplight" data-value="65">
+        <div class="card-top"><div class="card-name">Uplight</div><div class="card-val">$65K</div></div>
+        <div class="card-ind">Energy AI</div>
+        <span class="card-tier t2">Tier 2</span>
+        <div class="card-contact">👤 Data Lead</div>
+        <div class="card-next">→ Reconnect</div>
+        <div class="card-days"><span>Last activity</span><span class="days-badge days-danger">17d ago</span></div>
+      </div>
+      <div class="card" draggable="true" ondragstart="ds(event)" data-tier="Tier 2" data-name="Gorgias" data-value="60">
+        <div class="card-top"><div class="card-name">Gorgias</div><div class="card-val">$60K</div></div>
+        <div class="card-ind">E-commerce CX</div>
+        <span class="card-tier t2">Tier 2</span>
+        <div class="card-contact">👤 ML Lead</div>
+        <div class="card-next">→ Use case alignment</div>
+        <div class="card-days"><span>Last activity</span><span class="days-badge days-warn">8d ago</span></div>
+      </div>
+      <div class="card" draggable="true" ondragstart="ds(event)" data-tier="Tier 2" data-name="HeadSpin" data-value="50">
+        <div class="card-top"><div class="card-name">HeadSpin</div><div class="card-val">$50K</div></div>
+        <div class="card-ind">Mobile Testing</div>
+        <span class="card-tier t2">Tier 2</span>
+        <div class="card-contact">👤 VP Eng</div>
+        <div class="card-next">→ Call scheduled</div>
+        <div class="card-days"><span>Last activity</span><span class="days-badge days-warn">9d ago</span></div>
+      </div>
+      <div class="card" draggable="true" ondragstart="ds(event)" data-tier="Tier 2" data-name="Topaz Labs" data-value="45">
+        <div class="card-top"><div class="card-name">Topaz Labs</div><div class="card-val">$45K</div></div>
+        <div class="card-ind">Photo AI</div>
+        <span class="card-tier t2">Tier 2</span>
+        <div class="card-contact">👤 Eric Yang</div>
+        <div class="card-next">→ Waiting on eval</div>
+        <div class="card-days"><span>Last activity</span><span class="days-badge days-danger">15d ago</span></div>
+      </div>
+      <div class="card" draggable="true" ondragstart="ds(event)" data-tier="Tier 2" data-name="Wobot AI" data-value="40">
+        <div class="card-top"><div class="card-name">Wobot AI</div><div class="card-val">$40K</div></div>
+        <div class="card-ind">Industrial CV</div>
+        <span class="card-tier t2">Tier 2</span>
+        <div class="card-contact">👤 Sourabh Gupta</div>
+        <div class="card-next">→ Follow-up email</div>
+        <div class="card-days"><span>Last activity</span><span class="days-badge days-warn">13d ago</span></div>
+      </div>
+    </div>
+  </div>
+  <div class="column" data-stage="meeting" ondragover="ev(event)" ondrop="drop(event)">
+    <div class="col-hdr"><div class="col-dot" style="background:#3b82f6"></div><div class="col-name">Meeting Booked</div><div class="col-cnt">6</div></div>
+    <div class="col-val">$510K pipeline value</div>
+    <div class="col-cards">
+      <div class="card" draggable="true" ondragstart="ds(event)" data-tier="Tier 1" data-name="Iambic Therapeutics" data-value="120">
+        <div class="card-top"><div class="card-name">Iambic Therapeutics</div><div class="card-val">$120K</div></div>
+        <div class="card-ind">AI Drug Discovery</div>
+        <span class="card-tier t1">Tier 1</span>
+        <div class="card-contact">👤 Tom Miller</div>
+        <div class="card-next">→ Technical deep-dive</div>
+        <div class="card-days"><span>Last activity</span><span class="days-badge days-ok">5d ago</span></div>
+      </div>
+      <div class="card" draggable="true" ondragstart="ds(event)" data-tier="Tier 1" data-name="GITAI" data-value="95">
+        <div class="card-top"><div class="card-name">GITAI</div><div class="card-val">$95K</div></div>
+        <div class="card-ind">Space Robotics</div>
+        <span class="card-tier t1">Tier 1</span>
+        <div class="card-contact">👤 Sho Nakanose</div>
+        <div class="card-next">→ Technical requirements call</div>
+        <div class="card-days"><span>Last activity</span><span class="days-badge days-warn">7d ago</span></div>
+      </div>
+      <div class="card" draggable="true" ondragstart="ds(event)" data-tier="Tier 2" data-name="Matterport" data-value="90">
+        <div class="card-top"><div class="card-name">Matterport</div><div class="card-val">$90K</div></div>
+        <div class="card-ind">3D Spatial</div>
+        <span class="card-tier t2">Tier 2</span>
+        <div class="card-contact">👤 ML Lead</div>
+        <div class="card-next">→ Ray Train demo</div>
+        <div class="card-days"><span>Last activity</span><span class="days-badge days-ok">6d ago</span></div>
+      </div>
+      <div class="card" draggable="true" ondragstart="ds(event)" data-tier="Tier 1" data-name="Chooch" data-value="85">
+        <div class="card-top"><div class="card-name">Chooch</div><div class="card-val">$85K</div></div>
+        <div class="card-ind">Enterprise CV</div>
+        <span class="card-tier t1">Tier 1</span>
+        <div class="card-contact">👤 Emrah Gultekin</div>
+        <div class="card-next">→ Ray Serve demo</div>
+        <div class="card-days"><span>Last activity</span><span class="days-badge days-ok">2d ago</span></div>
+      </div>
+      <div class="card" draggable="true" ondragstart="ds(event)" data-tier="Tier 2" data-name="Foxglove" data-value="70">
+        <div class="card-top"><div class="card-name">Foxglove</div><div class="card-val">$70K</div></div>
+        <div class="card-ind">Robotics DevTools</div>
+        <span class="card-tier t2">Tier 2</span>
+        <div class="card-contact">👤 Adrian Macneil</div>
+        <div class="card-next">→ Integration discussion</div>
+        <div class="card-days"><span>Last activity</span><span class="days-badge days-ok">4d ago</span></div>
+      </div>
+      <div class="card" draggable="true" ondragstart="ds(event)" data-tier="Tier 2" data-name="Fireflies.ai" data-value="50">
+        <div class="card-top"><div class="card-name">Fireflies.ai</div><div class="card-val">$50K</div></div>
+        <div class="card-ind">Meeting AI</div>
+        <span class="card-tier t2">Tier 2</span>
+        <div class="card-contact">👤 Krish Ramineni</div>
+        <div class="card-next">→ Pricing discussion</div>
+        <div class="card-days"><span>Last activity</span><span class="days-badge days-ok">3d ago</span></div>
+      </div>
+    </div>
+  </div>
+  <div class="column" data-stage="poc" ondragover="ev(event)" ondrop="drop(event)">
+    <div class="col-hdr"><div class="col-dot" style="background:#8b5cf6"></div><div class="col-name">POC / Eval</div><div class="col-cnt">2</div></div>
+    <div class="col-val">$290K pipeline value</div>
+    <div class="col-cards">
+      <div class="card" draggable="true" ondragstart="ds(event)" data-tier="Tier 1" data-name="comma.ai" data-value="180">
+        <div class="card-top"><div class="card-name">comma.ai</div><div class="card-val">$180K</div></div>
+        <div class="card-ind">AV / Self-Driving</div>
+        <span class="card-tier t1">Tier 1</span>
+        <div class="card-contact">👤 George Hotz</div>
+        <div class="card-next">→ POC review meeting</div>
+        <div class="card-days"><span>Last activity</span><span class="days-badge days-warn">12d ago</span></div>
+      </div>
+      <div class="card" draggable="true" ondragstart="ds(event)" data-tier="Tier 1" data-name="Lightwheel" data-value="110">
+        <div class="card-top"><div class="card-name">Lightwheel</div><div class="card-val">$110K</div></div>
+        <div class="card-ind">AV Synthetic Data</div>
+        <span class="card-tier t1">Tier 1</span>
+        <div class="card-contact">👤 CTO</div>
+        <div class="card-next">→ Benchmark results review</div>
+        <div class="card-days"><span>Last activity</span><span class="days-badge days-danger">18d ago</span></div>
+      </div>
+    </div>
+  </div>
+  <div class="column" data-stage="negotiation" ondragover="ev(event)" ondrop="drop(event)">
+    <div class="col-hdr"><div class="col-dot" style="background:#22c55e"></div><div class="col-name">Negotiation</div><div class="col-cnt">1</div></div>
+    <div class="col-val">$95K pipeline value</div>
+    <div class="col-cards">
+      <div class="card" draggable="true" ondragstart="ds(event)" data-tier="Tier 1" data-name="Fal.ai" data-value="95">
+        <div class="card-top"><div class="card-name">Fal.ai</div><div class="card-val">$95K</div></div>
+        <div class="card-ind">Serverless GPU</div>
+        <span class="card-tier t1">Tier 1</span>
+        <div class="card-contact">👤 Batuhan Taskaya</div>
+        <div class="card-next">→ Pricing review</div>
+        <div class="card-days"><span>Last activity</span><span class="days-badge days-ok">3d ago</span></div>
+      </div>
+    </div>
+  </div>
+  <div class="column" data-stage="closed" ondragover="ev(event)" ondrop="drop(event)">
+    <div class="col-hdr"><div class="col-dot" style="background:#10b981"></div><div class="col-name">Closed Won</div><div class="col-cnt">0</div></div>
+    <div class="col-val">$0K pipeline value</div>
+    <div class="col-cards">
+    </div>
+  </div>
+</div>
+<script>
+let currentFilter = 'all';
+function ds(e) { e.dataTransfer.setData('text/html', e.target.outerHTML); e.target.style.opacity = '.4'; setTimeout(()=>e.target.style.opacity='1', 300); }
+function ev(e) { e.preventDefault(); e.currentTarget.querySelector('.col-cards').classList.add('drag-over'); }
+function drop(e) {
+  e.preventDefault();
+  const col = e.currentTarget.querySelector('.col-cards');
+  col.classList.remove('drag-over');
+  const html = e.dataTransfer.getData('text/html');
+  if (html) {
+    const temp = document.createElement('div');
+    temp.innerHTML = html;
+    const card = temp.firstElementChild;
+    if (card) col.appendChild(card);
+    // Remove from original
+    document.querySelectorAll('.card').forEach(c => {
+      if (c.style.opacity === '0.4') c.remove();
+    });
+    updateCounts();
+  }
+}
+document.querySelectorAll('.column').forEach(col => {
+  col.addEventListener('dragleave', e => {
+    col.querySelector('.col-cards').classList.remove('drag-over');
+  });
+});
+function updateCounts() {
+  document.querySelectorAll('.column').forEach(col => {
+    const cards = col.querySelectorAll('.card');
+    col.querySelector('.col-cnt').textContent = cards.length;
+    let val = 0;
+    cards.forEach(c => val += parseInt(c.dataset.value || 0));
+    col.querySelector('.col-val').textContent = '$' + val + 'K pipeline value';
+  });
+}
+function filterTier(tier, btn) {
+  currentFilter = tier;
+  document.querySelectorAll('.filter-bar .fbtn').forEach((b,i) => { if(i<3) b.classList.remove('on'); });
+  btn.classList.add('on');
+  document.querySelectorAll('.card').forEach(c => {
+    c.style.display = (tier === 'all' || c.dataset.tier === tier) ? '' : 'none';
+  });
+}
+function sortCards(by, btn) {
+  document.querySelectorAll('.filter-bar .fbtn').forEach((b,i) => { if(i>=3) b.classList.remove('on'); });
+  btn.classList.add('on');
+  document.querySelectorAll('.col-cards').forEach(container => {
+    const cards = [...container.querySelectorAll('.card')];
+    cards.sort((a,b) => {
+      if (by === 'value') return parseInt(b.dataset.value) - parseInt(a.dataset.value);
+      if (by === 'name') return a.dataset.name.localeCompare(b.dataset.name);
+      return 0;
+    });
+    cards.forEach(c => container.appendChild(c));
+  });
+}
+</script>
+</body>
+</html>

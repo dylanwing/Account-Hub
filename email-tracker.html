@@ -1,0 +1,855 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Email Tracker - Anyscale Account Planning Hub</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            background-color: #0b0f1a;
+            color: #f0f4ff;
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+            line-height: 1.6;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        header {
+            margin-bottom: 40px;
+        }
+
+        h1 {
+            font-size: 32px;
+            margin-bottom: 8px;
+            background: linear-gradient(135deg, #3b82f6 0%, #60a5fa 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .subtitle {
+            color: #9ca3af;
+            font-size: 14px;
+        }
+
+        /* Summary Stats */
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+            gap: 16px;
+            margin-bottom: 40px;
+        }
+
+        .stat-card {
+            background-color: #1a2235;
+            border: 1px solid #1e2d42;
+            border-radius: 8px;
+            padding: 20px;
+            transition: all 0.3s ease;
+        }
+
+        .stat-card:hover {
+            border-color: #3b82f6;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(59, 130, 246, 0.1);
+        }
+
+        .stat-label {
+            color: #9ca3af;
+            font-size: 12px;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            margin-bottom: 8px;
+        }
+
+        .stat-value {
+            font-size: 32px;
+            font-weight: 700;
+            color: #3b82f6;
+        }
+
+        .stat-subtext {
+            font-size: 12px;
+            color: #6b7280;
+            margin-top: 4px;
+        }
+
+        /* Section Title */
+        .section-title {
+            font-size: 20px;
+            font-weight: 600;
+            margin-top: 40px;
+            margin-bottom: 20px;
+            color: #f0f4ff;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .section-title::before {
+            content: '';
+            width: 4px;
+            height: 24px;
+            background-color: #3b82f6;
+            border-radius: 2px;
+        }
+
+        /* Email Funnel */
+        .funnel-container {
+            background-color: #1a2235;
+            border: 1px solid #1e2d42;
+            border-radius: 8px;
+            padding: 30px;
+            margin-bottom: 40px;
+        }
+
+        .funnel {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+
+        .funnel-step {
+            position: relative;
+            display: flex;
+            align-items: center;
+            height: 60px;
+            background: linear-gradient(90deg, #3b82f6 0%, #1e3a8a 100%);
+            border-radius: 6px;
+            padding: 0 20px;
+            overflow: hidden;
+        }
+
+        .funnel-step:nth-child(1) { width: 100%; }
+        .funnel-step:nth-child(2) { width: 85%; }
+        .funnel-step:nth-child(3) { width: 65%; }
+        .funnel-step:nth-child(4) { width: 40%; }
+        .funnel-step:nth-child(5) { width: 20%; }
+
+        .funnel-label {
+            position: relative;
+            z-index: 2;
+            font-weight: 600;
+            display: flex;
+            justify-content: space-between;
+            width: 100%;
+            font-size: 14px;
+        }
+
+        .funnel-count {
+            opacity: 0.9;
+        }
+
+        /* Filters */
+        .filters-container {
+            display: flex;
+            gap: 12px;
+            margin-bottom: 24px;
+            flex-wrap: wrap;
+        }
+
+        .filter-group {
+            display: flex;
+            flex-direction: column;
+            gap: 6px;
+        }
+
+        .filter-label {
+            font-size: 12px;
+            text-transform: uppercase;
+            color: #9ca3af;
+            letter-spacing: 0.5px;
+        }
+
+        select {
+            background-color: #1a2235;
+            color: #f0f4ff;
+            border: 1px solid #1e2d42;
+            border-radius: 6px;
+            padding: 8px 12px;
+            font-family: inherit;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        select:hover {
+            border-color: #3b82f6;
+        }
+
+        select:focus {
+            outline: none;
+            border-color: #3b82f6;
+            box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.1);
+        }
+
+        /* Sequences Table */
+        .sequences-container {
+            background-color: #1a2235;
+            border: 1px solid #1e2d42;
+            border-radius: 8px;
+            overflow: hidden;
+            margin-bottom: 40px;
+        }
+
+        .table-wrapper {
+            overflow-x: auto;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        th {
+            background-color: #0f1419;
+            color: #9ca3af;
+            text-align: left;
+            padding: 16px;
+            font-size: 12px;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            font-weight: 600;
+            border-bottom: 1px solid #1e2d42;
+            cursor: pointer;
+            user-select: none;
+        }
+
+        th:hover {
+            background-color: #151b28;
+        }
+
+        td {
+            padding: 16px;
+            border-bottom: 1px solid #1e2d42;
+        }
+
+        tr:hover {
+            background-color: rgba(59, 130, 246, 0.05);
+        }
+
+        .company-name {
+            font-weight: 600;
+            color: #3b82f6;
+        }
+
+        .tier-badge {
+            display: inline-block;
+            background-color: rgba(59, 130, 246, 0.15);
+            color: #60a5fa;
+            padding: 4px 8px;
+            border-radius: 4px;
+            font-size: 11px;
+            font-weight: 600;
+            text-transform: uppercase;
+            margin-left: 8px;
+        }
+
+        .progress-bar {
+            display: flex;
+            gap: 4px;
+        }
+
+        .progress-step {
+            flex: 1;
+            height: 6px;
+            background-color: #1e2d42;
+            border-radius: 3px;
+            overflow: hidden;
+        }
+
+        .progress-step.completed {
+            background-color: #3b82f6;
+        }
+
+        .progress-step.current {
+            background: linear-gradient(90deg, #3b82f6, #60a5fa);
+        }
+
+        .metric {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            font-size: 14px;
+        }
+
+        .metric-percentage {
+            color: #9ca3af;
+            font-size: 12px;
+        }
+
+        .status-badge {
+            display: inline-block;
+            padding: 6px 12px;
+            border-radius: 4px;
+            font-size: 12px;
+            font-weight: 600;
+            text-transform: capitalize;
+        }
+
+        .status-active {
+            background-color: rgba(34, 197, 94, 0.15);
+            color: #86efac;
+        }
+
+        .status-paused {
+            background-color: rgba(251, 146, 60, 0.15);
+            color: #fdba74;
+        }
+
+        .status-completed {
+            background-color: rgba(107, 114, 128, 0.15);
+            color: #d1d5db;
+        }
+
+        .date-text {
+            color: #9ca3af;
+            font-size: 13px;
+        }
+
+        /* Email Log */
+        .email-log-container {
+            background-color: #1a2235;
+            border: 1px solid #1e2d42;
+            border-radius: 8px;
+            overflow: hidden;
+        }
+
+        .email-log-item {
+            display: grid;
+            grid-template-columns: 1fr 1fr 2fr 120px 120px 100px;
+            align-items: center;
+            padding: 16px;
+            border-bottom: 1px solid #1e2d42;
+            transition: all 0.2s ease;
+        }
+
+        .email-log-item:hover {
+            background-color: rgba(59, 130, 246, 0.05);
+        }
+
+        .email-log-header {
+            display: grid;
+            grid-template-columns: 1fr 1fr 2fr 120px 120px 100px;
+            padding: 16px;
+            background-color: #0f1419;
+            border-bottom: 1px solid #1e2d42;
+            font-size: 12px;
+            text-transform: uppercase;
+            color: #9ca3af;
+            letter-spacing: 0.5px;
+            font-weight: 600;
+        }
+
+        .contact-info {
+            display: flex;
+            flex-direction: column;
+            gap: 2px;
+        }
+
+        .contact-name {
+            color: #f0f4ff;
+            font-weight: 500;
+        }
+
+        .contact-company {
+            color: #9ca3af;
+            font-size: 12px;
+        }
+
+        .subject-text {
+            color: #f0f4ff;
+            font-size: 13px;
+            word-break: break-word;
+        }
+
+        .email-status-badge {
+            display: inline-block;
+            padding: 6px 10px;
+            border-radius: 4px;
+            font-size: 11px;
+            font-weight: 600;
+            text-transform: uppercase;
+            white-space: nowrap;
+        }
+
+        .status-sent {
+            background-color: rgba(59, 130, 246, 0.15);
+            color: #60a5fa;
+        }
+
+        .status-opened {
+            background-color: rgba(34, 197, 94, 0.15);
+            color: #86efac;
+        }
+
+        .status-clicked {
+            background-color: rgba(168, 85, 247, 0.15);
+            color: #d8b4fe;
+        }
+
+        .status-replied {
+            background-color: rgba(59, 130, 246, 0.15);
+            color: #93c5fd;
+        }
+
+        .status-bounced {
+            background-color: rgba(239, 68, 68, 0.15);
+            color: #fca5a5;
+        }
+
+        /* Responsive */
+        @media (max-width: 1200px) {
+            .email-log-item,
+            .email-log-header {
+                grid-template-columns: 1fr 2fr 100px 100px;
+            }
+
+            .subject-text {
+                display: none;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .stats-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            .email-log-item,
+            .email-log-header {
+                grid-template-columns: 1fr 80px 80px;
+            }
+
+            .contact-company {
+                display: none;
+            }
+        }
+
+        .empty-state {
+            text-align: center;
+            padding: 40px 20px;
+            color: #6b7280;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>Email Tracker</h1>
+            <p class="subtitle">Anyscale Account Planning Hub - Tier 1 Companies Outreach</p>
+        </header>
+
+        <!-- Summary Stats -->
+        <div class="stats-grid">
+            <div class="stat-card">
+                <div class="stat-label">Total Emails Sent</div>
+                <div class="stat-value">287</div>
+                <div class="stat-subtext">All sequences combined</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-label">Open Rate</div>
+                <div class="stat-value">42%</div>
+                <div class="stat-subtext">120 emails opened</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-label">Reply Rate</div>
+                <div class="stat-value">8.4%</div>
+                <div class="stat-subtext">24 replies received</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-label">Meetings Booked</div>
+                <div class="stat-value">12</div>
+                <div class="stat-subtext">Follow-up meetings scheduled</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-label">Sequences Active</div>
+                <div class="stat-value">7</div>
+                <div class="stat-subtext">6 active, 1 paused</div>
+            </div>
+        </div>
+
+        <!-- Email Funnel -->
+        <h2 class="section-title">Email Funnel Analysis</h2>
+        <div class="funnel-container">
+            <div class="funnel">
+                <div class="funnel-step">
+                    <div class="funnel-label">
+                        <span>📤 Sent</span>
+                        <span class="funnel-count">287 emails</span>
+                    </div>
+                </div>
+                <div class="funnel-step">
+                    <div class="funnel-label">
+                        <span>👁️ Opened</span>
+                        <span class="funnel-count">120 emails (42%)</span>
+                    </div>
+                </div>
+                <div class="funnel-step">
+                    <div class="funnel-label">
+                        <span>🔗 Clicked</span>
+                        <span class="funnel-count">78 emails (27%)</span>
+                    </div>
+                </div>
+                <div class="funnel-step">
+                    <div class="funnel-label">
+                        <span>💬 Replied</span>
+                        <span class="funnel-count">24 emails (8.4%)</span>
+                    </div>
+                </div>
+                <div class="funnel-step">
+                    <div class="funnel-label">
+                        <span>📅 Meeting Booked</span>
+                        <span class="funnel-count">12 meetings (4.2%)</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Filters -->
+        <h2 class="section-title">Outreach Sequences</h2>
+        <div class="filters-container">
+            <div class="filter-group">
+                <label class="filter-label">Filter by Company</label>
+                <select id="companyFilter">
+                    <option value="">All Companies</option>
+                    <option value="comma.ai">comma.ai</option>
+                    <option value="fal.ai">fal.ai</option>
+                    <option value="iambic">Iambic Therapeutics</option>
+                    <option value="apex">Apex.AI</option>
+                    <option value="chooch">Chooch AI</option>
+                    <option value="lightwheel">Lightwheel AI</option>
+                    <option value="valar">Valar Labs</option>
+                </select>
+            </div>
+            <div class="filter-group">
+                <label class="filter-label">Filter by Status</label>
+                <select id="statusFilter">
+                    <option value="">All Statuses</option>
+                    <option value="active">Active</option>
+                    <option value="paused">Paused</option>
+                    <option value="completed">Completed</option>
+                </select>
+            </div>
+            <div class="filter-group">
+                <label class="filter-label">Filter by Step</label>
+                <select id="stepFilter">
+                    <option value="">All Steps</option>
+                    <option value="1">Step 1</option>
+                    <option value="2">Step 2</option>
+                    <option value="3">Step 3</option>
+                    <option value="4">Step 4</option>
+                </select>
+            </div>
+        </div>
+
+        <!-- Sequences Table -->
+        <div class="sequences-container">
+            <div class="table-wrapper">
+                <table id="sequencesTable">
+                    <thead>
+                        <tr>
+                            <th onclick="sortTable(0)">Company</th>
+                            <th onclick="sortTable(1)">Contacts</th>
+                            <th onclick="sortTable(2)">Emails</th>
+                            <th onclick="sortTable(3)">Progress</th>
+                            <th onclick="sortTable(4)">Opened</th>
+                            <th onclick="sortTable(5)">Replied</th>
+                            <th onclick="sortTable(6)">Meetings</th>
+                            <th onclick="sortTable(7)">Status</th>
+                            <th onclick="sortTable(8)">Last Activity</th>
+                        </tr>
+                    </thead>
+                    <tbody id="sequencesBody">
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+        <!-- Email Log -->
+        <h2 class="section-title">Individual Email Log</h2>
+        <div class="email-log-container">
+            <div class="email-log-header">
+                <div>Contact</div>
+                <div>Company</div>
+                <div>Subject</div>
+                <div>Sent Date</div>
+                <div>Step</div>
+                <div>Status</div>
+            </div>
+            <div id="emailLogBody">
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Data
+        const sequences = [
+            {
+                company: 'comma.ai',
+                tier: 'Tier 1',
+                id: 'comma',
+                contacts: 10,
+                emails: 40,
+                currentStep: 3,
+                totalSteps: 4,
+                opened: 4,
+                replied: 1,
+                meetings: 1,
+                status: 'active',
+                lastActivity: '2026-03-06'
+            },
+            {
+                company: 'fal.ai',
+                tier: 'Tier 1',
+                id: 'fal',
+                contacts: 10,
+                emails: 40,
+                currentStep: 4,
+                totalSteps: 4,
+                opened: 6,
+                replied: 2,
+                meetings: 2,
+                status: 'active',
+                lastActivity: '2026-03-06'
+            },
+            {
+                company: 'Iambic Therapeutics',
+                tier: 'Tier 1',
+                id: 'iambic',
+                contacts: 9,
+                emails: 36,
+                currentStep: 3,
+                totalSteps: 4,
+                opened: 5,
+                replied: 1,
+                meetings: 1,
+                status: 'active',
+                lastActivity: '2026-03-05'
+            },
+            {
+                company: 'Apex.AI',
+                tier: 'Tier 1',
+                id: 'apex',
+                contacts: 9,
+                emails: 36,
+                currentStep: 2,
+                totalSteps: 4,
+                opened: 3,
+                replied: 0,
+                meetings: 0,
+                status: 'active',
+                lastActivity: '2026-03-04'
+            },
+            {
+                company: 'Chooch AI',
+                tier: 'Tier 1',
+                id: 'chooch',
+                contacts: 9,
+                emails: 36,
+                currentStep: 4,
+                totalSteps: 4,
+                opened: 4,
+                replied: 1,
+                meetings: 1,
+                status: 'paused',
+                lastActivity: '2026-03-03'
+            },
+            {
+                company: 'Lightwheel AI',
+                tier: 'Tier 1',
+                id: 'lightwheel',
+                contacts: 10,
+                emails: 40,
+                currentStep: 4,
+                totalSteps: 4,
+                opened: 7,
+                replied: 2,
+                meetings: 2,
+                status: 'active',
+                lastActivity: '2026-03-06'
+            },
+            {
+                company: 'Valar Labs',
+                tier: 'Tier 1',
+                id: 'valar',
+                contacts: 10,
+                emails: 40,
+                currentStep: 3,
+                totalSteps: 4,
+                opened: 5,
+                replied: 1,
+                meetings: 1,
+                status: 'active',
+                lastActivity: '2026-03-05'
+            }
+        ];
+
+        const emailLog = [
+            { contact: 'Sarah Chen', company: 'comma.ai', subject: 'Exploring AI Solutions for Fleet Management', sent: '2026-03-06', step: 1, status: 'opened', id: 'email1' },
+            { contact: 'Alex Rodriguez', company: 'comma.ai', subject: 'Computer Vision for Autonomous Vehicles', sent: '2026-03-06', step: 1, status: 'sent', id: 'email2' },
+            { contact: 'James Park', company: 'comma.ai', subject: 'Real-time Data Processing with Anyscale', sent: '2026-03-05', step: 1, status: 'opened', id: 'email3' },
+            { contact: 'Emma Wilson', company: 'comma.ai', subject: 'Follow-up: Scaling ML Infrastructure', sent: '2026-03-04', step: 2, status: 'replied', id: 'email4' },
+            { contact: 'Michael Zhang', company: 'comma.ai', subject: 'Custom ML Pipeline Solution', sent: '2026-03-03', step: 2, status: 'opened', id: 'email5' },
+            { contact: 'Lisa Anderson', company: 'fal.ai', subject: 'Accelerating Image Generation Workloads', sent: '2026-03-06', step: 1, status: 'opened', id: 'email6' },
+            { contact: 'David Kumar', company: 'fal.ai', subject: 'Enterprise Scale API Management', sent: '2026-03-06', step: 1, status: 'clicked', id: 'email7' },
+            { contact: 'Rachel Thomas', company: 'fal.ai', subject: 'Inference Optimization for Production', sent: '2026-03-05', step: 1, status: 'opened', id: 'email8' },
+            { contact: 'Marcus Johnson', company: 'fal.ai', subject: 'Discussion: Performance Benchmarking', sent: '2026-03-04', step: 2, status: 'replied', id: 'email9' },
+            { contact: 'Nina Patel', company: 'fal.ai', subject: 'Integration Architecture Review', sent: '2026-03-03', step: 3, status: 'opened', id: 'email10' },
+            { contact: 'Oliver Smith', company: 'Iambic Therapeutics', subject: 'AI for Drug Discovery Acceleration', sent: '2026-03-06', step: 1, status: 'sent', id: 'email11' },
+            { contact: 'Patricia Lee', company: 'Iambic Therapeutics', subject: 'Machine Learning in Clinical Research', sent: '2026-03-05', step: 1, status: 'opened', id: 'email12' },
+            { contact: 'Robert Garcia', company: 'Iambic Therapeutics', subject: 'Scalable Bioinformatics Pipeline', sent: '2026-03-04', step: 2, status: 'clicked', id: 'email13' },
+            { contact: 'Susan Martinez', company: 'Iambic Therapeutics', subject: 'Follow-up: Research Infrastructure', sent: '2026-03-03', step: 2, status: 'opened', id: 'email14' },
+            { contact: 'Thomas Brown', company: 'Iambic Therapeutics', subject: 'Meeting Request: Technology Alignment', sent: '2026-03-02', step: 3, status: 'replied', id: 'email15' },
+            { contact: 'Victoria Davis', company: 'Apex.AI', subject: 'Intelligent Systems at Scale', sent: '2026-03-04', step: 1, status: 'opened', id: 'email16' },
+            { contact: 'William Taylor', company: 'Apex.AI', subject: 'Real-time Decision Making Engines', sent: '2026-03-03', step: 1, status: 'sent', id: 'email17' },
+            { contact: 'Yuki Tanaka', company: 'Apex.AI', subject: 'Autonomous System Optimization', sent: '2026-03-02', step: 1, status: 'bounced', id: 'email18' },
+            { contact: 'Zara Ahmed', company: 'Chooch AI', subject: 'Computer Vision Solutions for Enterprise', sent: '2026-03-03', step: 1, status: 'opened', id: 'email19' },
+            { contact: 'Adam Foster', company: 'Chooch AI', subject: 'Visual Intelligence Platform Integration', sent: '2026-03-02', step: 1, status: 'opened', id: 'email20' },
+            { contact: 'Brenda Hughes', company: 'Chooch AI', subject: 'Follow-up: Implementation Strategy', sent: '2026-03-01', step: 2, status: 'replied', id: 'email21' },
+            { contact: 'Carlos Mendez', company: 'Lightwheel AI', subject: 'Finance AI Solutions Scaling', sent: '2026-03-06', step: 1, status: 'opened', id: 'email22' },
+            { contact: 'Diana Chen', company: 'Lightwheel AI', subject: 'Risk Assessment Model Enhancement', sent: '2026-03-05', step: 1, status: 'opened', id: 'email23' },
+            { contact: 'Eric Johnson', company: 'Lightwheel AI', subject: 'Predictive Analytics Infrastructure', sent: '2026-03-04', step: 2, status: 'clicked', id: 'email24' },
+            { contact: 'Fiona Walsh', company: 'Lightwheel AI', subject: 'Discussion: Performance Optimization', sent: '2026-03-03', step: 3, status: 'replied', id: 'email25' },
+            { contact: 'Gregory Mills', company: 'Lightwheel AI', subject: 'Strategic Partnership Opportunity', sent: '2026-03-02', step: 4, status: 'opened', id: 'email26' },
+            { contact: 'Hannah Moore', company: 'Valar Labs', subject: 'Autonomous AI System Architecture', sent: '2026-03-05', step: 1, status: 'sent', id: 'email27' },
+            { contact: 'Isaac Newton', company: 'Valar Labs', subject: 'Distributed ML Framework Discussion', sent: '2026-03-04', step: 1, status: 'opened', id: 'email28' },
+            { contact: 'Julia Roberts', company: 'Valar Labs', subject: 'Scaling Challenges and Solutions', sent: '2026-03-03', step: 2, status: 'clicked', id: 'email29' },
+            { contact: 'Kevin Hart', company: 'Valar Labs', subject: 'Enterprise Deployment Review', sent: '2026-03-02', step: 3, status: 'replied', id: 'email30' },
+            { contact: 'Laura Muller', company: 'comma.ai', subject: 'Next Steps: Technical Deep Dive', sent: '2026-03-01', step: 3, status: 'opened', id: 'email31' },
+            { contact: 'Mark Wilson', company: 'fal.ai', subject: 'Executive Alignment Meeting', sent: '2026-02-28', step: 4, status: 'replied', id: 'email32' },
+        ];
+
+        let currentSort = { column: -1, ascending: true };
+
+        function renderSequences(filter = {}) {
+            const tbody = document.getElementById('sequencesBody');
+            tbody.innerHTML = '';
+
+            let filtered = sequences.filter(seq => {
+                if (filter.company && seq.id !== filter.company) return false;
+                if (filter.status && seq.status !== filter.status) return false;
+                if (filter.step && seq.currentStep !== parseInt(filter.step)) return false;
+                return true;
+            });
+
+            filtered.forEach(seq => {
+                const openRate = ((seq.opened / seq.emails) * 100).toFixed(1);
+                const replyRate = ((seq.replied / seq.emails) * 100).toFixed(1);
+
+                const progressBars = Array.from({ length: seq.totalSteps }, (_, i) => {
+                    let className = 'progress-step';
+                    if (i < seq.currentStep) className += ' completed';
+                    if (i === seq.currentStep - 1) className += ' current';
+                    return `<div class="${className}"></div>`;
+                }).join('');
+
+                const row = document.createElement('tr');
+                row.dataset.company = seq.id;
+                row.dataset.status = seq.status;
+                row.dataset.step = seq.currentStep;
+                row.innerHTML = `
+                    <td><span class="company-name">${seq.company}</span><span class="tier-badge">${seq.tier}</span></td>
+                    <td>${seq.contacts}</td>
+                    <td>${seq.emails}</td>
+                    <td><div class="progress-bar" style="width: 150px;">${progressBars}</div></td>
+                    <td><div class="metric">${seq.opened} <span class="metric-percentage">(${openRate}%)</span></div></td>
+                    <td><div class="metric">${seq.replied}</div></td>
+                    <td><div class="metric">${seq.meetings}</div></td>
+                    <td><span class="status-badge status-${seq.status}">${seq.status}</span></td>
+                    <td><span class="date-text">${seq.lastActivity}</span></td>
+                `;
+                tbody.appendChild(row);
+            });
+        }
+
+        function renderEmailLog(filter = {}) {
+            const container = document.getElementById('emailLogBody');
+            container.innerHTML = '';
+
+            let filtered = emailLog.filter(email => {
+                if (filter.company && email.company !== filter.company) return false;
+                if (filter.status && email.status !== filter.status) return false;
+                if (filter.step && email.step !== parseInt(filter.step)) return false;
+                return true;
+            });
+
+            filtered.forEach(email => {
+                const statusClass = `status-${email.status}`;
+                const item = document.createElement('div');
+                item.className = 'email-log-item';
+                item.innerHTML = `
+                    <div class="contact-info">
+                        <div class="contact-name">${email.contact}</div>
+                    </div>
+                    <div class="contact-company">${email.company}</div>
+                    <div class="subject-text">${email.subject}</div>
+                    <div class="date-text">${email.sent}</div>
+                    <div class="date-text">Step ${email.step}</div>
+                    <div><span class="email-status-badge ${statusClass}">${email.status}</span></div>
+                `;
+                container.appendChild(item);
+            });
+        }
+
+        function sortTable(columnIndex) {
+            const tbody = document.getElementById('sequencesBody');
+            const rows = Array.from(tbody.querySelectorAll('tr'));
+
+            if (currentSort.column === columnIndex) {
+                currentSort.ascending = !currentSort.ascending;
+            } else {
+                currentSort.column = columnIndex;
+                currentSort.ascending = true;
+            }
+
+            rows.sort((a, b) => {
+                const aValue = a.children[columnIndex].textContent.trim();
+                const bValue = b.children[columnIndex].textContent.trim();
+
+                let aNum = parseFloat(aValue);
+                let bNum = parseFloat(bValue);
+
+                if (!isNaN(aNum) && !isNaN(bNum)) {
+                    return currentSort.ascending ? aNum - bNum : bNum - aNum;
+                }
+
+                return currentSort.ascending ? aValue.localeCompare(bValue) : bValue.localeCompare(aValue);
+            });
+
+            rows.forEach(row => tbody.appendChild(row));
+        }
+
+        function updateFilters() {
+            const companyFilter = document.getElementById('companyFilter').value;
+            const statusFilter = document.getElementById('statusFilter').value;
+            const stepFilter = document.getElementById('stepFilter').value;
+
+            const filter = {};
+            if (companyFilter) filter.company = companyFilter;
+            if (statusFilter) filter.status = statusFilter;
+            if (stepFilter) filter.step = stepFilter;
+
+            renderSequences(filter);
+            renderEmailLog(filter);
+        }
+
+        // Event listeners
+        document.getElementById('companyFilter').addEventListener('change', updateFilters);
+        document.getElementById('statusFilter').addEventListener('change', updateFilters);
+        document.getElementById('stepFilter').addEventListener('change', updateFilters);
+
+        // Initial render
+        renderSequences();
+        renderEmailLog();
+    </script>
+</body>
+</html>

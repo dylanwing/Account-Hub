@@ -1,0 +1,767 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Signal Feed - Anyscale Account Planning Hub</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            background-color: #0b0f1a;
+            color: #f0f4ff;
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+            min-height: 100vh;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        header {
+            margin-bottom: 40px;
+        }
+
+        h1 {
+            font-size: 32px;
+            margin-bottom: 8px;
+            font-weight: 700;
+        }
+
+        .subtitle {
+            color: #a0acd0;
+            font-size: 14px;
+        }
+
+        .filters-section {
+            background-color: #1a2235;
+            border: 1px solid #1e2d42;
+            border-radius: 12px;
+            padding: 20px;
+            margin-bottom: 30px;
+            display: flex;
+            gap: 16px;
+            flex-wrap: wrap;
+            align-items: center;
+        }
+
+        .filter-group {
+            display: flex;
+            flex-direction: column;
+            gap: 6px;
+        }
+
+        .filter-label {
+            font-size: 12px;
+            font-weight: 600;
+            text-transform: uppercase;
+            color: #7a8ab3;
+            letter-spacing: 0.5px;
+        }
+
+        .filter-select, .search-input {
+            background-color: #0b0f1a;
+            border: 1px solid #1e2d42;
+            color: #f0f4ff;
+            padding: 10px 12px;
+            border-radius: 8px;
+            font-size: 13px;
+            font-family: inherit;
+            min-width: 120px;
+            transition: all 0.3s ease;
+        }
+
+        .filter-select:hover, .search-input:hover {
+            border-color: #3b82f6;
+        }
+
+        .filter-select:focus, .search-input:focus {
+            outline: none;
+            border-color: #3b82f6;
+            box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.1);
+        }
+
+        .search-input {
+            min-width: 250px;
+            flex: 1;
+        }
+
+        .signal-container {
+            display: grid;
+            gap: 16px;
+        }
+
+        .signal-card {
+            background-color: #1a2235;
+            border: 1px solid #1e2d42;
+            border-radius: 12px;
+            padding: 20px;
+            transition: all 0.3s ease;
+            cursor: pointer;
+            display: flex;
+            gap: 16px;
+        }
+
+        .signal-card:hover {
+            border-color: #3b82f6;
+            box-shadow: 0 8px 24px rgba(59, 130, 246, 0.1);
+            transform: translateY(-2px);
+        }
+
+        .signal-icon {
+            font-size: 24px;
+            min-width: 40px;
+            height: 40px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background-color: rgba(59, 130, 246, 0.1);
+            border-radius: 8px;
+        }
+
+        .signal-content {
+            flex: 1;
+        }
+
+        .signal-header {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            margin-bottom: 8px;
+            flex-wrap: wrap;
+        }
+
+        .company-name {
+            font-size: 16px;
+            font-weight: 600;
+            color: #f0f4ff;
+        }
+
+        .tier-badge {
+            font-size: 11px;
+            font-weight: 700;
+            padding: 4px 10px;
+            border-radius: 6px;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .tier-1 {
+            background-color: rgba(236, 72, 153, 0.15);
+            color: #ff6b9d;
+        }
+
+        .tier-2 {
+            background-color: rgba(59, 130, 246, 0.15);
+            color: #60a5fa;
+        }
+
+        .tier-3 {
+            background-color: rgba(34, 197, 94, 0.15);
+            color: #86efac;
+        }
+
+        .tier-4 {
+            background-color: rgba(168, 85, 247, 0.15);
+            color: #d8b4fe;
+        }
+
+        .signal-timestamp {
+            font-size: 12px;
+            color: #7a8ab3;
+            margin-left: auto;
+        }
+
+        .signal-description {
+            font-size: 14px;
+            color: #d1d8e8;
+            line-height: 1.5;
+            margin-bottom: 12px;
+        }
+
+        .signal-footer {
+            display: flex;
+            gap: 16px;
+            align-items: center;
+            flex-wrap: wrap;
+        }
+
+        .relevance-badge {
+            font-size: 11px;
+            font-weight: 700;
+            padding: 4px 12px;
+            border-radius: 6px;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .relevance-high {
+            background-color: rgba(16, 185, 129, 0.15);
+            color: #6ee7b7;
+        }
+
+        .relevance-medium {
+            background-color: rgba(251, 146, 60, 0.15);
+            color: #fdba74;
+        }
+
+        .relevance-low {
+            background-color: rgba(107, 114, 128, 0.15);
+            color: #d1d5db;
+        }
+
+        .signal-type {
+            font-size: 12px;
+            color: #a0acd0;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            font-weight: 600;
+        }
+
+        .stats-section {
+            display: flex;
+            gap: 20px;
+            margin-bottom: 30px;
+            flex-wrap: wrap;
+        }
+
+        .stat-card {
+            background-color: #1a2235;
+            border: 1px solid #1e2d42;
+            border-radius: 12px;
+            padding: 16px 24px;
+            flex: 1;
+            min-width: 150px;
+        }
+
+        .stat-value {
+            font-size: 28px;
+            font-weight: 700;
+            color: #3b82f6;
+            margin-bottom: 4px;
+        }
+
+        .stat-label {
+            font-size: 12px;
+            color: #7a8ab3;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .empty-state {
+            text-align: center;
+            padding: 40px 20px;
+            color: #7a8ab3;
+        }
+
+        .empty-state-icon {
+            font-size: 48px;
+            margin-bottom: 16px;
+            opacity: 0.5;
+        }
+
+        @media (max-width: 768px) {
+            .filters-section {
+                flex-direction: column;
+                align-items: stretch;
+            }
+
+            .filter-select, .search-input {
+                min-width: unset;
+            }
+
+            .signal-card {
+                flex-direction: column;
+            }
+
+            .signal-header {
+                justify-content: space-between;
+            }
+
+            .signal-timestamp {
+                margin-left: 0;
+            }
+
+            h1 {
+                font-size: 24px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>📡 Signal Feed</h1>
+            <p class="subtitle">Real-time account intelligence for Anyscale prospects</p>
+        </header>
+
+        <div class="stats-section">
+            <div class="stat-card">
+                <div class="stat-value" id="total-signals">32</div>
+                <div class="stat-label">Total Signals</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-value" id="high-relevance">14</div>
+                <div class="stat-label">High Relevance</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-value" id="tier-1-count">8</div>
+                <div class="stat-label">Tier 1 Accounts</div>
+            </div>
+        </div>
+
+        <div class="filters-section">
+            <div class="filter-group">
+                <label class="filter-label">Signal Type</label>
+                <select class="filter-select" id="type-filter">
+                    <option value="">All Types</option>
+                    <option value="funding">🚀 Funding Round</option>
+                    <option value="job">💼 Job Posting</option>
+                    <option value="news">📰 News</option>
+                    <option value="tech">🔧 Tech Stack</option>
+                    <option value="product">📊 Product Launch</option>
+                </select>
+            </div>
+
+            <div class="filter-group">
+                <label class="filter-label">Tier</label>
+                <select class="filter-select" id="tier-filter">
+                    <option value="">All Tiers</option>
+                    <option value="tier-1">Tier 1</option>
+                    <option value="tier-2">Tier 2</option>
+                    <option value="tier-3">Tier 3</option>
+                    <option value="tier-4">Tier 4</option>
+                </select>
+            </div>
+
+            <div class="filter-group">
+                <label class="filter-label">Relevance</label>
+                <select class="filter-select" id="relevance-filter">
+                    <option value="">All Relevance</option>
+                    <option value="high">High</option>
+                    <option value="medium">Medium</option>
+                    <option value="low">Low</option>
+                </select>
+            </div>
+
+            <div class="filter-group" style="flex: 1; min-width: 250px;">
+                <label class="filter-label">Search</label>
+                <input type="text" class="search-input" id="search-input" placeholder="Search by company, keyword...">
+            </div>
+        </div>
+
+        <div class="signal-container" id="signals-container">
+            <!-- Signals will be inserted here -->
+        </div>
+
+        <div class="empty-state" id="empty-state" style="display: none;">
+            <div class="empty-state-icon">🔍</div>
+            <p>No signals match your filters. Try adjusting your search criteria.</p>
+        </div>
+    </div>
+
+    <script>
+        const signals = [
+            // Tier 1 - Funding Rounds
+            {
+                type: 'funding',
+                icon: '🚀',
+                company: 'comma.ai',
+                tier: 'tier-1',
+                description: 'comma.ai raises $50M Series B for autonomous driving platform',
+                timestamp: '2h ago',
+                relevance: 'high',
+                typeLabel: 'Funding Round'
+            },
+            {
+                type: 'funding',
+                icon: '🚀',
+                company: 'Arc Institute',
+                tier: 'tier-1',
+                description: 'Arc Institute secures $250M for AI-driven biological research',
+                timestamp: '4h ago',
+                relevance: 'high',
+                typeLabel: 'Funding Round'
+            },
+            {
+                type: 'funding',
+                icon: '🚀',
+                company: 'Crusoe Energy',
+                tier: 'tier-1',
+                description: 'Crusoe Energy raises $150M Series C for AI computing infrastructure',
+                timestamp: '6h ago',
+                relevance: 'high',
+                typeLabel: 'Funding Round'
+            },
+            {
+                type: 'funding',
+                icon: '🚀',
+                company: 'Modal Labs',
+                tier: 'tier-1',
+                description: 'Modal Labs secures $40M Series A for serverless ML infrastructure',
+                timestamp: '8h ago',
+                relevance: 'high',
+                typeLabel: 'Funding Round'
+            },
+            // Tier 1 - Job Postings
+            {
+                type: 'job',
+                icon: '💼',
+                company: 'fal.ai',
+                tier: 'tier-1',
+                description: 'fal.ai hiring Senior ML Infrastructure Engineer (Ray, distributed systems)',
+                timestamp: '1d ago',
+                relevance: 'high',
+                typeLabel: 'Job Posting'
+            },
+            {
+                type: 'job',
+                icon: '💼',
+                company: 'Matterport',
+                tier: 'tier-1',
+                description: 'Matterport hiring Ray/distributed systems engineer for 3D AI platform',
+                timestamp: '1d ago',
+                relevance: 'high',
+                typeLabel: 'Job Posting'
+            },
+            {
+                type: 'job',
+                icon: '💼',
+                company: 'Twelve Labs',
+                tier: 'tier-1',
+                description: 'Twelve Labs hiring Staff ML Systems Engineer for video understanding at scale',
+                timestamp: '2d ago',
+                relevance: 'high',
+                typeLabel: 'Job Posting'
+            },
+            {
+                type: 'job',
+                icon: '💼',
+                company: 'Mistral AI',
+                tier: 'tier-1',
+                description: 'Mistral AI hiring distributed systems engineers for LLM training infrastructure',
+                timestamp: '2d ago',
+                relevance: 'high',
+                typeLabel: 'Job Posting'
+            },
+            // Tier 1 - News
+            {
+                type: 'news',
+                icon: '📰',
+                company: 'Iambic Therapeutics',
+                tier: 'tier-1',
+                description: 'Iambic Therapeutics partners with Novo Nordisk on AI drug discovery pipeline',
+                timestamp: '3d ago',
+                relevance: 'high',
+                typeLabel: 'News'
+            },
+            {
+                type: 'news',
+                icon: '📰',
+                company: 'Anomaly Detection Labs',
+                tier: 'tier-1',
+                description: 'Anomaly Detection Labs expands team to scale ML infrastructure for production workloads',
+                timestamp: '3d ago',
+                relevance: 'high',
+                typeLabel: 'News'
+            },
+            // Tier 2 - Funding
+            {
+                type: 'funding',
+                icon: '🚀',
+                company: 'Hugging Face',
+                tier: 'tier-2',
+                description: 'Hugging Face raises $235M Series D for open ML infrastructure',
+                timestamp: '1d ago',
+                relevance: 'medium',
+                typeLabel: 'Funding Round'
+            },
+            {
+                type: 'funding',
+                icon: '🚀',
+                company: 'Replicate',
+                tier: 'tier-2',
+                description: 'Replicate raises $20M Series A for ML model inference platform',
+                timestamp: '2d ago',
+                relevance: 'medium',
+                typeLabel: 'Funding Round'
+            },
+            {
+                type: 'funding',
+                icon: '🚀',
+                company: 'Lightning AI',
+                tier: 'tier-2',
+                description: 'Lightning AI secures $28M Series B for enterprise ML infrastructure',
+                timestamp: '3d ago',
+                relevance: 'medium',
+                typeLabel: 'Funding Round'
+            },
+            // Tier 2 - Tech Stack
+            {
+                type: 'tech',
+                icon: '🔧',
+                company: 'Chooch',
+                tier: 'tier-2',
+                description: 'Chooch migrates from TensorFlow Serving to custom Ray-based inference stack',
+                timestamp: '2h ago',
+                relevance: 'high',
+                typeLabel: 'Tech Stack'
+            },
+            {
+                type: 'tech',
+                icon: '🔧',
+                company: 'Synthesis AI',
+                tier: 'tier-2',
+                description: 'Synthesis AI adopts distributed Ray framework for large-scale training',
+                timestamp: '1d ago',
+                relevance: 'high',
+                typeLabel: 'Tech Stack'
+            },
+            // Tier 2 - Product Launch
+            {
+                type: 'product',
+                icon: '📊',
+                company: 'Topaz Labs',
+                tier: 'tier-2',
+                description: 'Topaz Labs launches Video AI 5.0 with 4x faster processing using optimized inference',
+                timestamp: '12h ago',
+                relevance: 'medium',
+                typeLabel: 'Product Launch'
+            },
+            {
+                type: 'product',
+                icon: '📊',
+                company: 'NeuralTwin',
+                tier: 'tier-2',
+                description: 'NeuralTwin releases platform update with real-time ML model serving',
+                timestamp: '1d ago',
+                relevance: 'medium',
+                typeLabel: 'Product Launch'
+            },
+            // Tier 3 - Job Postings
+            {
+                type: 'job',
+                icon: '💼',
+                company: 'Runway ML',
+                tier: 'tier-3',
+                description: 'Runway ML hiring ML Infrastructure Lead for scalable video processing',
+                timestamp: '2d ago',
+                relevance: 'medium',
+                typeLabel: 'Job Posting'
+            },
+            {
+                type: 'job',
+                icon: '💼',
+                company: 'Civitai',
+                tier: 'tier-3',
+                description: 'Civitai seeking backend engineers for distributed training orchestration',
+                timestamp: '2d ago',
+                relevance: 'low',
+                typeLabel: 'Job Posting'
+            },
+            // Tier 3 - News
+            {
+                type: 'news',
+                icon: '📰',
+                company: 'Huggingface',
+                tier: 'tier-3',
+                description: 'Huggingface releases Hugging Face Spaces with GPU acceleration for model demos',
+                timestamp: '3d ago',
+                relevance: 'medium',
+                typeLabel: 'News'
+            },
+            {
+                type: 'news',
+                icon: '📰',
+                company: 'Stability AI',
+                tier: 'tier-3',
+                description: 'Stability AI announces new model optimization techniques for faster inference',
+                timestamp: '3d ago',
+                relevance: 'low',
+                typeLabel: 'News'
+            },
+            // Tier 3 - Tech Stack
+            {
+                type: 'tech',
+                icon: '🔧',
+                company: 'Together AI',
+                tier: 'tier-3',
+                description: 'Together AI integrates advanced distributed inference pipeline for LLM serving',
+                timestamp: '2d ago',
+                relevance: 'medium',
+                typeLabel: 'Tech Stack'
+            },
+            {
+                type: 'tech',
+                icon: '🔧',
+                company: 'Anyscale (User)',
+                tier: 'tier-3',
+                description: 'Anyscale releases Ray 2.10 with improved GPU cluster orchestration',
+                timestamp: '4h ago',
+                relevance: 'high',
+                typeLabel: 'Tech Stack'
+            },
+            // Tier 4 - Funding
+            {
+                type: 'funding',
+                icon: '🚀',
+                company: 'Deepdive Analytics',
+                tier: 'tier-4',
+                description: 'Deepdive Analytics raises $8M seed round for ML data infrastructure',
+                timestamp: '1d ago',
+                relevance: 'low',
+                typeLabel: 'Funding Round'
+            },
+            {
+                type: 'funding',
+                icon: '🚀',
+                company: 'Cortex ML',
+                tier: 'tier-4',
+                description: 'Cortex ML secures $12M Series A for feature engineering platform',
+                timestamp: '2d ago',
+                relevance: 'low',
+                typeLabel: 'Funding Round'
+            },
+            // Tier 4 - News
+            {
+                type: 'news',
+                icon: '📰',
+                company: 'AI Research Lab',
+                tier: 'tier-4',
+                description: 'AI Research Lab publishes whitepaper on efficient distributed training methods',
+                timestamp: '2d ago',
+                relevance: 'low',
+                typeLabel: 'News'
+            },
+            {
+                type: 'news',
+                icon: '📰',
+                company: 'DataFlow Systems',
+                tier: 'tier-4',
+                description: 'DataFlow Systems announces partnership with cloud provider for ML workloads',
+                timestamp: '3d ago',
+                relevance: 'low',
+                typeLabel: 'News'
+            },
+            {
+                type: 'product',
+                icon: '📊',
+                company: 'PipelineAI',
+                tier: 'tier-4',
+                description: 'PipelineAI launches beta of new model version management tool',
+                timestamp: '2d ago',
+                relevance: 'low',
+                typeLabel: 'Product Launch'
+            },
+            {
+                type: 'product',
+                icon: '📊',
+                company: 'InferenceEdge',
+                tier: 'tier-4',
+                description: 'InferenceEdge releases edge deployment toolkit for ML models',
+                timestamp: '3d ago',
+                relevance: 'medium',
+                typeLabel: 'Product Launch'
+            },
+            {
+                type: 'job',
+                icon: '💼',
+                company: 'MLOps Guild',
+                tier: 'tier-4',
+                description: 'MLOps Guild hiring engineers for ML infrastructure automation',
+                timestamp: '1d ago',
+                relevance: 'low',
+                typeLabel: 'Job Posting'
+            },
+            {
+                type: 'tech',
+                icon: '🔧',
+                company: 'ModelHub',
+                tier: 'tier-4',
+                description: 'ModelHub upgrades infrastructure to support larger batch processing',
+                timestamp: '2d ago',
+                relevance: 'low',
+                typeLabel: 'Tech Stack'
+            }
+        ];
+
+        function renderSignals(filteredSignals) {
+            const container = document.getElementById('signals-container');
+            const emptyState = document.getElementById('empty-state');
+
+            if (filteredSignals.length === 0) {
+                container.innerHTML = '';
+                emptyState.style.display = 'block';
+                return;
+            }
+
+            emptyState.style.display = 'none';
+            container.innerHTML = filteredSignals.map(signal => `
+                <div class="signal-card" data-type="${signal.type}" data-tier="${signal.tier}" data-relevance="${signal.relevance}">
+                    <div class="signal-icon">${signal.icon}</div>
+                    <div class="signal-content">
+                        <div class="signal-header">
+                            <span class="company-name">${signal.company}</span>
+                            <span class="tier-badge ${signal.tier}">${signal.tier.toUpperCase()}</span>
+                            <span class="signal-timestamp">${signal.timestamp}</span>
+                        </div>
+                        <div class="signal-description">${signal.description}</div>
+                        <div class="signal-footer">
+                            <span class="signal-type">${signal.typeLabel}</span>
+                            <span class="relevance-badge relevance-${signal.relevance}">Relevance: ${signal.relevance}</span>
+                        </div>
+                    </div>
+                </div>
+            `).join('');
+
+            updateStats(filteredSignals);
+        }
+
+        function updateStats(filteredSignals) {
+            const highRelevance = filteredSignals.filter(s => s.relevance === 'high').length;
+            const tier1 = filteredSignals.filter(s => s.tier === 'tier-1').length;
+            document.getElementById('total-signals').textContent = filteredSignals.length;
+            document.getElementById('high-relevance').textContent = highRelevance;
+            document.getElementById('tier-1-count').textContent = tier1;
+        }
+
+        function getFilteredSignals() {
+            const typeFilter = document.getElementById('type-filter').value;
+            const tierFilter = document.getElementById('tier-filter').value;
+            const relevanceFilter = document.getElementById('relevance-filter').value;
+            const searchTerm = document.getElementById('search-input').value.toLowerCase();
+
+            return signals.filter(signal => {
+                const matchesType = !typeFilter || signal.type === typeFilter;
+                const matchesTier = !tierFilter || signal.tier === tierFilter;
+                const matchesRelevance = !relevanceFilter || signal.relevance === relevanceFilter;
+                const matchesSearch = !searchTerm ||
+                    signal.company.toLowerCase().includes(searchTerm) ||
+                    signal.description.toLowerCase().includes(searchTerm);
+
+                return matchesType && matchesTier && matchesRelevance && matchesSearch;
+            });
+        }
+
+        function applyFilters() {
+            const filtered = getFilteredSignals();
+            renderSignals(filtered);
+        }
+
+        // Event listeners
+        document.getElementById('type-filter').addEventListener('change', applyFilters);
+        document.getElementById('tier-filter').addEventListener('change', applyFilters);
+        document.getElementById('relevance-filter').addEventListener('change', applyFilters);
+        document.getElementById('search-input').addEventListener('input', applyFilters);
+
+        // Initial render
+        renderSignals(signals);
+    </script>
+</body>
+</html>
