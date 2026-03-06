@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Weekly Sales Briefing — Week of March 3, 2026</title>
+    <title>Weekly Sales Briefing — Editable</title>
     <style>
         * {
             margin: 0;
@@ -28,6 +28,16 @@
             margin-bottom: 40px;
             border-bottom: 2px solid #1e2d42;
             padding-bottom: 24px;
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            flex-wrap: wrap;
+            gap: 20px;
+        }
+
+        header > div:first-child {
+            flex: 1;
+            min-width: 300px;
         }
 
         h1 {
@@ -41,6 +51,83 @@
             font-size: 14px;
             color: #8aa3d4;
             font-weight: 500;
+        }
+
+        .header-controls {
+            display: flex;
+            gap: 12px;
+            align-items: center;
+            flex-wrap: wrap;
+            justify-content: flex-end;
+        }
+
+        .week-selector {
+            display: flex;
+            gap: 8px;
+            align-items: center;
+            background-color: #1a2235;
+            border: 1px solid #1e2d42;
+            border-radius: 6px;
+            padding: 8px 12px;
+        }
+
+        .week-selector label {
+            font-size: 12px;
+            color: #8aa3d4;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .week-selector input {
+            background-color: #1a2235;
+            border: 1px solid #1e2d42;
+            color: #f0f4ff;
+            padding: 6px 10px;
+            border-radius: 4px;
+            font-size: 14px;
+        }
+
+        .control-buttons {
+            display: flex;
+            gap: 8px;
+        }
+
+        button {
+            background-color: #3b82f6;
+            color: #f0f4ff;
+            border: none;
+            padding: 8px 14px;
+            border-radius: 6px;
+            font-size: 13px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        button:hover {
+            background-color: #2563eb;
+            transform: translateY(-1px);
+        }
+
+        button.secondary {
+            background-color: #1e2d42;
+            color: #8aa3d4;
+            border: 1px solid #1e2d42;
+        }
+
+        button.secondary:hover {
+            background-color: #2a3d52;
+            border-color: #3d5a7a;
+        }
+
+        button.danger {
+            background-color: #ef4444;
+        }
+
+        button.danger:hover {
+            background-color: #dc2626;
         }
 
         h2 {
@@ -67,6 +154,25 @@
             margin-bottom: 40px;
         }
 
+        .section-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+
+        .add-button {
+            padding: 6px 12px;
+            font-size: 12px;
+            background-color: #1e2d42;
+            color: #3b82f6;
+            border: 1px solid #3b82f6;
+        }
+
+        .add-button:hover {
+            background-color: #2a3d52;
+        }
+
         .priority-actions {
             display: grid;
             gap: 12px;
@@ -83,6 +189,7 @@
             align-items: flex-start;
             gap: 16px;
             transition: all 0.2s ease;
+            position: relative;
         }
 
         .action-item:hover {
@@ -102,6 +209,24 @@
             border-left-color: #10b981;
         }
 
+        .action-item.completed {
+            opacity: 0.6;
+        }
+
+        .action-item.completed .action-text {
+            text-decoration: line-through;
+            color: #8aa3d4;
+        }
+
+        .action-checkbox {
+            width: 24px;
+            height: 24px;
+            cursor: pointer;
+            accent-color: #3b82f6;
+            flex-shrink: 0;
+            margin-top: 2px;
+        }
+
         .action-emoji {
             font-size: 24px;
             min-width: 32px;
@@ -119,11 +244,67 @@
             color: #3b82f6;
             font-size: 14px;
             margin-bottom: 4px;
+            cursor: pointer;
+            padding: 2px 6px;
+            border-radius: 3px;
+            display: inline-block;
+        }
+
+        .action-account:hover {
+            background-color: #1e2d42;
         }
 
         .action-text {
             color: #f0f4ff;
             font-size: 15px;
+            cursor: pointer;
+            padding: 2px 6px;
+            border-radius: 3px;
+            display: block;
+        }
+
+        .action-text:hover {
+            background-color: #1e2d42;
+        }
+
+        .action-meta {
+            font-size: 12px;
+            color: #8aa3d4;
+            margin-top: 8px;
+            display: flex;
+            gap: 16px;
+        }
+
+        .action-meta span {
+            cursor: pointer;
+            padding: 2px 6px;
+            border-radius: 3px;
+        }
+
+        .action-meta span:hover {
+            background-color: #1e2d42;
+        }
+
+        .action-delete {
+            position: absolute;
+            top: 12px;
+            right: 12px;
+            background: none;
+            border: none;
+            color: #ef4444;
+            font-size: 18px;
+            cursor: pointer;
+            padding: 4px 8px;
+            opacity: 0;
+            transition: opacity 0.2s;
+        }
+
+        .action-item:hover .action-delete {
+            opacity: 1;
+        }
+
+        .action-delete:hover {
+            color: #dc2626;
         }
 
         .meetings-grid {
@@ -139,6 +320,7 @@
             border-radius: 8px;
             padding: 20px;
             transition: all 0.2s ease;
+            position: relative;
         }
 
         .meeting-card:hover {
@@ -154,12 +336,43 @@
             text-transform: uppercase;
             letter-spacing: 0.5px;
             margin-bottom: 12px;
+            cursor: pointer;
+            padding: 2px 6px;
+            border-radius: 3px;
+            display: inline-block;
+        }
+
+        .meeting-day:hover {
+            background-color: #1e2d42;
+        }
+
+        .meeting-add {
+            position: absolute;
+            top: 12px;
+            right: 12px;
+            background: none;
+            border: none;
+            color: #3b82f6;
+            font-size: 16px;
+            cursor: pointer;
+            padding: 4px 8px;
+            opacity: 0;
+            transition: opacity 0.2s;
+        }
+
+        .meeting-card:hover .meeting-add {
+            opacity: 1;
+        }
+
+        .meeting-add:hover {
+            color: #60a5fa;
         }
 
         .meeting-item {
             margin-bottom: 16px;
             padding-bottom: 16px;
             border-bottom: 1px solid #1e2d42;
+            position: relative;
         }
 
         .meeting-item:last-child {
@@ -175,6 +388,14 @@
             display: flex;
             align-items: center;
             gap: 6px;
+            cursor: pointer;
+            padding: 2px 6px;
+            border-radius: 3px;
+            display: flex;
+        }
+
+        .meeting-time:hover {
+            background-color: #1e2d42;
         }
 
         .meeting-time::before {
@@ -185,6 +406,36 @@
             font-weight: 500;
             color: #f0f4ff;
             font-size: 15px;
+            cursor: pointer;
+            padding: 2px 6px;
+            border-radius: 3px;
+            display: inline-block;
+        }
+
+        .meeting-title:hover {
+            background-color: #1e2d42;
+        }
+
+        .meeting-delete {
+            position: absolute;
+            right: 0;
+            top: 0;
+            background: none;
+            border: none;
+            color: #ef4444;
+            font-size: 16px;
+            cursor: pointer;
+            padding: 4px 8px;
+            opacity: 0;
+            transition: opacity 0.2s;
+        }
+
+        .meeting-item:hover .meeting-delete {
+            opacity: 1;
+        }
+
+        .meeting-delete:hover {
+            color: #dc2626;
         }
 
         .pipeline-section {
@@ -248,6 +499,13 @@
             border-radius: 8px;
             padding: 20px;
             text-align: center;
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+
+        .metric-card:hover {
+            background-color: #1f2d3a;
+            border-color: #2d4159;
         }
 
         .metric-value {
@@ -337,6 +595,41 @@
             margin-left: 20px;
         }
 
+        .notes-section {
+            background-color: #1a2235;
+            border: 1px solid #1e2d42;
+            border-radius: 8px;
+            padding: 24px;
+            margin-bottom: 30px;
+        }
+
+        .notes-section h3 {
+            font-size: 16px;
+            font-weight: 600;
+            margin-bottom: 16px;
+            color: #f0f4ff;
+        }
+
+        .notes-textarea {
+            width: 100%;
+            min-height: 120px;
+            background-color: #0b0f1a;
+            border: 1px solid #1e2d42;
+            color: #f0f4ff;
+            padding: 12px;
+            border-radius: 6px;
+            font-family: inherit;
+            font-size: 14px;
+            line-height: 1.6;
+            resize: vertical;
+        }
+
+        .notes-textarea:focus {
+            outline: none;
+            border-color: #3b82f6;
+            box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.1);
+        }
+
         footer {
             border-top: 2px solid #1e2d42;
             padding-top: 24px;
@@ -356,6 +649,93 @@
             color: #8aa3d4;
         }
 
+        /* Modal Styles */
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 1000;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.7);
+            align-items: center;
+            justify-content: center;
+        }
+
+        .modal.active {
+            display: flex;
+        }
+
+        .modal-content {
+            background-color: #1a2235;
+            border: 1px solid #1e2d42;
+            border-radius: 8px;
+            padding: 24px;
+            max-width: 500px;
+            width: 90%;
+            max-height: 80vh;
+            overflow-y: auto;
+        }
+
+        .modal-header {
+            font-size: 18px;
+            font-weight: 600;
+            color: #f0f4ff;
+            margin-bottom: 20px;
+        }
+
+        .form-group {
+            margin-bottom: 16px;
+        }
+
+        .form-group label {
+            display: block;
+            font-size: 13px;
+            color: #8aa3d4;
+            margin-bottom: 6px;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            font-weight: 600;
+        }
+
+        .form-group input,
+        .form-group select,
+        .form-group textarea {
+            width: 100%;
+            background-color: #0b0f1a;
+            border: 1px solid #1e2d42;
+            color: #f0f4ff;
+            padding: 10px 12px;
+            border-radius: 6px;
+            font-family: inherit;
+            font-size: 14px;
+        }
+
+        .form-group input:focus,
+        .form-group select:focus,
+        .form-group textarea:focus {
+            outline: none;
+            border-color: #3b82f6;
+            box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.1);
+        }
+
+        .form-group textarea {
+            resize: vertical;
+            min-height: 80px;
+        }
+
+        .modal-buttons {
+            display: flex;
+            gap: 12px;
+            justify-content: flex-end;
+            margin-top: 24px;
+        }
+
+        .modal-buttons button {
+            flex: 1;
+        }
+
         @media print {
             body {
                 padding: 20px;
@@ -367,6 +747,38 @@
                 background-color: #1a2235;
                 transform: none;
             }
+
+            .action-delete,
+            .meeting-add,
+            .meeting-delete,
+            .action-checkbox,
+            .control-buttons,
+            .add-button {
+                display: none;
+            }
+        }
+
+        @media (max-width: 768px) {
+            header {
+                flex-direction: column;
+            }
+
+            .header-controls {
+                justify-content: flex-start;
+            }
+
+            .section-header {
+                flex-direction: column;
+                gap: 12px;
+            }
+
+            .meetings-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .modal-content {
+                max-width: 90%;
+            }
         }
     </style>
 </head>
@@ -374,103 +786,35 @@
     <div class="container">
         <!-- Header -->
         <header>
-            <h1>Weekly Sales Briefing</h1>
-            <p class="header-subtitle">Week of March 3, 2026 — Prepared for Dylan Wingrove, AE — Anyscale</p>
+            <div>
+                <h1>Weekly Sales Briefing</h1>
+                <p class="header-subtitle">Prepared for Dylan Wingrove, AE — Anyscale</p>
+            </div>
+            <div class="header-controls">
+                <div class="week-selector">
+                    <label for="weekInput">Week of:</label>
+                    <input type="date" id="weekInput">
+                </div>
+                <div class="control-buttons">
+                    <button class="secondary" id="resetBtn">Reset</button>
+                </div>
+            </div>
         </header>
 
         <!-- Priority Actions Section -->
         <section class="section">
-            <h2>Priority Actions This Week</h2>
-            <div class="priority-actions">
-                <div class="action-item urgent">
-                    <div class="action-emoji">🔴</div>
-                    <div class="action-content">
-                        <div class="action-account">fal.ai</div>
-                        <div class="action-text">Pricing review meeting Thursday. Prepare ROI comparison vs self-hosted GPU.</div>
-                    </div>
-                </div>
-                <div class="action-item warning">
-                    <div class="action-emoji">🟡</div>
-                    <div class="action-content">
-                        <div class="action-account">comma.ai</div>
-                        <div class="action-text">POC review due Friday. Get benchmark results from engineering.</div>
-                    </div>
-                </div>
-                <div class="action-item warning">
-                    <div class="action-emoji">🟡</div>
-                    <div class="action-content">
-                        <div class="action-account">Lightwheel</div>
-                        <div class="action-text">POC stalled for 18 days. Schedule check-in with CTO.</div>
-                    </div>
-                </div>
-                <div class="action-item success">
-                    <div class="action-emoji">🟢</div>
-                    <div class="action-content">
-                        <div class="action-account">Chooch</div>
-                        <div class="action-text">Ray Serve demo Wednesday. Prepare custom inference benchmark.</div>
-                    </div>
-                </div>
-                <div class="action-item success">
-                    <div class="action-emoji">🟢</div>
-                    <div class="action-content">
-                        <div class="action-account">GITAI</div>
-                        <div class="action-text">Technical requirements call Monday. Research space-rated compute needs.</div>
-                    </div>
-                </div>
+            <div class="section-header">
+                <h2>Priority Actions This Week</h2>
+                <button class="add-button" id="addActionBtn">+ Add Action</button>
+            </div>
+            <div class="priority-actions" id="priorityActions">
             </div>
         </section>
 
         <!-- This Week's Meetings -->
         <section class="section">
             <h2>This Week's Meetings</h2>
-            <div class="meetings-grid">
-                <div class="meeting-card">
-                    <div class="meeting-day">Monday</div>
-                    <div class="meeting-item">
-                        <div class="meeting-time">10:00 AM</div>
-                        <div class="meeting-title">GITAI Technical Call</div>
-                    </div>
-                    <div class="meeting-item">
-                        <div class="meeting-time">2:00 PM</div>
-                        <div class="meeting-title">Internal Pipeline Review</div>
-                    </div>
-                </div>
-
-                <div class="meeting-card">
-                    <div class="meeting-day">Tuesday</div>
-                    <div class="meeting-item">
-                        <div class="meeting-time">11:00 AM</div>
-                        <div class="meeting-title">Iambic Therapeutics Follow-up</div>
-                    </div>
-                </div>
-
-                <div class="meeting-card">
-                    <div class="meeting-day">Wednesday</div>
-                    <div class="meeting-item">
-                        <div class="meeting-time">2:00 PM</div>
-                        <div class="meeting-title">Chooch Ray Serve Demo</div>
-                    </div>
-                </div>
-
-                <div class="meeting-card">
-                    <div class="meeting-day">Thursday</div>
-                    <div class="meeting-item">
-                        <div class="meeting-time">10:00 AM</div>
-                        <div class="meeting-title">fal.ai Pricing Review</div>
-                    </div>
-                    <div class="meeting-item">
-                        <div class="meeting-time">3:00 PM</div>
-                        <div class="meeting-title">Foxglove Integration Discussion</div>
-                    </div>
-                </div>
-
-                <div class="meeting-card">
-                    <div class="meeting-day">Friday</div>
-                    <div class="meeting-item">
-                        <div class="meeting-time">11:00 AM</div>
-                        <div class="meeting-title">comma.ai POC Review</div>
-                    </div>
-                </div>
+            <div class="meetings-grid" id="meetingsGrid">
             </div>
         </section>
 
@@ -519,27 +863,7 @@
         <!-- Key Metrics -->
         <section class="section">
             <h2>Key Metrics This Week</h2>
-            <div class="metrics-grid">
-                <div class="metric-card">
-                    <div class="metric-value">24</div>
-                    <div class="metric-label">Emails Sent</div>
-                </div>
-                <div class="metric-card">
-                    <div class="metric-value">18</div>
-                    <div class="metric-label">Opens</div>
-                </div>
-                <div class="metric-card">
-                    <div class="metric-value">8</div>
-                    <div class="metric-label">Replies</div>
-                </div>
-                <div class="metric-card">
-                    <div class="metric-value">5</div>
-                    <div class="metric-label">Meetings Booked</div>
-                </div>
-                <div class="metric-card">
-                    <div class="metric-value">+$325K</div>
-                    <div class="metric-label">Pipeline Value Change</div>
-                </div>
+            <div class="metrics-grid" id="metricsGrid">
             </div>
         </section>
 
@@ -623,10 +947,469 @@
             </div>
         </section>
 
+        <!-- Notes Section -->
+        <section class="section">
+            <h2>Weekly Notes</h2>
+            <div class="notes-section">
+                <textarea class="notes-textarea" id="notesTextarea" placeholder="Add any additional notes, follow-ups, or observations..."></textarea>
+            </div>
+        </section>
+
         <!-- Footer -->
         <footer>
-            <p>Weekly Sales Briefing — Generated March 6, 2026 | Anyscale Account Planning Hub</p>
+            <p>Weekly Sales Briefing — Editable Version | Anyscale Account Planning Hub</p>
         </footer>
     </div>
+
+    <!-- Modal for Editing Action -->
+    <div class="modal" id="actionModal">
+        <div class="modal-content">
+            <div class="modal-header">Edit Action Item</div>
+            <form id="actionForm">
+                <div class="form-group">
+                    <label>Account Name</label>
+                    <input type="text" id="actionAccount" placeholder="e.g., fal.ai">
+                </div>
+                <div class="form-group">
+                    <label>Description</label>
+                    <textarea id="actionDescription" placeholder="Action details..."></textarea>
+                </div>
+                <div class="form-group">
+                    <label>Priority</label>
+                    <select id="actionPriority">
+                        <option value="success">Low (Green)</option>
+                        <option value="warning">Medium (Orange)</option>
+                        <option value="urgent">High (Red)</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label>Owner</label>
+                    <input type="text" id="actionOwner" placeholder="Who's responsible?">
+                </div>
+                <div class="form-group">
+                    <label>Due Date</label>
+                    <input type="date" id="actionDueDate">
+                </div>
+                <div class="modal-buttons">
+                    <button type="button" class="secondary" id="closeActionModal">Cancel</button>
+                    <button type="submit">Save Action</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- Modal for Editing Meeting -->
+    <div class="modal" id="meetingModal">
+        <div class="modal-content">
+            <div class="modal-header">Edit Meeting</div>
+            <form id="meetingForm">
+                <div class="form-group">
+                    <label>Title</label>
+                    <input type="text" id="meetingTitle" placeholder="Meeting title...">
+                </div>
+                <div class="form-group">
+                    <label>Time</label>
+                    <input type="time" id="meetingTime">
+                </div>
+                <div class="form-group">
+                    <label>Day</label>
+                    <select id="meetingDay">
+                        <option value="Monday">Monday</option>
+                        <option value="Tuesday">Tuesday</option>
+                        <option value="Wednesday">Wednesday</option>
+                        <option value="Thursday">Thursday</option>
+                        <option value="Friday">Friday</option>
+                    </select>
+                </div>
+                <div class="modal-buttons">
+                    <button type="button" class="secondary" id="closeMeetingModal">Cancel</button>
+                    <button type="submit">Save Meeting</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <script>
+        const STORAGE_KEY = 'weeklyBriefing';
+
+        class WeeklyBriefing {
+            constructor() {
+                this.currentWeek = this.getMonday(new Date());
+                this.data = this.loadData();
+                this.init();
+            }
+
+            getMonday(date) {
+                const d = new Date(date);
+                const day = d.getDay();
+                const diff = d.getDate() - day + (day === 0 ? -6 : 1);
+                return new Date(d.setDate(diff));
+            }
+
+            getWeekKey(date) {
+                const monday = this.getMonday(date);
+                return monday.toISOString().split('T')[0];
+            }
+
+            loadData() {
+                const stored = localStorage.getItem(STORAGE_KEY);
+                if (stored) {
+                    return JSON.parse(stored);
+                }
+                return this.getDefaultData();
+            }
+
+            getDefaultData() {
+                return {
+                    'default': {
+                        actions: [
+                            { id: '1', account: 'fal.ai', text: 'Pricing review meeting Thursday. Prepare ROI comparison vs self-hosted GPU.', priority: 'urgent', owner: '', dueDate: '', completed: false },
+                            { id: '2', account: 'comma.ai', text: 'POC review due Friday. Get benchmark results from engineering.', priority: 'warning', owner: '', dueDate: '', completed: false },
+                            { id: '3', account: 'Lightwheel', text: 'POC stalled for 18 days. Schedule check-in with CTO.', priority: 'warning', owner: '', dueDate: '', completed: false },
+                            { id: '4', account: 'Chooch', text: 'Ray Serve demo Wednesday. Prepare custom inference benchmark.', priority: 'success', owner: '', dueDate: '', completed: false },
+                            { id: '5', account: 'GITAI', text: 'Technical requirements call Monday. Research space-rated compute needs.', priority: 'success', owner: '', dueDate: '', completed: false }
+                        ],
+                        meetings: {
+                            'Monday': [
+                                { id: '1', time: '10:00', title: 'GITAI Technical Call' },
+                                { id: '2', time: '14:00', title: 'Internal Pipeline Review' }
+                            ],
+                            'Tuesday': [
+                                { id: '3', time: '11:00', title: 'Iambic Therapeutics Follow-up' }
+                            ],
+                            'Wednesday': [
+                                { id: '4', time: '14:00', title: 'Chooch Ray Serve Demo' }
+                            ],
+                            'Thursday': [
+                                { id: '5', time: '10:00', title: 'fal.ai Pricing Review' },
+                                { id: '6', time: '15:00', title: 'Foxglove Integration Discussion' }
+                            ],
+                            'Friday': [
+                                { id: '7', time: '11:00', title: 'comma.ai POC Review' }
+                            ]
+                        },
+                        metrics: [
+                            { label: 'Emails Sent', value: '24' },
+                            { label: 'Opens', value: '18' },
+                            { label: 'Replies', value: '8' },
+                            { label: 'Meetings Booked', value: '5' },
+                            { label: 'Pipeline Value Change', value: '+$325K' }
+                        ],
+                        notes: ''
+                    }
+                };
+            }
+
+            saveData() {
+                localStorage.setItem(STORAGE_KEY, JSON.stringify(this.data));
+            }
+
+            getWeekData(date) {
+                const key = this.getWeekKey(date);
+                if (!this.data[key]) {
+                    this.data[key] = JSON.parse(JSON.stringify(this.data['default']));
+                }
+                return this.data[key];
+            }
+
+            init() {
+                this.setupEventListeners();
+                this.updateWeekDisplay();
+                this.render();
+            }
+
+            setupEventListeners() {
+                document.getElementById('weekInput').addEventListener('change', (e) => {
+                    this.currentWeek = new Date(e.target.value);
+                    this.render();
+                });
+
+                document.getElementById('resetBtn').addEventListener('click', () => {
+                    if (confirm('Reset to default data for this week?')) {
+                        const key = this.getWeekKey(this.currentWeek);
+                        delete this.data[key];
+                        this.saveData();
+                        this.render();
+                    }
+                });
+
+                document.getElementById('addActionBtn').addEventListener('click', () => {
+                    this.openActionModal(null);
+                });
+
+                document.getElementById('closeActionModal').addEventListener('click', () => {
+                    this.closeActionModal();
+                });
+
+                document.getElementById('closeMeetingModal').addEventListener('click', () => {
+                    this.closeMeetingModal();
+                });
+
+                document.getElementById('actionForm').addEventListener('submit', (e) => {
+                    e.preventDefault();
+                    this.saveAction();
+                });
+
+                document.getElementById('meetingForm').addEventListener('submit', (e) => {
+                    e.preventDefault();
+                    this.saveMeeting();
+                });
+
+                document.getElementById('notesTextarea').addEventListener('change', () => {
+                    const weekData = this.getWeekData(this.currentWeek);
+                    weekData.notes = document.getElementById('notesTextarea').value;
+                    this.saveData();
+                });
+            }
+
+            updateWeekDisplay() {
+                const dateStr = this.currentWeek.toISOString().split('T')[0];
+                document.getElementById('weekInput').value = dateStr;
+            }
+
+            render() {
+                const weekData = this.getWeekData(this.currentWeek);
+                this.renderActions(weekData.actions);
+                this.renderMeetings(weekData.meetings);
+                this.renderMetrics(weekData.metrics);
+                document.getElementById('notesTextarea').value = weekData.notes || '';
+            }
+
+            renderActions(actions) {
+                const container = document.getElementById('priorityActions');
+                container.innerHTML = actions.map(action => `
+                    <div class="action-item ${action.priority} ${action.completed ? 'completed' : ''}">
+                        <input type="checkbox" class="action-checkbox" ${action.completed ? 'checked' : ''}
+                            onchange="app.toggleAction('${action.id}')">
+                        <div class="action-emoji">${this.getPriorityEmoji(action.priority)}</div>
+                        <div class="action-content">
+                            <div class="action-account" onclick="app.openActionModal('${action.id}')">${action.account}</div>
+                            <div class="action-text" onclick="app.openActionModal('${action.id}')">${action.text}</div>
+                            ${action.owner || action.dueDate ? `
+                                <div class="action-meta">
+                                    ${action.owner ? `<span onclick="app.openActionModal('${action.id}')">Owner: ${action.owner}</span>` : ''}
+                                    ${action.dueDate ? `<span onclick="app.openActionModal('${action.id}')">Due: ${action.dueDate}</span>` : ''}
+                                </div>
+                            ` : ''}
+                        </div>
+                        <button class="action-delete" onclick="app.deleteAction('${action.id}')">×</button>
+                    </div>
+                `).join('');
+            }
+
+            renderMeetings(meetings) {
+                const container = document.getElementById('meetingsGrid');
+                const days = ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday'];
+
+                container.innerHTML = days.map(day => `
+                    <div class="meeting-card">
+                        <div class="meeting-day" onclick="app.openMeetingModal(null, '${day}')">${day}</div>
+                        ${meetings[day] ? meetings[day].map(meeting => `
+                            <div class="meeting-item">
+                                <div class="meeting-time" onclick="app.openMeetingModal('${meeting.id}')">${this.formatTime(meeting.time)}</div>
+                                <div class="meeting-title" onclick="app.openMeetingModal('${meeting.id}')">${meeting.title}</div>
+                                <button class="meeting-delete" onclick="app.deleteMeeting('${day}', '${meeting.id}')">×</button>
+                            </div>
+                        `).join('') : ''}
+                        <button class="meeting-add" onclick="app.openMeetingModal(null, '${day}')">+</button>
+                    </div>
+                `).join('');
+            }
+
+            renderMetrics(metrics) {
+                const container = document.getElementById('metricsGrid');
+                container.innerHTML = metrics.map((metric, idx) => `
+                    <div class="metric-card" onclick="app.editMetric(${idx})">
+                        <div class="metric-value">${metric.value}</div>
+                        <div class="metric-label">${metric.label}</div>
+                    </div>
+                `).join('');
+            }
+
+            getPriorityEmoji(priority) {
+                const emojis = { 'urgent': '🔴', 'warning': '🟡', 'success': '🟢' };
+                return emojis[priority] || '🔵';
+            }
+
+            formatTime(time) {
+                const [hours, mins] = time.split(':');
+                const hour = parseInt(hours);
+                const ampm = hour >= 12 ? 'PM' : 'AM';
+                const displayHour = hour > 12 ? hour - 12 : (hour === 0 ? 12 : hour);
+                return `${displayHour}:${mins} ${ampm}`;
+            }
+
+            openActionModal(actionId) {
+                const weekData = this.getWeekData(this.currentWeek);
+                const action = actionId ? weekData.actions.find(a => a.id === actionId) : null;
+
+                if (action) {
+                    document.getElementById('actionAccount').value = action.account;
+                    document.getElementById('actionDescription').value = action.text;
+                    document.getElementById('actionPriority').value = action.priority;
+                    document.getElementById('actionOwner').value = action.owner || '';
+                    document.getElementById('actionDueDate').value = action.dueDate || '';
+                } else {
+                    document.getElementById('actionForm').reset();
+                }
+
+                this.editingActionId = actionId;
+                document.getElementById('actionModal').classList.add('active');
+            }
+
+            closeActionModal() {
+                document.getElementById('actionModal').classList.remove('active');
+            }
+
+            saveAction() {
+                const weekData = this.getWeekData(this.currentWeek);
+                const account = document.getElementById('actionAccount').value;
+                const text = document.getElementById('actionDescription').value;
+                const priority = document.getElementById('actionPriority').value;
+                const owner = document.getElementById('actionOwner').value;
+                const dueDate = document.getElementById('actionDueDate').value;
+
+                if (!account || !text) {
+                    alert('Please fill in account and description');
+                    return;
+                }
+
+                if (this.editingActionId) {
+                    const action = weekData.actions.find(a => a.id === this.editingActionId);
+                    action.account = account;
+                    action.text = text;
+                    action.priority = priority;
+                    action.owner = owner;
+                    action.dueDate = dueDate;
+                } else {
+                    weekData.actions.push({
+                        id: Date.now().toString(),
+                        account,
+                        text,
+                        priority,
+                        owner,
+                        dueDate,
+                        completed: false
+                    });
+                }
+
+                this.saveData();
+                this.render();
+                this.closeActionModal();
+            }
+
+            deleteAction(actionId) {
+                if (confirm('Delete this action?')) {
+                    const weekData = this.getWeekData(this.currentWeek);
+                    weekData.actions = weekData.actions.filter(a => a.id !== actionId);
+                    this.saveData();
+                    this.render();
+                }
+            }
+
+            toggleAction(actionId) {
+                const weekData = this.getWeekData(this.currentWeek);
+                const action = weekData.actions.find(a => a.id === actionId);
+                if (action) {
+                    action.completed = !action.completed;
+                    this.saveData();
+                    this.render();
+                }
+            }
+
+            openMeetingModal(meetingId, day = null) {
+                const weekData = this.getWeekData(this.currentWeek);
+                let meeting = null;
+                let selectedDay = day;
+
+                if (meetingId) {
+                    for (const [d, meetings] of Object.entries(weekData.meetings)) {
+                        meeting = meetings.find(m => m.id === meetingId);
+                        if (meeting) {
+                            selectedDay = d;
+                            break;
+                        }
+                    }
+                }
+
+                if (meeting) {
+                    document.getElementById('meetingTitle').value = meeting.title;
+                    document.getElementById('meetingTime').value = meeting.time;
+                    document.getElementById('meetingDay').value = selectedDay;
+                } else {
+                    document.getElementById('meetingForm').reset();
+                    document.getElementById('meetingDay').value = selectedDay || 'Monday';
+                }
+
+                this.editingMeetingId = meetingId;
+                this.editingMeetingDay = selectedDay;
+                document.getElementById('meetingModal').classList.add('active');
+            }
+
+            closeMeetingModal() {
+                document.getElementById('meetingModal').classList.remove('active');
+            }
+
+            saveMeeting() {
+                const weekData = this.getWeekData(this.currentWeek);
+                const title = document.getElementById('meetingTitle').value;
+                const time = document.getElementById('meetingTime').value;
+                const day = document.getElementById('meetingDay').value;
+
+                if (!title || !time) {
+                    alert('Please fill in title and time');
+                    return;
+                }
+
+                if (this.editingMeetingId) {
+                    const oldMeeting = weekData.meetings[this.editingMeetingDay].find(m => m.id === this.editingMeetingId);
+                    oldMeeting.title = title;
+                    oldMeeting.time = time;
+                    if (day !== this.editingMeetingDay) {
+                        weekData.meetings[this.editingMeetingDay] = weekData.meetings[this.editingMeetingDay].filter(m => m.id !== this.editingMeetingId);
+                        if (!weekData.meetings[day]) weekData.meetings[day] = [];
+                        weekData.meetings[day].push({
+                            id: this.editingMeetingId,
+                            title,
+                            time
+                        });
+                    }
+                } else {
+                    if (!weekData.meetings[day]) weekData.meetings[day] = [];
+                    weekData.meetings[day].push({
+                        id: Date.now().toString(),
+                        title,
+                        time
+                    });
+                }
+
+                this.saveData();
+                this.render();
+                this.closeMeetingModal();
+            }
+
+            deleteMeeting(day, meetingId) {
+                if (confirm('Delete this meeting?')) {
+                    const weekData = this.getWeekData(this.currentWeek);
+                    weekData.meetings[day] = weekData.meetings[day].filter(m => m.id !== meetingId);
+                    this.saveData();
+                    this.render();
+                }
+            }
+
+            editMetric(index) {
+                const weekData = this.getWeekData(this.currentWeek);
+                const metric = weekData.metrics[index];
+                const newValue = prompt(`Edit "${metric.label}":`, metric.value);
+                if (newValue !== null) {
+                    metric.value = newValue;
+                    this.saveData();
+                    this.render();
+                }
+            }
+        }
+
+        const app = new WeeklyBriefing();
+    </script>
 </body>
 </html>

@@ -12,9 +12,12 @@
 }
 * { margin:0; padding:0; box-sizing:border-box; }
 body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; background: var(--bg); color: var(--text); }
-.header { padding: 28px 32px 20px; border-bottom: 1px solid var(--bdr); }
-.header h1 { font-size: 22px; font-weight: 700; }
-.header p { color: var(--text2); font-size: 13px; margin-top: 4px; }
+.header { padding: 28px 32px 20px; border-bottom: 1px solid var(--bdr); display: flex; justify-content: space-between; align-items: start; }
+.header-left h1 { font-size: 22px; font-weight: 700; }
+.header-left p { color: var(--text2); font-size: 13px; margin-top: 4px; }
+.header-right { display: flex; gap: 12px; }
+.reset-btn { padding: 8px 16px; border-radius: 8px; border: 1px solid var(--bdr); background: var(--bg2); color: var(--text); font-size: 12px; font-weight: 600; cursor: pointer; transition: all .15s; }
+.reset-btn:hover { background: var(--bg3); border-color: var(--acc); }
 .stats { display: flex; gap: 16px; padding: 16px 32px; border-bottom: 1px solid var(--bdr); flex-wrap: wrap; }
 .stat { background: var(--bg2); border: 1px solid var(--bdr); border-radius: 10px; padding: 14px 20px; min-width: 140px; }
 .stat-val { font-size: 22px; font-weight: 700; }
@@ -29,17 +32,27 @@ body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; b
 .col-cards { flex: 1; overflow-y: auto; padding: 8px; display: flex; flex-direction: column; gap: 8px; }
 .col-cards::-webkit-scrollbar { width: 3px; }
 .col-cards::-webkit-scrollbar-thumb { background: var(--bdr); border-radius: 2px; }
-.card { background: var(--bg3); border: 1px solid var(--bdr); border-radius: 10px; padding: 12px 14px; cursor: grab; transition: all .15s; }
+.add-btn { width: 100%; padding: 10px; margin: 4px 0; border: 2px dashed var(--acc); border-radius: 8px; background: transparent; color: var(--acc); font-size: 18px; cursor: pointer; transition: all .15s; }
+.add-btn:hover { background: rgba(59,130,246,.08); }
+.card { background: var(--bg3); border: 1px solid var(--bdr); border-radius: 10px; padding: 12px 14px; cursor: grab; transition: all .15s; position: relative; }
 .card:hover { border-color: var(--acc); transform: translateY(-1px); box-shadow: 0 4px 12px rgba(0,0,0,.3); }
+.card:hover .card-del { opacity: 1; }
+.card-del { position: absolute; top: 8px; right: 8px; width: 20px; height: 20px; display: flex; align-items: center; justify-content: center; cursor: pointer; background: rgba(239,68,68,.2); color: #fca5a5; border-radius: 4px; opacity: 0; transition: opacity .15s; font-size: 12px; font-weight: 700; border: none; }
+.card-del:hover { background: rgba(239,68,68,.4); }
 .card-top { display: flex; justify-content: space-between; align-items: start; }
-.card-name { font-size: 13px; font-weight: 600; }
-.card-val { font-size: 12px; font-weight: 700; color: #22c55e; white-space: nowrap; }
-.card-ind { font-size: 11px; color: var(--text2); margin-top: 2px; }
+.card-name { font-size: 13px; font-weight: 600; cursor: pointer; flex: 1; }
+.card-name:hover { color: var(--acc); }
+.card-val { font-size: 12px; font-weight: 700; color: #22c55e; white-space: nowrap; cursor: pointer; padding: 2px 6px; border-radius: 4px; transition: all .15s; }
+.card-val:hover { background: rgba(34,197,94,.15); }
+.card-ind { font-size: 11px; color: var(--text2); margin-top: 2px; cursor: pointer; }
+.card-ind:hover { color: var(--acc); }
 .card-tier { display: inline-block; font-size: 9px; font-weight: 600; padding: 2px 6px; border-radius: 4px; margin-top: 6px; }
 .t1 { background: rgba(239,68,68,.15); color: #fca5a5; }
 .t2 { background: rgba(245,158,11,.15); color: #fcd34d; }
-.card-contact { font-size: 11px; color: var(--text3); margin-top: 6px; }
-.card-next { font-size: 11px; color: var(--acc); margin-top: 4px; padding: 6px 8px; background: rgba(59,130,246,.08); border-radius: 6px; }
+.card-contact { font-size: 11px; color: var(--text3); margin-top: 6px; cursor: pointer; }
+.card-contact:hover { color: var(--acc); }
+.card-next { font-size: 11px; color: var(--acc); margin-top: 4px; padding: 6px 8px; background: rgba(59,130,246,.08); border-radius: 6px; cursor: pointer; }
+.card-next:hover { background: rgba(59,130,246,.15); }
 .card-days { font-size: 10px; color: var(--text3); margin-top: 6px; display: flex; justify-content: space-between; align-items: center; }
 .days-badge { padding: 2px 6px; border-radius: 4px; font-size: 9px; font-weight: 600; }
 .days-ok { background: rgba(34,197,94,.12); color: #86efac; }
@@ -50,19 +63,40 @@ body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; b
 .fbtn { padding: 5px 12px; border-radius: 6px; border: 1px solid var(--bdr); background: transparent; color: var(--text2); font-size: 11px; cursor: pointer; font-weight: 600; }
 .fbtn:hover { border-color: var(--acc); color: var(--text); }
 .fbtn.on { background: var(--acc); color: #fff; border-color: var(--acc); }
+
+/* Modal styles */
+.modal-overlay { display: none; position: fixed; top: 0; left: 0; right: 0; bottom: 0; background: rgba(0,0,0,.6); z-index: 1000; align-items: center; justify-content: center; }
+.modal-overlay.active { display: flex; }
+.modal { background: var(--bg3); border: 1px solid var(--bg4); border-radius: 12px; padding: 24px; max-width: 450px; width: 90%; max-height: 90vh; overflow-y: auto; box-shadow: 0 20px 60px rgba(0,0,0,.5); }
+.modal h2 { font-size: 18px; font-weight: 700; margin-bottom: 16px; }
+.form-group { margin-bottom: 16px; }
+.form-label { display: block; font-size: 12px; font-weight: 600; color: var(--text2); margin-bottom: 6px; text-transform: uppercase; letter-spacing: .05em; }
+.form-input { width: 100%; padding: 10px 12px; border: 1px solid var(--bdr); background: var(--bg2); color: var(--text); border-radius: 8px; font-size: 13px; transition: all .15s; }
+.form-input:focus { outline: none; border-color: var(--acc); box-shadow: 0 0 0 3px rgba(59,130,246,.1); }
+.form-input::placeholder { color: var(--text3); }
+.modal-buttons { display: flex; gap: 12px; margin-top: 24px; }
+.modal-btn { flex: 1; padding: 10px 16px; border-radius: 8px; border: 1px solid var(--bdr); background: var(--bg2); color: var(--text); font-size: 12px; font-weight: 600; cursor: pointer; transition: all .15s; }
+.modal-btn:hover { background: var(--bg3); border-color: var(--acc); }
+.modal-btn.primary { background: var(--acc); border-color: var(--acc); color: white; }
+.modal-btn.primary:hover { background: #2563eb; }
 </style>
 </head>
 <body>
 <div class="header">
-  <h1>Deal Tracker — Pipeline View</h1>
-  <p>Drag accounts between stages to update pipeline. 36 total accounts across Tier 1 & Tier 2.</p>
+  <div class="header-left">
+    <h1>Deal Tracker — Pipeline View</h1>
+    <p>Drag accounts between stages to update pipeline. All changes saved automatically.</p>
+  </div>
+  <div class="header-right">
+    <button class="reset-btn" onclick="resetToDefaults()">Reset to Defaults</button>
+  </div>
 </div>
-<div class="stats">
-  <div class="stat"><div class="stat-val">$2,935K</div><div class="stat-lbl">Total Pipeline</div></div>
-  <div class="stat"><div class="stat-val">36</div><div class="stat-lbl">Active Deals</div></div>
-  <div class="stat"><div class="stat-val">3</div><div class="stat-lbl">In POC / Negotiation</div></div>
-  <div class="stat"><div class="stat-val">6</div><div class="stat-lbl">Meetings Booked</div></div>
-  <div class="stat"><div class="stat-val" style="color:#f59e0b">4</div><div class="stat-lbl">Stale (14+ days)</div></div>
+<div class="stats" id="stats">
+  <div class="stat"><div class="stat-val" id="stat-pipeline">$2,935K</div><div class="stat-lbl">Total Pipeline</div></div>
+  <div class="stat"><div class="stat-val" id="stat-deals">36</div><div class="stat-lbl">Active Deals</div></div>
+  <div class="stat"><div class="stat-val" id="stat-poc">3</div><div class="stat-lbl">In POC / Negotiation</div></div>
+  <div class="stat"><div class="stat-val" id="stat-meetings">6</div><div class="stat-lbl">Meetings Booked</div></div>
+  <div class="stat"><div class="stat-val" style="color:#f59e0b" id="stat-stale">4</div><div class="stat-lbl">Stale (14+ days)</div></div>
 </div>
 <div class="filter-bar">
   <span style="font-size:11px;color:var(--text3);margin-right:4px;">Filter:</span>
@@ -79,7 +113,9 @@ body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; b
     <div class="col-hdr"><div class="col-dot" style="background:#64748b"></div><div class="col-name">Cold</div><div class="col-cnt">17</div></div>
     <div class="col-val">$1,230K pipeline value</div>
     <div class="col-cards">
-      <div class="card" draggable="true" ondragstart="ds(event)" data-tier="Tier 1" data-name="Intrinsic (Google)" data-value="200">
+      <button class="add-btn" onclick="addNewDeal('cold')">+</button>
+      <div class="card" draggable="true" ondragstart="ds(event)" onclick="editCard(event)" data-tier="Tier 1" data-name="Intrinsic (Google)" data-value="200" data-contact="" data-next="Identify champion" data-stage="cold">
+        <div class="card-del" onclick="deleteCard(event)">×</div>
         <div class="card-top"><div class="card-name">Intrinsic (Google)</div><div class="card-val">$200K</div></div>
         <div class="card-ind">Industrial Robotics</div>
         <span class="card-tier t1">Tier 1</span>
@@ -87,7 +123,8 @@ body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; b
         <div class="card-next">→ Identify champion</div>
         <div class="card-days"><span>Last activity</span><span class="days-badge days-ok">New</span></div>
       </div>
-      <div class="card" draggable="true" ondragstart="ds(event)" data-tier="Tier 1" data-name="Elroy Air" data-value="130">
+      <div class="card" draggable="true" ondragstart="ds(event)" onclick="editCard(event)" data-tier="Tier 1" data-name="Elroy Air" data-value="130" data-contact="" data-next="Research & outreach" data-stage="cold">
+        <div class="card-del" onclick="deleteCard(event)">×</div>
         <div class="card-top"><div class="card-name">Elroy Air</div><div class="card-val">$130K</div></div>
         <div class="card-ind">Autonomous Aviation</div>
         <span class="card-tier t1">Tier 1</span>
@@ -95,7 +132,8 @@ body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; b
         <div class="card-next">→ Research & outreach</div>
         <div class="card-days"><span>Last activity</span><span class="days-badge days-ok">New</span></div>
       </div>
-      <div class="card" draggable="true" ondragstart="ds(event)" data-tier="Tier 2" data-name="Pyka" data-value="85">
+      <div class="card" draggable="true" ondragstart="ds(event)" onclick="editCard(event)" data-tier="Tier 2" data-name="Pyka" data-value="85" data-contact="" data-next="Outreach planned" data-stage="cold">
+        <div class="card-del" onclick="deleteCard(event)">×</div>
         <div class="card-top"><div class="card-name">Pyka</div><div class="card-val">$85K</div></div>
         <div class="card-ind">Autonomous Ag</div>
         <span class="card-tier t2">Tier 2</span>
@@ -103,7 +141,8 @@ body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; b
         <div class="card-next">→ Outreach planned</div>
         <div class="card-days"><span>Last activity</span><span class="days-badge days-ok">New</span></div>
       </div>
-      <div class="card" draggable="true" ondragstart="ds(event)" data-tier="Tier 2" data-name="Anyware Robotics" data-value="80">
+      <div class="card" draggable="true" ondragstart="ds(event)" onclick="editCard(event)" data-tier="Tier 2" data-name="Anyware Robotics" data-value="80" data-contact="" data-next="Outreach planned" data-stage="cold">
+        <div class="card-del" onclick="deleteCard(event)">×</div>
         <div class="card-top"><div class="card-name">Anyware Robotics</div><div class="card-val">$80K</div></div>
         <div class="card-ind">Warehouse AI</div>
         <span class="card-tier t2">Tier 2</span>
@@ -111,7 +150,8 @@ body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; b
         <div class="card-next">→ Outreach planned</div>
         <div class="card-days"><span>Last activity</span><span class="days-badge days-ok">New</span></div>
       </div>
-      <div class="card" draggable="true" ondragstart="ds(event)" data-tier="Tier 2" data-name="Samba TV" data-value="75">
+      <div class="card" draggable="true" ondragstart="ds(event)" onclick="editCard(event)" data-tier="Tier 2" data-name="Samba TV" data-value="75" data-contact="" data-next="Sequence #1" data-stage="cold">
+        <div class="card-del" onclick="deleteCard(event)">×</div>
         <div class="card-top"><div class="card-name">Samba TV</div><div class="card-val">$75K</div></div>
         <div class="card-ind">TV Analytics</div>
         <span class="card-tier t2">Tier 2</span>
@@ -119,7 +159,8 @@ body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; b
         <div class="card-next">→ Sequence #1</div>
         <div class="card-days"><span>Last activity</span><span class="days-badge days-ok">New</span></div>
       </div>
-      <div class="card" draggable="true" ondragstart="ds(event)" data-tier="Tier 2" data-name="Fulgent Genetics" data-value="70">
+      <div class="card" draggable="true" ondragstart="ds(event)" onclick="editCard(event)" data-tier="Tier 2" data-name="Fulgent Genetics" data-value="70" data-contact="" data-next="Research" data-stage="cold">
+        <div class="card-del" onclick="deleteCard(event)">×</div>
         <div class="card-top"><div class="card-name">Fulgent Genetics</div><div class="card-val">$70K</div></div>
         <div class="card-ind">Genomics</div>
         <span class="card-tier t2">Tier 2</span>
@@ -127,7 +168,8 @@ body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; b
         <div class="card-next">→ Research</div>
         <div class="card-days"><span>Last activity</span><span class="days-badge days-ok">New</span></div>
       </div>
-      <div class="card" draggable="true" ondragstart="ds(event)" data-tier="Tier 2" data-name="Armstrong Robotics" data-value="65">
+      <div class="card" draggable="true" ondragstart="ds(event)" onclick="editCard(event)" data-tier="Tier 2" data-name="Armstrong Robotics" data-value="65" data-contact="" data-next="Outreach" data-stage="cold">
+        <div class="card-del" onclick="deleteCard(event)">×</div>
         <div class="card-top"><div class="card-name">Armstrong Robotics</div><div class="card-val">$65K</div></div>
         <div class="card-ind">Space Robotics</div>
         <span class="card-tier t2">Tier 2</span>
@@ -135,7 +177,8 @@ body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; b
         <div class="card-next">→ Outreach</div>
         <div class="card-days"><span>Last activity</span><span class="days-badge days-ok">New</span></div>
       </div>
-      <div class="card" draggable="true" ondragstart="ds(event)" data-tier="Tier 2" data-name="Krisp" data-value="60">
+      <div class="card" draggable="true" ondragstart="ds(event)" onclick="editCard(event)" data-tier="Tier 2" data-name="Krisp" data-value="60" data-contact="" data-next="Research" data-stage="cold">
+        <div class="card-del" onclick="deleteCard(event)">×</div>
         <div class="card-top"><div class="card-name">Krisp</div><div class="card-val">$60K</div></div>
         <div class="card-ind">Audio AI</div>
         <span class="card-tier t2">Tier 2</span>
@@ -143,7 +186,8 @@ body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; b
         <div class="card-next">→ Research</div>
         <div class="card-days"><span>Last activity</span><span class="days-badge days-ok">New</span></div>
       </div>
-      <div class="card" draggable="true" ondragstart="ds(event)" data-tier="Tier 2" data-name="Cytek Biosciences" data-value="60">
+      <div class="card" draggable="true" ondragstart="ds(event)" onclick="editCard(event)" data-tier="Tier 2" data-name="Cytek Biosciences" data-value="60" data-contact="" data-next="Research" data-stage="cold">
+        <div class="card-del" onclick="deleteCard(event)">×</div>
         <div class="card-top"><div class="card-name">Cytek Biosciences</div><div class="card-val">$60K</div></div>
         <div class="card-ind">Flow Cytometry</div>
         <span class="card-tier t2">Tier 2</span>
@@ -151,7 +195,8 @@ body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; b
         <div class="card-next">→ Research</div>
         <div class="card-days"><span>Last activity</span><span class="days-badge days-ok">New</span></div>
       </div>
-      <div class="card" draggable="true" ondragstart="ds(event)" data-tier="Tier 2" data-name="Overview.ai" data-value="55">
+      <div class="card" draggable="true" ondragstart="ds(event)" onclick="editCard(event)" data-tier="Tier 2" data-name="Overview.ai" data-value="55" data-contact="" data-next="Email sequence started" data-stage="cold">
+        <div class="card-del" onclick="deleteCard(event)">×</div>
         <div class="card-top"><div class="card-name">Overview.ai</div><div class="card-val">$55K</div></div>
         <div class="card-ind">Industrial CV</div>
         <span class="card-tier t2">Tier 2</span>
@@ -159,7 +204,8 @@ body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; b
         <div class="card-next">→ Email sequence started</div>
         <div class="card-days"><span>Last activity</span><span class="days-badge days-ok">New</span></div>
       </div>
-      <div class="card" draggable="true" ondragstart="ds(event)" data-tier="Tier 2" data-name="Culture Biosciences" data-value="55">
+      <div class="card" draggable="true" ondragstart="ds(event)" onclick="editCard(event)" data-tier="Tier 2" data-name="Culture Biosciences" data-value="55" data-contact="" data-next="Research" data-stage="cold">
+        <div class="card-del" onclick="deleteCard(event)">×</div>
         <div class="card-top"><div class="card-name">Culture Biosciences</div><div class="card-val">$55K</div></div>
         <div class="card-ind">Biotech AI</div>
         <span class="card-tier t2">Tier 2</span>
@@ -167,7 +213,8 @@ body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; b
         <div class="card-next">→ Research</div>
         <div class="card-days"><span>Last activity</span><span class="days-badge days-ok">New</span></div>
       </div>
-      <div class="card" draggable="true" ondragstart="ds(event)" data-tier="Tier 2" data-name="Autonomize AI" data-value="55">
+      <div class="card" draggable="true" ondragstart="ds(event)" onclick="editCard(event)" data-tier="Tier 2" data-name="Autonomize AI" data-value="55" data-contact="" data-next="Research" data-stage="cold">
+        <div class="card-del" onclick="deleteCard(event)">×</div>
         <div class="card-top"><div class="card-name">Autonomize AI</div><div class="card-val">$55K</div></div>
         <div class="card-ind">Health AI</div>
         <span class="card-tier t2">Tier 2</span>
@@ -175,7 +222,8 @@ body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; b
         <div class="card-next">→ Research</div>
         <div class="card-days"><span>Last activity</span><span class="days-badge days-ok">New</span></div>
       </div>
-      <div class="card" draggable="true" ondragstart="ds(event)" data-tier="Tier 2" data-name="Formant" data-value="55">
+      <div class="card" draggable="true" ondragstart="ds(event)" onclick="editCard(event)" data-tier="Tier 2" data-name="Formant" data-value="55" data-contact="" data-next="Research" data-stage="cold">
+        <div class="card-del" onclick="deleteCard(event)">×</div>
         <div class="card-top"><div class="card-name">Formant</div><div class="card-val">$55K</div></div>
         <div class="card-ind">Robot Fleet</div>
         <span class="card-tier t2">Tier 2</span>
@@ -183,7 +231,8 @@ body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; b
         <div class="card-next">→ Research</div>
         <div class="card-days"><span>Last activity</span><span class="days-badge days-ok">New</span></div>
       </div>
-      <div class="card" draggable="true" ondragstart="ds(event)" data-tier="Tier 2" data-name="AppliedVR" data-value="50">
+      <div class="card" draggable="true" ondragstart="ds(event)" onclick="editCard(event)" data-tier="Tier 2" data-name="AppliedVR" data-value="50" data-contact="" data-next="Research" data-stage="cold">
+        <div class="card-del" onclick="deleteCard(event)">×</div>
         <div class="card-top"><div class="card-name">AppliedVR</div><div class="card-val">$50K</div></div>
         <div class="card-ind">VR Therapeutics</div>
         <span class="card-tier t2">Tier 2</span>
@@ -191,7 +240,8 @@ body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; b
         <div class="card-next">→ Research</div>
         <div class="card-days"><span>Last activity</span><span class="days-badge days-ok">New</span></div>
       </div>
-      <div class="card" draggable="true" ondragstart="ds(event)" data-tier="Tier 2" data-name="Weave Robotics" data-value="50">
+      <div class="card" draggable="true" ondragstart="ds(event)" onclick="editCard(event)" data-tier="Tier 2" data-name="Weave Robotics" data-value="50" data-contact="" data-next="Research" data-stage="cold">
+        <div class="card-del" onclick="deleteCard(event)">×</div>
         <div class="card-top"><div class="card-name">Weave Robotics</div><div class="card-val">$50K</div></div>
         <div class="card-ind">Robotics</div>
         <span class="card-tier t2">Tier 2</span>
@@ -199,7 +249,8 @@ body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; b
         <div class="card-next">→ Research</div>
         <div class="card-days"><span>Last activity</span><span class="days-badge days-ok">New</span></div>
       </div>
-      <div class="card" draggable="true" ondragstart="ds(event)" data-tier="Tier 2" data-name="Techcyte" data-value="45">
+      <div class="card" draggable="true" ondragstart="ds(event)" onclick="editCard(event)" data-tier="Tier 2" data-name="Techcyte" data-value="45" data-contact="" data-next="Outreach" data-stage="cold">
+        <div class="card-del" onclick="deleteCard(event)">×</div>
         <div class="card-top"><div class="card-name">Techcyte</div><div class="card-val">$45K</div></div>
         <div class="card-ind">Medical CV</div>
         <span class="card-tier t2">Tier 2</span>
@@ -207,7 +258,8 @@ body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; b
         <div class="card-next">→ Outreach</div>
         <div class="card-days"><span>Last activity</span><span class="days-badge days-ok">New</span></div>
       </div>
-      <div class="card" draggable="true" ondragstart="ds(event)" data-tier="Tier 2" data-name="Kiwibot" data-value="40">
+      <div class="card" draggable="true" ondragstart="ds(event)" onclick="editCard(event)" data-tier="Tier 2" data-name="Kiwibot" data-value="40" data-contact="" data-next="Research" data-stage="cold">
+        <div class="card-del" onclick="deleteCard(event)">×</div>
         <div class="card-top"><div class="card-name">Kiwibot</div><div class="card-val">$40K</div></div>
         <div class="card-ind">Delivery Robots</div>
         <span class="card-tier t2">Tier 2</span>
@@ -221,7 +273,9 @@ body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; b
     <div class="col-hdr"><div class="col-dot" style="background:#f59e0b"></div><div class="col-name">Contacted</div><div class="col-cnt">10</div></div>
     <div class="col-val">$810K pipeline value</div>
     <div class="col-cards">
-      <div class="card" draggable="true" ondragstart="ds(event)" data-tier="Tier 1" data-name="Wing (Alphabet)" data-value="175">
+      <button class="add-btn" onclick="addNewDeal('contacted')">+</button>
+      <div class="card" draggable="true" ondragstart="ds(event)" onclick="editCard(event)" data-tier="Tier 1" data-name="Wing (Alphabet)" data-value="175" data-contact="Engineering Lead" data-next="Awaiting response" data-stage="contacted">
+        <div class="card-del" onclick="deleteCard(event)">×</div>
         <div class="card-top"><div class="card-name">Wing (Alphabet)</div><div class="card-val">$175K</div></div>
         <div class="card-ind">Drone Delivery</div>
         <span class="card-tier t1">Tier 1</span>
@@ -229,7 +283,8 @@ body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; b
         <div class="card-next">→ Awaiting response</div>
         <div class="card-days"><span>Last activity</span><span class="days-badge days-danger">21d ago</span></div>
       </div>
-      <div class="card" draggable="true" ondragstart="ds(event)" data-tier="Tier 1" data-name="Apex.AI" data-value="150">
+      <div class="card" draggable="true" ondragstart="ds(event)" onclick="editCard(event)" data-tier="Tier 1" data-name="Apex.AI" data-value="150" data-contact="Jan Becker" data-next="Follow-up email #2" data-stage="contacted">
+        <div class="card-del" onclick="deleteCard(event)">×</div>
         <div class="card-top"><div class="card-name">Apex.AI</div><div class="card-val">$150K</div></div>
         <div class="card-ind">AV Software</div>
         <span class="card-tier t1">Tier 1</span>
@@ -237,7 +292,8 @@ body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; b
         <div class="card-next">→ Follow-up email #2</div>
         <div class="card-days"><span>Last activity</span><span class="days-badge days-warn">8d ago</span></div>
       </div>
-      <div class="card" draggable="true" ondragstart="ds(event)" data-tier="Tier 1" data-name="Valar Labs" data-value="90">
+      <div class="card" draggable="true" ondragstart="ds(event)" onclick="editCard(event)" data-tier="Tier 1" data-name="Valar Labs" data-value="90" data-contact="Anirudh Joshi" data-next="Intro call scheduled" data-stage="contacted">
+        <div class="card-del" onclick="deleteCard(event)">×</div>
         <div class="card-top"><div class="card-name">Valar Labs</div><div class="card-val">$90K</div></div>
         <div class="card-ind">Clinical AI</div>
         <span class="card-tier t1">Tier 1</span>
@@ -245,7 +301,8 @@ body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; b
         <div class="card-next">→ Intro call scheduled</div>
         <div class="card-days"><span>Last activity</span><span class="days-badge days-warn">14d ago</span></div>
       </div>
-      <div class="card" draggable="true" ondragstart="ds(event)" data-tier="Tier 2" data-name="Suki" data-value="70">
+      <div class="card" draggable="true" ondragstart="ds(event)" onclick="editCard(event)" data-tier="Tier 2" data-name="Suki" data-value="70" data-contact="VP Eng" data-next="Follow-up" data-stage="contacted">
+        <div class="card-del" onclick="deleteCard(event)">×</div>
         <div class="card-top"><div class="card-name">Suki</div><div class="card-val">$70K</div></div>
         <div class="card-ind">Health AI</div>
         <span class="card-tier t2">Tier 2</span>
@@ -253,7 +310,8 @@ body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; b
         <div class="card-next">→ Follow-up</div>
         <div class="card-days"><span>Last activity</span><span class="days-badge days-warn">11d ago</span></div>
       </div>
-      <div class="card" draggable="true" ondragstart="ds(event)" data-tier="Tier 2" data-name="Compound Eye" data-value="65">
+      <div class="card" draggable="true" ondragstart="ds(event)" onclick="editCard(event)" data-tier="Tier 2" data-name="Compound Eye" data-value="65" data-contact="CTO" data-next="Follow-up" data-stage="contacted">
+        <div class="card-del" onclick="deleteCard(event)">×</div>
         <div class="card-top"><div class="card-name">Compound Eye</div><div class="card-val">$65K</div></div>
         <div class="card-ind">3D Vision</div>
         <span class="card-tier t2">Tier 2</span>
@@ -261,7 +319,8 @@ body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; b
         <div class="card-next">→ Follow-up</div>
         <div class="card-days"><span>Last activity</span><span class="days-badge days-warn">10d ago</span></div>
       </div>
-      <div class="card" draggable="true" ondragstart="ds(event)" data-tier="Tier 2" data-name="Uplight" data-value="65">
+      <div class="card" draggable="true" ondragstart="ds(event)" onclick="editCard(event)" data-tier="Tier 2" data-name="Uplight" data-value="65" data-contact="Data Lead" data-next="Reconnect" data-stage="contacted">
+        <div class="card-del" onclick="deleteCard(event)">×</div>
         <div class="card-top"><div class="card-name">Uplight</div><div class="card-val">$65K</div></div>
         <div class="card-ind">Energy AI</div>
         <span class="card-tier t2">Tier 2</span>
@@ -269,7 +328,8 @@ body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; b
         <div class="card-next">→ Reconnect</div>
         <div class="card-days"><span>Last activity</span><span class="days-badge days-danger">17d ago</span></div>
       </div>
-      <div class="card" draggable="true" ondragstart="ds(event)" data-tier="Tier 2" data-name="Gorgias" data-value="60">
+      <div class="card" draggable="true" ondragstart="ds(event)" onclick="editCard(event)" data-tier="Tier 2" data-name="Gorgias" data-value="60" data-contact="ML Lead" data-next="Use case alignment" data-stage="contacted">
+        <div class="card-del" onclick="deleteCard(event)">×</div>
         <div class="card-top"><div class="card-name">Gorgias</div><div class="card-val">$60K</div></div>
         <div class="card-ind">E-commerce CX</div>
         <span class="card-tier t2">Tier 2</span>
@@ -277,7 +337,8 @@ body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; b
         <div class="card-next">→ Use case alignment</div>
         <div class="card-days"><span>Last activity</span><span class="days-badge days-warn">8d ago</span></div>
       </div>
-      <div class="card" draggable="true" ondragstart="ds(event)" data-tier="Tier 2" data-name="HeadSpin" data-value="50">
+      <div class="card" draggable="true" ondragstart="ds(event)" onclick="editCard(event)" data-tier="Tier 2" data-name="HeadSpin" data-value="50" data-contact="VP Eng" data-next="Call scheduled" data-stage="contacted">
+        <div class="card-del" onclick="deleteCard(event)">×</div>
         <div class="card-top"><div class="card-name">HeadSpin</div><div class="card-val">$50K</div></div>
         <div class="card-ind">Mobile Testing</div>
         <span class="card-tier t2">Tier 2</span>
@@ -285,7 +346,8 @@ body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; b
         <div class="card-next">→ Call scheduled</div>
         <div class="card-days"><span>Last activity</span><span class="days-badge days-warn">9d ago</span></div>
       </div>
-      <div class="card" draggable="true" ondragstart="ds(event)" data-tier="Tier 2" data-name="Topaz Labs" data-value="45">
+      <div class="card" draggable="true" ondragstart="ds(event)" onclick="editCard(event)" data-tier="Tier 2" data-name="Topaz Labs" data-value="45" data-contact="Eric Yang" data-next="Waiting on eval" data-stage="contacted">
+        <div class="card-del" onclick="deleteCard(event)">×</div>
         <div class="card-top"><div class="card-name">Topaz Labs</div><div class="card-val">$45K</div></div>
         <div class="card-ind">Photo AI</div>
         <span class="card-tier t2">Tier 2</span>
@@ -293,7 +355,8 @@ body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; b
         <div class="card-next">→ Waiting on eval</div>
         <div class="card-days"><span>Last activity</span><span class="days-badge days-danger">15d ago</span></div>
       </div>
-      <div class="card" draggable="true" ondragstart="ds(event)" data-tier="Tier 2" data-name="Wobot AI" data-value="40">
+      <div class="card" draggable="true" ondragstart="ds(event)" onclick="editCard(event)" data-tier="Tier 2" data-name="Wobot AI" data-value="40" data-contact="Sourabh Gupta" data-next="Follow-up email" data-stage="contacted">
+        <div class="card-del" onclick="deleteCard(event)">×</div>
         <div class="card-top"><div class="card-name">Wobot AI</div><div class="card-val">$40K</div></div>
         <div class="card-ind">Industrial CV</div>
         <span class="card-tier t2">Tier 2</span>
@@ -307,7 +370,9 @@ body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; b
     <div class="col-hdr"><div class="col-dot" style="background:#3b82f6"></div><div class="col-name">Meeting Booked</div><div class="col-cnt">6</div></div>
     <div class="col-val">$510K pipeline value</div>
     <div class="col-cards">
-      <div class="card" draggable="true" ondragstart="ds(event)" data-tier="Tier 1" data-name="Iambic Therapeutics" data-value="120">
+      <button class="add-btn" onclick="addNewDeal('meeting')">+</button>
+      <div class="card" draggable="true" ondragstart="ds(event)" onclick="editCard(event)" data-tier="Tier 1" data-name="Iambic Therapeutics" data-value="120" data-contact="Tom Miller" data-next="Technical deep-dive" data-stage="meeting">
+        <div class="card-del" onclick="deleteCard(event)">×</div>
         <div class="card-top"><div class="card-name">Iambic Therapeutics</div><div class="card-val">$120K</div></div>
         <div class="card-ind">AI Drug Discovery</div>
         <span class="card-tier t1">Tier 1</span>
@@ -315,7 +380,8 @@ body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; b
         <div class="card-next">→ Technical deep-dive</div>
         <div class="card-days"><span>Last activity</span><span class="days-badge days-ok">5d ago</span></div>
       </div>
-      <div class="card" draggable="true" ondragstart="ds(event)" data-tier="Tier 1" data-name="GITAI" data-value="95">
+      <div class="card" draggable="true" ondragstart="ds(event)" onclick="editCard(event)" data-tier="Tier 1" data-name="GITAI" data-value="95" data-contact="Sho Nakanose" data-next="Technical requirements call" data-stage="meeting">
+        <div class="card-del" onclick="deleteCard(event)">×</div>
         <div class="card-top"><div class="card-name">GITAI</div><div class="card-val">$95K</div></div>
         <div class="card-ind">Space Robotics</div>
         <span class="card-tier t1">Tier 1</span>
@@ -323,7 +389,8 @@ body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; b
         <div class="card-next">→ Technical requirements call</div>
         <div class="card-days"><span>Last activity</span><span class="days-badge days-warn">7d ago</span></div>
       </div>
-      <div class="card" draggable="true" ondragstart="ds(event)" data-tier="Tier 2" data-name="Matterport" data-value="90">
+      <div class="card" draggable="true" ondragstart="ds(event)" onclick="editCard(event)" data-tier="Tier 2" data-name="Matterport" data-value="90" data-contact="ML Lead" data-next="Ray Train demo" data-stage="meeting">
+        <div class="card-del" onclick="deleteCard(event)">×</div>
         <div class="card-top"><div class="card-name">Matterport</div><div class="card-val">$90K</div></div>
         <div class="card-ind">3D Spatial</div>
         <span class="card-tier t2">Tier 2</span>
@@ -331,7 +398,8 @@ body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; b
         <div class="card-next">→ Ray Train demo</div>
         <div class="card-days"><span>Last activity</span><span class="days-badge days-ok">6d ago</span></div>
       </div>
-      <div class="card" draggable="true" ondragstart="ds(event)" data-tier="Tier 1" data-name="Chooch" data-value="85">
+      <div class="card" draggable="true" ondragstart="ds(event)" onclick="editCard(event)" data-tier="Tier 1" data-name="Chooch" data-value="85" data-contact="Emrah Gultekin" data-next="Ray Serve demo" data-stage="meeting">
+        <div class="card-del" onclick="deleteCard(event)">×</div>
         <div class="card-top"><div class="card-name">Chooch</div><div class="card-val">$85K</div></div>
         <div class="card-ind">Enterprise CV</div>
         <span class="card-tier t1">Tier 1</span>
@@ -339,7 +407,8 @@ body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; b
         <div class="card-next">→ Ray Serve demo</div>
         <div class="card-days"><span>Last activity</span><span class="days-badge days-ok">2d ago</span></div>
       </div>
-      <div class="card" draggable="true" ondragstart="ds(event)" data-tier="Tier 2" data-name="Foxglove" data-value="70">
+      <div class="card" draggable="true" ondragstart="ds(event)" onclick="editCard(event)" data-tier="Tier 2" data-name="Foxglove" data-value="70" data-contact="Adrian Macneil" data-next="Integration discussion" data-stage="meeting">
+        <div class="card-del" onclick="deleteCard(event)">×</div>
         <div class="card-top"><div class="card-name">Foxglove</div><div class="card-val">$70K</div></div>
         <div class="card-ind">Robotics DevTools</div>
         <span class="card-tier t2">Tier 2</span>
@@ -347,7 +416,8 @@ body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; b
         <div class="card-next">→ Integration discussion</div>
         <div class="card-days"><span>Last activity</span><span class="days-badge days-ok">4d ago</span></div>
       </div>
-      <div class="card" draggable="true" ondragstart="ds(event)" data-tier="Tier 2" data-name="Fireflies.ai" data-value="50">
+      <div class="card" draggable="true" ondragstart="ds(event)" onclick="editCard(event)" data-tier="Tier 2" data-name="Fireflies.ai" data-value="50" data-contact="Krish Ramineni" data-next="Pricing discussion" data-stage="meeting">
+        <div class="card-del" onclick="deleteCard(event)">×</div>
         <div class="card-top"><div class="card-name">Fireflies.ai</div><div class="card-val">$50K</div></div>
         <div class="card-ind">Meeting AI</div>
         <span class="card-tier t2">Tier 2</span>
@@ -361,7 +431,9 @@ body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; b
     <div class="col-hdr"><div class="col-dot" style="background:#8b5cf6"></div><div class="col-name">POC / Eval</div><div class="col-cnt">2</div></div>
     <div class="col-val">$290K pipeline value</div>
     <div class="col-cards">
-      <div class="card" draggable="true" ondragstart="ds(event)" data-tier="Tier 1" data-name="comma.ai" data-value="180">
+      <button class="add-btn" onclick="addNewDeal('poc')">+</button>
+      <div class="card" draggable="true" ondragstart="ds(event)" onclick="editCard(event)" data-tier="Tier 1" data-name="comma.ai" data-value="180" data-contact="George Hotz" data-next="POC review meeting" data-stage="poc">
+        <div class="card-del" onclick="deleteCard(event)">×</div>
         <div class="card-top"><div class="card-name">comma.ai</div><div class="card-val">$180K</div></div>
         <div class="card-ind">AV / Self-Driving</div>
         <span class="card-tier t1">Tier 1</span>
@@ -369,7 +441,8 @@ body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; b
         <div class="card-next">→ POC review meeting</div>
         <div class="card-days"><span>Last activity</span><span class="days-badge days-warn">12d ago</span></div>
       </div>
-      <div class="card" draggable="true" ondragstart="ds(event)" data-tier="Tier 1" data-name="Lightwheel" data-value="110">
+      <div class="card" draggable="true" ondragstart="ds(event)" onclick="editCard(event)" data-tier="Tier 1" data-name="Lightwheel" data-value="110" data-contact="CTO" data-next="Benchmark results review" data-stage="poc">
+        <div class="card-del" onclick="deleteCard(event)">×</div>
         <div class="card-top"><div class="card-name">Lightwheel</div><div class="card-val">$110K</div></div>
         <div class="card-ind">AV Synthetic Data</div>
         <span class="card-tier t1">Tier 1</span>
@@ -383,7 +456,9 @@ body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; b
     <div class="col-hdr"><div class="col-dot" style="background:#22c55e"></div><div class="col-name">Negotiation</div><div class="col-cnt">1</div></div>
     <div class="col-val">$95K pipeline value</div>
     <div class="col-cards">
-      <div class="card" draggable="true" ondragstart="ds(event)" data-tier="Tier 1" data-name="Fal.ai" data-value="95">
+      <button class="add-btn" onclick="addNewDeal('negotiation')">+</button>
+      <div class="card" draggable="true" ondragstart="ds(event)" onclick="editCard(event)" data-tier="Tier 1" data-name="Fal.ai" data-value="95" data-contact="Batuhan Taskaya" data-next="Pricing review" data-stage="negotiation">
+        <div class="card-del" onclick="deleteCard(event)">×</div>
         <div class="card-top"><div class="card-name">Fal.ai</div><div class="card-val">$95K</div></div>
         <div class="card-ind">Serverless GPU</div>
         <span class="card-tier t1">Tier 1</span>
@@ -397,15 +472,90 @@ body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; b
     <div class="col-hdr"><div class="col-dot" style="background:#10b981"></div><div class="col-name">Closed Won</div><div class="col-cnt">0</div></div>
     <div class="col-val">$0K pipeline value</div>
     <div class="col-cards">
+      <button class="add-btn" onclick="addNewDeal('closed')">+</button>
     </div>
   </div>
 </div>
+
+<!-- Edit Modal -->
+<div class="modal-overlay" id="modalOverlay" onclick="if(event.target===this) closeModal()">
+  <div class="modal">
+    <h2 id="modalTitle">Edit Deal</h2>
+    <div class="form-group">
+      <label class="form-label">Company Name</label>
+      <input type="text" id="formName" class="form-input" placeholder="e.g., Acme Corp">
+    </div>
+    <div class="form-group">
+      <label class="form-label">Industry</label>
+      <input type="text" id="formIndustry" class="form-input" placeholder="e.g., Enterprise AI">
+    </div>
+    <div class="form-group">
+      <label class="form-label">Deal Value (K)</label>
+      <input type="number" id="formValue" class="form-input" placeholder="e.g., 100">
+    </div>
+    <div class="form-group">
+      <label class="form-label">Contact Name</label>
+      <input type="text" id="formContact" class="form-input" placeholder="e.g., John Doe">
+    </div>
+    <div class="form-group">
+      <label class="form-label">Next Action</label>
+      <input type="text" id="formNext" class="form-input" placeholder="e.g., Follow-up call">
+    </div>
+    <div class="form-group">
+      <label class="form-label">Tier</label>
+      <select id="formTier" class="form-input">
+        <option value="Tier 1">Tier 1</option>
+        <option value="Tier 2">Tier 2</option>
+      </select>
+    </div>
+    <div class="modal-buttons">
+      <button class="modal-btn" onclick="closeModal()">Cancel</button>
+      <button class="modal-btn primary" onclick="saveCard()">Save Changes</button>
+    </div>
+  </div>
+</div>
+
 <script>
 let currentFilter = 'all';
-function ds(e) { e.dataTransfer.setData('text/html', e.target.outerHTML); e.target.style.opacity = '.4'; setTimeout(()=>e.target.style.opacity='1', 300); }
-function ev(e) { e.preventDefault(); e.currentTarget.querySelector('.col-cards').classList.add('drag-over'); }
+let editingCard = null;
+const defaultData = getInitialData();
+
+// Initialize on load
+window.addEventListener('load', () => {
+  loadFromLocalStorage();
+  updateStats();
+});
+
+function getInitialData() {
+  return document.body.innerHTML;
+}
+
+let isDragging = false;
+let dragStartPos = { x: 0, y: 0 };
+
+// Track mousedown to distinguish click from drag
+document.addEventListener('mousedown', (e) => {
+  dragStartPos = { x: e.clientX, y: e.clientY };
+  isDragging = false;
+});
+
+function ds(e) {
+  isDragging = true;
+  const card = e.target.closest('.card');
+  if (!card) return;
+  e.dataTransfer.setData('text/html', card.outerHTML);
+  card.style.opacity = '.4';
+  setTimeout(() => card.style.opacity = '1', 300);
+}
+
+function ev(e) {
+  e.preventDefault();
+  e.currentTarget.querySelector('.col-cards').classList.add('drag-over');
+}
+
 function drop(e) {
   e.preventDefault();
+  isDragging = false;
   const col = e.currentTarget.querySelector('.col-cards');
   col.classList.remove('drag-over');
   const html = e.dataTransfer.getData('text/html');
@@ -413,20 +563,55 @@ function drop(e) {
     const temp = document.createElement('div');
     temp.innerHTML = html;
     const card = temp.firstElementChild;
-    if (card) col.appendChild(card);
-    // Remove from original
-    document.querySelectorAll('.card').forEach(c => {
-      if (c.style.opacity === '0.4') c.remove();
-    });
-    updateCounts();
+    if (card) {
+      const stage = e.currentTarget.closest('.column').dataset.stage;
+      card.dataset.stage = stage;
+      // Ensure event handlers are attached
+      card.draggable = true;
+      card.ondragstart = ds;
+      card.onclick = editCard;
+      const delBtn = card.querySelector('.card-del');
+      if (delBtn) delBtn.onclick = function(ev) { deleteCard(ev); };
+      col.appendChild(card);
+      document.querySelectorAll('.card').forEach(c => {
+        if (c.style.opacity === '0.4') c.remove();
+      });
+      updateStats();
+      saveToLocalStorage();
+    }
   }
 }
+
 document.querySelectorAll('.column').forEach(col => {
   col.addEventListener('dragleave', e => {
     col.querySelector('.col-cards').classList.remove('drag-over');
   });
 });
-function updateCounts() {
+
+function updateStats() {
+  const allCards = document.querySelectorAll('.card');
+  let totalPipeline = 0;
+  let pocCount = 0;
+  let meetingCount = 0;
+  let dealCount = 0;
+  let staleCount = 0;
+
+  allCards.forEach(card => {
+    const value = parseInt(card.dataset.value || 0);
+    totalPipeline += value;
+    dealCount++;
+
+    const stage = card.dataset.stage;
+    if (stage === 'poc' || stage === 'negotiation') pocCount++;
+    if (stage === 'meeting') meetingCount++;
+  });
+
+  document.getElementById('stat-pipeline').textContent = '$' + totalPipeline + 'K';
+  document.getElementById('stat-deals').textContent = dealCount;
+  document.getElementById('stat-poc').textContent = pocCount;
+  document.getElementById('stat-meetings').textContent = meetingCount;
+  document.getElementById('stat-stale').textContent = staleCount;
+
   document.querySelectorAll('.column').forEach(col => {
     const cards = col.querySelectorAll('.card');
     col.querySelector('.col-cnt').textContent = cards.length;
@@ -435,6 +620,7 @@ function updateCounts() {
     col.querySelector('.col-val').textContent = '$' + val + 'K pipeline value';
   });
 }
+
 function filterTier(tier, btn) {
   currentFilter = tier;
   document.querySelectorAll('.filter-bar .fbtn').forEach((b,i) => { if(i<3) b.classList.remove('on'); });
@@ -443,6 +629,7 @@ function filterTier(tier, btn) {
     c.style.display = (tier === 'all' || c.dataset.tier === tier) ? '' : 'none';
   });
 }
+
 function sortCards(by, btn) {
   document.querySelectorAll('.filter-bar .fbtn').forEach((b,i) => { if(i>=3) b.classList.remove('on'); });
   btn.classList.add('on');
@@ -455,6 +642,185 @@ function sortCards(by, btn) {
     });
     cards.forEach(c => container.appendChild(c));
   });
+}
+
+function editCard(e) {
+  // Don't open modal if user was dragging
+  if (isDragging) { isDragging = false; return; }
+  // Don't open modal if clicking the delete button
+  if (e.target.closest('.card-del')) return;
+
+  // Find the card element - works whether user clicked the card itself or a child
+  const card = e.target.closest('.card');
+  if (!card) return;
+  editingCard = card;
+
+  const name = editingCard.dataset.name || '';
+  const industry = editingCard.querySelector('.card-ind')?.textContent || '';
+  const value = editingCard.dataset.value || '';
+  const contact = editingCard.dataset.contact || '';
+  const next = editingCard.dataset.next || '';
+  const tier = editingCard.dataset.tier || 'Tier 1';
+
+  document.getElementById('formName').value = name;
+  document.getElementById('formIndustry').value = industry;
+  document.getElementById('formValue').value = value;
+  document.getElementById('formContact').value = contact;
+  document.getElementById('formNext').value = next;
+  document.getElementById('formTier').value = tier;
+
+  document.getElementById('modalOverlay').classList.add('active');
+}
+
+function closeModal() {
+  document.getElementById('modalOverlay').classList.remove('active');
+  editingCard = null;
+}
+
+function saveCard() {
+  if (!editingCard) return;
+
+  const name = document.getElementById('formName').value || 'Unnamed Deal';
+  const industry = document.getElementById('formIndustry').value || 'Unknown';
+  const value = document.getElementById('formValue').value || '0';
+  const contact = document.getElementById('formContact').value || '';
+  const next = document.getElementById('formNext').value || '';
+  const tier = document.getElementById('formTier').value || 'Tier 1';
+
+  editingCard.dataset.name = name;
+  editingCard.dataset.value = value;
+  editingCard.dataset.contact = contact;
+  editingCard.dataset.next = next;
+  editingCard.dataset.tier = tier;
+
+  // Update tier styling
+  const tierSpan = editingCard.querySelector('.card-tier');
+  tierSpan.textContent = tier;
+  tierSpan.className = 'card-tier ' + (tier === 'Tier 1' ? 't1' : 't2');
+
+  // Update visible elements
+  editingCard.querySelector('.card-name').textContent = name;
+  editingCard.querySelector('.card-val').textContent = '$' + value + 'K';
+  editingCard.querySelector('.card-ind').textContent = industry;
+  editingCard.querySelector('.card-contact').textContent = contact ? '👤 ' + contact : '👤 —';
+  editingCard.querySelector('.card-next').textContent = '→ ' + next;
+
+  updateStats();
+  saveToLocalStorage();
+  closeModal();
+}
+
+function deleteCard(e) {
+  e.stopPropagation();
+  if (confirm('Delete this deal?')) {
+    const card = e.target.closest('.card');
+    card.remove();
+    updateStats();
+    saveToLocalStorage();
+  }
+}
+
+function addNewDeal(stage) {
+  const card = document.createElement('div');
+  card.className = 'card';
+  card.draggable = true;
+  card.ondragstart = ds;
+  card.onclick = editCard;
+  card.dataset.tier = 'Tier 2';
+  card.dataset.name = 'New Deal';
+  card.dataset.value = '50';
+  card.dataset.contact = '';
+  card.dataset.next = 'Schedule meeting';
+  card.dataset.stage = stage;
+
+  card.innerHTML = `
+    <div class="card-del" onclick="deleteCard(event)">×</div>
+    <div class="card-top">
+      <div class="card-name">New Deal</div>
+      <div class="card-val">$50K</div>
+    </div>
+    <div class="card-ind">New Industry</div>
+    <span class="card-tier t2">Tier 2</span>
+    <div class="card-contact">👤 —</div>
+    <div class="card-next">→ Schedule meeting</div>
+    <div class="card-days"><span>Last activity</span><span class="days-badge days-ok">New</span></div>
+  `;
+
+  const colCards = document.querySelector(`[data-stage="${stage}"] .col-cards`);
+  colCards.insertBefore(card, colCards.querySelector('.add-btn').nextSibling);
+  updateStats();
+  saveToLocalStorage();
+}
+
+function saveToLocalStorage() {
+  const state = [];
+  document.querySelectorAll('.card').forEach(card => {
+    state.push({
+      name: card.dataset.name,
+      industry: card.querySelector('.card-ind')?.textContent || '',
+      value: card.dataset.value,
+      contact: card.dataset.contact,
+      next: card.dataset.next,
+      tier: card.dataset.tier,
+      stage: card.dataset.stage
+    });
+  });
+  localStorage.setItem('dealTrackerState', JSON.stringify(state));
+}
+
+function loadFromLocalStorage() {
+  const saved = localStorage.getItem('dealTrackerState');
+  if (saved) {
+    try {
+      const state = JSON.parse(saved);
+
+      // Clear all cards
+      document.querySelectorAll('.col-cards').forEach(col => {
+        col.querySelectorAll('.card').forEach(card => card.remove());
+      });
+
+      // Rebuild from saved state
+      state.forEach(data => {
+        const card = document.createElement('div');
+        card.className = 'card';
+        card.draggable = true;
+        card.ondragstart = ds;
+        card.onclick = editCard;
+        card.dataset.tier = data.tier;
+        card.dataset.name = data.name;
+        card.dataset.value = data.value;
+        card.dataset.contact = data.contact;
+        card.dataset.next = data.next;
+        card.dataset.stage = data.stage;
+
+        const tierClass = data.tier === 'Tier 1' ? 't1' : 't2';
+        card.innerHTML = `
+          <div class="card-del" onclick="deleteCard(event)">×</div>
+          <div class="card-top">
+            <div class="card-name">${data.name}</div>
+            <div class="card-val">$${data.value}K</div>
+          </div>
+          <div class="card-ind">${data.industry}</div>
+          <span class="card-tier ${tierClass}">${data.tier}</span>
+          <div class="card-contact">👤 ${data.contact || '—'}</div>
+          <div class="card-next">→ ${data.next}</div>
+          <div class="card-days"><span>Last activity</span><span class="days-badge days-ok">Loaded</span></div>
+        `;
+
+        const colCards = document.querySelector(`[data-stage="${data.stage}"] .col-cards`);
+        colCards.appendChild(card);
+      });
+    } catch(e) {
+      console.error('Failed to load state:', e);
+    }
+  }
+}
+
+function resetToDefaults() {
+  if (confirm('Reset all deals to defaults? This cannot be undone.')) {
+    localStorage.removeItem('dealTrackerState');
+    location.reload();
+  }
 }
 </script>
 </body>

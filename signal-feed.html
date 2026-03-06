@@ -26,6 +26,15 @@
 
         header {
             margin-bottom: 40px;
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            gap: 20px;
+            flex-wrap: wrap;
+        }
+
+        .header-left {
+            flex: 1;
         }
 
         h1 {
@@ -37,6 +46,51 @@
         .subtitle {
             color: #a0acd0;
             font-size: 14px;
+        }
+
+        .header-actions {
+            display: flex;
+            gap: 10px;
+            flex-wrap: wrap;
+        }
+
+        button {
+            font-family: inherit;
+            font-size: 14px;
+            font-weight: 600;
+            padding: 10px 16px;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .btn-primary {
+            background-color: #3b82f6;
+            color: white;
+        }
+
+        .btn-primary:hover {
+            background-color: #2563eb;
+            box-shadow: 0 4px 12px rgba(59, 130, 246, 0.3);
+        }
+
+        .btn-secondary {
+            background-color: #1a2235;
+            color: #f0f4ff;
+            border: 1px solid #1e2d42;
+        }
+
+        .btn-secondary:hover {
+            border-color: #3b82f6;
+            background-color: #222d3e;
+        }
+
+        .btn-small {
+            padding: 6px 10px;
+            font-size: 12px;
         }
 
         .filters-section {
@@ -92,6 +146,11 @@
             flex: 1;
         }
 
+        .sort-controls {
+            display: flex;
+            gap: 10px;
+        }
+
         .signal-container {
             display: grid;
             gap: 16px;
@@ -106,12 +165,41 @@
             cursor: pointer;
             display: flex;
             gap: 16px;
+            position: relative;
+        }
+
+        .signal-card.actioned {
+            opacity: 0.6;
+            background-color: #141820;
         }
 
         .signal-card:hover {
             border-color: #3b82f6;
             box-shadow: 0 8px 24px rgba(59, 130, 246, 0.1);
             transform: translateY(-2px);
+        }
+
+        .signal-delete-btn {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            background: rgba(239, 68, 68, 0.2);
+            color: #ff6b6b;
+            border: 1px solid #ef4444;
+            border-radius: 4px;
+            width: 28px;
+            height: 28px;
+            font-size: 16px;
+            padding: 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+
+        .signal-delete-btn:hover {
+            background: rgba(239, 68, 68, 0.4);
         }
 
         .signal-icon {
@@ -127,6 +215,7 @@
 
         .signal-content {
             flex: 1;
+            padding-right: 30px;
         }
 
         .signal-header {
@@ -185,6 +274,16 @@
             margin-bottom: 12px;
         }
 
+        .signal-notes {
+            font-size: 12px;
+            color: #a0acd0;
+            background-color: rgba(59, 130, 246, 0.05);
+            padding: 8px 12px;
+            border-radius: 6px;
+            margin-bottom: 12px;
+            border-left: 2px solid #3b82f6;
+        }
+
         .signal-footer {
             display: flex;
             gap: 16px;
@@ -222,6 +321,23 @@
             text-transform: uppercase;
             letter-spacing: 0.5px;
             font-weight: 600;
+        }
+
+        .signal-actions {
+            display: flex;
+            gap: 8px;
+        }
+
+        .checkbox-wrapper {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .checkbox-wrapper input[type="checkbox"] {
+            width: 20px;
+            height: 20px;
+            cursor: pointer;
         }
 
         .stats-section {
@@ -266,7 +382,175 @@
             opacity: 0.5;
         }
 
+        /* Modal Styles */
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 1000;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.7);
+            animation: fadeIn 0.3s ease;
+        }
+
+        .modal.show {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        .modal-content {
+            background-color: #1a2235;
+            border: 1px solid #1e2d42;
+            border-radius: 12px;
+            padding: 30px;
+            max-width: 600px;
+            width: 90%;
+            max-height: 90vh;
+            overflow-y: auto;
+            animation: slideUp 0.3s ease;
+        }
+
+        @keyframes slideUp {
+            from {
+                transform: translateY(50px);
+                opacity: 0;
+            }
+            to {
+                transform: translateY(0);
+                opacity: 1;
+            }
+        }
+
+        .modal-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 24px;
+        }
+
+        .modal-title {
+            font-size: 24px;
+            font-weight: 700;
+        }
+
+        .modal-close {
+            background: none;
+            border: none;
+            color: #f0f4ff;
+            font-size: 28px;
+            cursor: pointer;
+            padding: 0;
+            width: 32px;
+            height: 32px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.2s ease;
+        }
+
+        .modal-close:hover {
+            color: #3b82f6;
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        .form-label {
+            display: block;
+            font-size: 13px;
+            font-weight: 600;
+            margin-bottom: 8px;
+            color: #a0acd0;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .form-input, .form-select, .form-textarea {
+            width: 100%;
+            padding: 12px 16px;
+            background-color: #0b0f1a;
+            border: 1px solid #1e2d42;
+            border-radius: 8px;
+            color: #f0f4ff;
+            font-family: inherit;
+            font-size: 14px;
+            transition: all 0.3s ease;
+        }
+
+        .form-textarea {
+            resize: vertical;
+            min-height: 100px;
+        }
+
+        .form-input:focus, .form-select:focus, .form-textarea:focus {
+            outline: none;
+            border-color: #3b82f6;
+            box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.1);
+        }
+
+        .modal-actions {
+            display: flex;
+            gap: 12px;
+            justify-content: flex-end;
+            margin-top: 30px;
+        }
+
+        .confirmation-dialog {
+            background-color: #1a2235;
+            border: 1px solid #ef4444;
+            border-radius: 12px;
+            padding: 24px;
+            max-width: 400px;
+            text-align: center;
+        }
+
+        .confirmation-dialog-title {
+            font-size: 18px;
+            font-weight: 600;
+            margin-bottom: 12px;
+            color: #ff6b6b;
+        }
+
+        .confirmation-dialog-text {
+            color: #d1d8e8;
+            margin-bottom: 24px;
+            font-size: 14px;
+        }
+
+        .confirmation-dialog-actions {
+            display: flex;
+            gap: 12px;
+            justify-content: center;
+        }
+
+        .btn-danger {
+            background-color: rgba(239, 68, 68, 0.2);
+            color: #ff6b6b;
+            border: 1px solid #ef4444;
+        }
+
+        .btn-danger:hover {
+            background-color: rgba(239, 68, 68, 0.3);
+        }
+
         @media (max-width: 768px) {
+            header {
+                flex-direction: column;
+            }
+
+            .header-actions {
+                width: 100%;
+            }
+
             .filters-section {
                 flex-direction: column;
                 align-items: stretch;
@@ -288,8 +572,17 @@
                 margin-left: 0;
             }
 
+            .signal-content {
+                padding-right: 0;
+            }
+
             h1 {
                 font-size: 24px;
+            }
+
+            .modal-content {
+                width: 95%;
+                padding: 20px;
             }
         }
     </style>
@@ -297,22 +590,32 @@
 <body>
     <div class="container">
         <header>
-            <h1>📡 Signal Feed</h1>
-            <p class="subtitle">Real-time account intelligence for Anyscale prospects</p>
+            <div class="header-left">
+                <h1>📡 Signal Feed</h1>
+                <p class="subtitle">Real-time account intelligence for Anyscale prospects</p>
+            </div>
+            <div class="header-actions">
+                <button class="btn-primary" id="add-signal-btn">+ Add Signal</button>
+                <button class="btn-secondary btn-small" id="reset-btn">Reset to Default</button>
+            </div>
         </header>
 
         <div class="stats-section">
             <div class="stat-card">
-                <div class="stat-value" id="total-signals">32</div>
+                <div class="stat-value" id="total-signals">0</div>
                 <div class="stat-label">Total Signals</div>
             </div>
             <div class="stat-card">
-                <div class="stat-value" id="high-relevance">14</div>
+                <div class="stat-value" id="high-relevance">0</div>
                 <div class="stat-label">High Relevance</div>
             </div>
             <div class="stat-card">
-                <div class="stat-value" id="tier-1-count">8</div>
+                <div class="stat-value" id="tier-1-count">0</div>
                 <div class="stat-label">Tier 1 Accounts</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-value" id="actioned-count">0</div>
+                <div class="stat-label">Actioned</div>
             </div>
         </div>
 
@@ -322,10 +625,10 @@
                 <select class="filter-select" id="type-filter">
                     <option value="">All Types</option>
                     <option value="funding">🚀 Funding Round</option>
-                    <option value="job">💼 Job Posting</option>
+                    <option value="hiring">💼 Job Posting</option>
                     <option value="news">📰 News</option>
                     <option value="tech">🔧 Tech Stack</option>
-                    <option value="product">📊 Product Launch</option>
+                    <option value="launch">📊 Product Launch</option>
                 </select>
             </div>
 
@@ -354,6 +657,14 @@
                 <label class="filter-label">Search</label>
                 <input type="text" class="search-input" id="search-input" placeholder="Search by company, keyword...">
             </div>
+
+            <div class="filter-group">
+                <label class="filter-label">Sort</label>
+                <div class="sort-controls">
+                    <button class="btn-secondary btn-small" id="sort-date-btn">By Date</button>
+                    <button class="btn-secondary btn-small" id="sort-priority-btn">By Priority</button>
+                </div>
+            </div>
         </div>
 
         <div class="signal-container" id="signals-container">
@@ -366,330 +677,144 @@
         </div>
     </div>
 
+    <!-- Add/Edit Signal Modal -->
+    <div class="modal" id="signal-modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2 class="modal-title" id="modal-title">Add Signal</h2>
+                <button class="modal-close" id="modal-close-btn">&times;</button>
+            </div>
+
+            <form id="signal-form">
+                <div class="form-group">
+                    <label class="form-label">Company Name</label>
+                    <input type="text" class="form-input" id="form-company" placeholder="Enter company name" required>
+                </div>
+
+                <div class="form-group">
+                    <label class="form-label">Signal Type</label>
+                    <select class="form-select" id="form-type" required>
+                        <option value="">Select type</option>
+                        <option value="funding">🚀 Funding Round</option>
+                        <option value="hiring">💼 Job Posting</option>
+                        <option value="news">📰 News</option>
+                        <option value="tech">🔧 Tech Stack</option>
+                        <option value="launch">📊 Product Launch</option>
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label class="form-label">Headline</label>
+                    <input type="text" class="form-input" id="form-headline" placeholder="Enter headline" required>
+                </div>
+
+                <div class="form-group">
+                    <label class="form-label">Description</label>
+                    <textarea class="form-textarea" id="form-description" placeholder="Enter full description" required></textarea>
+                </div>
+
+                <div class="form-group">
+                    <label class="form-label">Date</label>
+                    <input type="date" class="form-input" id="form-date" required>
+                </div>
+
+                <div class="form-group">
+                    <label class="form-label">Tier</label>
+                    <select class="form-select" id="form-tier" required>
+                        <option value="">Select tier</option>
+                        <option value="tier-1">Tier 1</option>
+                        <option value="tier-2">Tier 2</option>
+                        <option value="tier-3">Tier 3</option>
+                        <option value="tier-4">Tier 4</option>
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label class="form-label">Priority</label>
+                    <select class="form-select" id="form-priority" required>
+                        <option value="">Select priority</option>
+                        <option value="high">High</option>
+                        <option value="medium">Medium</option>
+                        <option value="low">Low</option>
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label class="form-label">Notes (Personal Annotations)</label>
+                    <textarea class="form-textarea" id="form-notes" placeholder="Add your personal notes..." style="min-height: 80px;"></textarea>
+                </div>
+
+                <div class="modal-actions">
+                    <button type="button" class="btn-secondary" id="modal-cancel-btn">Cancel</button>
+                    <button type="submit" class="btn-primary">Save Signal</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- Confirmation Dialog -->
+    <div class="modal" id="confirm-modal">
+        <div class="confirmation-dialog">
+            <div class="confirmation-dialog-title">Delete Signal?</div>
+            <div class="confirmation-dialog-text">This action cannot be undone. Are you sure you want to delete this signal?</div>
+            <div class="confirmation-dialog-actions">
+                <button class="btn-secondary" id="confirm-cancel-btn">Cancel</button>
+                <button class="btn-danger" id="confirm-delete-btn">Delete</button>
+            </div>
+        </div>
+    </div>
+
     <script>
-        const signals = [
-            // Tier 1 - Funding Rounds
-            {
-                type: 'funding',
-                icon: '🚀',
-                company: 'comma.ai',
-                tier: 'tier-1',
-                description: 'comma.ai raises $50M Series B for autonomous driving platform',
-                timestamp: '2h ago',
-                relevance: 'high',
-                typeLabel: 'Funding Round'
-            },
-            {
-                type: 'funding',
-                icon: '🚀',
-                company: 'Arc Institute',
-                tier: 'tier-1',
-                description: 'Arc Institute secures $250M for AI-driven biological research',
-                timestamp: '4h ago',
-                relevance: 'high',
-                typeLabel: 'Funding Round'
-            },
-            {
-                type: 'funding',
-                icon: '🚀',
-                company: 'Crusoe Energy',
-                tier: 'tier-1',
-                description: 'Crusoe Energy raises $150M Series C for AI computing infrastructure',
-                timestamp: '6h ago',
-                relevance: 'high',
-                typeLabel: 'Funding Round'
-            },
-            {
-                type: 'funding',
-                icon: '🚀',
-                company: 'Modal Labs',
-                tier: 'tier-1',
-                description: 'Modal Labs secures $40M Series A for serverless ML infrastructure',
-                timestamp: '8h ago',
-                relevance: 'high',
-                typeLabel: 'Funding Round'
-            },
-            // Tier 1 - Job Postings
-            {
-                type: 'job',
-                icon: '💼',
-                company: 'fal.ai',
-                tier: 'tier-1',
-                description: 'fal.ai hiring Senior ML Infrastructure Engineer (Ray, distributed systems)',
-                timestamp: '1d ago',
-                relevance: 'high',
-                typeLabel: 'Job Posting'
-            },
-            {
-                type: 'job',
-                icon: '💼',
-                company: 'Matterport',
-                tier: 'tier-1',
-                description: 'Matterport hiring Ray/distributed systems engineer for 3D AI platform',
-                timestamp: '1d ago',
-                relevance: 'high',
-                typeLabel: 'Job Posting'
-            },
-            {
-                type: 'job',
-                icon: '💼',
-                company: 'Twelve Labs',
-                tier: 'tier-1',
-                description: 'Twelve Labs hiring Staff ML Systems Engineer for video understanding at scale',
-                timestamp: '2d ago',
-                relevance: 'high',
-                typeLabel: 'Job Posting'
-            },
-            {
-                type: 'job',
-                icon: '💼',
-                company: 'Mistral AI',
-                tier: 'tier-1',
-                description: 'Mistral AI hiring distributed systems engineers for LLM training infrastructure',
-                timestamp: '2d ago',
-                relevance: 'high',
-                typeLabel: 'Job Posting'
-            },
-            // Tier 1 - News
-            {
-                type: 'news',
-                icon: '📰',
-                company: 'Iambic Therapeutics',
-                tier: 'tier-1',
-                description: 'Iambic Therapeutics partners with Novo Nordisk on AI drug discovery pipeline',
-                timestamp: '3d ago',
-                relevance: 'high',
-                typeLabel: 'News'
-            },
-            {
-                type: 'news',
-                icon: '📰',
-                company: 'Anomaly Detection Labs',
-                tier: 'tier-1',
-                description: 'Anomaly Detection Labs expands team to scale ML infrastructure for production workloads',
-                timestamp: '3d ago',
-                relevance: 'high',
-                typeLabel: 'News'
-            },
-            // Tier 2 - Funding
-            {
-                type: 'funding',
-                icon: '🚀',
-                company: 'Hugging Face',
-                tier: 'tier-2',
-                description: 'Hugging Face raises $235M Series D for open ML infrastructure',
-                timestamp: '1d ago',
-                relevance: 'medium',
-                typeLabel: 'Funding Round'
-            },
-            {
-                type: 'funding',
-                icon: '🚀',
-                company: 'Replicate',
-                tier: 'tier-2',
-                description: 'Replicate raises $20M Series A for ML model inference platform',
-                timestamp: '2d ago',
-                relevance: 'medium',
-                typeLabel: 'Funding Round'
-            },
-            {
-                type: 'funding',
-                icon: '🚀',
-                company: 'Lightning AI',
-                tier: 'tier-2',
-                description: 'Lightning AI secures $28M Series B for enterprise ML infrastructure',
-                timestamp: '3d ago',
-                relevance: 'medium',
-                typeLabel: 'Funding Round'
-            },
-            // Tier 2 - Tech Stack
-            {
-                type: 'tech',
-                icon: '🔧',
-                company: 'Chooch',
-                tier: 'tier-2',
-                description: 'Chooch migrates from TensorFlow Serving to custom Ray-based inference stack',
-                timestamp: '2h ago',
-                relevance: 'high',
-                typeLabel: 'Tech Stack'
-            },
-            {
-                type: 'tech',
-                icon: '🔧',
-                company: 'Synthesis AI',
-                tier: 'tier-2',
-                description: 'Synthesis AI adopts distributed Ray framework for large-scale training',
-                timestamp: '1d ago',
-                relevance: 'high',
-                typeLabel: 'Tech Stack'
-            },
-            // Tier 2 - Product Launch
-            {
-                type: 'product',
-                icon: '📊',
-                company: 'Topaz Labs',
-                tier: 'tier-2',
-                description: 'Topaz Labs launches Video AI 5.0 with 4x faster processing using optimized inference',
-                timestamp: '12h ago',
-                relevance: 'medium',
-                typeLabel: 'Product Launch'
-            },
-            {
-                type: 'product',
-                icon: '📊',
-                company: 'NeuralTwin',
-                tier: 'tier-2',
-                description: 'NeuralTwin releases platform update with real-time ML model serving',
-                timestamp: '1d ago',
-                relevance: 'medium',
-                typeLabel: 'Product Launch'
-            },
-            // Tier 3 - Job Postings
-            {
-                type: 'job',
-                icon: '💼',
-                company: 'Runway ML',
-                tier: 'tier-3',
-                description: 'Runway ML hiring ML Infrastructure Lead for scalable video processing',
-                timestamp: '2d ago',
-                relevance: 'medium',
-                typeLabel: 'Job Posting'
-            },
-            {
-                type: 'job',
-                icon: '💼',
-                company: 'Civitai',
-                tier: 'tier-3',
-                description: 'Civitai seeking backend engineers for distributed training orchestration',
-                timestamp: '2d ago',
-                relevance: 'low',
-                typeLabel: 'Job Posting'
-            },
-            // Tier 3 - News
-            {
-                type: 'news',
-                icon: '📰',
-                company: 'Huggingface',
-                tier: 'tier-3',
-                description: 'Huggingface releases Hugging Face Spaces with GPU acceleration for model demos',
-                timestamp: '3d ago',
-                relevance: 'medium',
-                typeLabel: 'News'
-            },
-            {
-                type: 'news',
-                icon: '📰',
-                company: 'Stability AI',
-                tier: 'tier-3',
-                description: 'Stability AI announces new model optimization techniques for faster inference',
-                timestamp: '3d ago',
-                relevance: 'low',
-                typeLabel: 'News'
-            },
-            // Tier 3 - Tech Stack
-            {
-                type: 'tech',
-                icon: '🔧',
-                company: 'Together AI',
-                tier: 'tier-3',
-                description: 'Together AI integrates advanced distributed inference pipeline for LLM serving',
-                timestamp: '2d ago',
-                relevance: 'medium',
-                typeLabel: 'Tech Stack'
-            },
-            {
-                type: 'tech',
-                icon: '🔧',
-                company: 'Anyscale (User)',
-                tier: 'tier-3',
-                description: 'Anyscale releases Ray 2.10 with improved GPU cluster orchestration',
-                timestamp: '4h ago',
-                relevance: 'high',
-                typeLabel: 'Tech Stack'
-            },
-            // Tier 4 - Funding
-            {
-                type: 'funding',
-                icon: '🚀',
-                company: 'Deepdive Analytics',
-                tier: 'tier-4',
-                description: 'Deepdive Analytics raises $8M seed round for ML data infrastructure',
-                timestamp: '1d ago',
-                relevance: 'low',
-                typeLabel: 'Funding Round'
-            },
-            {
-                type: 'funding',
-                icon: '🚀',
-                company: 'Cortex ML',
-                tier: 'tier-4',
-                description: 'Cortex ML secures $12M Series A for feature engineering platform',
-                timestamp: '2d ago',
-                relevance: 'low',
-                typeLabel: 'Funding Round'
-            },
-            // Tier 4 - News
-            {
-                type: 'news',
-                icon: '📰',
-                company: 'AI Research Lab',
-                tier: 'tier-4',
-                description: 'AI Research Lab publishes whitepaper on efficient distributed training methods',
-                timestamp: '2d ago',
-                relevance: 'low',
-                typeLabel: 'News'
-            },
-            {
-                type: 'news',
-                icon: '📰',
-                company: 'DataFlow Systems',
-                tier: 'tier-4',
-                description: 'DataFlow Systems announces partnership with cloud provider for ML workloads',
-                timestamp: '3d ago',
-                relevance: 'low',
-                typeLabel: 'News'
-            },
-            {
-                type: 'product',
-                icon: '📊',
-                company: 'PipelineAI',
-                tier: 'tier-4',
-                description: 'PipelineAI launches beta of new model version management tool',
-                timestamp: '2d ago',
-                relevance: 'low',
-                typeLabel: 'Product Launch'
-            },
-            {
-                type: 'product',
-                icon: '📊',
-                company: 'InferenceEdge',
-                tier: 'tier-4',
-                description: 'InferenceEdge releases edge deployment toolkit for ML models',
-                timestamp: '3d ago',
-                relevance: 'medium',
-                typeLabel: 'Product Launch'
-            },
-            {
-                type: 'job',
-                icon: '💼',
-                company: 'MLOps Guild',
-                tier: 'tier-4',
-                description: 'MLOps Guild hiring engineers for ML infrastructure automation',
-                timestamp: '1d ago',
-                relevance: 'low',
-                typeLabel: 'Job Posting'
-            },
-            {
-                type: 'tech',
-                icon: '🔧',
-                company: 'ModelHub',
-                tier: 'tier-4',
-                description: 'ModelHub upgrades infrastructure to support larger batch processing',
-                timestamp: '2d ago',
-                relevance: 'low',
-                typeLabel: 'Tech Stack'
-            }
+        const DEFAULT_SIGNALS = [
+            { id: 'sig-1', type: 'funding', icon: '🚀', company: 'comma.ai', tier: 'tier-1', headline: 'Series B Funding', description: 'comma.ai raises $50M Series B for autonomous driving platform', date: '2024-01-15', priority: 'high', actioned: false, notes: '' },
+            { id: 'sig-2', type: 'funding', icon: '🚀', company: 'Arc Institute', tier: 'tier-1', headline: 'Funding Round', description: 'Arc Institute secures $250M for AI-driven biological research', date: '2024-01-13', priority: 'high', actioned: false, notes: '' },
+            { id: 'sig-3', type: 'funding', icon: '🚀', company: 'Crusoe Energy', tier: 'tier-1', headline: 'Series C Funding', description: 'Crusoe Energy raises $150M Series C for AI computing infrastructure', date: '2024-01-11', priority: 'high', actioned: false, notes: '' },
+            { id: 'sig-4', type: 'funding', icon: '🚀', company: 'Modal Labs', tier: 'tier-1', headline: 'Series A Funding', description: 'Modal Labs secures $40M Series A for serverless ML infrastructure', date: '2024-01-09', priority: 'high', actioned: false, notes: '' },
+            { id: 'sig-5', type: 'hiring', icon: '💼', company: 'fal.ai', tier: 'tier-1', headline: 'Hiring ML Engineer', description: 'fal.ai hiring Senior ML Infrastructure Engineer (Ray, distributed systems)', date: '2024-01-08', priority: 'high', actioned: false, notes: '' },
+            { id: 'sig-6', type: 'hiring', icon: '💼', company: 'Matterport', tier: 'tier-1', headline: 'Hiring Engineer', description: 'Matterport hiring Ray/distributed systems engineer for 3D AI platform', date: '2024-01-08', priority: 'high', actioned: false, notes: '' },
+            { id: 'sig-7', type: 'hiring', icon: '💼', company: 'Twelve Labs', tier: 'tier-1', headline: 'Hiring Staff Engineer', description: 'Twelve Labs hiring Staff ML Systems Engineer for video understanding at scale', date: '2024-01-07', priority: 'high', actioned: false, notes: '' },
+            { id: 'sig-8', type: 'hiring', icon: '💼', company: 'Mistral AI', tier: 'tier-1', headline: 'Hiring Engineers', description: 'Mistral AI hiring distributed systems engineers for LLM training infrastructure', date: '2024-01-07', priority: 'high', actioned: false, notes: '' },
+            { id: 'sig-9', type: 'news', icon: '📰', company: 'Iambic Therapeutics', tier: 'tier-1', headline: 'Partnership', description: 'Iambic Therapeutics partners with Novo Nordisk on AI drug discovery pipeline', date: '2024-01-06', priority: 'high', actioned: false, notes: '' },
+            { id: 'sig-10', type: 'news', icon: '📰', company: 'Anomaly Detection Labs', tier: 'tier-1', headline: 'Team Expansion', description: 'Anomaly Detection Labs expands team to scale ML infrastructure for production workloads', date: '2024-01-06', priority: 'high', actioned: false, notes: '' },
+            { id: 'sig-11', type: 'funding', icon: '🚀', company: 'Hugging Face', tier: 'tier-2', headline: 'Series D Funding', description: 'Hugging Face raises $235M Series D for open ML infrastructure', date: '2024-01-08', priority: 'medium', actioned: false, notes: '' },
+            { id: 'sig-12', type: 'funding', icon: '🚀', company: 'Replicate', tier: 'tier-2', headline: 'Series A Funding', description: 'Replicate raises $20M Series A for ML model inference platform', date: '2024-01-07', priority: 'medium', actioned: false, notes: '' },
+            { id: 'sig-13', type: 'funding', icon: '🚀', company: 'Lightning AI', tier: 'tier-2', headline: 'Series B Funding', description: 'Lightning AI secures $28M Series B for enterprise ML infrastructure', date: '2024-01-06', priority: 'medium', actioned: false, notes: '' },
+            { id: 'sig-14', type: 'tech', icon: '🔧', company: 'Chooch', tier: 'tier-2', headline: 'Tech Stack Update', description: 'Chooch migrates from TensorFlow Serving to custom Ray-based inference stack', date: '2024-01-15', priority: 'high', actioned: false, notes: '' },
+            { id: 'sig-15', type: 'tech', icon: '🔧', company: 'Synthesis AI', tier: 'tier-2', headline: 'Framework Adoption', description: 'Synthesis AI adopts distributed Ray framework for large-scale training', date: '2024-01-14', priority: 'high', actioned: false, notes: '' },
+            { id: 'sig-16', type: 'launch', icon: '📊', company: 'Topaz Labs', tier: 'tier-2', headline: 'Product Release', description: 'Topaz Labs launches Video AI 5.0 with 4x faster processing using optimized inference', date: '2024-01-15', priority: 'medium', actioned: false, notes: '' },
+            { id: 'sig-17', type: 'launch', icon: '📊', company: 'NeuralTwin', tier: 'tier-2', headline: 'Platform Update', description: 'NeuralTwin releases platform update with real-time ML model serving', date: '2024-01-14', priority: 'medium', actioned: false, notes: '' },
+            { id: 'sig-18', type: 'hiring', icon: '💼', company: 'Runway ML', tier: 'tier-3', headline: 'Hiring Lead', description: 'Runway ML hiring ML Infrastructure Lead for scalable video processing', date: '2024-01-07', priority: 'medium', actioned: false, notes: '' },
+            { id: 'sig-19', type: 'hiring', icon: '💼', company: 'Civitai', tier: 'tier-3', headline: 'Hiring Engineers', description: 'Civitai seeking backend engineers for distributed training orchestration', date: '2024-01-07', priority: 'low', actioned: false, notes: '' },
+            { id: 'sig-20', type: 'tech', icon: '🔧', company: 'Anyscale (User)', tier: 'tier-3', headline: 'Ray Release', description: 'Anyscale releases Ray 2.10 with improved GPU cluster orchestration', date: '2024-01-15', priority: 'high', actioned: false, notes: '' },
         ];
+
+        let signals = [];
+        let currentEditingId = null;
+        let currentDeleteId = null;
+        let currentSortBy = 'date';
+
+        // Initialize from localStorage
+        function loadSignals() {
+            const stored = localStorage.getItem('signals');
+            signals = stored ? JSON.parse(stored) : JSON.parse(JSON.stringify(DEFAULT_SIGNALS));
+            renderSignals(getFilteredSignals());
+        }
+
+        function saveSignals() {
+            localStorage.setItem('signals', JSON.stringify(signals));
+            renderSignals(getFilteredSignals());
+        }
+
+        function getTypeIcon(type) {
+            const icons = {
+                'funding': '🚀',
+                'hiring': '💼',
+                'news': '📰',
+                'tech': '🔧',
+                'launch': '📊'
+            };
+            return icons[type] || '📌';
+        }
 
         function renderSignals(filteredSignals) {
             const container = document.getElementById('signals-container');
@@ -703,32 +828,65 @@
 
             emptyState.style.display = 'none';
             container.innerHTML = filteredSignals.map(signal => `
-                <div class="signal-card" data-type="${signal.type}" data-tier="${signal.tier}" data-relevance="${signal.relevance}">
+                <div class="signal-card ${signal.actioned ? 'actioned' : ''}" data-id="${signal.id}">
+                    <button class="signal-delete-btn" onclick="deleteSignal('${signal.id}')" title="Delete signal">×</button>
                     <div class="signal-icon">${signal.icon}</div>
                     <div class="signal-content">
                         <div class="signal-header">
                             <span class="company-name">${signal.company}</span>
                             <span class="tier-badge ${signal.tier}">${signal.tier.toUpperCase()}</span>
-                            <span class="signal-timestamp">${signal.timestamp}</span>
+                            <span class="signal-timestamp">${formatDate(signal.date)}</span>
                         </div>
+                        <div class="signal-description">${signal.headline}</div>
                         <div class="signal-description">${signal.description}</div>
+                        ${signal.notes ? `<div class="signal-notes">📝 ${signal.notes}</div>` : ''}
                         <div class="signal-footer">
-                            <span class="signal-type">${signal.typeLabel}</span>
-                            <span class="relevance-badge relevance-${signal.relevance}">Relevance: ${signal.relevance}</span>
+                            <span class="signal-type">${signal.type.toUpperCase()}</span>
+                            <span class="relevance-badge relevance-${signal.priority}">Priority: ${signal.priority}</span>
+                            <div class="checkbox-wrapper">
+                                <input type="checkbox" ${signal.actioned ? 'checked' : ''} onchange="toggleActioned('${signal.id}')">
+                                <label style="cursor: pointer;">Actioned</label>
+                            </div>
+                            <button class="btn-secondary btn-small" onclick="editSignal('${signal.id}')">Edit</button>
                         </div>
                     </div>
                 </div>
             `).join('');
 
             updateStats(filteredSignals);
+            container.addEventListener('click', function(e) {
+                if (!e.target.closest('button') && !e.target.closest('input[type="checkbox"]')) {
+                    const card = e.target.closest('.signal-card');
+                    if (card) {
+                        const id = card.dataset.id;
+                        editSignal(id);
+                    }
+                }
+            });
+        }
+
+        function formatDate(dateString) {
+            const date = new Date(dateString);
+            const today = new Date();
+            const yesterday = new Date(today);
+            yesterday.setDate(yesterday.getDate() - 1);
+
+            if (date.toDateString() === today.toDateString()) return 'Today';
+            if (date.toDateString() === yesterday.toDateString()) return 'Yesterday';
+
+            return date.toLocaleDateString('en-US', { month: 'short', day: 'numeric' });
         }
 
         function updateStats(filteredSignals) {
-            const highRelevance = filteredSignals.filter(s => s.relevance === 'high').length;
-            const tier1 = filteredSignals.filter(s => s.tier === 'tier-1').length;
-            document.getElementById('total-signals').textContent = filteredSignals.length;
-            document.getElementById('high-relevance').textContent = highRelevance;
+            const allSignals = signals;
+            const highPriority = allSignals.filter(s => s.priority === 'high').length;
+            const tier1 = allSignals.filter(s => s.tier === 'tier-1').length;
+            const actioned = allSignals.filter(s => s.actioned).length;
+
+            document.getElementById('total-signals').textContent = allSignals.length;
+            document.getElementById('high-relevance').textContent = highPriority;
             document.getElementById('tier-1-count').textContent = tier1;
+            document.getElementById('actioned-count').textContent = actioned;
         }
 
         function getFilteredSignals() {
@@ -737,31 +895,194 @@
             const relevanceFilter = document.getElementById('relevance-filter').value;
             const searchTerm = document.getElementById('search-input').value.toLowerCase();
 
-            return signals.filter(signal => {
+            let filtered = signals.filter(signal => {
                 const matchesType = !typeFilter || signal.type === typeFilter;
                 const matchesTier = !tierFilter || signal.tier === tierFilter;
-                const matchesRelevance = !relevanceFilter || signal.relevance === relevanceFilter;
+                const matchesRelevance = !relevanceFilter || signal.priority === relevanceFilter;
                 const matchesSearch = !searchTerm ||
                     signal.company.toLowerCase().includes(searchTerm) ||
-                    signal.description.toLowerCase().includes(searchTerm);
+                    signal.description.toLowerCase().includes(searchTerm) ||
+                    signal.headline.toLowerCase().includes(searchTerm);
 
                 return matchesType && matchesTier && matchesRelevance && matchesSearch;
             });
+
+            // Apply sorting
+            if (currentSortBy === 'date') {
+                filtered.sort((a, b) => new Date(b.date) - new Date(a.date));
+            } else if (currentSortBy === 'priority') {
+                const priorityOrder = { 'high': 0, 'medium': 1, 'low': 2 };
+                filtered.sort((a, b) => priorityOrder[a.priority] - priorityOrder[b.priority]);
+            }
+
+            return filtered;
         }
 
         function applyFilters() {
-            const filtered = getFilteredSignals();
-            renderSignals(filtered);
+            renderSignals(getFilteredSignals());
+        }
+
+        function toggleActioned(id) {
+            const signal = signals.find(s => s.id === id);
+            if (signal) {
+                signal.actioned = !signal.actioned;
+                saveSignals();
+            }
+        }
+
+        function openSignalModal(title = 'Add Signal') {
+            document.getElementById('modal-title').textContent = title;
+            document.getElementById('signal-modal').classList.add('show');
+        }
+
+        function closeSignalModal() {
+            document.getElementById('signal-modal').classList.remove('show');
+            document.getElementById('signal-form').reset();
+            currentEditingId = null;
+        }
+
+        function editSignal(id) {
+            const signal = signals.find(s => s.id === id);
+            if (!signal) return;
+
+            currentEditingId = id;
+            document.getElementById('form-company').value = signal.company;
+            document.getElementById('form-type').value = signal.type;
+            document.getElementById('form-headline').value = signal.headline;
+            document.getElementById('form-description').value = signal.description;
+            document.getElementById('form-date').value = signal.date;
+            document.getElementById('form-tier').value = signal.tier;
+            document.getElementById('form-priority').value = signal.priority;
+            document.getElementById('form-notes').value = signal.notes || '';
+
+            openSignalModal('Edit Signal');
+        }
+
+        function deleteSignal(id) {
+            currentDeleteId = id;
+            document.getElementById('confirm-modal').classList.add('show');
+        }
+
+        function confirmDelete() {
+            if (currentDeleteId) {
+                signals = signals.filter(s => s.id !== currentDeleteId);
+                saveSignals();
+                document.getElementById('confirm-modal').classList.remove('show');
+                currentDeleteId = null;
+            }
+        }
+
+        function addNewSignal(formData) {
+            const newId = 'sig-' + Date.now();
+            const newSignal = {
+                id: newId,
+                company: formData.company,
+                type: formData.type,
+                headline: formData.headline,
+                description: formData.description,
+                date: formData.date,
+                tier: formData.tier,
+                priority: formData.priority,
+                icon: getTypeIcon(formData.type),
+                actioned: false,
+                notes: formData.notes
+            };
+            signals.push(newSignal);
+            saveSignals();
+        }
+
+        function updateExistingSignal(id, formData) {
+            const signal = signals.find(s => s.id === id);
+            if (signal) {
+                signal.company = formData.company;
+                signal.type = formData.type;
+                signal.headline = formData.headline;
+                signal.description = formData.description;
+                signal.date = formData.date;
+                signal.tier = formData.tier;
+                signal.priority = formData.priority;
+                signal.icon = getTypeIcon(formData.type);
+                signal.notes = formData.notes;
+                saveSignals();
+            }
         }
 
         // Event listeners
+        document.getElementById('add-signal-btn').addEventListener('click', () => {
+            currentEditingId = null;
+            document.getElementById('signal-form').reset();
+            document.getElementById('form-date').valueAsDate = new Date();
+            openSignalModal('Add Signal');
+        });
+
+        document.getElementById('modal-close-btn').addEventListener('click', closeSignalModal);
+        document.getElementById('modal-cancel-btn').addEventListener('click', closeSignalModal);
+
+        document.getElementById('signal-form').addEventListener('submit', (e) => {
+            e.preventDefault();
+            const formData = {
+                company: document.getElementById('form-company').value,
+                type: document.getElementById('form-type').value,
+                headline: document.getElementById('form-headline').value,
+                description: document.getElementById('form-description').value,
+                date: document.getElementById('form-date').value,
+                tier: document.getElementById('form-tier').value,
+                priority: document.getElementById('form-priority').value,
+                notes: document.getElementById('form-notes').value
+            };
+
+            if (currentEditingId) {
+                updateExistingSignal(currentEditingId, formData);
+            } else {
+                addNewSignal(formData);
+            }
+            closeSignalModal();
+        });
+
+        document.getElementById('confirm-cancel-btn').addEventListener('click', () => {
+            document.getElementById('confirm-modal').classList.remove('show');
+            currentDeleteId = null;
+        });
+
+        document.getElementById('confirm-delete-btn').addEventListener('click', confirmDelete);
+
+        document.getElementById('reset-btn').addEventListener('click', () => {
+            if (confirm('Reset all signals to defaults? This will erase all changes.')) {
+                signals = JSON.parse(JSON.stringify(DEFAULT_SIGNALS));
+                saveSignals();
+            }
+        });
+
         document.getElementById('type-filter').addEventListener('change', applyFilters);
         document.getElementById('tier-filter').addEventListener('change', applyFilters);
         document.getElementById('relevance-filter').addEventListener('change', applyFilters);
         document.getElementById('search-input').addEventListener('input', applyFilters);
 
-        // Initial render
-        renderSignals(signals);
+        document.getElementById('sort-date-btn').addEventListener('click', () => {
+            currentSortBy = 'date';
+            renderSignals(getFilteredSignals());
+        });
+
+        document.getElementById('sort-priority-btn').addEventListener('click', () => {
+            currentSortBy = 'priority';
+            renderSignals(getFilteredSignals());
+        });
+
+        document.getElementById('signal-modal').addEventListener('click', (e) => {
+            if (e.target === document.getElementById('signal-modal')) {
+                closeSignalModal();
+            }
+        });
+
+        document.getElementById('confirm-modal').addEventListener('click', (e) => {
+            if (e.target === document.getElementById('confirm-modal')) {
+                document.getElementById('confirm-modal').classList.remove('show');
+                currentDeleteId = null;
+            }
+        });
+
+        // Initialize
+        loadSignals();
     </script>
 </body>
 </html>

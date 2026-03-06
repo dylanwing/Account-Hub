@@ -46,6 +46,60 @@
             margin-bottom: 30px;
         }
 
+        .header-controls {
+            display: flex;
+            gap: 15px;
+            justify-content: center;
+            margin-top: 20px;
+            flex-wrap: wrap;
+        }
+
+        .btn {
+            padding: 10px 20px;
+            border-radius: 6px;
+            border: none;
+            cursor: pointer;
+            font-size: 0.9rem;
+            font-weight: 500;
+            transition: all 0.2s ease;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+        }
+
+        .btn-primary {
+            background-color: #3b82f6;
+            color: #f0f4ff;
+        }
+
+        .btn-primary:hover {
+            background-color: #2563eb;
+            box-shadow: 0 0 15px rgba(59, 130, 246, 0.4);
+        }
+
+        .btn-secondary {
+            background-color: #1a2235;
+            color: #f0f4ff;
+            border: 1px solid #3b82f6;
+        }
+
+        .btn-secondary:hover {
+            background-color: #263449;
+        }
+
+        .btn-danger {
+            background-color: #ef4444;
+            color: #f0f4ff;
+        }
+
+        .btn-danger:hover {
+            background-color: #dc2626;
+        }
+
+        .btn-small {
+            padding: 6px 12px;
+            font-size: 0.8rem;
+        }
+
         .summary-grid {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
@@ -98,104 +152,93 @@
             background: linear-gradient(135deg, #1e2d42 0%, #0f1824 100%);
             padding: 20px;
             display: flex;
-            justify-content: space-between;
             align-items: center;
+            justify-content: space-between;
             cursor: pointer;
             user-select: none;
-            border-bottom: 1px solid #1e2d42;
-        }
-
-        .account-header:hover {
-            background: linear-gradient(135deg, #2a3a4f 0%, #1a2438 100%);
         }
 
         .account-title {
-            display: flex;
-            align-items: center;
-            gap: 15px;
             flex: 1;
         }
 
         .account-name {
-            font-size: 1.5rem;
+            font-size: 1.3rem;
             font-weight: 600;
+            color: #f0f4ff;
         }
 
         .tier-badge {
             background-color: #3b82f6;
-            color: white;
-            padding: 4px 12px;
-            border-radius: 20px;
-            font-size: 0.75rem;
+            color: #f0f4ff;
+            padding: 6px 12px;
+            border-radius: 6px;
+            font-size: 0.8rem;
             font-weight: 600;
             text-transform: uppercase;
-            letter-spacing: 0.05em;
         }
 
         .champion-score {
             display: flex;
             align-items: center;
-            gap: 10px;
+            gap: 20px;
+            margin-right: 20px;
         }
 
         .score-label {
+            font-size: 0.85rem;
             color: #a0aec0;
-            font-size: 0.9rem;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
         }
 
         .score-value {
-            font-size: 1.5rem;
+            font-size: 2rem;
             font-weight: bold;
             color: #60a5fa;
-            min-width: 50px;
-            text-align: center;
         }
 
         .score-bar {
-            width: 120px;
-            height: 6px;
+            width: 100px;
+            height: 8px;
             background-color: #0f1824;
-            border-radius: 3px;
+            border-radius: 4px;
             overflow: hidden;
         }
 
         .score-fill {
             height: 100%;
-            background: linear-gradient(90deg, #10b981 0%, #3b82f6 100%);
-            border-radius: 3px;
+            background: linear-gradient(90deg, #3b82f6 0%, #60a5fa 100%);
             transition: width 0.3s ease;
         }
 
         .toggle-btn {
-            background-color: #3b82f6;
+            background: none;
             border: none;
-            color: white;
-            width: 40px;
-            height: 40px;
-            border-radius: 8px;
-            cursor: pointer;
-            display: flex;
-            align-items: center;
-            justify-content: center;
+            color: #3b82f6;
             font-size: 1.2rem;
-            transition: all 0.2s ease;
-        }
-
-        .toggle-btn:hover {
-            background-color: #2563eb;
-            transform: scale(1.05);
+            cursor: pointer;
+            transition: transform 0.3s ease;
         }
 
         .account-content {
             padding: 30px;
-            max-height: 2000px;
-            overflow: hidden;
-            transition: max-height 0.3s ease;
+            display: none;
+        }
+
+        .account-content.expanded {
+            display: block;
         }
 
         .account-content.collapsed {
-            max-height: 0;
-            padding: 0;
+            display: none;
+        }
+
+        .account-controls {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 20px;
+            flex-wrap: wrap;
         }
 
         .org-chart {
@@ -215,12 +258,47 @@
             border-radius: 10px;
             padding: 16px;
             transition: all 0.3s ease;
+            position: relative;
         }
 
         .person-card:hover {
             border-color: #3b82f6;
             transform: translateY(-4px);
             box-shadow: 0 8px 16px rgba(59, 130, 246, 0.15);
+        }
+
+        .person-card.editable {
+            cursor: pointer;
+        }
+
+        .person-delete-btn {
+            position: absolute;
+            top: 8px;
+            right: 8px;
+            background: #ef4444;
+            color: white;
+            border: none;
+            width: 24px;
+            height: 24px;
+            border-radius: 50%;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            opacity: 0;
+            transition: opacity 0.2s;
+            font-size: 1.2rem;
+            line-height: 1;
+            padding: 0;
+        }
+
+        .person-card:hover .person-delete-btn {
+            opacity: 1;
+        }
+
+        .person-delete-btn:hover {
+            background-color: #dc2626;
         }
 
         .person-indicator {
@@ -232,17 +310,17 @@
             border: 2px solid #1e2d42;
         }
 
-        .person-indicator.engaged {
+        .person-indicator.champion {
             background-color: #10b981;
             box-shadow: 0 0 8px rgba(16, 185, 129, 0.5);
         }
 
-        .person-indicator.contacted {
+        .person-indicator.engaged {
             background-color: #f59e0b;
             box-shadow: 0 0 8px rgba(245, 158, 11, 0.5);
         }
 
-        .person-indicator.cold {
+        .person-indicator.neutral {
             background-color: #6b7280;
             box-shadow: none;
         }
@@ -250,6 +328,11 @@
         .person-indicator.unknown {
             background-color: #4b5563;
             border-style: dashed;
+        }
+
+        .person-indicator.blocker {
+            background-color: #ef4444;
+            box-shadow: 0 0 8px rgba(239, 68, 68, 0.5);
         }
 
         .person-name {
@@ -263,6 +346,13 @@
             font-size: 0.85rem;
             color: #a0aec0;
             margin-bottom: 8px;
+        }
+
+        .person-email {
+            font-size: 0.8rem;
+            color: #60a5fa;
+            margin-bottom: 8px;
+            word-break: break-all;
         }
 
         .person-meta {
@@ -280,30 +370,12 @@
             font-weight: 500;
             text-transform: uppercase;
             letter-spacing: 0.05em;
+            cursor: pointer;
+            transition: all 0.2s;
         }
 
-        .role-badge.decision-maker {
-            background-color: rgba(59, 130, 246, 0.2);
-            color: #60a5fa;
-            border: 1px solid #3b82f6;
-        }
-
-        .role-badge.champion {
-            background-color: rgba(16, 185, 129, 0.2);
-            color: #6ee7b7;
-            border: 1px solid #10b981;
-        }
-
-        .role-badge.influencer {
-            background-color: rgba(245, 158, 11, 0.2);
-            color: #fcd34d;
-            border: 1px solid #f59e0b;
-        }
-
-        .role-badge.blocker {
-            background-color: rgba(239, 68, 68, 0.2);
-            color: #fca5a5;
-            border: 1px solid #ef4444;
+        .role-badge:hover {
+            opacity: 0.8;
         }
 
         .engagement-badge {
@@ -313,19 +385,26 @@
             font-size: 0.75rem;
             font-weight: 500;
             text-transform: capitalize;
+            cursor: pointer;
+            transition: all 0.2s;
         }
 
-        .engagement-badge.engaged {
+        .engagement-badge:hover {
+            opacity: 0.8;
+            transform: scale(1.05);
+        }
+
+        .engagement-badge.champion {
             background-color: rgba(16, 185, 129, 0.2);
             color: #6ee7b7;
         }
 
-        .engagement-badge.contacted {
+        .engagement-badge.engaged {
             background-color: rgba(245, 158, 11, 0.2);
             color: #fcd34d;
         }
 
-        .engagement-badge.cold {
+        .engagement-badge.neutral {
             background-color: rgba(107, 114, 128, 0.2);
             color: #d1d5db;
         }
@@ -333,6 +412,20 @@
         .engagement-badge.unknown {
             background-color: rgba(75, 85, 99, 0.2);
             color: #cbd5e1;
+        }
+
+        .engagement-badge.blocker {
+            background-color: rgba(239, 68, 68, 0.2);
+            color: #fca5a5;
+        }
+
+        .person-notes {
+            font-size: 0.8rem;
+            color: #cbd5e1;
+            margin-top: 8px;
+            padding-top: 8px;
+            border-top: 1px solid #1e2d42;
+            font-style: italic;
         }
 
         .insights-section {
@@ -358,6 +451,97 @@
             line-height: 1.5;
         }
 
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-color: rgba(11, 15, 26, 0.8);
+            z-index: 1000;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .modal.open {
+            display: flex;
+        }
+
+        .modal-content {
+            background-color: #1a2235;
+            border: 1px solid #3b82f6;
+            border-radius: 12px;
+            padding: 30px;
+            max-width: 500px;
+            width: 90%;
+            max-height: 90vh;
+            overflow-y: auto;
+            box-shadow: 0 20px 60px rgba(59, 130, 246, 0.3);
+        }
+
+        .modal-header {
+            font-size: 1.5rem;
+            font-weight: 600;
+            margin-bottom: 20px;
+            color: #f0f4ff;
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        .form-label {
+            display: block;
+            margin-bottom: 8px;
+            font-size: 0.95rem;
+            font-weight: 500;
+            color: #cbd5e1;
+        }
+
+        .form-input,
+        .form-textarea,
+        .form-select {
+            width: 100%;
+            padding: 10px;
+            background-color: #0f1824;
+            border: 1px solid #1e2d42;
+            border-radius: 6px;
+            color: #f0f4ff;
+            font-family: inherit;
+            font-size: 0.95rem;
+            transition: border-color 0.2s;
+        }
+
+        .form-input:focus,
+        .form-textarea:focus,
+        .form-select:focus {
+            outline: none;
+            border-color: #3b82f6;
+            box-shadow: 0 0 10px rgba(59, 130, 246, 0.2);
+        }
+
+        .form-textarea {
+            resize: vertical;
+            min-height: 100px;
+        }
+
+        .modal-actions {
+            display: flex;
+            gap: 10px;
+            justify-content: flex-end;
+            margin-top: 30px;
+        }
+
+        .close-modal {
+            cursor: pointer;
+            color: #a0aec0;
+        }
+
+        .close-modal:hover {
+            color: #f0f4ff;
+        }
+
         .footer {
             text-align: center;
             margin-top: 60px;
@@ -365,6 +549,34 @@
             border-top: 1px solid #1e2d42;
             color: #6b7280;
             font-size: 0.9rem;
+        }
+
+        .toast {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            background-color: #10b981;
+            color: white;
+            padding: 15px 20px;
+            border-radius: 6px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+            z-index: 1001;
+            animation: slideIn 0.3s ease;
+        }
+
+        .toast.error {
+            background-color: #ef4444;
+        }
+
+        @keyframes slideIn {
+            from {
+                transform: translateX(100%);
+                opacity: 0;
+            }
+            to {
+                transform: translateX(0);
+                opacity: 1;
+            }
         }
 
         @media (max-width: 768px) {
@@ -390,6 +602,14 @@
                 width: 100%;
                 justify-content: space-between;
             }
+
+            .header-controls {
+                flex-direction: column;
+            }
+
+            .btn {
+                width: 100%;
+            }
         }
     </style>
 </head>
@@ -398,682 +618,514 @@
         <header>
             <h1>Champion Mapping Hub</h1>
             <p class="subtitle">Anyscale Account Planning & Organizational Intelligence</p>
+            <div class="header-controls">
+                <button class="btn btn-primary" onclick="openAddAccountModal()">+ Add New Account</button>
+                <button class="btn btn-secondary" onclick="resetData()">Reset to Defaults</button>
+            </div>
         </header>
 
-        <div class="summary-grid">
-            <div class="summary-card">
-                <div class="number">32</div>
-                <div class="label">Total Contacts Mapped</div>
-            </div>
-            <div class="summary-card">
-                <div class="number">8</div>
-                <div class="label">Champions Identified</div>
-            </div>
-            <div class="summary-card">
-                <div class="number">12</div>
-                <div class="label">Decision Makers</div>
-            </div>
-            <div class="summary-card">
-                <div class="number">75%</div>
-                <div class="label">Engagement Rate</div>
-            </div>
-        </div>
+        <div class="summary-grid" id="summaryGrid"></div>
 
-        <div class="accounts-container">
-            <!-- Comma.ai -->
-            <div class="account-card">
-                <div class="account-header" onclick="toggleAccount(this)">
-                    <div class="account-title">
-                        <div>
-                            <div class="account-name">comma.ai</div>
-                            <div class="subtitle" style="margin-top: 5px;">Self-driving car software platform</div>
-                        </div>
-                        <span class="tier-badge">Tier 1</span>
-                    </div>
-                    <div class="champion-score">
-                        <div>
-                            <div class="score-label">Champion Score</div>
-                            <div style="display: flex; align-items: center; gap: 10px;">
-                                <div class="score-value">92</div>
-                                <div class="score-bar">
-                                    <div class="score-fill" style="width: 92%"></div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <button class="toggle-btn">▼</button>
-                </div>
-                <div class="account-content">
-                    <div class="org-chart">
-                        <!-- CEO -->
-                        <div class="org-person">
-                            <div class="person-card">
-                                <div style="display: flex; align-items: center; margin-bottom: 10px;">
-                                    <div class="person-indicator engaged"></div>
-                                </div>
-                                <div class="person-name">George Hotz</div>
-                                <div class="person-title">Founder & CEO</div>
-                                <div class="person-meta">
-                                    <span class="role-badge decision-maker">Decision Maker</span>
-                                    <span class="role-badge champion">Champion</span>
-                                    <span class="engagement-badge engaged">Engaged</span>
-                                </div>
-                            </div>
-                        </div>
-
-                        <!-- VP Engineering -->
-                        <div class="org-person">
-                            <div class="person-card">
-                                <div style="display: flex; align-items: center; margin-bottom: 10px;">
-                                    <div class="person-indicator engaged"></div>
-                                </div>
-                                <div class="person-name">Jack Chen</div>
-                                <div class="person-title">VP Engineering</div>
-                                <div class="person-meta">
-                                    <span class="role-badge decision-maker">Decision Maker</span>
-                                    <span class="engagement-badge engaged">Engaged</span>
-                                </div>
-                            </div>
-                        </div>
-
-                        <!-- Director ML Ops -->
-                        <div class="org-person">
-                            <div class="person-card">
-                                <div style="display: flex; align-items: center; margin-bottom: 10px;">
-                                    <div class="person-indicator contacted"></div>
-                                </div>
-                                <div class="person-name">Sarah Mitchell</div>
-                                <div class="person-title">Director of ML Operations</div>
-                                <div class="person-meta">
-                                    <span class="role-badge influencer">Influencer</span>
-                                    <span class="engagement-badge contacted">Contacted</span>
-                                </div>
-                            </div>
-                        </div>
-
-                        <!-- Senior ML Engineer -->
-                        <div class="org-person">
-                            <div class="person-card">
-                                <div style="display: flex; align-items: center; margin-bottom: 10px;">
-                                    <div class="person-indicator cold"></div>
-                                </div>
-                                <div class="person-name">David Park</div>
-                                <div class="person-title">Senior ML Engineer</div>
-                                <div class="person-meta">
-                                    <span class="role-badge influencer">Influencer</span>
-                                    <span class="engagement-badge cold">Cold</span>
-                                </div>
-                            </div>
-                        </div>
-
-                        <!-- Infrastructure Lead -->
-                        <div class="org-person">
-                            <div class="person-card">
-                                <div style="display: flex; align-items: center; margin-bottom: 10px;">
-                                    <div class="person-indicator contacted"></div>
-                                </div>
-                                <div class="person-name">Lisa Rodriguez</div>
-                                <div class="person-title">Infrastructure Lead</div>
-                                <div class="person-meta">
-                                    <span class="role-badge influencer">Influencer</span>
-                                    <span class="engagement-badge contacted">Contacted</span>
-                                </div>
-                            </div>
-                        </div>
-
-                        <!-- Principal Engineer -->
-                        <div class="org-person">
-                            <div class="person-card">
-                                <div style="display: flex; align-items: center; margin-bottom: 10px;">
-                                    <div class="person-indicator engaged"></div>
-                                </div>
-                                <div class="person-name">James Wilson</div>
-                                <div class="person-title">Principal Engineer (Perception)</div>
-                                <div class="person-meta">
-                                    <span class="role-badge champion">Champion</span>
-                                    <span class="engagement-badge engaged">Engaged</span>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="insights-section">
-                        <div class="insights-title">Key Insights</div>
-                        <div class="insights-text">
-                            Strong executive sponsorship with George as active champion. ML operations team highly engaged with infrastructure initiatives. Current focus: implementing distributed training pipelines for autonomous vehicle perception models. Expansion opportunity in decision-maker influence with ML team leads.
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Iambic Therapeutics -->
-            <div class="account-card">
-                <div class="account-header" onclick="toggleAccount(this)">
-                    <div class="account-title">
-                        <div>
-                            <div class="account-name">Iambic Therapeutics</div>
-                            <div class="subtitle" style="margin-top: 5px;">AI-powered drug discovery platform</div>
-                        </div>
-                        <span class="tier-badge">Tier 1</span>
-                    </div>
-                    <div class="champion-score">
-                        <div>
-                            <div class="score-label">Champion Score</div>
-                            <div style="display: flex; align-items: center; gap: 10px;">
-                                <div class="score-value">85</div>
-                                <div class="score-bar">
-                                    <div class="score-fill" style="width: 85%"></div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <button class="toggle-btn">▼</button>
-                </div>
-                <div class="account-content">
-                    <div class="org-chart">
-                        <!-- CEO -->
-                        <div class="org-person">
-                            <div class="person-card">
-                                <div style="display: flex; align-items: center; margin-bottom: 10px;">
-                                    <div class="person-indicator engaged"></div>
-                                </div>
-                                <div class="person-name">Tom Miller</div>
-                                <div class="person-title">Chief Executive Officer</div>
-                                <div class="person-meta">
-                                    <span class="role-badge decision-maker">Decision Maker</span>
-                                    <span class="engagement-badge engaged">Engaged</span>
-                                </div>
-                            </div>
-                        </div>
-
-                        <!-- Head of ML -->
-                        <div class="org-person">
-                            <div class="person-card">
-                                <div style="display: flex; align-items: center; margin-bottom: 10px;">
-                                    <div class="person-indicator engaged"></div>
-                                </div>
-                                <div class="person-name">Dr. Emily Chen</div>
-                                <div class="person-title">Head of ML Research</div>
-                                <div class="person-meta">
-                                    <span class="role-badge decision-maker">Decision Maker</span>
-                                    <span class="role-badge champion">Champion</span>
-                                    <span class="engagement-badge engaged">Engaged</span>
-                                </div>
-                            </div>
-                        </div>
-
-                        <!-- ML Engineering Lead -->
-                        <div class="org-person">
-                            <div class="person-card">
-                                <div style="display: flex; align-items: center; margin-bottom: 10px;">
-                                    <div class="person-indicator engaged"></div>
-                                </div>
-                                <div class="person-name">Marcus Johnson</div>
-                                <div class="person-title">ML Engineering Lead</div>
-                                <div class="person-meta">
-                                    <span class="role-badge champion">Champion</span>
-                                    <span class="engagement-badge engaged">Engaged</span>
-                                </div>
-                            </div>
-                        </div>
-
-                        <!-- ML Infrastructure Engineer -->
-                        <div class="org-person">
-                            <div class="person-card">
-                                <div style="display: flex; align-items: center; margin-bottom: 10px;">
-                                    <div class="person-indicator contacted"></div>
-                                </div>
-                                <div class="person-name">Alex Kumar</div>
-                                <div class="person-title">ML Infrastructure Engineer</div>
-                                <div class="person-meta">
-                                    <span class="role-badge influencer">Influencer</span>
-                                    <span class="engagement-badge contacted">Contacted</span>
-                                </div>
-                            </div>
-                        </div>
-
-                        <!-- Computational Biology Lead -->
-                        <div class="org-person">
-                            <div class="person-card">
-                                <div style="display: flex; align-items: center; margin-bottom: 10px;">
-                                    <div class="person-indicator cold"></div>
-                                </div>
-                                <div class="person-name">Dr. Robert Hayes</div>
-                                <div class="person-title">Computational Biology Lead</div>
-                                <div class="person-meta">
-                                    <span class="role-badge influencer">Influencer</span>
-                                    <span class="engagement-badge cold">Cold</span>
-                                </div>
-                            </div>
-                        </div>
-
-                        <!-- VP Research Operations -->
-                        <div class="org-person">
-                            <div class="person-card">
-                                <div style="display: flex; align-items: center; margin-bottom: 10px;">
-                                    <div class="person-indicator contacted"></div>
-                                </div>
-                                <div class="person-name">Nicole Martinez</div>
-                                <div class="person-title">VP Research Operations</div>
-                                <div class="person-meta">
-                                    <span class="role-badge decision-maker">Decision Maker</span>
-                                    <span class="engagement-badge contacted">Contacted</span>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="insights-section">
-                        <div class="insights-title">Key Insights</div>
-                        <div class="insights-text">
-                            Excellent champion alignment with Dr. Chen and Marcus actively driving adoption. Significant engagement from executive leadership (CEO, VPR Ops). Core ML team is highly responsive to scaling initiatives. Opportunity to deepen relationship with computational biology leads for domain-specific model training.
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Fal.ai -->
-            <div class="account-card">
-                <div class="account-header" onclick="toggleAccount(this)">
-                    <div class="account-title">
-                        <div>
-                            <div class="account-name">Fal.ai</div>
-                            <div class="subtitle" style="margin-top: 5px;">Serverless ML inference platform</div>
-                        </div>
-                        <span class="tier-badge">Tier 1</span>
-                    </div>
-                    <div class="champion-score">
-                        <div>
-                            <div class="score-label">Champion Score</div>
-                            <div style="display: flex; align-items: center; gap: 10px;">
-                                <div class="score-value">88</div>
-                                <div class="score-bar">
-                                    <div class="score-fill" style="width: 88%"></div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <button class="toggle-btn">▼</button>
-                </div>
-                <div class="account-content">
-                    <div class="org-chart">
-                        <!-- CTO -->
-                        <div class="org-person">
-                            <div class="person-card">
-                                <div style="display: flex; align-items: center; margin-bottom: 10px;">
-                                    <div class="person-indicator engaged"></div>
-                                </div>
-                                <div class="person-name">Batuhan Taskaya</div>
-                                <div class="person-title">Chief Technology Officer</div>
-                                <div class="person-meta">
-                                    <span class="role-badge decision-maker">Decision Maker</span>
-                                    <span class="role-badge champion">Champion</span>
-                                    <span class="engagement-badge engaged">Engaged</span>
-                                </div>
-                            </div>
-                        </div>
-
-                        <!-- Infrastructure Lead -->
-                        <div class="org-person">
-                            <div class="person-card">
-                                <div style="display: flex; align-items: center; margin-bottom: 10px;">
-                                    <div class="person-indicator engaged"></div>
-                                </div>
-                                <div class="person-name">Viktor Petrov</div>
-                                <div class="person-title">Infrastructure Team Lead</div>
-                                <div class="person-meta">
-                                    <span class="role-badge decision-maker">Decision Maker</span>
-                                    <span class="role-badge champion">Champion</span>
-                                    <span class="engagement-badge engaged">Engaged</span>
-                                </div>
-                            </div>
-                        </div>
-
-                        <!-- Senior Infrastructure Engineer -->
-                        <div class="org-person">
-                            <div class="person-card">
-                                <div style="display: flex; align-items: center; margin-bottom: 10px;">
-                                    <div class="person-indicator contacted"></div>
-                                </div>
-                                <div class="person-name">Elena Novikov</div>
-                                <div class="person-title">Senior Infrastructure Engineer</div>
-                                <div class="person-meta">
-                                    <span class="role-badge influencer">Influencer</span>
-                                    <span class="engagement-badge contacted">Contacted</span>
-                                </div>
-                            </div>
-                        </div>
-
-                        <!-- Platform Engineer -->
-                        <div class="org-person">
-                            <div class="person-card">
-                                <div style="display: flex; align-items: center; margin-bottom: 10px;">
-                                    <div class="person-indicator cold"></div>
-                                </div>
-                                <div class="person-name">Sergei Volkov</div>
-                                <div class="person-title">Platform Engineer</div>
-                                <div class="person-meta">
-                                    <span class="role-badge influencer">Influencer</span>
-                                    <span class="engagement-badge cold">Cold</span>
-                                </div>
-                            </div>
-                        </div>
-
-                        <!-- Performance Optimization Engineer -->
-                        <div class="org-person">
-                            <div class="person-card">
-                                <div style="display: flex; align-items: center; margin-bottom: 10px;">
-                                    <div class="person-indicator engaged"></div>
-                                </div>
-                                <div class="person-name">Alexandra Sokolov</div>
-                                <div class="person-title">Performance Optimization Engineer</div>
-                                <div class="person-meta">
-                                    <span class="role-badge influencer">Influencer</span>
-                                    <span class="engagement-badge engaged">Engaged</span>
-                                </div>
-                            </div>
-                        </div>
-
-                        <!-- Chief Architect -->
-                        <div class="org-person">
-                            <div class="person-card">
-                                <div style="display: flex; align-items: center; margin-bottom: 10px;">
-                                    <div class="person-indicator contacted"></div>
-                                </div>
-                                <div class="person-name">Michael Andreescu</div>
-                                <div class="person-title">Chief Systems Architect</div>
-                                <div class="person-meta">
-                                    <span class="role-badge decision-maker">Decision Maker</span>
-                                    <span class="engagement-badge contacted">Contacted</span>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="insights-section">
-                        <div class="insights-title">Key Insights</div>
-                        <div class="insights-text">
-                            Strong technical leadership with Batuhan and Viktor as primary champions. Infrastructure team is actively engaged and responsive. Focus on serverless scaling and distributed inference optimizations. Primary opportunity: deepen engagement with Systems Architect on architecture modernization initiatives.
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Apex.AI -->
-            <div class="account-card">
-                <div class="account-header" onclick="toggleAccount(this)">
-                    <div class="account-title">
-                        <div>
-                            <div class="account-name">Apex.AI</div>
-                            <div class="subtitle" style="margin-top: 5px;">Autonomous vehicle software platform</div>
-                        </div>
-                        <span class="tier-badge">Tier 1</span>
-                    </div>
-                    <div class="champion-score">
-                        <div>
-                            <div class="score-label">Champion Score</div>
-                            <div style="display: flex; align-items: center; gap: 10px;">
-                                <div class="score-value">80</div>
-                                <div class="score-bar">
-                                    <div class="score-fill" style="width: 80%"></div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <button class="toggle-btn">▼</button>
-                </div>
-                <div class="account-content">
-                    <div class="org-chart">
-                        <!-- CEO -->
-                        <div class="org-person">
-                            <div class="person-card">
-                                <div style="display: flex; align-items: center; margin-bottom: 10px;">
-                                    <div class="person-indicator contacted"></div>
-                                </div>
-                                <div class="person-name">Jan Becker</div>
-                                <div class="person-title">Chief Executive Officer</div>
-                                <div class="person-meta">
-                                    <span class="role-badge decision-maker">Decision Maker</span>
-                                    <span class="engagement-badge contacted">Contacted</span>
-                                </div>
-                            </div>
-                        </div>
-
-                        <!-- VP Engineering -->
-                        <div class="org-person">
-                            <div class="person-card">
-                                <div style="display: flex; align-items: center; margin-bottom: 10px;">
-                                    <div class="person-indicator engaged"></div>
-                                </div>
-                                <div class="person-name">Anna Weber</div>
-                                <div class="person-title">VP Engineering</div>
-                                <div class="person-meta">
-                                    <span class="role-badge decision-maker">Decision Maker</span>
-                                    <span class="role-badge champion">Champion</span>
-                                    <span class="engagement-badge engaged">Engaged</span>
-                                </div>
-                            </div>
-                        </div>
-
-                        <!-- AV Systems Lead -->
-                        <div class="org-person">
-                            <div class="person-card">
-                                <div style="display: flex; align-items: center; margin-bottom: 10px;">
-                                    <div class="person-indicator engaged"></div>
-                                </div>
-                                <div class="person-name">Klaus Muller</div>
-                                <div class="person-title">AV Systems Engineering Lead</div>
-                                <div class="person-meta">
-                                    <span class="role-badge champion">Champion</span>
-                                    <span class="engagement-badge engaged">Engaged</span>
-                                </div>
-                            </div>
-                        </div>
-
-                        <!-- Perception Engineer -->
-                        <div class="org-person">
-                            <div class="person-card">
-                                <div style="display: flex; align-items: center; margin-bottom: 10px;">
-                                    <div class="person-indicator contacted"></div>
-                                </div>
-                                <div class="person-name">Sonja Richter</div>
-                                <div class="person-title">Perception Systems Engineer</div>
-                                <div class="person-meta">
-                                    <span class="role-badge influencer">Influencer</span>
-                                    <span class="engagement-badge contacted">Contacted</span>
-                                </div>
-                            </div>
-                        </div>
-
-                        <!-- Planning & Control Lead -->
-                        <div class="org-person">
-                            <div class="person-card">
-                                <div style="display: flex; align-items: center; margin-bottom: 10px;">
-                                    <div class="person-indicator cold"></div>
-                                </div>
-                                <div class="person-name">Thomas Fischer</div>
-                                <div class="person-title">Planning & Control Lead</div>
-                                <div class="person-meta">
-                                    <span class="role-badge influencer">Influencer</span>
-                                    <span class="engagement-badge cold">Cold</span>
-                                </div>
-                            </div>
-                        </div>
-
-                        <!-- Infrastructure Manager -->
-                        <div class="org-person">
-                            <div class="person-card">
-                                <div style="display: flex; align-items: center; margin-bottom: 10px;">
-                                    <div class="person-indicator unknown"></div>
-                                </div>
-                                <div class="person-name">Katrin Schmidt</div>
-                                <div class="person-title">Infrastructure Manager</div>
-                                <div class="person-meta">
-                                    <span class="role-badge influencer">Influencer</span>
-                                    <span class="engagement-badge unknown">Unknown</span>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="insights-section">
-                        <div class="insights-title">Key Insights</div>
-                        <div class="insights-text">
-                            Anna Weber is the primary champion driving adoption with strong executive backing. Klaus Muller providing strong technical leadership on AV systems. CEO engagement at moderate level. Significant opportunity to expand into Planning & Control team and Infrastructure. Consider technical workshop series to drive deeper engagement.
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Valar Labs -->
-            <div class="account-card">
-                <div class="account-header" onclick="toggleAccount(this)">
-                    <div class="account-title">
-                        <div>
-                            <div class="account-name">Valar Labs</div>
-                            <div class="subtitle" style="margin-top: 5px;">Clinical AI and biomedical research platform</div>
-                        </div>
-                        <span class="tier-badge">Tier 1</span>
-                    </div>
-                    <div class="champion-score">
-                        <div>
-                            <div class="score-label">Champion Score</div>
-                            <div style="display: flex; align-items: center; gap: 10px;">
-                                <div class="score-value">78</div>
-                                <div class="score-bar">
-                                    <div class="score-fill" style="width: 78%"></div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <button class="toggle-btn">▼</button>
-                </div>
-                <div class="account-content">
-                    <div class="org-chart">
-                        <!-- CEO -->
-                        <div class="org-person">
-                            <div class="person-card">
-                                <div style="display: flex; align-items: center; margin-bottom: 10px;">
-                                    <div class="person-indicator contacted"></div>
-                                </div>
-                                <div class="person-name">Anirudh Joshi</div>
-                                <div class="person-title">Chief Executive Officer</div>
-                                <div class="person-meta">
-                                    <span class="role-badge decision-maker">Decision Maker</span>
-                                    <span class="engagement-badge contacted">Contacted</span>
-                                </div>
-                            </div>
-                        </div>
-
-                        <!-- Head of Clinical AI -->
-                        <div class="org-person">
-                            <div class="person-card">
-                                <div style="display: flex; align-items: center; margin-bottom: 10px;">
-                                    <div class="person-indicator engaged"></div>
-                                </div>
-                                <div class="person-name">Dr. Priya Sharma</div>
-                                <div class="person-title">Head of Clinical AI</div>
-                                <div class="person-meta">
-                                    <span class="role-badge decision-maker">Decision Maker</span>
-                                    <span class="role-badge champion">Champion</span>
-                                    <span class="engagement-badge engaged">Engaged</span>
-                                </div>
-                            </div>
-                        </div>
-
-                        <!-- ML Operations Lead -->
-                        <div class="org-person">
-                            <div class="person-card">
-                                <div style="display: flex; align-items: center; margin-bottom: 10px;">
-                                    <div class="person-indicator engaged"></div>
-                                </div>
-                                <div class="person-name">Rajesh Kapoor</div>
-                                <div class="person-title">ML Operations Lead</div>
-                                <div class="person-meta">
-                                    <span class="role-badge champion">Champion</span>
-                                    <span class="engagement-badge engaged">Engaged</span>
-                                </div>
-                            </div>
-                        </div>
-
-                        <!-- Biomedical ML Engineer -->
-                        <div class="org-person">
-                            <div class="person-card">
-                                <div style="display: flex; align-items: center; margin-bottom: 10px;">
-                                    <div class="person-indicator contacted"></div>
-                                </div>
-                                <div class="person-name">Nisha Desai</div>
-                                <div class="person-title">Biomedical ML Engineer</div>
-                                <div class="person-meta">
-                                    <span class="role-badge influencer">Influencer</span>
-                                    <span class="engagement-badge contacted">Contacted</span>
-                                </div>
-                            </div>
-                        </div>
-
-                        <!-- Clinical Research Director -->
-                        <div class="org-person">
-                            <div class="person-card">
-                                <div style="display: flex; align-items: center; margin-bottom: 10px;">
-                                    <div class="person-indicator cold"></div>
-                                </div>
-                                <div class="person-name">Dr. Amit Patel</div>
-                                <div class="person-title">Clinical Research Director</div>
-                                <div class="person-meta">
-                                    <span class="role-badge influencer">Influencer</span>
-                                    <span class="engagement-badge cold">Cold</span>
-                                </div>
-                            </div>
-                        </div>
-
-                        <!-- Data Pipeline Engineer -->
-                        <div class="org-person">
-                            <div class="person-card">
-                                <div style="display: flex; align-items: center; margin-bottom: 10px;">
-                                    <div class="person-indicator unknown"></div>
-                                </div>
-                                <div class="person-name">Vikram Singh</div>
-                                <div class="person-title">Data Pipeline Engineer</div>
-                                <div class="person-meta">
-                                    <span class="role-badge influencer">Influencer</span>
-                                    <span class="engagement-badge unknown">Unknown</span>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="insights-section">
-                        <div class="insights-title">Key Insights</div>
-                        <div class="insights-text">
-                            Strong clinical AI leadership with Dr. Sharma driving strategic initiatives. Rajesh providing excellent technical champion support. Current focus: HIPAA-compliant federated learning and clinical validation pipelines. Key opportunity: expand engagement with Clinical Research Director to improve clinical domain alignment and compliance requirements.
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
+        <div class="accounts-container" id="accountsContainer"></div>
 
         <footer class="footer">
-            <p>Anyscale Account Planning Hub &mdash; Last updated March 6, 2026</p>
-            <p style="margin-top: 10px; color: #4b5563; font-size: 0.85rem;">Data sourced from account research, public profiles, and customer engagement history</p>
+            <p>Anyscale Account Planning Hub &mdash; Editable Edition</p>
+            <p style="margin-top: 10px; color: #4b5563; font-size: 0.85rem;">All changes are automatically saved to your browser</p>
         </footer>
     </div>
 
+    <!-- Edit Contact Modal -->
+    <div class="modal" id="editModal">
+        <div class="modal-content">
+            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px;">
+                <div class="modal-header" style="margin-bottom: 0;">Edit Contact</div>
+                <span class="close-modal" onclick="closeEditModal()">&times;</span>
+            </div>
+            <form onsubmit="saveContact(event)">
+                <div class="form-group">
+                    <label class="form-label">Name</label>
+                    <input type="text" id="contactName" class="form-input" required>
+                </div>
+                <div class="form-group">
+                    <label class="form-label">Title</label>
+                    <input type="text" id="contactTitle" class="form-input" required>
+                </div>
+                <div class="form-group">
+                    <label class="form-label">Department</label>
+                    <input type="text" id="contactDepartment" class="form-input">
+                </div>
+                <div class="form-group">
+                    <label class="form-label">Email</label>
+                    <input type="email" id="contactEmail" class="form-input">
+                </div>
+                <div class="form-group">
+                    <label class="form-label">Engagement Status</label>
+                    <select id="contactStatus" class="form-select" required>
+                        <option value="champion">Champion</option>
+                        <option value="engaged">Engaged</option>
+                        <option value="neutral">Neutral</option>
+                        <option value="unknown">Unknown</option>
+                        <option value="blocker">Blocker</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label class="form-label">Notes</label>
+                    <textarea id="contactNotes" class="form-textarea" placeholder="Add any relevant notes..."></textarea>
+                </div>
+                <div class="modal-actions">
+                    <button type="button" class="btn btn-secondary btn-small" onclick="closeEditModal()">Cancel</button>
+                    <button type="submit" class="btn btn-primary btn-small">Save Changes</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- Add Account Modal -->
+    <div class="modal" id="addAccountModal">
+        <div class="modal-content">
+            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px;">
+                <div class="modal-header" style="margin-bottom: 0;">Add New Account</div>
+                <span class="close-modal" onclick="closeAddAccountModal()">&times;</span>
+            </div>
+            <form onsubmit="addAccount(event)">
+                <div class="form-group">
+                    <label class="form-label">Company Name</label>
+                    <input type="text" id="accountName" class="form-input" required>
+                </div>
+                <div class="form-group">
+                    <label class="form-label">Description</label>
+                    <input type="text" id="accountDesc" class="form-input" placeholder="e.g., AI and ML platform">
+                </div>
+                <div class="form-group">
+                    <label class="form-label">Tier</label>
+                    <select id="accountTier" class="form-select">
+                        <option value="Tier 1">Tier 1</option>
+                        <option value="Tier 2">Tier 2</option>
+                        <option value="Tier 3">Tier 3</option>
+                    </select>
+                </div>
+                <div class="modal-actions">
+                    <button type="button" class="btn btn-secondary btn-small" onclick="closeAddAccountModal()">Cancel</button>
+                    <button type="submit" class="btn btn-primary btn-small">Create Account</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- Add Contact Modal -->
+    <div class="modal" id="addContactModal">
+        <div class="modal-content">
+            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px;">
+                <div class="modal-header" style="margin-bottom: 0;">Add New Contact</div>
+                <span class="close-modal" onclick="closeAddContactModal()">&times;</span>
+            </div>
+            <form onsubmit="addContact(event)">
+                <div class="form-group">
+                    <label class="form-label">Name</label>
+                    <input type="text" id="newContactName" class="form-input" required>
+                </div>
+                <div class="form-group">
+                    <label class="form-label">Title</label>
+                    <input type="text" id="newContactTitle" class="form-input" required>
+                </div>
+                <div class="form-group">
+                    <label class="form-label">Department</label>
+                    <input type="text" id="newContactDepartment" class="form-input">
+                </div>
+                <div class="form-group">
+                    <label class="form-label">Email</label>
+                    <input type="email" id="newContactEmail" class="form-input">
+                </div>
+                <div class="form-group">
+                    <label class="form-label">Engagement Status</label>
+                    <select id="newContactStatus" class="form-select" required>
+                        <option value="champion">Champion</option>
+                        <option value="engaged">Engaged</option>
+                        <option value="neutral">Neutral</option>
+                        <option value="unknown">Unknown</option>
+                        <option value="blocker">Blocker</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label class="form-label">Notes</label>
+                    <textarea id="newContactNotes" class="form-textarea" placeholder="Add any relevant notes..."></textarea>
+                </div>
+                <div class="modal-actions">
+                    <button type="button" class="btn btn-secondary btn-small" onclick="closeAddContactModal()">Cancel</button>
+                    <button type="submit" class="btn btn-primary btn-small">Add Contact</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
     <script>
+        // Data Management
+        const STORAGE_KEY = 'championMappingData';
+        const DEFAULT_DATA = {
+            accounts: [
+                {
+                    id: 'acc1',
+                    name: 'TechCorp Industries',
+                    description: 'Enterprise software and cloud solutions',
+                    tier: 'Tier 1',
+                    contacts: [
+                        { id: 'con1', name: 'Anna Weber', title: 'Chief Technology Officer', department: 'Executive', status: 'champion', email: 'anna.weber@techcorp.de', notes: 'Primary champion, strong advocate' },
+                        { id: 'con2', name: 'Klaus Muller', title: 'VP Engineering', department: 'Engineering', status: 'engaged', email: 'klaus.muller@techcorp.de', notes: 'Technical leader on AV systems' },
+                        { id: 'con3', name: 'Friedrich Neumann', title: 'Chief Executive Officer', department: 'Executive', status: 'engaged', email: 'friedrich.neumann@techcorp.de', notes: 'CEO with moderate engagement' },
+                        { id: 'con4', name: 'Sofia Bergmann', title: 'Director of Planning & Control', department: 'Finance', status: 'neutral', email: 'sofia.bergmann@techcorp.de', notes: 'Opportunity to expand engagement' },
+                        { id: 'con5', name: 'Katrin Schmidt', title: 'Infrastructure Manager', department: 'Infrastructure', status: 'unknown', email: 'katrin.schmidt@techcorp.de', notes: '' }
+                    ]
+                },
+                {
+                    id: 'acc2',
+                    name: 'Valar Labs',
+                    description: 'Clinical AI and biomedical research platform',
+                    tier: 'Tier 1',
+                    contacts: [
+                        { id: 'con6', name: 'Anirudh Joshi', title: 'Chief Executive Officer', department: 'Executive', status: 'engaged', email: 'anirudh.joshi@valarlabs.com', notes: '' },
+                        { id: 'con7', name: 'Dr. Priya Sharma', title: 'Head of Clinical AI', department: 'AI Research', status: 'champion', email: 'priya.sharma@valarlabs.com', notes: 'Driving strategic initiatives' },
+                        { id: 'con8', name: 'Rajesh Kapoor', title: 'ML Operations Lead', department: 'Engineering', status: 'champion', email: 'rajesh.kapoor@valarlabs.com', notes: 'Excellent technical champion support' },
+                        { id: 'con9', name: 'Nisha Desai', title: 'Biomedical ML Engineer', department: 'Engineering', status: 'engaged', email: 'nisha.desai@valarlabs.com', notes: '' },
+                        { id: 'con10', name: 'Dr. Amit Patel', title: 'Clinical Research Director', department: 'Research', status: 'neutral', email: 'amit.patel@valarlabs.com', notes: 'Key opportunity for engagement' },
+                        { id: 'con11', name: 'Vikram Singh', title: 'Data Pipeline Engineer', department: 'Engineering', status: 'unknown', email: 'vikram.singh@valarlabs.com', notes: '' }
+                    ]
+                }
+            ]
+        };
+
+        let editingContact = null;
+        let editingAccountId = null;
+        let addingContactAccountId = null;
+
+        // Initialize
+        document.addEventListener('DOMContentLoaded', function() {
+            loadData();
+            renderAll();
+        });
+
+        function loadData() {
+            const stored = localStorage.getItem(STORAGE_KEY);
+            if (!stored) {
+                saveData(DEFAULT_DATA);
+            }
+        }
+
+        function getData() {
+            const stored = localStorage.getItem(STORAGE_KEY);
+            return stored ? JSON.parse(stored) : DEFAULT_DATA;
+        }
+
+        function saveData(data) {
+            localStorage.setItem(STORAGE_KEY, JSON.stringify(data));
+        }
+
+        function renderAll() {
+            const data = getData();
+            renderSummary(data);
+            renderAccounts(data);
+        }
+
+        function renderSummary(data) {
+            let totalContacts = 0;
+            let totalChampions = 0;
+
+            data.accounts.forEach(acc => {
+                totalContacts += acc.contacts.length;
+                totalChampions += acc.contacts.filter(c => c.status === 'champion').length;
+            });
+
+            const summaryHtml = `
+                <div class="summary-card">
+                    <div class="number">${data.accounts.length}</div>
+                    <div class="label">Total Accounts</div>
+                </div>
+                <div class="summary-card">
+                    <div class="number">${totalContacts}</div>
+                    <div class="label">Total Contacts</div>
+                </div>
+                <div class="summary-card">
+                    <div class="number">${totalChampions}</div>
+                    <div class="label">Champions</div>
+                </div>
+            `;
+
+            document.getElementById('summaryGrid').innerHTML = summaryHtml;
+        }
+
+        function renderAccounts(data) {
+            const container = document.getElementById('accountsContainer');
+            container.innerHTML = data.accounts.map(account => `
+                <div class="account-card">
+                    <div class="account-header" onclick="toggleAccount(this)">
+                        <div class="account-title">
+                            <div>
+                                <div class="account-name">${escapeHtml(account.name)}</div>
+                                <div class="subtitle" style="margin-top: 5px;">${escapeHtml(account.description)}</div>
+                            </div>
+                            <span class="tier-badge">${account.tier}</span>
+                        </div>
+                        <div class="champion-score">
+                            <div>
+                                <div class="score-label">Champions</div>
+                                <div style="display: flex; align-items: center; gap: 10px;">
+                                    <div class="score-value">${account.contacts.filter(c => c.status === 'champion').length}</div>
+                                    <div class="score-bar">
+                                        <div class="score-fill" style="width: ${(account.contacts.filter(c => c.status === 'champion').length / Math.max(account.contacts.length, 1)) * 100}%"></div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <button class="toggle-btn">▼</button>
+                    </div>
+                    <div class="account-content expanded">
+                        <div class="account-controls">
+                            <button class="btn btn-primary btn-small" onclick="openAddContactModal('${account.id}')">+ Add Contact</button>
+                            <button class="btn btn-danger btn-small" onclick="deleteAccount('${account.id}')">Delete Account</button>
+                        </div>
+                        <div class="org-chart">
+                            ${account.contacts.map(contact => renderContact(account.id, contact)).join('')}
+                        </div>
+                        <div class="insights-section">
+                            <div class="insights-title">Manage Contacts</div>
+                            <div class="insights-text">Click any contact card to edit details. Click the status badge to cycle through engagement levels. Use the delete button (×) to remove contacts.</div>
+                        </div>
+                    </div>
+                </div>
+            `).join('');
+        }
+
+        function renderContact(accountId, contact) {
+            const statusColors = {
+                champion: { bg: '#10b981', text: '#6ee7b7' },
+                engaged: { bg: '#f59e0b', text: '#fcd34d' },
+                neutral: { bg: '#6b7280', text: '#d1d5db' },
+                unknown: { bg: '#4b5563', text: '#cbd5e1' },
+                blocker: { bg: '#ef4444', text: '#fca5a5' }
+            };
+
+            const colors = statusColors[contact.status] || statusColors.unknown;
+
+            return `
+                <div class="org-person">
+                    <div class="person-card editable" onclick="openEditModal('${accountId}', '${contact.id}')">
+                        <button class="person-delete-btn" onclick="deleteContact(event, '${accountId}', '${contact.id}')">×</button>
+                        <div style="display: flex; align-items: center; margin-bottom: 10px;">
+                            <div class="person-indicator ${contact.status}"></div>
+                        </div>
+                        <div class="person-name">${escapeHtml(contact.name)}</div>
+                        <div class="person-title">${escapeHtml(contact.title)}</div>
+                        ${contact.email ? `<div class="person-email">${escapeHtml(contact.email)}</div>` : ''}
+                        ${contact.department ? `<div style="font-size: 0.8rem; color: #a0aec0; margin-bottom: 8px;">${escapeHtml(contact.department)}</div>` : ''}
+                        <div class="person-meta">
+                            <span class="engagement-badge ${contact.status}" onclick="cycleStatus(event, '${accountId}', '${contact.id}')" title="Click to cycle through statuses">${contact.status}</span>
+                        </div>
+                        ${contact.notes ? `<div class="person-notes">"${escapeHtml(contact.notes)}"</div>` : ''}
+                    </div>
+                </div>
+            `;
+        }
+
         function toggleAccount(headerElement) {
             const content = headerElement.nextElementSibling;
             const toggleBtn = headerElement.querySelector('.toggle-btn');
 
-            content.classList.toggle('collapsed');
+            content.classList.toggle('expanded');
 
-            if (content.classList.contains('collapsed')) {
+            if (!content.classList.contains('expanded')) {
                 toggleBtn.textContent = '▶';
             } else {
                 toggleBtn.textContent = '▼';
             }
         }
 
-        // Initialize: expand all on load
-        document.addEventListener('DOMContentLoaded', function() {
-            const headers = document.querySelectorAll('.account-header');
-            headers.forEach(header => {
-                const content = header.nextElementSibling;
-                content.classList.remove('collapsed');
+        // Modal Functions
+        function openEditModal(accountId, contactId) {
+            const data = getData();
+            const account = data.accounts.find(a => a.id === accountId);
+            const contact = account.contacts.find(c => c.id === contactId);
+
+            document.getElementById('contactName').value = contact.name;
+            document.getElementById('contactTitle').value = contact.title;
+            document.getElementById('contactDepartment').value = contact.department || '';
+            document.getElementById('contactEmail').value = contact.email || '';
+            document.getElementById('contactStatus').value = contact.status;
+            document.getElementById('contactNotes').value = contact.notes || '';
+
+            editingContact = { accountId, contactId };
+            document.getElementById('editModal').classList.add('open');
+        }
+
+        function closeEditModal() {
+            document.getElementById('editModal').classList.remove('open');
+            editingContact = null;
+        }
+
+        function saveContact(event) {
+            event.preventDefault();
+            const data = getData();
+            const account = data.accounts.find(a => a.id === editingContact.accountId);
+            const contact = account.contacts.find(c => c.id === editingContact.contactId);
+
+            contact.name = document.getElementById('contactName').value;
+            contact.title = document.getElementById('contactTitle').value;
+            contact.department = document.getElementById('contactDepartment').value;
+            contact.email = document.getElementById('contactEmail').value;
+            contact.status = document.getElementById('contactStatus').value;
+            contact.notes = document.getElementById('contactNotes').value;
+
+            saveData(data);
+            renderAll();
+            closeEditModal();
+            showToast('Contact updated successfully');
+        }
+
+        function openAddAccountModal() {
+            document.getElementById('addAccountModal').classList.add('open');
+        }
+
+        function closeAddAccountModal() {
+            document.getElementById('addAccountModal').classList.remove('open');
+            document.getElementById('accountName').value = '';
+            document.getElementById('accountDesc').value = '';
+        }
+
+        function addAccount(event) {
+            event.preventDefault();
+            const data = getData();
+            const newId = 'acc' + Date.now();
+
+            data.accounts.push({
+                id: newId,
+                name: document.getElementById('accountName').value,
+                description: document.getElementById('accountDesc').value,
+                tier: document.getElementById('accountTier').value,
+                contacts: []
             });
+
+            saveData(data);
+            renderAll();
+            closeAddAccountModal();
+            showToast('Account added successfully');
+        }
+
+        function openAddContactModal(accountId) {
+            addingContactAccountId = accountId;
+            document.getElementById('addContactModal').classList.add('open');
+        }
+
+        function closeAddContactModal() {
+            document.getElementById('addContactModal').classList.remove('open');
+            addingContactAccountId = null;
+            document.getElementById('newContactName').value = '';
+            document.getElementById('newContactTitle').value = '';
+            document.getElementById('newContactDepartment').value = '';
+            document.getElementById('newContactEmail').value = '';
+            document.getElementById('newContactStatus').value = 'unknown';
+            document.getElementById('newContactNotes').value = '';
+        }
+
+        function addContact(event) {
+            event.preventDefault();
+            const data = getData();
+            const account = data.accounts.find(a => a.id === addingContactAccountId);
+
+            account.contacts.push({
+                id: 'con' + Date.now(),
+                name: document.getElementById('newContactName').value,
+                title: document.getElementById('newContactTitle').value,
+                department: document.getElementById('newContactDepartment').value,
+                email: document.getElementById('newContactEmail').value,
+                status: document.getElementById('newContactStatus').value,
+                notes: document.getElementById('newContactNotes').value
+            });
+
+            saveData(data);
+            renderAll();
+            closeAddContactModal();
+            showToast('Contact added successfully');
+        }
+
+        function deleteContact(event, accountId, contactId) {
+            event.stopPropagation();
+            if (confirm('Delete this contact?')) {
+                const data = getData();
+                const account = data.accounts.find(a => a.id === accountId);
+                account.contacts = account.contacts.filter(c => c.id !== contactId);
+                saveData(data);
+                renderAll();
+                showToast('Contact deleted');
+            }
+        }
+
+        function deleteAccount(accountId) {
+            if (confirm('Delete this account and all its contacts?')) {
+                const data = getData();
+                data.accounts = data.accounts.filter(a => a.id !== accountId);
+                saveData(data);
+                renderAll();
+                showToast('Account deleted');
+            }
+        }
+
+        function cycleStatus(event, accountId, contactId) {
+            event.stopPropagation();
+            const statuses = ['champion', 'engaged', 'neutral', 'unknown', 'blocker'];
+            const data = getData();
+            const account = data.accounts.find(a => a.id === accountId);
+            const contact = account.contacts.find(c => c.id === contactId);
+
+            const currentIndex = statuses.indexOf(contact.status);
+            contact.status = statuses[(currentIndex + 1) % statuses.length];
+
+            saveData(data);
+            renderAll();
+            showToast(`Status changed to ${contact.status}`);
+        }
+
+        function resetData() {
+            if (confirm('Reset all data to defaults? This cannot be undone.')) {
+                saveData(DEFAULT_DATA);
+                renderAll();
+                showToast('Data reset to defaults');
+            }
+        }
+
+        function showToast(message) {
+            const toast = document.createElement('div');
+            toast.className = 'toast';
+            toast.textContent = message;
+            document.body.appendChild(toast);
+
+            setTimeout(() => {
+                toast.style.animation = 'slideIn 0.3s ease reverse';
+                setTimeout(() => toast.remove(), 300);
+            }, 2000);
+        }
+
+        function escapeHtml(text) {
+            const div = document.createElement('div');
+            div.textContent = text;
+            return div.innerHTML;
+        }
+
+        // Close modals when clicking outside
+        document.addEventListener('click', function(event) {
+            const editModal = document.getElementById('editModal');
+            const addAccountModal = document.getElementById('addAccountModal');
+            const addContactModal = document.getElementById('addContactModal');
+
+            if (event.target === editModal) closeEditModal();
+            if (event.target === addAccountModal) closeAddAccountModal();
+            if (event.target === addContactModal) closeAddContactModal();
+        });
+
+        // Keyboard shortcuts
+        document.addEventListener('keydown', function(event) {
+            if (event.key === 'Escape') {
+                closeEditModal();
+                closeAddAccountModal();
+                closeAddContactModal();
+            }
         });
     </script>
 </body>
