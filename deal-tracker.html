@@ -530,17 +530,10 @@ function getInitialData() {
   return document.body.innerHTML;
 }
 
-let isDragging = false;
-let dragStartPos = { x: 0, y: 0 };
-
-// Track mousedown to distinguish click from drag
-document.addEventListener('mousedown', (e) => {
-  dragStartPos = { x: e.clientX, y: e.clientY };
-  isDragging = false;
-});
+let didDrop = false;
 
 function ds(e) {
-  isDragging = true;
+  didDrop = false;
   const card = e.target.closest('.card');
   if (!card) return;
   e.dataTransfer.setData('text/html', card.outerHTML);
@@ -555,7 +548,7 @@ function ev(e) {
 
 function drop(e) {
   e.preventDefault();
-  isDragging = false;
+  didDrop = true;
   const col = e.currentTarget.querySelector('.col-cards');
   col.classList.remove('drag-over');
   const html = e.dataTransfer.getData('text/html');
@@ -645,8 +638,8 @@ function sortCards(by, btn) {
 }
 
 function editCard(e) {
-  // Don't open modal if user was dragging
-  if (isDragging) { isDragging = false; return; }
+  // Don't open modal if a drop just occurred
+  if (didDrop) { didDrop = false; return; }
   // Don't open modal if clicking the delete button
   if (e.target.closest('.card-del')) return;
 
