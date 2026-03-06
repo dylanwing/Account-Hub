@@ -1,0 +1,1073 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Detailed Prospect Brief — Anyscale Tier 4 Accounts</title>
+<style>
+* { margin:0; padding:0; box-sizing:border-box; }
+body { font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif; background:#0d1117; color:#e6edf3; min-height:100vh; padding:28px 20px; }
+
+.header { max-width:1100px; margin:0 auto 20px; }
+.header h1 { font-size:24px; font-weight:700; color:#f0f6fc; }
+.header p { color:#8b949e; font-size:13px; margin-top:5px; }
+
+.top-controls { max-width:1100px; margin:0 auto 20px; display:flex; flex-direction:column; gap:10px; }
+
+.search-bar { background:#161b22; border:1px solid #30363d; border-radius:8px; padding:10px 14px; font-size:14px; color:#e6edf3; outline:none; width:100%; max-width:420px; }
+.search-bar:focus { border-color:#58a6ff; }
+.search-bar::placeholder { color:#8b949e; }
+
+.nav-btns { display:flex; flex-wrap:wrap; gap:6px; }
+.nav-btn { background:#161b22; border:1px solid #30363d; border-radius:20px; padding:5px 12px; font-size:12px; color:#8b949e; cursor:pointer; transition:all 0.15s; white-space:nowrap; }
+.nav-btn:hover { border-color:#58a6ff; color:#58a6ff; }
+.nav-btn.active { background:#1c2c3e; border-color:#58a6ff; color:#79c0ff; font-weight:600; }
+
+.pf-row { display:flex; gap:6px; align-items:center; flex-wrap:wrap; }
+.pf-row span { font-size:12px; color:#8b949e; }
+.pf-btn { background:#161b22; border-radius:20px; padding:4px 10px; font-size:11px; cursor:pointer; border:1px solid; transition:all 0.15s; }
+.pf-p1 { color:#f0d060; border-color:#f0d06044; }
+.pf-p2 { color:#79c0ff; border-color:#79c0ff44; }
+.pf-p3 { color:#8b949e; border-color:#8b949e44; }
+.pf-p1.active { background:#26210a; border-color:#f0d060; }
+.pf-p2.active { background:#0e1b2e; border-color:#79c0ff; }
+.pf-p3.active { background:#1a1f26; border-color:#8b949e; }
+
+.result-info { max-width:1100px; margin:0 auto 16px; font-size:12px; color:#8b949e; }
+
+.company-section { max-width:1100px; margin:0 auto 32px; }
+
+.co-header { background:#161b22; border-radius:10px 10px 0 0; padding:18px 22px; display:flex; align-items:flex-start; gap:20px; margin-bottom:1px; }
+.co-header-left { flex:1; }
+.co-name { font-size:20px; font-weight:800; margin-bottom:4px; }
+.co-tier { font-size:12px; color:#8b949e; margin-bottom:8px; }
+.co-why { font-size:13px; color:#c9d1d9; line-height:1.6; margin-bottom:6px; }
+.co-pain { font-size:12px; color:#8b949e; padding:8px 12px; background:#0d1117; border-radius:6px; border-left:3px solid #30363d; margin-top:8px; }
+.co-header-right { text-align:center; flex-shrink:0; }
+.co-count { font-size:32px; font-weight:800; color:#58a6ff; line-height:1; }
+.co-count span { display:block; font-size:11px; color:#8b949e; font-weight:400; margin-top:2px; }
+
+.co-cards { display:flex; flex-direction:column; gap:1px; }
+
+.prospect-card { background:#161b22; padding:18px 22px; transition:background 0.1s; }
+.prospect-card:hover { background:#1a2232; }
+.prospect-card.hidden { display:none; }
+
+.card-top { display:flex; justify-content:space-between; align-items:flex-start; margin-bottom:14px; gap:12px; }
+.card-top-left { flex:1; }
+.p-badge { display:inline-block; padding:2px 8px; border-radius:4px; font-size:10px; font-weight:700; margin-bottom:6px; }
+.p-name { display:block; font-size:16px; font-weight:700; color:#58a6ff; text-decoration:none; margin-bottom:3px; }
+.p-name:hover { text-decoration:underline; }
+.p-title { font-size:13px; color:#c9d1d9; margin-bottom:2px; }
+.p-contact { font-size:12px; color:#8B949E; margin-top:4px; }
+.p-contact a { color:#58A6FF; text-decoration:none; }
+.p-loc { font-size:12px; color:#8b949e; }
+.card-top-right { display:flex; flex-direction:column; align-items:flex-end; gap:8px; flex-shrink:0; }
+.src-tag { display:inline-block; padding:2px 7px; border-radius:4px; font-size:10px; font-weight:700; }
+.li-btn { background:#0a66c2; color:#fff; padding:5px 12px; border-radius:5px; font-size:11px; font-weight:600; text-decoration:none; white-space:nowrap; }
+.li-btn:hover { background:#0858a8; }
+
+.card-body { display:grid; grid-template-columns:1fr 1fr 2fr; gap:14px; }
+@media(max-width:768px) { .card-body { grid-template-columns:1fr; } }
+
+.cb-section { }
+.cb-label { font-size:10px; font-weight:700; text-transform:uppercase; letter-spacing:0.8px; color:#8b949e; margin-bottom:6px; }
+.cb-text { font-size:12.5px; color:#c9d1d9; line-height:1.6; }
+.cb-message { font-size:12.5px; color:#c9d1d9; line-height:1.7; background:#0d1117; border-left:3px solid #58a6ff; border-radius:0 6px 6px 0; padding:10px 14px; font-style:italic; }
+
+.footer { max-width:1100px; margin:32px auto 0; font-size:12px; color:#4d5866; display:flex; justify-content:space-between; flex-wrap:wrap; gap:8px; border-top:1px solid #21262d; padding-top:16px; }
+
+.company-section.hidden { display:none; }
+</style>
+</head>
+<body>
+
+<div class="header">
+  <h1>📋 Detailed Prospect Brief — 26 Contacts · 10 Tier 4 Watch Accounts</h1>
+  <p>Dylan Wingrove · Anyscale · Outreach angles + suggested messaging for every contact · March 2026</p>
+</div>
+
+<div class="top-controls">
+  <input class="search-bar" type="text" placeholder="Search name, title, company, angle..." oninput="applyFilters()" id="searchBox">
+  <div class="nav-btns">
+    <button class="nav-btn active" onclick="navTo('all', this)">All (26)</button>
+    <button class="nav-btn" onclick="navTo('troboticsai', this)" style="--co:#ff7b72">T-robotics</button>
+    <button class="nav-btn" onclick="navTo('cepton', this)" style="--co:#58a6ff">Cepton</button>
+    <button class="nav-btn" onclick="navTo('embodied', this)" style="--co:#3fb950">Embodied</button>
+    <button class="nav-btn" onclick="navTo('luxonis', this)" style="--co:#e3b341">Luxonis</button>
+    <button class="nav-btn" onclick="navTo('newfront', this)" style="--co:#bc8cff">Newfront</button>
+    <button class="nav-btn" onclick="navTo('everlaw', this)" style="--co:#ffa657">Everlaw</button>
+    <button class="nav-btn" onclick="navTo('strider', this)" style="--co:#39d353">Strider</button>
+    <button class="nav-btn" onclick="navTo('varobank', this)" style="--co:#ff7b72">Varo Bank</button>
+    <button class="nav-btn" onclick="navTo('smallestai', this)" style="--co:#79c0ff">Smallest.ai</button>
+    <button class="nav-btn" onclick="navTo('consensus', this)" style="--co:#d2a8ff">Consensus</button>
+  </div>
+  <div class="pf-row">
+    <span>Show:</span>
+    <button class="pf-btn pf-p1 active" onclick="toggleP('P1',this)">★ Decision Makers (P1)</button>
+    <button class="pf-btn pf-p2 active" onclick="toggleP('P2',this)">◈ Senior / Director (P2)</button>
+    <button class="pf-btn pf-p3 active" onclick="toggleP('P3',this)">• Technical IC (P3)</button>
+  </div>
+</div>
+
+<div class="result-info" id="resultInfo">Showing all 26 prospects across 10 companies</div>
+
+
+<!-- ===== 1. T-ROBOTICS ===== -->
+<div class="company-section" id="co-troboticsai">
+  <div class="co-header" style="border-left:4px solid #ff7b72">
+    <div class="co-header-left">
+      <div class="co-name" style="color:#ff7b72">T-robotics</div>
+      <div class="co-tier">Score 7/10 · Tier 4 Watch · Advanced humanoid robotics + AI</div>
+      <div class="co-why">T-robotics builds advanced humanoid robots requiring large-scale simulation, reinforcement learning, and real-time inference pipelines. Their whole-body control systems and multi-modal sensor fusion demand distributed compute that Ray is purpose-built for. As they scale from lab to production deployment, training and sim workloads will explode.</div>
+      <div class="co-pain"><strong>Key pain point:</strong> Sim-to-real transfer requires massive parallel simulation runs; RL training at scale needs distributed orchestration that's painful to self-manage</div>
+    </div>
+    <div class="co-header-right">
+      <div class="co-count">3<span>prospects</span></div>
+    </div>
+  </div>
+  <div class="co-cards">
+
+<div class="prospect-card" data-priority="P1">
+  <div class="card-top">
+    <div class="card-top-left">
+      <div class="p-badge" style="color:#f0d060;background:#26210a;border:1px solid #f0d06044">★ Decision Maker</div>
+      <a class="p-name" href="https://www.linkedin.com/in/asad-tirmizi" target="_blank">Dr. Asad Tirmizi</a>
+      <div class="p-title">CEO & Co-Founder</div>
+      <div class="p-loc">📍 San Francisco Bay Area, CA</div>
+      <div class="p-contact">📧 <a href="mailto:asad@t-robotics.ai">asad@t-robotics.ai</a></div>
+    </div>
+    <div class="card-top-right">
+      <span class="src-tag" style="background:#1a1f26;color:#8b949e;border:1px solid #2a3040">Web</span>
+      <a class="li-btn" href="https://www.linkedin.com/in/asad-tirmizi" target="_blank">LinkedIn →</a>
+    </div>
+  </div>
+  <div class="card-body">
+    <div class="cb-section">
+      <div class="cb-label">WHY THEY MATTER</div>
+      <div class="cb-text">As CEO and technical co-founder with a robotics PhD, Asad sets the entire technical direction and controls infrastructure spend. His background in whole-body control means he understands exactly why distributed RL training is hard — and will appreciate a platform that solves it without babysitting clusters.</div>
+    </div>
+    <div class="cb-section">
+      <div class="cb-label">OUTREACH ANGLE</div>
+      <div class="cb-text">Peer-level technical conversation around sim-to-real RL at scale. Reference the challenge of running thousands of parallel sim environments for policy training and how Anyscale's managed Ray eliminates the infra tax so robotics engineers can iterate on algorithms, not Kubernetes configs.</div>
+    </div>
+    <div class="cb-section">
+      <div class="cb-label">SUGGESTED OPENER</div>
+      <div class="cb-message">Asad — love what T-robotics is building in whole-body control. Quick question from an infra angle: when you're running RL training across thousands of sim environments, are you spending meaningful engineering time managing the distributed compute, or is that solved? We work with humanoid robotics teams where the answer was "way too much time" — Anyscale's managed Ray cut their infra overhead by 70%. Happy to share specifics — no pitch, just a technical comparison.</div>
+    </div>
+  </div>
+</div>
+
+<div class="prospect-card" data-priority="P1">
+  <div class="card-top">
+    <div class="card-top-left">
+      <div class="p-badge" style="color:#f0d060;background:#26210a;border:1px solid #f0d06044">★ Decision Maker</div>
+      <a class="p-name" href="https://www.linkedin.com/in/lars-tingelstad" target="_blank">Dr. Lars Tingelstad</a>
+      <div class="p-title">CTO & Co-Founder</div>
+      <div class="p-loc">📍 San Francisco Bay Area, CA</div>
+      <div class="p-contact">📧 <a href="mailto:lars.tingelstad@t-robotics.ai">lars.tingelstad@t-robotics.ai</a></div>
+    </div>
+    <div class="card-top-right">
+      <span class="src-tag" style="background:#1a1f26;color:#8b949e;border:1px solid #2a3040">Web</span>
+      <a class="li-btn" href="https://www.linkedin.com/in/lars-tingelstad" target="_blank">LinkedIn →</a>
+    </div>
+  </div>
+  <div class="card-body">
+    <div class="cb-section">
+      <div class="cb-label">WHY THEY MATTER</div>
+      <div class="cb-text">Lars owns the technical architecture and engineering team. As CTO, he makes the call on what distributed compute infrastructure the robotics ML pipeline runs on. His deep ML background means he evaluates platforms on performance and developer experience, not just cost.</div>
+    </div>
+    <div class="cb-section">
+      <div class="cb-label">OUTREACH ANGLE</div>
+      <div class="cb-text">ML infra efficiency angle — frame Anyscale as the platform that lets robotics ML engineers stay in Python and focus on algorithms. Emphasize Ray's native support for RL workloads (RLlib), multiprocessing sim environments, and the managed layer that removes ops burden from ML researchers.</div>
+    </div>
+    <div class="cb-section">
+      <div class="cb-label">SUGGESTED OPENER</div>
+      <div class="cb-message">Lars — I work at Anyscale (managed Ray). Given T-robotics' focus on whole-body control and sim-to-real, I'm curious how you're running your RL training jobs today. Are you on self-managed Ray, custom distributed setup, or something else? We've helped robotics ML teams running RLlib at scale cut job failure rates significantly and eliminate the ops overhead. Would love to compare notes on your current setup — 20 min?</div>
+    </div>
+  </div>
+</div>
+
+<div class="prospect-card" data-priority="P1">
+  <div class="card-top">
+    <div class="card-top-left">
+      <div class="p-badge" style="color:#f0d060;background:#26210a;border:1px solid #f0d06044">★ Decision Maker</div>
+      <a class="p-name" href="https://www.linkedin.com/in/alejandro-astudillo" target="_blank">Dr. Alejandro Astudillo</a>
+      <div class="p-title">Chief Product Officer</div>
+      <div class="p-loc">📍 San Francisco Bay Area, CA</div>
+      <div class="p-contact">📧 <a href="mailto:alejandro@t-robotics.ai">alejandro@t-robotics.ai</a></div>
+    </div>
+    <div class="card-top-right">
+      <span class="src-tag" style="background:#1a1f26;color:#8b949e;border:1px solid #2a3040">Web</span>
+      <a class="li-btn" href="https://www.linkedin.com/in/alejandro-astudillo" target="_blank">LinkedIn →</a>
+    </div>
+  </div>
+  <div class="card-body">
+    <div class="cb-section">
+      <div class="cb-label">WHY THEY MATTER</div>
+      <div class="cb-text">Alejandro bridges product vision with technical execution. As CPO with a robotics background, he understands both the commercial timeline pressures and the ML compute requirements to hit them. Getting his buy-in frames Anyscale as a product velocity enabler, not just an infra tool.</div>
+    </div>
+    <div class="cb-section">
+      <div class="cb-label">OUTREACH ANGLE</div>
+      <div class="cb-text">Product velocity angle — faster RL iteration cycles mean faster product improvements. Frame Anyscale as the accelerant between research breakthroughs and deployable robot capabilities. Reference how shorter training turnaround directly translates to more product releases per quarter.</div>
+    </div>
+    <div class="cb-section">
+      <div class="cb-label">SUGGESTED OPENER</div>
+      <div class="cb-message">Alejandro — following T-robotics' progress on humanoid locomotion. From a product timeline perspective, how much does training throughput constrain your release cadence? Teams using managed Ray often find they can run 2-3x more experiments per sprint because the infra just works. Happy to show what T-robotics' pipeline could look like on Anyscale — quick 15-minute walkthrough?</div>
+    </div>
+  </div>
+</div>
+
+  </div>
+</div>
+
+
+<!-- ===== 2. CEPTON ===== -->
+<div class="company-section" id="co-cepton">
+  <div class="co-header" style="border-left:4px solid #58a6ff">
+    <div class="co-header-left">
+      <div class="co-name" style="color:#58a6ff">Cepton</div>
+      <div class="co-tier">Score 6/10 · Tier 4 Watch · LiDAR + automotive perception AI</div>
+      <div class="co-why">Cepton (now part of Koito) builds high-performance LiDAR systems with deep automotive and smart infrastructure applications. Their perception AI stack requires large-scale point cloud processing, sensor fusion model training, and real-time inference optimization — all heavy distributed workloads. Post-acquisition integration with Koito's manufacturing scale could drive new ML pipeline investment.</div>
+      <div class="co-pain"><strong>Key pain point:</strong> Point cloud ML training at scale is compute-intensive; post-acquisition pressure to productize perception AI faster while managing infra complexity</div>
+    </div>
+    <div class="co-header-right">
+      <div class="co-count">2<span>prospects</span></div>
+    </div>
+  </div>
+  <div class="co-cards">
+
+<div class="prospect-card" data-priority="P1">
+  <div class="card-top">
+    <div class="card-top-left">
+      <div class="p-badge" style="color:#f0d060;background:#26210a;border:1px solid #f0d06044">★ Decision Maker</div>
+      <a class="p-name" href="https://www.linkedin.com/in/jun-pei-cepton" target="_blank">Dr. Jun Pei</a>
+      <div class="p-title">CEO & Co-Founder</div>
+      <div class="p-loc">📍 San Jose, CA</div>
+      <div class="p-contact">📧 <a href="mailto:jun.pei@cepton.com">jun.pei@cepton.com</a></div>
+    </div>
+    <div class="card-top-right">
+      <span class="src-tag" style="background:#1a1f26;color:#8b949e;border:1px solid #2a3040">Web</span>
+      <a class="li-btn" href="https://www.linkedin.com/in/jun-pei-cepton" target="_blank">LinkedIn →</a>
+    </div>
+  </div>
+  <div class="card-body">
+    <div class="cb-section">
+      <div class="cb-label">WHY THEY MATTER</div>
+      <div class="cb-text">Jun co-founded Cepton and has guided it through the Koito acquisition. He sets the strategic direction for Cepton's perception AI roadmap and controls technology investment decisions. His physics/engineering background means he evaluates ML infra on technical merit alongside business ROI.</div>
+    </div>
+    <div class="cb-section">
+      <div class="cb-label">OUTREACH ANGLE</div>
+      <div class="cb-text">Post-acquisition growth angle — Koito's scale creates new pressure to ship perception AI faster and more reliably. Frame Anyscale as the managed compute layer that lets Cepton's ML team focus on LiDAR perception IP, not cluster management, as they scale into automotive OEM programs.</div>
+    </div>
+    <div class="cb-section">
+      <div class="cb-label">SUGGESTED OPENER</div>
+      <div class="cb-message">Jun — congrats on the Koito acquisition and what it opens up for Cepton's automotive scale. As you're expanding into more OEM programs, I imagine the perception AI pipeline is under more pressure than ever. Curious: is distributed training for point cloud models a solved problem for your team, or still a source of operational drag? We work with LiDAR/perception teams where managed Ray removed a lot of that friction. Happy to share specifics — 20 min?</div>
+    </div>
+  </div>
+</div>
+
+<div class="prospect-card" data-priority="P1">
+  <div class="card-top">
+    <div class="card-top-left">
+      <div class="p-badge" style="color:#f0d060;background:#26210a;border:1px solid #f0d06044">★ Decision Maker</div>
+      <a class="p-name" href="https://www.linkedin.com/in/mark-mccord-cepton" target="_blank">Dr. Mark McCord</a>
+      <div class="p-title">Co-Founder (Former CTO)</div>
+      <div class="p-loc">📍 San Jose, CA</div>
+      <div class="p-contact">📧 <a href="mailto:mark.mccord@cepton.com">mark.mccord@cepton.com</a></div>
+    </div>
+    <div class="card-top-right">
+      <span class="src-tag" style="background:#1a1f26;color:#8b949e;border:1px solid #2a3040">Web</span>
+      <a class="li-btn" href="https://www.linkedin.com/in/mark-mccord-cepton" target="_blank">LinkedIn →</a>
+    </div>
+  </div>
+  <div class="card-body">
+    <div class="cb-section">
+      <div class="cb-label">WHY THEY MATTER</div>
+      <div class="cb-text">Mark built Cepton's core technology architecture as CTO and retains significant influence over technical decisions as co-founder. His deep expertise in optical systems and sensor technology means he can be a powerful internal champion once he sees how Anyscale maps to their specific ML workloads.</div>
+    </div>
+    <div class="cb-section">
+      <div class="cb-label">OUTREACH ANGLE</div>
+      <div class="cb-text">Technical architecture angle — speak to the complexity of point cloud processing pipelines and how distributed Ray can parallelize preprocessing, training, and evaluation in a unified framework. Reference the efficiency gains when teams stop stitching together bespoke distributed systems.</div>
+    </div>
+    <div class="cb-section">
+      <div class="cb-label">SUGGESTED OPENER</div>
+      <div class="cb-message">Mark — I run sales at Anyscale (managed Ray platform). Given your work building Cepton's perception stack, I'm curious how the ML training pipeline has evolved. Are you running distributed point cloud training jobs in-house, or leaning on cloud-managed solutions? We've helped perception teams consolidate preprocessing, training, and eval onto Ray — happy to walk through how that compares to your current approach.</div>
+    </div>
+  </div>
+</div>
+
+  </div>
+</div>
+
+
+<!-- ===== 3. EMBODIED ===== -->
+<div class="company-section" id="co-embodied">
+  <div class="co-header" style="border-left:4px solid #3fb950">
+    <div class="co-header-left">
+      <div class="co-name" style="color:#3fb950">Embodied</div>
+      <div class="co-tier">Score 7/10 · Tier 4 Watch · Social robotics + child learning AI</div>
+      <div class="co-why">Embodied makes Moxie, a social robot for children's emotional development, powered by multimodal AI including NLP, computer vision, and adaptive learning algorithms. Their backend requires scalable inference for real-time conversations, continuous model fine-tuning from interaction data, and fleet management across thousands of deployed units. This is a classic Ray use case.</div>
+      <div class="co-pain"><strong>Key pain point:</strong> Real-time multimodal inference at fleet scale with continuous personalization requires distributed serving infrastructure that's expensive to self-manage</div>
+    </div>
+    <div class="co-header-right">
+      <div class="co-count">2<span>prospects</span></div>
+    </div>
+  </div>
+  <div class="co-cards">
+
+<div class="prospect-card" data-priority="P1">
+  <div class="card-top">
+    <div class="card-top-left">
+      <div class="p-badge" style="color:#f0d060;background:#26210a;border:1px solid #f0d06044">★ Decision Maker</div>
+      <a class="p-name" href="https://www.linkedin.com/in/paolopirjanian" target="_blank">Paolo Pirjanian</a>
+      <div class="p-title">CEO & Founder</div>
+      <div class="p-loc">📍 Pasadena, CA</div>
+      <div class="p-contact">📧 <a href="mailto:paolo@embodied.me">paolo@embodied.me</a> · 📞 +1-626-657-0268</div>
+    </div>
+    <div class="card-top-right">
+      <span class="src-tag" style="background:#1a1f26;color:#8b949e;border:1px solid #2a3040">Web</span>
+      <a class="li-btn" href="https://www.linkedin.com/in/paolopirjanian" target="_blank">LinkedIn →</a>
+    </div>
+  </div>
+  <div class="card-body">
+    <div class="cb-section">
+      <div class="cb-label">WHY THEY MATTER</div>
+      <div class="cb-text">Paolo founded Embodied after leading iRobot's AI division and is a recognized robotics AI pioneer. As CEO, he drives the technical vision for Moxie's AI and controls infrastructure investment. His background means he evaluates compute platforms at a deep technical level and moves fast when he sees clear ROI.</div>
+    </div>
+    <div class="cb-section">
+      <div class="cb-label">OUTREACH ANGLE</div>
+      <div class="cb-text">Fleet-scale AI serving angle — Moxie's real-time multimodal AI across a growing fleet is exactly the serving + fine-tuning challenge Ray Serve solves. Reference cost-per-inference at fleet scale and the value of a unified platform for both training new models and serving them in production without context-switching between tools.</div>
+    </div>
+    <div class="cb-section">
+      <div class="cb-label">SUGGESTED OPENER</div>
+      <div class="cb-message">Paolo — Moxie's personalized learning approach is genuinely impressive — the real-time adaptive AI is a hard technical problem. Quick infrastructure question: as the fleet scales, what's your serving architecture for the multimodal models? We work with teams where Ray Serve on Anyscale cut serving costs significantly while handling the dynamic scaling that personalized interactions demand. Happy to compare architectures — no pitch, just a technical conversation.</div>
+    </div>
+  </div>
+</div>
+
+<div class="prospect-card" data-priority="P1">
+  <div class="card-top">
+    <div class="card-top-left">
+      <div class="p-badge" style="color:#f0d060;background:#26210a;border:1px solid #f0d06044">★ Decision Maker</div>
+      <a class="p-name" href="https://www.linkedin.com/in/mario-munich" target="_blank">Dr. Mario Munich</a>
+      <div class="p-title">Chief Technology Officer</div>
+      <div class="p-loc">📍 Pasadena, CA</div>
+      <div class="p-contact">📧 <a href="mailto:mario@embodied.me">mario@embodied.me</a> · 📞 +1-626-657-0268</div>
+    </div>
+    <div class="card-top-right">
+      <span class="src-tag" style="background:#1a1f26;color:#8b949e;border:1px solid #2a3040">Web</span>
+      <a class="li-btn" href="https://www.linkedin.com/in/mario-munich" target="_blank">LinkedIn →</a>
+    </div>
+  </div>
+  <div class="card-body">
+    <div class="cb-section">
+      <div class="cb-label">WHY THEY MATTER</div>
+      <div class="cb-text">Mario is the hands-on architect of Moxie's AI systems. As CTO, he decides the distributed compute stack and owns the model training and serving pipeline. His iRobot background in behavior learning systems means he has direct experience with the pain of scaling distributed ML — he'll immediately understand Anyscale's value prop.</div>
+    </div>
+    <div class="cb-section">
+      <div class="cb-label">OUTREACH ANGLE</div>
+      <div class="cb-text">ML system architecture angle — lead with how Ray unifies offline training and online serving into one framework, which is especially valuable for adaptive/personalized robotics systems that continuously learn from deployed interactions. The Moxie use case maps almost perfectly to Ray's design philosophy.</div>
+    </div>
+    <div class="cb-section">
+      <div class="cb-label">SUGGESTED OPENER</div>
+      <div class="cb-message">Mario — I work at Anyscale (managed Ray). Moxie's architecture is a fascinating ML systems challenge — continuous learning from interaction data, real-time multimodal inference, fleet-scale deployment. I'm curious if you're using Ray for any of this today, or a different distributed framework? We've built the managed layer that removes the ops overhead for exactly this pattern. Would love 20 minutes to compare approaches.</div>
+    </div>
+  </div>
+</div>
+
+  </div>
+</div>
+
+
+<!-- ===== 4. LUXONIS ===== -->
+<div class="company-section" id="co-luxonis">
+  <div class="co-header" style="border-left:4px solid #e3b341">
+    <div class="co-header-left">
+      <div class="co-name" style="color:#e3b341">Luxonis</div>
+      <div class="co-tier">Score 6/10 · Tier 4 Watch · Edge AI cameras + OAK platform</div>
+      <div class="co-why">Luxonis builds the OAK (OpenCV AI Kit) family of spatial AI cameras used in robotics, automation, and computer vision applications. Their developer ecosystem requires large-scale model training, optimization pipelines for edge deployment, and AutoML tooling that could leverage distributed compute. As OAK adoption grows, their model training infrastructure becomes a bottleneck.</div>
+      <div class="co-pain"><strong>Key pain point:</strong> Training and optimizing models for edge deployment at scale requires significant compute; developer ecosystem growth is limited by slow model iteration cycles</div>
+    </div>
+    <div class="co-header-right">
+      <div class="co-count">2<span>prospects</span></div>
+    </div>
+  </div>
+  <div class="co-cards">
+
+<div class="prospect-card" data-priority="P1">
+  <div class="card-top">
+    <div class="card-top-left">
+      <div class="p-badge" style="color:#f0d060;background:#26210a;border:1px solid #f0d06044">★ Decision Maker</div>
+      <a class="p-name" href="https://www.linkedin.com/in/martinpeterlin" target="_blank">Martin Peterlin</a>
+      <div class="p-title">Co-Founder & Chief Architect</div>
+      <div class="p-loc">📍 Denver, CO</div>
+      <div class="p-contact">📧 <a href="mailto:martin@luxonis.com">martin@luxonis.com</a></div>
+    </div>
+    <div class="card-top-right">
+      <span class="src-tag" style="background:#1a1f26;color:#8b949e;border:1px solid #2a3040">Web</span>
+      <a class="li-btn" href="https://www.linkedin.com/in/martinpeterlin" target="_blank">LinkedIn →</a>
+    </div>
+  </div>
+  <div class="card-body">
+    <div class="cb-section">
+      <div class="cb-label">WHY THEY MATTER</div>
+      <div class="cb-text">Martin is the technical visionary behind the OAK platform and drives architectural decisions across the Luxonis stack. As Chief Architect and co-founder, he controls what compute infrastructure powers the model training pipeline that supports their developer ecosystem. His buy-in is the path to any Anyscale adoption.</div>
+    </div>
+    <div class="cb-section">
+      <div class="cb-label">OUTREACH ANGLE</div>
+      <div class="cb-text">Developer ecosystem enablement angle — faster model training and optimization cycles let Luxonis ship better pre-trained models to their community and shorten the time-to-working-demo for developers. Frame Anyscale as the backend that makes the OAK platform's AI capabilities more competitive.</div>
+    </div>
+    <div class="cb-section">
+      <div class="cb-label">SUGGESTED OPENER</div>
+      <div class="cb-message">Martin — OAK's spatial AI capabilities are really impressive for the edge AI space. I'm curious about the training side: when you're developing or fine-tuning models for OAK deployment, what does your distributed training pipeline look like? We work with edge AI platforms where Anyscale manages the Ray cluster for training + hyperparameter search, which let teams ship better models to their developers much faster. Worth a quick comparison?</div>
+    </div>
+  </div>
+</div>
+
+<div class="prospect-card" data-priority="P1">
+  <div class="card-top">
+    <div class="card-top-left">
+      <div class="p-badge" style="color:#f0d060;background:#26210a;border:1px solid #f0d06044">★ Decision Maker</div>
+      <a class="p-name" href="https://www.linkedin.com/in/hunterdunbar" target="_blank">Hunter Dunbar</a>
+      <div class="p-title">CTO & CPO</div>
+      <div class="p-loc">📍 Denver, CO</div>
+      <div class="p-contact">📧 <a href="mailto:hunter@luxonis.com">hunter@luxonis.com</a></div>
+    </div>
+    <div class="card-top-right">
+      <span class="src-tag" style="background:#1a1f26;color:#8b949e;border:1px solid #2a3040">Web</span>
+      <a class="li-btn" href="https://www.linkedin.com/in/hunterdunbar" target="_blank">LinkedIn →</a>
+    </div>
+  </div>
+  <div class="card-body">
+    <div class="cb-section">
+      <div class="cb-label">WHY THEY MATTER</div>
+      <div class="cb-text">Hunter spans both technical leadership and product strategy as CTO/CPO, making him the key decision maker for infrastructure investments that impact product velocity. He can evaluate Anyscale from both a build-vs-buy efficiency perspective and a product roadmap acceleration angle.</div>
+    </div>
+    <div class="cb-section">
+      <div class="cb-label">OUTREACH ANGLE</div>
+      <div class="cb-text">Product + technical dual angle — speak to both the engineering efficiency gains (managed compute, no cluster headaches) and the product benefit (faster model iteration = more competitive OAK ecosystem). The combined CTO/CPO role means he cares about both and will champion solutions that move both metrics.</div>
+    </div>
+    <div class="cb-section">
+      <div class="cb-label">SUGGESTED OPENER</div>
+      <div class="cb-message">Hunter — with the dual CTO/CPO hat, I imagine you're always looking for infrastructure decisions that pay off on both the engineering and product roadmap side. For Luxonis's model training pipeline, are you investing engineering time managing distributed compute, or is that already handled? We've helped edge AI companies reclaim significant ML eng bandwidth by moving to managed Ray. Happy to walk through what that looks like in practice — 15 min?</div>
+    </div>
+  </div>
+</div>
+
+  </div>
+</div>
+
+
+<!-- ===== 5. NEWFRONT ===== -->
+<div class="company-section" id="co-newfront">
+  <div class="co-header" style="border-left:4px solid #bc8cff">
+    <div class="co-header-left">
+      <div class="co-name" style="color:#bc8cff">Newfront</div>
+      <div class="co-tier">Score 7/10 · Tier 4 Watch · AI-powered insurance brokerage</div>
+      <div class="co-why">Newfront is modernizing insurance brokerage with AI — automating document processing, risk analysis, and client workflows. Their platform processes massive volumes of unstructured insurance documents and requires scalable NLP pipelines, fine-tuned models, and real-time risk scoring. As they expand into new lines of business, their AI workloads will scale significantly.</div>
+      <div class="co-pain"><strong>Key pain point:</strong> Insurance document AI requires large-scale NLP training on proprietary datasets; scaling document processing pipelines while maintaining accuracy and compliance is technically demanding</div>
+    </div>
+    <div class="co-header-right">
+      <div class="co-count">3<span>prospects</span></div>
+    </div>
+  </div>
+  <div class="co-cards">
+
+<div class="prospect-card" data-priority="P1">
+  <div class="card-top">
+    <div class="card-top-left">
+      <div class="p-badge" style="color:#f0d060;background:#26210a;border:1px solid #f0d06044">★ Decision Maker</div>
+      <a class="p-name" href="https://www.linkedin.com/in/lin-yuan-ai" target="_blank">Lin Yuan</a>
+      <div class="p-title">Chief AI Officer & EVP Engineering</div>
+      <div class="p-loc">📍 San Francisco, CA</div>
+      <div class="p-contact">📧 <a href="mailto:lin.yuan@newfront.com">lin.yuan@newfront.com</a></div>
+    </div>
+    <div class="card-top-right">
+      <span class="src-tag" style="background:#1a1f26;color:#8b949e;border:1px solid #2a3040">Web</span>
+      <a class="li-btn" href="https://www.linkedin.com/in/lin-yuan-ai" target="_blank">LinkedIn →</a>
+    </div>
+  </div>
+  <div class="card-body">
+    <div class="cb-section">
+      <div class="cb-label">WHY THEY MATTER</div>
+      <div class="cb-text">Lin controls both the AI strategy and the engineering org as CAIO and EVP Engineering — a rare combination that means she owns the full stack from model development to production infrastructure. Any decision to adopt Anyscale goes through her, and her dual mandate means she evaluates solutions on AI capability AND engineering efficiency.</div>
+    </div>
+    <div class="cb-section">
+      <div class="cb-label">OUTREACH ANGLE</div>
+      <div class="cb-text">AI + Engineering efficiency dual angle — Newfront's competitive moat is in proprietary insurance AI. Frame Anyscale as what lets her team build more AI, faster, without the ops overhead of managing distributed compute. Reference the specific challenge of fine-tuning LLMs on insurance documents at scale and how Ray handles data preprocessing + training in one framework.</div>
+    </div>
+    <div class="cb-section">
+      <div class="cb-label">SUGGESTED OPENER</div>
+      <div class="cb-message">Lin — Newfront's approach to AI-powered insurance is genuinely compelling. With your combined CAIO + EVP Engineering role, I imagine the question of build vs. managed for distributed ML infra comes up often. For your document AI and NLP pipelines — are you self-managing the distributed training infrastructure, or is that a pain point? We help fintech/insurtech teams run LLM fine-tuning and large-scale document processing on managed Ray, which frees ML eng for the insurance AI problems only you can solve. Worth 20 minutes?</div>
+    </div>
+  </div>
+</div>
+
+<div class="prospect-card" data-priority="P2">
+  <div class="card-top">
+    <div class="card-top-left">
+      <div class="p-badge" style="color:#79c0ff;background:#0e1b2e;border:1px solid #79c0ff44">◈ Senior / Director</div>
+      <a class="p-name" href="https://www.linkedin.com/in/patrickmiller-data" target="_blank">Patrick Miller</a>
+      <div class="p-title">Head of Data & AI</div>
+      <div class="p-loc">📍 San Francisco, CA</div>
+      <div class="p-contact">📧 <a href="mailto:patrick.miller@newfront.com">patrick.miller@newfront.com</a></div>
+    </div>
+    <div class="card-top-right">
+      <span class="src-tag" style="background:#1a1f26;color:#8b949e;border:1px solid #2a3040">Web</span>
+      <a class="li-btn" href="https://www.linkedin.com/in/patrickmiller-data" target="_blank">LinkedIn →</a>
+    </div>
+  </div>
+  <div class="card-body">
+    <div class="cb-section">
+      <div class="cb-label">WHY THEY MATTER</div>
+      <div class="cb-text">Patrick is the day-to-day owner of Newfront's data and AI platform. He's closest to the actual pain of running ML pipelines at scale and would be Anyscale's primary technical champion inside the organization. Winning him means having an internal advocate who understands the problem deeply.</div>
+    </div>
+    <div class="cb-section">
+      <div class="cb-label">OUTREACH ANGLE</div>
+      <div class="cb-text">Practitioner-to-practitioner angle — speak directly to the operational challenges of running large-scale document AI pipelines: job failures, cluster provisioning delays, GPU waste. Lead with concrete benchmarks and reference architectures for NLP/document AI workloads similar to insurance use cases.</div>
+    </div>
+    <div class="cb-section">
+      <div class="cb-label">SUGGESTED OPENER</div>
+      <div class="cb-message">Patrick — I work at Anyscale (managed Ray). For Newfront's document AI pipelines — things like large-scale NLP extraction and model fine-tuning on insurance data — what does your current distributed compute setup look like? We've helped data/AI teams in fintech eliminate cluster management overhead and cut job failure rates significantly. Would love to compare your current architecture against what teams are doing on managed Ray — 20 min?</div>
+    </div>
+  </div>
+</div>
+
+<div class="prospect-card" data-priority="P1">
+  <div class="card-top">
+    <div class="card-top-left">
+      <div class="p-badge" style="color:#f0d060;background:#26210a;border:1px solid #f0d06044">★ Decision Maker</div>
+      <a class="p-name" href="https://www.linkedin.com/in/gordonwintrob" target="_blank">Gordon Wintrob</a>
+      <div class="p-title">Co-Founder & CTO</div>
+      <div class="p-loc">📍 San Francisco, CA</div>
+      <div class="p-contact">📧 <a href="mailto:gordon.wintrob@newfront.com">gordon.wintrob@newfront.com</a></div>
+    </div>
+    <div class="card-top-right">
+      <span class="src-tag" style="background:#1a1f26;color:#8b949e;border:1px solid #2a3040">Web</span>
+      <a class="li-btn" href="https://www.linkedin.com/in/gordonwintrob" target="_blank">LinkedIn →</a>
+    </div>
+  </div>
+  <div class="card-body">
+    <div class="cb-section">
+      <div class="cb-label">WHY THEY MATTER</div>
+      <div class="cb-text">Gordon co-founded Newfront and built the engineering organization. As CTO, he sets the architectural direction for the platform and has final say on major infrastructure investments. His Stanford CS background and builder mentality mean he'll evaluate Anyscale on technical excellence first, then business ROI.</div>
+    </div>
+    <div class="cb-section">
+      <div class="cb-label">OUTREACH ANGLE</div>
+      <div class="cb-text">Technical founder angle — frame the conversation around architectural elegance: how Ray's unified compute model simplifies the complexity of running diverse ML workloads (preprocessing, training, serving) without stitching together multiple tools. Reference the engineering org leverage of managed infrastructure as the team scales.</div>
+    </div>
+    <div class="cb-section">
+      <div class="cb-label">SUGGESTED OPENER</div>
+      <div class="cb-message">Gordon — I run sales at Anyscale. Newfront's platform is genuinely impressive — using AI to fundamentally rethink brokerage workflows is a hard technical problem. Technical question: as your AI pipeline has scaled, have you invested in building your own distributed compute layer, or are you managing Ray/Spark clusters yourself? We've worked with several fintech CTOs who decided the managed layer was worth it — happy to share what that decision framework looked like.</div>
+    </div>
+  </div>
+</div>
+
+  </div>
+</div>
+
+
+<!-- ===== 6. EVERLAW ===== -->
+<div class="company-section" id="co-everlaw">
+  <div class="co-header" style="border-left:4px solid #ffa657">
+    <div class="co-header-left">
+      <div class="co-name" style="color:#ffa657">Everlaw</div>
+      <div class="co-tier">Score 7/10 · Tier 4 Watch · AI-powered legal discovery platform</div>
+      <div class="co-why">Everlaw is transforming legal discovery with AI — processing massive document collections for litigation, regulatory, and investigation workflows. Their ML systems need to handle large-scale document classification, semantic search, and predictive coding across multi-million document datasets. As legal AI expands beyond discovery, their training and inference workloads will grow substantially.</div>
+      <div class="co-pain"><strong>Key pain point:</strong> Legal document AI requires processing massive, sensitive datasets with strict compliance requirements while keeping costs manageable; distributed training at legal-doc scale is operationally complex</div>
+    </div>
+    <div class="co-header-right">
+      <div class="co-count">3<span>prospects</span></div>
+    </div>
+  </div>
+  <div class="co-cards">
+
+<div class="prospect-card" data-priority="P1">
+  <div class="card-top">
+    <div class="card-top-left">
+      <div class="p-badge" style="color:#f0d060;background:#26210a;border:1px solid #f0d06044">★ Decision Maker</div>
+      <a class="p-name" href="https://www.linkedin.com/in/max-christoff" target="_blank">Max Christoff</a>
+      <div class="p-title">Chief Technology Officer</div>
+      <div class="p-loc">📍 Oakland, CA</div>
+      <div class="p-contact">📧 <a href="mailto:max.christoff@everlaw.com">max.christoff@everlaw.com</a></div>
+    </div>
+    <div class="card-top-right">
+      <span class="src-tag" style="background:#1a1f26;color:#8b949e;border:1px solid #2a3040">Web</span>
+      <a class="li-btn" href="https://www.linkedin.com/in/max-christoff" target="_blank">LinkedIn →</a>
+    </div>
+  </div>
+  <div class="card-body">
+    <div class="cb-section">
+      <div class="cb-label">WHY THEY MATTER</div>
+      <div class="cb-text">Max is the primary technical decision maker at Everlaw and owns the infrastructure architecture that powers their legal AI platform. He evaluates technology investments against both technical excellence and the unique compliance constraints of legal data processing. His decision drives any platform adoption.</div>
+    </div>
+    <div class="cb-section">
+      <div class="cb-label">OUTREACH ANGLE</div>
+      <div class="cb-text">Compliance-aware scale angle — address the challenge of running distributed ML on sensitive legal data: security controls, audit trails, data locality requirements. Anyscale's enterprise features (VPC deployment, SOC 2, fine-grained access controls) are directly relevant. Lead with security-first framing before performance benefits.</div>
+    </div>
+    <div class="cb-section">
+      <div class="cb-label">SUGGESTED OPENER</div>
+      <div class="cb-message">Max — I work at Anyscale (managed Ray). Legal AI is one of the more interesting distributed ML challenges because of the compliance layer on top of the scale problem. For Everlaw's document classification and predictive coding models — when you're training on multi-million document sets — how are you handling the compliance + distributed compute requirements simultaneously? We've helped legal tech teams run managed Ray inside their own VPC to address exactly this. Worth a quick technical comparison?</div>
+    </div>
+  </div>
+</div>
+
+<div class="prospect-card" data-priority="P2">
+  <div class="card-top">
+    <div class="card-top-left">
+      <div class="p-badge" style="color:#79c0ff;background:#0e1b2e;border:1px solid #79c0ff44">◈ Senior / Director</div>
+      <a class="p-name" href="https://www.linkedin.com/in/anand-madhavan-everlaw" target="_blank">Anand Madhavan</a>
+      <div class="p-title">VP Engineering</div>
+      <div class="p-loc">📍 Oakland, CA</div>
+      <div class="p-contact">📧 <a href="mailto:anand.madhavan@everlaw.com">anand.madhavan@everlaw.com</a></div>
+    </div>
+    <div class="card-top-right">
+      <span class="src-tag" style="background:#1a1f26;color:#8b949e;border:1px solid #2a3040">Web</span>
+      <a class="li-btn" href="https://www.linkedin.com/in/anand-madhavan-everlaw" target="_blank">LinkedIn →</a>
+    </div>
+  </div>
+  <div class="card-body">
+    <div class="cb-section">
+      <div class="cb-label">WHY THEY MATTER</div>
+      <div class="cb-text">Anand runs the engineering organization and would be responsible for implementing any infrastructure change at Everlaw. He's the key operational decision maker below the CTO level and would evaluate Anyscale on engineering team productivity and reliability, not just technical architecture.</div>
+    </div>
+    <div class="cb-section">
+      <div class="cb-label">OUTREACH ANGLE</div>
+      <div class="cb-text">Engineering productivity angle — frame around how many engineering hours currently go to managing distributed compute vs. building legal AI features. The managed Ray value prop resonates strongly with VP Eng buyers who are accountable for team throughput and hiring efficiency.</div>
+    </div>
+    <div class="cb-section">
+      <div class="cb-label">SUGGESTED OPENER</div>
+      <div class="cb-message">Anand — I run sales at Anyscale. For Everlaw's ML infrastructure — the distributed training and serving for your document AI — how much of your engineering team's capacity goes to managing that vs. building product features? We've seen legal tech eng teams reclaim significant capacity by moving to managed Ray. Happy to walk through the comparison — 20 min call?</div>
+    </div>
+  </div>
+</div>
+
+<div class="prospect-card" data-priority="P2">
+  <div class="card-top">
+    <div class="card-top-left">
+      <div class="p-badge" style="color:#79c0ff;background:#0e1b2e;border:1px solid #79c0ff44">◈ Senior / Director</div>
+      <a class="p-name" href="https://www.linkedin.com/in/nick-popoff" target="_blank">Nick Popoff</a>
+      <div class="p-title">Director of Engineering</div>
+      <div class="p-loc">📍 Oakland, CA</div>
+      <div class="p-contact">📧 <a href="mailto:nick.popoff@everlaw.com">nick.popoff@everlaw.com</a></div>
+    </div>
+    <div class="card-top-right">
+      <span class="src-tag" style="background:#1a1f26;color:#8b949e;border:1px solid #2a3040">Web</span>
+      <a class="li-btn" href="https://www.linkedin.com/in/nick-popoff" target="_blank">LinkedIn →</a>
+    </div>
+  </div>
+  <div class="card-body">
+    <div class="cb-section">
+      <div class="cb-label">WHY THEY MATTER</div>
+      <div class="cb-text">Nick is a hands-on engineering director at Everlaw who would be directly involved in any ML infrastructure evaluation. As a technical buyer, he can champion Anyscale within the engineering organization and drive the POC process once senior leadership is aligned.</div>
+    </div>
+    <div class="cb-section">
+      <div class="cb-label">OUTREACH ANGLE</div>
+      <div class="cb-text">Technical peer angle — practitioner conversation about the specific challenges of running NLP/embedding workloads at legal document scale. Reference specific Ray features (Data preprocessing, Train for fine-tuning, Serve for embedding APIs) that map directly to Everlaw's likely architecture.</div>
+    </div>
+    <div class="cb-section">
+      <div class="cb-label">SUGGESTED OPENER</div>
+      <div class="cb-message">Nick — I work at Anyscale (managed Ray platform). For Everlaw's NLP and document AI pipelines, I'm curious what your current distributed setup looks like — are you running custom Spark/Dask pipelines, self-managed Ray, or something else for large-scale document processing? We've built the managed layer that handles data preprocessing, fine-tuning, and embedding serving in one unified framework. Would love to compare architectures — 20 min?</div>
+    </div>
+  </div>
+</div>
+
+  </div>
+</div>
+
+
+<!-- ===== 7. STRIDER TECHNOLOGIES ===== -->
+<div class="company-section" id="co-strider">
+  <div class="co-header" style="border-left:4px solid #39d353">
+    <div class="co-header-left">
+      <div class="co-name" style="color:#39d353">Strider Technologies</div>
+      <div class="co-tier">Score 6/10 · Tier 4 Watch · Strategic intelligence + supply chain risk AI</div>
+      <div class="co-why">Strider provides strategic intelligence to help organizations understand geopolitical and supply chain risks, using AI to analyze massive amounts of open-source intelligence data. Their NLP and entity resolution pipelines process vast amounts of unstructured text across multiple languages, requiring significant distributed compute for both training and real-time intelligence processing.</div>
+      <div class="co-pain"><strong>Key pain point:</strong> OSINT processing at scale requires distributed NLP pipelines over massive multi-language document corpora; real-time intelligence serving needs scalable inference infrastructure</div>
+    </div>
+    <div class="co-header-right">
+      <div class="co-count">2<span>prospects</span></div>
+    </div>
+  </div>
+  <div class="co-cards">
+
+<div class="prospect-card" data-priority="P2">
+  <div class="card-top">
+    <div class="card-top-left">
+      <div class="p-badge" style="color:#79c0ff;background:#0e1b2e;border:1px solid #79c0ff44">◈ Senior / Director</div>
+      <a class="p-name" href="https://www.linkedin.com/in/mike-brown-strider" target="_blank">Mike Brown</a>
+      <div class="p-title">Chief Data Officer</div>
+      <div class="p-loc">📍 Lehi, UT</div>
+      <div class="p-contact">📧 <a href="mailto:mike.brown@striderintel.com">mike.brown@striderintel.com</a></div>
+    </div>
+    <div class="card-top-right">
+      <span class="src-tag" style="background:#1a1f26;color:#8b949e;border:1px solid #2a3040">Web</span>
+      <a class="li-btn" href="https://www.linkedin.com/in/mike-brown-strider" target="_blank">LinkedIn →</a>
+    </div>
+  </div>
+  <div class="card-body">
+    <div class="cb-section">
+      <div class="cb-label">WHY THEY MATTER</div>
+      <div class="cb-text">Mike owns Strider's data strategy and the AI systems that turn raw OSINT into actionable intelligence. As CDO, he controls the data pipeline architecture and ML infrastructure investment decisions. The scale of Strider's intelligence corpus means his team feels distributed compute pain acutely.</div>
+    </div>
+    <div class="cb-section">
+      <div class="cb-label">OUTREACH ANGLE</div>
+      <div class="cb-text">Intelligence pipeline scale angle — the challenge of processing multi-language, multi-source OSINT data at scale with tight latency requirements maps exactly to Ray's strengths. Lead with the data processing + NLP training + serving pipeline as a unified problem that Ray solves better than stitched-together alternatives.</div>
+    </div>
+    <div class="cb-section">
+      <div class="cb-label">SUGGESTED OPENER</div>
+      <div class="cb-message">Mike — I work at Anyscale (managed Ray). For Strider's OSINT processing pipeline — ingesting and analyzing massive multi-language document corpora for strategic intelligence — what does your distributed compute architecture look like? We've helped intelligence and security AI teams run large-scale NLP pipelines on managed Ray, which handles data preprocessing, model training, and real-time serving in one framework. Worth a 20-minute technical comparison?</div>
+    </div>
+  </div>
+</div>
+
+<div class="prospect-card" data-priority="P1">
+  <div class="card-top">
+    <div class="card-top-left">
+      <div class="p-badge" style="color:#f0d060;background:#26210a;border:1px solid #f0d06044">★ Decision Maker</div>
+      <a class="p-name" href="https://www.linkedin.com/in/greg-levesque-strider" target="_blank">Greg Levesque</a>
+      <div class="p-title">CEO & Co-Founder</div>
+      <div class="p-loc">📍 Lehi, UT</div>
+      <div class="p-contact">📧 <a href="mailto:greg.levesque@striderintel.com">greg.levesque@striderintel.com</a></div>
+    </div>
+    <div class="card-top-right">
+      <span class="src-tag" style="background:#1a1f26;color:#8b949e;border:1px solid #2a3040">Web</span>
+      <a class="li-btn" href="https://www.linkedin.com/in/greg-levesque-strider" target="_blank">LinkedIn →</a>
+    </div>
+  </div>
+  <div class="card-body">
+    <div class="cb-section">
+      <div class="cb-label">WHY THEY MATTER</div>
+      <div class="cb-text">Greg co-founded Strider and drives the strategic vision for the company's intelligence platform. While less technical than the CDO, he understands the competitive differentiation of AI quality and speed, and would support infrastructure investments that directly improve Strider's intelligence product.</div>
+    </div>
+    <div class="cb-section">
+      <div class="cb-label">OUTREACH ANGLE</div>
+      <div class="cb-text">Competitive intelligence quality angle — faster and more accurate AI analysis is a direct product differentiator for Strider. Frame Anyscale as what enables better intelligence quality at lower cost, freeing engineering resources to invest in the analytical capabilities that differentiate Strider from competitors.</div>
+    </div>
+    <div class="cb-section">
+      <div class="cb-label">SUGGESTED OPENER</div>
+      <div class="cb-message">Greg — Strider's approach to strategic intelligence is fascinating — using AI to map supply chain and geopolitical risk at scale is a hard problem. From a competitive standpoint, I imagine intelligence speed and accuracy are core differentiators. Is your AI infrastructure a competitive advantage today, or is it an area where you're still spending more engineering time than you'd like? We work with intelligence AI companies where managed Ray freed up significant ML eng capacity — happy to share what that looks like.</div>
+    </div>
+  </div>
+</div>
+
+  </div>
+</div>
+
+
+<!-- ===== 8. VARO BANK ===== -->
+<div class="company-section" id="co-varobank">
+  <div class="co-header" style="border-left:4px solid #ff7b72">
+    <div class="co-header-left">
+      <div class="co-name" style="color:#ff7b72">Varo Bank</div>
+      <div class="co-tier">Score 6/10 · Tier 4 Watch · Digital-native consumer bank + fintech AI</div>
+      <div class="co-why">Varo is the first consumer fintech to receive a national bank charter, running a fully digital banking platform. Their AI systems handle real-time fraud detection, credit risk scoring, personalized financial insights, and compliance automation across millions of accounts. The combination of high-volume transaction data and ML-driven financial decisions creates significant distributed compute needs.</div>
+      <div class="co-pain"><strong>Key pain point:</strong> Real-time fraud and credit models require low-latency inference at transaction scale; retraining risk models on fresh transaction data requires efficient distributed compute with strict data governance</div>
+    </div>
+    <div class="co-header-right">
+      <div class="co-count">2<span>prospects</span></div>
+    </div>
+  </div>
+  <div class="co-cards">
+
+<div class="prospect-card" data-priority="P1">
+  <div class="card-top">
+    <div class="card-top-left">
+      <div class="p-badge" style="color:#f0d060;background:#26210a;border:1px solid #f0d06044">★ Decision Maker</div>
+      <a class="p-name" href="https://www.linkedin.com/in/rathi-murthy" target="_blank">Rathi Murthy</a>
+      <div class="p-title">Chief Technology Officer</div>
+      <div class="p-loc">📍 San Francisco, CA</div>
+      <div class="p-contact">📧 <a href="mailto:rathi.murthy@varobank.com">rathi.murthy@varobank.com</a></div>
+    </div>
+    <div class="card-top-right">
+      <span class="src-tag" style="background:#1a1f26;color:#8b949e;border:1px solid #2a3040">Web</span>
+      <a class="li-btn" href="https://www.linkedin.com/in/rathi-murthy" target="_blank">LinkedIn →</a>
+    </div>
+  </div>
+  <div class="card-body">
+    <div class="cb-section">
+      <div class="cb-label">WHY THEY MATTER</div>
+      <div class="cb-text">Rathi is Varo's CTO and controls the entire technology infrastructure strategy including ML systems. With her background scaling technology at major consumer platforms, she evaluates infrastructure investments on reliability, compliance posture, and total cost of ownership — all areas where Anyscale has strong answers for regulated fintech.</div>
+    </div>
+    <div class="cb-section">
+      <div class="cb-label">OUTREACH ANGLE</div>
+      <div class="cb-text">Regulated fintech ML angle — address the challenge of running ML in a bank charter environment: compliance requirements, audit trails, data governance. Anyscale's enterprise security features (SOC 2, VPC deployment, access controls) are table stakes for a national bank. Lead with compliance, then performance.</div>
+    </div>
+    <div class="cb-section">
+      <div class="cb-label">SUGGESTED OPENER</div>
+      <div class="cb-message">Rathi — I work at Anyscale (managed Ray). Running ML at a chartered bank creates a unique set of requirements — real-time fraud scoring, credit model retraining, compliance audit trails, all with strict data governance. For Varo's ML infrastructure, how are you balancing the compliance requirements with the need to retrain models on fresh transaction data quickly? We work with regulated fintech teams where managed Ray inside a VPC solved exactly this tension. Worth comparing architectures?</div>
+    </div>
+  </div>
+</div>
+
+<div class="prospect-card" data-priority="P2">
+  <div class="card-top">
+    <div class="card-top-left">
+      <div class="p-badge" style="color:#79c0ff;background:#0e1b2e;border:1px solid #79c0ff44">◈ Senior / Director</div>
+      <a class="p-name" href="https://www.linkedin.com/in/alexander-vasilevskiy" target="_blank">Alexander Vasilevskiy</a>
+      <div class="p-title">Sr. Director of Engineering</div>
+      <div class="p-loc">📍 San Francisco, CA</div>
+      <div class="p-contact">📧 <a href="mailto:alexander.vasilevskiy@varobank.com">alexander.vasilevskiy@varobank.com</a></div>
+    </div>
+    <div class="card-top-right">
+      <span class="src-tag" style="background:#1a1f26;color:#8b949e;border:1px solid #2a3040">Web</span>
+      <a class="li-btn" href="https://www.linkedin.com/in/alexander-vasilevskiy" target="_blank">LinkedIn →</a>
+    </div>
+  </div>
+  <div class="card-body">
+    <div class="cb-section">
+      <div class="cb-label">WHY THEY MATTER</div>
+      <div class="cb-text">Alexander is a senior engineering director at Varo managing key parts of the technical infrastructure. He's the operational decision maker who would run a POC evaluation, and his buy-in is often required before CTO-level decisions are made on infrastructure changes.</div>
+    </div>
+    <div class="cb-section">
+      <div class="cb-label">OUTREACH ANGLE</div>
+      <div class="cb-text">Engineering execution angle — frame Anyscale as what makes ML infrastructure reliable and manageable for a growing fintech engineering team. Reference the operational overhead of self-managed Ray/Spark in a compliance-sensitive environment and the engineering capacity reclaimed when the managed layer handles cluster health.</div>
+    </div>
+    <div class="cb-section">
+      <div class="cb-label">SUGGESTED OPENER</div>
+      <div class="cb-message">Alexander — I run sales at Anyscale. For Varo's ML engineering team — running fraud models, credit scoring, transaction analysis — what does your distributed compute setup look like today? Are you managing Ray or Spark clusters in-house, or using a managed service? We've helped fintech engineering teams eliminate significant infrastructure toil while improving model reliability. Happy to walk through what that comparison looks like — 20 min?</div>
+    </div>
+  </div>
+</div>
+
+  </div>
+</div>
+
+
+<!-- ===== 9. SMALLEST.AI ===== -->
+<div class="company-section" id="co-smallestai">
+  <div class="co-header" style="border-left:4px solid #79c0ff">
+    <div class="co-header-left">
+      <div class="co-name" style="color:#79c0ff">Smallest.ai</div>
+      <div class="co-tier">Score 7/10 · Tier 4 Watch · Ultra-fast AI voice synthesis + TTS</div>
+      <div class="co-why">Smallest.ai builds ultra-low-latency text-to-speech and voice AI models, enabling real-time voice synthesis for conversational AI, customer service automation, and voice cloning. Their core technical challenge is training high-quality voice models efficiently and serving them with sub-100ms latency at scale — this is precisely the Ray Serve + distributed training use case Anyscale excels at.</div>
+      <div class="co-pain"><strong>Key pain point:</strong> Real-time TTS inference at scale requires low-latency serving infrastructure; training high-quality voice models requires significant compute for audio data preprocessing and neural architecture experiments</div>
+    </div>
+    <div class="co-header-right">
+      <div class="co-count">2<span>prospects</span></div>
+    </div>
+  </div>
+  <div class="co-cards">
+
+<div class="prospect-card" data-priority="P1">
+  <div class="card-top">
+    <div class="card-top-left">
+      <div class="p-badge" style="color:#f0d060;background:#26210a;border:1px solid #f0d06044">★ Decision Maker</div>
+      <a class="p-name" href="https://www.linkedin.com/in/sudarshan-kamath" target="_blank">Sudarshan Kamath</a>
+      <div class="p-title">CEO & Founder</div>
+      <div class="p-loc">📍 Bengaluru, India / Remote</div>
+      <div class="p-contact">📧 <a href="mailto:sudarshan@smallest.ai">sudarshan@smallest.ai</a></div>
+    </div>
+    <div class="card-top-right">
+      <span class="src-tag" style="background:#1a1f26;color:#8b949e;border:1px solid #2a3040">Web</span>
+      <a class="li-btn" href="https://www.linkedin.com/in/sudarshan-kamath" target="_blank">LinkedIn →</a>
+    </div>
+  </div>
+  <div class="card-body">
+    <div class="cb-section">
+      <div class="cb-label">WHY THEY MATTER</div>
+      <div class="cb-text">Sudarshan founded Smallest.ai and drives both product strategy and technical architecture. As CEO of a seed-stage AI startup, he makes all significant infrastructure decisions and is actively thinking about how to scale the voice AI platform without proportional infrastructure cost growth. He's the decision maker and the builder.</div>
+    </div>
+    <div class="cb-section">
+      <div class="cb-label">OUTREACH ANGLE</div>
+      <div class="cb-text">Startup-scale efficiency angle — a seed-stage founder cares about cost per inference and infra engineering bandwidth. Frame Anyscale as what lets a small team punch above their weight on ML infrastructure, running Ray Serve at production scale without dedicated infra engineers. Reference the cost-per-request economics for TTS serving.</div>
+    </div>
+    <div class="cb-section">
+      <div class="cb-label">SUGGESTED OPENER</div>
+      <div class="cb-message">Sudarshan — impressive latency numbers on Smallest.ai's TTS — sub-100ms for production voice AI is genuinely hard to achieve. Quick infra question: as you scale API traffic, how are you managing the serving layer? Are you running Ray Serve, custom Triton setup, or something else? We work with voice AI companies at your stage where managed Ray cut serving costs significantly while handling traffic spikes automatically. Happy to compare your architecture against what's working for similar TTS teams — no pitch, just a technical conversation.</div>
+    </div>
+  </div>
+</div>
+
+<div class="prospect-card" data-priority="P1">
+  <div class="card-top">
+    <div class="card-top-left">
+      <div class="p-badge" style="color:#f0d060;background:#26210a;border:1px solid #f0d06044">★ Decision Maker</div>
+      <a class="p-name" href="https://www.linkedin.com/in/akshat-mandloi" target="_blank">Akshat Mandloi</a>
+      <div class="p-title">CTO & Co-Founder</div>
+      <div class="p-loc">📍 Bengaluru, India / Remote</div>
+      <div class="p-contact">📧 <a href="mailto:akshat@smallest.ai">akshat@smallest.ai</a></div>
+    </div>
+    <div class="card-top-right">
+      <span class="src-tag" style="background:#1a1f26;color:#8b949e;border:1px solid #2a3040">Web</span>
+      <a class="li-btn" href="https://www.linkedin.com/in/akshat-mandloi" target="_blank">LinkedIn →</a>
+    </div>
+  </div>
+  <div class="card-body">
+    <div class="cb-section">
+      <div class="cb-label">WHY THEY MATTER</div>
+      <div class="cb-text">Akshat is the technical architect of Smallest.ai's voice models and serving infrastructure. As CTO of a deep-tech voice AI startup, he's actively solving the distributed training and low-latency serving problems that Anyscale is built for. His technical expertise means he'll evaluate the platform on actual performance metrics, not marketing claims.</div>
+    </div>
+    <div class="cb-section">
+      <div class="cb-label">OUTREACH ANGLE</div>
+      <div class="cb-text">Technical depth angle — lead with Ray Serve's specific capabilities for low-latency ML serving: autoscaling, batching, model pipeline composition. For TTS, the ability to compose acoustic models and vocoders into a single Ray Serve pipeline with automatic batching is directly relevant. This is a peer conversation between ML systems practitioners.</div>
+    </div>
+    <div class="cb-section">
+      <div class="cb-label">SUGGESTED OPENER</div>
+      <div class="cb-message">Akshat — I work at Anyscale (managed Ray). For Smallest.ai's serving architecture — handling sub-100ms TTS with dynamic batching and automatic scaling — are you running a custom serving layer or using a framework like Ray Serve/Triton? We've built the managed layer around Ray Serve specifically for low-latency model serving, and voice AI is one of the better use cases for its pipeline composition features. Would love to compare your current setup against what we're seeing work at similar TTS companies — 20 min?</div>
+    </div>
+  </div>
+</div>
+
+  </div>
+</div>
+
+
+<!-- ===== 10. CONSENSUS ===== -->
+<div class="company-section" id="co-consensus">
+  <div class="co-header" style="border-left:4px solid #d2a8ff">
+    <div class="co-header-left">
+      <div class="co-name" style="color:#d2a8ff">Consensus</div>
+      <div class="co-tier">Score 7/10 · Tier 4 Watch · AI-powered academic research search</div>
+      <div class="co-why">Consensus is building an AI-powered search engine for scientific research, enabling users to find and synthesize evidence from academic papers. Their platform requires large-scale scientific paper embeddings, semantic search infrastructure, claim extraction models, and real-time synthesis pipelines over hundreds of millions of papers. This is a large-scale distributed NLP and search AI challenge well-suited for Ray.</div>
+      <div class="co-pain"><strong>Key pain point:</strong> Building and serving embeddings + semantic search over hundreds of millions of academic papers requires significant distributed compute; real-time claim extraction and synthesis adds inference complexity</div>
+    </div>
+    <div class="co-header-right">
+      <div class="co-count">3<span>prospects</span></div>
+    </div>
+  </div>
+  <div class="co-cards">
+
+<div class="prospect-card" data-priority="P1">
+  <div class="card-top">
+    <div class="card-top-left">
+      <div class="p-badge" style="color:#f0d060;background:#26210a;border:1px solid #f0d06044">★ Decision Maker</div>
+      <a class="p-name" href="https://www.linkedin.com/in/eric-olson-consensus" target="_blank">Eric Olson</a>
+      <div class="p-title">CEO & Co-Founder</div>
+      <div class="p-loc">📍 Salt Lake City, UT</div>
+      <div class="p-contact">📧 <a href="mailto:eric@consensus.app">eric@consensus.app</a></div>
+    </div>
+    <div class="card-top-right">
+      <span class="src-tag" style="background:#1a1f26;color:#8b949e;border:1px solid #2a3040">Web</span>
+      <a class="li-btn" href="https://www.linkedin.com/in/eric-olson-consensus" target="_blank">LinkedIn →</a>
+    </div>
+  </div>
+  <div class="card-body">
+    <div class="cb-section">
+      <div class="cb-label">WHY THEY MATTER</div>
+      <div class="cb-text">Eric co-founded Consensus and drives the product vision and business strategy. As CEO, he controls significant infrastructure investment decisions and understands that the quality and speed of Consensus's search AI is the core competitive differentiator. Getting his buy-in positions Anyscale as a strategic platform investment, not just a tool purchase.</div>
+    </div>
+    <div class="cb-section">
+      <div class="cb-label">OUTREACH ANGLE</div>
+      <div class="cb-text">Research AI quality and scale angle — the competitive advantage for Consensus is having the most comprehensive and accurate scientific search. Frame Anyscale as what lets the ML team continuously improve embedding quality and synthesis accuracy at scale, faster than building and managing the compute infrastructure themselves.</div>
+    </div>
+    <div class="cb-section">
+      <div class="cb-label">SUGGESTED OPENER</div>
+      <div class="cb-message">Eric — Consensus is tackling a genuinely important problem — making scientific evidence accessible and searchable. The technical challenge of building accurate embeddings and synthesis over hundreds of millions of papers at scale is significant. From an infra perspective, is distributed compute a bottleneck to improving search quality and expanding coverage, or is that a solved problem for your team? We work with research AI teams where managed Ray accelerated the embedding pipeline iteration cycle significantly — happy to compare approaches.</div>
+    </div>
+  </div>
+</div>
+
+<div class="prospect-card" data-priority="P1">
+  <div class="card-top">
+    <div class="card-top-left">
+      <div class="p-badge" style="color:#f0d060;background:#26210a;border:1px solid #f0d06044">★ Decision Maker</div>
+      <a class="p-name" href="https://www.linkedin.com/in/christian-salem-consensus" target="_blank">Christian Salem</a>
+      <div class="p-title">CPO & Co-Founder</div>
+      <div class="p-loc">📍 Salt Lake City, UT</div>
+      <div class="p-contact">📧 <a href="mailto:christian@consensus.app">christian@consensus.app</a></div>
+    </div>
+    <div class="card-top-right">
+      <span class="src-tag" style="background:#1a1f26;color:#8b949e;border:1px solid #2a3040">Web</span>
+      <a class="li-btn" href="https://www.linkedin.com/in/christian-salem-consensus" target="_blank">LinkedIn →</a>
+    </div>
+  </div>
+  <div class="card-body">
+    <div class="cb-section">
+      <div class="cb-label">WHY THEY MATTER</div>
+      <div class="cb-text">Christian co-founded Consensus and drives the product strategy as CPO. He's deeply invested in the quality of the search and synthesis experience, and would champion infrastructure improvements that translate to better search relevance and faster product iteration cycles.</div>
+    </div>
+    <div class="cb-section">
+      <div class="cb-label">OUTREACH ANGLE</div>
+      <div class="cb-text">Product quality angle — better embeddings and faster model iteration directly improve search relevance, which is the core product metric for Consensus. Frame Anyscale as what accelerates the ML iteration cycle: run more embedding experiments, evaluate more architectures, ship better models faster, without the infra overhead bottleneck.</div>
+    </div>
+    <div class="cb-section">
+      <div class="cb-label">SUGGESTED OPENER</div>
+      <div class="cb-message">Christian — from a product perspective, I imagine search relevance and synthesis accuracy are your core metrics for Consensus. How quickly can your ML team currently iterate on the embedding and synthesis models? We've seen research AI teams go from weekly to daily model iteration cycles by eliminating the distributed compute bottleneck. Happy to walk through what that looks like on managed Ray — 15 min?</div>
+    </div>
+  </div>
+</div>
+
+<div class="prospect-card" data-priority="P3">
+  <div class="card-top">
+    <div class="card-top-left">
+      <div class="p-badge" style="color:#8b949e;background:#1a1f26;border:1px solid #8b949e44">• Technical IC</div>
+      <a class="p-name" href="https://www.linkedin.com/in/chris-varano" target="_blank">Chris Varano</a>
+      <div class="p-title">Lead Search Engineer</div>
+      <div class="p-loc">📍 Salt Lake City, UT</div>
+      <div class="p-contact">📧 <a href="mailto:chris@consensus.app">chris@consensus.app</a></div>
+    </div>
+    <div class="card-top-right">
+      <span class="src-tag" style="background:#1a1f26;color:#8b949e;border:1px solid #2a3040">Web</span>
+      <a class="li-btn" href="https://www.linkedin.com/in/chris-varano" target="_blank">LinkedIn →</a>
+    </div>
+  </div>
+  <div class="card-body">
+    <div class="cb-section">
+      <div class="cb-label">WHY THEY MATTER</div>
+      <div class="cb-text">Chris is the hands-on search engineer who would evaluate and implement any distributed compute changes to Consensus's search infrastructure. He's the technical practitioner who directly experiences the pain of running large-scale embedding and retrieval systems, making him a valuable early champion and POC driver.</div>
+    </div>
+    <div class="cb-section">
+      <div class="cb-label">OUTREACH ANGLE</div>
+      <div class="cb-text">Search engineering practitioner angle — speak directly to the technical challenges of running billion-scale embedding search: index building pipelines, embedding refresh cycles, query serving latency. Reference specific Ray capabilities for distributed embedding generation and vector search pipeline management.</div>
+    </div>
+    <div class="cb-section">
+      <div class="cb-label">SUGGESTED OPENER</div>
+      <div class="cb-message">Chris — I work at Anyscale (managed Ray). For Consensus's search infrastructure — generating and serving embeddings over hundreds of millions of academic papers — I'm curious about your pipeline architecture. Are you running distributed embedding generation with something like Spark/Ray, or a custom solution? We've helped search engineering teams significantly speed up embedding refresh cycles and index builds using Ray Data + Ray Train. Would love to compare approaches — 20 min?</div>
+    </div>
+  </div>
+</div>
+
+  </div>
+</div>
+
+
+<div class="footer">
+  <span>Anyscale · Tier 4 Watch Accounts · 26 Contacts · 10 Companies · March 2026</span>
+  <span>Dylan Wingrove · dylan.wingrove@anyscale.com</span>
+</div>
+
+<script>
+const allCompanies=['troboticsai','cepton','embodied','luxonis','newfront','everlaw','strider','varobank','smallestai','consensus'];
+let activeP={P1:true,P2:true,P3:true};
+let activeNav='all';
+
+function navTo(id,btn){
+  activeNav=id;
+  document.querySelectorAll('.nav-btn').forEach(b=>b.classList.remove('active'));
+  btn.classList.add('active');
+  allCompanies.forEach(co=>{
+    const sec=document.getElementById('co-'+co);
+    if(sec) sec.classList.toggle('hidden', id!=='all' && id!==co);
+  });
+  applyFilters();
+}
+
+function toggleP(p,btn){
+  activeP[p]=!activeP[p];
+  btn.classList.toggle('active',activeP[p]);
+  applyFilters();
+}
+
+function applyFilters(){
+  const q=(document.getElementById('searchBox').value||'').toLowerCase();
+  let shown=0;
+  document.querySelectorAll('.prospect-card').forEach(card=>{
+    const pr=card.dataset.priority;
+    const inSec=!card.closest('.company-section').classList.contains('hidden');
+    const pOk=activeP[pr];
+    const text=card.textContent.toLowerCase();
+    const qOk=!q||text.includes(q);
+    const vis=inSec&&pOk&&qOk;
+    card.classList.toggle('hidden',!vis);
+    if(vis)shown++;
+  });
+  document.getElementById('resultInfo').textContent=
+    shown===26?'Showing all 26 prospects across 10 companies':
+    `Showing ${shown} prospect${shown!==1?'s':''} matching current filters`;
+}
+</script>
+
+</body>
+</html>

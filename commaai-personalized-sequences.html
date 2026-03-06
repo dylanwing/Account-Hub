@@ -1,0 +1,732 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>comma.ai — Personalized Email Sequences</title>
+<style>
+  * { margin:0; padding:0; box-sizing:border-box; }
+  body { font-family: Arial, 'Helvetica Neue', sans-serif; background:#0D1117; color:#C9D1D9; display:flex; height:100vh; overflow:hidden; }
+  #sidebar { width:220px; min-width:220px; background:#161B22; border-right:1px solid #30363D; display:flex; flex-direction:column; overflow:hidden; }
+  #sidebar-header { padding:16px 14px 12px; border-bottom:1px solid #30363D; }
+  #sidebar-header .co-name { font-size:15px; font-weight:700; color:#F78166; margin-bottom:2px; }
+  #sidebar-header .co-sub { font-size:11px; color:#6E7681; }
+  #sidebar-nav { flex:1; overflow-y:auto; padding:8px 6px; }
+  #sidebar-nav::-webkit-scrollbar { width:4px; }
+  #sidebar-nav::-webkit-scrollbar-thumb { background:#30363D; border-radius:2px; }
+  #main { flex:1; overflow-y:auto; padding:24px 28px; }
+  #main::-webkit-scrollbar { width:6px; }
+  #main::-webkit-scrollbar-thumb { background:#30363D; border-radius:3px; }
+  .section-label { font-size:10px;font-weight:600;text-transform:uppercase;letter-spacing:.08em;color:#6E7681;padding:10px 10px 4px; }
+  table { border-collapse:collapse; width:100%; }
+  td, th { font-size:13px; }
+  th { color:#6E7681; font-weight:600; padding:8px 10px; border-bottom:2px solid #F78166; text-align:left; background:#161B22; font-size:12px; text-transform:uppercase; letter-spacing:.05em; }
+</style>
+</head>
+<body>
+
+<div id="sidebar">
+  <div id="sidebar-header">
+    <div class="co-name">comma.ai</div>
+    <div class="co-sub">10 contacts · 40 emails</div>
+  </div>
+  <div class="section-label">Contacts</div>
+  <div id="sidebar-nav">
+    <a href="#contact-1" style="display:flex;align-items:center;gap:8px;padding:6px 10px;border-radius:5px;text-decoration:none;color:#C9D1D9;font-size:13px;transition:background 0.15s;" onmouseover="this.style.background='#21262D'" onmouseout="this.style.background='transparent'">
+      <span style="background:#F78166;color:#fff;font-size:11px;font-weight:700;width:20px;height:20px;border-radius:3px;display:flex;align-items:center;justify-content:center;flex-shrink:0;">1</span>
+      <span style="white-space:nowrap;overflow:hidden;text-overflow:ellipsis;">George Hotz</span>
+      <span style="color:#F78166;font-size:11px;font-weight:600;margin-left:auto;flex-shrink:0;">P1</span>
+    </a><a href="#contact-2" style="display:flex;align-items:center;gap:8px;padding:6px 10px;border-radius:5px;text-decoration:none;color:#C9D1D9;font-size:13px;transition:background 0.15s;" onmouseover="this.style.background='#21262D'" onmouseout="this.style.background='transparent'">
+      <span style="background:#F78166;color:#fff;font-size:11px;font-weight:700;width:20px;height:20px;border-radius:3px;display:flex;align-items:center;justify-content:center;flex-shrink:0;">2</span>
+      <span style="white-space:nowrap;overflow:hidden;text-overflow:ellipsis;">Adeeb Shihadeh</span>
+      <span style="color:#F78166;font-size:11px;font-weight:600;margin-left:auto;flex-shrink:0;">P1</span>
+    </a><a href="#contact-3" style="display:flex;align-items:center;gap:8px;padding:6px 10px;border-radius:5px;text-decoration:none;color:#C9D1D9;font-size:13px;transition:background 0.15s;" onmouseover="this.style.background='#21262D'" onmouseout="this.style.background='transparent'">
+      <span style="background:#F78166;color:#fff;font-size:11px;font-weight:700;width:20px;height:20px;border-radius:3px;display:flex;align-items:center;justify-content:center;flex-shrink:0;">3</span>
+      <span style="white-space:nowrap;overflow:hidden;text-overflow:ellipsis;">Yassine Yousfi</span>
+      <span style="color:#F78166;font-size:11px;font-weight:600;margin-left:auto;flex-shrink:0;">P1</span>
+    </a><a href="#contact-4" style="display:flex;align-items:center;gap:8px;padding:6px 10px;border-radius:5px;text-decoration:none;color:#C9D1D9;font-size:13px;transition:background 0.15s;" onmouseover="this.style.background='#21262D'" onmouseout="this.style.background='transparent'">
+      <span style="background:#D29922;color:#fff;font-size:11px;font-weight:700;width:20px;height:20px;border-radius:3px;display:flex;align-items:center;justify-content:center;flex-shrink:0;">4</span>
+      <span style="white-space:nowrap;overflow:hidden;text-overflow:ellipsis;">Igor Biletski</span>
+      <span style="color:#D29922;font-size:11px;font-weight:600;margin-left:auto;flex-shrink:0;">P2</span>
+    </a><a href="#contact-5" style="display:flex;align-items:center;gap:8px;padding:6px 10px;border-radius:5px;text-decoration:none;color:#C9D1D9;font-size:13px;transition:background 0.15s;" onmouseover="this.style.background='#21262D'" onmouseout="this.style.background='transparent'">
+      <span style="background:#D29922;color:#fff;font-size:11px;font-weight:700;width:20px;height:20px;border-radius:3px;display:flex;align-items:center;justify-content:center;flex-shrink:0;">5</span>
+      <span style="white-space:nowrap;overflow:hidden;text-overflow:ellipsis;">Julie Hendy</span>
+      <span style="color:#D29922;font-size:11px;font-weight:600;margin-left:auto;flex-shrink:0;">P2</span>
+    </a><a href="#contact-6" style="display:flex;align-items:center;gap:8px;padding:6px 10px;border-radius:5px;text-decoration:none;color:#C9D1D9;font-size:13px;transition:background 0.15s;" onmouseover="this.style.background='#21262D'" onmouseout="this.style.background='transparent'">
+      <span style="background:#58A6FF;color:#fff;font-size:11px;font-weight:700;width:20px;height:20px;border-radius:3px;display:flex;align-items:center;justify-content:center;flex-shrink:0;">6</span>
+      <span style="white-space:nowrap;overflow:hidden;text-overflow:ellipsis;">Mitchell Goff</span>
+      <span style="color:#58A6FF;font-size:11px;font-weight:600;margin-left:auto;flex-shrink:0;">P3</span>
+    </a><a href="#contact-7" style="display:flex;align-items:center;gap:8px;padding:6px 10px;border-radius:5px;text-decoration:none;color:#C9D1D9;font-size:13px;transition:background 0.15s;" onmouseover="this.style.background='#21262D'" onmouseout="this.style.background='transparent'">
+      <span style="background:#58A6FF;color:#fff;font-size:11px;font-weight:700;width:20px;height:20px;border-radius:3px;display:flex;align-items:center;justify-content:center;flex-shrink:0;">7</span>
+      <span style="white-space:nowrap;overflow:hidden;text-overflow:ellipsis;">Weixing Zhang</span>
+      <span style="color:#58A6FF;font-size:11px;font-weight:600;margin-left:auto;flex-shrink:0;">P3</span>
+    </a><a href="#contact-8" style="display:flex;align-items:center;gap:8px;padding:6px 10px;border-radius:5px;text-decoration:none;color:#C9D1D9;font-size:13px;transition:background 0.15s;" onmouseover="this.style.background='#21262D'" onmouseout="this.style.background='transparent'">
+      <span style="background:#58A6FF;color:#fff;font-size:11px;font-weight:700;width:20px;height:20px;border-radius:3px;display:flex;align-items:center;justify-content:center;flex-shrink:0;">8</span>
+      <span style="white-space:nowrap;overflow:hidden;text-overflow:ellipsis;">Shane Smiskol</span>
+      <span style="color:#58A6FF;font-size:11px;font-weight:600;margin-left:auto;flex-shrink:0;">P3</span>
+    </a><a href="#contact-9" style="display:flex;align-items:center;gap:8px;padding:6px 10px;border-radius:5px;text-decoration:none;color:#C9D1D9;font-size:13px;transition:background 0.15s;" onmouseover="this.style.background='#21262D'" onmouseout="this.style.background='transparent'">
+      <span style="background:#58A6FF;color:#fff;font-size:11px;font-weight:700;width:20px;height:20px;border-radius:3px;display:flex;align-items:center;justify-content:center;flex-shrink:0;">9</span>
+      <span style="white-space:nowrap;overflow:hidden;text-overflow:ellipsis;">Nick Ruiz</span>
+      <span style="color:#58A6FF;font-size:11px;font-weight:600;margin-left:auto;flex-shrink:0;">P3</span>
+    </a><a href="#contact-10" style="display:flex;align-items:center;gap:8px;padding:6px 10px;border-radius:5px;text-decoration:none;color:#C9D1D9;font-size:13px;transition:background 0.15s;" onmouseover="this.style.background='#21262D'" onmouseout="this.style.background='transparent'">
+      <span style="background:#58A6FF;color:#fff;font-size:11px;font-weight:700;width:20px;height:20px;border-radius:3px;display:flex;align-items:center;justify-content:center;flex-shrink:0;">10</span>
+      <span style="white-space:nowrap;overflow:hidden;text-overflow:ellipsis;">David Felsager</span>
+      <span style="color:#58A6FF;font-size:11px;font-weight:600;margin-left:auto;flex-shrink:0;">P3</span>
+    </a>
+  </div>
+</div>
+
+<div id="main">
+  <!-- Cover -->
+  <div style="margin-bottom:28px;">
+    <div style="font-size:32px;font-weight:700;color:#F78166;margin-bottom:6px;">comma.ai</div>
+    <div style="font-size:18px;color:#F0F6FC;margin-bottom:4px;">Personalized Email Sequences — 10 Contacts</div>
+    <div style="font-size:13px;color:#6E7681;">Anyscale · Sales Development · March 2026 · AV Software Stack</div>
+  </div>
+
+  <!-- Proof points -->
+  <div style="border-left:3px solid #F78166;background:#161B22;padding:14px 18px;margin-bottom:24px;border-radius:0 4px 4px 0;">
+    <div style="font-size:11px;font-weight:600;text-transform:uppercase;letter-spacing:.08em;color:#F78166;margin-bottom:10px;">Proof Points Reference</div>
+    <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:12px;">
+      <div><div style="color:#F78166;font-weight:700;font-size:13px;">Uber</div><div style="color:#56D364;font-weight:700;font-size:12px;margin:3px 0;">50% compute savings</div><div style="color:#6E7681;font-size:12px;">GPU+CPU scheduling on heterogeneous cluster</div></div>
+      <div><div style="color:#F78166;font-weight:700;font-size:13px;">Zoox (Amazon)</div><div style="color:#56D364;font-weight:700;font-size:12px;margin:3px 0;">1,000s of parallel jobs</div><div style="color:#6E7681;font-size:12px;">Fault-tolerant parallel workloads on managed Ray</div></div>
+      <div><div style="color:#F78166;font-weight:700;font-size:13px;">Physical Intelligence</div><div style="color:#56D364;font-weight:700;font-size:12px;margin:3px 0;">2× faster · 16+ eng freed</div><div style="color:#6E7681;font-size:12px;">Small team, full ML pipeline on Anyscale</div></div>
+      <div><div style="color:#F78166;font-weight:700;font-size:13px;">Blue River (Deere)</div><div style="color:#56D364;font-weight:700;font-size:12px;margin:3px 0;">24h → 9.5h · 2.5×</div><div style="color:#6E7681;font-size:12px;">Continuous data pipeline, same hardware</div></div>
+    </div>
+  </div>
+
+  <!-- Contact index -->
+  <div style="margin-bottom:28px;">
+    <div style="font-size:11px;font-weight:600;text-transform:uppercase;letter-spacing:.08em;color:#6E7681;margin-bottom:8px;">Contact Index</div>
+    <table>
+      <thead><tr>
+        <th style="width:36px;">#</th>
+        <th>Name</th>
+        <th>Title</th>
+        <th style="width:60px;">Priority</th>
+        <th>Angle</th>
+      </tr></thead>
+      <tbody><tr>
+      <td style="color:#C9D1D9;padding:7px 10px;border-bottom:1px solid #30363D;">1</td>
+      <td style="color:#F0F6FC;font-weight:600;padding:7px 10px;border-bottom:1px solid #30363D;">George Hotz</td>
+      <td style="color:#8B949E;padding:7px 10px;border-bottom:1px solid #30363D;">President &amp; Founder</td>
+      <td style="color:#F78166;font-weight:700;padding:7px 10px;border-bottom:1px solid #30363D;">P1</td>
+      <td style="color:#F78166;padding:7px 10px;border-bottom:1px solid #30363D;font-size:12px;">Competitive Iteration Speed</td>
+    </tr><tr>
+      <td style="color:#C9D1D9;padding:7px 10px;border-bottom:1px solid #30363D;">2</td>
+      <td style="color:#F0F6FC;font-weight:600;padding:7px 10px;border-bottom:1px solid #30363D;">Adeeb Shihadeh</td>
+      <td style="color:#8B949E;padding:7px 10px;border-bottom:1px solid #30363D;">Chief Product Officer</td>
+      <td style="color:#F78166;font-weight:700;padding:7px 10px;border-bottom:1px solid #30363D;">P1</td>
+      <td style="color:#F78166;padding:7px 10px;border-bottom:1px solid #30363D;font-size:12px;">Small Team / Ops Overhead</td>
+    </tr><tr>
+      <td style="color:#C9D1D9;padding:7px 10px;border-bottom:1px solid #30363D;">3</td>
+      <td style="color:#F0F6FC;font-weight:600;padding:7px 10px;border-bottom:1px solid #30363D;">Yassine Yousfi</td>
+      <td style="color:#8B949E;padding:7px 10px;border-bottom:1px solid #30363D;">Head of Machine Learning</td>
+      <td style="color:#F78166;font-weight:700;padding:7px 10px;border-bottom:1px solid #30363D;">P1</td>
+      <td style="color:#F78166;padding:7px 10px;border-bottom:1px solid #30363D;font-size:12px;">ML Pipeline Velocity</td>
+    </tr><tr>
+      <td style="color:#C9D1D9;padding:7px 10px;border-bottom:1px solid #30363D;">4</td>
+      <td style="color:#F0F6FC;font-weight:600;padding:7px 10px;border-bottom:1px solid #30363D;">Igor Biletski</td>
+      <td style="color:#8B949E;padding:7px 10px;border-bottom:1px solid #30363D;">Head of Hardware Development</td>
+      <td style="color:#D29922;font-weight:700;padding:7px 10px;border-bottom:1px solid #30363D;">P2</td>
+      <td style="color:#F78166;padding:7px 10px;border-bottom:1px solid #30363D;font-size:12px;">Compute ROI / Hardware Utilization</td>
+    </tr><tr>
+      <td style="color:#C9D1D9;padding:7px 10px;border-bottom:1px solid #30363D;">5</td>
+      <td style="color:#F0F6FC;font-weight:600;padding:7px 10px;border-bottom:1px solid #30363D;">Julie Hendy</td>
+      <td style="color:#8B949E;padding:7px 10px;border-bottom:1px solid #30363D;">VP Operations</td>
+      <td style="color:#D29922;font-weight:700;padding:7px 10px;border-bottom:1px solid #30363D;">P2</td>
+      <td style="color:#F78166;padding:7px 10px;border-bottom:1px solid #30363D;font-size:12px;">Operational Efficiency / Team Bandwidth</td>
+    </tr><tr>
+      <td style="color:#C9D1D9;padding:7px 10px;border-bottom:1px solid #30363D;">6</td>
+      <td style="color:#F0F6FC;font-weight:600;padding:7px 10px;border-bottom:1px solid #30363D;">Mitchell Goff</td>
+      <td style="color:#8B949E;padding:7px 10px;border-bottom:1px solid #30363D;">Machine Learning Engineer</td>
+      <td style="color:#58A6FF;font-weight:700;padding:7px 10px;border-bottom:1px solid #30363D;">P3</td>
+      <td style="color:#F78166;padding:7px 10px;border-bottom:1px solid #30363D;font-size:12px;">ML Developer Velocity</td>
+    </tr><tr>
+      <td style="color:#C9D1D9;padding:7px 10px;border-bottom:1px solid #30363D;">7</td>
+      <td style="color:#F0F6FC;font-weight:600;padding:7px 10px;border-bottom:1px solid #30363D;">Weixing Zhang</td>
+      <td style="color:#8B949E;padding:7px 10px;border-bottom:1px solid #30363D;">Machine Learning Engineer</td>
+      <td style="color:#58A6FF;font-weight:700;padding:7px 10px;border-bottom:1px solid #30363D;">P3</td>
+      <td style="color:#F78166;padding:7px 10px;border-bottom:1px solid #30363D;font-size:12px;">Data Pipeline / Distributed Processing</td>
+    </tr><tr>
+      <td style="color:#C9D1D9;padding:7px 10px;border-bottom:1px solid #30363D;">8</td>
+      <td style="color:#F0F6FC;font-weight:600;padding:7px 10px;border-bottom:1px solid #30363D;">Shane Smiskol</td>
+      <td style="color:#8B949E;padding:7px 10px;border-bottom:1px solid #30363D;">openpilot Engineer</td>
+      <td style="color:#58A6FF;font-weight:700;padding:7px 10px;border-bottom:1px solid #30363D;">P3</td>
+      <td style="color:#F78166;padding:7px 10px;border-bottom:1px solid #30363D;font-size:12px;">openpilot Pipeline / Regression Testing</td>
+    </tr><tr>
+      <td style="color:#C9D1D9;padding:7px 10px;border-bottom:1px solid #30363D;">9</td>
+      <td style="color:#F0F6FC;font-weight:600;padding:7px 10px;border-bottom:1px solid #30363D;">Nick Ruiz</td>
+      <td style="color:#8B949E;padding:7px 10px;border-bottom:1px solid #30363D;">Senior Software Engineer</td>
+      <td style="color:#58A6FF;font-weight:700;padding:7px 10px;border-bottom:1px solid #30363D;">P3</td>
+      <td style="color:#F78166;padding:7px 10px;border-bottom:1px solid #30363D;font-size:12px;">Distributed Systems / Engineering Efficiency</td>
+    </tr><tr>
+      <td style="color:#C9D1D9;padding:7px 10px;border-bottom:1px solid #30363D;">10</td>
+      <td style="color:#F0F6FC;font-weight:600;padding:7px 10px;border-bottom:1px solid #30363D;">David Felsager</td>
+      <td style="color:#8B949E;padding:7px 10px;border-bottom:1px solid #30363D;">Autonomous Driving Engineer</td>
+      <td style="color:#58A6FF;font-weight:700;padding:7px 10px;border-bottom:1px solid #30363D;">P3</td>
+      <td style="color:#F78166;padding:7px 10px;border-bottom:1px solid #30363D;font-size:12px;">AV Pipeline / Simulation Scale</td>
+    </tr></tbody>
+    </table>
+  </div>
+
+  <hr style="border:none;border-top:1px solid #30363D;margin-bottom:28px;">
+
+  <!-- Contact sections -->
+  
+      <div id="contact-1" style="scroll-margin-top:60px;">
+        <div style="display:flex;align-items:stretch;margin-bottom:14px;border:1px solid #30363D;border-radius:4px;overflow:hidden;">
+          <div style="background:#F78166;width:48px;min-width:48px;display:flex;align-items:center;justify-content:center;font-size:22px;font-weight:700;color:#fff;">1</div>
+          <div style="background:#161B22;flex:1;padding:12px 18px;">
+            <div style="font-size:18px;font-weight:700;color:#F0F6FC;">George Hotz <span style="color:#6E7681;font-size:14px;font-weight:400;"> · President &amp; Founder</span></div>
+            <div style="margin-top:5px;font-size:12px;">
+              <span style="color:#F78166;font-weight:700;">P1</span>
+              <span style="color:#6E7681;"> · comma.ai · </span>
+              <span style="color:#F78166;">Competitive Iteration Speed</span>
+              <span style="color:#6E7681;"> · Contact 1 of 10</span>
+            </div><div style="margin-top:5px;font-size:12px;color:#8B949E;">📧 <a href="mailto:george@comma.ai" style="color:#58A6FF;text-decoration:none;">george@comma.ai</a> &nbsp;·&nbsp; 📞 +1-201-251-8436<span style="font-size:10px;background:rgba(139,148,158,0.1);color:#6E7681;border:1px solid #30363D;border-radius:3px;padding:1px 5px;margin-left:6px;">inferred</span></div>
+          </div>
+        </div>
+        
+        <div style="border:1px solid #30363D;border-top:3px solid #F78166;border-radius:4px;margin-bottom:12px;overflow:hidden;">
+          <div style="background:#1a1a1a;padding:10px 16px;border-bottom:1px solid #30363D;">
+            <span style="color:#F78166;font-weight:700;font-size:13px;">Step 1&nbsp;&nbsp;</span>
+            <span style="color:#6E7681;font-size:13px;">Subject: </span>
+            <span style="color:#F0F6FC;font-weight:700;font-size:13px;">Training cycle speed vs. Tesla FSD</span>
+          </div>
+          <div style="background:#161B22;padding:14px 18px;font-size:14px;color:#C9D1D9;font-family:Arial,sans-serif;line-height:1.7;"><div style="margin-bottom:0;line-height:1.6;">George —</div><div style="height:10px"></div><div style="margin-bottom:0;line-height:1.6;">The AV race is largely a data flywheel competition. Tesla's edge isn't just fleet scale — it's how fast they convert miles into deployed model improvements. The team that closes the loop fastest wins.</div><div style="height:10px"></div><div style="margin-bottom:0;line-height:1.6;">Blue River Technology cut their AV image/video training pipeline from 24 hours to under 9.5 hours — same hardware, no infrastructure overhaul. 2.5× faster iteration means more model versions shipped per week.</div><div style="height:10px"></div><div style="margin-bottom:0;line-height:1.6;">For a 30-person team building against labs with 1,000+ ML engineers, iteration speed is one of the few levers you actually control.</div><div style="height:10px"></div><div style="margin-bottom:0;line-height:1.6;">Worth 15 minutes to see where the gains are in your pipeline?</div><div style="height:10px"></div><div style="margin-bottom:0;line-height:1.6;">Dylan</div></div>
+          
+        <div style="background:#0E1408;border-top:1px solid #30363D;padding:10px 16px;font-size:13px;color:#F78166;font-style:italic;">📌 Proof: Blue River — AV pipeline 24h → 9.5h, 2.5× faster on same hardware</div>
+        </div>
+        <div style="border:1px solid #30363D;border-top:3px solid #F78166;border-radius:4px;margin-bottom:12px;overflow:hidden;">
+          <div style="background:#1a1a1a;padding:10px 16px;border-bottom:1px solid #30363D;">
+            <span style="color:#F78166;font-weight:700;font-size:13px;">Step 2&nbsp;&nbsp;</span>
+            <span style="color:#6E7681;font-size:13px;">Subject: </span>
+            <span style="color:#F0F6FC;font-weight:700;font-size:13px;">Re: what 2× faster iteration looks like</span>
+          </div>
+          <div style="background:#161B22;padding:14px 18px;font-size:14px;color:#C9D1D9;font-family:Arial,sans-serif;line-height:1.7;"><div style="margin-bottom:0;line-height:1.6;">George —</div><div style="height:10px"></div><div style="margin-bottom:0;line-height:1.6;">Following up. Physical Intelligence — another physical AI company with a small, elite team doing terabyte-scale sensor data — uses Anyscale across their full training pipeline. Result: 2× faster research iteration and 16+ engineers freed from infra overhead back onto model work.</div><div style="height:10px"></div><div style="margin-bottom:0;line-height:1.6;">For a team your size competing against heavily-staffed labs, doubling research iteration speed is the equivalent of hiring 10 engineers. Same output-per-person ratio — just applied to infrastructure instead of headcount.</div><div style="height:10px"></div><div style="margin-bottom:0;line-height:1.6;">The stack is Python-native. Zero rewrite of the openpilot codebase.</div><div style="height:10px"></div><div style="margin-bottom:0;line-height:1.6;">20 minutes?</div><div style="height:10px"></div><div style="margin-bottom:0;line-height:1.6;">Dylan</div></div>
+          
+        <div style="background:#0E1408;border-top:1px solid #30363D;padding:10px 16px;font-size:13px;color:#F78166;font-style:italic;">📌 Proof: Physical Intelligence — 2× faster research iteration, 16+ engineers freed, small elite team</div>
+        </div>
+        <div style="border:1px solid #30363D;border-top:3px solid #F78166;border-radius:4px;margin-bottom:12px;overflow:hidden;">
+          <div style="background:#1a1a1a;padding:10px 16px;border-bottom:1px solid #30363D;">
+            <span style="color:#F78166;font-weight:700;font-size:13px;">Step 3&nbsp;&nbsp;</span>
+            <span style="color:#6E7681;font-size:13px;">Subject: </span>
+            <span style="color:#F0F6FC;font-weight:700;font-size:13px;">Where the bottleneck usually is</span>
+          </div>
+          <div style="background:#161B22;padding:14px 18px;font-size:14px;color:#C9D1D9;font-family:Arial,sans-serif;line-height:1.7;"><div style="margin-bottom:0;line-height:1.6;">George —</div><div style="height:10px"></div><div style="margin-bottom:0;line-height:1.6;">When I talk to teams running end-to-end AV training pipelines, the bottleneck is rarely the GPU itself — it's data loading and preprocessing that leaves the GPU waiting.</div><div style="height:10px"></div><div style="margin-bottom:0;line-height:1.6;">Ray Data distributes that preprocessing across workers so the GPU never idles between batches. Blue River's speedup came almost entirely from parallelizing data conversion — the model training code barely changed.</div><div style="height:10px"></div><div style="margin-bottom:0;line-height:1.6;">Happy to map out where that applies to your pipeline specifically. Would a concrete breakdown be useful?</div><div style="height:10px"></div><div style="margin-bottom:0;line-height:1.6;">Dylan</div></div>
+          
+        <div style="background:#0E1408;border-top:1px solid #30363D;padding:10px 16px;font-size:13px;color:#F78166;font-style:italic;">📌 Proof: Blue River — speedup driven by parallelizing data conversion, minimal training code changes</div>
+        </div>
+        <div style="border:1px solid #30363D;border-top:3px solid #F78166;border-radius:4px;margin-bottom:12px;overflow:hidden;">
+          <div style="background:#1a1a1a;padding:10px 16px;border-bottom:1px solid #30363D;">
+            <span style="color:#F78166;font-weight:700;font-size:13px;">Step 4&nbsp;&nbsp;</span>
+            <span style="color:#6E7681;font-size:13px;">Subject: </span>
+            <span style="color:#F0F6FC;font-weight:700;font-size:13px;">Last note — iteration speed</span>
+          </div>
+          <div style="background:#161B22;padding:14px 18px;font-size:14px;color:#C9D1D9;font-family:Arial,sans-serif;line-height:1.7;"><div style="margin-bottom:0;line-height:1.6;">George —</div><div style="height:10px"></div><div style="margin-bottom:0;line-height:1.6;">Last one from me.</div><div style="height:10px"></div><div style="margin-bottom:0;line-height:1.6;">Blue River runs AV pipelines 2.5× faster on the same hardware. Physical Intelligence doubled research iteration speed with a similar-sized team. Both Python-native, both on existing infrastructure.</div><div style="height:10px"></div><div style="margin-bottom:0;line-height:1.6;">If faster model iteration becomes a priority — whether that's driven by Tesla's cadence or your own roadmap — I'd welcome a conversation.</div><div style="height:10px"></div><div style="margin-bottom:0;line-height:1.6;">Feel free to reach out whenever the timing works.</div><div style="height:10px"></div><div style="margin-bottom:0;line-height:1.6;">Dylan</div></div>
+          
+        <div style="background:#0E1408;border-top:1px solid #30363D;padding:10px 16px;font-size:13px;color:#F78166;font-style:italic;">📌 Proof: Blue River (2.5× AV pipeline) + Physical Intelligence (2× iteration, small team)</div>
+        </div>
+      </div><hr style="border:none;border-top:1px solid #30363D;margin:24px 0;">
+      <div id="contact-2" style="scroll-margin-top:60px;">
+        <div style="display:flex;align-items:stretch;margin-bottom:14px;border:1px solid #30363D;border-radius:4px;overflow:hidden;">
+          <div style="background:#F78166;width:48px;min-width:48px;display:flex;align-items:center;justify-content:center;font-size:22px;font-weight:700;color:#fff;">2</div>
+          <div style="background:#161B22;flex:1;padding:12px 18px;">
+            <div style="font-size:18px;font-weight:700;color:#F0F6FC;">Adeeb Shihadeh <span style="color:#6E7681;font-size:14px;font-weight:400;"> · Chief Product Officer</span></div>
+            <div style="margin-top:5px;font-size:12px;">
+              <span style="color:#F78166;font-weight:700;">P1</span>
+              <span style="color:#6E7681;"> · comma.ai · </span>
+              <span style="color:#F78166;">Small Team / Ops Overhead</span>
+              <span style="color:#6E7681;"> · Contact 2 of 10</span>
+            </div><div style="margin-top:5px;font-size:12px;color:#8B949E;">📧 <a href="mailto:adeeb@comma.ai" style="color:#58A6FF;text-decoration:none;">adeeb@comma.ai</a><span style="font-size:10px;background:rgba(139,148,158,0.1);color:#6E7681;border:1px solid #30363D;border-radius:3px;padding:1px 5px;margin-left:6px;">inferred</span></div>
+          </div>
+        </div>
+        
+        <div style="border:1px solid #30363D;border-top:3px solid #F78166;border-radius:4px;margin-bottom:12px;overflow:hidden;">
+          <div style="background:#1a1a1a;padding:10px 16px;border-bottom:1px solid #30363D;">
+            <span style="color:#F78166;font-weight:700;font-size:13px;">Step 1&nbsp;&nbsp;</span>
+            <span style="color:#6E7681;font-size:13px;">Subject: </span>
+            <span style="color:#F0F6FC;font-weight:700;font-size:13px;">30 engineers running a datacenter</span>
+          </div>
+          <div style="background:#161B22;padding:14px 18px;font-size:14px;color:#C9D1D9;font-family:Arial,sans-serif;line-height:1.7;"><div style="margin-bottom:0;line-height:1.6;">Adeeb —</div><div style="height:10px"></div><div style="margin-bottom:0;line-height:1.6;">Managing a private GPU cluster is a real competitive advantage on compute economics. It's also an ops burden that, at a 30-person company, sits on a very small number of people.</div><div style="height:10px"></div><div style="margin-bottom:0;line-height:1.6;">Physical Intelligence — a physical AI company with a similarly small, elite team — processes terabytes of robot sensor data daily on Anyscale. Result: 16+ engineers moved off infrastructure management and back onto model development. 2× faster research iteration as a side effect.</div><div style="height:10px"></div><div style="margin-bottom:0;line-height:1.6;">At your headcount, 2–3 engineers on cluster ops is 7–10% of the entire company. Anyscale gives you back that bandwidth: your hardware, our scheduling layer.</div><div style="height:10px"></div><div style="margin-bottom:0;line-height:1.6;">Worth a conversation?</div><div style="height:10px"></div><div style="margin-bottom:0;line-height:1.6;">Dylan</div></div>
+          
+        <div style="background:#0E1408;border-top:1px solid #30363D;padding:10px 16px;font-size:13px;color:#F78166;font-style:italic;">📌 Proof: Physical Intelligence — 16+ engineers freed from infra, 2× research iteration, small elite team</div>
+        </div>
+        <div style="border:1px solid #30363D;border-top:3px solid #F78166;border-radius:4px;margin-bottom:12px;overflow:hidden;">
+          <div style="background:#1a1a1a;padding:10px 16px;border-bottom:1px solid #30363D;">
+            <span style="color:#F78166;font-weight:700;font-size:13px;">Step 2&nbsp;&nbsp;</span>
+            <span style="color:#6E7681;font-size:13px;">Subject: </span>
+            <span style="color:#F0F6FC;font-weight:700;font-size:13px;">Re: what the pipeline overhead actually looks like</span>
+          </div>
+          <div style="background:#161B22;padding:14px 18px;font-size:14px;color:#C9D1D9;font-family:Arial,sans-serif;line-height:1.7;"><div style="margin-bottom:0;line-height:1.6;">Adeeb —</div><div style="height:10px"></div><div style="margin-bottom:0;line-height:1.6;">Following up on my note.</div><div style="height:10px"></div><div style="margin-bottom:0;line-height:1.6;">Processing 100M+ miles of driving data is a distributed data pipeline problem at its core — ingestion, featurization, preprocessing before any model work starts. As the fleet grows, that pipeline scales with it, and the per-run cost in engineer time scales too.</div><div style="height:10px"></div><div style="margin-bottom:0;line-height:1.6;">Blue River ran exactly this class of AV image/video pipeline. Before Anyscale: 24 hours. After: under 9.5 hours, same hardware, mostly Python code changes to parallelize the processing stages.</div><div style="height:10px"></div><div style="margin-bottom:0;line-height:1.6;">Happy to walk through specifically how that maps to your architecture. 20 minutes?</div><div style="height:10px"></div><div style="margin-bottom:0;line-height:1.6;">Dylan</div></div>
+          
+        <div style="background:#0E1408;border-top:1px solid #30363D;padding:10px 16px;font-size:13px;color:#F78166;font-style:italic;">📌 Proof: Blue River — AV video pipeline 24h → 9.5h, Python-only parallelization changes</div>
+        </div>
+        <div style="border:1px solid #30363D;border-top:3px solid #F78166;border-radius:4px;margin-bottom:12px;overflow:hidden;">
+          <div style="background:#1a1a1a;padding:10px 16px;border-bottom:1px solid #30363D;">
+            <span style="color:#F78166;font-weight:700;font-size:13px;">Step 3&nbsp;&nbsp;</span>
+            <span style="color:#6E7681;font-size:13px;">Subject: </span>
+            <span style="color:#F0F6FC;font-weight:700;font-size:13px;">No infrastructure overhaul required</span>
+          </div>
+          <div style="background:#161B22;padding:14px 18px;font-size:14px;color:#C9D1D9;font-family:Arial,sans-serif;line-height:1.7;"><div style="margin-bottom:0;line-height:1.6;">Adeeb —</div><div style="height:10px"></div><div style="margin-bottom:0;line-height:1.6;">Worth clarifying — Anyscale managed Ray runs on your existing cluster. You keep the datacenter, the hardware, the cost structure.</div><div style="height:10px"></div><div style="margin-bottom:0;line-height:1.6;">What changes: the scheduling and orchestration layer. Your engineers write Python Ray tasks instead of managing job queues and node allocation manually. The cluster handles the rest.</div><div style="height:10px"></div><div style="margin-bottom:0;line-height:1.6;">Blue River's team described it as getting the distributed systems expertise of a 10-person infra team without hiring them. For a CPO trying to maximize output-per-engineer, that framing tends to resonate.</div><div style="height:10px"></div><div style="margin-bottom:0;line-height:1.6;">Would a technical walkthrough be useful?</div><div style="height:10px"></div><div style="margin-bottom:0;line-height:1.6;">Dylan</div></div>
+          
+        <div style="background:#0E1408;border-top:1px solid #30363D;padding:10px 16px;font-size:13px;color:#F78166;font-style:italic;">📌 Proof: Blue River — distributed systems expertise without the dedicated infra headcount</div>
+        </div>
+        <div style="border:1px solid #30363D;border-top:3px solid #F78166;border-radius:4px;margin-bottom:12px;overflow:hidden;">
+          <div style="background:#1a1a1a;padding:10px 16px;border-bottom:1px solid #30363D;">
+            <span style="color:#F78166;font-weight:700;font-size:13px;">Step 4&nbsp;&nbsp;</span>
+            <span style="color:#6E7681;font-size:13px;">Subject: </span>
+            <span style="color:#F0F6FC;font-weight:700;font-size:13px;">Last note — ops overhead</span>
+          </div>
+          <div style="background:#161B22;padding:14px 18px;font-size:14px;color:#C9D1D9;font-family:Arial,sans-serif;line-height:1.7;"><div style="margin-bottom:0;line-height:1.6;">Adeeb —</div><div style="height:10px"></div><div style="margin-bottom:0;line-height:1.6;">Last note from me.</div><div style="height:10px"></div><div style="margin-bottom:0;line-height:1.6;">The short version: Physical Intelligence freed 16+ engineers from infra work at a company your size. Blue River cut AV pipeline runtime by 60% without new hardware.</div><div style="height:10px"></div><div style="margin-bottom:0;line-height:1.6;">If the question of infra overhead vs. product output comes up in planning — it tends to come up at every 30-person hardware+software company — I'd be glad to map it to your specific situation.</div><div style="height:10px"></div><div style="margin-bottom:0;line-height:1.6;">Feel free to reach out whenever the timing works.</div><div style="height:10px"></div><div style="margin-bottom:0;line-height:1.6;">Dylan</div></div>
+          
+        <div style="background:#0E1408;border-top:1px solid #30363D;padding:10px 16px;font-size:13px;color:#F78166;font-style:italic;">📌 Proof: Physical Intelligence (16+ engineers freed) + Blue River (60% pipeline time reduction)</div>
+        </div>
+      </div><hr style="border:none;border-top:1px solid #30363D;margin:24px 0;">
+      <div id="contact-3" style="scroll-margin-top:60px;">
+        <div style="display:flex;align-items:stretch;margin-bottom:14px;border:1px solid #30363D;border-radius:4px;overflow:hidden;">
+          <div style="background:#F78166;width:48px;min-width:48px;display:flex;align-items:center;justify-content:center;font-size:22px;font-weight:700;color:#fff;">3</div>
+          <div style="background:#161B22;flex:1;padding:12px 18px;">
+            <div style="font-size:18px;font-weight:700;color:#F0F6FC;">Yassine Yousfi <span style="color:#6E7681;font-size:14px;font-weight:400;"> · Head of Machine Learning</span></div>
+            <div style="margin-top:5px;font-size:12px;">
+              <span style="color:#F78166;font-weight:700;">P1</span>
+              <span style="color:#6E7681;"> · comma.ai · </span>
+              <span style="color:#F78166;">ML Pipeline Velocity</span>
+              <span style="color:#6E7681;"> · Contact 3 of 10</span>
+            </div><div style="margin-top:5px;font-size:12px;color:#8B949E;">📧 <a href="mailto:yassine@comma.ai" style="color:#58A6FF;text-decoration:none;">yassine@comma.ai</a><span style="font-size:10px;background:rgba(139,148,158,0.1);color:#6E7681;border:1px solid #30363D;border-radius:3px;padding:1px 5px;margin-left:6px;">inferred</span></div>
+          </div>
+        </div>
+        
+        <div style="border:1px solid #30363D;border-top:3px solid #F78166;border-radius:4px;margin-bottom:12px;overflow:hidden;">
+          <div style="background:#1a1a1a;padding:10px 16px;border-bottom:1px solid #30363D;">
+            <span style="color:#F78166;font-weight:700;font-size:13px;">Step 1&nbsp;&nbsp;</span>
+            <span style="color:#6E7681;font-size:13px;">Subject: </span>
+            <span style="color:#F0F6FC;font-weight:700;font-size:13px;">ML iteration speed at AV scale</span>
+          </div>
+          <div style="background:#161B22;padding:14px 18px;font-size:14px;color:#C9D1D9;font-family:Arial,sans-serif;line-height:1.7;"><div style="margin-bottom:0;line-height:1.6;">Yassine —</div><div style="height:10px"></div><div style="margin-bottom:0;line-height:1.6;">For teams running large-scale AV model development, the training bottleneck is usually not the GPU — it's the data pipeline upstream of it. Preprocessing, featurization, and data loading that can't scale to match training throughput.</div><div style="height:10px"></div><div style="margin-bottom:0;line-height:1.6;">Blue River Technology cut their AV image/video training pipeline from 24 hours to 9.5 hours on Anyscale — same hardware. 2.5× faster iteration on the same training runs, driven almost entirely by parallelizing data preprocessing.</div><div style="height:10px"></div><div style="margin-bottom:0;line-height:1.6;">For a Head of ML managing a full-stack pipeline from raw driving data to deployed model, that's the kind of speedup that compounds into meaningfully more experiments per quarter.</div><div style="height:10px"></div><div style="margin-bottom:0;line-height:1.6;">Worth 20 minutes to walk through where that applies at comma.ai?</div><div style="height:10px"></div><div style="margin-bottom:0;line-height:1.6;">Dylan</div></div>
+          
+        <div style="background:#0E1408;border-top:1px solid #30363D;padding:10px 16px;font-size:13px;color:#F78166;font-style:italic;">📌 Proof: Blue River — AV pipeline 24h → 9.5h, 2.5× faster via distributed data preprocessing</div>
+        </div>
+        <div style="border:1px solid #30363D;border-top:3px solid #F78166;border-radius:4px;margin-bottom:12px;overflow:hidden;">
+          <div style="background:#1a1a1a;padding:10px 16px;border-bottom:1px solid #30363D;">
+            <span style="color:#F78166;font-weight:700;font-size:13px;">Step 2&nbsp;&nbsp;</span>
+            <span style="color:#6E7681;font-size:13px;">Subject: </span>
+            <span style="color:#F0F6FC;font-weight:700;font-size:13px;">Re: distributed training at your scale</span>
+          </div>
+          <div style="background:#161B22;padding:14px 18px;font-size:14px;color:#C9D1D9;font-family:Arial,sans-serif;line-height:1.7;"><div style="margin-bottom:0;line-height:1.6;">Yassine —</div><div style="height:10px"></div><div style="margin-bottom:0;line-height:1.6;">Physical Intelligence — a physical AI company doing terabyte-scale robot sensor data with a small team — runs their full ML pipeline on Anyscale. Across data ingestion, distributed training, and hyperparameter search. Result: 2× faster research iteration and 16+ engineers redirected from infrastructure management to model development.</div><div style="height:10px"></div><div style="margin-bottom:0;line-height:1.6;">For a team your size, the engineering leverage matters as much as the speed. You're likely not able to add ML infra headcount proportionally as the model complexity or data volume grows.</div><div style="height:10px"></div><div style="margin-bottom:0;line-height:1.6;">Anyscale's managed Ray handles the distributed orchestration layer. Your team stays focused on the ML work.</div><div style="height:10px"></div><div style="margin-bottom:0;line-height:1.6;">Happy to show you what that looks like end-to-end. 20 minutes?</div><div style="height:10px"></div><div style="margin-bottom:0;line-height:1.6;">Dylan</div></div>
+          
+        <div style="background:#0E1408;border-top:1px solid #30363D;padding:10px 16px;font-size:13px;color:#F78166;font-style:italic;">📌 Proof: Physical Intelligence — 2× faster research iteration, full pipeline on Anyscale, small team</div>
+        </div>
+        <div style="border:1px solid #30363D;border-top:3px solid #F78166;border-radius:4px;margin-bottom:12px;overflow:hidden;">
+          <div style="background:#1a1a1a;padding:10px 16px;border-bottom:1px solid #30363D;">
+            <span style="color:#F78166;font-weight:700;font-size:13px;">Step 3&nbsp;&nbsp;</span>
+            <span style="color:#6E7681;font-size:13px;">Subject: </span>
+            <span style="color:#F0F6FC;font-weight:700;font-size:13px;">Hyperparameter search and training at scale</span>
+          </div>
+          <div style="background:#161B22;padding:14px 18px;font-size:14px;color:#C9D1D9;font-family:Arial,sans-serif;line-height:1.7;"><div style="margin-bottom:0;line-height:1.6;">Yassine —</div><div style="height:10px"></div><div style="margin-bottom:0;line-height:1.6;">One specific area worth calling out: distributed hyperparameter search.</div><div style="height:10px"></div><div style="margin-bottom:0;line-height:1.6;">At the scale of training openpilot-class models, running dozens of parallel trials means managing GPU allocation, checkpointing, and early stopping across a heterogeneous cluster. Ray Tune handles all of that natively — ASHA, PBT, and custom search algorithms — with automatic trial scheduling and fault tolerance.</div><div style="height:10px"></div><div style="margin-bottom:0;line-height:1.6;">Uber ran heterogeneous CPU+GPU workloads on Ray and cut compute costs by 50% through smarter scheduling. For ML teams managing finite GPU budgets, that efficiency gain compounds.</div><div style="height:10px"></div><div style="margin-bottom:0;line-height:1.6;">Would it be useful to map this specifically to your training and experimentation workflow?</div><div style="height:10px"></div><div style="margin-bottom:0;line-height:1.6;">Dylan</div></div>
+          
+        <div style="background:#0E1408;border-top:1px solid #30363D;padding:10px 16px;font-size:13px;color:#F78166;font-style:italic;">📌 Proof: Uber — 50% compute savings on heterogeneous CPU+GPU cluster with Ray scheduling</div>
+        </div>
+        <div style="border:1px solid #30363D;border-top:3px solid #F78166;border-radius:4px;margin-bottom:12px;overflow:hidden;">
+          <div style="background:#1a1a1a;padding:10px 16px;border-bottom:1px solid #30363D;">
+            <span style="color:#F78166;font-weight:700;font-size:13px;">Step 4&nbsp;&nbsp;</span>
+            <span style="color:#6E7681;font-size:13px;">Subject: </span>
+            <span style="color:#F0F6FC;font-weight:700;font-size:13px;">Last note — ML pipeline efficiency</span>
+          </div>
+          <div style="background:#161B22;padding:14px 18px;font-size:14px;color:#C9D1D9;font-family:Arial,sans-serif;line-height:1.7;"><div style="margin-bottom:0;line-height:1.6;">Yassine —</div><div style="height:10px"></div><div style="margin-bottom:0;line-height:1.6;">Last one from me.</div><div style="height:10px"></div><div style="margin-bottom:0;line-height:1.6;">Blue River: 2.5× faster AV training pipeline, same hardware. Physical Intelligence: 2× faster research iteration with a similarly sized team. Uber: 50% compute savings on heterogeneous workloads.</div><div style="height:10px"></div><div style="margin-bottom:0;line-height:1.6;">All Python-native, all on existing infrastructure, all with direct applicability to large-scale AV model development.</div><div style="height:10px"></div><div style="margin-bottom:0;line-height:1.6;">If pipeline velocity or infrastructure efficiency becomes a lever you're pulling on — I'd welcome a conversation.</div><div style="height:10px"></div><div style="margin-bottom:0;line-height:1.6;">Dylan</div></div>
+          
+        <div style="background:#0E1408;border-top:1px solid #30363D;padding:10px 16px;font-size:13px;color:#F78166;font-style:italic;">📌 Proof: Blue River (2.5×) + Physical Intelligence (2× iteration) + Uber (50% compute savings)</div>
+        </div>
+      </div><hr style="border:none;border-top:1px solid #30363D;margin:24px 0;">
+      <div id="contact-4" style="scroll-margin-top:60px;">
+        <div style="display:flex;align-items:stretch;margin-bottom:14px;border:1px solid #30363D;border-radius:4px;overflow:hidden;">
+          <div style="background:#D29922;width:48px;min-width:48px;display:flex;align-items:center;justify-content:center;font-size:22px;font-weight:700;color:#fff;">4</div>
+          <div style="background:#161B22;flex:1;padding:12px 18px;">
+            <div style="font-size:18px;font-weight:700;color:#F0F6FC;">Igor Biletski <span style="color:#6E7681;font-size:14px;font-weight:400;"> · Head of Hardware Development</span></div>
+            <div style="margin-top:5px;font-size:12px;">
+              <span style="color:#D29922;font-weight:700;">P2</span>
+              <span style="color:#6E7681;"> · comma.ai · </span>
+              <span style="color:#F78166;">Compute ROI / Hardware Utilization</span>
+              <span style="color:#6E7681;"> · Contact 4 of 10</span>
+            </div><div style="margin-top:5px;font-size:12px;color:#8B949E;">📧 <a href="mailto:igor@comma.ai" style="color:#58A6FF;text-decoration:none;">igor@comma.ai</a><span style="font-size:10px;background:rgba(139,148,158,0.1);color:#6E7681;border:1px solid #30363D;border-radius:3px;padding:1px 5px;margin-left:6px;">inferred</span></div>
+          </div>
+        </div>
+        
+        <div style="border:1px solid #30363D;border-top:3px solid #F78166;border-radius:4px;margin-bottom:12px;overflow:hidden;">
+          <div style="background:#1a1a1a;padding:10px 16px;border-bottom:1px solid #30363D;">
+            <span style="color:#F78166;font-weight:700;font-size:13px;">Step 1&nbsp;&nbsp;</span>
+            <span style="color:#6E7681;font-size:13px;">Subject: </span>
+            <span style="color:#F0F6FC;font-weight:700;font-size:13px;">GPU utilization rate on your training cluster</span>
+          </div>
+          <div style="background:#161B22;padding:14px 18px;font-size:14px;color:#C9D1D9;font-family:Arial,sans-serif;line-height:1.7;"><div style="margin-bottom:0;line-height:1.6;">Igor —</div><div style="height:10px"></div><div style="margin-bottom:0;line-height:1.6;">Hardware teams that invest in custom silicon and GPU clusters often find that utilization rates — not raw compute — become the binding constraint. Idle GPUs cost money whether they're running a job or not.</div><div style="height:10px"></div><div style="margin-bottom:0;line-height:1.6;">Uber ran heterogeneous CPU+GPU workloads on Ray and cut compute costs by 50% through smarter job scheduling across the cluster. Same hardware budget, dramatically better throughput.</div><div style="height:10px"></div><div style="margin-bottom:0;line-height:1.6;">For a company operating a private datacenter at comma.ai's scale, even modest improvement in scheduling efficiency across training jobs, simulations, and data pipeline runs translates directly to either more experiments per dollar or deferred hardware capex.</div><div style="height:10px"></div><div style="margin-bottom:0;line-height:1.6;">Worth 20 minutes to look at the numbers?</div><div style="height:10px"></div><div style="margin-bottom:0;line-height:1.6;">Dylan</div></div>
+          
+        <div style="background:#0E1408;border-top:1px solid #30363D;padding:10px 16px;font-size:13px;color:#F78166;font-style:italic;">📌 Proof: Uber — 50% compute savings on heterogeneous CPU+GPU cluster via Ray scheduling</div>
+        </div>
+        <div style="border:1px solid #30363D;border-top:3px solid #F78166;border-radius:4px;margin-bottom:12px;overflow:hidden;">
+          <div style="background:#1a1a1a;padding:10px 16px;border-bottom:1px solid #30363D;">
+            <span style="color:#F78166;font-weight:700;font-size:13px;">Step 2&nbsp;&nbsp;</span>
+            <span style="color:#6E7681;font-size:13px;">Subject: </span>
+            <span style="color:#F0F6FC;font-weight:700;font-size:13px;">Re: what idle GPUs actually cost</span>
+          </div>
+          <div style="background:#161B22;padding:14px 18px;font-size:14px;color:#C9D1D9;font-family:Arial,sans-serif;line-height:1.7;"><div style="margin-bottom:0;line-height:1.6;">Igor —</div><div style="height:10px"></div><div style="margin-bottom:0;line-height:1.6;">Following up. The core issue on heterogeneous clusters is that CPU-bound data preprocessing blocks GPU training jobs — GPUs sit idle waiting for data. At scale, that idle time is significant.</div><div style="height:10px"></div><div style="margin-bottom:0;line-height:1.6;">Zoox (Amazon AV division) runs thousands of parallel simulation rollouts on Ray — distributed across a mixed cluster — with full fault tolerance and automatic recovery. The same architecture that handles large simulation workloads also handles training pipeline scheduling.</div><div style="height:10px"></div><div style="margin-bottom:0;line-height:1.6;">For a hardware lead thinking about utilization across the full compute stack — training, simulation, data processing — the efficiency gains tend to stack.</div><div style="height:10px"></div><div style="margin-bottom:0;line-height:1.6;">Happy to walk through the architecture. 20 minutes?</div><div style="height:10px"></div><div style="margin-bottom:0;line-height:1.6;">Dylan</div></div>
+          
+        <div style="background:#0E1408;border-top:1px solid #30363D;padding:10px 16px;font-size:13px;color:#F78166;font-style:italic;">📌 Proof: Zoox — 1,000s of parallel AV sim rollouts on Ray, mixed cluster, fault tolerant</div>
+        </div>
+        <div style="border:1px solid #30363D;border-top:3px solid #F78166;border-radius:4px;margin-bottom:12px;overflow:hidden;">
+          <div style="background:#1a1a1a;padding:10px 16px;border-bottom:1px solid #30363D;">
+            <span style="color:#F78166;font-weight:700;font-size:13px;">Step 3&nbsp;&nbsp;</span>
+            <span style="color:#6E7681;font-size:13px;">Subject: </span>
+            <span style="color:#F0F6FC;font-weight:700;font-size:13px;">The full compute stack — simulation to training</span>
+          </div>
+          <div style="background:#161B22;padding:14px 18px;font-size:14px;color:#C9D1D9;font-family:Arial,sans-serif;line-height:1.7;"><div style="margin-bottom:0;line-height:1.6;">Igor —</div><div style="height:10px"></div><div style="margin-bottom:0;line-height:1.6;">One thing worth noting: the same Ray cluster that handles distributed training also handles AV simulation at scale.</div><div style="height:10px"></div><div style="margin-bottom:0;line-height:1.6;">Zoox runs thousands of simultaneous scenario rollouts — the kind of parallel simulation that validates model behavior before deployment. That workload runs on the same Ray infrastructure as training and data pipelines. One cluster, multiple workload types, prioritized scheduling.</div><div style="height:10px"></div><div style="margin-bottom:0;line-height:1.6;">For a hardware lead responsible for maximizing return on the datacenter investment, consolidating simulation and training onto a single scheduling layer tends to reduce both cost and operational complexity.</div><div style="height:10px"></div><div style="margin-bottom:0;line-height:1.6;">Would a technical deep-dive be useful?</div><div style="height:10px"></div><div style="margin-bottom:0;line-height:1.6;">Dylan</div></div>
+          
+        <div style="background:#0E1408;border-top:1px solid #30363D;padding:10px 16px;font-size:13px;color:#F78166;font-style:italic;">📌 Proof: Zoox — simulation + training on same Ray cluster, Uber 50% savings on scheduling efficiency</div>
+        </div>
+        <div style="border:1px solid #30363D;border-top:3px solid #F78166;border-radius:4px;margin-bottom:12px;overflow:hidden;">
+          <div style="background:#1a1a1a;padding:10px 16px;border-bottom:1px solid #30363D;">
+            <span style="color:#F78166;font-weight:700;font-size:13px;">Step 4&nbsp;&nbsp;</span>
+            <span style="color:#6E7681;font-size:13px;">Subject: </span>
+            <span style="color:#F0F6FC;font-weight:700;font-size:13px;">Last note — compute ROI</span>
+          </div>
+          <div style="background:#161B22;padding:14px 18px;font-size:14px;color:#C9D1D9;font-family:Arial,sans-serif;line-height:1.7;"><div style="margin-bottom:0;line-height:1.6;">Igor —</div><div style="height:10px"></div><div style="margin-bottom:0;line-height:1.6;">Last note from me.</div><div style="height:10px"></div><div style="margin-bottom:0;line-height:1.6;">Uber: 50% compute savings via scheduling efficiency on the existing cluster. Zoox: thousands of parallel AV simulation rollouts on Ray infrastructure. Blue River: AV training pipeline 60% faster on same hardware.</div><div style="height:10px"></div><div style="margin-bottom:0;line-height:1.6;">All of this applies to teams running private datacenter infrastructure for AV development. If hardware utilization or compute ROI comes up as a priority — I'd welcome a conversation.</div><div style="height:10px"></div><div style="margin-bottom:0;line-height:1.6;">Dylan</div></div>
+          
+        <div style="background:#0E1408;border-top:1px solid #30363D;padding:10px 16px;font-size:13px;color:#F78166;font-style:italic;">📌 Proof: Uber (50% compute savings) + Zoox (parallel AV sim) + Blue River (60% faster pipeline)</div>
+        </div>
+      </div><hr style="border:none;border-top:1px solid #30363D;margin:24px 0;">
+      <div id="contact-5" style="scroll-margin-top:60px;">
+        <div style="display:flex;align-items:stretch;margin-bottom:14px;border:1px solid #30363D;border-radius:4px;overflow:hidden;">
+          <div style="background:#D29922;width:48px;min-width:48px;display:flex;align-items:center;justify-content:center;font-size:22px;font-weight:700;color:#fff;">5</div>
+          <div style="background:#161B22;flex:1;padding:12px 18px;">
+            <div style="font-size:18px;font-weight:700;color:#F0F6FC;">Julie Hendy <span style="color:#6E7681;font-size:14px;font-weight:400;"> · VP Operations</span></div>
+            <div style="margin-top:5px;font-size:12px;">
+              <span style="color:#D29922;font-weight:700;">P2</span>
+              <span style="color:#6E7681;"> · comma.ai · </span>
+              <span style="color:#F78166;">Operational Efficiency / Team Bandwidth</span>
+              <span style="color:#6E7681;"> · Contact 5 of 10</span>
+            </div><div style="margin-top:5px;font-size:12px;color:#8B949E;">📧 <a href="mailto:julie@comma.ai" style="color:#58A6FF;text-decoration:none;">julie@comma.ai</a><span style="font-size:10px;background:rgba(139,148,158,0.1);color:#6E7681;border:1px solid #30363D;border-radius:3px;padding:1px 5px;margin-left:6px;">inferred</span></div>
+          </div>
+        </div>
+        
+        <div style="border:1px solid #30363D;border-top:3px solid #F78166;border-radius:4px;margin-bottom:12px;overflow:hidden;">
+          <div style="background:#1a1a1a;padding:10px 16px;border-bottom:1px solid #30363D;">
+            <span style="color:#F78166;font-weight:700;font-size:13px;">Step 1&nbsp;&nbsp;</span>
+            <span style="color:#6E7681;font-size:13px;">Subject: </span>
+            <span style="color:#F0F6FC;font-weight:700;font-size:13px;">Infrastructure ops at a 30-person hardware company</span>
+          </div>
+          <div style="background:#161B22;padding:14px 18px;font-size:14px;color:#C9D1D9;font-family:Arial,sans-serif;line-height:1.7;"><div style="margin-bottom:0;line-height:1.6;">Julie —</div><div style="height:10px"></div><div style="margin-bottom:0;line-height:1.6;">Running a private GPU cluster at a 30-person company means infrastructure operations fall on a small team. At comma.ai's scale, that's an unusually large fixed cost per headcount.</div><div style="height:10px"></div><div style="margin-bottom:0;line-height:1.6;">Physical Intelligence — a comparable physical AI company — shifted 16+ engineers off infrastructure management and back onto model development by moving to Anyscale's managed Ray. Same cluster, same data, different orchestration layer.</div><div style="height:10px"></div><div style="margin-bottom:0;line-height:1.6;">For a VP Ops thinking about team bandwidth and operational leverage, the question is what percentage of your engineering headcount is doing infrastructure work that a managed service could absorb.</div><div style="height:10px"></div><div style="margin-bottom:0;line-height:1.6;">Worth a 20-minute conversation?</div><div style="height:10px"></div><div style="margin-bottom:0;line-height:1.6;">Dylan</div></div>
+          
+        <div style="background:#0E1408;border-top:1px solid #30363D;padding:10px 16px;font-size:13px;color:#F78166;font-style:italic;">📌 Proof: Physical Intelligence — 16+ engineers freed from infra, 2× research iteration</div>
+        </div>
+        <div style="border:1px solid #30363D;border-top:3px solid #F78166;border-radius:4px;margin-bottom:12px;overflow:hidden;">
+          <div style="background:#1a1a1a;padding:10px 16px;border-bottom:1px solid #30363D;">
+            <span style="color:#F78166;font-weight:700;font-size:13px;">Step 2&nbsp;&nbsp;</span>
+            <span style="color:#6E7681;font-size:13px;">Subject: </span>
+            <span style="color:#F0F6FC;font-weight:700;font-size:13px;">Re: the operational overhead of ML pipelines</span>
+          </div>
+          <div style="background:#161B22;padding:14px 18px;font-size:14px;color:#C9D1D9;font-family:Arial,sans-serif;line-height:1.7;"><div style="margin-bottom:0;line-height:1.6;">Julie —</div><div style="height:10px"></div><div style="margin-bottom:0;line-height:1.6;">Following up. At companies with large ML training infrastructure, a significant portion of operational load comes from managing job queues, node failures, scheduling conflicts, and cluster maintenance — work that doesn't directly produce model improvements.</div><div style="height:10px"></div><div style="margin-bottom:0;line-height:1.6;">Blue River Technology reduced AV training pipeline runtime from 24 hours to 9.5 hours using Anyscale — but the operational benefit was as significant as the speed gain: fewer manual interventions, fewer failed jobs requiring restart, less engineer time per training run.</div><div style="height:10px"></div><div style="margin-bottom:0;line-height:1.6;">For a VP Ops managing a complex compute environment, reducing the operational surface area of ML infrastructure has direct team bandwidth implications.</div><div style="height:10px"></div><div style="margin-bottom:0;line-height:1.6;">Happy to walk through the specifics. 20 minutes?</div><div style="height:10px"></div><div style="margin-bottom:0;line-height:1.6;">Dylan</div></div>
+          
+        <div style="background:#0E1408;border-top:1px solid #30363D;padding:10px 16px;font-size:13px;color:#F78166;font-style:italic;">📌 Proof: Blue River — 24h → 9.5h pipeline, reduced manual interventions and failed job restarts</div>
+        </div>
+        <div style="border:1px solid #30363D;border-top:3px solid #F78166;border-radius:4px;margin-bottom:12px;overflow:hidden;">
+          <div style="background:#1a1a1a;padding:10px 16px;border-bottom:1px solid #30363D;">
+            <span style="color:#F78166;font-weight:700;font-size:13px;">Step 3&nbsp;&nbsp;</span>
+            <span style="color:#6E7681;font-size:13px;">Subject: </span>
+            <span style="color:#F0F6FC;font-weight:700;font-size:13px;">Reducing cluster ops overhead</span>
+          </div>
+          <div style="background:#161B22;padding:14px 18px;font-size:14px;color:#C9D1D9;font-family:Arial,sans-serif;line-height:1.7;"><div style="margin-bottom:0;line-height:1.6;">Julie —</div><div style="height:10px"></div><div style="margin-bottom:0;line-height:1.6;">One thing worth clarifying: Anyscale managed Ray runs on your existing infrastructure. There's no hardware migration, no vendor lock-in on compute.</div><div style="height:10px"></div><div style="margin-bottom:0;line-height:1.6;">What it replaces is the operational layer — job scheduling, node management, fault recovery, and resource allocation. These are tasks that currently require engineering time and expertise. The managed layer handles them automatically.</div><div style="height:10px"></div><div style="margin-bottom:0;line-height:1.6;">For a VP Ops balancing hardware investment with operational headcount, it's a way to maintain the economics of owning your infrastructure while reducing the ops burden of running it.</div><div style="height:10px"></div><div style="margin-bottom:0;line-height:1.6;">Would it be useful to see how that maps to your current operational structure?</div><div style="height:10px"></div><div style="margin-bottom:0;line-height:1.6;">Dylan</div></div>
+          
+        <div style="background:#0E1408;border-top:1px solid #30363D;padding:10px 16px;font-size:13px;color:#F78166;font-style:italic;">📌 Proof: Physical Intelligence — existing hardware retained, ops burden reduced significantly</div>
+        </div>
+        <div style="border:1px solid #30363D;border-top:3px solid #F78166;border-radius:4px;margin-bottom:12px;overflow:hidden;">
+          <div style="background:#1a1a1a;padding:10px 16px;border-bottom:1px solid #30363D;">
+            <span style="color:#F78166;font-weight:700;font-size:13px;">Step 4&nbsp;&nbsp;</span>
+            <span style="color:#6E7681;font-size:13px;">Subject: </span>
+            <span style="color:#F0F6FC;font-weight:700;font-size:13px;">Last note — operations efficiency</span>
+          </div>
+          <div style="background:#161B22;padding:14px 18px;font-size:14px;color:#C9D1D9;font-family:Arial,sans-serif;line-height:1.7;"><div style="margin-bottom:0;line-height:1.6;">Julie —</div><div style="height:10px"></div><div style="margin-bottom:0;line-height:1.6;">Last one from me.</div><div style="height:10px"></div><div style="margin-bottom:0;line-height:1.6;">Physical Intelligence freed 16+ engineers from infrastructure work while retaining their existing hardware investment. Blue River cut 60% of pipeline runtime and associated manual intervention overhead.</div><div style="height:10px"></div><div style="margin-bottom:0;line-height:1.6;">If operational efficiency of the ML infrastructure stack becomes a priority — I'd be glad to map it to comma.ai's specific environment.</div><div style="height:10px"></div><div style="margin-bottom:0;line-height:1.6;">Feel free to reach out whenever the timing is right.</div><div style="height:10px"></div><div style="margin-bottom:0;line-height:1.6;">Dylan</div></div>
+          
+        <div style="background:#0E1408;border-top:1px solid #30363D;padding:10px 16px;font-size:13px;color:#F78166;font-style:italic;">📌 Proof: Physical Intelligence (16+ freed) + Blue River (60% runtime reduction, less manual ops)</div>
+        </div>
+      </div><hr style="border:none;border-top:1px solid #30363D;margin:24px 0;">
+      <div id="contact-6" style="scroll-margin-top:60px;">
+        <div style="display:flex;align-items:stretch;margin-bottom:14px;border:1px solid #30363D;border-radius:4px;overflow:hidden;">
+          <div style="background:#58A6FF;width:48px;min-width:48px;display:flex;align-items:center;justify-content:center;font-size:22px;font-weight:700;color:#fff;">6</div>
+          <div style="background:#161B22;flex:1;padding:12px 18px;">
+            <div style="font-size:18px;font-weight:700;color:#F0F6FC;">Mitchell Goff <span style="color:#6E7681;font-size:14px;font-weight:400;"> · Machine Learning Engineer</span></div>
+            <div style="margin-top:5px;font-size:12px;">
+              <span style="color:#58A6FF;font-weight:700;">P3</span>
+              <span style="color:#6E7681;"> · comma.ai · </span>
+              <span style="color:#F78166;">ML Developer Velocity</span>
+              <span style="color:#6E7681;"> · Contact 6 of 10</span>
+            </div><div style="margin-top:5px;font-size:12px;color:#8B949E;">📧 <a href="mailto:mitchell@comma.ai" style="color:#58A6FF;text-decoration:none;">mitchell@comma.ai</a><span style="font-size:10px;background:rgba(139,148,158,0.1);color:#6E7681;border:1px solid #30363D;border-radius:3px;padding:1px 5px;margin-left:6px;">inferred</span></div>
+          </div>
+        </div>
+        
+        <div style="border:1px solid #30363D;border-top:3px solid #F78166;border-radius:4px;margin-bottom:12px;overflow:hidden;">
+          <div style="background:#1a1a1a;padding:10px 16px;border-bottom:1px solid #30363D;">
+            <span style="color:#F78166;font-weight:700;font-size:13px;">Step 1&nbsp;&nbsp;</span>
+            <span style="color:#6E7681;font-size:13px;">Subject: </span>
+            <span style="color:#F0F6FC;font-weight:700;font-size:13px;">Faster experiments without the infra work</span>
+          </div>
+          <div style="background:#161B22;padding:14px 18px;font-size:14px;color:#C9D1D9;font-family:Arial,sans-serif;line-height:1.7;"><div style="margin-bottom:0;line-height:1.6;">Mitchell —</div><div style="height:10px"></div><div style="margin-bottom:0;line-height:1.6;">For ML engineers working on large-scale AV model development, one of the quieter productivity drains is the overhead between experiment runs — waiting on preprocessing, managing job queues, dealing with node failures mid-training.</div><div style="height:10px"></div><div style="margin-bottom:0;line-height:1.6;">Blue River Technology cut their AV image/video training pipeline from 24 hours to 9.5 hours on Anyscale by parallelizing the preprocessing stage. Same code structure, Python-native, no infrastructure changes. The GPU started getting data faster and stopped waiting.</div><div style="height:10px"></div><div style="margin-bottom:0;line-height:1.6;">For an ML engineer who wants to run more experiments in the same week, that's the kind of change that compounds.</div><div style="height:10px"></div><div style="margin-bottom:0;line-height:1.6;">Worth a quick conversation?</div><div style="height:10px"></div><div style="margin-bottom:0;line-height:1.6;">Dylan</div></div>
+          
+        <div style="background:#0E1408;border-top:1px solid #30363D;padding:10px 16px;font-size:13px;color:#F78166;font-style:italic;">📌 Proof: Blue River — AV pipeline 24h → 9.5h, Python parallelization, faster data-to-GPU flow</div>
+        </div>
+        <div style="border:1px solid #30363D;border-top:3px solid #F78166;border-radius:4px;margin-bottom:12px;overflow:hidden;">
+          <div style="background:#1a1a1a;padding:10px 16px;border-bottom:1px solid #30363D;">
+            <span style="color:#F78166;font-weight:700;font-size:13px;">Step 2&nbsp;&nbsp;</span>
+            <span style="color:#6E7681;font-size:13px;">Subject: </span>
+            <span style="color:#F0F6FC;font-weight:700;font-size:13px;">Re: what distributed training actually feels like</span>
+          </div>
+          <div style="background:#161B22;padding:14px 18px;font-size:14px;color:#C9D1D9;font-family:Arial,sans-serif;line-height:1.7;"><div style="margin-bottom:0;line-height:1.6;">Mitchell —</div><div style="height:10px"></div><div style="margin-bottom:0;line-height:1.6;">Following up. Physical Intelligence uses Anyscale for their full ML pipeline — data ingestion, distributed training, hyperparameter search. Small team, terabyte-scale sensor data. The feedback from their engineers was that the framework felt like writing regular Python — the distribution handled automatically.</div><div style="height:10px"></div><div style="margin-bottom:0;line-height:1.6;">For an ML engineer working on openpilot, the appeal tends to be less about infrastructure and more about how it changes the experimentation loop. Ray Train scales to multi-GPU without manual process management. Ray Data pipelines distribute preprocessing without writing custom multiprocessing code.</div><div style="height:10px"></div><div style="margin-bottom:0;line-height:1.6;">Happy to show what a typical training workflow looks like end-to-end. 20 minutes?</div><div style="height:10px"></div><div style="margin-bottom:0;line-height:1.6;">Dylan</div></div>
+          
+        <div style="background:#0E1408;border-top:1px solid #30363D;padding:10px 16px;font-size:13px;color:#F78166;font-style:italic;">📌 Proof: Physical Intelligence — Python-native distributed training, small team, full pipeline on Anyscale</div>
+        </div>
+        <div style="border:1px solid #30363D;border-top:3px solid #F78166;border-radius:4px;margin-bottom:12px;overflow:hidden;">
+          <div style="background:#1a1a1a;padding:10px 16px;border-bottom:1px solid #30363D;">
+            <span style="color:#F78166;font-weight:700;font-size:13px;">Step 3&nbsp;&nbsp;</span>
+            <span style="color:#6E7681;font-size:13px;">Subject: </span>
+            <span style="color:#F0F6FC;font-weight:700;font-size:13px;">Distributed hyperparameter search</span>
+          </div>
+          <div style="background:#161B22;padding:14px 18px;font-size:14px;color:#C9D1D9;font-family:Arial,sans-serif;line-height:1.7;"><div style="margin-bottom:0;line-height:1.6;">Mitchell —</div><div style="height:10px"></div><div style="margin-bottom:0;line-height:1.6;">One specific workflow worth highlighting: distributed hyperparameter search with Ray Tune.</div><div style="height:10px"></div><div style="margin-bottom:0;line-height:1.6;">Instead of running trials sequentially or managing multiple jobs manually, Ray Tune schedules them across your cluster automatically — with ASHA early stopping, fault tolerance, and checkpointing built in. Run 50 trials in the time it takes to run 5 sequentially.</div><div style="height:10px"></div><div style="margin-bottom:0;line-height:1.6;">Uber used this class of distributed search on heterogeneous CPU+GPU clusters and cut compute costs by 50% through better scheduling efficiency. The same infrastructure handles training and search workloads without separate tooling.</div><div style="height:10px"></div><div style="margin-bottom:0;line-height:1.6;">Would a walkthrough of the hyperparameter search workflow be useful?</div><div style="height:10px"></div><div style="margin-bottom:0;line-height:1.6;">Dylan</div></div>
+          
+        <div style="background:#0E1408;border-top:1px solid #30363D;padding:10px 16px;font-size:13px;color:#F78166;font-style:italic;">📌 Proof: Uber — 50% compute savings, distributed search + training on same Ray infrastructure</div>
+        </div>
+        <div style="border:1px solid #30363D;border-top:3px solid #F78166;border-radius:4px;margin-bottom:12px;overflow:hidden;">
+          <div style="background:#1a1a1a;padding:10px 16px;border-bottom:1px solid #30363D;">
+            <span style="color:#F78166;font-weight:700;font-size:13px;">Step 4&nbsp;&nbsp;</span>
+            <span style="color:#6E7681;font-size:13px;">Subject: </span>
+            <span style="color:#F0F6FC;font-weight:700;font-size:13px;">Last note — experiment velocity</span>
+          </div>
+          <div style="background:#161B22;padding:14px 18px;font-size:14px;color:#C9D1D9;font-family:Arial,sans-serif;line-height:1.7;"><div style="margin-bottom:0;line-height:1.6;">Mitchell —</div><div style="height:10px"></div><div style="margin-bottom:0;line-height:1.6;">Last one from me.</div><div style="height:10px"></div><div style="margin-bottom:0;line-height:1.6;">Blue River: 2.5× faster AV training pipeline. Physical Intelligence: 2× faster research iteration with a similarly-scaled team. All Python-native, all on existing compute.</div><div style="height:10px"></div><div style="margin-bottom:0;line-height:1.6;">If running more experiments per week without adding infrastructure overhead is on your list — I'd welcome a conversation.</div><div style="height:10px"></div><div style="margin-bottom:0;line-height:1.6;">Dylan</div></div>
+          
+        <div style="background:#0E1408;border-top:1px solid #30363D;padding:10px 16px;font-size:13px;color:#F78166;font-style:italic;">📌 Proof: Blue River (2.5× pipeline) + Physical Intelligence (2× iteration, small ML team)</div>
+        </div>
+      </div><hr style="border:none;border-top:1px solid #30363D;margin:24px 0;">
+      <div id="contact-7" style="scroll-margin-top:60px;">
+        <div style="display:flex;align-items:stretch;margin-bottom:14px;border:1px solid #30363D;border-radius:4px;overflow:hidden;">
+          <div style="background:#58A6FF;width:48px;min-width:48px;display:flex;align-items:center;justify-content:center;font-size:22px;font-weight:700;color:#fff;">7</div>
+          <div style="background:#161B22;flex:1;padding:12px 18px;">
+            <div style="font-size:18px;font-weight:700;color:#F0F6FC;">Weixing Zhang <span style="color:#6E7681;font-size:14px;font-weight:400;"> · Machine Learning Engineer</span></div>
+            <div style="margin-top:5px;font-size:12px;">
+              <span style="color:#58A6FF;font-weight:700;">P3</span>
+              <span style="color:#6E7681;"> · comma.ai · </span>
+              <span style="color:#F78166;">Data Pipeline / Distributed Processing</span>
+              <span style="color:#6E7681;"> · Contact 7 of 10</span>
+            </div><div style="margin-top:5px;font-size:12px;color:#8B949E;">📧 <a href="mailto:weixing@comma.ai" style="color:#58A6FF;text-decoration:none;">weixing@comma.ai</a><span style="font-size:10px;background:rgba(139,148,158,0.1);color:#6E7681;border:1px solid #30363D;border-radius:3px;padding:1px 5px;margin-left:6px;">inferred</span></div>
+          </div>
+        </div>
+        
+        <div style="border:1px solid #30363D;border-top:3px solid #F78166;border-radius:4px;margin-bottom:12px;overflow:hidden;">
+          <div style="background:#1a1a1a;padding:10px 16px;border-bottom:1px solid #30363D;">
+            <span style="color:#F78166;font-weight:700;font-size:13px;">Step 1&nbsp;&nbsp;</span>
+            <span style="color:#6E7681;font-size:13px;">Subject: </span>
+            <span style="color:#F0F6FC;font-weight:700;font-size:13px;">Distributed data pipelines for AV training</span>
+          </div>
+          <div style="background:#161B22;padding:14px 18px;font-size:14px;color:#C9D1D9;font-family:Arial,sans-serif;line-height:1.7;"><div style="margin-bottom:0;line-height:1.6;">Weixing —</div><div style="height:10px"></div><div style="margin-bottom:0;line-height:1.6;">AV training pipelines at scale tend to have the same structural bottleneck: the data preprocessing and loading stage can't keep pace with GPU training throughput. The GPU waits. Cycle time suffers.</div><div style="height:10px"></div><div style="margin-bottom:0;line-height:1.6;">Blue River Technology addressed this directly using Ray Data to distribute preprocessing across workers. Their AV image/video pipeline dropped from 24 hours to 9.5 hours — 2.5× faster — with no hardware changes and minimal code changes to the training pipeline itself.</div><div style="height:10px"></div><div style="margin-bottom:0;line-height:1.6;">For an ML engineer working on openpilot's data-to-model pipeline, that's the class of improvement Anyscale is built for.</div><div style="height:10px"></div><div style="margin-bottom:0;line-height:1.6;">Worth 20 minutes?</div><div style="height:10px"></div><div style="margin-bottom:0;line-height:1.6;">Dylan</div></div>
+          
+        <div style="background:#0E1408;border-top:1px solid #30363D;padding:10px 16px;font-size:13px;color:#F78166;font-style:italic;">📌 Proof: Blue River — 24h → 9.5h AV pipeline via Ray Data distributed preprocessing</div>
+        </div>
+        <div style="border:1px solid #30363D;border-top:3px solid #F78166;border-radius:4px;margin-bottom:12px;overflow:hidden;">
+          <div style="background:#1a1a1a;padding:10px 16px;border-bottom:1px solid #30363D;">
+            <span style="color:#F78166;font-weight:700;font-size:13px;">Step 2&nbsp;&nbsp;</span>
+            <span style="color:#6E7681;font-size:13px;">Subject: </span>
+            <span style="color:#F0F6FC;font-weight:700;font-size:13px;">Re: scaling data ingestion as the fleet grows</span>
+          </div>
+          <div style="background:#161B22;padding:14px 18px;font-size:14px;color:#C9D1D9;font-family:Arial,sans-serif;line-height:1.7;"><div style="margin-bottom:0;line-height:1.6;">Weixing —</div><div style="height:10px"></div><div style="margin-bottom:0;line-height:1.6;">Following up. As the openpilot fleet grows, the volume of driving data that needs to be processed, filtered, and featurized before training grows with it. That's a distributed systems problem at its core.</div><div style="height:10px"></div><div style="margin-bottom:0;line-height:1.6;">Physical Intelligence processes terabytes of robot sensor data daily using Anyscale — ingestion, preprocessing, and training in a single unified pipeline. Their engineers write standard Python, Ray handles the distribution. 2× faster research iteration was one result; 16+ engineers freed from managing the data infrastructure was another.</div><div style="height:10px"></div><div style="margin-bottom:0;line-height:1.6;">For an ML engineer on a small team, having the data pipeline scale automatically without custom infrastructure work is a meaningful productivity lever.</div><div style="height:10px"></div><div style="margin-bottom:0;line-height:1.6;">20 minutes to walk through the architecture?</div><div style="height:10px"></div><div style="margin-bottom:0;line-height:1.6;">Dylan</div></div>
+          
+        <div style="background:#0E1408;border-top:1px solid #30363D;padding:10px 16px;font-size:13px;color:#F78166;font-style:italic;">📌 Proof: Physical Intelligence — TB-scale sensor data, unified pipeline on Anyscale, Python-native</div>
+        </div>
+        <div style="border:1px solid #30363D;border-top:3px solid #F78166;border-radius:4px;margin-bottom:12px;overflow:hidden;">
+          <div style="background:#1a1a1a;padding:10px 16px;border-bottom:1px solid #30363D;">
+            <span style="color:#F78166;font-weight:700;font-size:13px;">Step 3&nbsp;&nbsp;</span>
+            <span style="color:#6E7681;font-size:13px;">Subject: </span>
+            <span style="color:#F0F6FC;font-weight:700;font-size:13px;">Fault tolerance in long-running pipelines</span>
+          </div>
+          <div style="background:#161B22;padding:14px 18px;font-size:14px;color:#C9D1D9;font-family:Arial,sans-serif;line-height:1.7;"><div style="margin-bottom:0;line-height:1.6;">Weixing —</div><div style="height:10px"></div><div style="margin-bottom:0;line-height:1.6;">One thing that tends to matter on long data pipelines: fault tolerance. A multi-hour preprocessing run that fails 80% through and requires a full restart is expensive — in time and in engineering attention.</div><div style="height:10px"></div><div style="margin-bottom:0;line-height:1.6;">Ray Data and Ray Train include automatic checkpointing and task-level fault tolerance. A node failure mid-pipeline retries the affected tasks automatically. No manual restart required.</div><div style="height:10px"></div><div style="margin-bottom:0;line-height:1.6;">Zoox (Amazon's AV division) runs thousands of parallel simulation rollouts with full fault recovery on Ray. The same fault-tolerance architecture that handles simulation at that scale applies directly to large-scale training data pipelines.</div><div style="height:10px"></div><div style="margin-bottom:0;line-height:1.6;">Would a technical walkthrough of fault-tolerant pipeline design be useful?</div><div style="height:10px"></div><div style="margin-bottom:0;line-height:1.6;">Dylan</div></div>
+          
+        <div style="background:#0E1408;border-top:1px solid #30363D;padding:10px 16px;font-size:13px;color:#F78166;font-style:italic;">📌 Proof: Zoox — 1,000s of parallel AV rollouts on Ray with automatic fault recovery</div>
+        </div>
+        <div style="border:1px solid #30363D;border-top:3px solid #F78166;border-radius:4px;margin-bottom:12px;overflow:hidden;">
+          <div style="background:#1a1a1a;padding:10px 16px;border-bottom:1px solid #30363D;">
+            <span style="color:#F78166;font-weight:700;font-size:13px;">Step 4&nbsp;&nbsp;</span>
+            <span style="color:#6E7681;font-size:13px;">Subject: </span>
+            <span style="color:#F0F6FC;font-weight:700;font-size:13px;">Last note — data pipeline scaling</span>
+          </div>
+          <div style="background:#161B22;padding:14px 18px;font-size:14px;color:#C9D1D9;font-family:Arial,sans-serif;line-height:1.7;"><div style="margin-bottom:0;line-height:1.6;">Weixing —</div><div style="height:10px"></div><div style="margin-bottom:0;line-height:1.6;">Last note from me.</div><div style="height:10px"></div><div style="margin-bottom:0;line-height:1.6;">Blue River: AV data pipeline 2.5× faster via distributed preprocessing. Physical Intelligence: terabyte-scale sensor data pipelines Python-native on Anyscale. Zoox: fault-tolerant parallel AV workloads at scale.</div><div style="height:10px"></div><div style="margin-bottom:0;line-height:1.6;">All applicable to the data engineering side of AV model development. If pipeline scalability or fault tolerance come up as priorities — I'd welcome a conversation.</div><div style="height:10px"></div><div style="margin-bottom:0;line-height:1.6;">Dylan</div></div>
+          
+        <div style="background:#0E1408;border-top:1px solid #30363D;padding:10px 16px;font-size:13px;color:#F78166;font-style:italic;">📌 Proof: Blue River (2.5×) + Physical Intelligence (TB-scale) + Zoox (fault-tolerant parallel workloads)</div>
+        </div>
+      </div><hr style="border:none;border-top:1px solid #30363D;margin:24px 0;">
+      <div id="contact-8" style="scroll-margin-top:60px;">
+        <div style="display:flex;align-items:stretch;margin-bottom:14px;border:1px solid #30363D;border-radius:4px;overflow:hidden;">
+          <div style="background:#58A6FF;width:48px;min-width:48px;display:flex;align-items:center;justify-content:center;font-size:22px;font-weight:700;color:#fff;">8</div>
+          <div style="background:#161B22;flex:1;padding:12px 18px;">
+            <div style="font-size:18px;font-weight:700;color:#F0F6FC;">Shane Smiskol <span style="color:#6E7681;font-size:14px;font-weight:400;"> · openpilot Engineer</span></div>
+            <div style="margin-top:5px;font-size:12px;">
+              <span style="color:#58A6FF;font-weight:700;">P3</span>
+              <span style="color:#6E7681;"> · comma.ai · </span>
+              <span style="color:#F78166;">openpilot Pipeline / Regression Testing</span>
+              <span style="color:#6E7681;"> · Contact 8 of 10</span>
+            </div><div style="margin-top:5px;font-size:12px;color:#8B949E;">📧 <a href="mailto:shane@comma.ai" style="color:#58A6FF;text-decoration:none;">shane@comma.ai</a><span style="font-size:10px;background:rgba(139,148,158,0.1);color:#6E7681;border:1px solid #30363D;border-radius:3px;padding:1px 5px;margin-left:6px;">inferred</span></div>
+          </div>
+        </div>
+        
+        <div style="border:1px solid #30363D;border-top:3px solid #F78166;border-radius:4px;margin-bottom:12px;overflow:hidden;">
+          <div style="background:#1a1a1a;padding:10px 16px;border-bottom:1px solid #30363D;">
+            <span style="color:#F78166;font-weight:700;font-size:13px;">Step 1&nbsp;&nbsp;</span>
+            <span style="color:#6E7681;font-size:13px;">Subject: </span>
+            <span style="color:#F0F6FC;font-weight:700;font-size:13px;">openpilot regression pipeline speed</span>
+          </div>
+          <div style="background:#161B22;padding:14px 18px;font-size:14px;color:#C9D1D9;font-family:Arial,sans-serif;line-height:1.7;"><div style="margin-bottom:0;line-height:1.6;">Shane —</div><div style="height:10px"></div><div style="margin-bottom:0;line-height:1.6;">For teams maintaining a large open-source AV codebase like openpilot, regression testing and validation pipelines are a constant throughput constraint. More code changes, more simulation scenarios to validate, same engineer bandwidth to run them.</div><div style="height:10px"></div><div style="margin-bottom:0;line-height:1.6;">Blue River Technology cut their AV image/video processing pipeline from 24 hours to 9.5 hours using Anyscale — parallel workers handling preprocessing and inference jobs simultaneously. The same pattern applies to running parallel openpilot simulation scenarios.</div><div style="height:10px"></div><div style="margin-bottom:0;line-height:1.6;">Faster regression cycles mean more confident merges and faster release cadence. Worth 15 minutes?</div><div style="height:10px"></div><div style="margin-bottom:0;line-height:1.6;">Dylan</div></div>
+          
+        <div style="background:#0E1408;border-top:1px solid #30363D;padding:10px 16px;font-size:13px;color:#F78166;font-style:italic;">📌 Proof: Blue River — AV pipeline 24h → 9.5h, parallel workers on same hardware</div>
+        </div>
+        <div style="border:1px solid #30363D;border-top:3px solid #F78166;border-radius:4px;margin-bottom:12px;overflow:hidden;">
+          <div style="background:#1a1a1a;padding:10px 16px;border-bottom:1px solid #30363D;">
+            <span style="color:#F78166;font-weight:700;font-size:13px;">Step 2&nbsp;&nbsp;</span>
+            <span style="color:#6E7681;font-size:13px;">Subject: </span>
+            <span style="color:#F0F6FC;font-weight:700;font-size:13px;">Re: parallel simulation at openpilot scale</span>
+          </div>
+          <div style="background:#161B22;padding:14px 18px;font-size:14px;color:#C9D1D9;font-family:Arial,sans-serif;line-height:1.7;"><div style="margin-bottom:0;line-height:1.6;">Shane —</div><div style="height:10px"></div><div style="margin-bottom:0;line-height:1.6;">Following up. Zoox runs thousands of parallel AV simulation rollouts on Ray — different scenarios, different weather conditions, different edge cases — with automatic fault recovery if any rollout fails.</div><div style="height:10px"></div><div style="margin-bottom:0;line-height:1.6;">For openpilot's testing infrastructure, the same architecture allows you to run a large battery of route simulations in parallel rather than sequentially. A change that would take hours to validate across diverse scenarios could run in minutes across a distributed cluster.</div><div style="height:10px"></div><div style="margin-bottom:0;line-height:1.6;">That kind of parallelism is available on your existing infrastructure with minimal code changes to the simulation runner.</div><div style="height:10px"></div><div style="margin-bottom:0;line-height:1.6;">Worth a quick walkthrough?</div><div style="height:10px"></div><div style="margin-bottom:0;line-height:1.6;">Dylan</div></div>
+          
+        <div style="background:#0E1408;border-top:1px solid #30363D;padding:10px 16px;font-size:13px;color:#F78166;font-style:italic;">📌 Proof: Zoox — 1,000s of parallel AV simulation scenarios on Ray, fault tolerant</div>
+        </div>
+        <div style="border:1px solid #30363D;border-top:3px solid #F78166;border-radius:4px;margin-bottom:12px;overflow:hidden;">
+          <div style="background:#1a1a1a;padding:10px 16px;border-bottom:1px solid #30363D;">
+            <span style="color:#F78166;font-weight:700;font-size:13px;">Step 3&nbsp;&nbsp;</span>
+            <span style="color:#6E7681;font-size:13px;">Subject: </span>
+            <span style="color:#F0F6FC;font-weight:700;font-size:13px;">CI/CD for AV model validation</span>
+          </div>
+          <div style="background:#161B22;padding:14px 18px;font-size:14px;color:#C9D1D9;font-family:Arial,sans-serif;line-height:1.7;"><div style="margin-bottom:0;line-height:1.6;">Shane —</div><div style="height:10px"></div><div style="margin-bottom:0;line-height:1.6;">One workflow worth calling out: distributed CI/CD for model validation.</div><div style="height:10px"></div><div style="margin-bottom:0;line-height:1.6;">Instead of running validation scenarios sequentially on a single node, Ray distributes them across a cluster — each scenario as an independent task with automatic scheduling and retry on failure. The same trigger (a PR, a model checkpoint, a new data batch) kicks off validation at whatever parallelism the cluster supports.</div><div style="height:10px"></div><div style="margin-bottom:0;line-height:1.6;">Physical Intelligence runs exactly this kind of full-pipeline evaluation on Anyscale for physical AI models. The result for their engineers was less time waiting on validation and more time iterating on the model itself.</div><div style="height:10px"></div><div style="margin-bottom:0;line-height:1.6;">Interested in seeing how that maps to openpilot's validation workflow?</div><div style="height:10px"></div><div style="margin-bottom:0;line-height:1.6;">Dylan</div></div>
+          
+        <div style="background:#0E1408;border-top:1px solid #30363D;padding:10px 16px;font-size:13px;color:#F78166;font-style:italic;">📌 Proof: Physical Intelligence — distributed model validation on Anyscale, faster iteration cycles</div>
+        </div>
+        <div style="border:1px solid #30363D;border-top:3px solid #F78166;border-radius:4px;margin-bottom:12px;overflow:hidden;">
+          <div style="background:#1a1a1a;padding:10px 16px;border-bottom:1px solid #30363D;">
+            <span style="color:#F78166;font-weight:700;font-size:13px;">Step 4&nbsp;&nbsp;</span>
+            <span style="color:#6E7681;font-size:13px;">Subject: </span>
+            <span style="color:#F0F6FC;font-weight:700;font-size:13px;">Last note — openpilot testing infrastructure</span>
+          </div>
+          <div style="background:#161B22;padding:14px 18px;font-size:14px;color:#C9D1D9;font-family:Arial,sans-serif;line-height:1.7;"><div style="margin-bottom:0;line-height:1.6;">Shane —</div><div style="height:10px"></div><div style="margin-bottom:0;line-height:1.6;">Last one from me.</div><div style="height:10px"></div><div style="margin-bottom:0;line-height:1.6;">Blue River: 2.5× faster AV pipeline on same hardware. Zoox: thousands of parallel simulation scenarios on Ray. Physical Intelligence: distributed model validation, faster iteration.</div><div style="height:10px"></div><div style="margin-bottom:0;line-height:1.6;">All of this maps to openpilot's testing and regression infrastructure. If running more scenarios faster on the existing cluster is a priority — I'd welcome a conversation.</div><div style="height:10px"></div><div style="margin-bottom:0;line-height:1.6;">Dylan</div></div>
+          
+        <div style="background:#0E1408;border-top:1px solid #30363D;padding:10px 16px;font-size:13px;color:#F78166;font-style:italic;">📌 Proof: Blue River (2.5×) + Zoox (parallel sim) + Physical Intelligence (distributed validation)</div>
+        </div>
+      </div><hr style="border:none;border-top:1px solid #30363D;margin:24px 0;">
+      <div id="contact-9" style="scroll-margin-top:60px;">
+        <div style="display:flex;align-items:stretch;margin-bottom:14px;border:1px solid #30363D;border-radius:4px;overflow:hidden;">
+          <div style="background:#58A6FF;width:48px;min-width:48px;display:flex;align-items:center;justify-content:center;font-size:22px;font-weight:700;color:#fff;">9</div>
+          <div style="background:#161B22;flex:1;padding:12px 18px;">
+            <div style="font-size:18px;font-weight:700;color:#F0F6FC;">Nick Ruiz <span style="color:#6E7681;font-size:14px;font-weight:400;"> · Senior Software Engineer</span></div>
+            <div style="margin-top:5px;font-size:12px;">
+              <span style="color:#58A6FF;font-weight:700;">P3</span>
+              <span style="color:#6E7681;"> · comma.ai · </span>
+              <span style="color:#F78166;">Distributed Systems / Engineering Efficiency</span>
+              <span style="color:#6E7681;"> · Contact 9 of 10</span>
+            </div><div style="margin-top:5px;font-size:12px;color:#8B949E;">📧 <a href="mailto:nick@comma.ai" style="color:#58A6FF;text-decoration:none;">nick@comma.ai</a><span style="font-size:10px;background:rgba(139,148,158,0.1);color:#6E7681;border:1px solid #30363D;border-radius:3px;padding:1px 5px;margin-left:6px;">inferred</span></div>
+          </div>
+        </div>
+        
+        <div style="border:1px solid #30363D;border-top:3px solid #F78166;border-radius:4px;margin-bottom:12px;overflow:hidden;">
+          <div style="background:#1a1a1a;padding:10px 16px;border-bottom:1px solid #30363D;">
+            <span style="color:#F78166;font-weight:700;font-size:13px;">Step 1&nbsp;&nbsp;</span>
+            <span style="color:#6E7681;font-size:13px;">Subject: </span>
+            <span style="color:#F0F6FC;font-weight:700;font-size:13px;">Distributed systems without the infrastructure work</span>
+          </div>
+          <div style="background:#161B22;padding:14px 18px;font-size:14px;color:#C9D1D9;font-family:Arial,sans-serif;line-height:1.7;"><div style="margin-bottom:0;line-height:1.6;">Nick —</div><div style="height:10px"></div><div style="margin-bottom:0;line-height:1.6;">For senior engineers at AV companies, a significant chunk of time tends to go into distributed systems plumbing — writing custom job schedulers, managing node failures, coordinating multi-step pipelines across a cluster.</div><div style="height:10px"></div><div style="margin-bottom:0;line-height:1.6;">Physical Intelligence eliminated that overhead for 16+ engineers by running their full data and training pipeline on Anyscale managed Ray. Engineers write Python tasks. Ray handles the distribution, scheduling, fault recovery, and resource allocation across the cluster.</div><div style="height:10px"></div><div style="margin-bottom:0;line-height:1.6;">For a senior software engineer working on infrastructure-adjacent problems at comma.ai, that's the kind of abstraction that changes what you can actually ship in a sprint.</div><div style="height:10px"></div><div style="margin-bottom:0;line-height:1.6;">Worth 20 minutes?</div><div style="height:10px"></div><div style="margin-bottom:0;line-height:1.6;">Dylan</div></div>
+          
+        <div style="background:#0E1408;border-top:1px solid #30363D;padding:10px 16px;font-size:13px;color:#F78166;font-style:italic;">📌 Proof: Physical Intelligence — 16+ engineers off infra overhead, Python-native distributed compute</div>
+        </div>
+        <div style="border:1px solid #30363D;border-top:3px solid #F78166;border-radius:4px;margin-bottom:12px;overflow:hidden;">
+          <div style="background:#1a1a1a;padding:10px 16px;border-bottom:1px solid #30363D;">
+            <span style="color:#F78166;font-weight:700;font-size:13px;">Step 2&nbsp;&nbsp;</span>
+            <span style="color:#6E7681;font-size:13px;">Subject: </span>
+            <span style="color:#F0F6FC;font-weight:700;font-size:13px;">Re: the cost of custom distributed infrastructure</span>
+          </div>
+          <div style="background:#161B22;padding:14px 18px;font-size:14px;color:#C9D1D9;font-family:Arial,sans-serif;line-height:1.7;"><div style="margin-bottom:0;line-height:1.6;">Nick —</div><div style="height:10px"></div><div style="margin-bottom:0;line-height:1.6;">Following up. The hidden cost of custom distributed infrastructure isn't just the initial build — it's the ongoing maintenance, the debugging when nodes fail mid-job, and the engineering attention required to keep it running as data volumes grow.</div><div style="height:10px"></div><div style="margin-bottom:0;line-height:1.6;">Blue River Technology replaced custom pipeline orchestration with Ray Data and cut AV training pipeline runtime from 24 hours to 9.5 hours. The maintenance burden dropped at the same time: fewer manual interventions, automatic retry on failure, no custom scheduler to maintain.</div><div style="height:10px"></div><div style="margin-bottom:0;line-height:1.6;">For a senior engineer at a 30-person company, the time saved on infrastructure maintenance directly translates to time available for higher-leverage work.</div><div style="height:10px"></div><div style="margin-bottom:0;line-height:1.6;">Happy to walk through the technical details. 20 minutes?</div><div style="height:10px"></div><div style="margin-bottom:0;line-height:1.6;">Dylan</div></div>
+          
+        <div style="background:#0E1408;border-top:1px solid #30363D;padding:10px 16px;font-size:13px;color:#F78166;font-style:italic;">📌 Proof: Blue River — eliminated custom orchestration, 24h → 9.5h, reduced manual intervention</div>
+        </div>
+        <div style="border:1px solid #30363D;border-top:3px solid #F78166;border-radius:4px;margin-bottom:12px;overflow:hidden;">
+          <div style="background:#1a1a1a;padding:10px 16px;border-bottom:1px solid #30363D;">
+            <span style="color:#F78166;font-weight:700;font-size:13px;">Step 3&nbsp;&nbsp;</span>
+            <span style="color:#6E7681;font-size:13px;">Subject: </span>
+            <span style="color:#F0F6FC;font-weight:700;font-size:13px;">Fault tolerance at the task level</span>
+          </div>
+          <div style="background:#161B22;padding:14px 18px;font-size:14px;color:#C9D1D9;font-family:Arial,sans-serif;line-height:1.7;"><div style="margin-bottom:0;line-height:1.6;">Nick —</div><div style="height:10px"></div><div style="margin-bottom:0;line-height:1.6;">One specific capability worth highlighting: task-level fault tolerance.</div><div style="height:10px"></div><div style="margin-bottom:0;line-height:1.6;">In a distributed pipeline, a single node failure in a custom system often requires a manual restart of the entire job. Ray retries failed tasks automatically at the task level — the rest of the pipeline continues unaffected.</div><div style="height:10px"></div><div style="margin-bottom:0;line-height:1.6;">Zoox runs thousands of parallel AV simulation rollouts with this fault model. A failed simulation scenario retries automatically without interrupting the rest of the batch. For long-running pipelines on commodity hardware or preemptible cloud instances, that's a significant operational difference.</div><div style="height:10px"></div><div style="margin-bottom:0;line-height:1.6;">Would a technical walkthrough of the fault-tolerance model be useful?</div><div style="height:10px"></div><div style="margin-bottom:0;line-height:1.6;">Dylan</div></div>
+          
+        <div style="background:#0E1408;border-top:1px solid #30363D;padding:10px 16px;font-size:13px;color:#F78166;font-style:italic;">📌 Proof: Zoox — task-level fault recovery on 1,000s of parallel AV workloads</div>
+        </div>
+        <div style="border:1px solid #30363D;border-top:3px solid #F78166;border-radius:4px;margin-bottom:12px;overflow:hidden;">
+          <div style="background:#1a1a1a;padding:10px 16px;border-bottom:1px solid #30363D;">
+            <span style="color:#F78166;font-weight:700;font-size:13px;">Step 4&nbsp;&nbsp;</span>
+            <span style="color:#6E7681;font-size:13px;">Subject: </span>
+            <span style="color:#F0F6FC;font-weight:700;font-size:13px;">Last note — engineering leverage</span>
+          </div>
+          <div style="background:#161B22;padding:14px 18px;font-size:14px;color:#C9D1D9;font-family:Arial,sans-serif;line-height:1.7;"><div style="margin-bottom:0;line-height:1.6;">Nick —</div><div style="height:10px"></div><div style="margin-bottom:0;line-height:1.6;">Last one from me.</div><div style="height:10px"></div><div style="margin-bottom:0;line-height:1.6;">Physical Intelligence: 16+ engineers off infrastructure work, same output with less overhead. Blue River: 24h → 9.5h pipeline, eliminated custom orchestration. Zoox: fault-tolerant distributed workloads at scale.</div><div style="height:10px"></div><div style="margin-bottom:0;line-height:1.6;">All Python-native, all running on existing hardware. If reducing the distributed systems overhead in your stack is a priority — I'd welcome a conversation.</div><div style="height:10px"></div><div style="margin-bottom:0;line-height:1.6;">Dylan</div></div>
+          
+        <div style="background:#0E1408;border-top:1px solid #30363D;padding:10px 16px;font-size:13px;color:#F78166;font-style:italic;">📌 Proof: Physical Intelligence (16+ freed) + Blue River (pipeline) + Zoox (fault tolerance)</div>
+        </div>
+      </div><hr style="border:none;border-top:1px solid #30363D;margin:24px 0;">
+      <div id="contact-10" style="scroll-margin-top:60px;">
+        <div style="display:flex;align-items:stretch;margin-bottom:14px;border:1px solid #30363D;border-radius:4px;overflow:hidden;">
+          <div style="background:#58A6FF;width:48px;min-width:48px;display:flex;align-items:center;justify-content:center;font-size:22px;font-weight:700;color:#fff;">10</div>
+          <div style="background:#161B22;flex:1;padding:12px 18px;">
+            <div style="font-size:18px;font-weight:700;color:#F0F6FC;">David Felsager <span style="color:#6E7681;font-size:14px;font-weight:400;"> · Autonomous Driving Engineer</span></div>
+            <div style="margin-top:5px;font-size:12px;">
+              <span style="color:#58A6FF;font-weight:700;">P3</span>
+              <span style="color:#6E7681;"> · comma.ai · </span>
+              <span style="color:#F78166;">AV Pipeline / Simulation Scale</span>
+              <span style="color:#6E7681;"> · Contact 10 of 10</span>
+            </div><div style="margin-top:5px;font-size:12px;color:#8B949E;">📧 <a href="mailto:david@comma.ai" style="color:#58A6FF;text-decoration:none;">david@comma.ai</a><span style="font-size:10px;background:rgba(139,148,158,0.1);color:#6E7681;border:1px solid #30363D;border-radius:3px;padding:1px 5px;margin-left:6px;">inferred</span></div>
+          </div>
+        </div>
+        
+        <div style="border:1px solid #30363D;border-top:3px solid #F78166;border-radius:4px;margin-bottom:12px;overflow:hidden;">
+          <div style="background:#1a1a1a;padding:10px 16px;border-bottom:1px solid #30363D;">
+            <span style="color:#F78166;font-weight:700;font-size:13px;">Step 1&nbsp;&nbsp;</span>
+            <span style="color:#6E7681;font-size:13px;">Subject: </span>
+            <span style="color:#F0F6FC;font-weight:700;font-size:13px;">AV pipeline throughput at scale</span>
+          </div>
+          <div style="background:#161B22;padding:14px 18px;font-size:14px;color:#C9D1D9;font-family:Arial,sans-serif;line-height:1.7;"><div style="margin-bottom:0;line-height:1.6;">David —</div><div style="height:10px"></div><div style="margin-bottom:0;line-height:1.6;">For engineers working on end-to-end autonomous driving systems, the training and validation pipeline is as important as the model itself. Faster data-to-deployed-model cycles directly accelerate AV capability development.</div><div style="height:10px"></div><div style="margin-bottom:0;line-height:1.6;">Blue River Technology cut their AV image/video training pipeline from 24 hours to 9.5 hours using Anyscale — 2.5× faster iteration on the same hardware. The change was almost entirely in the data preprocessing stage: Ray Data distributed the workload across workers so training jobs started sooner.</div><div style="height:10px"></div><div style="margin-bottom:0;line-height:1.6;">For an AV engineer iterating on perception and planning models, that kind of pipeline improvement compounds across every training run.</div><div style="height:10px"></div><div style="margin-bottom:0;line-height:1.6;">Worth 20 minutes?</div><div style="height:10px"></div><div style="margin-bottom:0;line-height:1.6;">Dylan</div></div>
+          
+        <div style="background:#0E1408;border-top:1px solid #30363D;padding:10px 16px;font-size:13px;color:#F78166;font-style:italic;">📌 Proof: Blue River — AV pipeline 24h → 9.5h, 2.5× iteration speed, same hardware</div>
+        </div>
+        <div style="border:1px solid #30363D;border-top:3px solid #F78166;border-radius:4px;margin-bottom:12px;overflow:hidden;">
+          <div style="background:#1a1a1a;padding:10px 16px;border-bottom:1px solid #30363D;">
+            <span style="color:#F78166;font-weight:700;font-size:13px;">Step 2&nbsp;&nbsp;</span>
+            <span style="color:#6E7681;font-size:13px;">Subject: </span>
+            <span style="color:#F0F6FC;font-weight:700;font-size:13px;">Re: parallel simulation for AV validation</span>
+          </div>
+          <div style="background:#161B22;padding:14px 18px;font-size:14px;color:#C9D1D9;font-family:Arial,sans-serif;line-height:1.7;"><div style="margin-bottom:0;line-height:1.6;">David —</div><div style="height:10px"></div><div style="margin-bottom:0;line-height:1.6;">Following up. Beyond training, AV validation at scale is a distributed compute problem: running thousands of scenario simulations in parallel to catch edge cases before deployment.</div><div style="height:10px"></div><div style="margin-bottom:0;line-height:1.6;">Zoox (Amazon's AV division) runs exactly this kind of large-scale parallel simulation on Ray — thousands of rollouts simultaneously, with fault tolerance built in. Same infrastructure handles training pipeline scheduling and simulation orchestration.</div><div style="height:10px"></div><div style="margin-bottom:0;line-height:1.6;">For an AV engineer thinking about the full loop from data collection to validated deployment, the ability to run more simulation scenarios per compute-hour is a direct accelerant on safety and capability iteration.</div><div style="height:10px"></div><div style="margin-bottom:0;line-height:1.6;">Happy to walk through the architecture. 20 minutes?</div><div style="height:10px"></div><div style="margin-bottom:0;line-height:1.6;">Dylan</div></div>
+          
+        <div style="background:#0E1408;border-top:1px solid #30363D;padding:10px 16px;font-size:13px;color:#F78166;font-style:italic;">📌 Proof: Zoox — 1,000s of parallel AV simulation rollouts on Ray, fault tolerant</div>
+        </div>
+        <div style="border:1px solid #30363D;border-top:3px solid #F78166;border-radius:4px;margin-bottom:12px;overflow:hidden;">
+          <div style="background:#1a1a1a;padding:10px 16px;border-bottom:1px solid #30363D;">
+            <span style="color:#F78166;font-weight:700;font-size:13px;">Step 3&nbsp;&nbsp;</span>
+            <span style="color:#6E7681;font-size:13px;">Subject: </span>
+            <span style="color:#F0F6FC;font-weight:700;font-size:13px;">The data flywheel problem</span>
+          </div>
+          <div style="background:#161B22;padding:14px 18px;font-size:14px;color:#C9D1D9;font-family:Arial,sans-serif;line-height:1.7;"><div style="margin-bottom:0;line-height:1.6;">David —</div><div style="height:10px"></div><div style="margin-bottom:0;line-height:1.6;">The AV data flywheel — collect miles, process data, train model, validate, deploy — is only as fast as its slowest stage. For most teams, that's data processing and validation, not training.</div><div style="height:10px"></div><div style="margin-bottom:0;line-height:1.6;">Physical Intelligence processes terabytes of sensor data daily on Anyscale — ingestion, preprocessing, training, and evaluation in a unified Python pipeline. 2× faster research iteration was one result. The bigger one: engineers focused on model work instead of infrastructure.</div><div style="height:10px"></div><div style="margin-bottom:0;line-height:1.6;">For an AV engineer working across the full stack, having the pipeline scale automatically as data volume and scenario coverage grow changes what's possible at a 30-person company.</div><div style="height:10px"></div><div style="margin-bottom:0;line-height:1.6;">Interested in seeing the architecture end-to-end?</div><div style="height:10px"></div><div style="margin-bottom:0;line-height:1.6;">Dylan</div></div>
+          
+        <div style="background:#0E1408;border-top:1px solid #30363D;padding:10px 16px;font-size:13px;color:#F78166;font-style:italic;">📌 Proof: Physical Intelligence — TB-scale sensor data pipeline, 2× iteration, unified Python stack</div>
+        </div>
+        <div style="border:1px solid #30363D;border-top:3px solid #F78166;border-radius:4px;margin-bottom:12px;overflow:hidden;">
+          <div style="background:#1a1a1a;padding:10px 16px;border-bottom:1px solid #30363D;">
+            <span style="color:#F78166;font-weight:700;font-size:13px;">Step 4&nbsp;&nbsp;</span>
+            <span style="color:#6E7681;font-size:13px;">Subject: </span>
+            <span style="color:#F0F6FC;font-weight:700;font-size:13px;">Last note — AV development velocity</span>
+          </div>
+          <div style="background:#161B22;padding:14px 18px;font-size:14px;color:#C9D1D9;font-family:Arial,sans-serif;line-height:1.7;"><div style="margin-bottom:0;line-height:1.6;">David —</div><div style="height:10px"></div><div style="margin-bottom:0;line-height:1.6;">Last note from me.</div><div style="height:10px"></div><div style="margin-bottom:0;line-height:1.6;">Blue River: AV training pipeline 2.5× faster on same hardware. Zoox: thousands of parallel simulation rollouts with fault recovery. Physical Intelligence: unified data-to-model pipeline, 2× research iteration speed.</div><div style="height:10px"></div><div style="margin-bottom:0;line-height:1.6;">All applicable to end-to-end AV development. If pipeline velocity or simulation scale becomes a priority — I'd welcome a conversation.</div><div style="height:10px"></div><div style="margin-bottom:0;line-height:1.6;">Dylan</div></div>
+          
+        <div style="background:#0E1408;border-top:1px solid #30363D;padding:10px 16px;font-size:13px;color:#F78166;font-style:italic;">📌 Proof: Blue River (2.5×) + Zoox (parallel sim) + Physical Intelligence (2× iteration, unified pipeline)</div>
+        </div>
+      </div>
+
+  <div style="height:60px;"></div>
+</div>
+
+</body>
+</html>

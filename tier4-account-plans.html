@@ -1,0 +1,1836 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Tier 4 Account Plans — Anyscale</title>
+<style>
+:root {
+  --bg: #0d1117; --bg2: #161b22; --bg3: #1c2128;
+  --border: #30363d; --text: #e6edf3; --muted: #8b949e; --accent: #58a6ff;
+}
+* { box-sizing: border-box; margin: 0; padding: 0; }
+body {
+  background: var(--bg); color: var(--text);
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+  font-size: 14px; line-height: 1.6; display: flex; min-height: 100vh;
+}
+.sidebar {
+  width: 260px; min-width: 260px; background: var(--bg2);
+  border-right: 1px solid var(--border); position: sticky;
+  top: 0; height: 100vh; overflow-y: auto; padding: 16px 0; flex-shrink: 0;
+}
+.sidebar-header { padding: 0 16px 16px; border-bottom: 1px solid var(--border); margin-bottom: 8px; }
+.sidebar-title { font-size: 13px; font-weight: 600; color: var(--text); margin-bottom: 4px; }
+.sidebar-sub { font-size: 11px; color: var(--muted); }
+.nav-item {
+  display: flex; flex-direction: column; padding: 8px 16px; gap: 2px;
+  text-decoration: none; color: var(--text); border-left: 3px solid transparent;
+  transition: all 0.15s;
+}
+.nav-item:hover, .nav-item.active {
+  background: var(--bg3); border-left-color: var(--accent, #58a6ff);
+}
+.nav-score { font-size: 10px; color: var(--muted); font-weight: 600; letter-spacing: 0.05em; }
+.nav-name { font-size: 13px; font-weight: 600; }
+.nav-sector { font-size: 11px; color: var(--muted); }
+.main { flex: 1; padding: 32px; max-width: 1100px; overflow-x: hidden; }
+.page-header { margin-bottom: 32px; }
+.page-title { font-size: 24px; font-weight: 700; margin-bottom: 6px; }
+.page-sub { color: var(--muted); font-size: 14px; }
+.company-section { margin-bottom: 48px; padding-bottom: 48px; border-bottom: 1px solid var(--border); }
+.company-header {
+  background: var(--bg2); border-radius: 8px; padding: 20px 24px;
+  margin-bottom: 20px;
+}
+.company-title-row { display: flex; align-items: center; gap: 12px; margin-bottom: 10px; flex-wrap: wrap; }
+.company-name { font-size: 22px; font-weight: 700; }
+.tier-badge {
+  padding: 3px 10px; border-radius: 20px; font-size: 12px;
+  font-weight: 600; letter-spacing: 0.03em;
+}
+.company-meta { display: flex; gap: 20px; flex-wrap: wrap; font-size: 12px; color: var(--muted); }
+.sections-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+.plan-section {
+  background: var(--bg2); border: 1px solid var(--border); border-radius: 8px; padding: 16px;
+}
+.full-width { grid-column: 1 / -1; }
+.section-title { font-size: 12px; font-weight: 700; text-transform: uppercase;
+  letter-spacing: 0.08em; color: var(--muted); margin-bottom: 12px; }
+ul, ol { padding-left: 18px; }
+li { margin-bottom: 5px; font-size: 13px; }
+.signal-list li::marker { color: #58a6ff; }
+.why-list li::marker { color: #56d364; }
+.timing-list li::marker { color: #e3b341; }
+.stack-list li { font-family: 'SF Mono', Consolas, monospace; font-size: 12px; }
+.highlight-section { border-color: #2d7a4a; background: #0d2318; }
+.funding-section { background: #1a1a0d; border-color: #4a4a1a; }
+.funding-block { display: flex; flex-direction: column; gap: 8px; }
+.funding-item { font-size: 13px; }
+.email-section { background: var(--bg3); }
+.emails-container { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+.email-card { background: var(--bg2); border: 1px solid var(--border); border-radius: 6px; overflow: hidden; }
+.email-header { display: flex; align-items: center; gap: 10px; padding: 10px 14px;
+  background: var(--bg3); border-bottom: 1px solid var(--border); flex-wrap: wrap; }
+.email-step { font-size: 11px; font-weight: 700; color: #58a6ff;
+  background: #1a2a3a; padding: 2px 8px; border-radius: 10px; }
+.email-subject { font-size: 12px; font-weight: 600; flex: 1; }
+.copy-btn {
+  font-size: 11px; padding: 3px 10px; background: var(--bg); border: 1px solid var(--border);
+  color: var(--muted); border-radius: 4px; cursor: pointer; transition: all 0.15s;
+}
+.copy-btn:hover { background: #21262d; color: var(--text); }
+.copy-btn.copied { background: #1a3a2a; color: #56d364; border-color: #2d7a4a; }
+.email-body { padding: 12px 14px; font-size: 12px; white-space: pre-wrap; line-height: 1.7;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; color: #c9d1d9; }
+.ray-section { background: #0d1a2a; border-color: #1d3a5a; }
+.ray-content { display: flex; flex-direction: column; gap: 12px; }
+.stage-pill {
+  display: inline-flex; align-items: center; gap: 6px;
+  background: #1a2a3a; border: 1px solid #2d5a8a; border-radius: 20px;
+  padding: 4px 14px; font-size: 12px; font-weight: 600; color: #79c0ff; width: fit-content;
+}
+.wl-row, .qual-row { display: flex; align-items: center; gap: 8px; flex-wrap: wrap; }
+.wl-label { font-size: 11px; font-weight: 700; color: var(--muted); text-transform: uppercase;
+  letter-spacing: 0.05em; white-space: nowrap; }
+.wl-badge {
+  padding: 3px 10px; border-radius: 4px; font-size: 12px; font-weight: 600;
+}
+.qual-badge {
+  padding: 2px 8px; border-radius: 4px; font-size: 11px; font-weight: 500;
+  background: #1a2a1a; color: #8b949e; border: 1px solid #2d3a2d;
+}
+.lib-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 8px; margin-top: 4px; }
+.lib-row {
+  padding: 10px 12px; border-radius: 6px; display: flex; flex-direction: column; gap: 4px;
+}
+.lib-left { display: flex; align-items: center; gap: 8px; }
+.lib-name { font-size: 13px; font-weight: 700; }
+.lib-level { font-size: 10px; font-weight: 700; padding: 1px 7px; border-radius: 10px; letter-spacing: 0.06em; }
+.level-primary { background: #1a3a2a; color: #56d364; border: 1px solid #2d7a4a; }
+.level-secondary { background: #2a2a1a; color: #8b949e; border: 1px solid #3a3a2a; }
+.lib-reason { font-size: 12px; color: #8b949e; line-height: 1.4; }
+.section-divider { 
+  grid-column: 1 / -1; padding: 16px 0; margin: 8px 0; 
+  border-top: 2px solid var(--border); text-align: center; 
+}
+.section-divider h2 { font-size: 16px; font-weight: 700; color: var(--muted); }
+.section-divider p { font-size: 12px; color: var(--muted); margin-top: 4px; }
+</style>
+</head>
+<body>
+<nav class="sidebar">
+  <div class="sidebar-header">
+    <div class="sidebar-title">Tier 4 Account Plans</div>
+    <div class="sidebar-sub">40 accounts · Score 1–6/10</div>
+  </div>
+  <a class="nav-item" href="#t-robotics" data-id="t-robotics" style="--accent:#58a6ff"><span class="nav-score">6/10</span><span class="nav-name">T-robotics</span><span class="nav-sector">Robotics</span></a><a class="nav-item" href="#cepton" data-id="cepton" style="--accent:#58a6ff"><span class="nav-score">5/10</span><span class="nav-name">Cepton</span><span class="nav-sector">AV / LiDAR Sensors</span></a><a class="nav-item" href="#embodied" data-id="embodied" style="--accent:#d2a8ff"><span class="nav-score">5/10</span><span class="nav-name">Embodied</span><span class="nav-sector">Robotics / Social AI</span></a><a class="nav-item" href="#luxonis" data-id="luxonis" style="--accent:#3fb950"><span class="nav-score">5/10</span><span class="nav-name">Luxonis</span><span class="nav-sector">Robotics / Edge AI</span></a><a class="nav-item" href="#multiply-labs" data-id="multiply-labs" style="--accent:#3fb950"><span class="nav-score">5/10</span><span class="nav-name">Multiply Labs</span><span class="nav-sector">Robotics / Biotech</span></a><a class="nav-item" href="#smallest-ai" data-id="smallest-ai" style="--accent:#f78166"><span class="nav-score">5/10</span><span class="nav-name">Smallest.ai</span><span class="nav-sector">AI Platform / Voice</span></a><a class="nav-item" href="#aarki" data-id="aarki" style="--accent:#e3b341"><span class="nav-score">4/10</span><span class="nav-name">Aarki</span><span class="nav-sector">Ad Tech / ML</span></a><a class="nav-item" href="#akool" data-id="akool" style="--accent:#f78166"><span class="nav-score">4/10</span><span class="nav-name">Akool</span><span class="nav-sector">AI Platform / GenAI</span></a><a class="nav-item" href="#arc-institute" data-id="arc-institute" style="--accent:#3fb950"><span class="nav-score">4/10</span><span class="nav-name">Arc Institute</span><span class="nav-sector">Biotech / Research</span></a><a class="nav-item" href="#archy" data-id="archy" style="--accent:#e3b341"><span class="nav-score">4/10</span><span class="nav-name">Archy</span><span class="nav-sector">Dental SaaS / AI</span></a><a class="nav-item" href="#cast-crew" data-id="cast-crew" style="--accent:#8b949e"><span class="nav-score">4/10</span><span class="nav-name">Cast & Crew</span><span class="nav-sector">Entertainment / Payroll</span></a><a class="nav-item" href="#connectly-ai" data-id="connectly-ai" style="--accent:#f78166"><span class="nav-score">4/10</span><span class="nav-name">Connectly.ai</span><span class="nav-sector">Conversational AI</span></a><a class="nav-item" href="#doppel" data-id="doppel" style="--accent:#d2a8ff"><span class="nav-score">4/10</span><span class="nav-name">Doppel</span><span class="nav-sector">Cybersecurity AI</span></a><a class="nav-item" href="#everlaw" data-id="everlaw" style="--accent:#58a6ff"><span class="nav-score">4/10</span><span class="nav-name">Everlaw</span><span class="nav-sector">Legal Tech / eDiscovery</span></a><a class="nav-item" href="#efinancial" data-id="efinancial" style="--accent:#e3b341"><span class="nav-score">4/10</span><span class="nav-name">eFinancial</span><span class="nav-sector">Insurance / Fintech</span></a><a class="nav-item" href="#jigsawstack" data-id="jigsawstack" style="--accent:#f78166"><span class="nav-score">4/10</span><span class="nav-name">JigsawStack</span><span class="nav-sector">AI API Platform</span></a><a class="nav-item" href="#listen-labs" data-id="listen-labs" style="--accent:#d2a8ff"><span class="nav-score">4/10</span><span class="nav-name">Listen Labs</span><span class="nav-sector">Research AI / Voice</span></a><a class="nav-item" href="#nash" data-id="nash" style="--accent:#e3b341"><span class="nav-score">4/10</span><span class="nav-name">Nash</span><span class="nav-sector">Logistics / Delivery AI</span></a><a class="nav-item" href="#newfront" data-id="newfront" style="--accent:#58a6ff"><span class="nav-score">4/10</span><span class="nav-name">Newfront</span><span class="nav-sector">Insurance Tech</span></a><a class="nav-item" href="#rillet" data-id="rillet" style="--accent:#3fb950"><span class="nav-score">4/10</span><span class="nav-name">Rillet</span><span class="nav-sector">Fintech / Accounting AI</span></a><a class="nav-item" href="#socket" data-id="socket" style="--accent:#d2a8ff"><span class="nav-score">4/10</span><span class="nav-name">Socket</span><span class="nav-sector">Cybersecurity / Supply Chain</span></a><a class="nav-item" href="#tidio" data-id="tidio" style="--accent:#e3b341"><span class="nav-score">4/10</span><span class="nav-name">Tidio</span><span class="nav-sector">Customer Service AI</span></a><a class="nav-item" href="#concensus" data-id="concensus" style="--accent:#8b949e"><span class="nav-score">3/10</span><span class="nav-name">Concensus</span><span class="nav-sector">Sales AI</span></a><a class="nav-item" href="#strider-technologies" data-id="strider-technologies" style="--accent:#8b949e"><span class="nav-score">3/10</span><span class="nav-name">Strider Technologies</span><span class="nav-sector">Geopolitical Intelligence</span></a><a class="nav-item" href="#vorto" data-id="vorto" style="--accent:#8b949e"><span class="nav-score">3/10</span><span class="nav-name">Vorto</span><span class="nav-sector">Logistics AI</span></a><a class="nav-item" href="#varo-bank" data-id="varo-bank" style="--accent:#8b949e"><span class="nav-score">3/10</span><span class="nav-name">Varo Bank</span><span class="nav-sector">Neobank / Fintech</span></a><a class="nav-item" href="#cherry" data-id="cherry" style="--accent:#8b949e"><span class="nav-score">3/10</span><span class="nav-name">Cherry</span><span class="nav-sector">Fintech / Patient Payments</span></a><a class="nav-item" href="#console" data-id="console" style="--accent:#8b949e"><span class="nav-score">3/10</span><span class="nav-name">Console</span><span class="nav-sector">Developer Job Board</span></a><a class="nav-item" href="#felix" data-id="felix" style="--accent:#8b949e"><span class="nav-score">3/10</span><span class="nav-name">Félix (likely Félix Pago)</span><span class="nav-sector">Fintech / Remittance</span></a><a class="nav-item" href="#b-garage" data-id="b-garage" style="--accent:#8b949e"><span class="nav-score">3/10</span><span class="nav-name">B GARAGE</span><span class="nav-sector">Autonomous Drones</span></a><a class="nav-item" href="#odyssey" data-id="odyssey" style="--accent:#8b949e"><span class="nav-score">3/10</span><span class="nav-name">Odyssey (likely Odyssey AI)</span><span class="nav-sector">AI Video / 3D Generation</span></a><a class="nav-item" href="#quilter" data-id="quilter" style="--accent:#8b949e"><span class="nav-score">3/10</span><span class="nav-name">Quilter</span><span class="nav-sector">Financial Planning</span></a><a class="nav-item" href="#simplepractice" data-id="simplepractice" style="--accent:#8b949e"><span class="nav-score">3/10</span><span class="nav-name">SimplePractice</span><span class="nav-sector">Health SaaS / EHR</span></a><a class="nav-item" href="#thatch" data-id="thatch" style="--accent:#8b949e"><span class="nav-score">3/10</span><span class="nav-name">Thatch</span><span class="nav-sector">Health Benefits SaaS</span></a><a class="nav-item" href="#wave" data-id="wave" style="--accent:#8b949e"><span class="nav-score">3/10</span><span class="nav-name">Wave</span><span class="nav-sector">Fintech SaaS</span></a><a class="nav-item" href="#ag1" data-id="ag1" style="--accent:#8b949e"><span class="nav-score">2/10</span><span class="nav-name">AG1 (Athletic Greens)</span><span class="nav-sector">Consumer / D2C Supplements</span></a><a class="nav-item" href="#infinigods" data-id="infinigods" style="--accent:#8b949e"><span class="nav-score">2/10</span><span class="nav-name">InfiniGods</span><span class="nav-sector">Web3 Gaming</span></a><a class="nav-item" href="#palmstreet" data-id="palmstreet" style="--accent:#8b949e"><span class="nav-score">2/10</span><span class="nav-name">Palmstreet</span><span class="nav-sector">Live Shopping / E-Commerce</span></a><a class="nav-item" href="#sphero" data-id="sphero" style="--accent:#8b949e"><span class="nav-score">2/10</span><span class="nav-name">Sphero</span><span class="nav-sector">Consumer Robotics / Toys</span></a><a class="nav-item" href="#step" data-id="step" style="--accent:#8b949e"><span class="nav-score">2/10</span><span class="nav-name">Step</span><span class="nav-sector">Teen Neobank</span></a>
+</nav>
+<main class="main">
+  <div class="page-header">
+    <h1 class="page-title">Tier 4 Account Plans</h1>
+    <p class="page-sub">Full-depth account plans for all 40 Tier 4 prospects. Watch list accounts (6) include Ray library fit, workload analysis, email sequences, and discovery questions. Light touch (16) include signals, value propositions, and funding. Low fit (13) and Skip (5) include assessment and recommended actions.</p>
+  </div>
+
+  <div style="background:var(--bg2);border:1px solid var(--border);border-radius:8px;padding:16px 20px;margin-bottom:32px;">
+    <div style="font-size:12px;font-weight:700;color:var(--muted);text-transform:uppercase;letter-spacing:.08em;margin-bottom:8px;">📊 Tier 4 Summary</div>
+    <div style="display:flex;gap:20px;flex-wrap:wrap;font-size:13px;">
+      <span>🟢 <strong>6</strong> Watch (Score 5-6)</span>
+      <span>🟡 <strong>16</strong> Light Touch (Score 4)</span>
+      <span>🔴 <strong>13</strong> Low Fit (Score 3)</span>
+      <span>⚪ <strong>5</strong> Skip (Score ≤2)</span>
+    </div>
+  </div>
+
+  <div class="section-divider"><h2>🟢 Watch List — Score 5-6</h2><p>Full-depth plans · Research first, revisit when they raise or expand</p></div>
+  <section class="company-section" id="t-robotics" data-name="T-robotics" data-sector="Robotics">
+  <div class="company-header" style="border-left: 4px solid #58a6ff">
+    <div class="company-title-row">
+      <h2 class="company-name" style="color:#58a6ff">T-robotics</h2>
+      <span class="tier-badge" style="background:#58a6ff20;color:#58a6ff;border:1px solid #58a6ff40">6/10 · Robotics</span>
+    </div>
+    <div class="company-meta">
+      <span>🌐 t-robotics.com</span>
+      <span>📍 San Francisco, CA + Trondheim, Norway</span>
+      <span>👥 ~16 employees</span>
+      <span>🎯 Asad Tirmizi (CEO/Founder), Lars Tingelstad (CTO/Co-Founder)</span>
+    </div>
+  </div>
+
+  <div class="sections-grid">
+    <div class="plan-section ray-section full-width">
+  <h3 class="section-title">🔬 Ray Libraries &amp; Workload Fit</h3>
+  <div class="ray-content">
+    <div class="stage-pill">📈 Stage 0→1 · Evaluate → Build</div>
+    <div class="wl-row"><span class="wl-label">Workload Type:</span><span class="wl-badge" style="background:#1a2a3a;color:#79c0ff;border:1px solid #2d5a8a">Distributed Inference</span><span class="wl-badge" style="background:#1a3a1a;color:#56d364;border:1px solid #2d7a2d">Multi-Modal Data Pipeline</span></div>
+    <div class="qual-row"><span class="wl-label">Qualifiers:</span><span class="qual-badge">Multi-modal</span><span class="qual-badge">Edge + Cloud</span><span class="qual-badge">Real-time control</span></div>
+    <div class="lib-grid"><div class="lib-row" style="background:#3a1a2a;border-left:3px solid #8a2a6a">
+  <div class="lib-left">
+    <span class="lib-name" style="color:#f778ba">Ray Serve</span>
+    <span class="lib-level level-primary">PRIMARY</span>
+  </div>
+  <div class="lib-reason">Real-time multi-sensor inference (vision, haptics, language) for robot coordination</div>
+</div>
+<div class="lib-row" style="background:#1a3a5c;border-left:3px solid #2d6a9f">
+  <div class="lib-left">
+    <span class="lib-name" style="color:#79c0ff">Ray Data</span>
+    <span class="lib-level level-primary">PRIMARY</span>
+  </div>
+  <div class="lib-reason">Distributed sensor stream processing across factory floor deployments</div>
+</div>
+<div class="lib-row" style="background:#1a3a2a;border-left:3px solid #2d7a4a">
+  <div class="lib-left">
+    <span class="lib-name" style="color:#56d364">Ray Train</span>
+    <span class="lib-level level-secondary">SECONDARY</span>
+  </div>
+  <div class="lib-reason">Training adaptive neural network control policies from demonstration data</div>
+</div>
+</div>
+  </div>
+</div>
+    <div class="plan-section">
+      <h3 class="section-title">📡 Key Signals / Indicators</h3>
+      <ul class="signal-list"><li>$5.4M seed from Emergent Ventures & Engine Ventures (Dec 2024) — fresh capital for scaling</li><li>ActGPT platform applies generative AI to industrial robot automation — high compute intensity per task</li><li>Multi-modal sensor fusion (vision, haptics, language) — parallel processing across heterogeneous inputs</li><li>Robot-agnostic platform supporting various commercial robotic arms — model serving across hardware variants</li><li>Dual HQ (SF + Norway) — distributed inference across geographies needed</li><li>Founded by ex-Google Vicarious PhD + NTNU robotics professor — deep technical leadership</li></ul>
+    </div>
+    <div class="plan-section">
+      <h3 class="section-title">🤖 ML Use Cases</h3>
+      <ul class="plan-list"><li>Generative AI-powered task planning — LLM-based reasoning for manufacturing assembly and inspection</li><li>Multi-modal robot control — fusing vision, haptic, and language inputs for adaptive robot motion</li><li>Digital twin simulation — testing robot policies in simulated environments before physical deployment</li><li>Computer vision for object detection — real-time part recognition and quality inspection</li><li>Federated learning across factory sites — training on manufacturing data without centralizing proprietary processes</li></ul>
+    </div>
+    <div class="plan-section">
+      <h3 class="section-title">🛠 Tech Stack</h3>
+      <ul class="stack-list"><li>Python (primary ML stack)</li><li>PyTorch for policy training</li><li>Generative AI / LLMs for task planning</li><li>ROS2 for robot integration</li><li>Computer vision (OpenCV, custom models)</li><li>Digital twin simulation frameworks</li><li>Edge inference on robot controllers</li></ul>
+    </div>
+    <div class="plan-section">
+      <h3 class="section-title">🚀 5 AI / ML Initiatives</h3>
+      <ol class="plan-list"><li>ActGPT platform expansion — scaling AI-powered task understanding to more manufacturing use cases</li><li>Multi-site deployment — enabling factories to share robot policies while keeping data local</li><li>Adaptive control — real-time policy adjustment based on sensor feedback during manufacturing</li><li>Robot fleet orchestration — coordinating multiple robots on a single manufacturing line</li><li>Foundation model for manufacturing — building a general-purpose industrial robot intelligence</li></ol>
+    </div>
+    <div class="plan-section">
+      <h3 class="section-title">⏰ Timing Advantages (Why Now)</h3>
+      <ul class="timing-list"><li>Seed just closed Dec 2024 — actively investing in infrastructure and team scaling</li><li>Industrial AI adoption accelerating — manufacturers seeking automation solutions post-labor shortages</li><li>Generative AI hype creates buyer urgency — CXOs want to deploy AI in manufacturing now</li><li>Small team (16) means infrastructure overhead is disproportionate — managed Ray removes burden</li><li>No-code robot programming trend — high inference demand per robot task</li></ul>
+    </div>
+    <div class="plan-section">
+      <h3 class="section-title">🎯 Business Objectives</h3>
+      <ul class="plan-list"><li>Make industrial robot programming accessible via natural language — eliminate need for robot engineers</li><li>Scale from pilot deployments to multi-factory production use</li><li>Build robot-agnostic platform that works across all major robot manufacturers</li><li>Expand from machine tending to broader manufacturing workflows (assembly, inspection, material handling)</li><li>Achieve product-market fit with enterprise manufacturing customers</li></ul>
+    </div>
+    <div class="plan-section">
+      <h3 class="section-title">💻 Tech Initiatives</h3>
+      <ul class="plan-list"><li>ActGPT v2 — improving task understanding accuracy and expanding supported manufacturing tasks</li><li>Multi-robot coordination — enabling multiple robots to collaborate on complex assembly</li><li>Edge-cloud hybrid inference — balancing latency and compute between robot and cloud</li><li>Simulation-to-reality transfer — training policies in digital twins and deploying to physical robots</li><li>Sensor fusion pipeline — integrating vision, force/torque, and language for richer task understanding</li></ul>
+    </div>
+    <div class="plan-section highlight-section">
+      <h3 class="section-title">⚡ Why Anyscale? (Platform Outcomes)</h3>
+      <ul class="why-list"><li>Ray Serve handles multi-model serving across heterogeneous sensors — vision, haptics, language in parallel</li><li>Ray's actor model maps naturally to multi-robot coordination — each robot as an actor with shared policy</li><li>Anyscale managed platform eliminates infra overhead for a 16-person team</li><li>Ray Data handles distributed sensor stream processing across factory deployments</li><li>Ray Train enables distributed policy training from demonstration data across multiple sites</li><li>Cost control: autoscaling means GPU resources scale with actual robot task demand</li></ul>
+    </div>
+    <div class="plan-section">
+      <h3 class="section-title">❓ Discovery Questions</h3>
+      <ol class="discovery-list"><li>How are you currently handling inference for multi-modal sensor fusion on the factory floor? Are you seeing latency issues?</li><li>When a new manufacturing task needs to be taught — how long does the training loop take end to end?</li><li>How many simultaneous robots can ActGPT currently support per site, and where's the scaling bottleneck?</li><li>Are you running simulation (digital twin) training on-prem or in the cloud? What's the iteration cycle like?</li><li>As you onboard new factory customers — how do you handle model versioning and deployment across sites?</li><li>What fraction of your engineering team is spending time on infrastructure vs. actual AI/robotics work?</li></ol>
+    </div>
+    <div class="plan-section funding-section">
+      <h3 class="section-title">💰 Funding / Revenue Notes</h3>
+      <div class="funding-block"><div class="funding-item">Seed: $5.4M (Dec 2024) led by Emergent Ventures, Engine Ventures. Additional: Berkeley Skydeck, Raisewell. Pre-revenue, building toward enterprise manufacturing deployments.</div></div>
+    </div>
+    <div class="plan-section email-section full-width">
+      <h3 class="section-title">✉️ 4-Step Email Outreach Sequence</h3>
+      <div class="emails-container"><div class="email-card">
+  <div class="email-header">
+    <span class="email-step">Step 1</span>
+    <span class="email-subject">Subject: ActGPT + distributed inference at scale</span>
+    <button class="copy-btn" onclick="copyEmail(this)">Copy</button>
+  </div>
+  <pre class="email-body">Asad — the multi-modal sensor fusion challenge you're solving (vision + haptics + language → robot action) is one of the highest-throughput inference workloads in robotics.
+
+We work with several robotics teams running similar multi-model serving pipelines on Ray Serve. The actor model maps directly to your robot fleet — each robot as an independent actor with shared policy updates.
+
+Worth 15 minutes to compare architectures? Especially curious how you're handling the latency budget across modalities.</pre>
+</div>
+<div class="email-card">
+  <div class="email-header">
+    <span class="email-step">Step 2</span>
+    <span class="email-subject">Subject: Re: ActGPT + distributed inference</span>
+    <button class="copy-btn" onclick="copyEmail(this)">Copy</button>
+  </div>
+  <pre class="email-body">Following up — for a team of 16, the infrastructure overhead of running multi-site deployments can eat a disproportionate amount of engineering time.
+
+The angle for T-robotics specifically: Anyscale manages the compute layer so your team focuses on the robotics and AI. You ship ActGPT to more factories, we handle the distributed inference scaling.
+
+20 minutes to show a concrete setup for robotics multi-model serving?</pre>
+</div>
+<div class="email-card">
+  <div class="email-header">
+    <span class="email-step">Step 3</span>
+    <span class="email-subject">Subject: Industrial robotics + Ray — reference case</span>
+    <button class="copy-btn" onclick="copyEmail(this)">Copy</button>
+  </div>
+  <pre class="email-body">Asad — last one from me on this.
+
+We have a reference customer in physical AI who cut their simulation-to-deployment cycle by 60% after moving to Ray for distributed policy training. Similar setup: multi-modal inputs, edge+cloud hybrid, small team.
+
+If the comparison is useful, happy to share. If not the right time, no worries — I'll circle back when you're scaling to multi-factory.</pre>
+</div>
+<div class="email-card">
+  <div class="email-header">
+    <span class="email-step">Step 4</span>
+    <span class="email-subject">Subject: T-robotics infra planning</span>
+    <button class="copy-btn" onclick="copyEmail(this)">Copy</button>
+  </div>
+  <pre class="email-body">Asad — circling back as you scale ActGPT to more manufacturing sites.
+
+The teams that invest in unified ML infrastructure early (training + serving + data on Ray) tend to scale 3-5x faster than those who retrofit it later. With the seed round capital deployed, now is the window to get this right.
+
+If it ever makes sense to talk about where T-robotics' infra needs to be in 12 months, I'm here.</pre>
+</div>
+</div>
+    </div>
+  </div>
+</section>
+<section class="company-section" id="cepton" data-name="Cepton" data-sector="AV / LiDAR Sensors">
+  <div class="company-header" style="border-left: 4px solid #58a6ff">
+    <div class="company-title-row">
+      <h2 class="company-name" style="color:#58a6ff">Cepton</h2>
+      <span class="tier-badge" style="background:#58a6ff20;color:#58a6ff;border:1px solid #58a6ff40">5/10 · AV / LiDAR Sensors</span>
+    </div>
+    <div class="company-meta">
+      <span>🌐 cepton.com</span>
+      <span>📍 San Jose, CA</span>
+      <span>👥 ~103 employees</span>
+      <span>🎯 Jun Pei (CEO), Head of ML / Perception Engineering</span>
+    </div>
+  </div>
+
+  <div class="sections-grid">
+    <div class="plan-section ray-section full-width">
+  <h3 class="section-title">🔬 Ray Libraries &amp; Workload Fit</h3>
+  <div class="ray-content">
+    <div class="stage-pill">📈 Stage 1→2 · Build → Run Reliably</div>
+    <div class="wl-row"><span class="wl-label">Workload Type:</span><span class="wl-badge" style="background:#1a2a3a;color:#79c0ff;border:1px solid #2d5a8a">Distributed Training</span><span class="wl-badge" style="background:#1a3a1a;color:#56d364;border:1px solid #2d7a2d">3D Data Pipeline</span></div>
+    <div class="qual-row"><span class="wl-label">Qualifiers:</span><span class="qual-badge">Multi-node</span><span class="qual-badge">GPU-intensive</span><span class="qual-badge">Sensor data scale</span></div>
+    <div class="lib-grid"><div class="lib-row" style="background:#1a3a5c;border-left:3px solid #2d6a9f">
+  <div class="lib-left">
+    <span class="lib-name" style="color:#79c0ff">Ray Data</span>
+    <span class="lib-level level-primary">PRIMARY</span>
+  </div>
+  <div class="lib-reason">Distributed LiDAR point cloud processing and 3D dataset curation at petabyte scale</div>
+</div>
+<div class="lib-row" style="background:#1a3a2a;border-left:3px solid #2d7a4a">
+  <div class="lib-left">
+    <span class="lib-name" style="color:#56d364">Ray Train</span>
+    <span class="lib-level level-primary">PRIMARY</span>
+  </div>
+  <div class="lib-reason">Training 3D object detection models on massive point cloud datasets</div>
+</div>
+<div class="lib-row" style="background:#3a2a1a;border-left:3px solid #8a5a2a">
+  <div class="lib-left">
+    <span class="lib-name" style="color:#e3b341">Ray Tune</span>
+    <span class="lib-level level-secondary">SECONDARY</span>
+  </div>
+  <div class="lib-reason">Hyperparameter optimization for perception model variants</div>
+</div>
+</div>
+  </div>
+</div>
+    <div class="plan-section">
+      <h3 class="section-title">📡 Key Signals / Indicators</h3>
+      <ul class="signal-list"><li>Acquired by KOITO Manufacturing for $50.5M (Jul 2024) — automotive OEM backing signals production scale</li><li>NVIDIA DRIVE Sim integration — already in the NVIDIA ecosystem for simulation and synthetic data</li><li>MMT LiDAR sensors generate massive point cloud data streams per vehicle per hour</li><li>L2+ ADAS certification requires millions of simulated edge cases — parallel simulation workload</li><li>$119.5M total raised — well-capitalized for infrastructure investment</li><li>Public company (NASDAQ: CPTN) — enterprise procurement processes in place</li></ul>
+    </div>
+    <div class="plan-section">
+      <h3 class="section-title">🤖 ML Use Cases</h3>
+      <ul class="plan-list"><li>3D object detection from LiDAR point clouds — training perception models for ADAS/AV</li><li>Multi-sensor fusion — combining LiDAR + camera + radar into unified 3D scene understanding</li><li>Synthetic data generation — using NVIDIA DRIVE Sim for training data augmentation</li><li>SLAM algorithms — simultaneous localization and mapping for spatial perception</li><li>Safety validation simulation — parallel testing across millions of driving edge cases</li></ul>
+    </div>
+    <div class="plan-section">
+      <h3 class="section-title">🛠 Tech Stack</h3>
+      <ul class="stack-list"><li>Python (ML stack)</li><li>PyTorch for 3D perception models</li><li>NVIDIA DRIVE Sim for simulation</li><li>NVIDIA Omniverse for digital twins</li><li>OpenVINO for edge inference</li><li>NVIDIA Jetson edge processors</li><li>C++ for sensor interface layer</li></ul>
+    </div>
+    <div class="plan-section">
+      <h3 class="section-title">🚀 5 AI / ML Initiatives</h3>
+      <ol class="plan-list"><li>KOITO integration — delivering production-grade LiDAR perception for automotive OEM programs</li><li>NVIDIA DRIVE ecosystem — deepening synthetic data and simulation pipeline with NVIDIA tools</li><li>L2+ ADAS certification — building safety validation pipeline for regulatory compliance</li><li>Multi-OEM deployment — adapting perception models across different vehicle platforms</li><li>Point cloud dataset expansion — collecting and curating diverse driving datasets globally</li></ol>
+    </div>
+    <div class="plan-section">
+      <h3 class="section-title">⏰ Timing Advantages (Why Now)</h3>
+      <ul class="timing-list"><li>KOITO acquisition creates production deployment pressure — infrastructure must scale ahead of OEM timelines</li><li>NVIDIA partnership deepening — natural entry point via complementary infrastructure discussion</li><li>Point cloud data volumes growing exponentially as sensor deployments increase</li><li>ADAS regulatory requirements tightening — more simulation compute needed for certification</li><li>Competitor LiDAR companies (Ouster, Luminar) investing heavily in ML — pressure to keep pace</li></ul>
+    </div>
+    <div class="plan-section">
+      <h3 class="section-title">🎯 Business Objectives</h3>
+      <ul class="plan-list"><li>Deliver production-grade LiDAR perception to KOITO/automotive OEM customers</li><li>Expand from ADAS into smart city and industrial applications</li><li>Achieve L2+ ADAS certification across multiple vehicle platforms</li><li>Reduce cost per LiDAR unit while improving perception accuracy</li><li>Build the standard LiDAR perception stack for the automotive industry</li></ul>
+    </div>
+    <div class="plan-section">
+      <h3 class="section-title">💻 Tech Initiatives</h3>
+      <ul class="plan-list"><li>Perception model training at OEM scale — distributed training on multi-vehicle point cloud datasets</li><li>NVIDIA DRIVE integration — leveraging Omniverse for synthetic data and simulation</li><li>Edge inference optimization — deploying models on NVIDIA Jetson and automotive-grade hardware</li><li>Multi-sensor fusion architecture — combining LiDAR with camera and radar perception</li><li>Digital twin for LiDAR — accurate simulation of sensor physics for synthetic training data</li></ul>
+    </div>
+    <div class="plan-section highlight-section">
+      <h3 class="section-title">⚡ Why Anyscale? (Platform Outcomes)</h3>
+      <ul class="why-list"><li>Ray Data handles petabyte-scale LiDAR point cloud processing and dataset curation</li><li>Ray Train distributes 3D perception model training across GPU clusters — natural fit for point cloud models</li><li>Ray's actor model enables parallel safety simulation across millions of driving edge cases</li><li>Anyscale integrates with NVIDIA ecosystem they're already using (DRIVE Sim, Omniverse)</li><li>Managed platform reduces infra burden for a ~100 person team focused on sensor + perception</li><li>Cost optimization: autoscaling GPU clusters for bursty training workloads</li></ul>
+    </div>
+    <div class="plan-section">
+      <h3 class="section-title">❓ Discovery Questions</h3>
+      <ol class="discovery-list"><li>How are you currently handling the point cloud data pipeline from raw sensor data to training-ready datasets?</li><li>What's the bottleneck in your perception model training cycle — data processing, GPU utilization, or experiment management?</li><li>With the KOITO acquisition, how is the production deployment timeline affecting your infrastructure requirements?</li><li>Are you running safety validation simulations in parallel? How many scenarios can you test per training cycle?</li><li>How are you managing model versioning across different vehicle platforms and OEM customers?</li><li>What's your current setup for synthetic data generation with NVIDIA DRIVE Sim? Is compute a bottleneck?</li></ol>
+    </div>
+    <div class="plan-section funding-section">
+      <h3 class="section-title">💰 Funding / Revenue Notes</h3>
+      <div class="funding-block"><div class="funding-item">Total raised: $119.5M. Acquired by KOITO Manufacturing for $50.5M (Jul 2024). Public on NASDAQ (CPTN). Well-capitalized with automotive OEM backing for production deployment.</div></div>
+    </div>
+    <div class="plan-section email-section full-width">
+      <h3 class="section-title">✉️ 4-Step Email Outreach Sequence</h3>
+      <div class="emails-container"><div class="email-card">
+  <div class="email-header">
+    <span class="email-step">Step 1</span>
+    <span class="email-subject">Subject: LiDAR point cloud training at OEM scale</span>
+    <button class="copy-btn" onclick="copyEmail(this)">Copy</button>
+  </div>
+  <pre class="email-body">Jun — as Cepton moves from R&D to production-grade perception for KOITO, the point cloud data pipeline becomes the bottleneck. Processing terabytes of LiDAR data per vehicle per hour at fleet scale is a classic distributed data problem.
+
+We work with several AV perception teams running similar 3D data + training pipelines on Ray. The integration with the NVIDIA ecosystem you're already using is seamless.
+
+Worth 15 minutes to compare architectures?</pre>
+</div>
+<div class="email-card">
+  <div class="email-header">
+    <span class="email-step">Step 2</span>
+    <span class="email-subject">Subject: Re: LiDAR point cloud training at OEM scale</span>
+    <button class="copy-btn" onclick="copyEmail(this)">Copy</button>
+  </div>
+  <pre class="email-body">Following up — the ADAS safety validation workload is particularly interesting for Ray. Running millions of driving edge cases in parallel maps directly to Ray's actor model.
+
+For Cepton specifically: managed Ray handles the distributed compute so your team focuses on perception accuracy and OEM integration. The autoscaling means you only pay for GPU time during active training runs.
+
+20 minutes to show a concrete setup?</pre>
+</div>
+<div class="email-card">
+  <div class="email-header">
+    <span class="email-step">Step 3</span>
+    <span class="email-subject">Subject: 3D perception + Ray — reference case</span>
+    <button class="copy-btn" onclick="copyEmail(this)">Copy</button>
+  </div>
+  <pre class="email-body">Jun — last one from me on this.
+
+We have an AV reference customer who cut their point cloud processing pipeline from 8 hours to 90 minutes using Ray Data for distributed 3D dataset processing. Similar setup: LiDAR + camera fusion, OEM integration requirements.
+
+If the comparison is useful, happy to share. Otherwise, I'll check back when you're scaling for the next OEM program.</pre>
+</div>
+<div class="email-card">
+  <div class="email-header">
+    <span class="email-step">Step 4</span>
+    <span class="email-subject">Subject: Cepton infrastructure planning</span>
+    <button class="copy-btn" onclick="copyEmail(this)">Copy</button>
+  </div>
+  <pre class="email-body">Jun — circling back as the KOITO production timeline approaches.
+
+The teams that build their training infrastructure ahead of production deadlines ship faster and iterate more confidently. With ADAS certification requiring millions of simulation runs, the compute challenge only grows.
+
+If it makes sense to discuss where Cepton's ML infra needs to be for production scale, I'm here.</pre>
+</div>
+</div>
+    </div>
+  </div>
+</section>
+<section class="company-section" id="embodied" data-name="Embodied" data-sector="Robotics / Social AI">
+  <div class="company-header" style="border-left: 4px solid #d2a8ff">
+    <div class="company-title-row">
+      <h2 class="company-name" style="color:#d2a8ff">Embodied</h2>
+      <span class="tier-badge" style="background:#d2a8ff20;color:#d2a8ff;border:1px solid #d2a8ff40">5/10 · Robotics / Social AI</span>
+    </div>
+    <div class="company-meta">
+      <span>🌐 embodied.com</span>
+      <span>📍 Los Angeles, CA</span>
+      <span>👥 ~30 employees</span>
+      <span>🎯 Dr. Paolo Pirjanian (CEO/Founder, ex-iRobot CTO)</span>
+    </div>
+  </div>
+
+  <div class="sections-grid">
+    <div class="plan-section ray-section full-width">
+  <h3 class="section-title">🔬 Ray Libraries &amp; Workload Fit</h3>
+  <div class="ray-content">
+    <div class="stage-pill">📈 Stage 1 · Build Faster</div>
+    <div class="wl-row"><span class="wl-label">Workload Type:</span><span class="wl-badge" style="background:#1a2a3a;color:#79c0ff;border:1px solid #2d5a8a">Distributed Inference</span><span class="wl-badge" style="background:#3a1a2a;color:#f778ba;border:1px solid #8a2a6a">On-Device ML</span></div>
+    <div class="qual-row"><span class="wl-label">Qualifiers:</span><span class="qual-badge">Edge + Cloud</span><span class="qual-badge">Privacy-first</span><span class="qual-badge">Low-latency</span></div>
+    <div class="lib-grid"><div class="lib-row" style="background:#3a1a2a;border-left:3px solid #8a2a6a">
+  <div class="lib-left">
+    <span class="lib-name" style="color:#f778ba">Ray Serve</span>
+    <span class="lib-level level-primary">PRIMARY</span>
+  </div>
+  <div class="lib-reason">Serving conversational AI and emotion detection models across robot fleet</div>
+</div>
+<div class="lib-row" style="background:#1a3a2a;border-left:3px solid #2d7a4a">
+  <div class="lib-left">
+    <span class="lib-name" style="color:#56d364">Ray Train</span>
+    <span class="lib-level level-secondary">SECONDARY</span>
+  </div>
+  <div class="lib-reason">Training LLM and speech models on aggregated interaction data</div>
+</div>
+<div class="lib-row" style="background:#1a3a5c;border-left:3px solid #2d6a9f">
+  <div class="lib-left">
+    <span class="lib-name" style="color:#79c0ff">Ray Data</span>
+    <span class="lib-level level-secondary">SECONDARY</span>
+  </div>
+  <div class="lib-reason">Processing interaction data from fleet while preserving privacy</div>
+</div>
+</div>
+  </div>
+</div>
+    <div class="plan-section">
+      <h3 class="section-title">📡 Key Signals / Indicators</h3>
+      <ul class="signal-list"><li>$44M raised including $19.2M Series B — backed by Amazon, Intel, Sony, Toyota</li><li>Proprietary 1.8B parameter LLM — training and serving custom models at scale</li><li>95-99% on-device processing — edge inference optimization is core challenge</li><li>Founded by ex-iRobot CTO and NASA JPL veteran — deep robotics expertise</li><li>FERPA certified — privacy requirements drive federated learning needs</li><li>Note: Moxie product discontinued late 2024 — company may be pivoting or winding down</li></ul>
+    </div>
+    <div class="plan-section">
+      <h3 class="section-title">🤖 ML Use Cases</h3>
+      <ul class="plan-list"><li>Conversational AI with 1.8B parameter custom LLM — real-time dialogue generation</li><li>Automatic speech recognition with noise resilience — on-device processing</li><li>Facial recognition and emotion detection — computer vision for social interaction</li><li>Long-term memory and personalization — adapting to individual users over time</li><li>Federated learning from fleet — improving models without centralizing private data</li></ul>
+    </div>
+    <div class="plan-section">
+      <h3 class="section-title">🛠 Tech Stack</h3>
+      <ul class="stack-list"><li>Custom LLM (1.8B parameters)</li><li>Google Cloud speech recognition</li><li>On-device inference (95-99% local processing)</li><li>SocialX conversational AI engine</li><li>Computer vision for facial features</li><li>Privacy-first architecture (FERPA)</li><li>Edge ML frameworks</li></ul>
+    </div>
+    <div class="plan-section">
+      <h3 class="section-title">🚀 5 AI / ML Initiatives</h3>
+      <ol class="plan-list"><li>Next-generation social AI platform — building on Moxie's conversational AI technology</li><li>On-device model optimization — shrinking models for edge deployment while maintaining quality</li><li>Privacy-preserving ML — federated learning from distributed robot interactions</li><li>Multimodal interaction — integrating speech, vision, and touch for natural robot communication</li><li>Platform licensing — potentially licensing SocialX technology to other robotics companies</li></ol>
+    </div>
+    <div class="plan-section">
+      <h3 class="section-title">⏰ Timing Advantages (Why Now)</h3>
+      <ul class="timing-list"><li>Product pivot creates infrastructure reassessment opportunity — new platform may need new ML stack</li><li>On-device AI trend accelerating — edge inference becoming more important across robotics</li><li>Privacy regulations tightening — federated learning becoming table stakes for consumer robots</li><li>Amazon/Intel/Sony backing suggests potential for enterprise licensing or B2B pivot</li><li>Small team (30) means every infrastructure efficiency gain matters</li></ul>
+    </div>
+    <div class="plan-section">
+      <h3 class="section-title">🎯 Business Objectives</h3>
+      <ul class="plan-list"><li>Pivot from consumer robot to broader social AI platform or B2B licensing</li><li>Monetize proprietary SocialX conversational AI technology</li><li>Maintain leadership in privacy-preserving social AI for consumer applications</li><li>Reduce cost per robot interaction while improving conversational quality</li><li>Explore enterprise applications of social AI technology</li></ul>
+    </div>
+    <div class="plan-section">
+      <h3 class="section-title">💻 Tech Initiatives</h3>
+      <ul class="plan-list"><li>SocialX v2 — advancing the conversational AI engine for new use cases</li><li>Edge model compression — deploying smaller, faster models on consumer hardware</li><li>Federated learning pipeline — training on fleet data without centralizing interactions</li><li>Emotion detection improvement — better understanding of user sentiment and engagement</li><li>Multi-turn conversation quality — improving long-form dialogue coherence</li></ul>
+    </div>
+    <div class="plan-section highlight-section">
+      <h3 class="section-title">⚡ Why Anyscale? (Platform Outcomes)</h3>
+      <ul class="why-list"><li>Ray Serve manages model serving across distributed robot fleet — scales with deployments</li><li>Ray's federated learning support enables privacy-preserving training across devices</li><li>Ray Train handles distributed training of custom 1.8B LLM on aggregated data</li><li>Anyscale managed platform minimizes infra overhead for a 30-person team in transition</li><li>Cost efficiency: autoscaling cloud compute complements on-device edge processing</li><li>Ray Data handles privacy-compliant data pipeline from fleet to training</li></ul>
+    </div>
+    <div class="plan-section">
+      <h3 class="section-title">❓ Discovery Questions</h3>
+      <ol class="discovery-list"><li>With the Moxie transition — are you looking to license SocialX to other robotics/AI companies?</li><li>How are you currently handling model updates across deployed robots? Is the edge-cloud sync a challenge?</li><li>What's the biggest infrastructure bottleneck in training your custom 1.8B parameter LLM?</li><li>Are you exploring federated learning for privacy-preserving model improvement across the fleet?</li><li>What compute infrastructure are you running today, and how is the team size affecting your ability to manage it?</li><li>If you're pivoting to B2B licensing — how would you need to change your serving infrastructure?</li></ol>
+    </div>
+    <div class="plan-section funding-section">
+      <h3 class="section-title">💰 Funding / Revenue Notes</h3>
+      <div class="funding-block"><div class="funding-item">Total raised: $44M. Series B: $19.2M (Nov 2022). Investors: Amazon, Intel, Sony, Toyota. Note: Moxie product discontinued late 2024 — company may be pivoting. Monitor for strategic direction.</div></div>
+    </div>
+    <div class="plan-section email-section full-width">
+      <h3 class="section-title">✉️ 4-Step Email Outreach Sequence</h3>
+      <div class="emails-container"><div class="email-card">
+  <div class="email-header">
+    <span class="email-step">Step 1</span>
+    <span class="email-subject">Subject: SocialX infrastructure for the next chapter</span>
+    <button class="copy-btn" onclick="copyEmail(this)">Copy</button>
+  </div>
+  <pre class="email-body">Paolo — Embodied's SocialX engine is one of the most sophisticated conversational AI platforms I've seen in consumer robotics. As you explore what's next, the underlying ML infrastructure question becomes critical.
+
+Whether it's B2B licensing, a new product, or scaling the technology to new domains — distributed model serving and privacy-preserving training are going to be table stakes.
+
+Worth a quick conversation about infrastructure planning for the next phase?</pre>
+</div>
+<div class="email-card">
+  <div class="email-header">
+    <span class="email-step">Step 2</span>
+    <span class="email-subject">Subject: Re: SocialX infrastructure</span>
+    <button class="copy-btn" onclick="copyEmail(this)">Copy</button>
+  </div>
+  <pre class="email-body">Following up — for a team of 30, every hour spent on infrastructure management is an hour not spent on the AI that differentiates Embodied.
+
+Anyscale handles the distributed compute layer. You focus on making SocialX the best conversational AI platform in robotics.
+
+15 minutes to explore the fit?</pre>
+</div>
+<div class="email-card">
+  <div class="email-header">
+    <span class="email-step">Step 3</span>
+    <span class="email-subject">Subject: Privacy-preserving ML for social robots — approach</span>
+    <button class="copy-btn" onclick="copyEmail(this)">Copy</button>
+  </div>
+  <pre class="email-body">Paolo — the privacy-first architecture you built for Moxie (FERPA certified, 95%+ on-device) is exactly the kind of setup where federated learning on Ray shines.
+
+Train on aggregated fleet interaction data → push model updates to edge → never centralize raw conversations. Ray handles the orchestration.
+
+Happy to show how this works in practice with a similar use case.</pre>
+</div>
+<div class="email-card">
+  <div class="email-header">
+    <span class="email-step">Step 4</span>
+    <span class="email-subject">Subject: Embodied + Anyscale — when the timing is right</span>
+    <button class="copy-btn" onclick="copyEmail(this)">Copy</button>
+  </div>
+  <pre class="email-body">Paolo — understand if now isn't the moment for infrastructure conversations. But when Embodied's next chapter takes shape, the teams that build on unified ML infrastructure (training + serving + data) from day one move faster.
+
+I'm here whenever it makes sense to talk. Keep building — the SocialX technology is genuinely impressive.</pre>
+</div>
+</div>
+    </div>
+  </div>
+</section>
+<section class="company-section" id="luxonis" data-name="Luxonis" data-sector="Robotics / Edge AI">
+  <div class="company-header" style="border-left: 4px solid #3fb950">
+    <div class="company-title-row">
+      <h2 class="company-name" style="color:#3fb950">Luxonis</h2>
+      <span class="tier-badge" style="background:#3fb95020;color:#3fb950;border:1px solid #3fb95040">5/10 · Robotics / Edge AI</span>
+    </div>
+    <div class="company-meta">
+      <span>🌐 luxonis.com</span>
+      <span>📍 Denver, CO</span>
+      <span>👥 ~80 employees</span>
+      <span>🎯 Brandon Gilles (CEO/Founder)</span>
+    </div>
+  </div>
+
+  <div class="sections-grid">
+    <div class="plan-section ray-section full-width">
+  <h3 class="section-title">🔬 Ray Libraries &amp; Workload Fit</h3>
+  <div class="ray-content">
+    <div class="stage-pill">📈 Stage 0→1 · Evaluate → Build</div>
+    <div class="wl-row"><span class="wl-label">Workload Type:</span><span class="wl-badge" style="background:#3a1a2a;color:#f778ba;border:1px solid #8a2a6a">Edge Fleet Management</span><span class="wl-badge" style="background:#1a2a3a;color:#79c0ff;border:1px solid #2d5a8a">Distributed Inference</span></div>
+    <div class="qual-row"><span class="wl-label">Qualifiers:</span><span class="qual-badge">Edge-to-Cloud</span><span class="qual-badge">Fleet management</span><span class="qual-badge">Heterogeneous hardware</span></div>
+    <div class="lib-grid"><div class="lib-row" style="background:#3a1a2a;border-left:3px solid #8a2a6a">
+  <div class="lib-left">
+    <span class="lib-name" style="color:#f778ba">Ray Serve</span>
+    <span class="lib-level level-primary">PRIMARY</span>
+  </div>
+  <div class="lib-reason">Cloud-to-edge model serving and versioning across thousands of OAK cameras</div>
+</div>
+<div class="lib-row" style="background:#1a3a5c;border-left:3px solid #2d6a9f">
+  <div class="lib-left">
+    <span class="lib-name" style="color:#79c0ff">Ray Data</span>
+    <span class="lib-level level-primary">PRIMARY</span>
+  </div>
+  <div class="lib-reason">Distributed processing of vision data collected from edge device fleet</div>
+</div>
+<div class="lib-row" style="background:#1a3a2a;border-left:3px solid #2d7a4a">
+  <div class="lib-left">
+    <span class="lib-name" style="color:#56d364">Ray Train</span>
+    <span class="lib-level level-secondary">SECONDARY</span>
+  </div>
+  <div class="lib-reason">Centralized model training on aggregated edge vision data</div>
+</div>
+</div>
+  </div>
+</div>
+    <div class="plan-section">
+      <h3 class="section-title">📡 Key Signals / Indicators</h3>
+      <ul class="signal-list"><li>80+ employees across 4 continents — distributed team requires distributed infrastructure</li><li>OAK platform supports 200+ pre-trained models — model management at scale</li><li>Cloud Hub for device management and OTA updates — fleet orchestration challenge</li><li>Intel Movidius VPU integration — edge ML inference is core product</li><li>Model drift detection built into platform — signals ML maturity</li><li>Growing from hobbyist to enterprise customers — infrastructure scaling needed</li></ul>
+    </div>
+    <div class="plan-section">
+      <h3 class="section-title">🤖 ML Use Cases</h3>
+      <ul class="plan-list"><li>Edge computer vision inference on OAK cameras — real-time object detection and depth estimation</li><li>Fleet model management — versioning and deploying models across thousands of edge devices</li><li>Model drift detection — monitoring performance degradation across deployed cameras</li><li>Intelligent data collection — selectively uploading training data from edge to cloud</li><li>Centralized retraining — training updated models on aggregated edge data</li></ul>
+    </div>
+    <div class="plan-section">
+      <h3 class="section-title">🛠 Tech Stack</h3>
+      <ul class="stack-list"><li>OpenVINO framework for model deployment</li><li>Intel Movidius Myriad X VPU</li><li>200+ pre-trained models (OpenVINO Model Zoo)</li><li>DepthAI Python API and SDK</li><li>Cloud Hub for device management</li><li>YOLO integration for object detection</li><li>TensorFlow / PyTorch (via ONNX conversion)</li></ul>
+    </div>
+    <div class="plan-section">
+      <h3 class="section-title">🚀 5 AI / ML Initiatives</h3>
+      <ol class="plan-list"><li>OAK 4 launch — next-gen camera with 48MP RGB, stereo depth, IR, IMU, microphones, and onboard NN</li><li>Cloud Hub expansion — enterprise fleet management for thousands of OAK cameras</li><li>Enterprise market penetration — moving from robotics hobbyists to industrial/retail/logistics</li><li>Model marketplace — enabling customers to deploy and share trained models across OAK fleet</li><li>Edge-cloud hybrid architecture — intelligent data routing between camera and cloud</li></ol>
+    </div>
+    <div class="plan-section">
+      <h3 class="section-title">⏰ Timing Advantages (Why Now)</h3>
+      <ul class="timing-list"><li>OAK 4 launch increases data volume per device — more compute needed for fleet analytics</li><li>Enterprise customers demand fleet management at scale — Cloud Hub is the growth vector</li><li>Edge AI market expanding rapidly — enterprises deploying thousands of vision devices</li><li>Competitor pressure (NVIDIA Jetson, Google Coral) — differentiation via platform, not just hardware</li><li>4-continent team needs unified infrastructure to manage global device fleet</li></ul>
+    </div>
+    <div class="plan-section">
+      <h3 class="section-title">🎯 Business Objectives</h3>
+      <ul class="plan-list"><li>Become the standard spatial AI camera platform for enterprise deployments</li><li>Scale Cloud Hub to manage tens of thousands of OAK cameras per customer</li><li>Expand from OAK hardware sales to recurring platform revenue</li><li>Enable no-code/low-code ML deployment on edge devices</li><li>Build the ecosystem: developers, partners, and enterprise customers</li></ul>
+    </div>
+    <div class="plan-section">
+      <h3 class="section-title">💻 Tech Initiatives</h3>
+      <ul class="plan-list"><li>Cloud Hub v2 — scaling device management to enterprise fleet sizes</li><li>OAK 4 AI capabilities — leveraging next-gen hardware for richer edge inference</li><li>Model drift monitoring — automated detection and alerting across deployed fleet</li><li>Intelligent data pipeline — smart sampling from edge devices for efficient retraining</li><li>Cross-model compatibility — ensuring models deploy consistently across OAK hardware generations</li></ul>
+    </div>
+    <div class="plan-section highlight-section">
+      <h3 class="section-title">⚡ Why Anyscale? (Platform Outcomes)</h3>
+      <ul class="why-list"><li>Ray Serve manages model serving across thousands of edge devices with version control and rollbacks</li><li>Ray Data handles distributed processing of vision data from edge fleet to cloud training</li><li>Ray's actor model maps naturally to fleet management — each OAK camera as an actor</li><li>Anyscale managed platform reduces ops burden for an 80-person team across 4 continents</li><li>Ray Train enables centralized model training on aggregated edge data with autoscaling GPUs</li><li>Cost optimization: process data from edge selectively — only send high-value training samples</li></ul>
+    </div>
+    <div class="plan-section">
+      <h3 class="section-title">❓ Discovery Questions</h3>
+      <ol class="discovery-list"><li>How are you currently managing model deployments and updates across your OAK camera fleet?</li><li>What's the biggest bottleneck in your Cloud Hub platform as enterprise customers scale up?</li><li>How do you handle model drift detection today — is it automated or manual?</li><li>When a customer needs to retrain a model for their specific use case — what does that pipeline look like?</li><li>Are you seeing demand for managing 1,000+ cameras per enterprise deployment? How does infrastructure scale?</li><li>What fraction of your engineering team works on cloud/platform vs. hardware/edge?</li></ol>
+    </div>
+    <div class="plan-section funding-section">
+      <h3 class="section-title">💰 Funding / Revenue Notes</h3>
+      <div class="funding-block"><div class="funding-item">Total raised: $4.78M. Latest: $2.78M Seed (Jul 2022). Bootstrap mentality with hardware revenue. Cloud Hub platform is the growth vector for recurring revenue.</div></div>
+    </div>
+    <div class="plan-section email-section full-width">
+      <h3 class="section-title">✉️ 4-Step Email Outreach Sequence</h3>
+      <div class="emails-container"><div class="email-card">
+  <div class="email-header">
+    <span class="email-step">Step 1</span>
+    <span class="email-subject">Subject: OAK fleet management at enterprise scale</span>
+    <button class="copy-btn" onclick="copyEmail(this)">Copy</button>
+  </div>
+  <pre class="email-body">Brandon — as Luxonis moves into enterprise deployments with thousands of OAK cameras, the fleet management challenge becomes a distributed systems problem.
+
+We work with several edge AI companies using Ray to manage model serving and updates across device fleets. The actor model maps naturally to camera-as-device orchestration.
+
+Worth 15 minutes to compare how you're thinking about Cloud Hub's backend architecture?</pre>
+</div>
+<div class="email-card">
+  <div class="email-header">
+    <span class="email-step">Step 2</span>
+    <span class="email-subject">Subject: Re: OAK fleet management</span>
+    <button class="copy-btn" onclick="copyEmail(this)">Copy</button>
+  </div>
+  <pre class="email-body">Following up — the edge-to-cloud data pipeline is where I see the biggest opportunity for Luxonis.
+
+Intelligent data sampling from thousands of OAK cameras → centralized retraining → OTA model push. Ray Data + Ray Train + Ray Serve handles this end-to-end.
+
+For an 80-person team across 4 continents, managed infrastructure makes the difference between shipping features and managing clusters.
+
+20 minutes to show a concrete architecture?</pre>
+</div>
+<div class="email-card">
+  <div class="email-header">
+    <span class="email-step">Step 3</span>
+    <span class="email-subject">Subject: Edge AI fleet management — reference case</span>
+    <button class="copy-btn" onclick="copyEmail(this)">Copy</button>
+  </div>
+  <pre class="email-body">Brandon — last one from me.
+
+We have a reference customer managing 5,000+ edge vision devices with Ray. Similar setup: model versioning, drift detection, selective data upload, and centralized retraining. They cut their model update cycle from weeks to hours.
+
+If the comparison is useful for Cloud Hub planning, happy to share. Otherwise, I'll check back when enterprise deals start scaling.</pre>
+</div>
+<div class="email-card">
+  <div class="email-header">
+    <span class="email-step">Step 4</span>
+    <span class="email-subject">Subject: Luxonis + Anyscale — infrastructure planning</span>
+    <button class="copy-btn" onclick="copyEmail(this)">Copy</button>
+  </div>
+  <pre class="email-body">Brandon — as OAK 4 ships and enterprise customers start deploying at scale, the infrastructure decisions you make now will determine how fast you can iterate.
+
+The companies that build on unified ML platforms (edge + cloud + training + serving) outpace those that stitch together point solutions later.
+
+Whenever it makes sense to discuss Cloud Hub's next phase, I'm here.</pre>
+</div>
+</div>
+    </div>
+  </div>
+</section>
+<section class="company-section" id="multiply-labs" data-name="Multiply Labs" data-sector="Robotics / Biotech">
+  <div class="company-header" style="border-left: 4px solid #3fb950">
+    <div class="company-title-row">
+      <h2 class="company-name" style="color:#3fb950">Multiply Labs</h2>
+      <span class="tier-badge" style="background:#3fb95020;color:#3fb950;border:1px solid #3fb95040">5/10 · Robotics / Biotech</span>
+    </div>
+    <div class="company-meta">
+      <span>🌐 multiplylabs.com</span>
+      <span>📍 San Francisco, CA</span>
+      <span>👥 ~34-51 employees</span>
+      <span>🎯 Fred Parietti (CEO/Founder)</span>
+    </div>
+  </div>
+
+  <div class="sections-grid">
+    <div class="plan-section ray-section full-width">
+  <h3 class="section-title">🔬 Ray Libraries &amp; Workload Fit</h3>
+  <div class="ray-content">
+    <div class="stage-pill">📈 Stage 1 · Build Faster</div>
+    <div class="wl-row"><span class="wl-label">Workload Type:</span><span class="wl-badge" style="background:#1a2a3a;color:#79c0ff;border:1px solid #2d5a8a">Distributed Training</span><span class="wl-badge" style="background:#2a1a3a;color:#bc8cff;border:1px solid #6a2a9a">Simulation Pipeline</span></div>
+    <div class="qual-row"><span class="wl-label">Qualifiers:</span><span class="qual-badge">Multi-node</span><span class="qual-badge">Simulation-heavy</span><span class="qual-badge">Heterogeneous</span></div>
+    <div class="lib-grid"><div class="lib-row" style="background:#1a3a2a;border-left:3px solid #2d7a4a">
+  <div class="lib-left">
+    <span class="lib-name" style="color:#56d364">Ray Train</span>
+    <span class="lib-level level-primary">PRIMARY</span>
+  </div>
+  <div class="lib-reason">Distributed training of robot policies from imitation learning on demonstration data</div>
+</div>
+<div class="lib-row" style="background:#1a3a5c;border-left:3px solid #2d6a9f">
+  <div class="lib-left">
+    <span class="lib-name" style="color:#79c0ff">Ray Data</span>
+    <span class="lib-level level-primary">PRIMARY</span>
+  </div>
+  <div class="lib-reason">Processing video demonstrations and manufacturing data across biomanufacturing sites</div>
+</div>
+<div class="lib-row" style="background:#3a2a1a;border-left:3px solid #8a5a2a">
+  <div class="lib-left">
+    <span class="lib-name" style="color:#e3b341">Ray Tune</span>
+    <span class="lib-level level-secondary">SECONDARY</span>
+  </div>
+  <div class="lib-reason">Hyperparameter optimization for robot control policies across therapy protocols</div>
+</div>
+</div>
+  </div>
+</div>
+    <div class="plan-section">
+      <h3 class="section-title">📡 Key Signals / Indicators</h3>
+      <ul class="signal-list"><li>$41.3M raised including $20M Series A from Casdin Capital, Lux Capital, Founders Fund — well-capitalized</li><li>Imitation learning from expert video demonstrations — compute-intensive training paradigm</li><li>NVIDIA Isaac Sim integration for digital twin simulation — natural NVIDIA ecosystem fit</li><li>74% cost reduction in cell therapy manufacturing ($100K+ → $25-35K per dose) — proven value prop</li><li>100x more patient doses per square foot — robotics-driven efficiency at scale</li><li>$7.1M revenue (2024) with profitable operations — growing and sustainable</li></ul>
+    </div>
+    <div class="plan-section">
+      <h3 class="section-title">🤖 ML Use Cases</h3>
+      <ul class="plan-list"><li>Imitation learning from expert demonstrations — training robot policies from scientist task videos</li><li>Digital twin simulation in NVIDIA Isaac Sim — testing policies before physical deployment</li><li>Computer vision for quality control — ML-based inspection of cell therapy products</li><li>Reinforcement learning for process optimization — improving manufacturing efficiency over time</li><li>Predictive process models — anticipating manufacturing issues before they occur</li></ul>
+    </div>
+    <div class="plan-section">
+      <h3 class="section-title">🛠 Tech Stack</h3>
+      <ul class="stack-list"><li>NVIDIA Isaac Sim for robotics simulation</li><li>NVIDIA Omniverse for digital twins</li><li>PyTorch for policy networks</li><li>Imitation learning frameworks</li><li>Universal Robots (UR) cobots</li><li>Computer vision for cell/tissue analysis</li><li>Real-time control systems</li></ul>
+    </div>
+    <div class="plan-section">
+      <h3 class="section-title">🚀 5 AI / ML Initiatives</h3>
+      <ol class="plan-list"><li>Multi-site biomanufacturing — deploying robotic systems to pharmaceutical partner facilities</li><li>Expanded therapy coverage — automating manufacturing for more cell and gene therapy types</li><li>Imitation learning at scale — training from more diverse expert demonstrations</li><li>Isaac Sim integration — deeper simulation before physical deployment to reduce costs</li><li>FDA validation pipeline — building ML-assisted quality control for regulatory compliance</li></ol>
+    </div>
+    <div class="plan-section">
+      <h3 class="section-title">⏰ Timing Advantages (Why Now)</h3>
+      <ul class="timing-list"><li>Cell and gene therapy market growing rapidly — manufacturing bottleneck is the constraint</li><li>Profitable with $7.1M revenue — has capital to invest in infrastructure now</li><li>NVIDIA Isaac Sim partnership positions them for distributed simulation workloads</li><li>Imitation learning gaining traction — scaling training data requires distributed compute</li><li>FDA regulatory requirements increasing — more simulation runs needed for validation</li></ul>
+    </div>
+    <div class="plan-section">
+      <h3 class="section-title">🎯 Business Objectives</h3>
+      <ul class="plan-list"><li>Become the standard robotic manufacturing platform for cell and gene therapy</li><li>Scale from single-site to multi-site biomanufacturing deployments</li><li>Reduce cell therapy costs to make treatments accessible to more patients</li><li>Achieve FDA-validated robotic manufacturing processes</li><li>Expand to new therapy types and pharmaceutical partnerships</li></ul>
+    </div>
+    <div class="plan-section">
+      <h3 class="section-title">💻 Tech Initiatives</h3>
+      <ul class="plan-list"><li>Imitation learning v2 — scaling policy training from more diverse expert demonstrations</li><li>Multi-site deployment infrastructure — coordinating robots across biomanufacturing facilities</li><li>Isaac Sim pipeline — distributed simulation for policy testing before physical deployment</li><li>Quality control ML — building automated visual inspection for regulatory compliance</li><li>Federated learning across sites — sharing learnings without centralizing proprietary protocols</li></ul>
+    </div>
+    <div class="plan-section highlight-section">
+      <h3 class="section-title">⚡ Why Anyscale? (Platform Outcomes)</h3>
+      <ul class="why-list"><li>Ray Train handles distributed imitation learning from video demonstrations at scale</li><li>Ray's actor model maps to multi-robot coordination across biomanufacturing sites</li><li>Ray integrates with NVIDIA Isaac Sim for distributed simulation workloads</li><li>Ray Data processes video demonstrations and manufacturing data at scale</li><li>Anyscale managed platform lets a 40-person team focus on robotics, not infrastructure</li><li>Cost control: GPU autoscaling for bursty simulation and training workloads</li></ul>
+    </div>
+    <div class="plan-section">
+      <h3 class="section-title">❓ Discovery Questions</h3>
+      <ol class="discovery-list"><li>How are you currently training robot policies from expert demonstrations — single-GPU or distributed?</li><li>What's the turnaround time from new therapy protocol to deployed robot policy?</li><li>As you scale to multi-site — how do you plan to coordinate model updates across facilities?</li><li>Are you running Isaac Sim simulations at scale for policy validation? What's the compute bottleneck?</li><li>How much engineering time goes into infrastructure management vs. actual robotics/ML work?</li><li>How do you handle quality control ML — is it integrated into the manufacturing pipeline or separate?</li></ol>
+    </div>
+    <div class="plan-section funding-section">
+      <h3 class="section-title">💰 Funding / Revenue Notes</h3>
+      <div class="funding-block"><div class="funding-item">Total raised: $41.3M (7 rounds). Series A: $20M (Casdin Capital, Lux Capital, Founders Fund). Revenue: $7.1M (2024), profitable. Founded 2016.</div></div>
+    </div>
+    <div class="plan-section email-section full-width">
+      <h3 class="section-title">✉️ 4-Step Email Outreach Sequence</h3>
+      <div class="emails-container"><div class="email-card">
+  <div class="email-header">
+    <span class="email-step">Step 1</span>
+    <span class="email-subject">Subject: Imitation learning at biomanufacturing scale</span>
+    <button class="copy-btn" onclick="copyEmail(this)">Copy</button>
+  </div>
+  <pre class="email-body">Fred — training robot policies from expert demonstrations is one of the most compute-intensive paradigms in robotics. As Multiply Labs scales to more therapy protocols and manufacturing sites, the training pipeline becomes the bottleneck.
+
+We work with robotics teams running similar distributed training + simulation pipelines on Ray. The NVIDIA Isaac Sim integration you're already using fits naturally.
+
+Worth 15 minutes to discuss the infrastructure scaling question?</pre>
+</div>
+<div class="email-card">
+  <div class="email-header">
+    <span class="email-step">Step 2</span>
+    <span class="email-subject">Subject: Re: Imitation learning at scale</span>
+    <button class="copy-btn" onclick="copyEmail(this)">Copy</button>
+  </div>
+  <pre class="email-body">Following up — for a team your size, the infrastructure overhead of multi-site biomanufacturing can consume engineering cycles fast.
+
+The angle for Multiply Labs: Anyscale manages the distributed compute, you focus on the robotics and therapy protocols. Train policies centrally → test in Isaac Sim → deploy to manufacturing sites.
+
+20 minutes to show a concrete pipeline?</pre>
+</div>
+<div class="email-card">
+  <div class="email-header">
+    <span class="email-step">Step 3</span>
+    <span class="email-subject">Subject: Biomanufacturing robotics + Ray — reference</span>
+    <button class="copy-btn" onclick="copyEmail(this)">Copy</button>
+  </div>
+  <pre class="email-body">Fred — last one from me.
+
+We have a robotics reference customer who reduced their simulation-to-deployment cycle by 4x after moving to Ray for distributed policy training and Isaac Sim orchestration. Similar setup: imitation learning, multi-site deployment, small team.
+
+Happy to share the architecture comparison if useful.</pre>
+</div>
+<div class="email-card">
+  <div class="email-header">
+    <span class="email-step">Step 4</span>
+    <span class="email-subject">Subject: Multiply Labs infrastructure planning</span>
+    <button class="copy-btn" onclick="copyEmail(this)">Copy</button>
+  </div>
+  <pre class="email-body">Fred — as you scale to more pharmaceutical partners and manufacturing sites, the compute infrastructure question becomes strategic.
+
+The teams that invest in unified training + simulation + deployment infrastructure early tend to onboard new therapy protocols 3x faster. With profitable operations and the Series A capital, now is the window.
+
+Whenever it makes sense to discuss, I'm here.</pre>
+</div>
+</div>
+    </div>
+  </div>
+</section>
+<section class="company-section" id="smallest-ai" data-name="Smallest.ai" data-sector="AI Platform / Voice">
+  <div class="company-header" style="border-left: 4px solid #f78166">
+    <div class="company-title-row">
+      <h2 class="company-name" style="color:#f78166">Smallest.ai</h2>
+      <span class="tier-badge" style="background:#f7816620;color:#f78166;border:1px solid #f7816640">5/10 · AI Platform / Voice</span>
+    </div>
+    <div class="company-meta">
+      <span>🌐 smallest.ai</span>
+      <span>📍 San Francisco, CA</span>
+      <span>👥 ~23-77 employees</span>
+      <span>🎯 Sudarshan Kamath (CEO/Founder), Akshat Mandloi (Co-Founder)</span>
+    </div>
+  </div>
+
+  <div class="sections-grid">
+    <div class="plan-section ray-section full-width">
+  <h3 class="section-title">🔬 Ray Libraries &amp; Workload Fit</h3>
+  <div class="ray-content">
+    <div class="stage-pill">📈 Stage 1→2 · Build → Run Reliably</div>
+    <div class="wl-row"><span class="wl-label">Workload Type:</span><span class="wl-badge" style="background:#3a1a2a;color:#f778ba;border:1px solid #8a2a6a">High-Throughput Inference</span><span class="wl-badge" style="background:#1a2a3a;color:#79c0ff;border:1px solid #2d5a8a">Distributed Training</span></div>
+    <div class="qual-row"><span class="wl-label">Qualifiers:</span><span class="qual-badge">Multi-node</span><span class="qual-badge">Low-latency</span><span class="qual-badge">Multi-language</span></div>
+    <div class="lib-grid"><div class="lib-row" style="background:#3a1a2a;border-left:3px solid #8a2a6a">
+  <div class="lib-left">
+    <span class="lib-name" style="color:#f778ba">Ray Serve</span>
+    <span class="lib-level level-primary">PRIMARY</span>
+  </div>
+  <div class="lib-reason">Serving 1B+ calls/month with sub-400ms latency across ASR, TTS, and LLM models</div>
+</div>
+<div class="lib-row" style="background:#1a3a5c;border-left:3px solid #2d6a9f">
+  <div class="lib-left">
+    <span class="lib-name" style="color:#79c0ff">Ray Data</span>
+    <span class="lib-level level-primary">PRIMARY</span>
+  </div>
+  <div class="lib-reason">Processing multilingual speech datasets for training across 50+ languages</div>
+</div>
+<div class="lib-row" style="background:#1a3a2a;border-left:3px solid #2d7a4a">
+  <div class="lib-left">
+    <span class="lib-name" style="color:#56d364">Ray Train</span>
+    <span class="lib-level level-primary">PRIMARY</span>
+  </div>
+  <div class="lib-reason">Distributed training of Conformer/Transformer speech models</div>
+</div>
+</div>
+  </div>
+</div>
+    <div class="plan-section">
+      <h3 class="section-title">📡 Key Signals / Indicators</h3>
+      <ul class="signal-list"><li>$8M seed from Sierra Ventures (Oct 2025) — actively scaling</li><li>1B+ calls processed monthly — massive inference scale already achieved</li><li>Sub-400ms latency at 99.99% uptime — production-grade performance requirements</li><li>50+ language support — model diversity creates serving complexity</li><li>5,000+ SMBs and enterprises served — real customer base, not just R&D</li><li>100ms TTS generation for 10 seconds of audio — ultra-fast inference</li></ul>
+    </div>
+    <div class="plan-section">
+      <h3 class="section-title">🤖 ML Use Cases</h3>
+      <ul class="plan-list"><li>Automatic speech recognition (ASR) — real-time transcription across 50+ languages</li><li>Text-to-speech synthesis — generating natural voice from text in 100ms</li><li>Voice cloning from 5 seconds of audio — rapid voice adaptation</li><li>Conversational AI for voice agents — multi-turn dialogue with low latency</li><li>Multilingual model training — building language-specific models for global coverage</li></ul>
+    </div>
+    <div class="plan-section">
+      <h3 class="section-title">🛠 Tech Stack</h3>
+      <ul class="stack-list"><li>Transformer and Conformer architectures</li><li>Non-autoregressive TTS models</li><li>Diffusion models and neural vocoders</li><li>Multilingual training datasets (studio + conversational)</li><li>Lightweight models for edge deployment</li><li>Real-time streaming ASR/TTS pipelines</li><li>GPU inference infrastructure</li></ul>
+    </div>
+    <div class="plan-section">
+      <h3 class="section-title">🚀 5 AI / ML Initiatives</h3>
+      <ol class="plan-list"><li>Global expansion — scaling from India/US to international markets</li><li>Model efficiency — building compact <10B parameter models for cost-effective inference</li><li>Voice quality improvement — advancing TTS naturalness and accent handling</li><li>Enterprise voice agents — building complete conversational AI solutions on top of ASR/TTS</li><li>Edge deployment — bringing voice AI to on-device use cases for ultra-low latency</li></ol>
+    </div>
+    <div class="plan-section">
+      <h3 class="section-title">⏰ Timing Advantages (Why Now)</h3>
+      <ul class="timing-list"><li>Seed round just closed Oct 2025 — actively deploying capital into infrastructure</li><li>Voice AI market exploding — enterprise call center automation driving demand</li><li>1B+ calls/month already — infrastructure scaling is the current bottleneck</li><li>Competitor pressure (ElevenLabs, PlayHT, Deepgram) — speed of iteration matters</li><li>Sub-400ms latency requirement makes inference optimization critical</li></ul>
+    </div>
+    <div class="plan-section">
+      <h3 class="section-title">🎯 Business Objectives</h3>
+      <ul class="plan-list"><li>Become the leading voice AI infrastructure provider for enterprises globally</li><li>Scale from 5,000+ to 50,000+ customers with efficient unit economics</li><li>Expand language coverage from 50+ to 100+ languages</li><li>Reduce cost per voice interaction while maintaining sub-400ms latency</li><li>Build complete voice agent platform beyond just ASR/TTS components</li></ul>
+    </div>
+    <div class="plan-section">
+      <h3 class="section-title">💻 Tech Initiatives</h3>
+      <ul class="plan-list"><li>Multi-language model scaling — training and serving models for 50+ languages efficiently</li><li>Inference optimization — reducing cost per voice interaction while maintaining latency SLAs</li><li>Voice cloning at scale — enabling rapid voice adaptation for enterprise customers</li><li>Edge voice AI — deploying models on-device for use cases requiring ultra-low latency</li><li>Streaming architecture — real-time ASR + LLM + TTS pipeline for conversational agents</li></ul>
+    </div>
+    <div class="plan-section highlight-section">
+      <h3 class="section-title">⚡ Why Anyscale? (Platform Outcomes)</h3>
+      <ul class="why-list"><li>Ray Serve handles 1B+ calls/month with sub-400ms latency — built for this scale</li><li>Ray's model multiplexing serves 50+ language models efficiently on shared GPU clusters</li><li>Ray Data processes multilingual speech datasets for distributed model training</li><li>Ray Train enables distributed training of Conformer/Transformer models across GPUs</li><li>Anyscale managed platform reduces ops burden as they scale from 5K to 50K customers</li><li>Cost optimization: autoscaling GPU clusters based on voice traffic patterns</li></ul>
+    </div>
+    <div class="plan-section">
+      <h3 class="section-title">❓ Discovery Questions</h3>
+      <ol class="discovery-list"><li>At 1B+ calls per month — what does your inference infrastructure look like today? Where are the scaling bottlenecks?</li><li>How do you handle serving 50+ language models efficiently? Are you running separate clusters per language?</li><li>What's your current cost per voice interaction, and how are you working to reduce it while maintaining latency?</li><li>When you train a new language model — what's the end-to-end pipeline from data to production?</li><li>Are you seeing demand for edge deployment? How would that change your infrastructure needs?</li><li>With the seed capital deployed — what's the #1 infrastructure investment you're making this quarter?</li></ol>
+    </div>
+    <div class="plan-section funding-section">
+      <h3 class="section-title">💰 Funding / Revenue Notes</h3>
+      <div class="funding-block"><div class="funding-item">Seed: $8M (Oct 2025) led by Sierra Ventures. Other investors: 3one4 Capital, Better Capital. 4 total rounds, 21 investors. Founded 2023. Revenue: growing fast with 5,000+ paying customers.</div></div>
+    </div>
+    <div class="plan-section email-section full-width">
+      <h3 class="section-title">✉️ 4-Step Email Outreach Sequence</h3>
+      <div class="emails-container"><div class="email-card">
+  <div class="email-header">
+    <span class="email-step">Step 1</span>
+    <span class="email-subject">Subject: Serving 1B+ voice calls on Ray</span>
+    <button class="copy-btn" onclick="copyEmail(this)">Copy</button>
+  </div>
+  <pre class="email-body">Sudarshan — processing 1B+ calls per month with sub-400ms latency across 50+ languages is one of the most demanding inference workloads I've seen. The model multiplexing challenge alone (serving dozens of language models on shared GPU clusters) is exactly what Ray Serve was built for.
+
+We work with several voice/speech AI teams at similar scale. The cost savings from efficient GPU utilization typically pay for the platform.
+
+Worth 15 minutes to compare architectures?</pre>
+</div>
+<div class="email-card">
+  <div class="email-header">
+    <span class="email-step">Step 2</span>
+    <span class="email-subject">Subject: Re: Voice AI inference at scale</span>
+    <button class="copy-btn" onclick="copyEmail(this)">Copy</button>
+  </div>
+  <pre class="email-body">Following up — as you scale from 5K to 50K customers, the unit economics of inference become everything.
+
+For Smallest.ai specifically: Ray Serve's model multiplexing lets you serve all 50+ language models on shared GPU clusters instead of dedicated ones per language. Teams at your scale typically see 40-60% cost reduction.
+
+20 minutes to show the numbers?</pre>
+</div>
+<div class="email-card">
+  <div class="email-header">
+    <span class="email-step">Step 3</span>
+    <span class="email-subject">Subject: Voice AI + Ray — reference case</span>
+    <button class="copy-btn" onclick="copyEmail(this)">Copy</button>
+  </div>
+  <pre class="email-body">Sudarshan — last one from me.
+
+We have a speech AI reference customer processing similar volume who cut inference costs by 50% while maintaining their latency SLA after moving to Ray Serve for model serving. Similar setup: multiple language models, streaming inference, enterprise customers.
+
+Happy to share the architecture comparison if useful.</pre>
+</div>
+<div class="email-card">
+  <div class="email-header">
+    <span class="email-step">Step 4</span>
+    <span class="email-subject">Subject: Smallest.ai infrastructure scaling</span>
+    <button class="copy-btn" onclick="copyEmail(this)">Copy</button>
+  </div>
+  <pre class="email-body">Sudarshan — as the seed capital deploys and you push toward 50K+ customers, the infrastructure choices you make now determine your unit economics at scale.
+
+The voice AI companies that build on unified serving infrastructure (ASR + TTS + LLM on shared clusters) scale 3-5x more efficiently than those running separate model stacks.
+
+Whenever it makes sense to discuss, I'm here.</pre>
+</div>
+</div>
+    </div>
+  </div>
+</section>
+
+  <div class="section-divider"><h2>🟡 Light Touch — Score 4</h2><p>Key signals + value propositions · Engage opportunistically</p></div>
+  <section class="company-section" id="aarki" data-name="Aarki" data-sector="Ad Tech / ML">
+  <div class="company-header" style="border-left: 4px solid #e3b341">
+    <div class="company-title-row">
+      <h2 class="company-name" style="color:#e3b341">Aarki</h2>
+      <span class="tier-badge" style="background:#e3b34120;color:#e3b341;border:1px solid #e3b34140">4/10 · Ad Tech / ML</span>
+    </div>
+    <div class="company-meta">
+      <span>🌐 aarki.com</span>
+      <span>📍 San Francisco, CA</span>
+      <span>👥 ~160 employees</span>
+      <span>🎯 Sid Bhatt (CEO), Levon Budagyan (CTO)</span>
+    </div>
+  </div>
+  <div class="sections-grid">
+    <div class="plan-section">
+      <h3 class="section-title">📡 Key Signals</h3>
+      <ul class="signal-list"><li>5M+ ad requests per second from 10B+ devices — massive real-time inference scale</li><li>Multi-stage DNN models for bidding — compute-intensive inference pipeline</li><li>158-168 employees across 3 continents — distributed team and infrastructure</li><li>Acquired by Skillz ($150M) then spun off as independent (2023) — fresh infrastructure decisions</li></ul>
+    </div>
+    <div class="plan-section highlight-section">
+      <h3 class="section-title">⚡ Value Proposition</h3>
+      <p style="font-size:13px;line-height:1.6">Ray Serve for high-throughput real-time bidding inference across multi-stage DNN models. Ray Data for distributed behavioral data processing at 10B+ device scale.</p>
+    </div>
+    <div class="plan-section funding-section full-width">
+      <h3 class="section-title">💰 Funding</h3>
+      <p style="font-size:13px">$10-14M raised. Acquired by Skillz ($150M, 2021), spun off independent (2023).</p>
+    </div>
+  </div>
+</section>
+<section class="company-section" id="akool" data-name="Akool" data-sector="AI Platform / GenAI">
+  <div class="company-header" style="border-left: 4px solid #f78166">
+    <div class="company-title-row">
+      <h2 class="company-name" style="color:#f78166">Akool</h2>
+      <span class="tier-badge" style="background:#f7816620;color:#f78166;border:1px solid #f7816640">4/10 · AI Platform / GenAI</span>
+    </div>
+    <div class="company-meta">
+      <span>🌐 akool.com</span>
+      <span>📍 Palo Alto, CA</span>
+      <span>👥 ~75-97 employees</span>
+      <span>🎯 Jiajun Lu (CEO/Founder)</span>
+    </div>
+  </div>
+  <div class="sections-grid">
+    <div class="plan-section">
+      <h3 class="section-title">📡 Key Signals</h3>
+      <ul class="signal-list"><li>$40M revenue (2025) — real traction with Fortune 500 customers (Coca-Cola, Amazon)</li><li>150M+ AI assets created — massive generation workload</li><li>4K/60fps to 8K output — GPU-intensive generative inference</li><li>AWS Bedrock partnership — cloud-native infrastructure</li></ul>
+    </div>
+    <div class="plan-section highlight-section">
+      <h3 class="section-title">⚡ Value Proposition</h3>
+      <p style="font-size:13px;line-height:1.6">Ray Serve for distributed generative video inference at 4K/60fps. Ray Train for distributed diffusion model training on large video datasets.</p>
+    </div>
+    <div class="plan-section funding-section full-width">
+      <h3 class="section-title">💰 Funding</h3>
+      <p style="font-size:13px">$250K convertible note. Revenue: $40M (2025). Investors: AI Grant, Microsoft Pegasus.</p>
+    </div>
+  </div>
+</section>
+<section class="company-section" id="arc-institute" data-name="Arc Institute" data-sector="Biotech / Research">
+  <div class="company-header" style="border-left: 4px solid #3fb950">
+    <div class="company-title-row">
+      <h2 class="company-name" style="color:#3fb950">Arc Institute</h2>
+      <span class="tier-badge" style="background:#3fb95020;color:#3fb950;border:1px solid #3fb95040">4/10 · Biotech / Research</span>
+    </div>
+    <div class="company-meta">
+      <span>🌐 arcinstitute.org</span>
+      <span>📍 Palo Alto, CA</span>
+      <span>👥 ~100+ scientists & engineers</span>
+      <span>🎯 Silvana Konermann (Exec Director), Dave Burke (CTO), Patrick Hsu (Co-Founder)</span>
+    </div>
+  </div>
+  <div class="sections-grid">
+    <div class="plan-section">
+      <h3 class="section-title">📡 Key Signals</h3>
+      <ul class="signal-list"><li>$650M initial funding — massively capitalized for compute infrastructure</li><li>Evo 2 model trained on 9.3 trillion tokens — LLM-scale training workloads</li><li>NVIDIA GPU partnership — already investing in GPU infrastructure</li><li>Open-source approach — community adoption of their tools/models</li></ul>
+    </div>
+    <div class="plan-section highlight-section">
+      <h3 class="section-title">⚡ Value Proposition</h3>
+      <p style="font-size:13px;line-height:1.6">Ray Train for distributed training of foundational genomic AI models at LLM scale (9.3T tokens). Ray Data for petabyte-scale genomic dataset processing.</p>
+    </div>
+    <div class="plan-section funding-section full-width">
+      <h3 class="section-title">💰 Funding</h3>
+      <p style="font-size:13px">$650M initial funding. Non-profit. Donors: Vitalik Buterin, Patrick Collison, Dustin Moskovitz.</p>
+    </div>
+  </div>
+</section>
+<section class="company-section" id="archy" data-name="Archy" data-sector="Dental SaaS / AI">
+  <div class="company-header" style="border-left: 4px solid #e3b341">
+    <div class="company-title-row">
+      <h2 class="company-name" style="color:#e3b341">Archy</h2>
+      <span class="tier-badge" style="background:#e3b34120;color:#e3b341;border:1px solid #e3b34140">4/10 · Dental SaaS / AI</span>
+    </div>
+    <div class="company-meta">
+      <span>🌐 archy.com</span>
+      <span>📍 San Jose, CA</span>
+      <span>👥 ~41-50 employees</span>
+      <span>🎯 Jonathan Rat (CEO, ex-Meta/Uber), Benjamin Kolin (CTO, ex-Uber/VMware)</span>
+    </div>
+  </div>
+  <div class="sections-grid">
+    <div class="plan-section">
+      <h3 class="section-title">📡 Key Signals</h3>
+      <ul class="signal-list"><li>35M+ X-rays processed — significant vision ML workload</li><li>$47M total funding (Series B: $20M from TCV) — well-capitalized</li><li>AI agents automating insurance eligibility, claims, note writing — multi-model serving</li><li>$100M+ annual payments processed across 45 states — scale</li></ul>
+    </div>
+    <div class="plan-section highlight-section">
+      <h3 class="section-title">⚡ Value Proposition</h3>
+      <p style="font-size:13px;line-height:1.6">Ray Serve for multi-model AI agent orchestration (NLP + CV + claims processing). Ray Data for distributed X-ray image processing pipeline.</p>
+    </div>
+    <div class="plan-section funding-section full-width">
+      <h3 class="section-title">💰 Funding</h3>
+      <p style="font-size:13px">Total: $47M. Series B: $20M (TCV, Bessemer, CRV). Founded 2021.</p>
+    </div>
+  </div>
+</section>
+<section class="company-section" id="cast-crew" data-name="Cast & Crew" data-sector="Entertainment / Payroll">
+  <div class="company-header" style="border-left: 4px solid #8b949e">
+    <div class="company-title-row">
+      <h2 class="company-name" style="color:#8b949e">Cast & Crew</h2>
+      <span class="tier-badge" style="background:#8b949e20;color:#8b949e;border:1px solid #8b949e40">4/10 · Entertainment / Payroll</span>
+    </div>
+    <div class="company-meta">
+      <span>🌐 castandcrew.com</span>
+      <span>📍 Burbank, CA</span>
+      <span>👥 ~500-1000 employees</span>
+      <span>🎯 Executive leadership (EQT portfolio company)</span>
+    </div>
+  </div>
+  <div class="sections-grid">
+    <div class="plan-section">
+      <h3 class="section-title">📡 Key Signals</h3>
+      <ul class="signal-list"><li>$160.7M revenue — enterprise scale</li><li>75+ locations generating payroll data — distributed data processing</li><li>Founded 1976, owned by EQT Group — established enterprise</li><li>$225M debt funding (2022) — well-capitalized for modernization</li></ul>
+    </div>
+    <div class="plan-section highlight-section">
+      <h3 class="section-title">⚡ Value Proposition</h3>
+      <p style="font-size:13px;line-height:1.6">Ray Data for distributed payroll analytics and fraud detection across 75+ locations. Ray Serve for real-time anomaly detection on production financial data.</p>
+    </div>
+    <div class="plan-section funding-section full-width">
+      <h3 class="section-title">💰 Funding</h3>
+      <p style="font-size:13px">$225M debt (2022) from RBC/Goldman. EQT Group portfolio company. Revenue: $160.7M.</p>
+    </div>
+  </div>
+</section>
+<section class="company-section" id="connectly-ai" data-name="Connectly.ai" data-sector="Conversational AI">
+  <div class="company-header" style="border-left: 4px solid #f78166">
+    <div class="company-title-row">
+      <h2 class="company-name" style="color:#f78166">Connectly.ai</h2>
+      <span class="tier-badge" style="background:#f7816620;color:#f78166;border:1px solid #f7816640">4/10 · Conversational AI</span>
+    </div>
+    <div class="company-meta">
+      <span>🌐 connectly.ai</span>
+      <span>📍 Redwood City, CA</span>
+      <span>👥 ~58 employees</span>
+      <span>🎯 Stefanos Loukakos (CEO, ex-Facebook), Yandong Liu (CTO, ex-Google)</span>
+    </div>
+  </div>
+  <div class="sections-grid">
+    <div class="plan-section">
+      <h3 class="section-title">📡 Key Signals</h3>
+      <ul class="signal-list"><li>Series B: $20M led by Alibaba — strong AI investor</li><li>Sofia AI V3 with agentic reasoning — multi-hop inference pipeline</li><li>Nearly doubled revenue after Sofia AI launch — AI driving growth</li><li>Founders from Facebook, Google, Uber — strong technical DNA</li></ul>
+    </div>
+    <div class="plan-section highlight-section">
+      <h3 class="section-title">⚡ Value Proposition</h3>
+      <p style="font-size:13px;line-height:1.6">Ray Serve for high-concurrency conversational AI inference across millions of SMB conversations. Distributed Sofia AI agent execution across WhatsApp, SMS, Instagram.</p>
+    </div>
+    <div class="plan-section funding-section full-width">
+      <h3 class="section-title">💰 Funding</h3>
+      <p style="font-size:13px">Series B: $20M (Alibaba). Investors: Unusual Ventures, Volpe Capital. Founded 2020.</p>
+    </div>
+  </div>
+</section>
+<section class="company-section" id="doppel" data-name="Doppel" data-sector="Cybersecurity AI">
+  <div class="company-header" style="border-left: 4px solid #d2a8ff">
+    <div class="company-title-row">
+      <h2 class="company-name" style="color:#d2a8ff">Doppel</h2>
+      <span class="tier-badge" style="background:#d2a8ff20;color:#d2a8ff;border:1px solid #d2a8ff40">4/10 · Cybersecurity AI</span>
+    </div>
+    <div class="company-meta">
+      <span>🌐 doppel.com</span>
+      <span>📍 Covina, CA</span>
+      <span>👥 ~181 employees</span>
+      <span>🎯 Kevin Tian (CEO/Founder), Rahul Madduluri (CTO)</span>
+    </div>
+  </div>
+  <div class="sections-grid">
+    <div class="plan-section">
+      <h3 class="section-title">📡 Key Signals</h3>
+      <ul class="signal-list"><li>$129M raised, $600M+ valuation — hypergrowth</li><li>Fortune Cyber 60 (2026) — recognized leader</li><li>Processing millions of domains/URLs daily — massive data pipeline</li><li>OpenAI GPT-5 + reinforcement fine-tuning — cutting-edge ML stack</li><li>100+ supply chain attacks blocked per week — real-time inference</li></ul>
+    </div>
+    <div class="plan-section highlight-section">
+      <h3 class="section-title">⚡ Value Proposition</h3>
+      <p style="font-size:13px;line-height:1.6">Ray Data for distributed threat intelligence pipeline processing millions of domains daily. Ray Serve for real-time threat assessment inference at scale.</p>
+    </div>
+    <div class="plan-section funding-section full-width">
+      <h3 class="section-title">💰 Funding</h3>
+      <p style="font-size:13px">Total: $129M. Series C: $70M (Nov 2025). Valuation: $600M+. Investors: Bessemer, a16z.</p>
+    </div>
+  </div>
+</section>
+<section class="company-section" id="everlaw" data-name="Everlaw" data-sector="Legal Tech / eDiscovery">
+  <div class="company-header" style="border-left: 4px solid #58a6ff">
+    <div class="company-title-row">
+      <h2 class="company-name" style="color:#58a6ff">Everlaw</h2>
+      <span class="tier-badge" style="background:#58a6ff20;color:#58a6ff;border:1px solid #58a6ff40">4/10 · Legal Tech / eDiscovery</span>
+    </div>
+    <div class="company-meta">
+      <span>🌐 everlaw.com</span>
+      <span>📍 Oakland, CA</span>
+      <span>👥 ~500+ employees</span>
+      <span>🎯 Engineering leadership (65 engineers on product)</span>
+    </div>
+  </div>
+  <div class="sections-grid">
+    <div class="plan-section">
+      <h3 class="section-title">📡 Key Signals</h3>
+      <ul class="signal-list"><li>$517M raised, $2B valuation — major legal tech platform</li><li>10M+ document matters — massive distributed processing workload</li><li>FedRAMP certified — enterprise/government compliance</li><li>Multi-provider LLM strategy (OpenAI + Google) — model orchestration</li><li>Deep Dive gen AI for document Q&A — production AI feature</li></ul>
+    </div>
+    <div class="plan-section highlight-section">
+      <h3 class="section-title">⚡ Value Proposition</h3>
+      <p style="font-size:13px;line-height:1.6">Ray Data for distributed vector embedding generation across 10M+ document matters. Ray Serve for multi-provider LLM orchestration and batch inference at document scale.</p>
+    </div>
+    <div class="plan-section funding-section full-width">
+      <h3 class="section-title">💰 Funding</h3>
+      <p style="font-size:13px">Total: $517M. Series D. Valuation: $2B. Investors: Menlo Ventures, a16z.</p>
+    </div>
+  </div>
+</section>
+<section class="company-section" id="efinancial" data-name="eFinancial" data-sector="Insurance / Fintech">
+  <div class="company-header" style="border-left: 4px solid #e3b341">
+    <div class="company-title-row">
+      <h2 class="company-name" style="color:#e3b341">eFinancial</h2>
+      <span class="tier-badge" style="background:#e3b34120;color:#e3b341;border:1px solid #e3b34140">4/10 · Insurance / Fintech</span>
+    </div>
+    <div class="company-meta">
+      <span>🌐 efinancial.com</span>
+      <span>📍 Bellevue, WA</span>
+      <span>👥 ~362 employees</span>
+      <span>🎯 Michael Rowell (CEO/Founder), Melissa Balsan (President/COO)</span>
+    </div>
+  </div>
+  <div class="sections-grid">
+    <div class="plan-section">
+      <h3 class="section-title">📡 Key Signals</h3>
+      <ul class="signal-list"><li>362 employees across 3 call centers — distributed operations</li><li>Omnichannel life insurance platform — real-time recommendation needed</li><li>Acquired by Fidelity Life (2009) — enterprise backing</li><li>Thousands of daily customer interactions — inference at scale</li></ul>
+    </div>
+    <div class="plan-section highlight-section">
+      <h3 class="section-title">⚡ Value Proposition</h3>
+      <p style="font-size:13px;line-height:1.6">Ray Serve for real-time policy recommendation across omnichannel customer interactions. Ray Data for distributed fraud detection across call center operations.</p>
+    </div>
+    <div class="plan-section funding-section full-width">
+      <h3 class="section-title">💰 Funding</h3>
+      <p style="font-size:13px">Acquired by Fidelity Life (2009). Mature, profitable insurance agency. No recent VC rounds.</p>
+    </div>
+  </div>
+</section>
+<section class="company-section" id="jigsawstack" data-name="JigsawStack" data-sector="AI API Platform">
+  <div class="company-header" style="border-left: 4px solid #f78166">
+    <div class="company-title-row">
+      <h2 class="company-name" style="color:#f78166">JigsawStack</h2>
+      <span class="tier-badge" style="background:#f7816620;color:#f78166;border:1px solid #f7816640">4/10 · AI API Platform</span>
+    </div>
+    <div class="company-meta">
+      <span>🌐 jigsawstack.com</span>
+      <span>📍 Singapore</span>
+      <span>👥 ~6-10 employees</span>
+      <span>🎯 Yoeven Khemlani (CEO/Co-Founder)</span>
+    </div>
+  </div>
+  <div class="sections-grid">
+    <div class="plan-section">
+      <h3 class="section-title">📡 Key Signals</h3>
+      <ul class="signal-list"><li>10M+ API requests processed — growing usage</li><li>200ms global latency target — demanding inference SLA</li><li>Multiple specialized fine-tuned models (scraping, speech, vision, translation)</li><li>$500K seed from Antler — early stage but product-market fit signal</li></ul>
+    </div>
+    <div class="plan-section highlight-section">
+      <h3 class="section-title">⚡ Value Proposition</h3>
+      <p style="font-size:13px;line-height:1.6">Ray Serve for global multi-model inference serving with 200ms latency SLA. Model multiplexing across specialized fine-tuned models on shared GPU infrastructure.</p>
+    </div>
+    <div class="plan-section funding-section full-width">
+      <h3 class="section-title">💰 Funding</h3>
+      <p style="font-size:13px">Seed: $500K (Oct 2024) from Antler. Pre-Series A. Founded in Singapore.</p>
+    </div>
+  </div>
+</section>
+<section class="company-section" id="listen-labs" data-name="Listen Labs" data-sector="Research AI / Voice">
+  <div class="company-header" style="border-left: 4px solid #d2a8ff">
+    <div class="company-title-row">
+      <h2 class="company-name" style="color:#d2a8ff">Listen Labs</h2>
+      <span class="tier-badge" style="background:#d2a8ff20;color:#d2a8ff;border:1px solid #d2a8ff40">4/10 · Research AI / Voice</span>
+    </div>
+    <div class="company-meta">
+      <span>🌐 listenlabs.ai</span>
+      <span>📍 San Francisco, CA</span>
+      <span>👥 ~45 employees</span>
+      <span>🎯 Alfred Wahlforss (CEO), Florian Juengermann (CTO, ex-Tesla Autopilot)</span>
+    </div>
+  </div>
+  <div class="sections-grid">
+    <div class="plan-section">
+      <h3 class="section-title">📡 Key Signals</h3>
+      <ul class="signal-list"><li>$100M total raised, $500M valuation — hypergrowth</li><li>1M+ AI interviews conducted — massive inference scale</li><li>15x revenue growth in 9 months — explosive traction</li><li>30M+ pre-qualified participants — large-scale data platform</li><li>CTO from Tesla Autopilot — deep ML engineering background</li></ul>
+    </div>
+    <div class="plan-section highlight-section">
+      <h3 class="section-title">⚡ Value Proposition</h3>
+      <p style="font-size:13px;line-height:1.6">Ray Serve for thousands of simultaneous voice/video AI interview sessions. Ray Data for distributed processing of interview transcripts across 100+ languages.</p>
+    </div>
+    <div class="plan-section funding-section full-width">
+      <h3 class="section-title">💰 Funding</h3>
+      <p style="font-size:13px">Total: $100M. Series B: $69M (Ribbit Capital, Sequoia). Valuation: $500M.</p>
+    </div>
+  </div>
+</section>
+<section class="company-section" id="nash" data-name="Nash" data-sector="Logistics / Delivery AI">
+  <div class="company-header" style="border-left: 4px solid #e3b341">
+    <div class="company-title-row">
+      <h2 class="company-name" style="color:#e3b341">Nash</h2>
+      <span class="tier-badge" style="background:#e3b34120;color:#e3b341;border:1px solid #e3b34140">4/10 · Logistics / Delivery AI</span>
+    </div>
+    <div class="company-meta">
+      <span>🌐 nash.ai</span>
+      <span>📍 San Francisco, CA</span>
+      <span>👥 ~40-106 employees</span>
+      <span>🎯 Mahmoud Ghulman (CEO, MIT), Aziz Alghunaim (CTO, ex-Palantir, MIT)</span>
+    </div>
+  </div>
+  <div class="sections-grid">
+    <div class="plan-section">
+      <h3 class="section-title">📡 Key Signals</h3>
+      <ul class="signal-list"><li>Series A: $20M (a16z + YC) — top-tier investors</li><li>100M+ deliveries for model training — massive training dataset</li><li>Walmart, 7-Eleven, Woolworths as customers — enterprise traction</li><li>500+ delivery fleets orchestrated — complex optimization workload</li><li>Real-time route optimization in seconds — low-latency inference</li></ul>
+    </div>
+    <div class="plan-section highlight-section">
+      <h3 class="section-title">⚡ Value Proposition</h3>
+      <p style="font-size:13px;line-height:1.6">Ray for distributed GNN-based route optimization across thousands of concurrent orders. Ray Serve for real-time delivery assignment inference at enterprise scale.</p>
+    </div>
+    <div class="plan-section funding-section full-width">
+      <h3 class="section-title">💰 Funding</h3>
+      <p style="font-size:13px">Series A: $20M (a16z, YC, Rackhouse). CTO ex-Palantir. Founded 2021.</p>
+    </div>
+  </div>
+</section>
+<section class="company-section" id="newfront" data-name="Newfront" data-sector="Insurance Tech">
+  <div class="company-header" style="border-left: 4px solid #58a6ff">
+    <div class="company-title-row">
+      <h2 class="company-name" style="color:#58a6ff">Newfront</h2>
+      <span class="tier-badge" style="background:#58a6ff20;color:#58a6ff;border:1px solid #58a6ff40">4/10 · Insurance Tech</span>
+    </div>
+    <div class="company-meta">
+      <span>🌐 newfront.com</span>
+      <span>📍 San Francisco, CA</span>
+      <span>👥 ~650+ employees</span>
+      <span>🎯 Spike Lipkin (CEO, ex-Blackstone), Gordon Wintrob (CTO)</span>
+    </div>
+  </div>
+  <div class="sections-grid">
+    <div class="plan-section">
+      <h3 class="section-title">📡 Key Signals</h3>
+      <ul class="signal-list"><li>Acquired by WTW for $1.3B (Jan 2026) — massive exit</li><li>Previously valued at $2.2B — major insurtech platform</li><li>CV for document analysis, NLP for contracts — multi-model ML stack</li><li>650+ employees — enterprise scale operations</li></ul>
+    </div>
+    <div class="plan-section highlight-section">
+      <h3 class="section-title">⚡ Value Proposition</h3>
+      <p style="font-size:13px;line-height:1.6">Ray Data for distributed document processing and risk analysis across insurance portfolios. Ray Serve for multi-model inference (CV + NLP) on document workflows.</p>
+    </div>
+    <div class="plan-section funding-section full-width">
+      <h3 class="section-title">💰 Funding</h3>
+      <p style="font-size:13px">Acquired by WTW for $1.3B (Jan 2026). Previously $2.2B valuation. Now part of WTW (50K+ employees).</p>
+    </div>
+  </div>
+</section>
+<section class="company-section" id="rillet" data-name="Rillet" data-sector="Fintech / Accounting AI">
+  <div class="company-header" style="border-left: 4px solid #3fb950">
+    <div class="company-title-row">
+      <h2 class="company-name" style="color:#3fb950">Rillet</h2>
+      <span class="tier-badge" style="background:#3fb95020;color:#3fb950;border:1px solid #3fb95040">4/10 · Fintech / Accounting AI</span>
+    </div>
+    <div class="company-meta">
+      <span>🌐 rillet.com</span>
+      <span>📍 New York, NY</span>
+      <span>👥 ~133 employees</span>
+      <span>🎯 Nicolas Kopp (CEO, ex-N26), Stelios Modes (CTO, ex-Shazam)</span>
+    </div>
+  </div>
+  <div class="sections-grid">
+    <div class="plan-section">
+      <h3 class="section-title">📡 Key Signals</h3>
+      <ul class="signal-list"><li>$100M+ raised (Series B: $70M from a16z + Sequoia) — top-tier backing</li><li>95%+ automated transaction matching — ML at core of product</li><li>200+ customers, doubled ARR in 12 weeks — explosive growth</li><li>AI-native ERP replacing legacy accounting software — greenfield ML</li></ul>
+    </div>
+    <div class="plan-section highlight-section">
+      <h3 class="section-title">⚡ Value Proposition</h3>
+      <p style="font-size:13px;line-height:1.6">Ray Serve for inference-time ML on 95%+ of financial transactions. Ray Data for distributed processing during month-end/quarter-end accounting surges.</p>
+    </div>
+    <div class="plan-section funding-section full-width">
+      <h3 class="section-title">💰 Funding</h3>
+      <p style="font-size:13px">Total: $100M+. Series B: $70M (a16z, ICONIQ, Sequoia, Oak HC/FT). Founded 2021.</p>
+    </div>
+  </div>
+</section>
+<section class="company-section" id="socket" data-name="Socket" data-sector="Cybersecurity / Supply Chain">
+  <div class="company-header" style="border-left: 4px solid #d2a8ff">
+    <div class="company-title-row">
+      <h2 class="company-name" style="color:#d2a8ff">Socket</h2>
+      <span class="tier-badge" style="background:#d2a8ff20;color:#d2a8ff;border:1px solid #d2a8ff40">4/10 · Cybersecurity / Supply Chain</span>
+    </div>
+    <div class="company-meta">
+      <span>🌐 socket.dev</span>
+      <span>📍 San Francisco Bay Area</span>
+      <span>👥 ~32-100 employees</span>
+      <span>🎯 Feross Aboukhadijeh (CEO/Founder, Stanford)</span>
+    </div>
+  </div>
+  <div class="sections-grid">
+    <div class="plan-section">
+      <h3 class="section-title">📡 Key Signals</h3>
+      <ul class="signal-list"><li>$65M raised (Series B: $40M) — well-funded</li><li>10,000+ organizations served — enterprise adoption</li><li>70+ risk signals detected per package — multi-signal ML pipeline</li><li>100+ supply chain attacks blocked per week — real-time detection</li><li>Scanning npm, PyPI, Go ecosystems — massive package analysis</li></ul>
+    </div>
+    <div class="plan-section highlight-section">
+      <h3 class="section-title">⚡ Value Proposition</h3>
+      <p style="font-size:13px;line-height:1.6">Ray Data for distributed package analysis across millions of open-source packages. Ray Serve for real-time 70+ signal threat detection pipeline.</p>
+    </div>
+    <div class="plan-section funding-section full-width">
+      <h3 class="section-title">💰 Funding</h3>
+      <p style="font-size:13px">Total: $65M. Series B: $40M (Abstract Ventures, Elad Gil, a16z). Growing rapidly.</p>
+    </div>
+  </div>
+</section>
+<section class="company-section" id="tidio" data-name="Tidio" data-sector="Customer Service AI">
+  <div class="company-header" style="border-left: 4px solid #e3b341">
+    <div class="company-title-row">
+      <h2 class="company-name" style="color:#e3b341">Tidio</h2>
+      <span class="tier-badge" style="background:#e3b34120;color:#e3b341;border:1px solid #e3b34140">4/10 · Customer Service AI</span>
+    </div>
+    <div class="company-meta">
+      <span>🌐 tidio.com</span>
+      <span>📍 Szczecin, Poland + San Francisco, CA</span>
+      <span>👥 ~174 employees</span>
+      <span>🎯 Tytus Gołas (CEO/Founder)</span>
+    </div>
+  </div>
+  <div class="sections-grid">
+    <div class="plan-section">
+      <h3 class="section-title">📡 Key Signals</h3>
+      <ul class="signal-list"><li>300,000+ businesses served — massive customer base</li><li>67-85% automation rate with Lyro AI — high inference demand</li><li>Anthropic Claude as AI backbone — LLM-powered product</li><li>Dynamic routing between Anthropic API + Google Cloud Vertex AI — multi-provider serving</li></ul>
+    </div>
+    <div class="plan-section highlight-section">
+      <h3 class="section-title">⚡ Value Proposition</h3>
+      <p style="font-size:13px;line-height:1.6">Ray Serve for distributed LLM inference across 300K+ customer sessions with multi-provider load balancing. Cost optimization through intelligent model routing.</p>
+    </div>
+    <div class="plan-section funding-section full-width">
+      <h3 class="section-title">💰 Funding</h3>
+      <p style="font-size:13px">Total: $26.8M. Series B: $25M (PeakSpan Capital). Founded 2013.</p>
+    </div>
+  </div>
+</section>
+
+  <div class="section-divider"><h2>🔴 Low Fit — Score 3</h2><p>Assessment + recommended actions · Monitor quarterly</p></div>
+  <section class="company-section" id="concensus" data-name="Concensus" data-sector="Sales AI">
+  <div class="company-header" style="border-left: 4px solid #8b949e">
+    <div class="company-title-row">
+      <h2 class="company-name" style="color:#8b949e">Concensus</h2>
+      <span class="tier-badge" style="background:#8b949e20;color:#8b949e;border:1px solid #8b949e40">3/10 · Sales AI</span>
+    </div>
+    <div class="company-meta">
+      <span>🌐 goconcensus.com</span>
+      <span>📍 Not disclosed</span>
+      <span>👥 Not disclosed</span>
+    </div>
+  </div>
+  <div class="sections-grid">
+    <div class="plan-section">
+      <h3 class="section-title">📋 Fit Assessment</h3>
+      <p style="font-size:13px;line-height:1.6">Sales demo automation platform. AI for content recommendations — standard ML, not distributed compute-scale.</p>
+    </div>
+    <div class="plan-section">
+      <h3 class="section-title">📌 Recommended Action</h3>
+      <p style="font-size:13px;line-height:1.6">Monitor for growth signals. If they build their own ML training pipeline, revisit.</p>
+    </div>
+  </div>
+</section>
+<section class="company-section" id="strider-technologies" data-name="Strider Technologies" data-sector="Geopolitical Intelligence">
+  <div class="company-header" style="border-left: 4px solid #8b949e">
+    <div class="company-title-row">
+      <h2 class="company-name" style="color:#8b949e">Strider Technologies</h2>
+      <span class="tier-badge" style="background:#8b949e20;color:#8b949e;border:1px solid #8b949e40">3/10 · Geopolitical Intelligence</span>
+    </div>
+    <div class="company-meta">
+      <span>🌐 striderintel.com</span>
+      <span>📍 Not disclosed</span>
+      <span>👥 ~200 employees</span>
+    </div>
+  </div>
+  <div class="sections-grid">
+    <div class="plan-section">
+      <h3 class="section-title">📋 Fit Assessment</h3>
+      <p style="font-size:13px;line-height:1.6">$110M raised. AI-driven intelligence platform processing massive OSINT data. Custom AI analysts being developed. Has real distributed ML potential — could be upgraded to Watch.</p>
+    </div>
+    <div class="plan-section">
+      <h3 class="section-title">📌 Recommended Action</h3>
+      <p style="font-size:13px;line-height:1.6">Worth a closer look. $55M Series C (Sept 2024) signals scaling. NLP at intelligence-scale is compute-intensive. Consider upgrading to Watch list.</p>
+    </div>
+  </div>
+</section>
+<section class="company-section" id="vorto" data-name="Vorto" data-sector="Logistics AI">
+  <div class="company-header" style="border-left: 4px solid #8b949e">
+    <div class="company-title-row">
+      <h2 class="company-name" style="color:#8b949e">Vorto</h2>
+      <span class="tier-badge" style="background:#8b949e20;color:#8b949e;border:1px solid #8b949e40">3/10 · Logistics AI</span>
+    </div>
+    <div class="company-meta">
+      <span>🌐 vorto.ai</span>
+      <span>📍 Denver, CO</span>
+      <span>👥 Not disclosed</span>
+    </div>
+  </div>
+  <div class="sections-grid">
+    <div class="plan-section">
+      <h3 class="section-title">📋 Fit Assessment</h3>
+      <p style="font-size:13px;line-height:1.6">AI supply chain platform. Demand forecasting + logistics optimization for Fortune 500 customers. Saves customers up to $480M annually — compute-intensive optimization.</p>
+    </div>
+    <div class="plan-section">
+      <h3 class="section-title">📌 Recommended Action</h3>
+      <p style="font-size:13px;line-height:1.6">Monitor. If ML team grows or they publicize infrastructure challenges, revisit.</p>
+    </div>
+  </div>
+</section>
+<section class="company-section" id="varo-bank" data-name="Varo Bank" data-sector="Neobank / Fintech">
+  <div class="company-header" style="border-left: 4px solid #8b949e">
+    <div class="company-title-row">
+      <h2 class="company-name" style="color:#8b949e">Varo Bank</h2>
+      <span class="tier-badge" style="background:#8b949e20;color:#8b949e;border:1px solid #8b949e40">3/10 · Neobank / Fintech</span>
+    </div>
+    <div class="company-meta">
+      <span>🌐 varomoney.com</span>
+      <span>📍 Salt Lake City, UT</span>
+      <span>👥 Not disclosed</span>
+    </div>
+  </div>
+  <div class="sections-grid">
+    <div class="plan-section">
+      <h3 class="section-title">📋 Fit Assessment</h3>
+      <p style="font-size:13px;line-height:1.6">Digital bank with national charter. Credit risk, fraud detection, personalization — standard fintech ML. Not distributed-compute-scale today.</p>
+    </div>
+    <div class="plan-section">
+      <h3 class="section-title">📌 Recommended Action</h3>
+      <p style="font-size:13px;line-height:1.6">Deprioritize. Standard fintech ML addressed by off-the-shelf platforms.</p>
+    </div>
+  </div>
+</section>
+<section class="company-section" id="cherry" data-name="Cherry" data-sector="Fintech / Patient Payments">
+  <div class="company-header" style="border-left: 4px solid #8b949e">
+    <div class="company-title-row">
+      <h2 class="company-name" style="color:#8b949e">Cherry</h2>
+      <span class="tier-badge" style="background:#8b949e20;color:#8b949e;border:1px solid #8b949e40">3/10 · Fintech / Patient Payments</span>
+    </div>
+    <div class="company-meta">
+      <span>🌐 withcherry.com</span>
+      <span>📍 San Francisco, CA</span>
+      <span>👥 Not disclosed</span>
+    </div>
+  </div>
+  <div class="sections-grid">
+    <div class="plan-section">
+      <h3 class="section-title">📋 Fit Assessment</h3>
+      <p style="font-size:13px;line-height:1.6">Medical BNPL platform. Credit approval and fraud detection — standard fintech ML, not distributed training scale.</p>
+    </div>
+    <div class="plan-section">
+      <h3 class="section-title">📌 Recommended Action</h3>
+      <p style="font-size:13px;line-height:1.6">Deprioritize. Standard credit scoring and fraud detection, not Ray-scale workloads.</p>
+    </div>
+  </div>
+</section>
+<section class="company-section" id="console" data-name="Console" data-sector="Developer Job Board">
+  <div class="company-header" style="border-left: 4px solid #8b949e">
+    <div class="company-title-row">
+      <h2 class="company-name" style="color:#8b949e">Console</h2>
+      <span class="tier-badge" style="background:#8b949e20;color:#8b949e;border:1px solid #8b949e40">3/10 · Developer Job Board</span>
+    </div>
+    <div class="company-meta">
+      <span>🌐 console.dev</span>
+      <span>📍 San Francisco, CA</span>
+      <span>👥 Early-stage startup</span>
+    </div>
+  </div>
+  <div class="sections-grid">
+    <div class="plan-section">
+      <h3 class="section-title">📋 Fit Assessment</h3>
+      <p style="font-size:13px;line-height:1.6">$29.2M raised (Thrive Capital, DST Global). Developer job matching — standard recommendation system, not distributed ML.</p>
+    </div>
+    <div class="plan-section">
+      <h3 class="section-title">📌 Recommended Action</h3>
+      <p style="font-size:13px;line-height:1.6">Monitor for growth. If they build custom ML models for matching at scale, revisit.</p>
+    </div>
+  </div>
+</section>
+<section class="company-section" id="felix" data-name="Félix (likely Félix Pago)" data-sector="Fintech / Remittance">
+  <div class="company-header" style="border-left: 4px solid #8b949e">
+    <div class="company-title-row">
+      <h2 class="company-name" style="color:#8b949e">Félix (likely Félix Pago)</h2>
+      <span class="tier-badge" style="background:#8b949e20;color:#8b949e;border:1px solid #8b949e40">3/10 · Fintech / Remittance</span>
+    </div>
+    <div class="company-meta">
+      <span>🌐 felixpago.com</span>
+      <span>📍 US-Latin America corridor</span>
+      <span>👥 Not disclosed</span>
+    </div>
+  </div>
+  <div class="sections-grid">
+    <div class="plan-section">
+      <h3 class="section-title">📋 Fit Assessment</h3>
+      <p style="font-size:13px;line-height:1.6">$90.5M raised (Series B: $75M from QED). WhatsApp-based remittance platform. Fraud detection and routing optimization — moderate ML but not distributed training scale.</p>
+    </div>
+    <div class="plan-section">
+      <h3 class="section-title">📌 Recommended Action</h3>
+      <p style="font-size:13px;line-height:1.6">Monitor. High-volume transaction processing could create distributed inference needs at scale.</p>
+    </div>
+  </div>
+</section>
+<section class="company-section" id="b-garage" data-name="B GARAGE" data-sector="Autonomous Drones">
+  <div class="company-header" style="border-left: 4px solid #8b949e">
+    <div class="company-title-row">
+      <h2 class="company-name" style="color:#8b949e">B GARAGE</h2>
+      <span class="tier-badge" style="background:#8b949e20;color:#8b949e;border:1px solid #8b949e40">3/10 · Autonomous Drones</span>
+    </div>
+    <div class="company-meta">
+      <span>🌐 bgarage.com</span>
+      <span>📍 San Jose, CA</span>
+      <span>👥 Early-stage</span>
+    </div>
+  </div>
+  <div class="sections-grid">
+    <div class="plan-section">
+      <h3 class="section-title">📋 Fit Assessment</h3>
+      <p style="font-size:13px;line-height:1.6">$20M Series A (LB Investment, SoftBank Ventures Asia). Autonomous warehouse inventory drones. CV model training + fleet autonomous navigation — has real distributed ML potential.</p>
+    </div>
+    <div class="plan-section">
+      <h3 class="section-title">📌 Recommended Action</h3>
+      <p style="font-size:13px;line-height:1.6">Consider upgrading to Watch. Drone computer vision training + fleet management maps well to Ray (similar to Luxonis). Worth a deeper look.</p>
+    </div>
+  </div>
+</section>
+<section class="company-section" id="odyssey" data-name="Odyssey (likely Odyssey AI)" data-sector="AI Video / 3D Generation">
+  <div class="company-header" style="border-left: 4px solid #8b949e">
+    <div class="company-title-row">
+      <h2 class="company-name" style="color:#8b949e">Odyssey (likely Odyssey AI)</h2>
+      <span class="tier-badge" style="background:#8b949e20;color:#8b949e;border:1px solid #8b949e40">3/10 · AI Video / 3D Generation</span>
+    </div>
+    <div class="company-meta">
+      <span>🌐 odyssey.systems</span>
+      <span>📍 San Francisco, CA</span>
+      <span>👥 Early-stage</span>
+    </div>
+  </div>
+  <div class="sections-grid">
+    <div class="plan-section">
+      <h3 class="section-title">📋 Fit Assessment</h3>
+      <p style="font-size:13px;line-height:1.6">$9M seed from GV (Google Ventures). AI video + 3D generation for filmmakers. Large diffusion model training — has real distributed training potential. Founded by Oliver Cameron (former Voyage CEO).</p>
+    </div>
+    <div class="plan-section">
+      <h3 class="section-title">📌 Recommended Action</h3>
+      <p style="font-size:13px;line-height:1.6">Consider upgrading to Watch. Diffusion model training for video generation is extremely GPU-intensive. Strong founder background (autonomous vehicles → generative AI).</p>
+    </div>
+  </div>
+</section>
+<section class="company-section" id="quilter" data-name="Quilter" data-sector="Financial Planning">
+  <div class="company-header" style="border-left: 4px solid #8b949e">
+    <div class="company-title-row">
+      <h2 class="company-name" style="color:#8b949e">Quilter</h2>
+      <span class="tier-badge" style="background:#8b949e20;color:#8b949e;border:1px solid #8b949e40">3/10 · Financial Planning</span>
+    </div>
+    <div class="company-meta">
+      <span>🌐 quilter.com</span>
+      <span>📍 London, UK</span>
+      <span>👥 Part of Quilter plc (FTSE 250)</span>
+    </div>
+  </div>
+  <div class="sections-grid">
+    <div class="plan-section">
+      <h3 class="section-title">📋 Fit Assessment</h3>
+      <p style="font-size:13px;line-height:1.6">Wealth management firm. Portfolio optimization and risk modeling — standard fintech, legacy enterprise infrastructure.</p>
+    </div>
+    <div class="plan-section">
+      <h3 class="section-title">📌 Recommended Action</h3>
+      <p style="font-size:13px;line-height:1.6">Deprioritize. Large enterprise with established infrastructure. Not a Ray adoption candidate.</p>
+    </div>
+  </div>
+</section>
+<section class="company-section" id="simplepractice" data-name="SimplePractice" data-sector="Health SaaS / EHR">
+  <div class="company-header" style="border-left: 4px solid #8b949e">
+    <div class="company-title-row">
+      <h2 class="company-name" style="color:#8b949e">SimplePractice</h2>
+      <span class="tier-badge" style="background:#8b949e20;color:#8b949e;border:1px solid #8b949e40">3/10 · Health SaaS / EHR</span>
+    </div>
+    <div class="company-meta">
+      <span>🌐 simplepractice.com</span>
+      <span>📍 Santa Monica, CA</span>
+      <span>👥 Not disclosed (serves 250K+ practitioners)</span>
+    </div>
+  </div>
+  <div class="sections-grid">
+    <div class="plan-section">
+      <h3 class="section-title">📋 Fit Assessment</h3>
+      <p style="font-size:13px;line-height:1.6">EHR for therapists. Scheduling optimization, clinical note NLP — moderate ML but standard SaaS scale, not distributed training.</p>
+    </div>
+    <div class="plan-section">
+      <h3 class="section-title">📌 Recommended Action</h3>
+      <p style="font-size:13px;line-height:1.6">Deprioritize. Standard SaaS ML workloads addressed by off-the-shelf tools.</p>
+    </div>
+  </div>
+</section>
+<section class="company-section" id="thatch" data-name="Thatch" data-sector="Health Benefits SaaS">
+  <div class="company-header" style="border-left: 4px solid #8b949e">
+    <div class="company-title-row">
+      <h2 class="company-name" style="color:#8b949e">Thatch</h2>
+      <span class="tier-badge" style="background:#8b949e20;color:#8b949e;border:1px solid #8b949e40">3/10 · Health Benefits SaaS</span>
+    </div>
+    <div class="company-meta">
+      <span>🌐 thatch.ai</span>
+      <span>📍 US (not specified)</span>
+      <span>👥 Not disclosed</span>
+    </div>
+  </div>
+  <div class="sections-grid">
+    <div class="plan-section">
+      <h3 class="section-title">📋 Fit Assessment</h3>
+      <p style="font-size:13px;line-height:1.6">$84.5M raised (Series B: $40M from Index Ventures, a16z, General Catalyst). AI-powered benefits guidance. NLP for Q&A — moderate ML, not distributed compute scale.</p>
+    </div>
+    <div class="plan-section">
+      <h3 class="section-title">📌 Recommended Action</h3>
+      <p style="font-size:13px;line-height:1.6">Monitor. Well-funded and growing. If Ask Thatch AI scales significantly, could create inference demands.</p>
+    </div>
+  </div>
+</section>
+<section class="company-section" id="wave" data-name="Wave" data-sector="Fintech SaaS">
+  <div class="company-header" style="border-left: 4px solid #8b949e">
+    <div class="company-title-row">
+      <h2 class="company-name" style="color:#8b949e">Wave</h2>
+      <span class="tier-badge" style="background:#8b949e20;color:#8b949e;border:1px solid #8b949e40">3/10 · Fintech SaaS</span>
+    </div>
+    <div class="company-meta">
+      <span>🌐 waveapps.com</span>
+      <span>📍 Toronto, Canada</span>
+      <span>👥 Not disclosed (H&R Block subsidiary)</span>
+    </div>
+  </div>
+  <div class="sections-grid">
+    <div class="plan-section">
+      <h3 class="section-title">📋 Fit Assessment</h3>
+      <p style="font-size:13px;line-height:1.6">Accounting software for SMBs. Acquired by H&R Block ($537M, 2019). Expense categorization and fraud detection — standard ML, infrastructure decisions at parent level.</p>
+    </div>
+    <div class="plan-section">
+      <h3 class="section-title">📌 Recommended Action</h3>
+      <p style="font-size:13px;line-height:1.6">Deprioritize. Subsidiary with infrastructure decisions made at H&R Block level.</p>
+    </div>
+  </div>
+</section>
+
+  <div class="section-divider"><h2>⚪ Skip — Score ≤2</h2><p>No meaningful ML infra need · Remove from active pipeline</p></div>
+  <section class="company-section" id="ag1" data-name="AG1 (Athletic Greens)" data-sector="Consumer / D2C Supplements">
+  <div class="company-header" style="border-left: 4px solid #8b949e">
+    <div class="company-title-row">
+      <h2 class="company-name" style="color:#8b949e">AG1 (Athletic Greens)</h2>
+      <span class="tier-badge" style="background:#8b949e20;color:#8b949e;border:1px solid #8b949e40">2/10 · Consumer / D2C Supplements</span>
+    </div>
+  </div>
+  <div class="sections-grid">
+    <div class="plan-section full-width">
+      <h3 class="section-title">⚪ Skip Reason</h3>
+      <p style="font-size:13px;line-height:1.6;color:#8b949e">D2C supplements brand. Marketing optimization and churn prediction — no meaningful distributed ML need.</p>
+    </div>
+  </div>
+</section>
+<section class="company-section" id="infinigods" data-name="InfiniGods" data-sector="Web3 Gaming">
+  <div class="company-header" style="border-left: 4px solid #8b949e">
+    <div class="company-title-row">
+      <h2 class="company-name" style="color:#8b949e">InfiniGods</h2>
+      <span class="tier-badge" style="background:#8b949e20;color:#8b949e;border:1px solid #8b949e40">2/10 · Web3 Gaming</span>
+    </div>
+  </div>
+  <div class="sections-grid">
+    <div class="plan-section full-width">
+      <h3 class="section-title">⚪ Skip Reason</h3>
+      <p style="font-size:13px;line-height:1.6;color:#8b949e">Web3 gaming studio. Game economy balancing — standard analytics, not distributed ML infrastructure.</p>
+    </div>
+  </div>
+</section>
+<section class="company-section" id="palmstreet" data-name="Palmstreet" data-sector="Live Shopping / E-Commerce">
+  <div class="company-header" style="border-left: 4px solid #8b949e">
+    <div class="company-title-row">
+      <h2 class="company-name" style="color:#8b949e">Palmstreet</h2>
+      <span class="tier-badge" style="background:#8b949e20;color:#8b949e;border:1px solid #8b949e40">2/10 · Live Shopping / E-Commerce</span>
+    </div>
+  </div>
+  <div class="sections-grid">
+    <div class="plan-section full-width">
+      <h3 class="section-title">⚪ Skip Reason</h3>
+      <p style="font-size:13px;line-height:1.6;color:#8b949e">Live shopping marketplace. Standard recommendation and ranking — not distributed ML scale.</p>
+    </div>
+  </div>
+</section>
+<section class="company-section" id="sphero" data-name="Sphero" data-sector="Consumer Robotics / Toys">
+  <div class="company-header" style="border-left: 4px solid #8b949e">
+    <div class="company-title-row">
+      <h2 class="company-name" style="color:#8b949e">Sphero</h2>
+      <span class="tier-badge" style="background:#8b949e20;color:#8b949e;border:1px solid #8b949e40">2/10 · Consumer Robotics / Toys</span>
+    </div>
+  </div>
+  <div class="sections-grid">
+    <div class="plan-section full-width">
+      <h3 class="section-title">⚪ Skip Reason</h3>
+      <p style="font-size:13px;line-height:1.6;color:#8b949e">Consumer toy robots. Edge ML on-device — not enterprise distributed training/inference.</p>
+    </div>
+  </div>
+</section>
+<section class="company-section" id="step" data-name="Step" data-sector="Teen Neobank">
+  <div class="company-header" style="border-left: 4px solid #8b949e">
+    <div class="company-title-row">
+      <h2 class="company-name" style="color:#8b949e">Step</h2>
+      <span class="tier-badge" style="background:#8b949e20;color:#8b949e;border:1px solid #8b949e40">2/10 · Teen Neobank</span>
+    </div>
+  </div>
+  <div class="sections-grid">
+    <div class="plan-section full-width">
+      <h3 class="section-title">⚪ Skip Reason</h3>
+      <p style="font-size:13px;line-height:1.6;color:#8b949e">Teen banking app (acquired by MrBeast). Standard fintech ML — credit scoring, fraud detection. Not Ray-scale.</p>
+    </div>
+  </div>
+</section>
+
+  <div style="border-top:1px solid var(--border);padding:16px 0;margin-top:32px;font-size:11px;color:var(--muted);display:flex;justify-content:space-between;">
+    <span>⚪ Tier 4 · 40 accounts · Anyscale Account Planning Hub · Dylan Wingrove</span>
+    <span>Generated March 2026 · Review quarterly</span>
+  </div>
+</main>
+
+<script>
+// Sidebar active state
+const navItems = document.querySelectorAll('.nav-item');
+const sections = document.querySelectorAll('.company-section');
+const observer = new IntersectionObserver(entries => {
+  entries.forEach(entry => {
+    if (entry.isIntersecting) {
+      navItems.forEach(n => n.classList.remove('active'));
+      const active = document.querySelector(`.nav-item[data-id="${entry.target.id}"]`);
+      if (active) active.classList.add('active');
+    }
+  });
+}, { rootMargin: '-20% 0px -70% 0px' });
+sections.forEach(s => observer.observe(s));
+
+// Copy email
+function copyEmail(btn) {
+  const body = btn.closest('.email-card').querySelector('.email-body');
+  navigator.clipboard.writeText(body.textContent).then(() => {
+    btn.textContent = 'Copied!';
+    btn.classList.add('copied');
+    setTimeout(() => { btn.textContent = 'Copy'; btn.classList.remove('copied'); }, 2000);
+  });
+}
+</script>
+</body>
+</html>

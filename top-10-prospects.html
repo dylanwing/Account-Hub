@@ -1,0 +1,697 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Top 10 Prospects — Anyscale Tier 1 Accounts</title>
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body {
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+    background: #0d1117;
+    color: #e6edf3;
+    min-height: 100vh;
+    padding: 32px 24px;
+  }
+
+  /* Header */
+  .header {
+    max-width: 960px;
+    margin: 0 auto 36px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 16px;
+  }
+  .header-left h1 {
+    font-size: 26px;
+    font-weight: 700;
+    color: #f0f6fc;
+    letter-spacing: -0.5px;
+  }
+  .header-left p {
+    color: #8b949e;
+    font-size: 14px;
+    margin-top: 4px;
+  }
+  .header-badge {
+    background: linear-gradient(135deg, #1a3a5c, #0d2137);
+    border: 1px solid #30475e;
+    border-radius: 8px;
+    padding: 10px 18px;
+    font-size: 13px;
+    color: #79c0ff;
+    text-align: center;
+  }
+  .header-badge span {
+    display: block;
+    font-size: 22px;
+    font-weight: 700;
+    color: #58a6ff;
+  }
+
+  /* Legend */
+  .legend {
+    max-width: 960px;
+    margin: 0 auto 28px;
+    display: flex;
+    gap: 20px;
+    flex-wrap: wrap;
+  }
+  .legend-item {
+    display: flex;
+    align-items: center;
+    gap: 7px;
+    font-size: 12px;
+    color: #8b949e;
+  }
+  .legend-dot {
+    width: 10px; height: 10px;
+    border-radius: 50%;
+  }
+  .dot-cr { background: #3fb950; }
+  .dot-web { background: #58a6ff; }
+  .dot-fund { background: #e3b341; }
+  .dot-hire { background: #f78166; }
+
+  /* Prospect Cards */
+  .cards {
+    max-width: 960px;
+    margin: 0 auto;
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+  }
+
+  .card {
+    background: #161b22;
+    border: 1px solid #21262d;
+    border-radius: 12px;
+    overflow: hidden;
+    transition: border-color 0.2s, transform 0.15s;
+    cursor: pointer;
+  }
+  .card:hover {
+    border-color: #388bfd40;
+    transform: translateY(-1px);
+  }
+  .card.expanded { border-color: #388bfd60; }
+
+  .card-header {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    padding: 18px 20px;
+  }
+
+  .rank {
+    width: 36px; height: 36px;
+    border-radius: 50%;
+    display: flex; align-items: center; justify-content: center;
+    font-weight: 800;
+    font-size: 15px;
+    flex-shrink: 0;
+  }
+  .rank-1 { background: linear-gradient(135deg, #f0d060, #e3a010); color: #0d1117; }
+  .rank-2 { background: linear-gradient(135deg, #d0d8e0, #9aa6b2); color: #0d1117; }
+  .rank-3 { background: linear-gradient(135deg, #c07840, #a06030); color: #fff; }
+  .rank-other { background: #1f2937; color: #8b949e; border: 1px solid #30363d; }
+
+  .contact-info { flex: 1; min-width: 0; }
+  .contact-name {
+    font-size: 17px;
+    font-weight: 700;
+    color: #f0f6fc;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+  .contact-title {
+    font-size: 13px;
+    color: #58a6ff;
+    margin-top: 2px;
+  }
+  .contact-company {
+    font-size: 13px;
+    color: #8b949e;
+    margin-top: 1px;
+  }
+
+  .card-meta {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    flex-shrink: 0;
+    flex-wrap: wrap;
+    justify-content: flex-end;
+  }
+
+  .signal-tag {
+    display: inline-flex;
+    align-items: center;
+    gap: 5px;
+    padding: 3px 9px;
+    border-radius: 20px;
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: 0.2px;
+  }
+  .tag-cr { background: #12261a; color: #3fb950; border: 1px solid #1a3a27; }
+  .tag-fund { background: #26210a; color: #e3b341; border: 1px solid #3d3210; }
+  .tag-hire { background: #261218; color: #f78166; border: 1px solid #3d1e22; }
+  .tag-web { background: #0e1b2e; color: #79c0ff; border: 1px solid #1c3050; }
+
+  .priority-score {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    min-width: 52px;
+  }
+  .score-ring {
+    width: 48px; height: 48px;
+    border-radius: 50%;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 16px;
+    font-weight: 800;
+  }
+  .score-9 { background: conic-gradient(#3fb950 90%, #21262d 90%); }
+  .score-8 { background: conic-gradient(#58a6ff 80%, #21262d 80%); }
+  .score-7 { background: conic-gradient(#e3b341 70%, #21262d 70%); }
+  .score-inner {
+    width: 36px; height: 36px;
+    background: #161b22;
+    border-radius: 50%;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 13px;
+    font-weight: 800;
+    color: #f0f6fc;
+  }
+  .score-label {
+    font-size: 10px;
+    color: #8b949e;
+    margin-top: 2px;
+  }
+
+  .chevron {
+    color: #8b949e;
+    font-size: 16px;
+    transition: transform 0.2s;
+    flex-shrink: 0;
+    margin-left: 4px;
+  }
+  .card.expanded .chevron { transform: rotate(180deg); }
+
+  /* Expanded Detail */
+  .card-detail {
+    display: none;
+    padding: 0 20px 20px;
+    border-top: 1px solid #21262d;
+  }
+  .card.expanded .card-detail { display: block; }
+  .card-detail-inner {
+    padding-top: 18px;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 20px;
+  }
+  @media(max-width: 600px) { .card-detail-inner { grid-template-columns: 1fr; } }
+
+  .detail-section h4 {
+    font-size: 11px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.8px;
+    color: #8b949e;
+    margin-bottom: 8px;
+  }
+  .detail-section p, .detail-section li {
+    font-size: 13.5px;
+    color: #c9d1d9;
+    line-height: 1.6;
+  }
+  .detail-section ul { padding-left: 16px; }
+  .detail-section li { margin-bottom: 3px; }
+
+  .linkedin-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    background: #0a66c2;
+    color: #fff;
+    padding: 7px 14px;
+    border-radius: 6px;
+    font-size: 12px;
+    font-weight: 600;
+    text-decoration: none;
+    margin-top: 10px;
+    transition: background 0.2s;
+  }
+  .linkedin-btn:hover { background: #0858a8; }
+
+  .signal-cluster {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px;
+    margin-top: 4px;
+  }
+
+  .outreach-box {
+    background: #0d1117;
+    border: 1px solid #21262d;
+    border-left: 3px solid #58a6ff;
+    border-radius: 6px;
+    padding: 12px 14px;
+    margin-top: 8px;
+    font-size: 13px;
+    color: #c9d1d9;
+    line-height: 1.7;
+    font-style: italic;
+    grid-column: 1 / -1;
+  }
+
+  /* Divider between header and detail in full-width */
+  .detail-full { grid-column: 1 / -1; }
+
+  /* Footer */
+  .footer {
+    max-width: 960px;
+    margin: 36px auto 0;
+    padding-top: 24px;
+    border-top: 1px solid #21262d;
+    font-size: 12px;
+    color: #4d5866;
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 8px;
+  }
+</style>
+</head>
+<body>
+
+<div class="header">
+  <div class="header-left">
+    <h1>🎯 Top 10 Prospects — Tier 1 Accounts</h1>
+    <p>Dylan Wingrove · Anyscale · Compiled March 4, 2026 · Sources: Common Room + Web Research</p>
+  </div>
+  <div class="header-badge">
+    <span>12</span>
+    Tier 1 Accounts Analyzed
+  </div>
+</div>
+
+<div class="legend">
+  <div class="legend-item"><div class="legend-dot dot-cr"></div> CR Signal</div>
+  <div class="legend-item"><div class="legend-dot dot-fund"></div> Recent Funding</div>
+  <div class="legend-item"><div class="legend-dot dot-hire"></div> Active Hiring</div>
+  <div class="legend-item"><div class="legend-dot dot-web"></div> Web Research</div>
+</div>
+
+<div class="cards">
+
+  <!-- #1 -->
+  <div class="card" onclick="toggle(this)">
+    <div class="card-header">
+      <div class="rank rank-1">1</div>
+      <div class="contact-info">
+        <div class="contact-name">Gorkem Yurtseven</div>
+        <div class="contact-title">Co-Founder & CTO</div>
+        <div class="contact-company">Fal.ai · San Francisco, CA</div>
+      </div>
+      <div class="card-meta">
+        <span class="signal-tag tag-fund">💰 $140M Series D</span>
+        <span class="signal-tag tag-hire">🔥 Scaling Fast</span>
+        <div class="priority-score">
+          <div class="score-ring score-9"><div class="score-inner">9</div></div>
+          <div class="score-label">Priority</div>
+        </div>
+      </div>
+      <div class="chevron">▼</div>
+    </div>
+    <div class="card-detail">
+      <div class="card-detail-inner">
+        <div class="detail-section">
+          <h4>Why He's #1</h4>
+          <p>Fal.ai raised $140M Series D at a $4.5B valuation (Sequoia, Kleiner, NVIDIA). They're building GPU-accelerated inference infrastructure for generative AI — that's Anyscale's exact sweet spot. Gorkem is Co-Founder and CTO, owns every infra decision. As they scale from $4.5B to IPO, their compute orchestration needs will explode.</p>
+        </div>
+        <div class="detail-section">
+          <h4>Outreach Angle</h4>
+          <p>Congratulate on the Series D + NVIDIA backing. Ask how they're thinking about scaling inference beyond their current setup — most GPU inference companies hit Ray OSS friction right around this stage. Position Anyscale as what OpenAI uses to stay ahead of that curve.</p>
+          <a class="linkedin-btn" href="https://linkedin.com/in/gorkemy" target="_blank">🔗 LinkedIn: in/gorkemy</a>
+        </div>
+        <div class="outreach-box">
+          "Congrats on the Series D — NVIDIA backing is a huge signal the market has picked Fal as infrastructure. Quick question as you scale from $4.5B → IPO: how are you thinking about Ray cluster management at 100x current volume? We see a lot of companies hit self-managed Ray friction right around this inflection point. Happy to share how OpenAI and others solved it — 15 mins?"
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- #2 -->
+  <div class="card" onclick="toggle(this)">
+    <div class="card-header">
+      <div class="rank rank-2">2</div>
+      <div class="contact-info">
+        <div class="contact-name">Jay Yang</div>
+        <div class="contact-title">Head of ML / Co-Founder</div>
+        <div class="contact-company">Lightwheel AI · San Francisco, CA</div>
+      </div>
+      <div class="card-meta">
+        <span class="signal-tag tag-web">🔍 Ex-PyTorch Meta</span>
+        <span class="signal-tag tag-hire">🔥 Active Hiring</span>
+        <div class="priority-score">
+          <div class="score-ring score-9"><div class="score-inner">9</div></div>
+          <div class="score-label">Priority</div>
+        </div>
+      </div>
+      <div class="chevron">▼</div>
+    </div>
+    <div class="card-detail">
+      <div class="card-detail-inner">
+        <div class="detail-section">
+          <h4>Why He's #2</h4>
+          <p>Jay came from the PyTorch team at Meta — this is exactly the persona Anyscale is built for. He knows distributed training architecture at the deepest level. At Lightwheel (synthetic data + AV simulation for autonomous driving), he's rebuilding a Meta-scale ML pipeline from scratch at a startup. He will feel the pain of self-managed Ray very quickly.</p>
+        </div>
+        <div class="detail-section">
+          <h4>Outreach Angle</h4>
+          <p>Peer-to-peer technical angle. Lead with Ray knowledge — he already knows it from Meta. Frame Anyscale as "Meta's internal Ray platform, productized." Ask how he's handling distributed training at Lightwheel's current stage. Reference Steve Xie's Cruise background as shared context.</p>
+          <a class="linkedin-btn" href="https://linkedin.com/in/yjmade" target="_blank">🔗 LinkedIn: in/yjmade</a>
+        </div>
+        <div class="outreach-box">
+          "Jay — love what you and Steve are building at Lightwheel. Given your PyTorch background at Meta, you've probably already thought about Ray for the simulation + training pipeline. Curious how you're handling distributed workloads at this stage — are you running OSS Ray or something else? At Anyscale we've helped a few AV simulation teams cut training iteration time significantly. Worth a quick chat?"
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- #3 -->
+  <div class="card" onclick="toggle(this)">
+    <div class="card-header">
+      <div class="rank rank-3">3</div>
+      <div class="contact-info">
+        <div class="contact-name">Beyang Liu</div>
+        <div class="contact-title">Co-Founder & CTO</div>
+        <div class="contact-company">Sourcegraph · San Francisco, CA</div>
+      </div>
+      <div class="card-meta">
+        <span class="signal-tag tag-cr">✅ Slack-Ray Active</span>
+        <span class="signal-tag tag-cr">✅ GitHub Signals</span>
+        <div class="priority-score">
+          <div class="score-ring score-9"><div class="score-inner">9</div></div>
+          <div class="score-label">Priority</div>
+        </div>
+      </div>
+      <div class="chevron">▼</div>
+    </div>
+    <div class="card-detail">
+      <div class="card-detail-inner">
+        <div class="detail-section">
+          <h4>Why He's #3</h4>
+          <p>This is your warmest signal: Sourcegraph has ACTIVE Slack-Ray community engagement AND GitHub signals in Common Room. Someone at Sourcegraph is already using Ray in production. Beyang is CTO and Co-Founder — the person who sets infra architecture. Sourcegraph builds Cody (AI coding assistant), which requires large-scale LLM inference.</p>
+        </div>
+        <div class="detail-section">
+          <h4>Outreach Angle</h4>
+          <p>Reference the Ray community activity directly — you can tell them "we noticed Sourcegraph has been active in the Ray Slack." Frame as following up to understand what they're building. This is a warm inbound — treat it like one. Also consider reaching out to Erika Rice Scherpelz (Head of Engineering) as a parallel contact.</p>
+          <a class="linkedin-btn" href="https://linkedin.com/in/beyang-liu" target="_blank">🔗 LinkedIn: Beyang Liu</a>
+        </div>
+        <div class="outreach-box">
+          "Beyang — noticed Sourcegraph has been pretty active in the Ray Slack community lately. Given what you're building with Cody and LLM inference at scale, makes sense. Wanted to reach out directly — are you running your own Ray clusters or evaluating managed options? We work with several AI code-assistant teams on exactly this. Happy to share what we're seeing. 15 mins?"
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- #4 -->
+  <div class="card" onclick="toggle(this)">
+    <div class="card-header">
+      <div class="rank rank-other">4</div>
+      <div class="contact-info">
+        <div class="contact-name">Fred Manby</div>
+        <div class="contact-title">Co-Founder & CTO</div>
+        <div class="contact-company">Iambic Therapeutics · San Diego, CA</div>
+      </div>
+      <div class="card-meta">
+        <span class="signal-tag tag-fund">💰 Series B Funded</span>
+        <span class="signal-tag tag-web">🔍 AI-First Drug Discovery</span>
+        <div class="priority-score">
+          <div class="score-ring score-9"><div class="score-inner">9</div></div>
+          <div class="score-label">Priority</div>
+        </div>
+      </div>
+      <div class="chevron">▼</div>
+    </div>
+    <div class="card-detail">
+      <div class="card-detail-inner">
+        <div class="detail-section">
+          <h4>Why He's #4</h4>
+          <p>Iambic is AI-first from day one — their entire drug discovery pipeline runs on ML models (molecular simulation, protein structure prediction, binding affinity). Fred is CTO and Co-Founder, making him the ultimate technical decision maker. Drug discovery ML runs massive parallel simulations that are a perfect fit for Ray's distributed computing model. Iambic scored 10/10 in your tier model.</p>
+        </div>
+        <div class="detail-section">
+          <h4>Outreach Angle</h4>
+          <p>Lead with the ML-for-drug-discovery angle. AlphaFold2-style workloads and molecular dynamics simulations are extremely parallel — this is Ray/Anyscale's home turf. Position Anyscale as what allows small teams to run pharma-scale compute without pharma-scale infra headcount.</p>
+          <a class="linkedin-btn" href="https://linkedin.com/in/fred-manby" target="_blank">🔗 LinkedIn: Fred Manby</a>
+        </div>
+        <div class="outreach-box">
+          "Fred — following Iambic's work on AI-first drug discovery closely. The scale of parallel molecular simulations you're running (across binding targets, conformations, etc.) is exactly the type of workload we see most benefit from managed distributed compute. Curious whether you're managing your own Ray clusters or have a different approach to orchestrating large-scale ML jobs. Happy to share what teams like yours typically run into at this scale."
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- #5 -->
+  <div class="card" onclick="toggle(this)">
+    <div class="card-header">
+      <div class="rank rank-other">5</div>
+      <div class="contact-info">
+        <div class="contact-name">Buddy Michini</div>
+        <div class="contact-title">Chief Technology Officer</div>
+        <div class="contact-company">Elroy Air · San Francisco, CA</div>
+      </div>
+      <div class="card-meta">
+        <span class="signal-tag tag-web">🔍 MIT PhD, Robotics</span>
+        <span class="signal-tag tag-hire">🔥 Hiring ML Eng</span>
+        <div class="priority-score">
+          <div class="score-ring score-8"><div class="score-inner">8</div></div>
+          <div class="score-label">Priority</div>
+        </div>
+      </div>
+      <div class="chevron">▼</div>
+    </div>
+    <div class="card-detail">
+      <div class="card-detail-inner">
+        <div class="detail-section">
+          <h4>Why He's #5</h4>
+          <p>Elroy Air builds autonomous heavy-lift cargo drones — their ML stack handles real-time flight path planning, obstacle avoidance, and predictive maintenance across a growing fleet. Buddy (MIT PhD Robotics) is CTO and would own infra architecture. Autonomous drone fleets require distributed sensor data processing and training pipelines that scale with fleet size.</p>
+        </div>
+        <div class="detail-section">
+          <h4>Outreach Angle</h4>
+          <p>Angle on fleet-scale ML: as Elroy grows from prototype to commercial fleet, the training data volume grows exponentially. Reference how other autonomous vehicle / drone companies have used Anyscale to keep ML iteration speed fast as fleet data scales up.</p>
+          <a class="linkedin-btn" href="https://linkedin.com/in/buddymichini" target="_blank">🔗 LinkedIn: in/buddymichini</a>
+        </div>
+        <div class="outreach-box">
+          "Buddy — impressive progress on the Chaparral platform. As you scale from test flights to commercial operations, the training data pipeline challenge usually becomes acute fast — fleet sensor logs, simulation runs, model retraining loops. Curious how you're architecting the ML infra side as you grow the fleet. We work with a few autonomous vehicle teams managing similar data-at-scale challenges with Anyscale — happy to share notes."
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- #6 -->
+  <div class="card" onclick="toggle(this)">
+    <div class="card-header">
+      <div class="rank rank-other">6</div>
+      <div class="contact-info">
+        <div class="contact-name">Batuhan Taskaya</div>
+        <div class="contact-title">Head of Engineering</div>
+        <div class="contact-company">Fal.ai · San Francisco, CA</div>
+      </div>
+      <div class="card-meta">
+        <span class="signal-tag tag-fund">💰 $4.5B Valuation</span>
+        <span class="signal-tag tag-web">🔍 ML Infra Builder</span>
+        <div class="priority-score">
+          <div class="score-ring score-9"><div class="score-inner">9</div></div>
+          <div class="score-label">Priority</div>
+        </div>
+      </div>
+      <div class="chevron">▼</div>
+    </div>
+    <div class="card-detail">
+      <div class="card-detail-inner">
+        <div class="detail-section">
+          <h4>Why He's #6</h4>
+          <p>Batuhan is the person actually building and running Fal.ai's ML infrastructure day-to-day. While Gorkem (#1) is the economic buyer, Batuhan is the technical champion — he'll evaluate vendors, run POCs, and make the recommendation. Dual-threading Fal.ai with both contacts maximizes your chances.</p>
+        </div>
+        <div class="detail-section">
+          <h4>Outreach Angle</h4>
+          <p>More technical angle than the CTO pitch. Ask about their current GPU cluster orchestration — Python-based? Ray-based? What's their P99 inference latency story? Offer a technical deep-dive or access to Anyscale's inference benchmarks vs. self-managed Ray.</p>
+          <a class="linkedin-btn" href="https://linkedin.com/in/batuhan-taskaya-7803b61a0" target="_blank">🔗 LinkedIn: in/batuhan-taskaya-7803b61a0</a>
+        </div>
+        <div class="outreach-box">
+          "Batuhan — following Fal's infra engineering blog. Big congrats on the Series D. Quick technical question: as you scale inference at $4.5B valuation, are you managing Ray clusters internally or looking at managed options? We've benchmarked self-managed vs. Anyscale across a few inference-heavy teams — happy to share the numbers if useful. No pitch, just data."
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- #7 -->
+  <div class="card" onclick="toggle(this)">
+    <div class="card-header">
+      <div class="rank rank-other">7</div>
+      <div class="contact-info">
+        <div class="contact-name">Adeeb Shihadeh</div>
+        <div class="contact-title">Chief Product Officer</div>
+        <div class="contact-company">comma.ai · San Francisco, CA</div>
+      </div>
+      <div class="card-meta">
+        <span class="signal-tag tag-web">🔍 Self-Driving OSS</span>
+        <span class="signal-tag tag-hire">🔥 Expanding Team</span>
+        <div class="priority-score">
+          <div class="score-ring score-8"><div class="score-inner">8</div></div>
+          <div class="score-label">Priority</div>
+        </div>
+      </div>
+      <div class="chevron">▼</div>
+    </div>
+    <div class="card-detail">
+      <div class="card-detail-inner">
+        <div class="detail-section">
+          <h4>Why He's #7</h4>
+          <p>comma.ai builds openpilot (open-source self-driving), used by 50k+ vehicles. Their ML training pipeline runs on real-world driving data from a massive fleet — camera feeds, sensor fusion, reinforcement learning from human feedback. Adeeb as CPO controls the product roadmap and likely influences infra decisions. George Hotz (President) is the founder but harder to reach cold.</p>
+        </div>
+        <div class="detail-section">
+          <h4>Outreach Angle</h4>
+          <p>Angle on fleet data scale: comma.ai has more real-world driving data per dollar than almost any self-driving company. The bottleneck becomes training pipeline throughput, not data collection. Frame Anyscale as the infrastructure that lets their ML team ship model updates as fast as their data grows.</p>
+          <a class="linkedin-btn" href="https://linkedin.com/in/adeeb-shihadeh-531963296" target="_blank">🔗 LinkedIn: in/adeeb-shihadeh-531963296</a>
+        </div>
+        <div class="outreach-box">
+          "Adeeb — love that comma.ai has more real-world miles per dollar than virtually anyone in self-driving. The data flywheel is genuinely impressive. As openpilot coverage grows, does training pipeline throughput start to become the constraint? We've helped AV teams cut their model iteration cycles significantly by moving to managed Ray. Happy to share the approach — 20 mins?"
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- #8 -->
+  <div class="card" onclick="toggle(this)">
+    <div class="card-header">
+      <div class="rank rank-other">8</div>
+      <div class="contact-info">
+        <div class="contact-name">Toyotaka Kozuki</div>
+        <div class="contact-title">Co-Founder & CTO</div>
+        <div class="contact-company">GITAI · Los Angeles, CA</div>
+      </div>
+      <div class="card-meta">
+        <span class="signal-tag tag-web">🔍 Space Robotics AI</span>
+        <span class="signal-tag tag-fund">💰 JAXA + JAXE Backed</span>
+        <div class="priority-score">
+          <div class="score-ring score-9"><div class="score-inner">9</div></div>
+          <div class="score-label">Priority</div>
+        </div>
+      </div>
+      <div class="chevron">▼</div>
+    </div>
+    <div class="card-detail">
+      <div class="card-detail-inner">
+        <div class="detail-section">
+          <h4>Why He's #8</h4>
+          <p>GITAI builds autonomous robots for space stations and lunar/Mars missions — their ML stack handles dexterous manipulation, teleoperation, and on-board inference for zero-latency environments. Toyotaka is CTO and Co-Founder with deep robotics and ML background. Space robotics ML training runs massive simulation environments (Isaac Sim, custom physics) — classic Ray workload.</p>
+        </div>
+        <div class="detail-section">
+          <h4>Outreach Angle</h4>
+          <p>Angle on simulation-at-scale: robot learning requires training across thousands of simulated environments in parallel. This is exactly where Ray/Anyscale shines. Reference ROS2 + Python stack likely in their pipeline. GITAI's government contracts (NASA, JAXA) mean budget exists and security/compliance may matter.</p>
+          <a class="linkedin-btn" href="https://linkedin.com/in/toyotaka-kozuki" target="_blank">🔗 LinkedIn: Toyotaka Kozuki</a>
+        </div>
+        <div class="outreach-box">
+          "Toyotaka — GITAI's work on space teleoperation and dexterous manipulation is remarkable. For the simulation-based training pipeline (I imagine you're running thousands of parallel physics sim environments), how are you handling distributed workload orchestration? Ray is particularly well-suited for this — Anyscale makes it significantly easier to manage at scale. Happy to do a quick technical comparison."
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- #9 -->
+  <div class="card" onclick="toggle(this)">
+    <div class="card-header">
+      <div class="rank rank-other">9</div>
+      <div class="contact-info">
+        <div class="contact-name">Torsten Kroeger</div>
+        <div class="contact-title">Chief Science Officer</div>
+        <div class="contact-company">Intrinsic (Google X) · Mountain View, CA</div>
+      </div>
+      <div class="card-meta">
+        <span class="signal-tag tag-cr">✅ In Common Room</span>
+        <span class="signal-tag tag-web">🔍 Google X Backing</span>
+        <div class="priority-score">
+          <div class="score-ring score-9"><div class="score-inner">9</div></div>
+          <div class="score-label">Priority</div>
+        </div>
+      </div>
+      <div class="chevron">▼</div>
+    </div>
+    <div class="card-detail">
+      <div class="card-detail-inner">
+        <div class="detail-section">
+          <h4>Why He's #9</h4>
+          <p>Intrinsic (spun out of Google X) is building an industrial robot software platform — think OS + ML stack for factory robots. Torsten is CSO with a Stanford/Google robotics pedigree. Google X budgets are essentially unlimited, and Intrinsic is building from scratch with modern AI-first architecture. Common Room has them tracked.</p>
+        </div>
+        <div class="detail-section">
+          <h4>Outreach Angle</h4>
+          <p>Note the interesting angle: Intrinsic's parent is Google, which means they likely have GCP credits and internal pressure to use Google tools. Anyscale runs on any cloud including GCP. Lead with the "works natively on GCP + Vertex AI" angle. Also, as a research-heavy org, the "no cluster management overhead" message resonates with scientists who don't want to be infra engineers.</p>
+          <a class="linkedin-btn" href="https://linkedin.com/in/kroegertorsten" target="_blank">🔗 LinkedIn: in/kroegertorsten</a>
+        </div>
+        <div class="outreach-box">
+          "Torsten — the work Intrinsic is doing on making industrial robotics programmable for non-specialists is genuinely exciting. For the ML research team, how are you managing training and inference infrastructure — staying within Google's stack, or pulling in best-of-breed tools? Anyscale runs natively on GCP and plays well with Vertex AI, so we see a lot of Google-backed teams use both. Happy to share how that setup works."
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- #10 -->
+  <div class="card" onclick="toggle(this)">
+    <div class="card-header">
+      <div class="rank rank-other">10</div>
+      <div class="contact-info">
+        <div class="contact-name">Hakan Gultekin</div>
+        <div class="contact-title">Co-Founder & CTO</div>
+        <div class="contact-company">Chooch AI · San Francisco, CA</div>
+      </div>
+      <div class="card-meta">
+        <span class="signal-tag tag-web">🔍 Computer Vision AI</span>
+        <span class="signal-tag tag-hire">🔥 Model Deployment</span>
+        <div class="priority-score">
+          <div class="score-ring score-8"><div class="score-inner">8</div></div>
+          <div class="score-label">Priority</div>
+        </div>
+      </div>
+      <div class="chevron">▼</div>
+    </div>
+    <div class="card-detail">
+      <div class="card-detail-inner">
+        <div class="detail-section">
+          <h4>Why He's #10</h4>
+          <p>Chooch AI builds real-time computer vision models deployed at enterprise scale (manufacturing QA, security, healthcare). Hakan is CTO and Co-Founder — owns every technical decision. Computer vision inference at scale (many concurrent streams) + model retraining on new production data = classic Ray Serve use case. Anyscale's model serving layer would directly address their needs.</p>
+        </div>
+        <div class="detail-section">
+          <h4>Outreach Angle</h4>
+          <p>Lead with the model serving / inference angle rather than training. Chooch deploys CV models to many enterprise customers — managing model versioning, A/B testing, and autoscaling across customer deployments is exactly what Ray Serve handles. This is a concrete, specific pitch for their exact use case.</p>
+          <a class="linkedin-btn" href="https://linkedin.com/in/hakan-gultekin-chooch" target="_blank">🔗 LinkedIn: Hakan Gultekin</a>
+        </div>
+        <div class="outreach-box">
+          "Hakan — Chooch's approach to real-time edge vision deployment is smart. One thing we hear a lot from CV platform teams: as you manage model versioning + A/B tests across dozens of enterprise customers, the serving infrastructure complexity spikes. Ray Serve (via Anyscale) handles multi-model deployment and per-customer routing really cleanly. Would love to show you what that looks like — 20 mins?"
+        </div>
+      </div>
+    </div>
+  </div>
+
+</div>
+
+<div class="footer">
+  <span>Generated by Claude for Dylan Wingrove · Anyscale</span>
+  <span>Sources: Common Room, LinkedIn, Crunchbase, Web Research · March 4, 2026</span>
+</div>
+
+<script>
+  function toggle(card) {
+    card.classList.toggle('expanded');
+  }
+</script>
+
+</body>
+</html>

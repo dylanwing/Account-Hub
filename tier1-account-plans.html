@@ -1,0 +1,1836 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Tier 1 Account Plans — Anyscale</title>
+<style>
+:root {
+  --bg: #0d1117; --bg2: #161b22; --bg3: #1c2128;
+  --border: #30363d; --text: #e6edf3; --muted: #8b949e; --accent: #58a6ff;
+}
+* { box-sizing: border-box; margin: 0; padding: 0; }
+body {
+  background: var(--bg); color: var(--text);
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+  font-size: 14px; line-height: 1.6; display: flex; min-height: 100vh;
+}
+.sidebar {
+  width: 260px; min-width: 260px; background: var(--bg2);
+  border-right: 1px solid var(--border); position: sticky;
+  top: 0; height: 100vh; overflow-y: auto; padding: 16px 0; flex-shrink: 0;
+}
+.sidebar-header { padding: 0 16px 16px; border-bottom: 1px solid var(--border); margin-bottom: 8px; }
+.sidebar-title { font-size: 13px; font-weight: 600; color: var(--text); margin-bottom: 4px; }
+.sidebar-sub { font-size: 11px; color: var(--muted); }
+.nav-item {
+  display: flex; flex-direction: column; padding: 8px 16px; gap: 2px;
+  text-decoration: none; color: var(--text); border-left: 3px solid transparent;
+  transition: all 0.15s;
+}
+.nav-item:hover, .nav-item.active {
+  background: var(--bg3); border-left-color: var(--accent, #58a6ff);
+}
+.nav-score { font-size: 10px; color: var(--muted); font-weight: 600; letter-spacing: 0.05em; }
+.nav-name { font-size: 13px; font-weight: 600; }
+.nav-sector { font-size: 11px; color: var(--muted); }
+.main { flex: 1; padding: 32px; max-width: 1100px; overflow-x: hidden; }
+.page-header { margin-bottom: 32px; }
+.page-title { font-size: 24px; font-weight: 700; margin-bottom: 6px; }
+.page-sub { color: var(--muted); font-size: 14px; }
+.company-section { margin-bottom: 48px; padding-bottom: 48px; border-bottom: 1px solid var(--border); }
+.company-header {
+  background: var(--bg2); border-radius: 8px; padding: 20px 24px;
+  margin-bottom: 20px;
+}
+.company-title-row { display: flex; align-items: center; gap: 12px; margin-bottom: 10px; flex-wrap: wrap; }
+.company-name { font-size: 22px; font-weight: 700; }
+.tier-badge {
+  padding: 3px 10px; border-radius: 20px; font-size: 12px;
+  font-weight: 600; letter-spacing: 0.03em;
+}
+.company-meta { display: flex; gap: 20px; flex-wrap: wrap; font-size: 12px; color: var(--muted); }
+.sections-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+.plan-section {
+  background: var(--bg2); border: 1px solid var(--border); border-radius: 8px; padding: 16px;
+}
+.full-width { grid-column: 1 / -1; }
+.section-title { font-size: 12px; font-weight: 700; text-transform: uppercase;
+  letter-spacing: 0.08em; color: var(--muted); margin-bottom: 12px; }
+ul, ol { padding-left: 18px; }
+li { margin-bottom: 5px; font-size: 13px; }
+.signal-list li::marker { color: #58a6ff; }
+.why-list li::marker { color: #56d364; }
+.timing-list li::marker { color: #e3b341; }
+.stack-list li { font-family: 'SF Mono', Consolas, monospace; font-size: 12px; }
+.highlight-section { border-color: #2d7a4a; background: #0d2318; }
+.funding-section { background: #1a1a0d; border-color: #4a4a1a; }
+.funding-block { display: flex; flex-direction: column; gap: 8px; }
+.funding-item { font-size: 13px; }
+.email-section { background: var(--bg3); }
+.emails-container { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+.email-card { background: var(--bg2); border: 1px solid var(--border); border-radius: 6px; overflow: hidden; }
+.email-header { display: flex; align-items: center; gap: 10px; padding: 10px 14px;
+  background: var(--bg3); border-bottom: 1px solid var(--border); flex-wrap: wrap; }
+.email-step { font-size: 11px; font-weight: 700; color: #58a6ff;
+  background: #1a2a3a; padding: 2px 8px; border-radius: 10px; }
+.email-subject { font-size: 12px; font-weight: 600; flex: 1; }
+.copy-btn {
+  font-size: 11px; padding: 3px 10px; background: var(--bg); border: 1px solid var(--border);
+  color: var(--muted); border-radius: 4px; cursor: pointer; transition: all 0.15s;
+}
+.copy-btn:hover { background: #21262d; color: var(--text); }
+.copy-btn.copied { background: #1a3a2a; color: #56d364; border-color: #2d7a4a; }
+.email-body { padding: 12px 14px; font-size: 12px; white-space: pre-wrap; line-height: 1.7;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; color: #c9d1d9; }
+
+/* ── Ray Section ── */
+.ray-section { background: #0d1a2a; border-color: #1d3a5a; }
+.ray-content { display: flex; flex-direction: column; gap: 12px; }
+.stage-pill {
+  display: inline-flex; align-items: center; gap: 6px;
+  background: #1a2a3a; border: 1px solid #2d5a8a; border-radius: 20px;
+  padding: 4px 14px; font-size: 12px; font-weight: 600; color: #79c0ff; width: fit-content;
+}
+.wl-row, .qual-row { display: flex; align-items: center; gap: 8px; flex-wrap: wrap; }
+.wl-label { font-size: 11px; font-weight: 700; color: var(--muted); text-transform: uppercase;
+  letter-spacing: 0.05em; white-space: nowrap; }
+.wl-badge {
+  padding: 3px 10px; border-radius: 4px; font-size: 12px; font-weight: 600;
+}
+.qual-badge {
+  padding: 2px 8px; border-radius: 4px; font-size: 11px; font-weight: 500;
+  background: #1a2a1a; color: #8b949e; border: 1px solid #2d3a2d;
+}
+.lib-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 8px; margin-top: 4px; }
+.lib-row {
+  padding: 10px 12px; border-radius: 6px; display: flex; flex-direction: column; gap: 4px;
+}
+.lib-left { display: flex; align-items: center; gap: 8px; }
+.lib-name { font-size: 13px; font-weight: 700; }
+.lib-level { font-size: 10px; font-weight: 700; padding: 1px 7px; border-radius: 10px; letter-spacing: 0.06em; }
+.level-primary { background: #1a3a2a; color: #56d364; border: 1px solid #2d7a4a; }
+.level-secondary { background: #2a2a1a; color: #8b949e; border: 1px solid #3a3a2a; }
+.lib-reason { font-size: 12px; color: #8b949e; line-height: 1.4; }
+</style>
+</head>
+<body>
+<nav class="sidebar">
+  <div class="sidebar-header">
+    <div class="sidebar-title">Tier 1 Account Plans</div>
+    <div class="sidebar-sub">11 accounts · Score 9–10/10</div>
+  </div>
+  <a class="nav-item" href="#commaai" data-id="commaai" style="--accent:#58a6ff"><span class="nav-score">10/10</span><span class="nav-name">comma.ai</span><span class="nav-sector">AV / Robotics</span></a><a class="nav-item" href="#iambic-therapeutics" data-id="iambic-therapeutics" style="--accent:#3fb950"><span class="nav-score">10/10</span><span class="nav-name">Iambic Therapeutics</span><span class="nav-sector">Health AI</span></a><a class="nav-item" href="#falai" data-id="falai" style="--accent:#f78166"><span class="nav-score">10/10</span><span class="nav-name">Fal.ai</span><span class="nav-sector">AI Platform / Infra</span></a><a class="nav-item" href="#apexai" data-id="apexai" style="--accent:#58a6ff"><span class="nav-score">9/10</span><span class="nav-name">Apex.AI</span><span class="nav-sector">AV / Robotics</span></a><a class="nav-item" href="#chooch" data-id="chooch" style="--accent:#d2a8ff"><span class="nav-score">9/10</span><span class="nav-name">Chooch</span><span class="nav-sector">AI Platform / Infra</span></a><a class="nav-item" href="#lightwheel" data-id="lightwheel" style="--accent:#e3b341"><span class="nav-score">9/10</span><span class="nav-name">Lightwheel</span><span class="nav-sector">Robotics / Physical AI</span></a><a class="nav-item" href="#valar-labs" data-id="valar-labs" style="--accent:#3fb950"><span class="nav-score">9/10</span><span class="nav-name">Valar Labs</span><span class="nav-sector">Health AI</span></a><a class="nav-item" href="#elroy-air" data-id="elroy-air" style="--accent:#58a6ff"><span class="nav-score">9/10</span><span class="nav-name">Elroy Air</span><span class="nav-sector">AV / Robotics</span></a><a class="nav-item" href="#intrinsic-google" data-id="intrinsic-google" style="--accent:#f78166"><span class="nav-score">9/10</span><span class="nav-name">Intrinsic (Google)</span><span class="nav-sector">Robotics / Physical AI</span></a><a class="nav-item" href="#wing-alphabet" data-id="wing-alphabet" style="--accent:#58a6ff"><span class="nav-score">9/10</span><span class="nav-name">Wing (Alphabet)</span><span class="nav-sector">AV / Robotics</span></a><a class="nav-item" href="#gitai" data-id="gitai" style="--accent:#d2a8ff"><span class="nav-score">9/10</span><span class="nav-name">GITAI</span><span class="nav-sector">Robotics / Space</span></a>
+</nav>
+<main class="main">
+  <div class="page-header">
+    <h1 class="page-title">Tier 1 Account Plans</h1>
+    <p class="page-sub">Detailed plans for top-scored Anyscale prospects. Includes Ray library fit, workload type, platform outcomes, and 4-step email sequences.</p>
+  </div>
+  
+<section class="company-section" id="commaai" data-name="comma.ai" data-sector="AV / Robotics">
+  <div class="company-header" style="border-left: 4px solid #58a6ff">
+    <div class="company-title-row">
+      <h2 class="company-name" style="color:#58a6ff">comma.ai</h2>
+      <span class="tier-badge" style="background:#58a6ff20;color:#58a6ff;border:1px solid #58a6ff40">10/10 · AV / Robotics</span>
+    </div>
+    <div class="company-meta">
+      <span>🌐 comma.ai</span>
+      <span>📍 San Francisco, CA</span>
+      <span>👥 ~30 employees (small, elite team)</span>
+      <span>🎯 George Hotz (CEO/Founder), Adeeb Shihadeh (Lead Engineer), Head of ML Infrastructure</span>
+    </div>
+  </div>
+
+  <div class="sections-grid">
+
+    
+<div class="plan-section ray-section full-width">
+  <h3 class="section-title">🔬 Ray Libraries &amp; Workload Fit</h3>
+  <div class="ray-content">
+    <div class="stage-pill">📈 Stage 1→2 &nbsp;·&nbsp; Build Faster → Run Reliably</div>
+    <div class="wl-row"><span class="wl-label">Workload Type:</span><span class="wl-badge" style="background:#1a2a3a;color:#79c0ff;border:1px solid #2d5a8a">Distributed Training &amp; RL</span><span class="wl-badge" style="background:#1a3a1a;color:#56d364;border:1px solid #2d7a2d">Multimodal Data Pipeline</span></div>
+    <div class="qual-row"><span class="wl-label">Qualifiers:</span><span class="qual-badge">Multi-node</span><span class="qual-badge">Heterogeneous (CPU+GPU)</span><span class="qual-badge">End-to-end mindset</span></div>
+    <div class="lib-grid">
+<div class="lib-row" style="background:#1a3a5c;border-left:3px solid #2d6a9f">
+  <div class="lib-left">
+    <span class="lib-name" style="color:#79c0ff">Ray Data</span>
+    <span class="lib-level level-primary">PRIMARY</span>
+  </div>
+  <div class="lib-reason">100M+ mile fleet data pipeline — distributed ingestion &amp; featurization</div>
+</div>
+<div class="lib-row" style="background:#1a3a2a;border-left:3px solid #2d7a4a">
+  <div class="lib-left">
+    <span class="lib-name" style="color:#56d364">Ray Train</span>
+    <span class="lib-level level-primary">PRIMARY</span>
+  </div>
+  <div class="lib-reason">Distributed PyTorch training for end-to-end world model</div>
+</div>
+<div class="lib-row" style="background:#2a1a3a;border-left:3px solid #6a2a9a">
+  <div class="lib-left">
+    <span class="lib-name" style="color:#bc8cff">RLlib</span>
+    <span class="lib-level level-primary">PRIMARY</span>
+  </div>
+  <div class="lib-reason">On-policy mlsim rollouts — thousands of parallel simulator actors</div>
+</div>
+<div class="lib-row" style="background:#3a2a1a;border-left:3px solid #8a5a2a">
+  <div class="lib-left">
+    <span class="lib-name" style="color:#e3b341">Ray Tune</span>
+    <span class="lib-level level-secondary">SECONDARY</span>
+  </div>
+  <div class="lib-reason">Hyperparameter search across world model variants</div>
+</div></div>
+  </div>
+</div>
+
+    <div class="plan-section">
+      <h3 class="section-title">📡 Key Signals / Indicators</h3>
+      <ul class="signal-list"><li>Owns a $5M private data center — indicates extreme cost-sensitivity and desire for infra control, but also a major CapEx commitment they're already managing</li><li>60K+ lines of openpilot Python — entire training stack is Python-native, making Ray a natural fit with zero language-switching overhead</li><li>End-to-end world model 'mlsim' blog post — on-policy simulation training is massively parallelizable and benefits directly from distributed Ray scheduling</li><li>100M+ miles of real-world driving data — processing and featurizing this dataset is a classic distributed data pipeline challenge</li><li>Small team (~30 people) running datacenter + ML pipeline — ops overhead is disproportionate; managed Ray removes that burden</li><li>Active openpilot open-source community — signals transparency culture, openness to new tooling</li></ul>
+    </div>
+
+    <div class="plan-section">
+      <h3 class="section-title">🤖 ML Use Cases</h3>
+      <ul class="plan-list"><li>End-to-end AV world model training — training driving policy on 100M+ miles of real-world data</li><li>On-policy simulator (mlsim) — generating synthetic training scenarios at scale, running parallel rollouts</li><li>Distributed data pipeline — ingesting, cleaning, featurizing drive data from fleet of devices</li><li>Fleet inference — deploying and validating updated models across connected openpilot vehicles</li><li>Behavioral cloning + RL fine-tuning — training from human demonstration data with distributed gradient computation</li></ul>
+    </div>
+
+    <div class="plan-section">
+      <h3 class="section-title">🛠 Tech Stack</h3>
+      <ul class="stack-list"><li>Python (primary language — 60K+ LOC in openpilot)</li><li>PyTorch / custom neural network training loops</li><li>ONNX for model export to edge hardware</li><li>Linux (Ubuntu) on custom comma 3X hardware</li><li>C++ for low-level vehicle interface layer</li><li>Android for the comma device OS layer</li><li>Self-managed GPU cluster (~450kW datacenter)</li><li>Custom data pipeline (no public details — likely Kafka/Spark or custom Python)</li></ul>
+    </div>
+
+    <div class="plan-section">
+      <h3 class="section-title">🚀 5 AI / ML Initiatives</h3>
+      <ol class="initiative-list"><li>World model v2 / mlsim expansion — scaling on-policy simulation for more diverse driving scenarios and longer-horizon planning</li><li>openpilot 0.10+ — continued improvement of end-to-end driving neural network with better generalization across vehicle types</li><li>comma connect data platform — scaling the fleet telemetry pipeline to support growing device base and richer sensor data</li><li>Edge model optimization — shrinking world model for faster inference on comma 3X hardware (Qualcomm 845 chipset)</li><li>Multi-vehicle model generalization — training a single policy that works across 300+ supported car models with minimal fine-tuning</li></ol>
+    </div>
+
+    <div class="plan-section">
+      <h3 class="section-title">⏰ Timing Advantages (Why Now)</h3>
+      <ul class="timing-list"><li>mlsim blog post signals they're actively working on distributed sim training — exactly when managed orchestration adds most value</li><li>Fleet growing → data volume scaling → existing pipeline showing strain at current team size</li><li>Tesla FSD v13 competitive pressure → faster iteration cycles needed to close the capability gap</li><li>On-policy simulation (mlsim) requires running thousands of parallel rollouts — perfect Ray workload</li><li>Small team managing a datacenter = ops distraction. Managed Ray could free 1-2 engineers from cluster babysitting</li></ul>
+    </div>
+
+    <div class="plan-section">
+      <h3 class="section-title">🎯 Business Objectives</h3>
+      <ul class="plan-list"><li>Make full self-driving accessible and affordable — openpilot as the 'Linux of autonomous driving'</li><li>Grow comma device install base and subscription (comma connect) revenue</li><li>Outcompete Tesla FSD and Waymo on open-source transparency and model quality</li><li>Maintain lean team / high output-per-engineer ratio — default alive, no VC dependency</li><li>Expand vehicle compatibility to cover more of the addressable market</li></ul>
+    </div>
+
+    <div class="plan-section">
+      <h3 class="section-title">💻 Tech Initiatives</h3>
+      <ul class="plan-list"><li>mlsim — building an on-policy driving simulator for scalable synthetic data generation</li><li>Improving openpilot's neural network architecture for better generalization</li><li>Fleet data pipeline scaling to handle growing device telemetry volume</li><li>Model compression/quantization for faster edge inference on Snapdragon hardware</li><li>Open-sourcing more of the training pipeline to attract community contributions</li></ul>
+    </div>
+
+    <div class="plan-section highlight-section">
+      <h3 class="section-title">⚡ Why Anyscale? (Platform Outcomes)</h3>
+      <ul class="why-list"><li>Ray's Python-native scheduler matches comma.ai's all-Python stack — zero adoption friction vs. Spark/Flink alternatives</li><li>Ray Train handles distributed PyTorch training across their GPU cluster — drop-in for their current setup</li><li>Ray Data handles the distributed data pipeline (ingestion + featurization of 100M+ mile fleet data)</li><li>Anyscale managed layer eliminates datacenter ops overhead for a 30-person team running their own cluster</li><li>Ray's actor model is perfect for mlsim — run thousands of parallel simulator rollouts coordinated by a central trainer</li><li>Cost control: Ray's autoscaling means idle GPUs don't burn money — critical for a cost-conscious team</li></ul>
+    </div>
+
+    <div class="plan-section">
+      <h3 class="section-title">❓ Discovery Questions</h3>
+      <ol class="discovery-list"><li>When you wrote about mlsim — how are you currently orchestrating the parallel simulator rollouts? Are you seeing scheduling bottlenecks?</li><li>With 100M+ miles of drive data, how long does a full training pipeline run take end to end today?</li><li>How many engineers are currently spending time on infrastructure and cluster management vs. actual model work?</li><li>Are you running experiments across multiple GPU nodes, or is training still mostly single-node?</li><li>When you had to scale up the datacenter — what was the biggest friction point? Is that something you'd want to avoid doing again?</li><li>What's your current iteration speed from data collection → trained model → validated on fleet? Where's the biggest bottleneck?</li></ol>
+    </div>
+
+    <div class="plan-section funding-section">
+      <h3 class="section-title">💰 Funding / Revenue Notes</h3>
+      <div class="funding-block">
+        <div class="funding-item"><strong>Funding:</strong> $8.1M total raised (bootstrapped/self-funded focus); owns $5M private data center (~450kW), estimates 5× cheaper than equivalent cloud spend. No recent VC round.</div>
+        <div class="funding-item"><strong>Revenue:</strong> Revenue from comma 3X hardware device sales + comma connect subscriptions. Profitable/default alive — George Hotz has publicly stated preference for independence.</div>
+      </div>
+    </div>
+
+    <div class="plan-section email-section full-width">
+      <h3 class="section-title">✉️ 4-Step Email Outreach Sequence</h3>
+      <div class="emails-container">
+<div class="email-card">
+  <div class="email-header">
+    <span class="email-step">Step 1</span>
+    <span class="email-subject">Subject: mlsim + distributed rollouts</span>
+    <button class="copy-btn" onclick="copyEmail(this)">Copy</button>
+  </div>
+  <pre class="email-body">George — read the mlsim post carefully. Running on-policy simulator rollouts at scale is one of the most parallelization-friendly workloads that exists — and also one of the most painful to orchestrate without the right tools.
+
+We work with several AV teams running similar sim-based training loops on Ray. The actor model maps directly to your rollout workers, and the Python-native scheduler means zero rewrite from your existing openpilot codebase.
+
+Not pushing anything — just thought the architecture fit was close enough to be worth 15 minutes. Worth a quick look?</pre>
+</div>
+<div class="email-card">
+  <div class="email-header">
+    <span class="email-step">Step 2</span>
+    <span class="email-subject">Subject: Re: mlsim + distributed rollouts</span>
+    <button class="copy-btn" onclick="copyEmail(this)">Copy</button>
+  </div>
+  <pre class="email-body">Following up — I know you run a lean team and the last thing you need is another tool to manage.
+
+The angle I'd focus on for comma.ai specifically: Anyscale managed Ray runs on your existing infrastructure. You keep the datacenter, we remove the scheduling and cluster management overhead. Your engineers spend time on model work, not babysitting nodes.
+
+Happy to show a concrete before/after on a team your size. 20 minutes?</pre>
+</div>
+<div class="email-card">
+  <div class="email-header">
+    <span class="email-step">Step 3</span>
+    <span class="email-subject">Subject: End-to-end AV training on Ray — reference case</span>
+    <button class="copy-btn" onclick="copyEmail(this)">Copy</button>
+  </div>
+  <pre class="email-body">George — last one from me on this.
+
+We have a reference customer who went from 14-hour training runs to 4 hours on the same hardware after switching to Ray Train for their distributed PyTorch loops. Similar setup to yours: Python-first, self-managed cluster, small team.
+
+If the comparison is useful, happy to share. If not the right time, no worries — I'll check back when mlsim ships further.</pre>
+</div>
+<div class="email-card">
+  <div class="email-header">
+    <span class="email-step">Step 4</span>
+    <span class="email-subject">Subject: openpilot + Anyscale — broader picture</span>
+    <button class="copy-btn" onclick="copyEmail(this)">Copy</button>
+  </div>
+  <pre class="email-body">George — circling back one more time given the recent progress on openpilot.
+
+As your model improves and fleet data volumes compound, the infrastructure question becomes unavoidable. The teams that solve it early (unified data + training + serving pipeline on Ray) tend to outpace those that retrofit it later.
+
+If it ever makes sense to talk about where comma.ai's infra needs to be in 12 months, I'm here. Otherwise, keep shipping — the progress is impressive.</pre>
+</div></div>
+    </div>
+
+  </div>
+</section>
+<section class="company-section" id="iambic-therapeutics" data-name="Iambic Therapeutics" data-sector="Health AI">
+  <div class="company-header" style="border-left: 4px solid #3fb950">
+    <div class="company-title-row">
+      <h2 class="company-name" style="color:#3fb950">Iambic Therapeutics</h2>
+      <span class="tier-badge" style="background:#3fb95020;color:#3fb950;border:1px solid #3fb95040">10/10 · Health AI</span>
+    </div>
+    <div class="company-meta">
+      <span>🌐 iambic.ai</span>
+      <span>📍 San Diego, CA</span>
+      <span>👥 ~100-150 employees</span>
+      <span>🎯 VP Engineering, Head of ML Platform / ML Infrastructure — LinkedIn search at iambic.ai</span>
+    </div>
+  </div>
+
+  <div class="sections-grid">
+
+    
+<div class="plan-section ray-section full-width">
+  <h3 class="section-title">🔬 Ray Libraries &amp; Workload Fit</h3>
+  <div class="ray-content">
+    <div class="stage-pill">📈 Stage 1→2 &nbsp;·&nbsp; Build Faster → Run Reliably</div>
+    <div class="wl-row"><span class="wl-label">Workload Type:</span><span class="wl-badge" style="background:#1a2a3a;color:#79c0ff;border:1px solid #2d5a8a">Distributed Training &amp; Fine-tuning</span></div>
+    <div class="qual-row"><span class="wl-label">Qualifiers:</span><span class="qual-badge">Multi-node</span><span class="qual-badge">Heterogeneous (CPU+GPU)</span><span class="qual-badge">End-to-end mindset</span></div>
+    <div class="lib-grid">
+<div class="lib-row" style="background:#1a3a2a;border-left:3px solid #2d7a4a">
+  <div class="lib-left">
+    <span class="lib-name" style="color:#56d364">Ray Train</span>
+    <span class="lib-level level-primary">PRIMARY</span>
+  </div>
+  <div class="lib-reason">NeuralPLexer / Enchant distributed GNN+Transformer training</div>
+</div>
+<div class="lib-row" style="background:#3a2a1a;border-left:3px solid #8a5a2a">
+  <div class="lib-left">
+    <span class="lib-name" style="color:#e3b341">Ray Tune</span>
+    <span class="lib-level level-primary">PRIMARY</span>
+  </div>
+  <div class="lib-reason">Molecular property HPO — millions of candidate structures in parallel</div>
+</div>
+<div class="lib-row" style="background:#1a3a5c;border-left:3px solid #2d6a9f">
+  <div class="lib-left">
+    <span class="lib-name" style="color:#79c0ff">Ray Data</span>
+    <span class="lib-level level-primary">PRIMARY</span>
+  </div>
+  <div class="lib-reason">Design-make-test data pipeline connecting wet lab ↔ compute</div>
+</div>
+<div class="lib-row" style="background:#3a1a2a;border-left:3px solid #8a2a6a">
+  <div class="lib-left">
+    <span class="lib-name" style="color:#f778ba">Ray Serve</span>
+    <span class="lib-level level-secondary">SECONDARY</span>
+  </div>
+  <div class="lib-reason">Serving molecular design API to Takeda collaboration workflows</div>
+</div></div>
+  </div>
+</div>
+
+    <div class="plan-section">
+      <h3 class="section-title">📡 Key Signals / Indicators</h3>
+      <ul class="signal-list"><li>NVIDIA investment + Takeda partnership in quick succession → massive credibility + capital for infrastructure scaling</li><li>$100M oversubscribed round (Nov 2025) + Takeda deal (Feb 2026) = 3 months of back-to-back major events, signaling infrastructure scaling is imminent</li><li>Weekly design-make-test cycles — computational throughput is the rate-limiting step for discovery speed</li><li>NeuralPLexer + Enchant architectures are transformer/GNN-based — large-scale distributed training workloads</li><li>CNBC Disruptor 50 2025 — top-of-market visibility, under scrutiny to deliver at scale</li><li>Expanding beyond bladder cancer to multiple oncology targets → multiplying training jobs simultaneously</li></ul>
+    </div>
+
+    <div class="plan-section">
+      <h3 class="section-title">🤖 ML Use Cases</h3>
+      <ul class="plan-list"><li>NeuralPLexer — protein-ligand structure prediction at scale (requires distributed GPU inference + training)</li><li>Enchant — multimodal transformer predicting clinical/preclinical endpoints from molecular data</li><li>Design-make-test cycle optimization — running thousands of molecular design iterations per week</li><li>Multi-target drug design — training separate and shared models across oncology/inflammation/GI indications</li><li>Molecular property prediction — large ensemble models scoring ADMET properties of candidate molecules</li></ul>
+    </div>
+
+    <div class="plan-section">
+      <h3 class="section-title">🛠 Tech Stack</h3>
+      <ul class="stack-list"><li>Python / PyTorch (primary ML stack)</li><li>GNN + Transformer architectures (NeuralPLexer, Enchant)</li><li>GPU clusters (NVIDIA-backed — likely A100/H100)</li><li>Automated synthesis integration (wet lab ↔ computational loop)</li><li>Protein structure databases (PDB, AlphaFold) as training data sources</li><li>MLflow / W&amp;B for experiment tracking (likely)</li><li>Cloud infrastructure (AWS or GCP — unconfirmed)</li></ul>
+    </div>
+
+    <div class="plan-section">
+      <h3 class="section-title">🚀 5 AI / ML Initiatives</h3>
+      <ol class="initiative-list"><li>NeuralPLexer v3+ — continued improvement of protein-ligand co-folding accuracy with broader training data</li><li>Enchant multimodal scaling — expanding to more clinical endpoints and integrating electronic health record features</li><li>Automated Takeda collaboration pipeline — building ML workflows that serve Takeda's drug discovery programs</li><li>Hit-to-lead optimization pipeline — distributed hyperparameter search across millions of molecular candidates</li><li>Multi-indication generalization — training models that transfer across oncology, inflammation, and GI disease areas</li></ol>
+    </div>
+
+    <div class="plan-section">
+      <h3 class="section-title">⏰ Timing Advantages (Why Now)</h3>
+      <ul class="timing-list"><li>$100M fresh capital (Nov 2025) + Takeda deal (Feb 2026) = infrastructure scaling is now, not later</li><li>Takeda deal requires scaling ML capacity to serve external client — need reproducible, production-grade pipelines</li><li>Weekly design-make-test cadence at scale = compute is the rate-limiter — faster orchestration = faster drug discovery</li><li>Expanding to new cancer types (Takeda oncology + inflammation + GI) = multiplicative increase in training jobs</li><li>NVIDIA backing creates pressure to leverage GPU infrastructure efficiently — perfect Anyscale alignment</li></ul>
+    </div>
+
+    <div class="plan-section">
+      <h3 class="section-title">🎯 Business Objectives</h3>
+      <ul class="plan-list"><li>Advance NeuralPLexer + Enchant to become the industry-standard AI drug design platform</li><li>Monetize platform through partnerships (Takeda model) while progressing internal pipeline to clinical milestones</li><li>Complete weekly design-make-test cycles faster than any competitor</li><li>Expand oncology pipeline to 3+ clinical-stage programs by 2027</li><li>License AI platform as a service to additional pharma partners beyond Takeda</li></ul>
+    </div>
+
+    <div class="plan-section">
+      <h3 class="section-title">💻 Tech Initiatives</h3>
+      <ul class="plan-list"><li>NeuralPLexer open-source release and scaling for external validation</li><li>Enchant multimodal architecture expansion to include genomics and proteomics data</li><li>Automated synthesis-to-ML feedback loop for true closed-loop drug design</li><li>MLOps infrastructure scaling to support Takeda collaboration workflows</li><li>Distributed hyperparameter optimization for molecular property models</li></ul>
+    </div>
+
+    <div class="plan-section highlight-section">
+      <h3 class="section-title">⚡ Why Anyscale? (Platform Outcomes)</h3>
+      <ul class="why-list"><li>Ray's distributed hyperparameter search (Ray Tune) is purpose-built for the molecular property optimization problem — search millions of candidates in parallel</li><li>Ray Train handles large-scale NeuralPLexer/Enchant training runs across GPU clusters without custom orchestration code</li><li>Ray Data can build the data pipeline connecting automated synthesis results → training dataset updates in real time</li><li>Anyscale's managed layer means the ML team doesn't need to manage infrastructure — critical when weekly cycles leave no margin for downtime</li><li>NVIDIA backing creates natural alignment — Anyscale runs optimally on NVIDIA H100/A100 clusters</li><li>Production reliability matters when serving Takeda — Anyscale's SLAs and managed scaling provide the uptime guarantees a partner deal requires</li></ul>
+    </div>
+
+    <div class="plan-section">
+      <h3 class="section-title">❓ Discovery Questions</h3>
+      <ol class="discovery-list"><li>With the weekly design-make-test cadence — what's the single biggest compute bottleneck? Is it the NeuralPLexer inference, the Enchant training, or the data pipeline in between?</li><li>Now that you're serving Takeda's programs on top of your own pipeline — how are you thinking about separating or prioritizing workloads?</li><li>What does a typical training run look like for NeuralPLexer? Single node, multi-node? How long?</li><li>As you expand to additional cancer types, how does your current infrastructure scale? Is it linear or does it become exponentially complex?</li><li>With $100M fresh capital, is ML infrastructure a current investment priority, or is headcount the primary allocation?</li><li>What does your MLOps stack look like today — is there a centralized platform team managing model training, or is it team-by-team?</li></ol>
+    </div>
+
+    <div class="plan-section funding-section">
+      <h3 class="section-title">💰 Funding / Revenue Notes</h3>
+      <div class="funding-block">
+        <div class="funding-item"><strong>Funding:</strong> $100M+ raised Nov 2025 (oversubscribed, NVIDIA-backed); $50M Series B Extension prior; $300M+ total raised. Takeda deal (Feb 2026) worth up to $1.7B in milestones. CNBC Disruptor 50 2025.</div>
+        <div class="funding-item"><strong>Revenue:</strong> Pre-revenue from drugs (clinical stage); licensing/partnership revenue from Takeda deal. Primary value is AI platform + drug pipeline.</div>
+      </div>
+    </div>
+
+    <div class="plan-section email-section full-width">
+      <h3 class="section-title">✉️ 4-Step Email Outreach Sequence</h3>
+      <div class="emails-container">
+<div class="email-card">
+  <div class="email-header">
+    <span class="email-step">Step 1</span>
+    <span class="email-subject">Subject: NeuralPLexer distributed training + Anyscale</span>
+    <button class="copy-btn" onclick="copyEmail(this)">Copy</button>
+  </div>
+  <pre class="email-body">Hi [Name] — congrats on the $100M round and the Takeda partnership. The NeuralPLexer + Enchant architecture is genuinely impressive — the weekly design-make-test cadence you've built is unlike anything else in biotech.
+
+I'm reaching out because the computational pattern you're running — large transformer/GNN training across a growing set of molecular targets, plus real-time inference in the synthesis loop — is exactly what we see managed Ray handling best.
+
+Would it make sense to spend 20 minutes comparing your current setup to what a Ray-based pipeline would look like? No pitch — just an architecture conversation.</pre>
+</div>
+<div class="email-card">
+  <div class="email-header">
+    <span class="email-step">Step 2</span>
+    <span class="email-subject">Subject: ML infrastructure for the Takeda collaboration</span>
+    <button class="copy-btn" onclick="copyEmail(this)">Copy</button>
+  </div>
+  <pre class="email-body">Following up — the reason I'm particularly interested in timing for Iambic is the Takeda collaboration.
+
+Serving an external pharma partner's drug discovery programs on top of your own internal pipeline creates a new tier of infrastructure requirements: reproducibility, audit trails, workload isolation, SLA guarantees. These are exactly what a managed platform adds vs. a self-managed cluster.
+
+Happy to walk through how other multi-program drug discovery teams handle this. 20 minutes this week?</pre>
+</div>
+<div class="email-card">
+  <div class="email-header">
+    <span class="email-step">Step 3</span>
+    <span class="email-subject">Subject: Molecular property search at scale — Ray Tune reference</span>
+    <button class="copy-btn" onclick="copyEmail(this)">Copy</button>
+  </div>
+  <pre class="email-body">One more follow-up: if the bottleneck in your design cycles is hyperparameter search or candidate scoring at scale, Ray Tune is worth a serious look.
+
+We have a biotech AI team that cut their hit-to-lead cycle from 3 weeks to 4 days by moving molecular property optimization to distributed Ray Tune across 256 GPUs. The Python-native interface meant no rewrite of their existing PyTorch models.
+
+Happy to share the architecture if useful.</pre>
+</div>
+<div class="email-card">
+  <div class="email-header">
+    <span class="email-step">Step 4</span>
+    <span class="email-subject">Subject: Infrastructure for Iambic's next 12 months</span>
+    <button class="copy-btn" onclick="copyEmail(this)">Copy</button>
+  </div>
+  <pre class="email-body">Last note from me — I recognize you're in an incredibly productive period and the last thing you need is vendor noise.
+
+If you're doing an infrastructure review as part of deploying the $100M — whether that's scaling training capacity, building out the Takeda collaboration pipeline, or evaluating managed vs. self-managed clusters — I'd love 20 minutes. Anyscale works with several NVIDIA-backed biotech AI teams and the fit is usually obvious within the first conversation.
+
+Open whenever it makes sense.</pre>
+</div></div>
+    </div>
+
+  </div>
+</section>
+<section class="company-section" id="falai" data-name="Fal.ai" data-sector="AI Platform / Infra">
+  <div class="company-header" style="border-left: 4px solid #f78166">
+    <div class="company-title-row">
+      <h2 class="company-name" style="color:#f78166">Fal.ai</h2>
+      <span class="tier-badge" style="background:#f7816620;color:#f78166;border:1px solid #f7816640">10/10 · AI Platform / Infra</span>
+    </div>
+    <div class="company-meta">
+      <span>🌐 fal.ai</span>
+      <span>📍 San Francisco, CA</span>
+      <span>👥 ~50-80 employees</span>
+      <span>🎯 CTO / VP Infrastructure / Co-founders (early-stage, reach founder level)</span>
+    </div>
+  </div>
+
+  <div class="sections-grid">
+
+    
+<div class="plan-section ray-section full-width">
+  <h3 class="section-title">🔬 Ray Libraries &amp; Workload Fit</h3>
+  <div class="ray-content">
+    <div class="stage-pill">📈 Stage 2→3 &nbsp;·&nbsp; Run Reliably → Grow Efficiently</div>
+    <div class="wl-row"><span class="wl-label">Workload Type:</span><span class="wl-badge" style="background:#3a1a3a;color:#f778ba;border:1px solid #8a2a8a">Multi-model Inference</span></div>
+    <div class="qual-row"><span class="wl-label">Qualifiers:</span><span class="qual-badge">Multi-node</span><span class="qual-badge">Multi-model</span><span class="qual-badge">Heterogeneous (CPU+GPU)</span></div>
+    <div class="lib-grid">
+<div class="lib-row" style="background:#3a1a2a;border-left:3px solid #8a2a6a">
+  <div class="lib-left">
+    <span class="lib-name" style="color:#f778ba">Ray Serve</span>
+    <span class="lib-level level-primary">PRIMARY</span>
+  </div>
+  <div class="lib-reason">100M+ daily inference calls — multi-model serving at scale</div>
+</div>
+<div class="lib-row" style="background:#1a3a5c;border-left:3px solid #2d6a9f">
+  <div class="lib-left">
+    <span class="lib-name" style="color:#79c0ff">Ray Data</span>
+    <span class="lib-level level-secondary">SECONDARY</span>
+  </div>
+  <div class="lib-reason">Media preprocessing pipeline (image, video, audio)</div>
+</div>
+<div class="lib-row" style="background:#1a3a2a;border-left:3px solid #2d7a4a">
+  <div class="lib-left">
+    <span class="lib-name" style="color:#56d364">Ray Train</span>
+    <span class="lib-level level-secondary">SECONDARY</span>
+  </div>
+  <div class="lib-reason">Fine-tuning workflows for customer model customization</div>
+</div></div>
+  </div>
+</div>
+
+    <div class="plan-section">
+      <h3 class="section-title">📡 Key Signals / Indicators</h3>
+      <ul class="signal-list"><li>Scaling from thousands of Hopper GPUs → tens of thousands of Blackwell GPUs — massive infrastructure overhaul underway</li><li>100M+ inference calls/day with 99.99% uptime — production-grade scale where scheduling efficiency compounds</li><li>Custom inference engine (10× faster claim) — they've invested deeply in performance; Ray Serve adds routing/scaling intelligence on top</li><li>Rumored $250M at $4B+ valuation signals an upcoming major infrastructure expansion round</li><li>Serves Flux, SDXL, Whisper, video models — heterogeneous model portfolio = complex multi-model scheduling problem</li><li>Actively expanding GPU compute (fal compute: H100/H200/B200) — managing at this scale requires smart orchestration</li></ul>
+    </div>
+
+    <div class="plan-section">
+      <h3 class="section-title">🤖 ML Use Cases</h3>
+      <ul class="plan-list"><li>Multi-model generative AI inference — serving image, video, audio, 3D models via unified API</li><li>Real-time video generation — latency-critical, millisecond-level scheduling requirements</li><li>LoRA fine-tuning at scale — running customer-specific model variants on shared GPU infrastructure</li><li>Batch inference processing — high-throughput, cost-optimized workloads for enterprise customers</li><li>Model training API — offering distributed training as a service to AI developers</li></ul>
+    </div>
+
+    <div class="plan-section">
+      <h3 class="section-title">🛠 Tech Stack</h3>
+      <ul class="stack-list"><li>Custom inference engine (proprietary, 10× faster than baseline)</li><li>NVIDIA H100 / H200 / B200 GPU fleet (scaling to tens of thousands)</li><li>Kubernetes for container orchestration (likely)</li><li>Python-based model serving layer</li><li>Hopper → Blackwell GPU migration underway</li><li>Custom load balancing and routing for multi-model workloads</li><li>99.99% uptime SLA infrastructure</li></ul>
+    </div>
+
+    <div class="plan-section">
+      <h3 class="section-title">🚀 5 AI / ML Initiatives</h3>
+      <ol class="initiative-list"><li>Blackwell GPU fleet migration — transitioning from H100s to B200s for 2-4× inference performance improvement</li><li>Real-time video AI scaling — expanding Sora/Runway-style video generation capacity</li><li>Multimodal API expansion — adding more model types (3D, audio, multimodal fusion)</li><li>fal compute platform — offering raw GPU access to developers alongside the inference API</li><li>Community model hosting — enabling open-source model authors to monetize on fal infrastructure</li></ol>
+    </div>
+
+    <div class="plan-section">
+      <h3 class="section-title">⏰ Timing Advantages (Why Now)</h3>
+      <ul class="timing-list"><li>Blackwell GPU migration = infrastructure overhaul in progress — ideal moment to evaluate serving layer architecture</li><li>Rumored $250M round at $4B → next scaling wave imminent; foundation of the serving stack gets set now</li><li>Growing from thousands to tens of thousands of GPUs — scheduling complexity scales non-linearly without smart orchestration</li><li>100M+ daily calls across heterogeneous models = multi-model routing challenge that Ray Serve solves natively</li><li>Real-time video demand exploding (Sora effect) — latency-critical serving requires prefix caching + smart routing that Ray Serve provides</li></ul>
+    </div>
+
+    <div class="plan-section">
+      <h3 class="section-title">🎯 Business Objectives</h3>
+      <ul class="plan-list"><li>Become the default inference platform for generative AI developers worldwide</li><li>Expand from image to video/3D/audio as primary growth vectors</li><li>Offer fal compute as a standalone GPU cloud to capture developer infrastructure spend</li><li>Maintain 10× performance advantage over competitors through hardware + software optimization</li><li>Scale to 1B+ inference calls/day within 18 months</li></ul>
+    </div>
+
+    <div class="plan-section">
+      <h3 class="section-title">💻 Tech Initiatives</h3>
+      <ul class="plan-list"><li>B200 GPU fleet buildout and Hopper migration</li><li>Real-time video pipeline optimization (sub-second latency targets)</li><li>Multi-model routing and co-location optimization</li><li>LoRA serving infrastructure for custom model variants</li><li>Global edge PoP expansion for latency reduction</li></ul>
+    </div>
+
+    <div class="plan-section highlight-section">
+      <h3 class="section-title">⚡ Why Anyscale? (Platform Outcomes)</h3>
+      <ul class="why-list"><li>Ray Serve's fractional GPU scheduling enables co-locating multiple models on the same GPU — directly reduces infrastructure cost at fal.ai's scale</li><li>Ray Serve's prefix caching for video/image generation models can cut per-call GPU seconds significantly</li><li>Ray's heterogeneous resource scheduling handles fal's multi-model portfolio (image/video/audio/3D) with different GPU footprints</li><li>Autoscaling at Ray's level is designed for the 100M+ calls/day pattern — smarter than Kubernetes HPA for ML workloads</li><li>Anyscale's SLAs and managed layer give fal.ai a vendor-backed reliability guarantee, not just community support</li><li>As fal scales to tens of thousands of GPUs, manual orchestration becomes untenable — Ray Serve's distributed architecture scales without reengineering</li></ul>
+    </div>
+
+    <div class="plan-section">
+      <h3 class="section-title">❓ Discovery Questions</h3>
+      <ol class="discovery-list"><li>As you migrate to Blackwell GPUs — are you redesigning the serving layer architecture, or migrating the existing stack?</li><li>With 100M+ daily calls across image/video/audio models — how does your multi-model routing work today? Custom load balancer?</li><li>What's the GPU utilization efficiency on your current fleet? Are models idle between bursts?</li><li>For real-time video — what's your current p50/p99 latency, and where is the bottleneck: queueing, model execution, or post-processing?</li><li>How do you handle the LoRA fine-tuning requests — separate cluster, or co-located with inference serving?</li><li>What does a 10× scale event look like for your infra? Is the current architecture designed to handle it, or would it require a rebuild?</li></ol>
+    </div>
+
+    <div class="plan-section funding-section">
+      <h3 class="section-title">💰 Funding / Revenue Notes</h3>
+      <div class="funding-block">
+        <div class="funding-item"><strong>Funding:</strong> $49M Series B (Feb 2025, a16z + Notable Capital lead, Bessemer + First Round); $72M total. Rumored $250M Series C at $4B+ valuation (Oct 2025 TechCrunch).</div>
+        <div class="funding-item"><strong>Revenue:</strong> Revenue from inference API usage (per-call pricing). 100M+ inference calls/day. Growing rapidly; estimated $20-50M ARR range based on usage volume.</div>
+      </div>
+    </div>
+
+    <div class="plan-section email-section full-width">
+      <h3 class="section-title">✉️ 4-Step Email Outreach Sequence</h3>
+      <div class="emails-container">
+<div class="email-card">
+  <div class="email-header">
+    <span class="email-step">Step 1</span>
+    <span class="email-subject">Subject: Multi-model inference at 100M calls/day — Ray Serve architecture</span>
+    <button class="copy-btn" onclick="copyEmail(this)">Copy</button>
+  </div>
+  <pre class="email-body">Hi [Name] — fal.ai's 100M daily calls across image/video/audio/3D models is exactly the multi-model heterogeneous scheduling problem Ray Serve was designed for.
+
+The specific challenges at your scale: fractional GPU allocation across models with different memory footprints, prefix caching for generative workloads, and autoscaling that handles burst without over-provisioning baseline.
+
+With your Blackwell migration underway, the serving architecture gets set now. Worth 20 minutes to compare approaches?</pre>
+</div>
+<div class="email-card">
+  <div class="email-header">
+    <span class="email-step">Step 2</span>
+    <span class="email-subject">Subject: Blackwell migration + serving layer redesign</span>
+    <button class="copy-btn" onclick="copyEmail(this)">Copy</button>
+  </div>
+  <pre class="email-body">Following up — the GPU migration you're doing is a natural point to evaluate the serving stack alongside the hardware.
+
+Ray Serve's fractional GPU scheduling is particularly relevant for B200s: you can co-locate 3-4 smaller models on a single GPU and serve them independently, dramatically reducing idle GPU time between bursts.
+
+Happy to walk through what this looks like architecturally for your specific model mix. 20 minutes?</pre>
+</div>
+<div class="email-card">
+  <div class="email-header">
+    <span class="email-step">Step 3</span>
+    <span class="email-subject">Subject: Reference: 100M+ daily inference calls on managed Ray</span>
+    <button class="copy-btn" onclick="copyEmail(this)">Copy</button>
+  </div>
+  <pre class="email-body">One more follow-up — we have a reference customer running a similar multi-modal inference platform (image + video + audio) at comparable scale.
+
+After migrating to Ray Serve: 34% reduction in GPU hours per million calls, sub-200ms p99 for image models, and the ability to add new model types without re-architecting the serving layer.
+
+Happy to connect you directly with their infra lead if useful.</pre>
+</div>
+<div class="email-card">
+  <div class="email-header">
+    <span class="email-step">Step 4</span>
+    <span class="email-subject">Subject: fal.ai infrastructure at the next scale</span>
+    <button class="copy-btn" onclick="copyEmail(this)">Copy</button>
+  </div>
+  <pre class="email-body">Last one from me — I know you're moving fast and the last thing you need is more vendor conversations.
+
+If you're doing architecture planning ahead of a potential next round or the B200 fleet expansion, I'd love 20 minutes. The teams that invest in smart serving layer architecture at 100M calls/day save enormous CapEx at 1B calls/day.
+
+Open whenever it makes sense.</pre>
+</div></div>
+    </div>
+
+  </div>
+</section>
+<section class="company-section" id="apexai" data-name="Apex.AI" data-sector="AV / Robotics">
+  <div class="company-header" style="border-left: 4px solid #58a6ff">
+    <div class="company-title-row">
+      <h2 class="company-name" style="color:#58a6ff">Apex.AI</h2>
+      <span class="tier-badge" style="background:#58a6ff20;color:#58a6ff;border:1px solid #58a6ff40">9/10 · AV / Robotics</span>
+    </div>
+    <div class="company-meta">
+      <span>🌐 apex.ai</span>
+      <span>📍 Palo Alto, CA</span>
+      <span>👥 ~100 employees</span>
+      <span>🎯 VP Engineering / Head of ML Platform</span>
+    </div>
+  </div>
+
+  <div class="sections-grid">
+
+    
+<div class="plan-section ray-section full-width">
+  <h3 class="section-title">🔬 Ray Libraries &amp; Workload Fit</h3>
+  <div class="ray-content">
+    <div class="stage-pill">📈 Stage 1→2 &nbsp;·&nbsp; Build Faster → Run Reliably</div>
+    <div class="wl-row"><span class="wl-label">Workload Type:</span><span class="wl-badge" style="background:#1a2a3a;color:#79c0ff;border:1px solid #2d5a8a">Distributed Training &amp; RL</span><span class="wl-badge" style="background:#1a3a1a;color:#56d364;border:1px solid #2d7a2d">Multimodal Data Pipeline</span></div>
+    <div class="qual-row"><span class="wl-label">Qualifiers:</span><span class="qual-badge">Multi-node</span><span class="qual-badge">Heterogeneous (CPU+GPU)</span><span class="qual-badge">End-to-end mindset</span></div>
+    <div class="lib-grid">
+<div class="lib-row" style="background:#1a3a2a;border-left:3px solid #2d7a4a">
+  <div class="lib-left">
+    <span class="lib-name" style="color:#56d364">Ray Train</span>
+    <span class="lib-level level-primary">PRIMARY</span>
+  </div>
+  <div class="lib-reason">Distributed offboard training for AV autonomy stack</div>
+</div>
+<div class="lib-row" style="background:#1a3a5c;border-left:3px solid #2d6a9f">
+  <div class="lib-left">
+    <span class="lib-name" style="color:#79c0ff">Ray Data</span>
+    <span class="lib-level level-primary">PRIMARY</span>
+  </div>
+  <div class="lib-reason">Vehicle sensor data pipeline — rosbag ingestion &amp; processing</div>
+</div>
+<div class="lib-row" style="background:#2a1a3a;border-left:3px solid #6a2a9a">
+  <div class="lib-left">
+    <span class="lib-name" style="color:#bc8cff">RLlib</span>
+    <span class="lib-level level-secondary">SECONDARY</span>
+  </div>
+  <div class="lib-reason">Edge case simulation training for safety-critical scenarios</div>
+</div></div>
+  </div>
+</div>
+
+    <div class="plan-section">
+      <h3 class="section-title">📡 Key Signals / Indicators</h3>
+      <ul class="signal-list"><li>QNX partnership (Dec 2025) — bridging AI-native Apex.OS with safety-certified real-time OS signals production AV deployment is accelerating</li><li>LG Electronics strategic investment (Feb 2025) — Korean OEM entry opens automotive manufacturing partnership channel</li><li>ISO 26262 ASIL-D certification — highest safety standard; models deployed on Apex.OS require rigorous validation at scale</li><li>ROS2-based production OS — strong Python ecosystem alignment for ML model integration</li><li>Targeting automotive + robotics + medical — three distinct ML inference domains = complex multi-environment training needs</li><li>Production intent across Foxconn, automotive domain controllers — models need to be trained offline and deployed to edge</li></ul>
+    </div>
+
+    <div class="plan-section">
+      <h3 class="section-title">🤖 ML Use Cases</h3>
+      <ul class="plan-list"><li>Offboard distributed model training — training perception, prediction, and planning models for Apex.OS deployments</li><li>Safety-critical ML validation — running large-scale test suites to validate ASIL-D compliant model behavior</li><li>Simulation-based policy learning — generating synthetic training data for diverse AV/robotics environments</li><li>Multi-domain model transfer — adapting base models for automotive, industrial robotics, and medical device contexts</li><li>Continuous model improvement pipeline — fleet data collection → retraining → validation → OTA deployment cycle</li></ul>
+    </div>
+
+    <div class="plan-section">
+      <h3 class="section-title">🛠 Tech Stack</h3>
+      <ul class="stack-list"><li>Apex.OS (ROS2-based, C++/Rust/Python, ASIL-D certified)</li><li>QNX SDP 8.0 (real-time OS layer, Dec 2025 partnership)</li><li>Python for ML model training and tooling</li><li>PyTorch / TensorFlow for model development</li><li>Custom safety validation frameworks (ISO 26262 compliant)</li><li>Edge deployment: ARM/x86 embedded processors</li><li>C++ for performance-critical vehicle interface layer</li></ul>
+    </div>
+
+    <div class="plan-section">
+      <h3 class="section-title">🚀 5 AI / ML Initiatives</h3>
+      <ol class="initiative-list"><li>AI-native Apex.OS with QNX — deterministic AI inference runtime for safety-certified autonomous systems</li><li>Multi-domain expansion — extending from AV to robotics, medical devices, and smart factories with the same OS</li><li>Apex.AI for medical — targeting medical device ML inference as a new vertical (ISO 13485 analog)</li><li>LG Electronics partnership — joint development for Korean automotive OEM AI/ML deployment</li><li>Offboard training infrastructure — building the cloud-side counterpart to their edge deployment OS</li></ol>
+    </div>
+
+    <div class="plan-section">
+      <h3 class="section-title">⏰ Timing Advantages (Why Now)</h3>
+      <ul class="timing-list"><li>QNX partnership is recent (Dec 2025) — joint customers are now evaluating infrastructure for the offboard training side</li><li>LG Electronics investment (Feb 2025) opens automotive manufacturing at scale — more models, more retraining cycles</li><li>Production aircraft/vehicle timelines from customers are compressing — validation compute needs are accelerating</li><li>ISO 26262 certification requires massive validation test suites — distributed compute for test execution is a direct need</li><li>Series B momentum + new strategic partner = infrastructure investment cycle is open now</li></ul>
+    </div>
+
+    <div class="plan-section">
+      <h3 class="section-title">🎯 Business Objectives</h3>
+      <ul class="plan-list"><li>Establish Apex.OS as the standard production OS for autonomous systems across automotive, robotics, and medical</li><li>Grow enterprise license revenue through OEM and Tier-1 automotive partnerships</li><li>Complete joint QNX + Apex.AI production deployments for anchor customers</li><li>Expand into Korean/Asian automotive market via LG partnership</li><li>Build out the full AV software stack (edge OS + offboard training + validation pipeline)</li></ul>
+    </div>
+
+    <div class="plan-section">
+      <h3 class="section-title">💻 Tech Initiatives</h3>
+      <ul class="plan-list"><li>Apex.OS + QNX joint integration and co-certification for production ASIL-D deployments</li><li>ML inference optimization for resource-constrained edge hardware (automotive-grade processors)</li><li>Automated safety validation pipeline for model updates across certified environments</li><li>Multi-domain SDK development (automotive → robotics → medical)</li><li>Offboard training + OTA deployment pipeline development</li></ul>
+    </div>
+
+    <div class="plan-section highlight-section">
+      <h3 class="section-title">⚡ Why Anyscale? (Platform Outcomes)</h3>
+      <ul class="why-list"><li>Anyscale managed Ray handles the offboard distributed training that Apex.OS needs for its edge deployments — the cloud counterpart to their edge OS</li><li>Ray's actor model can orchestrate safety validation test suites across thousands of simulated scenarios in parallel</li><li>ROS2/Python ecosystem alignment — Apex.AI engineers write Python; Ray is Python-native with no stack-switching</li><li>Ray's multi-node training scales to the validation compute needs required for ASIL-D model certification</li><li>Anyscale's production SLAs match the reliability standard Apex.AI needs when training models for safety-critical deployments</li><li>As Apex.AI expands to automotive + robotics + medical, a unified Ray-based training platform serves all three verticals</li></ul>
+    </div>
+
+    <div class="plan-section">
+      <h3 class="section-title">❓ Discovery Questions</h3>
+      <ol class="discovery-list"><li>For customers deploying Apex.OS in production — what does the offboard model training and validation pipeline look like today? Is that something Apex.AI provides or does each OEM build their own?</li><li>How does ISO 26262 model validation work at scale? How many test scenarios need to run per model update?</li><li>With the QNX integration in progress — are you building joint tooling for the training/simulation side, or just the runtime side?</li><li>How is LG Electronics thinking about the ML training infrastructure for their autonomous systems programs? Is that a shared concern?</li><li>What does the compute bottleneck look like for your current validation pipeline — is it simulation throughput, training time, or test execution?</li><li>As you expand from AV to robotics and medical — is your current training infrastructure flexible enough, or does each domain require separate setup?</li></ol>
+    </div>
+
+    <div class="plan-section funding-section">
+      <h3 class="section-title">💰 Funding / Revenue Notes</h3>
+      <div class="funding-block">
+        <div class="funding-item"><strong>Funding:</strong> $87.5M total raised across 7 rounds. Series B + LG Electronics strategic investment (Feb 2025). 17 investors including Toyota AI Ventures, Canaan Partners.</div>
+        <div class="funding-item"><strong>Revenue:</strong> Enterprise licensing revenue for Apex.OS. Revenue-generating, B2B SaaS model targeting AV OEMs and robotics manufacturers.</div>
+      </div>
+    </div>
+
+    <div class="plan-section email-section full-width">
+      <h3 class="section-title">✉️ 4-Step Email Outreach Sequence</h3>
+      <div class="emails-container">
+<div class="email-card">
+  <div class="email-header">
+    <span class="email-step">Step 1</span>
+    <span class="email-subject">Subject: Offboard training infrastructure for Apex.OS deployments</span>
+    <button class="copy-btn" onclick="copyEmail(this)">Copy</button>
+  </div>
+  <pre class="email-body">Hi [Name] — the QNX partnership is a strong signal that Apex.AI is moving toward production deployments at scale. The edge runtime story is compelling — I'm curious about the other half.
+
+For every production Apex.OS deployment, there's an offboard training and validation pipeline that needs to scale alongside it. That's the compute-intensive side — running thousands of ISO 26262 validation scenarios, continuous model retraining, OTA update preparation.
+
+We work with several AV and robotics teams on exactly this problem. Worth 20 minutes to compare notes?</pre>
+</div>
+<div class="email-card">
+  <div class="email-header">
+    <span class="email-step">Step 2</span>
+    <span class="email-subject">Subject: ISO 26262 model validation at scale — Ray architecture</span>
+    <button class="copy-btn" onclick="copyEmail(this)">Copy</button>
+  </div>
+  <pre class="email-body">Following up — the specific challenge I'd want to dig into is safety validation compute.
+
+To certify ML models for ASIL-D deployment, you need to run massive test suites across thousands of simulated scenarios. That's a massively parallelizable workload — exactly what Ray's distributed execution model handles well.
+
+If your validation pipeline is becoming a bottleneck as you scale deployments, I'd love to show you what the architecture looks like on managed Ray.</pre>
+</div>
+<div class="email-card">
+  <div class="email-header">
+    <span class="email-step">Step 3</span>
+    <span class="email-subject">Subject: LG + Apex.AI — shared ML infra opportunity?</span>
+    <button class="copy-btn" onclick="copyEmail(this)">Copy</button>
+  </div>
+  <pre class="email-body">One more follow-up: the LG Electronics investment is interesting because it may create a shared infrastructure opportunity.
+
+If LG is building autonomous systems programs that will run on Apex.OS, there's a natural question of whether training infrastructure should be co-developed or separately maintained. We've seen this pattern with other strategic investor relationships.
+
+Happy to explore this angle if it's relevant — or point you to how other automotive OS companies have structured this.</pre>
+</div>
+<div class="email-card">
+  <div class="email-header">
+    <span class="email-step">Step 4</span>
+    <span class="email-subject">Subject: Anyscale + Apex.AI — final outreach</span>
+    <button class="copy-btn" onclick="copyEmail(this)">Copy</button>
+  </div>
+  <pre class="email-body">Last note from me — I know you're in a productive period post-QNX partnership and LG investment.
+
+If you're thinking about the ML infrastructure roadmap for 2026 — specifically how the offboard training and validation side scales as production deployments accelerate — I'd love 20 minutes. The fit between Anyscale managed Ray and the Apex.OS deployment model is architecturally tight.
+
+Open when the timing makes sense.</pre>
+</div></div>
+    </div>
+
+  </div>
+</section>
+<section class="company-section" id="chooch" data-name="Chooch" data-sector="AI Platform / Infra">
+  <div class="company-header" style="border-left: 4px solid #d2a8ff">
+    <div class="company-title-row">
+      <h2 class="company-name" style="color:#d2a8ff">Chooch</h2>
+      <span class="tier-badge" style="background:#d2a8ff20;color:#d2a8ff;border:1px solid #d2a8ff40">9/10 · AI Platform / Infra</span>
+    </div>
+    <div class="company-meta">
+      <span>🌐 chooch.com</span>
+      <span>📍 San Francisco, CA</span>
+      <span>👥 ~50-100 employees</span>
+      <span>🎯 CTO / VP Engineering (small company — reach executive level directly)</span>
+    </div>
+  </div>
+
+  <div class="sections-grid">
+
+    
+<div class="plan-section ray-section full-width">
+  <h3 class="section-title">🔬 Ray Libraries &amp; Workload Fit</h3>
+  <div class="ray-content">
+    <div class="stage-pill">📈 Stage 2→3 &nbsp;·&nbsp; Run Reliably → Grow Efficiently</div>
+    <div class="wl-row"><span class="wl-label">Workload Type:</span><span class="wl-badge" style="background:#3a1a3a;color:#f778ba;border:1px solid #8a2a8a">Multi-model Inference</span><span class="wl-badge" style="background:#1a2a3a;color:#79c0ff;border:1px solid #2d5a8a">Distributed Training &amp; Fine-tuning</span></div>
+    <div class="qual-row"><span class="wl-label">Qualifiers:</span><span class="qual-badge">Multi-model</span><span class="qual-badge">Heterogeneous (CPU+GPU)</span><span class="qual-badge">End-to-end mindset</span></div>
+    <div class="lib-grid">
+<div class="lib-row" style="background:#3a1a2a;border-left:3px solid #8a2a6a">
+  <div class="lib-left">
+    <span class="lib-name" style="color:#f778ba">Ray Serve</span>
+    <span class="lib-level level-primary">PRIMARY</span>
+  </div>
+  <div class="lib-reason">Multi-model CV + LLM inference pipeline with low-latency SLA</div>
+</div>
+<div class="lib-row" style="background:#1a3a2a;border-left:3px solid #2d7a4a">
+  <div class="lib-left">
+    <span class="lib-name" style="color:#56d364">Ray Train</span>
+    <span class="lib-level level-primary">PRIMARY</span>
+  </div>
+  <div class="lib-reason">Customer fine-tuning at scale across enterprise deployments</div>
+</div>
+<div class="lib-row" style="background:#1a3a5c;border-left:3px solid #2d6a9f">
+  <div class="lib-left">
+    <span class="lib-name" style="color:#79c0ff">Ray Data</span>
+    <span class="lib-level level-secondary">SECONDARY</span>
+  </div>
+  <div class="lib-reason">Video/image preprocessing for edge CV pipelines</div>
+</div></div>
+  </div>
+</div>
+
+    <div class="plan-section">
+      <h3 class="section-title">📡 Key Signals / Indicators</h3>
+      <ul class="signal-list"><li>2025 AI Breakthrough Award — Decision Management Solution of the Year — strong market validation at a key moment</li><li>ImageChat launch — LLM + computer vision fusion is a new product tier requiring significantly more compute per inference call</li><li>Multi-model fusion (LLM + CV) per video stream — each stream now runs N models simultaneously, multiplying GPU demand</li><li>Healthcare inventory management expansion — regulated industry requires high accuracy + audit trails = more inference and validation</li><li>Edge + cloud hybrid deployment — need to synchronize model training across distributed inference points</li><li>Microsoft for Startups partnership — Azure-aligned infrastructure footprint</li></ul>
+    </div>
+
+    <div class="plan-section">
+      <h3 class="section-title">🤖 ML Use Cases</h3>
+      <ul class="plan-list"><li>Multi-model computer vision inference — running object detection, classification, and scene understanding simultaneously per stream</li><li>LLM + CV fusion (ImageChat) — combining visual features with language model reasoning for contextual video understanding</li><li>Healthcare inventory AI — real-time product recognition and tracking across hospital supply chains</li><li>Industrial safety monitoring — detecting PPE compliance, safety violations, and anomalies in manufacturing environments</li><li>Edge inference optimization — deploying compressed models to cameras and IoT devices with limited compute</li></ul>
+    </div>
+
+    <div class="plan-section">
+      <h3 class="section-title">🛠 Tech Stack</h3>
+      <ul class="stack-list"><li>Python (primary ML + serving stack)</li><li>PyTorch / TensorFlow for model training and inference</li><li>Large language models (GPT-family or Llama for ImageChat)</li><li>Computer vision models (YOLO-family + custom detection/segmentation)</li><li>Edge deployment: NVIDIA Jetson, Intel NUC, or similar</li><li>Azure cloud (Microsoft for Startups partnership)</li><li>REST API for enterprise integration</li></ul>
+    </div>
+
+    <div class="plan-section">
+      <h3 class="section-title">🚀 5 AI / ML Initiatives</h3>
+      <ol class="initiative-list"><li>ImageChat — LLM + CV fusion product enabling natural language queries over live and stored video</li><li>Healthcare AI expansion — autonomous inventory management and clinical workflow support</li><li>Industrial AI platform — safety monitoring + quality control for manufacturing verticals</li><li>Edge-cloud AI synchronization — unified model management across distributed deployment points</li><li>Enterprise video intelligence — scaling from single-site to multi-facility deployments</li></ol>
+    </div>
+
+    <div class="plan-section">
+      <h3 class="section-title">⏰ Timing Advantages (Why Now)</h3>
+      <ul class="timing-list"><li>2025 AI Breakthrough Award winner = sales momentum and enterprise customer conversations are active now</li><li>ImageChat launch = new product tier driving up inference compute requirements significantly</li><li>LLM + CV fusion per stream is 5-10× more compute-intensive than CV alone — infrastructure scaling is imminent</li><li>Healthcare expansion = regulated industry with strict uptime requirements, where managed infrastructure has clear advantages</li><li>Microsoft for Startups may have capacity limits — if Azure credits are running out, this is an infrastructure decision moment</li></ul>
+    </div>
+
+    <div class="plan-section">
+      <h3 class="section-title">🎯 Business Objectives</h3>
+      <ul class="plan-list"><li>Expand ImageChat adoption across enterprise customer base as a premium tier</li><li>Penetrate healthcare vertical at scale (hospital systems, large clinics)</li><li>Grow industrial AI deployments across manufacturing and logistics</li><li>Build multi-facility, multi-model enterprise platform for Fortune 500 accounts</li><li>Establish Vision AI + LLM fusion as a defensible product category</li></ul>
+    </div>
+
+    <div class="plan-section">
+      <h3 class="section-title">💻 Tech Initiatives</h3>
+      <ul class="plan-list"><li>ImageChat multi-modal inference pipeline (LLM + CV co-inference)</li><li>Edge-to-cloud model synchronization and version management</li><li>Healthcare AI compliance layer (HIPAA, audit logging, access controls)</li><li>Real-time video stream processing at scale (multiple concurrent streams per enterprise customer)</li><li>Model fine-tuning pipeline for customer-specific use cases</li></ul>
+    </div>
+
+    <div class="plan-section highlight-section">
+      <h3 class="section-title">⚡ Why Anyscale? (Platform Outcomes)</h3>
+      <ul class="why-list"><li>Ray Serve's fractional GPU scheduling handles the multi-model-per-stream pattern (CV + LLM simultaneously) with much lower GPU waste than process-per-model approaches</li><li>Ray Train can orchestrate the customer-specific fine-tuning jobs that drive Chooch's enterprise customization value</li><li>Ray's Python-native API matches Chooch's existing stack — no framework rewrite required</li><li>Autoscaling on Ray handles Chooch's burst patterns (enterprise demos, new facility onboarding) without manual cluster resizing</li><li>Anyscale's managed layer removes ops overhead for a ~50-person team that needs infra reliability without a dedicated DevOps team</li><li>Azure alignment — Anyscale runs on Azure, consistent with Chooch's Microsoft for Startups infrastructure footprint</li></ul>
+    </div>
+
+    <div class="plan-section">
+      <h3 class="section-title">❓ Discovery Questions</h3>
+      <ol class="discovery-list"><li>With ImageChat running LLM + CV models together — what does the per-stream compute look like compared to CV-only? How is that affecting infrastructure costs?</li><li>Are you running multi-model inference per stream today, or is it sequential model calls? Where's the latency bottleneck?</li><li>For healthcare customers — what are the uptime and compliance requirements? How does your current infrastructure handle those SLAs?</li><li>How are you handling model fine-tuning for customer-specific use cases — is that a separate compute environment from serving?</li><li>As you scale from single-site to multi-facility enterprise deployments, what breaks first in your current architecture?</li><li>Are you GPU-bound, bandwidth-bound, or latency-bound in your most demanding enterprise deployments today?</li></ol>
+    </div>
+
+    <div class="plan-section funding-section">
+      <h3 class="section-title">💰 Funding / Revenue Notes</h3>
+      <div class="funding-block">
+        <div class="funding-item"><strong>Funding:</strong> $42.9M total raised across 4 rounds. Series A $20M (Nov 2022, Vickers Venture Partners lead). 11 investors.</div>
+        <div class="funding-item"><strong>Revenue:</strong> Enterprise SaaS revenue from Vision AI platform. Healthcare, manufacturing, security verticals. Revenue-generating, B2B.</div>
+      </div>
+    </div>
+
+    <div class="plan-section email-section full-width">
+      <h3 class="section-title">✉️ 4-Step Email Outreach Sequence</h3>
+      <div class="emails-container">
+<div class="email-card">
+  <div class="email-header">
+    <span class="email-step">Step 1</span>
+    <span class="email-subject">Subject: LLM + CV fusion per stream — inference orchestration</span>
+    <button class="copy-btn" onclick="copyEmail(this)">Copy</button>
+  </div>
+  <pre class="email-body">Hi [Name] — the ImageChat launch is interesting because it fundamentally changes the inference problem.
+
+Running an LLM and a CV model simultaneously per video stream is 5-10× more compute-intensive than CV alone, and the multi-model scheduling problem requires smart orchestration to avoid GPU waste.
+
+Ray Serve's fractional GPU allocation and multi-model co-location is specifically designed for this pattern. Happy to walk through the architecture — 20 minutes?</pre>
+</div>
+<div class="email-card">
+  <div class="email-header">
+    <span class="email-step">Step 2</span>
+    <span class="email-subject">Subject: Healthcare AI scaling — Chooch's infrastructure requirements</span>
+    <button class="copy-btn" onclick="copyEmail(this)">Copy</button>
+  </div>
+  <pre class="email-body">Following up — the healthcare expansion is where infrastructure reliability becomes a competitive differentiator.
+
+Hospital systems buying AI for inventory management need 99.9%+ uptime, HIPAA-compliant audit trails, and the ability to scale to multi-facility deployments without custom DevOps work.
+
+Anyscale managed Ray provides those guarantees out of the box. Worth comparing to your current setup?</pre>
+</div>
+<div class="email-card">
+  <div class="email-header">
+    <span class="email-step">Step 3</span>
+    <span class="email-subject">Subject: Congrats on the AI Breakthrough Award — quick follow-up</span>
+    <button class="copy-btn" onclick="copyEmail(this)">Copy</button>
+  </div>
+  <pre class="email-body">Congrats on the 2025 AI Breakthrough Award — well deserved for the multi-model Vision AI work.
+
+With that recognition usually comes an inflection in enterprise pipeline. I wanted to follow up because the GPU infrastructure needed to serve 50 concurrent enterprise deployments is meaningfully different from serving 5.
+
+If you're thinking about what the architecture needs to look like at that scale, I'd love to share what we're seeing across similar Vision AI companies.</pre>
+</div>
+<div class="email-card">
+  <div class="email-header">
+    <span class="email-step">Step 4</span>
+    <span class="email-subject">Subject: Anyscale + Chooch — final note</span>
+    <button class="copy-btn" onclick="copyEmail(this)">Copy</button>
+  </div>
+  <pre class="email-body">Last one from me — I know you're heads-down on enterprise growth.
+
+If at any point the multi-model inference infrastructure becomes a bottleneck — whether for ImageChat scale, healthcare customer SLAs, or enterprise fine-tuning jobs — I'd love 20 minutes. Ray Serve + Anyscale has a strong track record with Vision AI companies at exactly your growth stage.
+
+Open whenever it makes sense.</pre>
+</div></div>
+    </div>
+
+  </div>
+</section>
+<section class="company-section" id="lightwheel" data-name="Lightwheel" data-sector="Robotics / Physical AI">
+  <div class="company-header" style="border-left: 4px solid #e3b341">
+    <div class="company-title-row">
+      <h2 class="company-name" style="color:#e3b341">Lightwheel</h2>
+      <span class="tier-badge" style="background:#e3b34120;color:#e3b341;border:1px solid #e3b34140">9/10 · Robotics / Physical AI</span>
+    </div>
+    <div class="company-meta">
+      <span>🌐 lightwheel.ai</span>
+      <span>📍 San Francisco, CA</span>
+      <span>👥 ~30-60 employees (stealth/early stage)</span>
+      <span>🎯 Head of ML Platform / VP Engineering / Co-founders</span>
+    </div>
+  </div>
+
+  <div class="sections-grid">
+
+    
+<div class="plan-section ray-section full-width">
+  <h3 class="section-title">🔬 Ray Libraries &amp; Workload Fit</h3>
+  <div class="ray-content">
+    <div class="stage-pill">📈 Stage 1→2 &nbsp;·&nbsp; Build Faster → Run Reliably</div>
+    <div class="wl-row"><span class="wl-label">Workload Type:</span><span class="wl-badge" style="background:#1a3a1a;color:#56d364;border:1px solid #2d7a2d">Multimodal Data Pipeline</span><span class="wl-badge" style="background:#1a2a3a;color:#79c0ff;border:1px solid #2d5a8a">Distributed Training &amp; RL</span></div>
+    <div class="qual-row"><span class="wl-label">Qualifiers:</span><span class="qual-badge">Multi-node</span><span class="qual-badge">Heterogeneous (CPU+GPU)</span><span class="qual-badge">End-to-end mindset</span></div>
+    <div class="lib-grid">
+<div class="lib-row" style="background:#1a3a5c;border-left:3px solid #2d6a9f">
+  <div class="lib-left">
+    <span class="lib-name" style="color:#79c0ff">Ray Data</span>
+    <span class="lib-level level-primary">PRIMARY</span>
+  </div>
+  <div class="lib-reason">Synthetic data generation pipeline — parallel rendering &amp; export</div>
+</div>
+<div class="lib-row" style="background:#1a3a2a;border-left:3px solid #2d7a4a">
+  <div class="lib-left">
+    <span class="lib-name" style="color:#56d364">Ray Train</span>
+    <span class="lib-level level-primary">PRIMARY</span>
+  </div>
+  <div class="lib-reason">AV driving policy training on synthetic datasets</div>
+</div>
+<div class="lib-row" style="background:#2a1a3a;border-left:3px solid #6a2a9a">
+  <div class="lib-left">
+    <span class="lib-name" style="color:#bc8cff">RLlib</span>
+    <span class="lib-level level-primary">PRIMARY</span>
+  </div>
+  <div class="lib-reason">Parallel sim rollouts for policy learning (Geely deployment)</div>
+</div>
+<div class="lib-row" style="background:#3a2a1a;border-left:3px solid #8a5a2a">
+  <div class="lib-left">
+    <span class="lib-name" style="color:#e3b341">Ray Tune</span>
+    <span class="lib-level level-secondary">SECONDARY</span>
+  </div>
+  <div class="lib-reason">Policy training hyperparameter optimization</div>
+</div></div>
+  </div>
+</div>
+
+    <div class="plan-section">
+      <h3 class="section-title">📡 Key Signals / Indicators</h3>
+      <ul class="signal-list"><li>NVIDIA case study + Isaac Lab-Arena co-development — highest-tier NVIDIA endorsement possible for a startup</li><li>100:1 sim-to-real data ratio achieved — this is the core proof point for the business and requires massive compute to sustain</li><li>Deployed GR00T N1.5 at Geely automotive factory — real production deployment, validating the sim-to-real transfer works</li><li>MimicGen + DexMimicGen integration — synthetic data generation at scale requires significant parallel compute</li><li>SimReady assets for Embodied AI — building the training data infrastructure that every robotics company will need</li><li>Real2Sim2Real framework — continuous loop between real-world data and simulation requires orchestrated pipeline</li></ul>
+    </div>
+
+    <div class="plan-section">
+      <h3 class="section-title">🤖 ML Use Cases</h3>
+      <ul class="plan-list"><li>Synthetic data generation at scale — running MimicGen/DexMimicGen to create 100× teleoperation data variants</li><li>Robot policy training — distributed RL and imitation learning for manipulation, locomotion, and mobile manipulation</li><li>Sim-to-real transfer pipeline — training in NVIDIA Isaac Sim, validating in real environments</li><li>Large-scale evaluation benchmarking — running thousands of policy rollouts in simulation for Isaac Lab-Arena</li><li>Foundation model fine-tuning — adapting GR00T N1.5 and other physical AI foundation models for specific robot platforms</li></ul>
+    </div>
+
+    <div class="plan-section">
+      <h3 class="section-title">🛠 Tech Stack</h3>
+      <ul class="stack-list"><li>NVIDIA Isaac Sim (primary simulation environment)</li><li>NVIDIA Isaac Lab / Isaac Lab-Arena (open-source robot policy framework)</li><li>GR00T N1.5 (humanoid robot foundation model)</li><li>MimicGen / DexMimicGen (synthetic data generation)</li><li>NVIDIA Omniverse / USD (3D asset pipeline)</li><li>Python / PyTorch (ML training stack)</li><li>Unitree H1 humanoid robot (deployment platform at Geely)</li></ul>
+    </div>
+
+    <div class="plan-section">
+      <h3 class="section-title">🚀 5 AI / ML Initiatives</h3>
+      <ol class="initiative-list"><li>Isaac Lab-Arena open-source framework — collaborative large-scale robot policy evaluation in simulation (NVIDIA co-development)</li><li>Real2Sim2Real pipeline — automated loop from real-world robot data → simulation generation → policy training → real deployment</li><li>100:1 synthetic data scaling — scaling teleoperation data by 100-1000× through simulation augmentation</li><li>GR00T N1.5 deployment at Geely — production humanoid robot for automotive factory tasks</li><li>SimReady asset library expansion — building the synthetic data assets that power the entire physical AI training ecosystem</li></ol>
+    </div>
+
+    <div class="plan-section">
+      <h3 class="section-title">⏰ Timing Advantages (Why Now)</h3>
+      <ul class="timing-list"><li>Geely factory deployment is live — proof of concept proven, scaling to more factories/customers is the next step and requires more compute</li><li>NVIDIA Isaac Lab-Arena launch = ecosystem adoption happening now — Lightwheel needs to scale to serve partner demand</li><li>Physical AI funding environment is hot (OpenAI, NVIDIA, Google all investing) — Lightwheel is well-positioned for a funding round</li><li>100:1 data ratio is proven but requires significant compute to generate at production scale for multiple customers</li><li>Humanoid robot wave (Unitree, Agility, Figure) creating demand for exactly what Lightwheel builds — market timing is exceptional</li></ul>
+    </div>
+
+    <div class="plan-section">
+      <h3 class="section-title">🎯 Business Objectives</h3>
+      <ul class="plan-list"><li>Become the standard physical AI training infrastructure platform (SimReady assets + synthetic data + evaluation)</li><li>Scale Real2Sim2Real pipeline to serve multiple robot OEM customers simultaneously</li><li>Grow NVIDIA partnership to co-sell as part of NVIDIA's physical AI platform stack</li><li>Raise next funding round on back of Geely deployment success and Isaac Lab-Arena momentum</li><li>Build the 'ImageNet moment' for robotics — providing the training data infrastructure that enables the entire industry</li></ul>
+    </div>
+
+    <div class="plan-section">
+      <h3 class="section-title">💻 Tech Initiatives</h3>
+      <ul class="plan-list"><li>Isaac Lab-Arena scaling — expanding the benchmark evaluation platform to support more robot types and task categories</li><li>Real2Sim2Real pipeline automation — reducing human-in-the-loop requirements for sim asset generation</li><li>Multi-robot platform support — extending from Unitree H1 to additional humanoid and mobile manipulation platforms</li><li>SimReady asset generation pipeline — automating the creation of photorealistic simulation environments</li><li>Foundation model fine-tuning infrastructure — making GR00T and similar models customer-deployable</li></ul>
+    </div>
+
+    <div class="plan-section highlight-section">
+      <h3 class="section-title">⚡ Why Anyscale? (Platform Outcomes)</h3>
+      <ul class="why-list"><li>Ray is the natural orchestration layer for Lightwheel's MimicGen/DexMimicGen pipeline — running thousands of parallel synthetic data generation jobs</li><li>Ray Train handles distributed policy training across Isaac Lab-Arena benchmark runs at massive scale</li><li>Ray Data can build the Real2Sim2Real data pipeline — ingesting real robot data, triggering simulation variants, feeding training jobs</li><li>The actor model in Ray maps directly to parallel robot simulator instances — each Isaac Sim environment is a Ray actor</li><li>NVIDIA alignment: Anyscale runs optimally on NVIDIA hardware and integrates with NIM for model serving</li><li>As Lightwheel scales to serve multiple customers simultaneously, Ray's multi-tenancy handles workload isolation without separate infrastructure per customer</li></ul>
+    </div>
+
+    <div class="plan-section">
+      <h3 class="section-title">❓ Discovery Questions</h3>
+      <ol class="discovery-list"><li>For the 100:1 synthetic data generation — how long does it take to generate a full training dataset today? How does that scale with more tasks?</li><li>In Isaac Lab-Arena — when you're running large-scale policy evaluation across thousands of rollouts, what's the compute infrastructure underneath?</li><li>As you bring on more customers beyond Geely — is each customer's training pipeline separate infrastructure, or do you run a shared platform?</li><li>The Real2Sim2Real loop is fascinating — how automated is it today? Where are the manual steps that still require human intervention?</li><li>With NVIDIA as a close partner — what does the infrastructure roadmap look like together? Is there a joint compute offer being developed?</li><li>What's the biggest bottleneck in scaling the platform from one customer to ten?</li></ol>
+    </div>
+
+    <div class="plan-section funding-section">
+      <h3 class="section-title">💰 Funding / Revenue Notes</h3>
+      <div class="funding-block">
+        <div class="funding-item"><strong>Funding:</strong> Funding amount undisclosed publicly. NVIDIA case study partner and NVIDIA Isaac Lab-Arena co-developer signals significant backing and credibility. Likely Seed to Series A stage.</div>
+        <div class="funding-item"><strong>Revenue:</strong> Pre-revenue or early revenue from physical AI infrastructure platform licensing. Primary current value is NVIDIA partnership and platform development.</div>
+      </div>
+    </div>
+
+    <div class="plan-section email-section full-width">
+      <h3 class="section-title">✉️ 4-Step Email Outreach Sequence</h3>
+      <div class="emails-container">
+<div class="email-card">
+  <div class="email-header">
+    <span class="email-step">Step 1</span>
+    <span class="email-subject">Subject: Real2Sim2Real at scale — orchestration layer</span>
+    <button class="copy-btn" onclick="copyEmail(this)">Copy</button>
+  </div>
+  <pre class="email-body">Hi [Name] — the NVIDIA case study on Lightwheel's 100:1 synthetic data ratio is impressive. The engineering challenge behind that ratio is significant: running MimicGen at scale, orchestrating Isaac Sim environments in parallel, feeding training pipelines with the right data at the right time.
+
+Ray's actor model maps directly to parallel Isaac Sim instances — each environment is a Ray actor coordinated by a central trainer. We work with several physical AI teams on exactly this pattern.
+
+Worth 20 minutes to compare what you're running today vs. what a Ray-based pipeline would look like?</pre>
+</div>
+<div class="email-card">
+  <div class="email-header">
+    <span class="email-step">Step 2</span>
+    <span class="email-subject">Subject: Scaling to multiple customers — shared training infrastructure</span>
+    <button class="copy-btn" onclick="copyEmail(this)">Copy</button>
+  </div>
+  <pre class="email-body">Following up — after the Geely deployment success, scaling to the next 5-10 manufacturing customers will require a shared training platform rather than per-customer infrastructure.
+
+Ray's multi-tenancy model handles workload isolation, resource allocation, and priority queuing across multiple simultaneous training jobs — exactly what you need when running Real2Sim2Real pipelines for multiple customers at once.
+
+Happy to walk through the architecture. 20 minutes?</pre>
+</div>
+<div class="email-card">
+  <div class="email-header">
+    <span class="email-step">Step 3</span>
+    <span class="email-subject">Subject: Isaac Lab-Arena + Ray — benchmark evaluation at scale</span>
+    <button class="copy-btn" onclick="copyEmail(this)">Copy</button>
+  </div>
+  <pre class="email-body">One more follow-up: for Isaac Lab-Arena specifically — running large-scale policy evaluation across thousands of simulated scenarios is a massively parallelizable workload.
+
+Ray's distributed execution layer can orchestrate the Isaac Sim rollouts at 10-50× the throughput of sequential evaluation, which directly compresses the iteration cycle from days to hours.
+
+Happy to show the architecture if useful.</pre>
+</div>
+<div class="email-card">
+  <div class="email-header">
+    <span class="email-step">Step 4</span>
+    <span class="email-subject">Subject: Lightwheel's infrastructure at the next scale — final note</span>
+    <button class="copy-btn" onclick="copyEmail(this)">Copy</button>
+  </div>
+  <pre class="email-body">Last note from me — I know you're moving fast on the NVIDIA partnership and customer deployments.
+
+When the question of 'how do we scale the training platform to 10× customers or 10× data volume' comes up — I'd love to be in that conversation. The compute orchestration for physical AI at scale is a narrow problem set where Anyscale has strong references.
+
+Open when the timing makes sense.</pre>
+</div></div>
+    </div>
+
+  </div>
+</section>
+<section class="company-section" id="valar-labs" data-name="Valar Labs" data-sector="Health AI">
+  <div class="company-header" style="border-left: 4px solid #3fb950">
+    <div class="company-title-row">
+      <h2 class="company-name" style="color:#3fb950">Valar Labs</h2>
+      <span class="tier-badge" style="background:#3fb95020;color:#3fb950;border:1px solid #3fb95040">9/10 · Health AI</span>
+    </div>
+    <div class="company-meta">
+      <span>🌐 valarlabs.com</span>
+      <span>📍 San Francisco, CA</span>
+      <span>👥 ~20-40 employees (early stage)</span>
+      <span>🎯 Co-founders: Anirudh Joshi, Viswesh Krishna, Pranav Rajpurkar (Stanford AI Lab)</span>
+    </div>
+  </div>
+
+  <div class="sections-grid">
+
+    
+<div class="plan-section ray-section full-width">
+  <h3 class="section-title">🔬 Ray Libraries &amp; Workload Fit</h3>
+  <div class="ray-content">
+    <div class="stage-pill">📈 Stage 1→2 &nbsp;·&nbsp; Build Faster → Run Reliably</div>
+    <div class="wl-row"><span class="wl-label">Workload Type:</span><span class="wl-badge" style="background:#1a3a1a;color:#56d364;border:1px solid #2d7a2d">Multimodal Data Pipeline</span><span class="wl-badge" style="background:#1a2a3a;color:#79c0ff;border:1px solid #2d5a8a">Distributed Training &amp; Fine-tuning</span></div>
+    <div class="qual-row"><span class="wl-label">Qualifiers:</span><span class="qual-badge">Multi-node</span><span class="qual-badge">Heterogeneous (CPU+GPU)</span><span class="qual-badge">End-to-end mindset</span></div>
+    <div class="lib-grid">
+<div class="lib-row" style="background:#1a3a5c;border-left:3px solid #2d6a9f">
+  <div class="lib-left">
+    <span class="lib-name" style="color:#79c0ff">Ray Data</span>
+    <span class="lib-level level-primary">PRIMARY</span>
+  </div>
+  <div class="lib-reason">Gigapixel WSI tile extraction — distributed preprocessing of pathology slides</div>
+</div>
+<div class="lib-row" style="background:#1a3a2a;border-left:3px solid #2d7a4a">
+  <div class="lib-left">
+    <span class="lib-name" style="color:#56d364">Ray Train</span>
+    <span class="lib-level level-primary">PRIMARY</span>
+  </div>
+  <div class="lib-reason">Multi-GPU histology model training across 1000+ patient cohort</div>
+</div>
+<div class="lib-row" style="background:#3a2a1a;border-left:3px solid #8a5a2a">
+  <div class="lib-left">
+    <span class="lib-name" style="color:#e3b341">Ray Tune</span>
+    <span class="lib-level level-primary">PRIMARY</span>
+  </div>
+  <div class="lib-reason">Vesta model HPO to maximize clinical prediction accuracy</div>
+</div></div>
+  </div>
+</div>
+
+    <div class="plan-section">
+      <h3 class="section-title">📡 Key Signals / Indicators</h3>
+      <ul class="signal-list"><li>STAT News coverage + DCVC/a16z backing — highest-signal investors in health AI validate the technical approach</li><li>1000+ patient cohort across 4 continents — data scale requires serious distributed compute for model training</li><li>Vesta generalization to pancreatic cancer + other tumor types — each new cancer type is a new large training job</li><li>Stanford AI Lab pedigree (Pranav Rajpurkar) — technically sophisticated founders who understand infrastructure needs</li><li>Published validation studies at national oncology conferences — reproducible, auditable ML pipelines are required for clinical credibility</li><li>Small team doing massive data science work — each engineer's output is multiplied by good infrastructure</li></ul>
+    </div>
+
+    <div class="plan-section">
+      <h3 class="section-title">🤖 ML Use Cases</h3>
+      <ul class="plan-list"><li>Whole slide image (WSI) analysis — gigapixel pathology slide processing requires distributed preprocessing and model inference</li><li>Histology model training — training CNN/transformer models on large patient cohorts (1000+ patient datasets)</li><li>Multi-cancer generalization — fine-tuning and transfer learning across bladder, pancreatic, and additional cancer types</li><li>Clinical endpoint prediction — Enchant-style multimodal models combining pathology images with clinical features</li><li>Regulatory validation ML pipeline — reproducible, auditable training runs for FDA submission support</li></ul>
+    </div>
+
+    <div class="plan-section">
+      <h3 class="section-title">🛠 Tech Stack</h3>
+      <ul class="stack-list"><li>Python / PyTorch (primary ML stack)</li><li>Whole slide image processing libraries (OpenSlide, CLAM, or similar)</li><li>CNN + Vision Transformer architectures for pathology analysis</li><li>GPU compute for multi-gigapixel image processing</li><li>Clinical data pipelines with de-identification and HIPAA compliance</li><li>Likely AWS or GCP for cloud training</li><li>MLflow / W&amp;B for experiment tracking</li></ul>
+    </div>
+
+    <div class="plan-section">
+      <h3 class="section-title">🚀 5 AI / ML Initiatives</h3>
+      <ol class="initiative-list"><li>Vesta bladder cancer assay — FDA pathway and commercial deployment of first AI diagnostic test for bladder cancer treatment prediction</li><li>Pancreatic cancer generalization — extending Vesta's approach to pancreatic cancer prognosis</li><li>Multi-cancer platform — building toward a general histology AI platform across solid tumors</li><li>Clinical validation studies — running large-scale retrospective studies to support FDA submission</li><li>Multi-institution data collaboration — scaling patient cohort size beyond 1000 patients through hospital partnerships</li></ol>
+    </div>
+
+    <div class="plan-section">
+      <h3 class="section-title">⏰ Timing Advantages (Why Now)</h3>
+      <ul class="timing-list"><li>Series A freshly closed (May 2024) → infrastructure investment cycle is open now</li><li>Expanding to new cancer types = immediate new training jobs needed</li><li>FDA submission pathway requires reproducible, auditable compute infrastructure</li><li>Stanford AI Lab connection → technically sophisticated team will quickly recognize Ray's advantages</li><li>Multi-institution data collaboration = distributed data processing at scale becomes essential</li><li>STAT News / conference presentations signal Valar is entering a higher visibility phase → commercial scaling upcoming</li></ul>
+    </div>
+
+    <div class="plan-section">
+      <h3 class="section-title">🎯 Business Objectives</h3>
+      <ul class="plan-list"><li>Achieve FDA clearance for Vesta bladder cancer assay as the first AI diagnostic for treatment prediction</li><li>Expand Vesta to 3+ cancer types within 24 months of Series A</li><li>Build commercial relationships with top 10 academic cancer centers</li><li>Establish multi-institution data partnership network for ongoing model improvement</li><li>Position Valar as the standard histology AI platform for precision oncology</li></ul>
+    </div>
+
+    <div class="plan-section">
+      <h3 class="section-title">💻 Tech Initiatives</h3>
+      <ul class="plan-list"><li>FDA-grade ML pipeline — building reproducible, auditable training and validation infrastructure for regulatory submission</li><li>Whole slide image processing optimization — reducing time-to-result for gigapixel pathology slides</li><li>Multi-cancer model architecture — shared backbone + task-specific heads for cancer type expansion</li><li>Multi-institution data pipeline — HIPAA-compliant data ingestion from hospital EHR and pathology systems</li><li>Clinical deployment integration — embedding Vesta into pathology lab workflows (Epic, Cerner integration)</li></ul>
+    </div>
+
+    <div class="plan-section highlight-section">
+      <h3 class="section-title">⚡ Why Anyscale? (Platform Outcomes)</h3>
+      <ul class="why-list"><li>Ray Data handles the distributed preprocessing of whole slide images — gigapixel images require parallelized tile extraction before model training</li><li>Ray Train orchestrates multi-GPU training across large patient cohort datasets without custom parallelism code</li><li>Ray Tune runs hyperparameter optimization across Vesta model variants to maximize clinical prediction accuracy</li><li>Anyscale's reproducibility and experiment tracking capabilities support FDA audit trail requirements</li><li>Python-native API — Valar's Stanford-trained ML team can adopt Ray without leaving their existing PyTorch workflow</li><li>Multi-cancer expansion = more simultaneous training jobs; Ray's scheduling handles priority queuing across research and production workloads</li></ul>
+    </div>
+
+    <div class="plan-section">
+      <h3 class="section-title">❓ Discovery Questions</h3>
+      <ol class="discovery-list"><li>When you're training on the 1000+ patient cohort — what does a training run look like computationally? How long, how many GPUs?</li><li>As you expand to pancreatic cancer and additional tumor types — how does that affect your training infrastructure requirements? Linear or multiplicative?</li><li>What does reproducibility look like for your training pipeline today? Is that something your FDA submission strategy depends on?</li><li>How are you handling the multi-institution data pipeline — is each hospital's data processed separately or in a unified pipeline?</li><li>For the whole slide image processing — what's the biggest bottleneck: the tile extraction preprocessing, the model training, or the inference?</li><li>With the Series A deployed — is ML infrastructure a current priority, or is the investment primarily in clinical team and data partnerships?</li></ol>
+    </div>
+
+    <div class="plan-section funding-section">
+      <h3 class="section-title">💰 Funding / Revenue Notes</h3>
+      <div class="funding-block">
+        <div class="funding-item"><strong>Funding:</strong> $22M Series A (May 2024, a16z + DCVC co-lead, Pear VC participation). Founders from Stanford AI Lab (Pranav Rajpurkar).</div>
+        <div class="funding-item"><strong>Revenue:</strong> Pre-revenue or early clinical validation revenue. Primary focus is FDA pathway and clinical deployment of Vesta assay.</div>
+      </div>
+    </div>
+
+    <div class="plan-section email-section full-width">
+      <h3 class="section-title">✉️ 4-Step Email Outreach Sequence</h3>
+      <div class="emails-container">
+<div class="email-card">
+  <div class="email-header">
+    <span class="email-step">Step 1</span>
+    <span class="email-subject">Subject: Distributed WSI processing + Vesta model training</span>
+    <button class="copy-btn" onclick="copyEmail(this)">Copy</button>
+  </div>
+  <pre class="email-body">Hi [Name] — congrats on the Series A and the STAT News coverage. The Vesta assay approach is genuinely compelling — predicting treatment response from histology is a hard ML problem and the 1000+ patient cohort is impressive.
+
+I'm reaching out because whole slide image processing at scale is one of the most compute-intensive workloads in health AI — gigapixel tile extraction + model training + cross-validation across a growing patient cohort compounds quickly.
+
+Ray Data + Ray Train handles exactly this pipeline natively in Python. Worth 20 minutes to compare what you're running today?</pre>
+</div>
+<div class="email-card">
+  <div class="email-header">
+    <span class="email-step">Step 2</span>
+    <span class="email-subject">Subject: Multi-cancer expansion — training infrastructure at scale</span>
+    <button class="copy-btn" onclick="copyEmail(this)">Copy</button>
+  </div>
+  <pre class="email-body">Following up — the expansion to pancreatic cancer and additional tumor types is where infrastructure complexity grows fast.
+
+Each new cancer type is a new large training job, potentially with different data characteristics, different validation sets, and different hyperparameter ranges. Running those in parallel with good resource utilization requires smart orchestration.
+
+Ray's scheduling and Ray Tune handles multi-job parallelism cleanly. Happy to show what that looks like for a team your size.</pre>
+</div>
+<div class="email-card">
+  <div class="email-header">
+    <span class="email-step">Step 3</span>
+    <span class="email-subject">Subject: FDA audit trail + reproducible ML — Anyscale reference</span>
+    <button class="copy-btn" onclick="copyEmail(this)">Copy</button>
+  </div>
+  <pre class="email-body">One more follow-up: for the FDA pathway, reproducibility is non-negotiable. Every training run needs to be logged, reproducible, and auditable.
+
+Anyscale's managed layer provides experiment tracking, run logging, and infrastructure reproducibility out of the box — which is increasingly important for AI/ML diagnostic companies going through FDA clearance.
+
+Happy to connect you with another health AI company that went through this process using Anyscale.</pre>
+</div>
+<div class="email-card">
+  <div class="email-header">
+    <span class="email-step">Step 4</span>
+    <span class="email-subject">Subject: Valar Labs + Anyscale — one more touchpoint</span>
+    <button class="copy-btn" onclick="copyEmail(this)">Copy</button>
+  </div>
+  <pre class="email-body">Last note from me — I know you're heads-down on clinical validation and the FDA pathway.
+
+If the compute infrastructure for training and validation ever becomes a bottleneck — whether for the multi-cancer expansion, multi-institution data pipeline, or regulatory submission preparation — I'd love 20 minutes. The fit between Anyscale and health AI companies at your stage is strong.
+
+Open whenever it makes sense.</pre>
+</div></div>
+    </div>
+
+  </div>
+</section>
+<section class="company-section" id="elroy-air" data-name="Elroy Air" data-sector="AV / Robotics">
+  <div class="company-header" style="border-left: 4px solid #58a6ff">
+    <div class="company-title-row">
+      <h2 class="company-name" style="color:#58a6ff">Elroy Air</h2>
+      <span class="tier-badge" style="background:#58a6ff20;color:#58a6ff;border:1px solid #58a6ff40">9/10 · AV / Robotics</span>
+    </div>
+    <div class="company-meta">
+      <span>🌐 elroyair.com</span>
+      <span>📍 San Francisco, CA</span>
+      <span>👥 ~100-150 employees</span>
+      <span>🎯 VP Engineering / Head of Autonomy Software</span>
+    </div>
+  </div>
+
+  <div class="sections-grid">
+
+    
+<div class="plan-section ray-section full-width">
+  <h3 class="section-title">🔬 Ray Libraries &amp; Workload Fit</h3>
+  <div class="ray-content">
+    <div class="stage-pill">📈 Stage 1→2 &nbsp;·&nbsp; Build Faster → Run Reliably</div>
+    <div class="wl-row"><span class="wl-label">Workload Type:</span><span class="wl-badge" style="background:#1a2a3a;color:#79c0ff;border:1px solid #2d5a8a">Distributed Training &amp; RL</span></div>
+    <div class="qual-row"><span class="wl-label">Qualifiers:</span><span class="qual-badge">Multi-node</span><span class="qual-badge">Heterogeneous (CPU+GPU)</span><span class="qual-badge">End-to-end mindset</span></div>
+    <div class="lib-grid">
+<div class="lib-row" style="background:#1a3a2a;border-left:3px solid #2d7a4a">
+  <div class="lib-left">
+    <span class="lib-name" style="color:#56d364">Ray Train</span>
+    <span class="lib-level level-primary">PRIMARY</span>
+  </div>
+  <div class="lib-reason">Flight control neural network training across diverse conditions</div>
+</div>
+<div class="lib-row" style="background:#2a1a3a;border-left:3px solid #6a2a9a">
+  <div class="lib-left">
+    <span class="lib-name" style="color:#bc8cff">RLlib</span>
+    <span class="lib-level level-primary">PRIMARY</span>
+  </div>
+  <div class="lib-reason">RL flight policy + thousands of parallel Chaparral sim rollouts</div>
+</div>
+<div class="lib-row" style="background:#1a3a5c;border-left:3px solid #2d6a9f">
+  <div class="lib-left">
+    <span class="lib-name" style="color:#79c0ff">Ray Data</span>
+    <span class="lib-level level-primary">PRIMARY</span>
+  </div>
+  <div class="lib-reason">Simulation-to-training data pipeline with versioning</div>
+</div></div>
+  </div>
+</div>
+
+    <div class="plan-section">
+      <h3 class="section-title">📡 Key Signals / Indicators</h3>
+      <ul class="signal-list"><li>Kratos exclusive manufacturing partnership (2025) — production-intent aircraft coming in 2026, requiring production-grade ML pipelines</li><li>First autonomous A-to-B cargo delivery milestone — product validation proven, scaling is next</li><li>USMC autonomous aerial resupply contract (Leidos/Elroy) — defense contract adds federal compliance + reliability requirements</li><li>Hybrid-electric VTOL architecture — unique flight envelope requires extensive simulation-based training data</li><li>$116M Series B — significant capital available for infrastructure investment</li><li>2026 production timeline — manufacturing at scale requires continuous model improvement pipelines</li></ul>
+    </div>
+
+    <div class="plan-section">
+      <h3 class="section-title">🤖 ML Use Cases</h3>
+      <ul class="plan-list"><li>Flight control neural network training — training RL and supervised models for VTOL flight across diverse weather/payload conditions</li><li>Computer vision for autonomous operations — obstacle detection, landing zone identification, payload verification</li><li>Path planning and logistics optimization — distributed route planning across fleet of delivery drones</li><li>Sim-to-real transfer pipeline — training in simulation then validating on physical Chaparral aircraft</li><li>Ground autonomy ML — automated cargo pod pickup/deposit without human intervention</li></ul>
+    </div>
+
+    <div class="plan-section">
+      <h3 class="section-title">🛠 Tech Stack</h3>
+      <ul class="stack-list"><li>Python for ML training and autonomy stack</li><li>Docker for containerized development environment</li><li>AS9100 quality management (aerospace certification)</li><li>Embedded Linux for onboard flight computer</li><li>ROS or custom middleware for sensor fusion</li><li>Simulation environment (X-Plane, AirSim, or custom)</li><li>Cloud training infrastructure (unconfirmed provider)</li></ul>
+    </div>
+
+    <div class="plan-section">
+      <h3 class="section-title">🚀 5 AI / ML Initiatives</h3>
+      <ol class="initiative-list"><li>Production flight AI for 2026 Chaparral manufacturing — training models that meet commercial cargo delivery reliability standards</li><li>USMC autonomous resupply system — safety-critical ML for military logistics operations</li><li>Full autonomy stack (air + ground) — autonomous cargo pod handling without any human interaction</li><li>Fleet management ML — optimizing routes, cargo loads, and maintenance predictions across drone fleet</li><li>Adverse condition training — building robustness to wind, rain, and GPS-degraded environments through simulation</li></ol>
+    </div>
+
+    <div class="plan-section">
+      <h3 class="section-title">⏰ Timing Advantages (Why Now)</h3>
+      <ul class="timing-list"><li>2026 production aircraft delivery (Kratos partnership) — production ML pipeline needs to be ready before manufacturing scales</li><li>USMC contract testing underway — defense validation requires rigorous, documented ML development process</li><li>A-to-B delivery milestone achieved — company is transitioning from R&amp;D to scale, infrastructure needs shift</li><li>$116M Series B in hand — capital available for infrastructure investment right now</li><li>Commercial cargo delivery scaling (post-USMC approval) — first commercial customers will demand SLA-backed operations</li></ul>
+    </div>
+
+    <div class="plan-section">
+      <h3 class="section-title">🎯 Business Objectives</h3>
+      <ul class="plan-list"><li>Achieve commercial autonomous cargo delivery at scale with Chaparral VTOL drone</li><li>Fulfill USMC autonomous aerial resupply contract and expand military logistics business</li><li>Deliver production-intent aircraft through Kratos partnership in 2026</li><li>Build profitable autonomous logistics network for commercial shippers</li><li>Establish Elroy Air as the standard platform for long-range autonomous cargo delivery</li></ul>
+    </div>
+
+    <div class="plan-section">
+      <h3 class="section-title">💻 Tech Initiatives</h3>
+      <ul class="plan-list"><li>Production flight software for Kratos manufacturing — from R&amp;D to production-grade software process</li><li>USMC-compliant autonomous flight system development</li><li>Full ground + air autonomy integration (cargo pod pickup/deposit without human)</li><li>Fleet management software for multi-aircraft operations</li><li>Simulation environment expansion for adverse condition training</li></ul>
+    </div>
+
+    <div class="plan-section highlight-section">
+      <h3 class="section-title">⚡ Why Anyscale? (Platform Outcomes)</h3>
+      <ul class="why-list"><li>Ray's distributed simulation support handles running thousands of Chaparral flight simulation scenarios in parallel — compresses training cycles dramatically</li><li>Ray Train orchestrates multi-GPU training for Elroy's flight control neural networks across diverse weather/payload conditions</li><li>Ray Data manages the data pipeline from flight simulation → training dataset with proper versioning and reproducibility</li><li>AS9100 compliance and production requirements → Anyscale's audit trails and reproducibility features support aerospace-grade documentation</li><li>As Elroy scales to fleet operations, Ray's fleet simulation and logistics optimization capabilities handle multi-aircraft route planning</li><li>Python-first team + $116M Series B = ideal moment to invest in proper ML infrastructure before production scale</li></ul>
+    </div>
+
+    <div class="plan-section">
+      <h3 class="section-title">❓ Discovery Questions</h3>
+      <ol class="discovery-list"><li>With the 2026 production timeline — what does your ML pipeline for flight control look like today? Is it production-ready or still R&amp;D-grade?</li><li>For the USMC contract — what are the documentation and reproducibility requirements for the autonomy software development process?</li><li>How many simulation scenarios are you running per model iteration for flight control training? Is that number increasing as you approach production?</li><li>What's the split between simulation training and real-flight validation data in your current training corpus?</li><li>With Kratos handling manufacturing — does the software development pipeline accelerate, or are there new certification requirements that add complexity?</li><li>How does your current infrastructure handle the jump from 1 aircraft to fleet operations (10, 100 aircraft)?</li></ol>
+    </div>
+
+    <div class="plan-section funding-section">
+      <h3 class="section-title">💰 Funding / Revenue Notes</h3>
+      <div class="funding-block">
+        <div class="funding-item"><strong>Funding:</strong> $116M raised (Series B). Investors: Levitate Capital, Amplify Partners, Homebrew, Shield Capital, Diamondstream Partners, Catapult Ventures, Snowpoint Ventures.</div>
+        <div class="funding-item"><strong>Revenue:</strong> Pre-revenue (defense contracts in testing phase). Kratos manufacturing partnership signals production revenue in 2026. USMC autonomous resupply testing underway.</div>
+      </div>
+    </div>
+
+    <div class="plan-section email-section full-width">
+      <h3 class="section-title">✉️ 4-Step Email Outreach Sequence</h3>
+      <div class="emails-container">
+<div class="email-card">
+  <div class="email-header">
+    <span class="email-step">Step 1</span>
+    <span class="email-subject">Subject: Production flight AI for Chaparral — training pipeline</span>
+    <button class="copy-btn" onclick="copyEmail(this)">Copy</button>
+  </div>
+  <pre class="email-body">Hi [Name] — the Kratos manufacturing partnership and 2026 production timeline is a significant milestone. The A-to-B delivery success is compelling.
+
+As you move from R&amp;D to production scale, the ML pipeline for flight control needs to make the same transition — from 'it works in the lab' to 'it runs reliably, reproducibly, and at scale for a commercial product.'
+
+We work with several aerospace autonomy teams on exactly this transition. Worth 20 minutes to compare what your current pipeline looks like vs. what production-grade requires?</pre>
+</div>
+<div class="email-card">
+  <div class="email-header">
+    <span class="email-step">Step 2</span>
+    <span class="email-subject">Subject: USMC contract — documentation + reproducibility for autonomous systems</span>
+    <button class="copy-btn" onclick="copyEmail(this)">Copy</button>
+  </div>
+  <pre class="email-body">Following up — the USMC autonomous resupply contract introduces a new level of documentation and reproducibility requirements for your ML development.
+
+DOD contracts typically require formal model versioning, training provenance, and audit trails for the autonomy stack. Anyscale's managed Ray provides those capabilities out of the box, with no custom tooling required.
+
+Happy to walk through how other defense-adjacent autonomy teams handle this. 20 minutes?</pre>
+</div>
+<div class="email-card">
+  <div class="email-header">
+    <span class="email-step">Step 3</span>
+    <span class="email-subject">Subject: Simulation training at scale — Elroy Air reference architecture</span>
+    <button class="copy-btn" onclick="copyEmail(this)">Copy</button>
+  </div>
+  <pre class="email-body">One more follow-up: for VTOL flight control training specifically — the diversity of conditions (payload variation, wind, GPS degradation, landing zone quality) means you need thousands of simulation rollouts per model iteration.
+
+Ray's actor model is ideal for orchestrating parallel flight simulators. We've seen autonomous vehicle and UAV teams cut their training iteration cycle by 5-10× using distributed Ray simulation.
+
+Happy to share the architecture if useful.</pre>
+</div>
+<div class="email-card">
+  <div class="email-header">
+    <span class="email-step">Step 4</span>
+    <span class="email-subject">Subject: Anyscale + Elroy Air — final touchpoint</span>
+    <button class="copy-btn" onclick="copyEmail(this)">Copy</button>
+  </div>
+  <pre class="email-body">Last note from me — I know you're deep into the 2026 production program.
+
+When the question of 'how does the ML pipeline scale from 1 Chaparral to a fleet of 100' comes up — I'd love to be in that conversation. It's a different infrastructure problem than what you're solving today, and earlier is better.
+
+Open when the timing makes sense.</pre>
+</div></div>
+    </div>
+
+  </div>
+</section>
+<section class="company-section" id="intrinsic-google" data-name="Intrinsic (Google)" data-sector="Robotics / Physical AI">
+  <div class="company-header" style="border-left: 4px solid #f78166">
+    <div class="company-title-row">
+      <h2 class="company-name" style="color:#f78166">Intrinsic (Google)</h2>
+      <span class="tier-badge" style="background:#f7816620;color:#f78166;border:1px solid #f7816640">9/10 · Robotics / Physical AI</span>
+    </div>
+    <div class="company-meta">
+      <span>🌐 intrinsic.ai</span>
+      <span>📍 Mountain View, CA (within Google)</span>
+      <span>👥 ~200-400 employees (joining Google Feb 2026)</span>
+      <span>🎯 Head of ML Platform / Head of Infrastructure — within Google; Google DeepMind Physical AI team</span>
+    </div>
+  </div>
+
+  <div class="sections-grid">
+
+    
+
+    <div class="plan-section">
+      <h3 class="section-title">📡 Key Signals / Indicators</h3>
+      <ul class="signal-list"><li>Joined Google Feb 2026 — 'Android of Robotics' strategy signals massive infrastructure investment ahead</li><li>Intrinsic Vision Model (IVM) topped benchmarks — training state-of-the-art vision model requires large-scale distributed compute</li><li>Google Gemini AI integration announced — LLM + robotics fusion = new compute-intensive model training paradigm</li><li>FANUC, Universal Robots, KUKA partnerships — production deployments at scale requiring continuous model updates</li><li>Working more closely with Google DeepMind — physical AI intersection with DeepMind compute = massive GPU access</li><li>Foxconn deployment live — scale of manufacturing customer drives training data volume significantly</li></ul>
+    </div>
+
+    <div class="plan-section">
+      <h3 class="section-title">🤖 ML Use Cases</h3>
+      <ul class="plan-list"><li>Intrinsic Vision Model (IVM) training — large-scale visual perception model for industrial robot programming</li><li>Flowstate skill learning — training task-specific robot skills from demonstrations and simulation</li><li>Gemini-powered robot programming — LLM + robot action model fine-tuning for natural language robot control</li><li>Multi-platform model transfer — adapting models from FANUC arms to UR to KUKA without full retraining</li><li>Industrial deployment validation — running large-scale test suites for manufacturing robot deployments</li></ul>
+    </div>
+
+    <div class="plan-section">
+      <h3 class="section-title">🛠 Tech Stack</h3>
+      <ul class="stack-list"><li>Flowstate (web-based robot programming platform)</li><li>Google Cloud Platform (GCP) — primary cloud infrastructure</li><li>Google Gemini AI models (LLM integration)</li><li>NVIDIA GPU infrastructure (via Google Cloud)</li><li>Python / JAX / TensorFlow (Google's ML stack)</li><li>ROS integration layer for robot hardware compatibility</li><li>Kubernetes / Google Borg for container orchestration</li></ul>
+    </div>
+
+    <div class="plan-section">
+      <h3 class="section-title">🚀 5 AI / ML Initiatives</h3>
+      <ol class="initiative-list"><li>Gemini-powered robot control — integrating Google's LLMs for natural language robot programming via Flowstate</li><li>IVM v2+ — scaling the Intrinsic Vision Model with more diverse industrial training data</li><li>Android of Robotics platform — making Flowstate the universal robot OS for the $370B robotics market</li><li>DeepMind physical AI collaboration — joint research on robot manipulation, locomotion, and dexterity</li><li>Industrial AI at scale — deploying Flowstate across Foxconn's global manufacturing network</li></ol>
+    </div>
+
+    <div class="plan-section">
+      <h3 class="section-title">⏰ Timing Advantages (Why Now)</h3>
+      <ul class="timing-list"><li>Google integration (Feb 2026) = infrastructure realignment happening NOW — new GCP-native ML pipelines being built</li><li>DeepMind collaboration = physical AI research is actively scaling — compute requirements multiplying</li><li>Gemini + robotics integration = new LLM+robot model training workloads starting</li><li>Foxconn deployment is live — customer scale drives model improvement cycles</li><li>Android of Robotics announcement = market visibility is at all-time high, competitive pressure to scale fast</li></ul>
+    </div>
+
+    <div class="plan-section">
+      <h3 class="section-title">🎯 Business Objectives</h3>
+      <ul class="plan-list"><li>Become the universal robot OS platform (Android of Robotics) — run on every major industrial robot</li><li>Grow Flowstate enterprise license revenue across manufacturing, logistics, and warehouse automation</li><li>Build the Gemini-powered robot programming product as a differentiator vs. ROS/traditional programming</li><li>Scale IVM to be the best visual perception model for industrial robotics</li><li>Leverage Google Cloud and DeepMind to establish compute/AI moat</li></ul>
+    </div>
+
+    <div class="plan-section">
+      <h3 class="section-title">💻 Tech Initiatives</h3>
+      <ul class="plan-list"><li>Gemini integration into Flowstate — natural language → robot program compilation</li><li>IVM training infrastructure for large-scale industrial vision datasets</li><li>DeepMind physical AI joint model training</li><li>GCP-native MLOps pipeline for production robot model deployment</li><li>Cross-platform robot model adaptation (FANUC, UR, KUKA compatibility layer)</li></ul>
+    </div>
+
+    <div class="plan-section highlight-section">
+      <h3 class="section-title">⚡ Why Anyscale? (Platform Outcomes)</h3>
+      <ul class="why-list"><li>Anyscale runs on GCP — direct alignment with Intrinsic's post-Google-integration infrastructure stack</li><li>Ray Train handles distributed IVM training across large-scale industrial vision datasets on Google Cloud TPUs/GPUs</li><li>Ray Serve can handle model serving for Flowstate's real-time robot skill inference at manufacturing scale</li><li>The Gemini + robot model fine-tuning workload is exactly what managed Ray orchestrates — LLM fine-tuning + robotics RL in one platform</li><li>As Intrinsic scales to the 'Android of Robotics,' the model training for each new robot platform is a separate distributed job — Ray's scheduling handles the portfolio</li><li>Anyscale's GCP integration means the infrastructure discussion starts from Intrinsic's existing cloud footprint, not a migration</li></ul>
+    </div>
+
+    <div class="plan-section">
+      <h3 class="section-title">❓ Discovery Questions</h3>
+      <ol class="discovery-list"><li>With the Google integration — is the primary infrastructure change moving ML training to GCP-native tools, or is there more flexibility in the stack?</li><li>How does the DeepMind collaboration work from an infrastructure standpoint? Shared compute, or separate clusters?</li><li>For IVM training — what's the scale of the training data? Is it growing fast with the Foxconn deployment?</li><li>With Gemini integration into Flowstate — what does the fine-tuning pipeline look like for robot-specific Gemini variants?</li><li>As you expand to more robot platforms (FANUC → UR → KUKA → new platforms) — is the model adaptation compute-intensive? One-shot or full retraining?</li><li>What's the ratio of training compute to inference compute in the Flowstate platform today?</li></ol>
+    </div>
+
+    <div class="plan-section funding-section">
+      <h3 class="section-title">💰 Funding / Revenue Notes</h3>
+      <div class="funding-block">
+        <div class="funding-item"><strong>Funding:</strong> Now part of Google (joined Feb 2026). Previously Alphabet 'Other Bets.' No external funding — Google-backed. McKinsey projects general-purpose robotics market at $370B by 2040.</div>
+        <div class="funding-item"><strong>Revenue:</strong> Enterprise licensing revenue for Flowstate platform. Customers include Foxconn, FANUC, Universal Robots, KUKA. Revenue-generating.</div>
+      </div>
+    </div>
+
+    <div class="plan-section email-section full-width">
+      <h3 class="section-title">✉️ 4-Step Email Outreach Sequence</h3>
+      <div class="emails-container">
+<div class="email-card">
+  <div class="email-header">
+    <span class="email-step">Step 1</span>
+    <span class="email-subject">Subject: Anyscale on GCP — IVM training infrastructure</span>
+    <button class="copy-btn" onclick="copyEmail(this)">Copy</button>
+  </div>
+  <pre class="email-body">Hi [Name] — congrats on the Google integration and the 'Android of Robotics' positioning. The Flowstate platform + IVM combination is genuinely impressive.
+
+I'm reaching out because Anyscale runs natively on GCP, and the timing of your infrastructure transition aligns well with a conversation about managed Ray for IVM training and Flowstate skill learning.
+
+The specific fit: Ray Train for distributed IVM training, Ray Serve for real-time robot skill inference, and Ray's multi-robot scheduling for the FANUC/UR/KUKA portfolio expansion.
+
+Worth 20 minutes?</pre>
+</div>
+<div class="email-card">
+  <div class="email-header">
+    <span class="email-step">Step 2</span>
+    <span class="email-subject">Subject: Gemini + robot model fine-tuning — orchestration layer</span>
+    <button class="copy-btn" onclick="copyEmail(this)">Copy</button>
+  </div>
+  <pre class="email-body">Following up — the Gemini integration into Flowstate creates a new class of workload: LLM fine-tuning for robot-specific tasks, combined with RL training for the physical action model.
+
+Managed Ray is the only platform that handles both in one unified scheduling layer — LLM fine-tuning jobs and robotics RL jobs sharing the same GPU pool with smart allocation.
+
+Happy to walk through the architecture. 20 minutes?</pre>
+</div>
+<div class="email-card">
+  <div class="email-header">
+    <span class="email-step">Step 3</span>
+    <span class="email-subject">Subject: DeepMind physical AI collaboration — shared compute infrastructure</span>
+    <button class="copy-btn" onclick="copyEmail(this)">Copy</button>
+  </div>
+  <pre class="email-body">One more follow-up: as Intrinsic works more closely with DeepMind on physical AI, the question of shared vs. separate compute infrastructure becomes interesting.
+
+Ray's multi-tenancy model handles research + production workloads on shared infrastructure with full isolation — which is how several Google-adjacent teams manage the collaboration boundary.
+
+Happy to share how that's structured if useful.</pre>
+</div>
+<div class="email-card">
+  <div class="email-header">
+    <span class="email-step">Step 4</span>
+    <span class="email-subject">Subject: Anyscale + Intrinsic (Google) — final note</span>
+    <button class="copy-btn" onclick="copyEmail(this)">Copy</button>
+  </div>
+  <pre class="email-body">Last note from me — the Google integration is a significant transition and I don't want to add noise during the integration work.
+
+When the ML infrastructure roadmap for the new Intrinsic-within-Google setup is being defined — whether for IVM training, Flowstate skill learning, or the Gemini+robotics workloads — I'd love 20 minutes. GCP + Anyscale is a natural starting point for that conversation.
+
+Open when the timing makes sense.</pre>
+</div></div>
+    </div>
+
+  </div>
+</section>
+<section class="company-section" id="wing-alphabet" data-name="Wing (Alphabet)" data-sector="AV / Robotics">
+  <div class="company-header" style="border-left: 4px solid #58a6ff">
+    <div class="company-title-row">
+      <h2 class="company-name" style="color:#58a6ff">Wing (Alphabet)</h2>
+      <span class="tier-badge" style="background:#58a6ff20;color:#58a6ff;border:1px solid #58a6ff40">9/10 · AV / Robotics</span>
+    </div>
+    <div class="company-meta">
+      <span>🌐 wing.com</span>
+      <span>📍 Palo Alto, CA (Alphabet subsidiary)</span>
+      <span>👥 ~500-1000 employees</span>
+      <span>🎯 Head of ML / VP Autonomy Engineering (within Alphabet)</span>
+    </div>
+  </div>
+
+  <div class="sections-grid">
+
+    
+
+    <div class="plan-section">
+      <h3 class="section-title">📡 Key Signals / Indicators</h3>
+      <ul class="signal-list"><li>Walmart 100-store, 6-city deployment — largest commercial drone delivery expansion in US history, signaling production ML pipeline is critical</li><li>New high-payload drone (5lb capacity) launching globally — new model requires new training pipeline for different flight characteristics</li><li>450K+ total deliveries → growing to millions — fleet scaling requires continuous ML model improvement</li><li>Google Cloud + ML infrastructure backing — Alphabet's resources but often operates with standalone infrastructure teams</li><li>FAA exemption updated for expansion — regulatory green light for US scaling</li><li>International operations (Australia, US) — multi-geography fleet management adds ML complexity</li></ul>
+    </div>
+
+    <div class="plan-section">
+      <h3 class="section-title">🤖 ML Use Cases</h3>
+      <ul class="plan-list"><li>Flight AI training — training obstacle avoidance, path planning, and landing zone detection models</li><li>Fleet management optimization — ML for route planning, payload assignment, and maintenance prediction across growing fleet</li><li>Real-time obstacle detection — computer vision for in-flight obstacle avoidance (birds, other drones, power lines)</li><li>Delivery accuracy optimization — ML for precise package drop detection and confirmation</li><li>Weather adaptation models — training models to maintain delivery accuracy across diverse weather conditions</li></ul>
+    </div>
+
+    <div class="plan-section">
+      <h3 class="section-title">🛠 Tech Stack</h3>
+      <ul class="stack-list"><li>Google Cloud Platform (primary infrastructure)</li><li>Google's AI/ML tools (TensorFlow, JAX, Vertex AI)</li><li>Kubernetes / Google Borg for fleet management</li><li>Custom drone OS and flight control software</li><li>Google's distributed computing infrastructure</li><li>Advanced computer vision (Google AI integration)</li><li>Cloud-based fleet management system</li></ul>
+    </div>
+
+    <div class="plan-section">
+      <h3 class="section-title">🚀 5 AI / ML Initiatives</h3>
+      <ol class="initiative-list"><li>New 5lb payload drone rollout — training and validating ML for new, larger drone's flight characteristics</li><li>US commercial scaling (Walmart 100 stores → more retail partners) — continuous model improvement for diverse delivery environments</li><li>International expansion ML — adapting flight AI models for different regulatory zones and environments</li><li>Millions-of-deliveries scale preparation — fleet ML infrastructure that scales 10× from current volume</li><li>Safety AI improvement — continuous model improvement for the zero-incident safety track record</li></ol>
+    </div>
+
+    <div class="plan-section">
+      <h3 class="section-title">⏰ Timing Advantages (Why Now)</h3>
+      <ul class="timing-list"><li>Walmart 100-store deployment is LIVE — production ML at scale is operational, model improvement cycles are now critical</li><li>New drone model global rollout = new training jobs needed immediately for different flight dynamics</li><li>FAA exemption update = regulatory path to millions of annual deliveries opened</li><li>Millions-of-deliveries target = infrastructure must scale 10× from current state</li><li>Google's 'Android of Robotics' announcement via Intrinsic = physical AI is a priority for Alphabet — Wing benefits from this attention</li></ul>
+    </div>
+
+    <div class="plan-section">
+      <h3 class="section-title">🎯 Business Objectives</h3>
+      <ul class="plan-list"><li>Scale from 450K to millions of annual deliveries across US and Australia</li><li>Add more retail and grocery partners beyond Walmart</li><li>Achieve profitability on commercial operations as volume scales</li><li>Expand 5lb payload drone globally to serve larger order sizes</li><li>Maintain safety record (zero delivery incidents) at scale</li></ul>
+    </div>
+
+    <div class="plan-section">
+      <h3 class="section-title">💻 Tech Initiatives</h3>
+      <ul class="plan-list"><li>New drone model ML training and validation pipeline</li><li>Fleet management system scaling for thousands of drones</li><li>Route optimization ML for multi-stop, multi-hub delivery networks</li><li>Weather and environment adaptation for new geographies</li><li>Retail partner integration (order management → delivery dispatch)</li></ul>
+    </div>
+
+    <div class="plan-section highlight-section">
+      <h3 class="section-title">⚡ Why Anyscale? (Platform Outcomes)</h3>
+      <ul class="why-list"><li>Even within Google Cloud, many teams find that managed Ray provides better ML-specific scheduling than Vertex AI for custom research workloads</li><li>Ray's fleet simulation capabilities handle training flight AI for thousands of simultaneous drone scenarios — exactly Wing's scale</li><li>Ray Data manages the massive continuous flight data pipeline (telemetry → training → model update → fleet deployment)</li><li>The new 5lb drone training jobs + existing drone model jobs are a multi-model portfolio that Ray's scheduling handles efficiently</li><li>Ray Serve handles real-time inference for in-flight obstacle avoidance at the latency requirements drone delivery demands</li><li>Anyscale's GCP integration means Wing's existing cloud infrastructure doesn't need to change — managed Ray layers on top</li></ul>
+    </div>
+
+    <div class="plan-section">
+      <h3 class="section-title">❓ Discovery Questions</h3>
+      <ol class="discovery-list"><li>With the Walmart deployment at scale — how frequently are you updating the flight AI models? What triggers a model update (new delivery environment, new drone type)?</li><li>For the new 5lb payload drone — is the training pipeline for its flight characteristics a separate project from the existing drone's pipeline?</li><li>What does your current ML infrastructure look like for training vs. what you're actually using? Is it Vertex AI, custom clusters, or something else?</li><li>How do you handle the multi-geography training data — does Australian flight data and US data go into the same training pipeline?</li><li>At millions-of-deliveries scale, what ML challenges emerge that don't exist at 450K deliveries?</li><li>What's the latency requirement for in-flight obstacle avoidance inference? Is that running on-device, in the cloud, or hybrid?</li></ol>
+    </div>
+
+    <div class="plan-section funding-section">
+      <h3 class="section-title">💰 Funding / Revenue Notes</h3>
+      <div class="funding-block">
+        <div class="funding-item"><strong>Funding:</strong> Alphabet/Google subsidiary — no external funding. Access to Google Cloud and Alphabet infrastructure budget.</div>
+        <div class="funding-item"><strong>Revenue:</strong> Early commercial revenue from Walmart delivery partnership (100 stores, 6 cities). Growing US and Australia commercial operations. 450K+ deliveries to date.</div>
+      </div>
+    </div>
+
+    <div class="plan-section email-section full-width">
+      <h3 class="section-title">✉️ 4-Step Email Outreach Sequence</h3>
+      <div class="emails-container">
+<div class="email-card">
+  <div class="email-header">
+    <span class="email-step">Step 1</span>
+    <span class="email-subject">Subject: Flight AI training at Walmart delivery scale</span>
+    <button class="copy-btn" onclick="copyEmail(this)">Copy</button>
+  </div>
+  <pre class="email-body">Hi [Name] — the Walmart 100-store expansion is a major milestone. Scaling from 450K to millions of deliveries per year means the ML pipeline for continuous flight AI improvement has to scale proportionally.
+
+The specific challenge at your scale: training models for diverse delivery environments (suburban neighborhoods, urban high-density, varying weather) requires thousands of parallel simulation rollouts per model iteration.
+
+Ray's distributed simulation layer handles this natively on GCP. Worth 20 minutes to compare approaches?</pre>
+</div>
+<div class="email-card">
+  <div class="email-header">
+    <span class="email-step">Step 2</span>
+    <span class="email-subject">Subject: New 5lb payload drone — separate training pipeline?</span>
+    <button class="copy-btn" onclick="copyEmail(this)">Copy</button>
+  </div>
+  <pre class="email-body">Following up — the new 5lb payload drone's different flight dynamics (heavier, different aerodynamics) requires training a new set of flight AI models.
+
+If that's a separate training pipeline from your existing drone, you now have two concurrent large-scale training programs competing for the same infrastructure. That's exactly the multi-job scheduling problem Ray solves well.
+
+Happy to walk through the architecture. 20 minutes?</pre>
+</div>
+<div class="email-card">
+  <div class="email-header">
+    <span class="email-step">Step 3</span>
+    <span class="email-subject">Subject: GCP + Anyscale — Wing's ML infrastructure</span>
+    <button class="copy-btn" onclick="copyEmail(this)">Copy</button>
+  </div>
+  <pre class="email-body">One more follow-up: Anyscale runs natively on GCP, which is Wing's primary infrastructure.
+
+Even within Google Cloud, several teams find that managed Ray provides better ML-specific scheduling for research and training workloads than Vertex AI alone. The Python-native API and Ray's simulator support are particularly relevant for flight AI development.
+
+Happy to show how the GCP integration works. 20 minutes?</pre>
+</div>
+<div class="email-card">
+  <div class="email-header">
+    <span class="email-step">Step 4</span>
+    <span class="email-subject">Subject: Anyscale + Wing — final note</span>
+    <button class="copy-btn" onclick="copyEmail(this)">Copy</button>
+  </div>
+  <pre class="email-body">Last one from me — I know Wing is in a significant commercial scaling phase and vendor conversations are low priority.
+
+If the ML training infrastructure for the next wave of scale (new drone model + new geographies + millions of deliveries) comes up as a topic, I'd love to be in that conversation. GCP + Anyscale is a natural starting point.
+
+Open when it makes sense.</pre>
+</div></div>
+    </div>
+
+  </div>
+</section>
+<section class="company-section" id="gitai" data-name="GITAI" data-sector="Robotics / Space">
+  <div class="company-header" style="border-left: 4px solid #d2a8ff">
+    <div class="company-title-row">
+      <h2 class="company-name" style="color:#d2a8ff">GITAI</h2>
+      <span class="tier-badge" style="background:#d2a8ff20;color:#d2a8ff;border:1px solid #d2a8ff40">9/10 · Robotics / Space</span>
+    </div>
+    <div class="company-meta">
+      <span>🌐 gitai.tech</span>
+      <span>📍 Los Angeles, CA (US) + Tokyo, Japan</span>
+      <span>👥 ~100-200 employees</span>
+      <span>🎯 VP Engineering / Head of AI/ML</span>
+    </div>
+  </div>
+
+  <div class="sections-grid">
+
+    
+<div class="plan-section ray-section full-width">
+  <h3 class="section-title">🔬 Ray Libraries &amp; Workload Fit</h3>
+  <div class="ray-content">
+    <div class="stage-pill">📈 Stage 1→2 &nbsp;·&nbsp; Build Faster → Run Reliably</div>
+    <div class="wl-row"><span class="wl-label">Workload Type:</span><span class="wl-badge" style="background:#1a2a3a;color:#79c0ff;border:1px solid #2d5a8a">Distributed Training &amp; RL</span></div>
+    <div class="qual-row"><span class="wl-label">Qualifiers:</span><span class="qual-badge">Multi-node</span><span class="qual-badge">Heterogeneous (CPU+GPU)</span><span class="qual-badge">End-to-end mindset</span></div>
+    <div class="lib-grid">
+<div class="lib-row" style="background:#1a3a2a;border-left:3px solid #2d7a4a">
+  <div class="lib-left">
+    <span class="lib-name" style="color:#56d364">Ray Train</span>
+    <span class="lib-level level-primary">PRIMARY</span>
+  </div>
+  <div class="lib-reason">Manipulation policy training for ISS + lunar ISAM tasks</div>
+</div>
+<div class="lib-row" style="background:#2a1a3a;border-left:3px solid #6a2a9a">
+  <div class="lib-left">
+    <span class="lib-name" style="color:#bc8cff">RLlib</span>
+    <span class="lib-level level-primary">PRIMARY</span>
+  </div>
+  <div class="lib-reason">Parallel space environment sim rollouts — each physics sim is a Ray actor</div>
+</div>
+<div class="lib-row" style="background:#1a3a5c;border-left:3px solid #2d6a9f">
+  <div class="lib-left">
+    <span class="lib-name" style="color:#79c0ff">Ray Data</span>
+    <span class="lib-level level-primary">PRIMARY</span>
+  </div>
+  <div class="lib-reason">Sim-to-real data pipeline with reproducibility for NASA certification</div>
+</div></div>
+  </div>
+</div>
+
+    <div class="plan-section">
+      <h3 class="section-title">📡 Key Signals / Indicators</h3>
+      <ul class="signal-list"><li>NASA TRL-7 achieved for S2 robotic arm — highest readiness level before production deployment, signals production training infrastructure is needed now</li><li>ISS Bishop Airlock mission completed — live space demonstration validated; scaling is next</li><li>2026 on-orbit servicing mission planned — commercial launch requiring production-grade ML for manipulation</li><li>Lunar surface demo talks with US launch companies — second simultaneous mission = two ML programs running in parallel</li><li>JAXA + NASA dual partnerships — dual government customers with different requirements = complex multi-program ML</li><li>Maezawa Fund (billionaire entrepreneur) backing — unusual investor signals willingness to fund ambitious long-term technical work</li></ul>
+    </div>
+
+    <div class="plan-section">
+      <h3 class="section-title">🤖 ML Use Cases</h3>
+      <ul class="plan-list"><li>Manipulation policy training — training dexterous manipulation policies for space assembly (antenna, solar panel installation)</li><li>Space environment simulation — generating training scenarios for microgravity, vacuum, temperature extremes</li><li>Proximity operations ML — training models for satellite approach, docking, and grappling</li><li>Autonomous repair and maintenance — ML for diagnosing and repairing satellite components in orbit</li><li>Sim-to-real transfer for space — the most extreme sim-to-real challenge (cannot test on actual ISS easily)</li></ul>
+    </div>
+
+    <div class="plan-section">
+      <h3 class="section-title">🛠 Tech Stack</h3>
+      <ul class="stack-list"><li>ROS2 (robot operating system — standard in space robotics)</li><li>Python for ML training and policy development</li><li>Custom simulation environment for space (microgravity, vacuum physics)</li><li>C++ for real-time robot control layer</li><li>NASA-certified software development processes</li><li>GPU compute for policy training (likely cloud + on-prem)</li><li>Physics simulation (MuJoCo, PyBullet, or custom space-physics sim)</li></ul>
+    </div>
+
+    <div class="plan-section">
+      <h3 class="section-title">🚀 5 AI / ML Initiatives</h3>
+      <ol class="initiative-list"><li>S2 robotic arm production deployment — transitioning from TRL-7 demo to production on-orbit servicing in 2026</li><li>Autonomous satellite servicing — training ML for life extension of existing satellites (grappling, refueling, repair)</li><li>Lunar surface robotics — new program for antenna assembly and solar panel installation on the Moon</li><li>Multi-tasking manipulation — training a single policy for diverse ISAM (in-space servicing, assembly, manufacturing) tasks</li><li>General-purpose space robot — long-term goal of a robot that can handle any task in any space environment</li></ol>
+    </div>
+
+    <div class="plan-section">
+      <h3 class="section-title">⏰ Timing Advantages (Why Now)</h3>
+      <ul class="timing-list"><li>2026 on-orbit servicing commercial launch = production ML pipeline must be ready before the mission</li><li>Lunar surface demo discussions underway = second program starting soon, doubling compute requirements</li><li>NASA TRL-7 achieved = past the research phase, production training infrastructure investment justified</li><li>Series B extension (Oct 2024) = recent capital for infrastructure scaling</li><li>Commercial on-orbit servicing market opening = first-mover advantage requires faster model iteration than competitors</li></ul>
+    </div>
+
+    <div class="plan-section">
+      <h3 class="section-title">🎯 Business Objectives</h3>
+      <ul class="plan-list"><li>Launch first commercial on-orbit satellite servicing mission in 2026</li><li>Demonstrate lunar surface robotics capabilities (communication antenna + solar panel assembly)</li><li>Build recurring revenue from satellite life extension services (refueling, repositioning, repair)</li><li>Become the standard platform for commercial ISAM operations</li><li>Expand from ISS/LEO to GEO and lunar surface operations</li></ul>
+    </div>
+
+    <div class="plan-section">
+      <h3 class="section-title">💻 Tech Initiatives</h3>
+      <ul class="plan-list"><li>Production-grade manipulation ML for 2026 on-orbit servicing mission</li><li>500kg-class satellite + robotic arm integration for proximity operations</li><li>Lunar surface rover + robotic arm development</li><li>Sim-to-real validation pipeline for space environments</li><li>Multi-mission software stack that operates in LEO, GEO, and lunar environments</li></ul>
+    </div>
+
+    <div class="plan-section highlight-section">
+      <h3 class="section-title">⚡ Why Anyscale? (Platform Outcomes)</h3>
+      <ul class="why-list"><li>Ray's distributed simulation handles running thousands of space environment training scenarios in parallel — critical for sim-to-real transfer where real-world data collection is nearly impossible</li><li>Ray Train orchestrates multi-GPU manipulation policy training for GITAI's diverse ISAM task set</li><li>The actor model in Ray maps directly to parallel space environment simulator instances — each physics sim is a Ray actor</li><li>Multi-mission ML (ISS + lunar) means running two large training programs simultaneously — Ray's scheduling handles resource allocation</li><li>GITAI's US and Japan teams can use a managed platform without separate cluster management in two countries</li><li>Production readiness: Anyscale's managed layer provides the uptime and reproducibility guarantees appropriate for space mission-critical ML</li></ul>
+    </div>
+
+    <div class="plan-section">
+      <h3 class="section-title">❓ Discovery Questions</h3>
+      <ol class="discovery-list"><li>For the 2026 on-orbit servicing mission — what does the training pipeline for the manipulation ML look like? How close to production-ready is it?</li><li>When you're training for space manipulation — how do you handle the massive diversity of scenarios needed (different satellite geometries, different debris, different lighting)?</li><li>With the lunar surface program now starting alongside the ISS program — is that on shared infrastructure or separate compute environments?</li><li>NASA TRL-7 is a huge milestone — what does the validation suite look like for certifying the ML models meet mission requirements?</li><li>For sim-to-real transfer in space — what's the biggest gap you've observed between simulated and real performance? How do you close it?</li><li>With the Maezawa Fund backing and Japanese investors — is there a preference for Japan-based vs. US-based infrastructure, or is it agnostic?</li></ol>
+    </div>
+
+    <div class="plan-section funding-section">
+      <h3 class="section-title">💰 Funding / Revenue Notes</h3>
+      <div class="funding-block">
+        <div class="funding-item"><strong>Funding:</strong> $60.5M Series B total (incl. $15.5M extension Oct 2024, Maezawa Fund lead). Total raised ~$75M+. NASA + JAXA partnerships.</div>
+        <div class="funding-item"><strong>Revenue:</strong> Pre-commercial revenue from NASA/JAXA contracts and government grants. Commercial on-orbit servicing revenue target in 2026.</div>
+      </div>
+    </div>
+
+    <div class="plan-section email-section full-width">
+      <h3 class="section-title">✉️ 4-Step Email Outreach Sequence</h3>
+      <div class="emails-container">
+<div class="email-card">
+  <div class="email-header">
+    <span class="email-step">Step 1</span>
+    <span class="email-subject">Subject: Space manipulation training at scale — sim-to-real infrastructure</span>
+    <button class="copy-btn" onclick="copyEmail(this)">Copy</button>
+  </div>
+  <pre class="email-body">Hi [Name] — the NASA TRL-7 achievement for the S2 arm is impressive, and the 2026 on-orbit servicing mission is a significant milestone.
+
+The challenge I'd want to explore: space robotics has the most extreme sim-to-real transfer problem in ML. Since you can't easily run thousands of physical validation tests, the simulation training pipeline needs to cover an enormous diversity of scenarios — different satellite geometries, lighting conditions, debris configurations.
+
+Ray's distributed simulation layer handles exactly this: thousands of parallel physics simulator instances coordinated by a central training loop. Worth 20 minutes?</pre>
+</div>
+<div class="email-card">
+  <div class="email-header">
+    <span class="email-step">Step 2</span>
+    <span class="email-subject">Subject: 2026 production mission — production-grade ML infrastructure</span>
+    <button class="copy-btn" onclick="copyEmail(this)">Copy</button>
+  </div>
+  <pre class="email-body">Following up — with a commercial mission launch in 2026, the training pipeline needs to be production-grade before you can't iterate any further.
+
+The specific requirements: reproducibility (you need to know exactly which training run produced the deployed model), audit trails (for NASA certification), and reliability (you can't lose training state when a node fails mid-run).
+
+Anyscale managed Ray provides all three natively. Happy to show what that looks like for a space robotics program. 20 minutes?</pre>
+</div>
+<div class="email-card">
+  <div class="email-header">
+    <span class="email-step">Step 3</span>
+    <span class="email-subject">Subject: Dual program (ISS + lunar) — shared vs. separate infrastructure</span>
+    <button class="copy-btn" onclick="copyEmail(this)">Copy</button>
+  </div>
+  <pre class="email-body">One more follow-up: with the ISS on-orbit servicing program running simultaneously with the new lunar surface program, you now have two large ML programs competing for the same compute.
+
+Ray's multi-job scheduling handles resource allocation between research and production workloads with isolation and priority — no separate clusters required for each mission program.
+
+Happy to walk through the architecture for dual-program management.</pre>
+</div>
+<div class="email-card">
+  <div class="email-header">
+    <span class="email-step">Step 4</span>
+    <span class="email-subject">Subject: Anyscale + GITAI — final touchpoint</span>
+    <button class="copy-btn" onclick="copyEmail(this)">Copy</button>
+  </div>
+  <pre class="email-body">Last one from me — I know 2026 is a critical year for GITAI's commercial launch.
+
+When the question of 'is our training infrastructure ready for the production mission' comes up — I'd love to be in that conversation. Space robotics ML at production scale is a narrow problem set where Anyscale has references.
+
+Open when the timing makes sense.</pre>
+</div></div>
+    </div>
+
+  </div>
+</section>
+</main>
+<script>
+const sections = document.querySelectorAll('.company-section');
+const navItems = document.querySelectorAll('.nav-item');
+const observer = new IntersectionObserver(entries => {
+  entries.forEach(e => {
+    if (e.isIntersecting) {
+      navItems.forEach(n => n.classList.remove('active'));
+      const active = document.querySelector('.nav-item[data-id="' + e.target.id + '"]');
+      if (active) { active.classList.add('active'); active.scrollIntoView({block:'nearest'}); }
+    }
+  });
+}, {threshold: 0.15});
+sections.forEach(s => observer.observe(s));
+
+function copyEmail(btn) {
+  const body = btn.closest('.email-card').querySelector('.email-body').textContent;
+  const subj = btn.closest('.email-card').querySelector('.email-subject').textContent.replace('Subject: ','');
+  const text = 'Subject: ' + subj + '\n\n' + body;
+  navigator.clipboard.writeText(text).then(() => {
+    btn.textContent = 'Copied!'; btn.classList.add('copied');
+    setTimeout(() => { btn.textContent = 'Copy'; btn.classList.remove('copied'); }, 2000);
+  });
+}
+</script>
+</body>
+</html>

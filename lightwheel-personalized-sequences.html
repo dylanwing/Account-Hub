@@ -1,0 +1,717 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Lightwheel AI — Personalized Email Sequences</title>
+<style>
+  * { margin:0; padding:0; box-sizing:border-box; }
+  body { font-family: Arial, 'Helvetica Neue', sans-serif; background:#0D1117; color:#C9D1D9; display:flex; height:100vh; overflow:hidden; }
+  #sidebar { width:220px; min-width:220px; background:#161B22; border-right:1px solid #30363D; display:flex; flex-direction:column; overflow:hidden; }
+  #sidebar-header { padding:16px 14px 12px; border-bottom:1px solid #30363D; }
+  #sidebar-header .co-name { font-size:15px; font-weight:700; color:#FFA657; margin-bottom:2px; }
+  #sidebar-header .co-sub { font-size:11px; color:#6E7681; }
+  #sidebar-nav { flex:1; overflow-y:auto; padding:8px 6px; }
+  #sidebar-nav::-webkit-scrollbar { width:4px; }
+  #sidebar-nav::-webkit-scrollbar-thumb { background:#30363D; border-radius:2px; }
+  #main { flex:1; overflow-y:auto; padding:24px 28px; }
+  #main::-webkit-scrollbar { width:6px; }
+  #main::-webkit-scrollbar-thumb { background:#30363D; border-radius:3px; }
+  .section-label { font-size:10px;font-weight:600;text-transform:uppercase;letter-spacing:.08em;color:#6E7681;padding:10px 10px 4px; }
+  table { border-collapse:collapse; width:100%; }
+  td, th { font-size:13px; }
+  th { color:#6E7681; font-weight:600; padding:8px 10px; border-bottom:2px solid #FFA657; text-align:left; background:#161B22; font-size:12px; text-transform:uppercase; letter-spacing:.05em; }
+</style>
+</head>
+<body>
+
+<div id="sidebar">
+  <div id="sidebar-header">
+    <div class="co-name">Lightwheel AI</div>
+    <div class="co-sub">10 contacts · 40 emails</div>
+  </div>
+  <div class="section-label">Contacts</div>
+  <div id="sidebar-nav">
+    <a href="#contact-1" style="display:flex;align-items:center;gap:8px;padding:6px 10px;border-radius:5px;text-decoration:none;color:#C9D1D9;font-size:13px;transition:background 0.15s;" onmouseover="this.style.background='#21262D'" onmouseout="this.style.background='transparent'">
+      <span style="background:#F78166;color:#fff;font-size:11px;font-weight:700;width:20px;height:20px;border-radius:3px;display:flex;align-items:center;justify-content:center;flex-shrink:0;">1</span>
+      <span style="white-space:nowrap;overflow:hidden;text-overflow:ellipsis;">Steve Xie, Ph.D.</span>
+      <span style="color:#F78166;font-size:11px;font-weight:600;margin-left:auto;flex-shrink:0;">P1</span>
+    </a><a href="#contact-2" style="display:flex;align-items:center;gap:8px;padding:6px 10px;border-radius:5px;text-decoration:none;color:#C9D1D9;font-size:13px;transition:background 0.15s;" onmouseover="this.style.background='#21262D'" onmouseout="this.style.background='transparent'">
+      <span style="background:#F78166;color:#fff;font-size:11px;font-weight:700;width:20px;height:20px;border-radius:3px;display:flex;align-items:center;justify-content:center;flex-shrink:0;">2</span>
+      <span style="white-space:nowrap;overflow:hidden;text-overflow:ellipsis;">Jay Yang</span>
+      <span style="color:#F78166;font-size:11px;font-weight:600;margin-left:auto;flex-shrink:0;">P1</span>
+    </a><a href="#contact-3" style="display:flex;align-items:center;gap:8px;padding:6px 10px;border-radius:5px;text-decoration:none;color:#C9D1D9;font-size:13px;transition:background 0.15s;" onmouseover="this.style.background='#21262D'" onmouseout="this.style.background='transparent'">
+      <span style="background:#F78166;color:#fff;font-size:11px;font-weight:700;width:20px;height:20px;border-radius:3px;display:flex;align-items:center;justify-content:center;flex-shrink:0;">3</span>
+      <span style="white-space:nowrap;overflow:hidden;text-overflow:ellipsis;">Wayne Zhang</span>
+      <span style="color:#F78166;font-size:11px;font-weight:600;margin-left:auto;flex-shrink:0;">P1</span>
+    </a><a href="#contact-4" style="display:flex;align-items:center;gap:8px;padding:6px 10px;border-radius:5px;text-decoration:none;color:#C9D1D9;font-size:13px;transition:background 0.15s;" onmouseover="this.style.background='#21262D'" onmouseout="this.style.background='transparent'">
+      <span style="background:#D29922;color:#fff;font-size:11px;font-weight:700;width:20px;height:20px;border-radius:3px;display:flex;align-items:center;justify-content:center;flex-shrink:0;">4</span>
+      <span style="white-space:nowrap;overflow:hidden;text-overflow:ellipsis;">Jonathan Stephens</span>
+      <span style="color:#D29922;font-size:11px;font-weight:600;margin-left:auto;flex-shrink:0;">P2</span>
+    </a><a href="#contact-5" style="display:flex;align-items:center;gap:8px;padding:6px 10px;border-radius:5px;text-decoration:none;color:#C9D1D9;font-size:13px;transition:background 0.15s;" onmouseover="this.style.background='#21262D'" onmouseout="this.style.background='transparent'">
+      <span style="background:#D29922;color:#fff;font-size:11px;font-weight:700;width:20px;height:20px;border-radius:3px;display:flex;align-items:center;justify-content:center;flex-shrink:0;">5</span>
+      <span style="white-space:nowrap;overflow:hidden;text-overflow:ellipsis;">Christopher Jiao</span>
+      <span style="color:#D29922;font-size:11px;font-weight:600;margin-left:auto;flex-shrink:0;">P2</span>
+    </a><a href="#contact-6" style="display:flex;align-items:center;gap:8px;padding:6px 10px;border-radius:5px;text-decoration:none;color:#C9D1D9;font-size:13px;transition:background 0.15s;" onmouseover="this.style.background='#21262D'" onmouseout="this.style.background='transparent'">
+      <span style="background:#D29922;color:#fff;font-size:11px;font-weight:700;width:20px;height:20px;border-radius:3px;display:flex;align-items:center;justify-content:center;flex-shrink:0;">6</span>
+      <span style="white-space:nowrap;overflow:hidden;text-overflow:ellipsis;">Myles L.</span>
+      <span style="color:#D29922;font-size:11px;font-weight:600;margin-left:auto;flex-shrink:0;">P2</span>
+    </a><a href="#contact-7" style="display:flex;align-items:center;gap:8px;padding:6px 10px;border-radius:5px;text-decoration:none;color:#C9D1D9;font-size:13px;transition:background 0.15s;" onmouseover="this.style.background='#21262D'" onmouseout="this.style.background='transparent'">
+      <span style="background:#D29922;color:#fff;font-size:11px;font-weight:700;width:20px;height:20px;border-radius:3px;display:flex;align-items:center;justify-content:center;flex-shrink:0;">7</span>
+      <span style="white-space:nowrap;overflow:hidden;text-overflow:ellipsis;">Edward Liu</span>
+      <span style="color:#D29922;font-size:11px;font-weight:600;margin-left:auto;flex-shrink:0;">P2</span>
+    </a><a href="#contact-8" style="display:flex;align-items:center;gap:8px;padding:6px 10px;border-radius:5px;text-decoration:none;color:#C9D1D9;font-size:13px;transition:background 0.15s;" onmouseover="this.style.background='#21262D'" onmouseout="this.style.background='transparent'">
+      <span style="background:#58A6FF;color:#fff;font-size:11px;font-weight:700;width:20px;height:20px;border-radius:3px;display:flex;align-items:center;justify-content:center;flex-shrink:0;">8</span>
+      <span style="white-space:nowrap;overflow:hidden;text-overflow:ellipsis;">Huang Yang</span>
+      <span style="color:#58A6FF;font-size:11px;font-weight:600;margin-left:auto;flex-shrink:0;">P3</span>
+    </a><a href="#contact-9" style="display:flex;align-items:center;gap:8px;padding:6px 10px;border-radius:5px;text-decoration:none;color:#C9D1D9;font-size:13px;transition:background 0.15s;" onmouseover="this.style.background='#21262D'" onmouseout="this.style.background='transparent'">
+      <span style="background:#58A6FF;color:#fff;font-size:11px;font-weight:700;width:20px;height:20px;border-radius:3px;display:flex;align-items:center;justify-content:center;flex-shrink:0;">9</span>
+      <span style="white-space:nowrap;overflow:hidden;text-overflow:ellipsis;">Yilong Niu</span>
+      <span style="color:#58A6FF;font-size:11px;font-weight:600;margin-left:auto;flex-shrink:0;">P3</span>
+    </a><a href="#contact-10" style="display:flex;align-items:center;gap:8px;padding:6px 10px;border-radius:5px;text-decoration:none;color:#C9D1D9;font-size:13px;transition:background 0.15s;" onmouseover="this.style.background='#21262D'" onmouseout="this.style.background='transparent'">
+      <span style="background:#58A6FF;color:#fff;font-size:11px;font-weight:700;width:20px;height:20px;border-radius:3px;display:flex;align-items:center;justify-content:center;flex-shrink:0;">10</span>
+      <span style="white-space:nowrap;overflow:hidden;text-overflow:ellipsis;">Erdao Liang</span>
+      <span style="color:#58A6FF;font-size:11px;font-weight:600;margin-left:auto;flex-shrink:0;">P3</span>
+    </a>
+  </div>
+</div>
+
+<div id="main">
+  <!-- Cover -->
+  <div style="margin-bottom:28px;">
+    <div style="font-size:32px;font-weight:700;color:#FFA657;margin-bottom:6px;">Lightwheel AI</div>
+    <div style="font-size:18px;color:#F0F6FC;margin-bottom:4px;">Personalized Email Sequences — 10 Contacts</div>
+    <div style="font-size:13px;color:#6E7681;">Anyscale · Sales Development · March 2026 · AV Synthetic Data</div>
+  </div>
+
+  <!-- Proof points -->
+  <div style="border-left:3px solid #FFA657;background:#161B22;padding:14px 18px;margin-bottom:24px;border-radius:0 4px 4px 0;">
+    <div style="font-size:11px;font-weight:600;text-transform:uppercase;letter-spacing:.08em;color:#FFA657;margin-bottom:10px;">Proof Points Reference</div>
+    <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:12px;">
+      <div><div style="color:#FFA657;font-weight:700;font-size:13px;">Uber</div><div style="color:#56D364;font-weight:700;font-size:12px;margin:3px 0;">50% compute savings</div><div style="color:#6E7681;font-size:12px;">GPU+CPU scheduling on heterogeneous cluster</div></div>
+      <div><div style="color:#FFA657;font-weight:700;font-size:13px;">Zoox (Amazon)</div><div style="color:#56D364;font-weight:700;font-size:12px;margin:3px 0;">1,000s of parallel jobs</div><div style="color:#6E7681;font-size:12px;">Fault-tolerant parallel workloads on managed Ray</div></div>
+      <div><div style="color:#FFA657;font-weight:700;font-size:13px;">Physical Intelligence</div><div style="color:#56D364;font-weight:700;font-size:12px;margin:3px 0;">2× faster · 16+ eng freed</div><div style="color:#6E7681;font-size:12px;">Small team, full ML pipeline on Anyscale</div></div>
+      <div><div style="color:#FFA657;font-weight:700;font-size:13px;">Blue River (Deere)</div><div style="color:#56D364;font-weight:700;font-size:12px;margin:3px 0;">24h → 9.5h · 2.5×</div><div style="color:#6E7681;font-size:12px;">Continuous data pipeline, same hardware</div></div>
+    </div>
+  </div>
+
+  <!-- Contact index -->
+  <div style="margin-bottom:28px;">
+    <div style="font-size:11px;font-weight:600;text-transform:uppercase;letter-spacing:.08em;color:#6E7681;margin-bottom:8px;">Contact Index</div>
+    <table>
+      <thead><tr>
+        <th style="width:36px;">#</th>
+        <th>Name</th>
+        <th>Title</th>
+        <th style="width:60px;">Priority</th>
+        <th>Angle</th>
+      </tr></thead>
+      <tbody><tr>
+      <td style="color:#C9D1D9;padding:7px 10px;border-bottom:1px solid #30363D;">1</td>
+      <td style="color:#F0F6FC;font-weight:600;padding:7px 10px;border-bottom:1px solid #30363D;">Steve Xie, Ph.D.</td>
+      <td style="color:#8B949E;padding:7px 10px;border-bottom:1px solid #30363D;">Founder &amp; CEO</td>
+      <td style="color:#F78166;font-weight:700;padding:7px 10px;border-bottom:1px solid #30363D;">P1</td>
+      <td style="color:#FFA657;padding:7px 10px;border-bottom:1px solid #30363D;font-size:12px;">Simulation Scale / AV Infrastructure Growth</td>
+    </tr><tr>
+      <td style="color:#C9D1D9;padding:7px 10px;border-bottom:1px solid #30363D;">2</td>
+      <td style="color:#F0F6FC;font-weight:600;padding:7px 10px;border-bottom:1px solid #30363D;">Jay Yang</td>
+      <td style="color:#8B949E;padding:7px 10px;border-bottom:1px solid #30363D;">Chief Architect (ex-Meta PyTorch)</td>
+      <td style="color:#F78166;font-weight:700;padding:7px 10px;border-bottom:1px solid #30363D;">P1</td>
+      <td style="color:#FFA657;padding:7px 10px;border-bottom:1px solid #30363D;font-size:12px;">Technical Architecture / Managed Ray vs. Internal Platform</td>
+    </tr><tr>
+      <td style="color:#C9D1D9;padding:7px 10px;border-bottom:1px solid #30363D;">3</td>
+      <td style="color:#F0F6FC;font-weight:600;padding:7px 10px;border-bottom:1px solid #30363D;">Wayne Zhang</td>
+      <td style="color:#8B949E;padding:7px 10px;border-bottom:1px solid #30363D;">VP of Solutions for AD</td>
+      <td style="color:#F78166;font-weight:700;padding:7px 10px;border-bottom:1px solid #30363D;">P1</td>
+      <td style="color:#FFA657;padding:7px 10px;border-bottom:1px solid #30363D;font-size:12px;">Customer Requirements / Infrastructure as Platform Differentiator</td>
+    </tr><tr>
+      <td style="color:#C9D1D9;padding:7px 10px;border-bottom:1px solid #30363D;">4</td>
+      <td style="color:#F0F6FC;font-weight:600;padding:7px 10px;border-bottom:1px solid #30363D;">Jonathan Stephens</td>
+      <td style="color:#8B949E;padding:7px 10px;border-bottom:1px solid #30363D;">Chief Evangelist</td>
+      <td style="color:#D29922;font-weight:700;padding:7px 10px;border-bottom:1px solid #30363D;">P2</td>
+      <td style="color:#FFA657;padding:7px 10px;border-bottom:1px solid #30363D;font-size:12px;">Ecosystem / Ray Community + AV Synthetic Data Cross-Pollination</td>
+    </tr><tr>
+      <td style="color:#C9D1D9;padding:7px 10px;border-bottom:1px solid #30363D;">5</td>
+      <td style="color:#F0F6FC;font-weight:600;padding:7px 10px;border-bottom:1px solid #30363D;">Christopher Jiao</td>
+      <td style="color:#8B949E;padding:7px 10px;border-bottom:1px solid #30363D;">Chief of Staff &amp; Head of Biz Strategy</td>
+      <td style="color:#D29922;font-weight:700;padding:7px 10px;border-bottom:1px solid #30363D;">P2</td>
+      <td style="color:#FFA657;padding:7px 10px;border-bottom:1px solid #30363D;font-size:12px;">Strategic Infrastructure / Build vs. Buy at Scale</td>
+    </tr><tr>
+      <td style="color:#C9D1D9;padding:7px 10px;border-bottom:1px solid #30363D;">6</td>
+      <td style="color:#F0F6FC;font-weight:600;padding:7px 10px;border-bottom:1px solid #30363D;">Myles L.</td>
+      <td style="color:#8B949E;padding:7px 10px;border-bottom:1px solid #30363D;">Director of Business Operations</td>
+      <td style="color:#D29922;font-weight:700;padding:7px 10px;border-bottom:1px solid #30363D;">P2</td>
+      <td style="color:#FFA657;padding:7px 10px;border-bottom:1px solid #30363D;font-size:12px;">Compute Cost Efficiency / Operational Overhead Reduction</td>
+    </tr><tr>
+      <td style="color:#C9D1D9;padding:7px 10px;border-bottom:1px solid #30363D;">7</td>
+      <td style="color:#F0F6FC;font-weight:600;padding:7px 10px;border-bottom:1px solid #30363D;">Edward Liu</td>
+      <td style="color:#8B949E;padding:7px 10px;border-bottom:1px solid #30363D;">Director of Sales</td>
+      <td style="color:#D29922;font-weight:700;padding:7px 10px;border-bottom:1px solid #30363D;">P2</td>
+      <td style="color:#FFA657;padding:7px 10px;border-bottom:1px solid #30363D;font-size:12px;">Partnership / Infrastructure as Enterprise Sales Proof Point</td>
+    </tr><tr>
+      <td style="color:#C9D1D9;padding:7px 10px;border-bottom:1px solid #30363D;">8</td>
+      <td style="color:#F0F6FC;font-weight:600;padding:7px 10px;border-bottom:1px solid #30363D;">Huang Yang</td>
+      <td style="color:#8B949E;padding:7px 10px;border-bottom:1px solid #30363D;">Product Manager</td>
+      <td style="color:#58A6FF;font-weight:700;padding:7px 10px;border-bottom:1px solid #30363D;">P3</td>
+      <td style="color:#FFA657;padding:7px 10px;border-bottom:1px solid #30363D;font-size:12px;">Product Velocity / Infrastructure as Roadmap Enabler</td>
+    </tr><tr>
+      <td style="color:#C9D1D9;padding:7px 10px;border-bottom:1px solid #30363D;">9</td>
+      <td style="color:#F0F6FC;font-weight:600;padding:7px 10px;border-bottom:1px solid #30363D;">Yilong Niu</td>
+      <td style="color:#8B949E;padding:7px 10px;border-bottom:1px solid #30363D;">Software Engineer</td>
+      <td style="color:#58A6FF;font-weight:700;padding:7px 10px;border-bottom:1px solid #30363D;">P3</td>
+      <td style="color:#FFA657;padding:7px 10px;border-bottom:1px solid #30363D;font-size:12px;">Developer Experience / Distributed Simulation Without Infra Overhead</td>
+    </tr><tr>
+      <td style="color:#C9D1D9;padding:7px 10px;border-bottom:1px solid #30363D;">10</td>
+      <td style="color:#F0F6FC;font-weight:600;padding:7px 10px;border-bottom:1px solid #30363D;">Erdao Liang</td>
+      <td style="color:#8B949E;padding:7px 10px;border-bottom:1px solid #30363D;">Algorithm Engineer</td>
+      <td style="color:#58A6FF;font-weight:700;padding:7px 10px;border-bottom:1px solid #30363D;">P3</td>
+      <td style="color:#FFA657;padding:7px 10px;border-bottom:1px solid #30363D;font-size:12px;">Algorithm Iteration Speed / Distributed Training on Simulation Data</td>
+    </tr></tbody>
+    </table>
+  </div>
+
+  <hr style="border:none;border-top:1px solid #30363D;margin-bottom:28px;">
+
+  <!-- Contact sections -->
+  
+      <div id="contact-1" style="scroll-margin-top:60px;">
+        <div style="display:flex;align-items:stretch;margin-bottom:14px;border:1px solid #30363D;border-radius:4px;overflow:hidden;">
+          <div style="background:#F78166;width:48px;min-width:48px;display:flex;align-items:center;justify-content:center;font-size:22px;font-weight:700;color:#fff;">1</div>
+          <div style="background:#161B22;flex:1;padding:12px 18px;">
+            <div style="font-size:18px;font-weight:700;color:#F0F6FC;">Steve Xie, Ph.D. <span style="color:#6E7681;font-size:14px;font-weight:400;"> · Founder &amp; CEO</span></div>
+            <div style="margin-top:5px;font-size:12px;">
+              <span style="color:#F78166;font-weight:700;">P1</span>
+              <span style="color:#6E7681;"> · Lightwheel AI · </span>
+              <span style="color:#FFA657;">Simulation Scale / AV Infrastructure Growth</span>
+              <span style="color:#6E7681;"> · Contact 1 of 10</span>
+            </div><div style="margin-top:5px;font-size:12px;color:#8B949E;">📧 <a href="mailto:steve.xie@lightwheel.ai" style="color:#58A6FF;text-decoration:none;">steve.xie@lightwheel.ai</a><span style="font-size:10px;background:rgba(139,148,158,0.1);color:#6E7681;border:1px solid #30363D;border-radius:3px;padding:1px 5px;margin-left:6px;">inferred</span></div>
+          </div>
+        </div>
+        
+        <div style="border:1px solid #30363D;border-top:3px solid #FFA657;border-radius:4px;margin-bottom:12px;overflow:hidden;">
+          <div style="background:#1a1a1a;padding:10px 16px;border-bottom:1px solid #30363D;">
+            <span style="color:#FFA657;font-weight:700;font-size:13px;">Step 1&nbsp;&nbsp;</span>
+            <span style="color:#6E7681;font-size:13px;">Subject: </span>
+            <span style="color:#F0F6FC;font-weight:700;font-size:13px;">Parallel simulation infrastructure at Lightwheel scale</span>
+          </div>
+          <div style="background:#161B22;padding:14px 18px;font-size:14px;color:#C9D1D9;font-family:Arial,sans-serif;line-height:1.7;"><div style="margin-bottom:0;line-height:1.6;">Steve —</div><div style="height:10px"></div><div style="margin-bottom:0;line-height:1.6;">Having come from Cruise and NIO, you know better than most how simulation infrastructure scales — and where it breaks.</div><div style="height:10px"></div><div style="margin-bottom:0;line-height:1.6;">As Lightwheel's synthetic data volumes grow, parallel simulation and distributed training become the compute bottleneck. Zoox runs thousands of parallel simulation jobs on Anyscale with built-in fault tolerance — no custom scheduler, no per-job infra overhead.</div><div style="height:10px"></div><div style="margin-bottom:0;line-height:1.6;">For a founder building toward Cruise-scale simulation volumes, the time to get the compute architecture right is before data volumes force the decision.</div><div style="height:10px"></div><div style="margin-bottom:0;line-height:1.6;">Worth 20 minutes to share what the managed Ray architecture looks like for your workload?</div><div style="height:10px"></div><div style="margin-bottom:0;line-height:1.6;">Dylan</div></div>
+          
+        <div style="background:#0E1408;border-top:1px solid #30363D;padding:10px 16px;font-size:13px;color:#FFA657;font-style:italic;">📌 Proof: Zoox — 1,000s of parallel simulation jobs with fault-tolerant Ray clusters on Anyscale</div>
+        </div>
+        <div style="border:1px solid #30363D;border-top:3px solid #FFA657;border-radius:4px;margin-bottom:12px;overflow:hidden;">
+          <div style="background:#1a1a1a;padding:10px 16px;border-bottom:1px solid #30363D;">
+            <span style="color:#FFA657;font-weight:700;font-size:13px;">Step 2&nbsp;&nbsp;</span>
+            <span style="color:#6E7681;font-size:13px;">Subject: </span>
+            <span style="color:#F0F6FC;font-weight:700;font-size:13px;">Re: simulation infrastructure at Lightwheel scale</span>
+          </div>
+          <div style="background:#161B22;padding:14px 18px;font-size:14px;color:#C9D1D9;font-family:Arial,sans-serif;line-height:1.7;"><div style="margin-bottom:0;line-height:1.6;">Steve —</div><div style="height:10px"></div><div style="margin-bottom:0;line-height:1.6;">Following up briefly.</div><div style="height:10px"></div><div style="margin-bottom:0;line-height:1.6;">The pattern we see with AV simulation companies: they start with a custom orchestration layer that works fine at small scale, then it becomes a full-time engineering burden as synthetic data volumes grow. The inflection point is always earlier than expected.</div><div style="height:10px"></div><div style="margin-bottom:0;line-height:1.6;">Managed Anyscale eliminates that ceiling — autoscaling parallel simulation clusters, fault tolerance without custom recovery logic, and distributed training on simulation-derived datasets in one platform.</div><div style="height:10px"></div><div style="margin-bottom:0;line-height:1.6;">Happy to share a brief technical overview if useful. Would that be worth a look?</div><div style="height:10px"></div><div style="margin-bottom:0;line-height:1.6;">Dylan</div></div>
+          
+        </div>
+        <div style="border:1px solid #30363D;border-top:3px solid #FFA657;border-radius:4px;margin-bottom:12px;overflow:hidden;">
+          <div style="background:#1a1a1a;padding:10px 16px;border-bottom:1px solid #30363D;">
+            <span style="color:#FFA657;font-weight:700;font-size:13px;">Step 3&nbsp;&nbsp;</span>
+            <span style="color:#6E7681;font-size:13px;">Subject: </span>
+            <span style="color:#F0F6FC;font-weight:700;font-size:13px;">What the AV simulation + training architecture looks like</span>
+          </div>
+          <div style="background:#161B22;padding:14px 18px;font-size:14px;color:#C9D1D9;font-family:Arial,sans-serif;line-height:1.7;"><div style="margin-bottom:0;line-height:1.6;">Steve —</div><div style="height:10px"></div><div style="margin-bottom:0;line-height:1.6;">One more note.</div><div style="height:10px"></div><div style="margin-bottom:0;line-height:1.6;">Uber reduced compute spend by 50% after migrating ML pipelines to Anyscale. Blue River cut their training pipeline from 24 hours to 9.5. These aren't generic ML teams — they have the same simulation-to-training structure Lightwheel is building.</div><div style="height:10px"></div><div style="margin-bottom:0;line-height:1.6;">The combination of parallel physics simulation and distributed training on simulation-derived data is one of the strongest Ray use cases we see. For a CEO building toward scale in both dimensions, it's worth understanding what the architecture looks like before you're locked into a custom approach.</div><div style="height:10px"></div><div style="margin-bottom:0;line-height:1.6;">20 minutes this week?</div><div style="height:10px"></div><div style="margin-bottom:0;line-height:1.6;">Dylan</div></div>
+          
+        <div style="background:#0E1408;border-top:1px solid #30363D;padding:10px 16px;font-size:13px;color:#FFA657;font-style:italic;">📌 Proof: Uber — 50% compute savings on ML pipelines; Blue River — 24h → 9.5h training pipeline</div>
+        </div>
+        <div style="border:1px solid #30363D;border-top:3px solid #FFA657;border-radius:4px;margin-bottom:12px;overflow:hidden;">
+          <div style="background:#1a1a1a;padding:10px 16px;border-bottom:1px solid #30363D;">
+            <span style="color:#FFA657;font-weight:700;font-size:13px;">Step 4&nbsp;&nbsp;</span>
+            <span style="color:#6E7681;font-size:13px;">Subject: </span>
+            <span style="color:#F0F6FC;font-weight:700;font-size:13px;">Last note — Lightwheel simulation infrastructure</span>
+          </div>
+          <div style="background:#161B22;padding:14px 18px;font-size:14px;color:#C9D1D9;font-family:Arial,sans-serif;line-height:1.7;"><div style="margin-bottom:0;line-height:1.6;">Steve —</div><div style="height:10px"></div><div style="margin-bottom:0;line-height:1.6;">Last one from me.</div><div style="height:10px"></div><div style="margin-bottom:0;line-height:1.6;">Zoox: 1,000s of parallel simulation jobs at scale. Uber: 50% compute savings. Blue River: 2.5× training pipeline speedup. Physical Intelligence: 16 engineers freed from infra.</div><div style="height:10px"></div><div style="margin-bottom:0;line-height:1.6;">All directly applicable to the simulation + training stack Lightwheel is building. If the compute architecture conversation is worth having — happy to connect whenever the timing is right.</div><div style="height:10px"></div><div style="margin-bottom:0;line-height:1.6;">Dylan</div></div>
+          
+        <div style="background:#0E1408;border-top:1px solid #30363D;padding:10px 16px;font-size:13px;color:#FFA657;font-style:italic;">📌 Proof: Zoox (parallel sim) + Uber (50%) + Blue River (2.5×) + Physical Intelligence (16 eng freed)</div>
+        </div>
+      </div><hr style="border:none;border-top:1px solid #30363D;margin:24px 0;">
+      <div id="contact-2" style="scroll-margin-top:60px;">
+        <div style="display:flex;align-items:stretch;margin-bottom:14px;border:1px solid #30363D;border-radius:4px;overflow:hidden;">
+          <div style="background:#F78166;width:48px;min-width:48px;display:flex;align-items:center;justify-content:center;font-size:22px;font-weight:700;color:#fff;">2</div>
+          <div style="background:#161B22;flex:1;padding:12px 18px;">
+            <div style="font-size:18px;font-weight:700;color:#F0F6FC;">Jay Yang <span style="color:#6E7681;font-size:14px;font-weight:400;"> · Chief Architect (ex-Meta PyTorch)</span></div>
+            <div style="margin-top:5px;font-size:12px;">
+              <span style="color:#F78166;font-weight:700;">P1</span>
+              <span style="color:#6E7681;"> · Lightwheel AI · </span>
+              <span style="color:#FFA657;">Technical Architecture / Managed Ray vs. Internal Platform</span>
+              <span style="color:#6E7681;"> · Contact 2 of 10</span>
+            </div><div style="margin-top:5px;font-size:12px;color:#8B949E;">📧 <a href="mailto:jay.yang@lightwheel.ai" style="color:#58A6FF;text-decoration:none;">jay.yang@lightwheel.ai</a><span style="font-size:10px;background:rgba(139,148,158,0.1);color:#6E7681;border:1px solid #30363D;border-radius:3px;padding:1px 5px;margin-left:6px;">inferred</span></div>
+          </div>
+        </div>
+        
+        <div style="border:1px solid #30363D;border-top:3px solid #FFA657;border-radius:4px;margin-bottom:12px;overflow:hidden;">
+          <div style="background:#1a1a1a;padding:10px 16px;border-bottom:1px solid #30363D;">
+            <span style="color:#FFA657;font-weight:700;font-size:13px;">Step 1&nbsp;&nbsp;</span>
+            <span style="color:#6E7681;font-size:13px;">Subject: </span>
+            <span style="color:#F0F6FC;font-weight:700;font-size:13px;">Anyscale as managed Ray — architecture conversation</span>
+          </div>
+          <div style="background:#161B22;padding:14px 18px;font-size:14px;color:#C9D1D9;font-family:Arial,sans-serif;line-height:1.7;"><div style="margin-bottom:0;line-height:1.6;">Jay —</div><div style="height:10px"></div><div style="margin-bottom:0;line-height:1.6;">You were on the PyTorch core team at Meta — you know the distributed training architecture at the deepest level, and you've seen what it takes to build and maintain an internal Ray platform at scale.</div><div style="height:10px"></div><div style="margin-bottom:0;line-height:1.6;">The question for Lightwheel: build and maintain the Ray orchestration layer internally, or run on Anyscale and redirect those engineering cycles to simulation and model work?</div><div style="height:10px"></div><div style="margin-bottom:0;line-height:1.6;">Physical Intelligence freed 16 engineers from infrastructure management using Anyscale — and doubled their model iteration speed. For a team where every engineer hour matters, that's the architecture tradeoff worth examining.</div><div style="height:10px"></div><div style="margin-bottom:0;line-height:1.6;">Happy to go purely technical — no slides. Would a 30-minute architecture conversation be useful?</div><div style="height:10px"></div><div style="margin-bottom:0;line-height:1.6;">Dylan</div></div>
+          
+        <div style="background:#0E1408;border-top:1px solid #30363D;padding:10px 16px;font-size:13px;color:#FFA657;font-style:italic;">📌 Proof: Physical Intelligence — 16+ engineers freed from infra, 2× model iteration speed on Anyscale</div>
+        </div>
+        <div style="border:1px solid #30363D;border-top:3px solid #FFA657;border-radius:4px;margin-bottom:12px;overflow:hidden;">
+          <div style="background:#1a1a1a;padding:10px 16px;border-bottom:1px solid #30363D;">
+            <span style="color:#FFA657;font-weight:700;font-size:13px;">Step 2&nbsp;&nbsp;</span>
+            <span style="color:#6E7681;font-size:13px;">Subject: </span>
+            <span style="color:#F0F6FC;font-weight:700;font-size:13px;">Re: what Meta's internal Ray platform looks like as a managed service</span>
+          </div>
+          <div style="background:#161B22;padding:14px 18px;font-size:14px;color:#C9D1D9;font-family:Arial,sans-serif;line-height:1.7;"><div style="margin-bottom:0;line-height:1.6;">Jay —</div><div style="height:10px"></div><div style="margin-bottom:0;line-height:1.6;">Following up.</div><div style="height:10px"></div><div style="margin-bottom:0;line-height:1.6;">You've built the internal infrastructure. You know the surface area: cluster management, autoscaling policies, fault tolerance, job scheduling, monitoring, and the endless edge cases that eat engineering time. Anyscale is that platform as a managed service — the full Ray ecosystem, operated by the people who build Ray.</div><div style="height:10px"></div><div style="margin-bottom:0;line-height:1.6;">For Lightwheel's workload — massive parallel simulation environments plus distributed training on simulation-derived data — that's a significant amount of infra complexity that doesn't need to live in your stack.</div><div style="height:10px"></div><div style="margin-bottom:0;line-height:1.6;">Would a technical deep-dive on the simulation + training architecture be worth 30 minutes?</div><div style="height:10px"></div><div style="margin-bottom:0;line-height:1.6;">Dylan</div></div>
+          
+        </div>
+        <div style="border:1px solid #30363D;border-top:3px solid #FFA657;border-radius:4px;margin-bottom:12px;overflow:hidden;">
+          <div style="background:#1a1a1a;padding:10px 16px;border-bottom:1px solid #30363D;">
+            <span style="color:#FFA657;font-weight:700;font-size:13px;">Step 3&nbsp;&nbsp;</span>
+            <span style="color:#6E7681;font-size:13px;">Subject: </span>
+            <span style="color:#F0F6FC;font-weight:700;font-size:13px;">Simulation + training architecture for AV synthetic data</span>
+          </div>
+          <div style="background:#161B22;padding:14px 18px;font-size:14px;color:#C9D1D9;font-family:Arial,sans-serif;line-height:1.7;"><div style="margin-bottom:0;line-height:1.6;">Jay —</div><div style="height:10px"></div><div style="margin-bottom:0;line-height:1.6;">One more note.</div><div style="height:10px"></div><div style="margin-bottom:0;line-height:1.6;">Zoox runs thousands of parallel simulation jobs on Anyscale — the same class of workload Lightwheel runs for synthetic data generation. Blue River cut their training pipeline from 24 hours to 9.5 hours on the same platform.</div><div style="height:10px"></div><div style="margin-bottom:0;line-height:1.6;">The parallel simulation and distributed training combination is exactly what Ray was designed for. For a Chief Architect evaluating whether to build or buy the orchestration layer, the engineering cost comparison tends to be straightforward.</div><div style="height:10px"></div><div style="margin-bottom:0;line-height:1.6;">Happy to share the architecture specifics end-to-end. Worth 30 minutes?</div><div style="height:10px"></div><div style="margin-bottom:0;line-height:1.6;">Dylan</div></div>
+          
+        <div style="background:#0E1408;border-top:1px solid #30363D;padding:10px 16px;font-size:13px;color:#FFA657;font-style:italic;">📌 Proof: Zoox — 1,000s parallel sim jobs; Blue River — 24h → 9.5h training pipeline on Anyscale</div>
+        </div>
+        <div style="border:1px solid #30363D;border-top:3px solid #FFA657;border-radius:4px;margin-bottom:12px;overflow:hidden;">
+          <div style="background:#1a1a1a;padding:10px 16px;border-bottom:1px solid #30363D;">
+            <span style="color:#FFA657;font-weight:700;font-size:13px;">Step 4&nbsp;&nbsp;</span>
+            <span style="color:#6E7681;font-size:13px;">Subject: </span>
+            <span style="color:#F0F6FC;font-weight:700;font-size:13px;">Last note — Ray architecture for Lightwheel</span>
+          </div>
+          <div style="background:#161B22;padding:14px 18px;font-size:14px;color:#C9D1D9;font-family:Arial,sans-serif;line-height:1.7;"><div style="margin-bottom:0;line-height:1.6;">Jay —</div><div style="height:10px"></div><div style="margin-bottom:0;line-height:1.6;">Last note from me.</div><div style="height:10px"></div><div style="margin-bottom:0;line-height:1.6;">If the distributed infrastructure question is already solved at Lightwheel, great. If it's still an open design decision — or if you're curious how other teams with your exact workload profile have structured their Ray pipelines — happy to compare architectures. No sales motion, just a technical conversation.</div><div style="height:10px"></div><div style="margin-bottom:0;line-height:1.6;">Dylan</div></div>
+          
+        <div style="background:#0E1408;border-top:1px solid #30363D;padding:10px 16px;font-size:13px;color:#FFA657;font-style:italic;">📌 Proof: Physical Intelligence (2×, 16 eng freed) + Zoox (parallel sim) + Blue River (2.5×)</div>
+        </div>
+      </div><hr style="border:none;border-top:1px solid #30363D;margin:24px 0;">
+      <div id="contact-3" style="scroll-margin-top:60px;">
+        <div style="display:flex;align-items:stretch;margin-bottom:14px;border:1px solid #30363D;border-radius:4px;overflow:hidden;">
+          <div style="background:#F78166;width:48px;min-width:48px;display:flex;align-items:center;justify-content:center;font-size:22px;font-weight:700;color:#fff;">3</div>
+          <div style="background:#161B22;flex:1;padding:12px 18px;">
+            <div style="font-size:18px;font-weight:700;color:#F0F6FC;">Wayne Zhang <span style="color:#6E7681;font-size:14px;font-weight:400;"> · VP of Solutions for AD</span></div>
+            <div style="margin-top:5px;font-size:12px;">
+              <span style="color:#F78166;font-weight:700;">P1</span>
+              <span style="color:#6E7681;"> · Lightwheel AI · </span>
+              <span style="color:#FFA657;">Customer Requirements / Infrastructure as Platform Differentiator</span>
+              <span style="color:#6E7681;"> · Contact 3 of 10</span>
+            </div><div style="margin-top:5px;font-size:12px;color:#8B949E;">📧 <a href="mailto:wayne.zhang@lightwheel.ai" style="color:#58A6FF;text-decoration:none;">wayne.zhang@lightwheel.ai</a><span style="font-size:10px;background:rgba(139,148,158,0.1);color:#6E7681;border:1px solid #30363D;border-radius:3px;padding:1px 5px;margin-left:6px;">inferred</span></div>
+          </div>
+        </div>
+        
+        <div style="border:1px solid #30363D;border-top:3px solid #FFA657;border-radius:4px;margin-bottom:12px;overflow:hidden;">
+          <div style="background:#1a1a1a;padding:10px 16px;border-bottom:1px solid #30363D;">
+            <span style="color:#FFA657;font-weight:700;font-size:13px;">Step 1&nbsp;&nbsp;</span>
+            <span style="color:#6E7681;font-size:13px;">Subject: </span>
+            <span style="color:#F0F6FC;font-weight:700;font-size:13px;">Infrastructure scalability as a customer differentiator</span>
+          </div>
+          <div style="background:#161B22;padding:14px 18px;font-size:14px;color:#C9D1D9;font-family:Arial,sans-serif;line-height:1.7;"><div style="margin-bottom:0;line-height:1.6;">Wayne —</div><div style="height:10px"></div><div style="margin-bottom:0;line-height:1.6;">When Lightwheel's AV customers evaluate synthetic data platforms, infrastructure reliability and scale are increasingly part of the technical diligence conversation.</div><div style="height:10px"></div><div style="margin-bottom:0;line-height:1.6;">Enterprise AV teams want to know: can the platform keep up as their data requirements grow? The answer is more credible when the compute layer is one that AV peers like Zoox already run at scale.</div><div style="height:10px"></div><div style="margin-bottom:0;line-height:1.6;">Anyscale could be part of how Lightwheel tells that story — both as operational infrastructure and as a talking point with customers who care about what's behind the synthetic data pipeline.</div><div style="height:10px"></div><div style="margin-bottom:0;line-height:1.6;">Worth 20 minutes to explore what that looks like from a solutions perspective?</div><div style="height:10px"></div><div style="margin-bottom:0;line-height:1.6;">Dylan</div></div>
+          
+        <div style="background:#0E1408;border-top:1px solid #30363D;padding:10px 16px;font-size:13px;color:#FFA657;font-style:italic;">📌 Proof: Zoox — 1,000s of parallel simulation jobs with fault-tolerant Ray clusters on Anyscale</div>
+        </div>
+        <div style="border:1px solid #30363D;border-top:3px solid #FFA657;border-radius:4px;margin-bottom:12px;overflow:hidden;">
+          <div style="background:#1a1a1a;padding:10px 16px;border-bottom:1px solid #30363D;">
+            <span style="color:#FFA657;font-weight:700;font-size:13px;">Step 2&nbsp;&nbsp;</span>
+            <span style="color:#6E7681;font-size:13px;">Subject: </span>
+            <span style="color:#F0F6FC;font-weight:700;font-size:13px;">Re: infrastructure credibility in AV enterprise sales</span>
+          </div>
+          <div style="background:#161B22;padding:14px 18px;font-size:14px;color:#C9D1D9;font-family:Arial,sans-serif;line-height:1.7;"><div style="margin-bottom:0;line-height:1.6;">Wayne —</div><div style="height:10px"></div><div style="margin-bottom:0;line-height:1.6;">Following up.</div><div style="height:10px"></div><div style="margin-bottom:0;line-height:1.6;">The angle that resonates with VP Solutions counterparts at similar companies: Anyscale isn't just an infra vendor — it's a proof point for customers evaluating the platform's scalability. When Lightwheel can point to shared infrastructure with Zoox and other AV leaders, that's credibility in enterprise procurement.</div><div style="height:10px"></div><div style="margin-bottom:0;line-height:1.6;">For a VP of Solutions managing enterprise customer conversations, that kind of validated infrastructure story can close questions before they become objections.</div><div style="height:10px"></div><div style="margin-bottom:0;line-height:1.6;">Happy to share more on how that partnership angle has worked for other teams. Would a quick call be useful?</div><div style="height:10px"></div><div style="margin-bottom:0;line-height:1.6;">Dylan</div></div>
+          
+        </div>
+        <div style="border:1px solid #30363D;border-top:3px solid #FFA657;border-radius:4px;margin-bottom:12px;overflow:hidden;">
+          <div style="background:#1a1a1a;padding:10px 16px;border-bottom:1px solid #30363D;">
+            <span style="color:#FFA657;font-weight:700;font-size:13px;">Step 3&nbsp;&nbsp;</span>
+            <span style="color:#6E7681;font-size:13px;">Subject: </span>
+            <span style="color:#F0F6FC;font-weight:700;font-size:13px;">What enterprise AV customers are asking about infrastructure</span>
+          </div>
+          <div style="background:#161B22;padding:14px 18px;font-size:14px;color:#C9D1D9;font-family:Arial,sans-serif;line-height:1.7;"><div style="margin-bottom:0;line-height:1.6;">Wayne —</div><div style="height:10px"></div><div style="margin-bottom:0;line-height:1.6;">One more note.</div><div style="height:10px"></div><div style="margin-bottom:0;line-height:1.6;">Blue River cut their model training pipeline from 24 hours to 9.5 hours on Anyscale. Uber cut compute spend by 50%. These are the numbers that show up in enterprise procurement conversations — and they're directly applicable to the infrastructure behind Lightwheel's platform.</div><div style="height:10px"></div><div style="margin-bottom:0;line-height:1.6;">For enterprise AV OEM or Tier 1 deals, having validated infrastructure performance numbers from peers in the space is a real differentiator at the solutions level.</div><div style="height:10px"></div><div style="margin-bottom:0;line-height:1.6;">If this is relevant to how you're positioning the platform, happy to explore what it looks like together. 20 minutes?</div><div style="height:10px"></div><div style="margin-bottom:0;line-height:1.6;">Dylan</div></div>
+          
+        <div style="background:#0E1408;border-top:1px solid #30363D;padding:10px 16px;font-size:13px;color:#FFA657;font-style:italic;">📌 Proof: Blue River — 24h → 9.5h pipeline; Uber — 50% compute savings on Anyscale</div>
+        </div>
+        <div style="border:1px solid #30363D;border-top:3px solid #FFA657;border-radius:4px;margin-bottom:12px;overflow:hidden;">
+          <div style="background:#1a1a1a;padding:10px 16px;border-bottom:1px solid #30363D;">
+            <span style="color:#FFA657;font-weight:700;font-size:13px;">Step 4&nbsp;&nbsp;</span>
+            <span style="color:#6E7681;font-size:13px;">Subject: </span>
+            <span style="color:#F0F6FC;font-weight:700;font-size:13px;">Last note — Anyscale for Lightwheel's enterprise story</span>
+          </div>
+          <div style="background:#161B22;padding:14px 18px;font-size:14px;color:#C9D1D9;font-family:Arial,sans-serif;line-height:1.7;"><div style="margin-bottom:0;line-height:1.6;">Wayne —</div><div style="height:10px"></div><div style="margin-bottom:0;line-height:1.6;">Last one from me.</div><div style="height:10px"></div><div style="margin-bottom:0;line-height:1.6;">If the infrastructure and platform scalability story is already sorted for enterprise customers, no need to respond. If there's an angle worth exploring on how Anyscale strengthens Lightwheel's platform narrative — happy to connect whenever the timing makes sense.</div><div style="height:10px"></div><div style="margin-bottom:0;line-height:1.6;">Dylan</div></div>
+          
+        <div style="background:#0E1408;border-top:1px solid #30363D;padding:10px 16px;font-size:13px;color:#FFA657;font-style:italic;">📌 Proof: Zoox (AV sim at scale) + Blue River (2.5×) + Uber (50%) — enterprise-validated</div>
+        </div>
+      </div><hr style="border:none;border-top:1px solid #30363D;margin:24px 0;">
+      <div id="contact-4" style="scroll-margin-top:60px;">
+        <div style="display:flex;align-items:stretch;margin-bottom:14px;border:1px solid #30363D;border-radius:4px;overflow:hidden;">
+          <div style="background:#D29922;width:48px;min-width:48px;display:flex;align-items:center;justify-content:center;font-size:22px;font-weight:700;color:#fff;">4</div>
+          <div style="background:#161B22;flex:1;padding:12px 18px;">
+            <div style="font-size:18px;font-weight:700;color:#F0F6FC;">Jonathan Stephens <span style="color:#6E7681;font-size:14px;font-weight:400;"> · Chief Evangelist</span></div>
+            <div style="margin-top:5px;font-size:12px;">
+              <span style="color:#D29922;font-weight:700;">P2</span>
+              <span style="color:#6E7681;"> · Lightwheel AI · </span>
+              <span style="color:#FFA657;">Ecosystem / Ray Community + AV Synthetic Data Cross-Pollination</span>
+              <span style="color:#6E7681;"> · Contact 4 of 10</span>
+            </div><div style="margin-top:5px;font-size:12px;color:#8B949E;">📧 <a href="mailto:jonathan.stephens@lightwheel.ai" style="color:#58A6FF;text-decoration:none;">jonathan.stephens@lightwheel.ai</a> &nbsp;·&nbsp; 📞 +1-404-333-8417<span style="font-size:10px;background:rgba(139,148,158,0.1);color:#6E7681;border:1px solid #30363D;border-radius:3px;padding:1px 5px;margin-left:6px;">inferred</span></div>
+          </div>
+        </div>
+        
+        <div style="border:1px solid #30363D;border-top:3px solid #FFA657;border-radius:4px;margin-bottom:12px;overflow:hidden;">
+          <div style="background:#1a1a1a;padding:10px 16px;border-bottom:1px solid #30363D;">
+            <span style="color:#FFA657;font-weight:700;font-size:13px;">Step 1&nbsp;&nbsp;</span>
+            <span style="color:#6E7681;font-size:13px;">Subject: </span>
+            <span style="color:#F0F6FC;font-weight:700;font-size:13px;">Ray community + AV simulation — natural overlap?</span>
+          </div>
+          <div style="background:#161B22;padding:14px 18px;font-size:14px;color:#C9D1D9;font-family:Arial,sans-serif;line-height:1.7;"><div style="margin-bottom:0;line-height:1.6;">Jonathan —</div><div style="height:10px"></div><div style="margin-bottom:0;line-height:1.6;">As Lightwheel's Chief Evangelist, you're thinking about where the company shows up in the broader AV and embodied AI ecosystem.</div><div style="height:10px"></div><div style="margin-bottom:0;line-height:1.6;">The Ray open-source community is one of the most active ML infrastructure communities — heavily represented by AV, robotics, and simulation practitioners. Zoox, Physical Intelligence, and others in Lightwheel's adjacent space are active contributors and users. Anyscale sits at the center of that community.</div><div style="height:10px"></div><div style="margin-bottom:0;line-height:1.6;">There could be a natural intersection — Lightwheel presence in Ray community channels, joint thought leadership on AV synthetic data + distributed compute, or co-presence at Ray Summit.</div><div style="height:10px"></div><div style="margin-bottom:0;line-height:1.6;">Worth a conversation to see if there's a community or partnership angle that makes sense?</div><div style="height:10px"></div><div style="margin-bottom:0;line-height:1.6;">Dylan</div></div>
+          
+        </div>
+        <div style="border:1px solid #30363D;border-top:3px solid #FFA657;border-radius:4px;margin-bottom:12px;overflow:hidden;">
+          <div style="background:#1a1a1a;padding:10px 16px;border-bottom:1px solid #30363D;">
+            <span style="color:#FFA657;font-weight:700;font-size:13px;">Step 2&nbsp;&nbsp;</span>
+            <span style="color:#6E7681;font-size:13px;">Subject: </span>
+            <span style="color:#F0F6FC;font-weight:700;font-size:13px;">Re: Ray community overlap with Lightwheel's audience</span>
+          </div>
+          <div style="background:#161B22;padding:14px 18px;font-size:14px;color:#C9D1D9;font-family:Arial,sans-serif;line-height:1.7;"><div style="margin-bottom:0;line-height:1.6;">Jonathan —</div><div style="height:10px"></div><div style="margin-bottom:0;line-height:1.6;">Quick follow-up.</div><div style="height:10px"></div><div style="margin-bottom:0;line-height:1.6;">The overlap between the Ray community and Lightwheel's audience — AV engineers, embodied AI teams, simulation practitioners — is real and growing. These are the same people thinking deeply about synthetic data pipelines and distributed training.</div><div style="height:10px"></div><div style="margin-bottom:0;line-height:1.6;">A joint blog post, a talk at Ray Summit, or even an informal co-marketing arrangement with Anyscale could put Lightwheel in front of a highly relevant technical audience.</div><div style="height:10px"></div><div style="margin-bottom:0;line-height:1.6;">Happy to explore what a lightweight community partnership could look like. Would a quick call be useful?</div><div style="height:10px"></div><div style="margin-bottom:0;line-height:1.6;">Dylan</div></div>
+          
+        </div>
+        <div style="border:1px solid #30363D;border-top:3px solid #FFA657;border-radius:4px;margin-bottom:12px;overflow:hidden;">
+          <div style="background:#1a1a1a;padding:10px 16px;border-bottom:1px solid #30363D;">
+            <span style="color:#FFA657;font-weight:700;font-size:13px;">Step 3&nbsp;&nbsp;</span>
+            <span style="color:#6E7681;font-size:13px;">Subject: </span>
+            <span style="color:#F0F6FC;font-weight:700;font-size:13px;">Joint visibility in the AV + embodied AI community</span>
+          </div>
+          <div style="background:#161B22;padding:14px 18px;font-size:14px;color:#C9D1D9;font-family:Arial,sans-serif;line-height:1.7;"><div style="margin-bottom:0;line-height:1.6;">Jonathan —</div><div style="height:10px"></div><div style="margin-bottom:0;line-height:1.6;">One more note.</div><div style="height:10px"></div><div style="margin-bottom:0;line-height:1.6;">Anyscale sponsors and participates in Ray Summit and related AI infrastructure venues. The AV and embodied AI community there — Zoox, Physical Intelligence, and similar teams — is exactly Lightwheel's peer and customer set.</div><div style="height:10px"></div><div style="margin-bottom:0;line-height:1.6;">The content angle could be as simple as Lightwheel sharing a perspective on AV synthetic data at scale in a venue where that audience is already listening.</div><div style="height:10px"></div><div style="margin-bottom:0;line-height:1.6;">Worth 20 minutes to see if there's something worth building?</div><div style="height:10px"></div><div style="margin-bottom:0;line-height:1.6;">Dylan</div></div>
+          
+        </div>
+        <div style="border:1px solid #30363D;border-top:3px solid #FFA657;border-radius:4px;margin-bottom:12px;overflow:hidden;">
+          <div style="background:#1a1a1a;padding:10px 16px;border-bottom:1px solid #30363D;">
+            <span style="color:#FFA657;font-weight:700;font-size:13px;">Step 4&nbsp;&nbsp;</span>
+            <span style="color:#6E7681;font-size:13px;">Subject: </span>
+            <span style="color:#F0F6FC;font-weight:700;font-size:13px;">Last note — community + ecosystem angle</span>
+          </div>
+          <div style="background:#161B22;padding:14px 18px;font-size:14px;color:#C9D1D9;font-family:Arial,sans-serif;line-height:1.7;"><div style="margin-bottom:0;line-height:1.6;">Jonathan —</div><div style="height:10px"></div><div style="margin-bottom:0;line-height:1.6;">Last one from me.</div><div style="height:10px"></div><div style="margin-bottom:0;line-height:1.6;">If the community and ecosystem angle isn't the right conversation right now, totally understand. If Lightwheel is thinking about growing its presence in the AV and embodied AI infrastructure space, the Ray community is a natural venue — and happy to explore what that looks like with Anyscale.</div><div style="height:10px"></div><div style="margin-bottom:0;line-height:1.6;">Dylan</div></div>
+          
+        </div>
+      </div><hr style="border:none;border-top:1px solid #30363D;margin:24px 0;">
+      <div id="contact-5" style="scroll-margin-top:60px;">
+        <div style="display:flex;align-items:stretch;margin-bottom:14px;border:1px solid #30363D;border-radius:4px;overflow:hidden;">
+          <div style="background:#D29922;width:48px;min-width:48px;display:flex;align-items:center;justify-content:center;font-size:22px;font-weight:700;color:#fff;">5</div>
+          <div style="background:#161B22;flex:1;padding:12px 18px;">
+            <div style="font-size:18px;font-weight:700;color:#F0F6FC;">Christopher Jiao <span style="color:#6E7681;font-size:14px;font-weight:400;"> · Chief of Staff &amp; Head of Biz Strategy</span></div>
+            <div style="margin-top:5px;font-size:12px;">
+              <span style="color:#D29922;font-weight:700;">P2</span>
+              <span style="color:#6E7681;"> · Lightwheel AI · </span>
+              <span style="color:#FFA657;">Strategic Infrastructure / Build vs. Buy at Scale</span>
+              <span style="color:#6E7681;"> · Contact 5 of 10</span>
+            </div><div style="margin-top:5px;font-size:12px;color:#8B949E;">📧 <a href="mailto:christopher.jiao@lightwheel.ai" style="color:#58A6FF;text-decoration:none;">christopher.jiao@lightwheel.ai</a><span style="font-size:10px;background:rgba(139,148,158,0.1);color:#6E7681;border:1px solid #30363D;border-radius:3px;padding:1px 5px;margin-left:6px;">inferred</span></div>
+          </div>
+        </div>
+        
+        <div style="border:1px solid #30363D;border-top:3px solid #FFA657;border-radius:4px;margin-bottom:12px;overflow:hidden;">
+          <div style="background:#1a1a1a;padding:10px 16px;border-bottom:1px solid #30363D;">
+            <span style="color:#FFA657;font-weight:700;font-size:13px;">Step 1&nbsp;&nbsp;</span>
+            <span style="color:#6E7681;font-size:13px;">Subject: </span>
+            <span style="color:#F0F6FC;font-weight:700;font-size:13px;">Infrastructure strategy as Lightwheel scales</span>
+          </div>
+          <div style="background:#161B22;padding:14px 18px;font-size:14px;color:#C9D1D9;font-family:Arial,sans-serif;line-height:1.7;"><div style="margin-bottom:0;line-height:1.6;">Christopher —</div><div style="height:10px"></div><div style="margin-bottom:0;line-height:1.6;">As Chief of Staff and Head of Biz Strategy, you have visibility across Lightwheel's priorities and growth trajectory.</div><div style="height:10px"></div><div style="margin-bottom:0;line-height:1.6;">One decision that surfaces consistently as AV simulation companies scale: at what point does custom infrastructure become a drag on engineering velocity? The teams that get the answer right early scale faster with smaller teams.</div><div style="height:10px"></div><div style="margin-bottom:0;line-height:1.6;">Physical Intelligence freed 16 engineers from infrastructure management using Anyscale — and doubled their model iteration speed. Zoox runs thousands of parallel simulation jobs without a dedicated infra team.</div><div style="height:10px"></div><div style="margin-bottom:0;line-height:1.6;">Worth a brief conversation to see if the timing is right for Lightwheel?</div><div style="height:10px"></div><div style="margin-bottom:0;line-height:1.6;">Dylan</div></div>
+          
+        <div style="background:#0E1408;border-top:1px solid #30363D;padding:10px 16px;font-size:13px;color:#FFA657;font-style:italic;">📌 Proof: Physical Intelligence — 16+ engineers freed, 2× iteration speed; Zoox — 1,000s parallel jobs</div>
+        </div>
+        <div style="border:1px solid #30363D;border-top:3px solid #FFA657;border-radius:4px;margin-bottom:12px;overflow:hidden;">
+          <div style="background:#1a1a1a;padding:10px 16px;border-bottom:1px solid #30363D;">
+            <span style="color:#FFA657;font-weight:700;font-size:13px;">Step 2&nbsp;&nbsp;</span>
+            <span style="color:#6E7681;font-size:13px;">Subject: </span>
+            <span style="color:#F0F6FC;font-weight:700;font-size:13px;">Re: build vs. buy for distributed compute infrastructure</span>
+          </div>
+          <div style="background:#161B22;padding:14px 18px;font-size:14px;color:#C9D1D9;font-family:Arial,sans-serif;line-height:1.7;"><div style="margin-bottom:0;line-height:1.6;">Christopher —</div><div style="height:10px"></div><div style="margin-bottom:0;line-height:1.6;">Quick follow-up.</div><div style="height:10px"></div><div style="margin-bottom:0;line-height:1.6;">The strategic case is straightforward: at Lightwheel's stage, every engineering hour spent on infrastructure orchestration is an hour not spent on simulation quality, model performance, or customer deliverables.</div><div style="height:10px"></div><div style="margin-bottom:0;line-height:1.6;">Anyscale eliminates the infra overhead for distributed compute — the backbone of everything Lightwheel builds. The build vs. buy math tends to be clear once you map engineering time to actual simulation volumes.</div><div style="height:10px"></div><div style="margin-bottom:0;line-height:1.6;">Happy to send a brief overview or get on a call. What works better?</div><div style="height:10px"></div><div style="margin-bottom:0;line-height:1.6;">Dylan</div></div>
+          
+        </div>
+        <div style="border:1px solid #30363D;border-top:3px solid #FFA657;border-radius:4px;margin-bottom:12px;overflow:hidden;">
+          <div style="background:#1a1a1a;padding:10px 16px;border-bottom:1px solid #30363D;">
+            <span style="color:#FFA657;font-weight:700;font-size:13px;">Step 3&nbsp;&nbsp;</span>
+            <span style="color:#6E7681;font-size:13px;">Subject: </span>
+            <span style="color:#F0F6FC;font-weight:700;font-size:13px;">The infrastructure decision most simulation companies face</span>
+          </div>
+          <div style="background:#161B22;padding:14px 18px;font-size:14px;color:#C9D1D9;font-family:Arial,sans-serif;line-height:1.7;"><div style="margin-bottom:0;line-height:1.6;">Christopher —</div><div style="height:10px"></div><div style="margin-bottom:0;line-height:1.6;">One more note.</div><div style="height:10px"></div><div style="margin-bottom:0;line-height:1.6;">Uber cut compute costs 50% and Blue River cut pipeline time from 24 hours to 9.5 after moving to Anyscale. These aren't startups making arbitrary vendor choices — they're teams that ran the build cost analysis carefully and landed on managed infrastructure as the right answer at their scale.</div><div style="height:10px"></div><div style="margin-bottom:0;line-height:1.6;">For Lightwheel's growth trajectory, the decision timeline matters. Getting the compute architecture right before data volumes explode is significantly cheaper than retrofitting.</div><div style="height:10px"></div><div style="margin-bottom:0;line-height:1.6;">If this is worth 20 minutes, happy to walk through what the decision looks like.</div><div style="height:10px"></div><div style="margin-bottom:0;line-height:1.6;">Dylan</div></div>
+          
+        <div style="background:#0E1408;border-top:1px solid #30363D;padding:10px 16px;font-size:13px;color:#FFA657;font-style:italic;">📌 Proof: Uber — 50% compute savings; Blue River — 24h → 9.5h on Anyscale</div>
+        </div>
+        <div style="border:1px solid #30363D;border-top:3px solid #FFA657;border-radius:4px;margin-bottom:12px;overflow:hidden;">
+          <div style="background:#1a1a1a;padding:10px 16px;border-bottom:1px solid #30363D;">
+            <span style="color:#FFA657;font-weight:700;font-size:13px;">Step 4&nbsp;&nbsp;</span>
+            <span style="color:#6E7681;font-size:13px;">Subject: </span>
+            <span style="color:#F0F6FC;font-weight:700;font-size:13px;">Last note — infrastructure strategy for Lightwheel</span>
+          </div>
+          <div style="background:#161B22;padding:14px 18px;font-size:14px;color:#C9D1D9;font-family:Arial,sans-serif;line-height:1.7;"><div style="margin-bottom:0;line-height:1.6;">Christopher —</div><div style="height:10px"></div><div style="margin-bottom:0;line-height:1.6;">Last one from me.</div><div style="height:10px"></div><div style="margin-bottom:0;line-height:1.6;">If Lightwheel's distributed compute strategy is already locked in, no need to respond. If it's a conversation worth having as the company scales — happy to share what we're seeing from teams building exactly what Lightwheel is building.</div><div style="height:10px"></div><div style="margin-bottom:0;line-height:1.6;">Dylan</div></div>
+          
+        <div style="background:#0E1408;border-top:1px solid #30363D;padding:10px 16px;font-size:13px;color:#FFA657;font-style:italic;">📌 Proof: Physical Intelligence (16 eng freed) + Zoox (parallel sim) + Uber (50%) + Blue River (2.5×)</div>
+        </div>
+      </div><hr style="border:none;border-top:1px solid #30363D;margin:24px 0;">
+      <div id="contact-6" style="scroll-margin-top:60px;">
+        <div style="display:flex;align-items:stretch;margin-bottom:14px;border:1px solid #30363D;border-radius:4px;overflow:hidden;">
+          <div style="background:#D29922;width:48px;min-width:48px;display:flex;align-items:center;justify-content:center;font-size:22px;font-weight:700;color:#fff;">6</div>
+          <div style="background:#161B22;flex:1;padding:12px 18px;">
+            <div style="font-size:18px;font-weight:700;color:#F0F6FC;">Myles L. <span style="color:#6E7681;font-size:14px;font-weight:400;"> · Director of Business Operations</span></div>
+            <div style="margin-top:5px;font-size:12px;">
+              <span style="color:#D29922;font-weight:700;">P2</span>
+              <span style="color:#6E7681;"> · Lightwheel AI · </span>
+              <span style="color:#FFA657;">Compute Cost Efficiency / Operational Overhead Reduction</span>
+              <span style="color:#6E7681;"> · Contact 6 of 10</span>
+            </div><div style="margin-top:5px;font-size:12px;color:#8B949E;">📧 <a href="mailto:myles@lightwheel.ai" style="color:#58A6FF;text-decoration:none;">myles@lightwheel.ai</a><span style="font-size:10px;background:rgba(139,148,158,0.1);color:#6E7681;border:1px solid #30363D;border-radius:3px;padding:1px 5px;margin-left:6px;">inferred</span></div>
+          </div>
+        </div>
+        
+        <div style="border:1px solid #30363D;border-top:3px solid #FFA657;border-radius:4px;margin-bottom:12px;overflow:hidden;">
+          <div style="background:#1a1a1a;padding:10px 16px;border-bottom:1px solid #30363D;">
+            <span style="color:#FFA657;font-weight:700;font-size:13px;">Step 1&nbsp;&nbsp;</span>
+            <span style="color:#6E7681;font-size:13px;">Subject: </span>
+            <span style="color:#F0F6FC;font-weight:700;font-size:13px;">Compute cost and operational efficiency for simulation-heavy teams</span>
+          </div>
+          <div style="background:#161B22;padding:14px 18px;font-size:14px;color:#C9D1D9;font-family:Arial,sans-serif;line-height:1.7;"><div style="margin-bottom:0;line-height:1.6;">Myles —</div><div style="height:10px"></div><div style="margin-bottom:0;line-height:1.6;">As Director of Business Operations at Lightwheel, compute infrastructure cost and efficiency likely sits somewhere in your view as the company scales.</div><div style="height:10px"></div><div style="margin-bottom:0;line-height:1.6;">Running parallel simulation at scale isn't cheap — and managing the orchestration layer adds operational overhead on top. Anyscale addresses both: managed Ray clusters that scale automatically with the workload, with the cost efficiency that comes from optimized resource utilization.</div><div style="height:10px"></div><div style="margin-bottom:0;line-height:1.6;">Uber cut their compute bill by 50% after migrating to Anyscale. For a simulation-heavy company like Lightwheel, those numbers tend to be meaningful at scale.</div><div style="height:10px"></div><div style="margin-bottom:0;line-height:1.6;">Worth a quick conversation on the operational side?</div><div style="height:10px"></div><div style="margin-bottom:0;line-height:1.6;">Dylan</div></div>
+          
+        <div style="background:#0E1408;border-top:1px solid #30363D;padding:10px 16px;font-size:13px;color:#FFA657;font-style:italic;">📌 Proof: Uber — 50% compute savings after migrating ML pipelines to Anyscale</div>
+        </div>
+        <div style="border:1px solid #30363D;border-top:3px solid #FFA657;border-radius:4px;margin-bottom:12px;overflow:hidden;">
+          <div style="background:#1a1a1a;padding:10px 16px;border-bottom:1px solid #30363D;">
+            <span style="color:#FFA657;font-weight:700;font-size:13px;">Step 2&nbsp;&nbsp;</span>
+            <span style="color:#6E7681;font-size:13px;">Subject: </span>
+            <span style="color:#F0F6FC;font-weight:700;font-size:13px;">Re: compute spend and infra overhead</span>
+          </div>
+          <div style="background:#161B22;padding:14px 18px;font-size:14px;color:#C9D1D9;font-family:Arial,sans-serif;line-height:1.7;"><div style="margin-bottom:0;line-height:1.6;">Myles —</div><div style="height:10px"></div><div style="margin-bottom:0;line-height:1.6;">Following up.</div><div style="height:10px"></div><div style="margin-bottom:0;line-height:1.6;">The operational picture with managed Ray: fewer engineers needed to maintain cluster health, automatic scaling that matches cost to actual simulation workload, and no custom scheduler to debug when jobs fail.</div><div style="height:10px"></div><div style="margin-bottom:0;line-height:1.6;">For BizOps, this translates to more predictable compute spend and less engineering time allocated to infrastructure maintenance — both of which show up in the unit economics as Lightwheel adds simulation volume.</div><div style="height:10px"></div><div style="margin-bottom:0;line-height:1.6;">Happy to share more specifics. Would a brief call be useful?</div><div style="height:10px"></div><div style="margin-bottom:0;line-height:1.6;">Dylan</div></div>
+          
+        </div>
+        <div style="border:1px solid #30363D;border-top:3px solid #FFA657;border-radius:4px;margin-bottom:12px;overflow:hidden;">
+          <div style="background:#1a1a1a;padding:10px 16px;border-bottom:1px solid #30363D;">
+            <span style="color:#FFA657;font-weight:700;font-size:13px;">Step 3&nbsp;&nbsp;</span>
+            <span style="color:#6E7681;font-size:13px;">Subject: </span>
+            <span style="color:#F0F6FC;font-weight:700;font-size:13px;">What infra efficiency gains look like at comparable teams</span>
+          </div>
+          <div style="background:#161B22;padding:14px 18px;font-size:14px;color:#C9D1D9;font-family:Arial,sans-serif;line-height:1.7;"><div style="margin-bottom:0;line-height:1.6;">Myles —</div><div style="height:10px"></div><div style="margin-bottom:0;line-height:1.6;">One more note.</div><div style="height:10px"></div><div style="margin-bottom:0;line-height:1.6;">Blue River reduced their training pipeline from 24 hours to 9.5. Physical Intelligence freed 16 engineers from infra work. These efficiency gains have a direct operational cost impact — fewer hours on infrastructure, faster cycles, lower compute spend per unit of simulation output.</div><div style="height:10px"></div><div style="margin-bottom:0;line-height:1.6;">For Lightwheel's operational model, the math tends to be compelling once you map it to actual simulation volumes and engineering headcount.</div><div style="height:10px"></div><div style="margin-bottom:0;line-height:1.6;">Happy to walk through what that looks like if it's worth 20 minutes.</div><div style="height:10px"></div><div style="margin-bottom:0;line-height:1.6;">Dylan</div></div>
+          
+        <div style="background:#0E1408;border-top:1px solid #30363D;padding:10px 16px;font-size:13px;color:#FFA657;font-style:italic;">📌 Proof: Blue River — 24h → 9.5h; Physical Intelligence — 16 engineers freed on Anyscale</div>
+        </div>
+        <div style="border:1px solid #30363D;border-top:3px solid #FFA657;border-radius:4px;margin-bottom:12px;overflow:hidden;">
+          <div style="background:#1a1a1a;padding:10px 16px;border-bottom:1px solid #30363D;">
+            <span style="color:#FFA657;font-weight:700;font-size:13px;">Step 4&nbsp;&nbsp;</span>
+            <span style="color:#6E7681;font-size:13px;">Subject: </span>
+            <span style="color:#F0F6FC;font-weight:700;font-size:13px;">Last note — operational efficiency for Lightwheel</span>
+          </div>
+          <div style="background:#161B22;padding:14px 18px;font-size:14px;color:#C9D1D9;font-family:Arial,sans-serif;line-height:1.7;"><div style="margin-bottom:0;line-height:1.6;">Myles —</div><div style="height:10px"></div><div style="margin-bottom:0;line-height:1.6;">Last one from me.</div><div style="height:10px"></div><div style="margin-bottom:0;line-height:1.6;">If compute cost and infra overhead aren't current priorities, no need to respond. If operational efficiency in the simulation infrastructure is on your radar — happy to share what we're seeing from teams at a similar stage.</div><div style="height:10px"></div><div style="margin-bottom:0;line-height:1.6;">Dylan</div></div>
+          
+        <div style="background:#0E1408;border-top:1px solid #30363D;padding:10px 16px;font-size:13px;color:#FFA657;font-style:italic;">📌 Proof: Uber (50%) + Blue River (2.5×) + Physical Intelligence (16 eng freed)</div>
+        </div>
+      </div><hr style="border:none;border-top:1px solid #30363D;margin:24px 0;">
+      <div id="contact-7" style="scroll-margin-top:60px;">
+        <div style="display:flex;align-items:stretch;margin-bottom:14px;border:1px solid #30363D;border-radius:4px;overflow:hidden;">
+          <div style="background:#D29922;width:48px;min-width:48px;display:flex;align-items:center;justify-content:center;font-size:22px;font-weight:700;color:#fff;">7</div>
+          <div style="background:#161B22;flex:1;padding:12px 18px;">
+            <div style="font-size:18px;font-weight:700;color:#F0F6FC;">Edward Liu <span style="color:#6E7681;font-size:14px;font-weight:400;"> · Director of Sales</span></div>
+            <div style="margin-top:5px;font-size:12px;">
+              <span style="color:#D29922;font-weight:700;">P2</span>
+              <span style="color:#6E7681;"> · Lightwheel AI · </span>
+              <span style="color:#FFA657;">Partnership / Infrastructure as Enterprise Sales Proof Point</span>
+              <span style="color:#6E7681;"> · Contact 7 of 10</span>
+            </div><div style="margin-top:5px;font-size:12px;color:#8B949E;">📧 <a href="mailto:edward.liu@lightwheel.ai" style="color:#58A6FF;text-decoration:none;">edward.liu@lightwheel.ai</a><span style="font-size:10px;background:rgba(139,148,158,0.1);color:#6E7681;border:1px solid #30363D;border-radius:3px;padding:1px 5px;margin-left:6px;">inferred</span></div>
+          </div>
+        </div>
+        
+        <div style="border:1px solid #30363D;border-top:3px solid #FFA657;border-radius:4px;margin-bottom:12px;overflow:hidden;">
+          <div style="background:#1a1a1a;padding:10px 16px;border-bottom:1px solid #30363D;">
+            <span style="color:#FFA657;font-weight:700;font-size:13px;">Step 1&nbsp;&nbsp;</span>
+            <span style="color:#6E7681;font-size:13px;">Subject: </span>
+            <span style="color:#F0F6FC;font-weight:700;font-size:13px;">Infrastructure partnership that strengthens the enterprise story</span>
+          </div>
+          <div style="background:#161B22;padding:14px 18px;font-size:14px;color:#C9D1D9;font-family:Arial,sans-serif;line-height:1.7;"><div style="margin-bottom:0;line-height:1.6;">Edward —</div><div style="height:10px"></div><div style="margin-bottom:0;line-height:1.6;">As Director of Sales, you're on the front lines of how Lightwheel positions its platform to AV and robotics enterprise customers.</div><div style="height:10px"></div><div style="margin-bottom:0;line-height:1.6;">One angle gaining traction with similar companies: the infrastructure story matters in enterprise sales. When Lightwheel's synthetic data pipeline runs on the same compute infrastructure as Zoox and other AV leaders, that's a credibility point in procurement conversations.</div><div style="height:10px"></div><div style="margin-bottom:0;line-height:1.6;">Anyscale could be a partner that both powers the platform and adds to how you tell the story externally with enterprise customers.</div><div style="height:10px"></div><div style="margin-bottom:0;line-height:1.6;">Worth a brief conversation to explore if there's a partnership angle here?</div><div style="height:10px"></div><div style="margin-bottom:0;line-height:1.6;">Dylan</div></div>
+          
+        <div style="background:#0E1408;border-top:1px solid #30363D;padding:10px 16px;font-size:13px;color:#FFA657;font-style:italic;">📌 Proof: Zoox — 1,000s parallel sim jobs on Anyscale; enterprise-recognized AV infrastructure</div>
+        </div>
+        <div style="border:1px solid #30363D;border-top:3px solid #FFA657;border-radius:4px;margin-bottom:12px;overflow:hidden;">
+          <div style="background:#1a1a1a;padding:10px 16px;border-bottom:1px solid #30363D;">
+            <span style="color:#FFA657;font-weight:700;font-size:13px;">Step 2&nbsp;&nbsp;</span>
+            <span style="color:#6E7681;font-size:13px;">Subject: </span>
+            <span style="color:#F0F6FC;font-weight:700;font-size:13px;">Re: infrastructure credibility in enterprise AV deals</span>
+          </div>
+          <div style="background:#161B22;padding:14px 18px;font-size:14px;color:#C9D1D9;font-family:Arial,sans-serif;line-height:1.7;"><div style="margin-bottom:0;line-height:1.6;">Edward —</div><div style="height:10px"></div><div style="margin-bottom:0;line-height:1.6;">Following up.</div><div style="height:10px"></div><div style="margin-bottom:0;line-height:1.6;">The partnership angle is straightforward: Anyscale as a validated infrastructure layer that enterprise AV teams recognize. It's a proof point that Lightwheel's simulation pipeline is built on infrastructure that scales.</div><div style="height:10px"></div><div style="margin-bottom:0;line-height:1.6;">For sales conversations with large AV OEMs or Tier 1 suppliers, third-party infrastructure validation can close questions before they become blockers.</div><div style="height:10px"></div><div style="margin-bottom:0;line-height:1.6;">Happy to explore what a partnership arrangement could look like. Would a quick call be useful?</div><div style="height:10px"></div><div style="margin-bottom:0;line-height:1.6;">Dylan</div></div>
+          
+        </div>
+        <div style="border:1px solid #30363D;border-top:3px solid #FFA657;border-radius:4px;margin-bottom:12px;overflow:hidden;">
+          <div style="background:#1a1a1a;padding:10px 16px;border-bottom:1px solid #30363D;">
+            <span style="color:#FFA657;font-weight:700;font-size:13px;">Step 3&nbsp;&nbsp;</span>
+            <span style="color:#6E7681;font-size:13px;">Subject: </span>
+            <span style="color:#F0F6FC;font-weight:700;font-size:13px;">What AV enterprise customers are asking about infrastructure</span>
+          </div>
+          <div style="background:#161B22;padding:14px 18px;font-size:14px;color:#C9D1D9;font-family:Arial,sans-serif;line-height:1.7;"><div style="margin-bottom:0;line-height:1.6;">Edward —</div><div style="height:10px"></div><div style="margin-bottom:0;line-height:1.6;">One more note.</div><div style="height:10px"></div><div style="margin-bottom:0;line-height:1.6;">From conversations with AV teams evaluating synthetic data platforms: compute infrastructure scalability is increasingly a diligence question. Customers want to know the platform can grow with them.</div><div style="height:10px"></div><div style="margin-bottom:0;line-height:1.6;">Anyscale's presence in the AV ecosystem — Zoox, Blue River, and others — gives Lightwheel a ready answer. Blue River reduced their training pipeline 2.5× on Anyscale. Uber saved 50% on compute.</div><div style="height:10px"></div><div style="margin-bottom:0;line-height:1.6;">For enterprise deals where infrastructure credibility matters, that's the story worth having.</div><div style="height:10px"></div><div style="margin-bottom:0;line-height:1.6;">Dylan</div></div>
+          
+        <div style="background:#0E1408;border-top:1px solid #30363D;padding:10px 16px;font-size:13px;color:#FFA657;font-style:italic;">📌 Proof: Blue River — 2.5× pipeline speedup; Uber — 50% compute savings on Anyscale</div>
+        </div>
+        <div style="border:1px solid #30363D;border-top:3px solid #FFA657;border-radius:4px;margin-bottom:12px;overflow:hidden;">
+          <div style="background:#1a1a1a;padding:10px 16px;border-bottom:1px solid #30363D;">
+            <span style="color:#FFA657;font-weight:700;font-size:13px;">Step 4&nbsp;&nbsp;</span>
+            <span style="color:#6E7681;font-size:13px;">Subject: </span>
+            <span style="color:#F0F6FC;font-weight:700;font-size:13px;">Last note — partnership for Lightwheel enterprise sales</span>
+          </div>
+          <div style="background:#161B22;padding:14px 18px;font-size:14px;color:#C9D1D9;font-family:Arial,sans-serif;line-height:1.7;"><div style="margin-bottom:0;line-height:1.6;">Edward —</div><div style="height:10px"></div><div style="margin-bottom:0;line-height:1.6;">Last one from me.</div><div style="height:10px"></div><div style="margin-bottom:0;line-height:1.6;">If the infrastructure partnership angle isn't the right conversation right now, totally understand. If there's a way Anyscale could strengthen Lightwheel's enterprise story — happy to explore it whenever the timing makes sense.</div><div style="height:10px"></div><div style="margin-bottom:0;line-height:1.6;">Dylan</div></div>
+          
+        <div style="background:#0E1408;border-top:1px solid #30363D;padding:10px 16px;font-size:13px;color:#FFA657;font-style:italic;">📌 Proof: Zoox (AV sim) + Blue River (2.5×) + Uber (50%) — enterprise AV proof points</div>
+        </div>
+      </div><hr style="border:none;border-top:1px solid #30363D;margin:24px 0;">
+      <div id="contact-8" style="scroll-margin-top:60px;">
+        <div style="display:flex;align-items:stretch;margin-bottom:14px;border:1px solid #30363D;border-radius:4px;overflow:hidden;">
+          <div style="background:#58A6FF;width:48px;min-width:48px;display:flex;align-items:center;justify-content:center;font-size:22px;font-weight:700;color:#fff;">8</div>
+          <div style="background:#161B22;flex:1;padding:12px 18px;">
+            <div style="font-size:18px;font-weight:700;color:#F0F6FC;">Huang Yang <span style="color:#6E7681;font-size:14px;font-weight:400;"> · Product Manager</span></div>
+            <div style="margin-top:5px;font-size:12px;">
+              <span style="color:#58A6FF;font-weight:700;">P3</span>
+              <span style="color:#6E7681;"> · Lightwheel AI · </span>
+              <span style="color:#FFA657;">Product Velocity / Infrastructure as Roadmap Enabler</span>
+              <span style="color:#6E7681;"> · Contact 8 of 10</span>
+            </div><div style="margin-top:5px;font-size:12px;color:#8B949E;">📧 <a href="mailto:huang.yang@lightwheel.ai" style="color:#58A6FF;text-decoration:none;">huang.yang@lightwheel.ai</a><span style="font-size:10px;background:rgba(139,148,158,0.1);color:#6E7681;border:1px solid #30363D;border-radius:3px;padding:1px 5px;margin-left:6px;">inferred</span></div>
+          </div>
+        </div>
+        
+        <div style="border:1px solid #30363D;border-top:3px solid #FFA657;border-radius:4px;margin-bottom:12px;overflow:hidden;">
+          <div style="background:#1a1a1a;padding:10px 16px;border-bottom:1px solid #30363D;">
+            <span style="color:#FFA657;font-weight:700;font-size:13px;">Step 1&nbsp;&nbsp;</span>
+            <span style="color:#6E7681;font-size:13px;">Subject: </span>
+            <span style="color:#F0F6FC;font-weight:700;font-size:13px;">Infrastructure as a product roadmap lever</span>
+          </div>
+          <div style="background:#161B22;padding:14px 18px;font-size:14px;color:#C9D1D9;font-family:Arial,sans-serif;line-height:1.7;"><div style="margin-bottom:0;line-height:1.6;">Huang —</div><div style="height:10px"></div><div style="margin-bottom:0;line-height:1.6;">As a PM at Lightwheel, you're thinking about what the simulation and synthetic data product can do as it scales — and infrastructure is often the constraint that defines the answer.</div><div style="height:10px"></div><div style="margin-bottom:0;line-height:1.6;">Teams that can run more parallel simulations, iterate faster, and train on larger datasets have more product surface area to work with. Anyscale gives simulation teams that headroom — managed Ray clusters that scale with the workload, not against it.</div><div style="height:10px"></div><div style="margin-bottom:0;line-height:1.6;">Physical Intelligence doubled their model iteration speed on Anyscale — not because their models changed, but because the infrastructure stopped being the bottleneck.</div><div style="height:10px"></div><div style="margin-bottom:0;line-height:1.6;">Worth a quick conversation to see if this is relevant to where the product is heading?</div><div style="height:10px"></div><div style="margin-bottom:0;line-height:1.6;">Dylan</div></div>
+          
+        <div style="background:#0E1408;border-top:1px solid #30363D;padding:10px 16px;font-size:13px;color:#FFA657;font-style:italic;">📌 Proof: Physical Intelligence — 2× model iteration speed, 16+ engineers freed on Anyscale</div>
+        </div>
+        <div style="border:1px solid #30363D;border-top:3px solid #FFA657;border-radius:4px;margin-bottom:12px;overflow:hidden;">
+          <div style="background:#1a1a1a;padding:10px 16px;border-bottom:1px solid #30363D;">
+            <span style="color:#FFA657;font-weight:700;font-size:13px;">Step 2&nbsp;&nbsp;</span>
+            <span style="color:#6E7681;font-size:13px;">Subject: </span>
+            <span style="color:#F0F6FC;font-weight:700;font-size:13px;">Re: simulation velocity and product iteration speed</span>
+          </div>
+          <div style="background:#161B22;padding:14px 18px;font-size:14px;color:#C9D1D9;font-family:Arial,sans-serif;line-height:1.7;"><div style="margin-bottom:0;line-height:1.6;">Huang —</div><div style="height:10px"></div><div style="margin-bottom:0;line-height:1.6;">Following up briefly.</div><div style="height:10px"></div><div style="margin-bottom:0;line-height:1.6;">For a PM at a simulation company, infrastructure velocity is a direct input to product velocity. Faster simulation cycles mean faster model improvement, which means a better product on shorter timelines.</div><div style="height:10px"></div><div style="margin-bottom:0;line-height:1.6;">The teams that separate themselves in AV synthetic data tend to be the ones that can iterate the fastest — and that usually traces back to how the compute infrastructure is set up.</div><div style="height:10px"></div><div style="margin-bottom:0;line-height:1.6;">Happy to share how comparable teams have set this up. Would a quick call be useful?</div><div style="height:10px"></div><div style="margin-bottom:0;line-height:1.6;">Dylan</div></div>
+          
+        </div>
+        <div style="border:1px solid #30363D;border-top:3px solid #FFA657;border-radius:4px;margin-bottom:12px;overflow:hidden;">
+          <div style="background:#1a1a1a;padding:10px 16px;border-bottom:1px solid #30363D;">
+            <span style="color:#FFA657;font-weight:700;font-size:13px;">Step 3&nbsp;&nbsp;</span>
+            <span style="color:#6E7681;font-size:13px;">Subject: </span>
+            <span style="color:#F0F6FC;font-weight:700;font-size:13px;">Simulation throughput as a product differentiator</span>
+          </div>
+          <div style="background:#161B22;padding:14px 18px;font-size:14px;color:#C9D1D9;font-family:Arial,sans-serif;line-height:1.7;"><div style="margin-bottom:0;line-height:1.6;">Huang —</div><div style="height:10px"></div><div style="margin-bottom:0;line-height:1.6;">One more note.</div><div style="height:10px"></div><div style="margin-bottom:0;line-height:1.6;">Blue River cut their model training pipeline from 24 hours to 9.5 hours on Anyscale. Zoox runs thousands of parallel simulation jobs with the same infrastructure. Both translate to more product cycles in the same wall-clock time.</div><div style="height:10px"></div><div style="margin-bottom:0;line-height:1.6;">For Lightwheel's roadmap, the connection between simulation throughput and product capability is direct. If infrastructure is a current or anticipated constraint, worth a look.</div><div style="height:10px"></div><div style="margin-bottom:0;line-height:1.6;">Dylan</div></div>
+          
+        <div style="background:#0E1408;border-top:1px solid #30363D;padding:10px 16px;font-size:13px;color:#FFA657;font-style:italic;">📌 Proof: Blue River — 24h → 9.5h; Zoox — 1,000s parallel simulation jobs on Anyscale</div>
+        </div>
+        <div style="border:1px solid #30363D;border-top:3px solid #FFA657;border-radius:4px;margin-bottom:12px;overflow:hidden;">
+          <div style="background:#1a1a1a;padding:10px 16px;border-bottom:1px solid #30363D;">
+            <span style="color:#FFA657;font-weight:700;font-size:13px;">Step 4&nbsp;&nbsp;</span>
+            <span style="color:#6E7681;font-size:13px;">Subject: </span>
+            <span style="color:#F0F6FC;font-weight:700;font-size:13px;">Last note — infrastructure and product roadmap</span>
+          </div>
+          <div style="background:#161B22;padding:14px 18px;font-size:14px;color:#C9D1D9;font-family:Arial,sans-serif;line-height:1.7;"><div style="margin-bottom:0;line-height:1.6;">Huang —</div><div style="height:10px"></div><div style="margin-bottom:0;line-height:1.6;">Last one from me.</div><div style="height:10px"></div><div style="margin-bottom:0;line-height:1.6;">If infrastructure isn't a current priority for the product roadmap, no need to respond. If you're thinking about how to give the team more simulation throughput and faster iteration cycles, happy to share what's working for comparable companies.</div><div style="height:10px"></div><div style="margin-bottom:0;line-height:1.6;">Dylan</div></div>
+          
+        </div>
+      </div><hr style="border:none;border-top:1px solid #30363D;margin:24px 0;">
+      <div id="contact-9" style="scroll-margin-top:60px;">
+        <div style="display:flex;align-items:stretch;margin-bottom:14px;border:1px solid #30363D;border-radius:4px;overflow:hidden;">
+          <div style="background:#58A6FF;width:48px;min-width:48px;display:flex;align-items:center;justify-content:center;font-size:22px;font-weight:700;color:#fff;">9</div>
+          <div style="background:#161B22;flex:1;padding:12px 18px;">
+            <div style="font-size:18px;font-weight:700;color:#F0F6FC;">Yilong Niu <span style="color:#6E7681;font-size:14px;font-weight:400;"> · Software Engineer</span></div>
+            <div style="margin-top:5px;font-size:12px;">
+              <span style="color:#58A6FF;font-weight:700;">P3</span>
+              <span style="color:#6E7681;"> · Lightwheel AI · </span>
+              <span style="color:#FFA657;">Developer Experience / Distributed Simulation Without Infra Overhead</span>
+              <span style="color:#6E7681;"> · Contact 9 of 10</span>
+            </div><div style="margin-top:5px;font-size:12px;color:#8B949E;">📧 <a href="mailto:yilong.niu@lightwheel.ai" style="color:#58A6FF;text-decoration:none;">yilong.niu@lightwheel.ai</a><span style="font-size:10px;background:rgba(139,148,158,0.1);color:#6E7681;border:1px solid #30363D;border-radius:3px;padding:1px 5px;margin-left:6px;">inferred</span></div>
+          </div>
+        </div>
+        
+        <div style="border:1px solid #30363D;border-top:3px solid #FFA657;border-radius:4px;margin-bottom:12px;overflow:hidden;">
+          <div style="background:#1a1a1a;padding:10px 16px;border-bottom:1px solid #30363D;">
+            <span style="color:#FFA657;font-weight:700;font-size:13px;">Step 1&nbsp;&nbsp;</span>
+            <span style="color:#6E7681;font-size:13px;">Subject: </span>
+            <span style="color:#F0F6FC;font-weight:700;font-size:13px;">Distributed simulation workloads without the infra overhead</span>
+          </div>
+          <div style="background:#161B22;padding:14px 18px;font-size:14px;color:#C9D1D9;font-family:Arial,sans-serif;line-height:1.7;"><div style="margin-bottom:0;line-height:1.6;">Yilong —</div><div style="height:10px"></div><div style="margin-bottom:0;line-height:1.6;">As a software engineer working on simulation at Lightwheel, you're likely dealing with the realities of running distributed workloads at scale — job orchestration, cluster management, fault recovery when jobs fail.</div><div style="height:10px"></div><div style="margin-bottom:0;line-height:1.6;">Ray is probably already on your radar for parallel simulation. Anyscale is the managed layer that removes the cluster management overhead — so you're writing simulation logic, not debugging scheduler failures.</div><div style="height:10px"></div><div style="margin-bottom:0;line-height:1.6;">Physical Intelligence freed 16 engineers from infra management this way. The engineering time goes back to the actual work.</div><div style="height:10px"></div><div style="margin-bottom:0;line-height:1.6;">Would a quick technical overview be useful?</div><div style="height:10px"></div><div style="margin-bottom:0;line-height:1.6;">Dylan</div></div>
+          
+        <div style="background:#0E1408;border-top:1px solid #30363D;padding:10px 16px;font-size:13px;color:#FFA657;font-style:italic;">📌 Proof: Physical Intelligence — 16+ engineers freed from infra overhead on Anyscale</div>
+        </div>
+        <div style="border:1px solid #30363D;border-top:3px solid #FFA657;border-radius:4px;margin-bottom:12px;overflow:hidden;">
+          <div style="background:#1a1a1a;padding:10px 16px;border-bottom:1px solid #30363D;">
+            <span style="color:#FFA657;font-weight:700;font-size:13px;">Step 2&nbsp;&nbsp;</span>
+            <span style="color:#6E7681;font-size:13px;">Subject: </span>
+            <span style="color:#F0F6FC;font-weight:700;font-size:13px;">Re: Ray + Anyscale for simulation workloads</span>
+          </div>
+          <div style="background:#161B22;padding:14px 18px;font-size:14px;color:#C9D1D9;font-family:Arial,sans-serif;line-height:1.7;"><div style="margin-bottom:0;line-height:1.6;">Yilong —</div><div style="height:10px"></div><div style="margin-bottom:0;line-height:1.6;">Following up.</div><div style="height:10px"></div><div style="margin-bottom:0;line-height:1.6;">The developer experience difference with managed Ray: jobs that would require custom orchestration code just work. Fault tolerance, autoscaling, resource allocation — handled at the platform level.</div><div style="height:10px"></div><div style="margin-bottom:0;line-height:1.6;">For simulation workloads specifically, the pattern is straightforward: define your simulation as a Ray task, let Anyscale handle the rest. Zoox runs thousands of parallel simulation jobs this way — same Python code, no custom scheduler.</div><div style="height:10px"></div><div style="margin-bottom:0;line-height:1.6;">Happy to share more on the technical side if useful.</div><div style="height:10px"></div><div style="margin-bottom:0;line-height:1.6;">Dylan</div></div>
+          
+        <div style="background:#0E1408;border-top:1px solid #30363D;padding:10px 16px;font-size:13px;color:#FFA657;font-style:italic;">📌 Proof: Zoox — 1,000s of parallel simulation jobs on Anyscale with built-in fault tolerance</div>
+        </div>
+        <div style="border:1px solid #30363D;border-top:3px solid #FFA657;border-radius:4px;margin-bottom:12px;overflow:hidden;">
+          <div style="background:#1a1a1a;padding:10px 16px;border-bottom:1px solid #30363D;">
+            <span style="color:#FFA657;font-weight:700;font-size:13px;">Step 3&nbsp;&nbsp;</span>
+            <span style="color:#6E7681;font-size:13px;">Subject: </span>
+            <span style="color:#F0F6FC;font-weight:700;font-size:13px;">Simulation scaling patterns on Ray</span>
+          </div>
+          <div style="background:#161B22;padding:14px 18px;font-size:14px;color:#C9D1D9;font-family:Arial,sans-serif;line-height:1.7;"><div style="margin-bottom:0;line-height:1.6;">Yilong —</div><div style="height:10px"></div><div style="margin-bottom:0;line-height:1.6;">One more note.</div><div style="height:10px"></div><div style="margin-bottom:0;line-height:1.6;">If you're curious about how other simulation teams structure their Ray pipelines — job distribution, dataset generation, training pipeline integration — happy to share some architectural patterns.</div><div style="height:10px"></div><div style="margin-bottom:0;line-height:1.6;">No sales pitch, just a technical conversation if it would be useful.</div><div style="height:10px"></div><div style="margin-bottom:0;line-height:1.6;">Dylan</div></div>
+          
+        </div>
+        <div style="border:1px solid #30363D;border-top:3px solid #FFA657;border-radius:4px;margin-bottom:12px;overflow:hidden;">
+          <div style="background:#1a1a1a;padding:10px 16px;border-bottom:1px solid #30363D;">
+            <span style="color:#FFA657;font-weight:700;font-size:13px;">Step 4&nbsp;&nbsp;</span>
+            <span style="color:#6E7681;font-size:13px;">Subject: </span>
+            <span style="color:#F0F6FC;font-weight:700;font-size:13px;">Last note — distributed simulation on Ray</span>
+          </div>
+          <div style="background:#161B22;padding:14px 18px;font-size:14px;color:#C9D1D9;font-family:Arial,sans-serif;line-height:1.7;"><div style="margin-bottom:0;line-height:1.6;">Yilong —</div><div style="height:10px"></div><div style="margin-bottom:0;line-height:1.6;">Last one from me.</div><div style="height:10px"></div><div style="margin-bottom:0;line-height:1.6;">If distributed infra is already solved on the engineering side, great. If you ever want to compare notes on simulation pipeline architecture — or see what the developer workflow looks like on Anyscale — happy to connect.</div><div style="height:10px"></div><div style="margin-bottom:0;line-height:1.6;">Dylan</div></div>
+          
+        </div>
+      </div><hr style="border:none;border-top:1px solid #30363D;margin:24px 0;">
+      <div id="contact-10" style="scroll-margin-top:60px;">
+        <div style="display:flex;align-items:stretch;margin-bottom:14px;border:1px solid #30363D;border-radius:4px;overflow:hidden;">
+          <div style="background:#58A6FF;width:48px;min-width:48px;display:flex;align-items:center;justify-content:center;font-size:22px;font-weight:700;color:#fff;">10</div>
+          <div style="background:#161B22;flex:1;padding:12px 18px;">
+            <div style="font-size:18px;font-weight:700;color:#F0F6FC;">Erdao Liang <span style="color:#6E7681;font-size:14px;font-weight:400;"> · Algorithm Engineer</span></div>
+            <div style="margin-top:5px;font-size:12px;">
+              <span style="color:#58A6FF;font-weight:700;">P3</span>
+              <span style="color:#6E7681;"> · Lightwheel AI · </span>
+              <span style="color:#FFA657;">Algorithm Iteration Speed / Distributed Training on Simulation Data</span>
+              <span style="color:#6E7681;"> · Contact 10 of 10</span>
+            </div><div style="margin-top:5px;font-size:12px;color:#8B949E;">📧 <a href="mailto:erdao.liang@lightwheel.ai" style="color:#58A6FF;text-decoration:none;">erdao.liang@lightwheel.ai</a><span style="font-size:10px;background:rgba(139,148,158,0.1);color:#6E7681;border:1px solid #30363D;border-radius:3px;padding:1px 5px;margin-left:6px;">inferred</span></div>
+          </div>
+        </div>
+        
+        <div style="border:1px solid #30363D;border-top:3px solid #FFA657;border-radius:4px;margin-bottom:12px;overflow:hidden;">
+          <div style="background:#1a1a1a;padding:10px 16px;border-bottom:1px solid #30363D;">
+            <span style="color:#FFA657;font-weight:700;font-size:13px;">Step 1&nbsp;&nbsp;</span>
+            <span style="color:#6E7681;font-size:13px;">Subject: </span>
+            <span style="color:#F0F6FC;font-weight:700;font-size:13px;">Faster iteration on AV algorithms with distributed training</span>
+          </div>
+          <div style="background:#161B22;padding:14px 18px;font-size:14px;color:#C9D1D9;font-family:Arial,sans-serif;line-height:1.7;"><div style="margin-bottom:0;line-height:1.6;">Erdao —</div><div style="height:10px"></div><div style="margin-bottom:0;line-height:1.6;">As an algorithm engineer at Lightwheel, you're working with simulation-derived datasets to train AV models. The quality of those models depends on how fast you can iterate on both the simulation and the training pipeline.</div><div style="height:10px"></div><div style="margin-bottom:0;line-height:1.6;">Anyscale accelerates both sides: parallel simulation at scale and distributed training on the resulting data. Blue River cut their training pipeline from 24 hours to 9.5 hours — that's 2.5× more iteration cycles in the same wall-clock time.</div><div style="height:10px"></div><div style="margin-bottom:0;line-height:1.6;">Would a brief technical conversation be useful?</div><div style="height:10px"></div><div style="margin-bottom:0;line-height:1.6;">Dylan</div></div>
+          
+        <div style="background:#0E1408;border-top:1px solid #30363D;padding:10px 16px;font-size:13px;color:#FFA657;font-style:italic;">📌 Proof: Blue River — training pipeline 24h → 9.5h (2.5×) on Anyscale</div>
+        </div>
+        <div style="border:1px solid #30363D;border-top:3px solid #FFA657;border-radius:4px;margin-bottom:12px;overflow:hidden;">
+          <div style="background:#1a1a1a;padding:10px 16px;border-bottom:1px solid #30363D;">
+            <span style="color:#FFA657;font-weight:700;font-size:13px;">Step 2&nbsp;&nbsp;</span>
+            <span style="color:#6E7681;font-size:13px;">Subject: </span>
+            <span style="color:#F0F6FC;font-weight:700;font-size:13px;">Re: training pipeline speed for AV algorithm development</span>
+          </div>
+          <div style="background:#161B22;padding:14px 18px;font-size:14px;color:#C9D1D9;font-family:Arial,sans-serif;line-height:1.7;"><div style="margin-bottom:0;line-height:1.6;">Erdao —</div><div style="height:10px"></div><div style="margin-bottom:0;line-height:1.6;">Following up.</div><div style="height:10px"></div><div style="margin-bottom:0;line-height:1.6;">The specific bottleneck for algorithm engineers at simulation companies: training cycles that take overnight mean you're getting 5 experiments per week instead of 20.</div><div style="height:10px"></div><div style="margin-bottom:0;line-height:1.6;">Managed Ray infrastructure addresses this by eliminating the overhead between simulation data generation and training launch — and by distributing training across available resources without custom setup.</div><div style="height:10px"></div><div style="margin-bottom:0;line-height:1.6;">Happy to share more on the technical architecture if useful.</div><div style="height:10px"></div><div style="margin-bottom:0;line-height:1.6;">Dylan</div></div>
+          
+        </div>
+        <div style="border:1px solid #30363D;border-top:3px solid #FFA657;border-radius:4px;margin-bottom:12px;overflow:hidden;">
+          <div style="background:#1a1a1a;padding:10px 16px;border-bottom:1px solid #30363D;">
+            <span style="color:#FFA657;font-weight:700;font-size:13px;">Step 3&nbsp;&nbsp;</span>
+            <span style="color:#6E7681;font-size:13px;">Subject: </span>
+            <span style="color:#F0F6FC;font-weight:700;font-size:13px;">Algorithm iteration velocity — what the numbers look like</span>
+          </div>
+          <div style="background:#161B22;padding:14px 18px;font-size:14px;color:#C9D1D9;font-family:Arial,sans-serif;line-height:1.7;"><div style="margin-bottom:0;line-height:1.6;">Erdao —</div><div style="height:10px"></div><div style="margin-bottom:0;line-height:1.6;">One more note.</div><div style="height:10px"></div><div style="margin-bottom:0;line-height:1.6;">Physical Intelligence doubled their model iteration speed on Anyscale — the infrastructure overhead that was slowing down experiment cycles was eliminated.</div><div style="height:10px"></div><div style="margin-bottom:0;line-height:1.6;">For AV algorithm development, where model quality directly depends on iteration volume and data diversity, that kind of speedup compounds quickly. More experiments, faster feedback, better models.</div><div style="height:10px"></div><div style="margin-bottom:0;line-height:1.6;">If this is relevant to your current work, happy to connect.</div><div style="height:10px"></div><div style="margin-bottom:0;line-height:1.6;">Dylan</div></div>
+          
+        <div style="background:#0E1408;border-top:1px solid #30363D;padding:10px 16px;font-size:13px;color:#FFA657;font-style:italic;">📌 Proof: Physical Intelligence — 2× model iteration speed on Anyscale</div>
+        </div>
+        <div style="border:1px solid #30363D;border-top:3px solid #FFA657;border-radius:4px;margin-bottom:12px;overflow:hidden;">
+          <div style="background:#1a1a1a;padding:10px 16px;border-bottom:1px solid #30363D;">
+            <span style="color:#FFA657;font-weight:700;font-size:13px;">Step 4&nbsp;&nbsp;</span>
+            <span style="color:#6E7681;font-size:13px;">Subject: </span>
+            <span style="color:#F0F6FC;font-weight:700;font-size:13px;">Last note — distributed training for AV algorithm development</span>
+          </div>
+          <div style="background:#161B22;padding:14px 18px;font-size:14px;color:#C9D1D9;font-family:Arial,sans-serif;line-height:1.7;"><div style="margin-bottom:0;line-height:1.6;">Erdao —</div><div style="height:10px"></div><div style="margin-bottom:0;line-height:1.6;">Last one from me.</div><div style="height:10px"></div><div style="margin-bottom:0;line-height:1.6;">If your training pipeline is already optimized and scaling well, no need to respond. If you're looking for ways to speed up AV algorithm iteration — more experiments per week, faster training cycles on simulation data — happy to share what's working for teams with a similar workload profile.</div><div style="height:10px"></div><div style="margin-bottom:0;line-height:1.6;">Dylan</div></div>
+          
+        <div style="background:#0E1408;border-top:1px solid #30363D;padding:10px 16px;font-size:13px;color:#FFA657;font-style:italic;">📌 Proof: Blue River (2.5×) + Physical Intelligence (2×) — faster training on Anyscale</div>
+        </div>
+      </div>
+
+  <div style="height:60px;"></div>
+</div>
+
+</body>
+</html>

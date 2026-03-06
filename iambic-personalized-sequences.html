@@ -1,0 +1,667 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Iambic Therapeutics — Personalized Email Sequences</title>
+<style>
+  * { margin:0; padding:0; box-sizing:border-box; }
+  body { font-family: Arial, 'Helvetica Neue', sans-serif; background:#0D1117; color:#C9D1D9; display:flex; height:100vh; overflow:hidden; }
+  #sidebar { width:220px; min-width:220px; background:#161B22; border-right:1px solid #30363D; display:flex; flex-direction:column; overflow:hidden; }
+  #sidebar-header { padding:16px 14px 12px; border-bottom:1px solid #30363D; }
+  #sidebar-header .co-name { font-size:15px; font-weight:700; color:#3FB950; margin-bottom:2px; }
+  #sidebar-header .co-sub { font-size:11px; color:#6E7681; }
+  #sidebar-nav { flex:1; overflow-y:auto; padding:8px 6px; }
+  #sidebar-nav::-webkit-scrollbar { width:4px; }
+  #sidebar-nav::-webkit-scrollbar-thumb { background:#30363D; border-radius:2px; }
+  #main { flex:1; overflow-y:auto; padding:24px 28px; }
+  #main::-webkit-scrollbar { width:6px; }
+  #main::-webkit-scrollbar-thumb { background:#30363D; border-radius:3px; }
+  .section-label { font-size:10px;font-weight:600;text-transform:uppercase;letter-spacing:.08em;color:#6E7681;padding:10px 10px 4px; }
+  table { border-collapse:collapse; width:100%; }
+  td, th { font-size:13px; }
+  th { color:#6E7681; font-weight:600; padding:8px 10px; border-bottom:2px solid #3FB950; text-align:left; background:#161B22; font-size:12px; text-transform:uppercase; letter-spacing:.05em; }
+</style>
+</head>
+<body>
+
+<div id="sidebar">
+  <div id="sidebar-header">
+    <div class="co-name">Iambic Therapeutics</div>
+    <div class="co-sub">9 contacts · 36 emails</div>
+  </div>
+  <div class="section-label">Contacts</div>
+  <div id="sidebar-nav">
+    <a href="#contact-1" style="display:flex;align-items:center;gap:8px;padding:6px 10px;border-radius:5px;text-decoration:none;color:#C9D1D9;font-size:13px;transition:background 0.15s;" onmouseover="this.style.background='#21262D'" onmouseout="this.style.background='transparent'">
+      <span style="background:#F78166;color:#fff;font-size:11px;font-weight:700;width:20px;height:20px;border-radius:3px;display:flex;align-items:center;justify-content:center;flex-shrink:0;">1</span>
+      <span style="white-space:nowrap;overflow:hidden;text-overflow:ellipsis;">Thomas Miller</span>
+      <span style="color:#F78166;font-size:11px;font-weight:600;margin-left:auto;flex-shrink:0;">P1</span>
+    </a><a href="#contact-2" style="display:flex;align-items:center;gap:8px;padding:6px 10px;border-radius:5px;text-decoration:none;color:#C9D1D9;font-size:13px;transition:background 0.15s;" onmouseover="this.style.background='#21262D'" onmouseout="this.style.background='transparent'">
+      <span style="background:#F78166;color:#fff;font-size:11px;font-weight:700;width:20px;height:20px;border-radius:3px;display:flex;align-items:center;justify-content:center;flex-shrink:0;">2</span>
+      <span style="white-space:nowrap;overflow:hidden;text-overflow:ellipsis;">Fred Manby</span>
+      <span style="color:#F78166;font-size:11px;font-weight:600;margin-left:auto;flex-shrink:0;">P1</span>
+    </a><a href="#contact-3" style="display:flex;align-items:center;gap:8px;padding:6px 10px;border-radius:5px;text-decoration:none;color:#C9D1D9;font-size:13px;transition:background 0.15s;" onmouseover="this.style.background='#21262D'" onmouseout="this.style.background='transparent'">
+      <span style="background:#F78166;color:#fff;font-size:11px;font-weight:700;width:20px;height:20px;border-radius:3px;display:flex;align-items:center;justify-content:center;flex-shrink:0;">3</span>
+      <span style="white-space:nowrap;overflow:hidden;text-overflow:ellipsis;">Michael D.</span>
+      <span style="color:#F78166;font-size:11px;font-weight:600;margin-left:auto;flex-shrink:0;">P1</span>
+    </a><a href="#contact-4" style="display:flex;align-items:center;gap:8px;padding:6px 10px;border-radius:5px;text-decoration:none;color:#C9D1D9;font-size:13px;transition:background 0.15s;" onmouseover="this.style.background='#21262D'" onmouseout="this.style.background='transparent'">
+      <span style="background:#D29922;color:#fff;font-size:11px;font-weight:700;width:20px;height:20px;border-radius:3px;display:flex;align-items:center;justify-content:center;flex-shrink:0;">4</span>
+      <span style="white-space:nowrap;overflow:hidden;text-overflow:ellipsis;">Marcelo Lacerda, Ph.D.</span>
+      <span style="color:#D29922;font-size:11px;font-weight:600;margin-left:auto;flex-shrink:0;">P2</span>
+    </a><a href="#contact-5" style="display:flex;align-items:center;gap:8px;padding:6px 10px;border-radius:5px;text-decoration:none;color:#C9D1D9;font-size:13px;transition:background 0.15s;" onmouseover="this.style.background='#21262D'" onmouseout="this.style.background='transparent'">
+      <span style="background:#D29922;color:#fff;font-size:11px;font-weight:700;width:20px;height:20px;border-radius:3px;display:flex;align-items:center;justify-content:center;flex-shrink:0;">5</span>
+      <span style="white-space:nowrap;overflow:hidden;text-overflow:ellipsis;">Michael Irvin, PhD</span>
+      <span style="color:#D29922;font-size:11px;font-weight:600;margin-left:auto;flex-shrink:0;">P2</span>
+    </a><a href="#contact-6" style="display:flex;align-items:center;gap:8px;padding:6px 10px;border-radius:5px;text-decoration:none;color:#C9D1D9;font-size:13px;transition:background 0.15s;" onmouseover="this.style.background='#21262D'" onmouseout="this.style.background='transparent'">
+      <span style="background:#D29922;color:#fff;font-size:11px;font-weight:700;width:20px;height:20px;border-radius:3px;display:flex;align-items:center;justify-content:center;flex-shrink:0;">6</span>
+      <span style="white-space:nowrap;overflow:hidden;text-overflow:ellipsis;">David Farina Jr</span>
+      <span style="color:#D29922;font-size:11px;font-weight:600;margin-left:auto;flex-shrink:0;">P2</span>
+    </a><a href="#contact-7" style="display:flex;align-items:center;gap:8px;padding:6px 10px;border-radius:5px;text-decoration:none;color:#C9D1D9;font-size:13px;transition:background 0.15s;" onmouseover="this.style.background='#21262D'" onmouseout="this.style.background='transparent'">
+      <span style="background:#D29922;color:#fff;font-size:11px;font-weight:700;width:20px;height:20px;border-radius:3px;display:flex;align-items:center;justify-content:center;flex-shrink:0;">7</span>
+      <span style="white-space:nowrap;overflow:hidden;text-overflow:ellipsis;">Mia A. Rosenfeld, PhD</span>
+      <span style="color:#D29922;font-size:11px;font-weight:600;margin-left:auto;flex-shrink:0;">P2</span>
+    </a><a href="#contact-8" style="display:flex;align-items:center;gap:8px;padding:6px 10px;border-radius:5px;text-decoration:none;color:#C9D1D9;font-size:13px;transition:background 0.15s;" onmouseover="this.style.background='#21262D'" onmouseout="this.style.background='transparent'">
+      <span style="background:#D29922;color:#fff;font-size:11px;font-weight:700;width:20px;height:20px;border-radius:3px;display:flex;align-items:center;justify-content:center;flex-shrink:0;">8</span>
+      <span style="white-space:nowrap;overflow:hidden;text-overflow:ellipsis;">Felipe Costa Farias, Ph.D.</span>
+      <span style="color:#D29922;font-size:11px;font-weight:600;margin-left:auto;flex-shrink:0;">P2</span>
+    </a><a href="#contact-9" style="display:flex;align-items:center;gap:8px;padding:6px 10px;border-radius:5px;text-decoration:none;color:#C9D1D9;font-size:13px;transition:background 0.15s;" onmouseover="this.style.background='#21262D'" onmouseout="this.style.background='transparent'">
+      <span style="background:#58A6FF;color:#fff;font-size:11px;font-weight:700;width:20px;height:20px;border-radius:3px;display:flex;align-items:center;justify-content:center;flex-shrink:0;">9</span>
+      <span style="white-space:nowrap;overflow:hidden;text-overflow:ellipsis;">Daniel Cutting</span>
+      <span style="color:#58A6FF;font-size:11px;font-weight:600;margin-left:auto;flex-shrink:0;">P3</span>
+    </a>
+  </div>
+</div>
+
+<div id="main">
+  <!-- Cover -->
+  <div style="margin-bottom:28px;">
+    <div style="font-size:32px;font-weight:700;color:#3FB950;margin-bottom:6px;">Iambic Therapeutics</div>
+    <div style="font-size:18px;color:#F0F6FC;margin-bottom:4px;">Personalized Email Sequences — 9 Contacts</div>
+    <div style="font-size:13px;color:#6E7681;">Anyscale · Sales Development · March 2026 · AI Drug Discovery</div>
+  </div>
+
+  <!-- Proof points -->
+  <div style="border-left:3px solid #3FB950;background:#161B22;padding:14px 18px;margin-bottom:24px;border-radius:0 4px 4px 0;">
+    <div style="font-size:11px;font-weight:600;text-transform:uppercase;letter-spacing:.08em;color:#3FB950;margin-bottom:10px;">Proof Points Reference</div>
+    <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:12px;">
+      <div><div style="color:#3FB950;font-weight:700;font-size:13px;">Uber</div><div style="color:#56D364;font-weight:700;font-size:12px;margin:3px 0;">50% compute savings</div><div style="color:#6E7681;font-size:12px;">GPU+CPU scheduling on heterogeneous cluster</div></div>
+      <div><div style="color:#3FB950;font-weight:700;font-size:13px;">Zoox (Amazon)</div><div style="color:#56D364;font-weight:700;font-size:12px;margin:3px 0;">1,000s of parallel jobs</div><div style="color:#6E7681;font-size:12px;">Fault-tolerant parallel workloads on managed Ray</div></div>
+      <div><div style="color:#3FB950;font-weight:700;font-size:13px;">Physical Intelligence</div><div style="color:#56D364;font-weight:700;font-size:12px;margin:3px 0;">2× faster · 16+ eng freed</div><div style="color:#6E7681;font-size:12px;">Small team, full ML pipeline on Anyscale</div></div>
+      <div><div style="color:#3FB950;font-weight:700;font-size:13px;">Blue River (Deere)</div><div style="color:#56D364;font-weight:700;font-size:12px;margin:3px 0;">24h → 9.5h · 2.5×</div><div style="color:#6E7681;font-size:12px;">Continuous data pipeline, same hardware</div></div>
+    </div>
+  </div>
+
+  <!-- Contact index -->
+  <div style="margin-bottom:28px;">
+    <div style="font-size:11px;font-weight:600;text-transform:uppercase;letter-spacing:.08em;color:#6E7681;margin-bottom:8px;">Contact Index</div>
+    <table>
+      <thead><tr>
+        <th style="width:36px;">#</th>
+        <th>Name</th>
+        <th>Title</th>
+        <th style="width:60px;">Priority</th>
+        <th>Angle</th>
+      </tr></thead>
+      <tbody><tr>
+      <td style="color:#C9D1D9;padding:7px 10px;border-bottom:1px solid #30363D;">1</td>
+      <td style="color:#F0F6FC;font-weight:600;padding:7px 10px;border-bottom:1px solid #30363D;">Thomas Miller</td>
+      <td style="color:#8B949E;padding:7px 10px;border-bottom:1px solid #30363D;">Co-Founder &amp; CEO</td>
+      <td style="color:#F78166;font-weight:700;padding:7px 10px;border-bottom:1px solid #30363D;">P1</td>
+      <td style="color:#3FB950;padding:7px 10px;border-bottom:1px solid #30363D;font-size:12px;">Speed-to-IND / Competitive Pipeline Velocity</td>
+    </tr><tr>
+      <td style="color:#C9D1D9;padding:7px 10px;border-bottom:1px solid #30363D;">2</td>
+      <td style="color:#F0F6FC;font-weight:600;padding:7px 10px;border-bottom:1px solid #30363D;">Fred Manby</td>
+      <td style="color:#8B949E;padding:7px 10px;border-bottom:1px solid #30363D;">Co-Founder &amp; CTO</td>
+      <td style="color:#F78166;font-weight:700;padding:7px 10px;border-bottom:1px solid #30363D;">P1</td>
+      <td style="color:#3FB950;padding:7px 10px;border-bottom:1px solid #30363D;font-size:12px;">Molecular Simulation + Training Orchestration</td>
+    </tr><tr>
+      <td style="color:#C9D1D9;padding:7px 10px;border-bottom:1px solid #30363D;">3</td>
+      <td style="color:#F0F6FC;font-weight:600;padding:7px 10px;border-bottom:1px solid #30363D;">Michael D.</td>
+      <td style="color:#8B949E;padding:7px 10px;border-bottom:1px solid #30363D;">Principal Machine Learning Scientist</td>
+      <td style="color:#F78166;font-weight:700;padding:7px 10px;border-bottom:1px solid #30363D;">P1</td>
+      <td style="color:#3FB950;padding:7px 10px;border-bottom:1px solid #30363D;font-size:12px;">Large-Scale Experiment Parallelism / Researcher Productivity</td>
+    </tr><tr>
+      <td style="color:#C9D1D9;padding:7px 10px;border-bottom:1px solid #30363D;">4</td>
+      <td style="color:#F0F6FC;font-weight:600;padding:7px 10px;border-bottom:1px solid #30363D;">Marcelo Lacerda, Ph.D.</td>
+      <td style="color:#8B949E;padding:7px 10px;border-bottom:1px solid #30363D;">Research Data Scientist, ML</td>
+      <td style="color:#D29922;font-weight:700;padding:7px 10px;border-bottom:1px solid #30363D;">P2</td>
+      <td style="color:#3FB950;padding:7px 10px;border-bottom:1px solid #30363D;font-size:12px;">Researcher Productivity / Less Cluster Ops, More Science</td>
+    </tr><tr>
+      <td style="color:#C9D1D9;padding:7px 10px;border-bottom:1px solid #30363D;">5</td>
+      <td style="color:#F0F6FC;font-weight:600;padding:7px 10px;border-bottom:1px solid #30363D;">Michael Irvin, PhD</td>
+      <td style="color:#8B949E;padding:7px 10px;border-bottom:1px solid #30363D;">Machine Learning Scientist</td>
+      <td style="color:#D29922;font-weight:700;padding:7px 10px;border-bottom:1px solid #30363D;">P2</td>
+      <td style="color:#3FB950;padding:7px 10px;border-bottom:1px solid #30363D;font-size:12px;">GPU Cluster Reliability / Long-Running Job Resilience</td>
+    </tr><tr>
+      <td style="color:#C9D1D9;padding:7px 10px;border-bottom:1px solid #30363D;">6</td>
+      <td style="color:#F0F6FC;font-weight:600;padding:7px 10px;border-bottom:1px solid #30363D;">David Farina Jr</td>
+      <td style="color:#8B949E;padding:7px 10px;border-bottom:1px solid #30363D;">Senior Research Scientist, ML</td>
+      <td style="color:#D29922;font-weight:700;padding:7px 10px;border-bottom:1px solid #30363D;">P2</td>
+      <td style="color:#3FB950;padding:7px 10px;border-bottom:1px solid #30363D;font-size:12px;">Scaling Experiments Without Scaling Overhead</td>
+    </tr><tr>
+      <td style="color:#C9D1D9;padding:7px 10px;border-bottom:1px solid #30363D;">7</td>
+      <td style="color:#F0F6FC;font-weight:600;padding:7px 10px;border-bottom:1px solid #30363D;">Mia A. Rosenfeld, PhD</td>
+      <td style="color:#8B949E;padding:7px 10px;border-bottom:1px solid #30363D;">Research Scientist II, ML</td>
+      <td style="color:#D29922;font-weight:700;padding:7px 10px;border-bottom:1px solid #30363D;">P2</td>
+      <td style="color:#3FB950;padding:7px 10px;border-bottom:1px solid #30363D;font-size:12px;">Research Efficiency / Cluster Reliability</td>
+    </tr><tr>
+      <td style="color:#C9D1D9;padding:7px 10px;border-bottom:1px solid #30363D;">8</td>
+      <td style="color:#F0F6FC;font-weight:600;padding:7px 10px;border-bottom:1px solid #30363D;">Felipe Costa Farias, Ph.D.</td>
+      <td style="color:#8B949E;padding:7px 10px;border-bottom:1px solid #30363D;">Senior Research Scientist, ML</td>
+      <td style="color:#D29922;font-weight:700;padding:7px 10px;border-bottom:1px solid #30363D;">P2</td>
+      <td style="color:#3FB950;padding:7px 10px;border-bottom:1px solid #30363D;font-size:12px;">Molecular ML Workloads: Generative Design &amp; Simulation</td>
+    </tr><tr>
+      <td style="color:#C9D1D9;padding:7px 10px;border-bottom:1px solid #30363D;">9</td>
+      <td style="color:#F0F6FC;font-weight:600;padding:7px 10px;border-bottom:1px solid #30363D;">Daniel Cutting</td>
+      <td style="color:#8B949E;padding:7px 10px;border-bottom:1px solid #30363D;">ML Research Scientist II</td>
+      <td style="color:#58A6FF;font-weight:700;padding:7px 10px;border-bottom:1px solid #30363D;">P3</td>
+      <td style="color:#3FB950;padding:7px 10px;border-bottom:1px solid #30363D;font-size:12px;">Distributed Experiment Scale / Developer Experience</td>
+    </tr></tbody>
+    </table>
+  </div>
+
+  <hr style="border:none;border-top:1px solid #30363D;margin-bottom:28px;">
+
+  <!-- Contact sections -->
+  
+      <div id="contact-1" style="scroll-margin-top:60px;">
+        <div style="display:flex;align-items:stretch;margin-bottom:14px;border:1px solid #30363D;border-radius:4px;overflow:hidden;">
+          <div style="background:#F78166;width:48px;min-width:48px;display:flex;align-items:center;justify-content:center;font-size:22px;font-weight:700;color:#fff;">1</div>
+          <div style="background:#161B22;flex:1;padding:12px 18px;">
+            <div style="font-size:18px;font-weight:700;color:#F0F6FC;">Thomas Miller <span style="color:#6E7681;font-size:14px;font-weight:400;"> · Co-Founder &amp; CEO</span></div>
+            <div style="margin-top:5px;font-size:12px;">
+              <span style="color:#F78166;font-weight:700;">P1</span>
+              <span style="color:#6E7681;"> · Iambic Therapeutics · </span>
+              <span style="color:#3FB950;">Speed-to-IND / Competitive Pipeline Velocity</span>
+              <span style="color:#6E7681;"> · Contact 1 of 9</span>
+            </div><div style="margin-top:5px;font-size:12px;color:#8B949E;">📧 <a href="mailto:thomas.miller@iambic.ai" style="color:#58A6FF;text-decoration:none;">thomas.miller@iambic.ai</a><span style="font-size:10px;background:rgba(139,148,158,0.1);color:#6E7681;border:1px solid #30363D;border-radius:3px;padding:1px 5px;margin-left:6px;">inferred</span></div>
+          </div>
+        </div>
+        
+        <div style="border:1px solid #30363D;border-top:3px solid #3FB950;border-radius:4px;margin-bottom:12px;overflow:hidden;">
+          <div style="background:#1a1a1a;padding:10px 16px;border-bottom:1px solid #30363D;">
+            <span style="color:#3FB950;font-weight:700;font-size:13px;">Step 1&nbsp;&nbsp;</span>
+            <span style="color:#6E7681;font-size:13px;">Subject: </span>
+            <span style="color:#F0F6FC;font-weight:700;font-size:13px;">Every month faster in AI drug discovery compounds</span>
+          </div>
+          <div style="background:#161B22;padding:14px 18px;font-size:14px;color:#C9D1D9;font-family:Arial,sans-serif;line-height:1.7;"><div style="margin-bottom:0;line-height:1.6;">Thomas —</div><div style="height:10px"></div><div style="margin-bottom:0;line-height:1.6;">Following Iambic's work on AI-first drug discovery closely. The ML pipeline — molecular simulation, binding affinity modeling, generative design — is increasingly the rate-limiter between a hypothesis and an IND filing.</div><div style="height:10px"></div><div style="margin-bottom:0;line-height:1.6;">Blue River Technology cut a comparable parallel compute pipeline from 24 hours to 9.5 hours on the same hardware using Anyscale. 2.5× faster throughput on the workload that gated everything downstream.</div><div style="height:10px"></div><div style="margin-bottom:0;line-height:1.6;">For an AI drug discovery company advancing multiple programs in parallel, that kind of ML infrastructure efficiency translates directly to months off the discovery timeline — and months in therapeutics are measured in competitive advantage and program value.</div><div style="height:10px"></div><div style="margin-bottom:0;line-height:1.6;">Worth 20 minutes to explore how this maps to Iambic's pipeline?</div><div style="height:10px"></div><div style="margin-bottom:0;line-height:1.6;">Dylan</div></div>
+          
+        <div style="background:#0E1408;border-top:1px solid #30363D;padding:10px 16px;font-size:13px;color:#3FB950;font-style:italic;">📌 Proof: Blue River — parallel compute pipeline 24h → 9.5h, 2.5× faster on same hardware</div>
+        </div>
+        <div style="border:1px solid #30363D;border-top:3px solid #3FB950;border-radius:4px;margin-bottom:12px;overflow:hidden;">
+          <div style="background:#1a1a1a;padding:10px 16px;border-bottom:1px solid #30363D;">
+            <span style="color:#3FB950;font-weight:700;font-size:13px;">Step 2&nbsp;&nbsp;</span>
+            <span style="color:#6E7681;font-size:13px;">Subject: </span>
+            <span style="color:#F0F6FC;font-weight:700;font-size:13px;">Re: parallel simulation at scale — the infra constraint</span>
+          </div>
+          <div style="background:#161B22;padding:14px 18px;font-size:14px;color:#C9D1D9;font-family:Arial,sans-serif;line-height:1.7;"><div style="margin-bottom:0;line-height:1.6;">Thomas —</div><div style="height:10px"></div><div style="margin-bottom:0;line-height:1.6;">Following up. The specific compute challenge at AI drug discovery companies at Iambic's stage: running thousands of molecular simulation jobs in parallel without the infrastructure overhead scaling proportionally to the science.</div><div style="height:10px"></div><div style="margin-bottom:0;line-height:1.6;">Zoox (Amazon's AV division) runs thousands of parallel simulation workloads on Anyscale's managed Ray — automatic scheduling, fault recovery, heterogeneous compute — without a large dedicated infra team.</div><div style="height:10px"></div><div style="margin-bottom:0;line-height:1.6;">The same distributed architecture that handles parallel AV simulation applies directly to parallel molecular simulation runs. Physical Intelligence — a comparably-sized physical AI company — freed 16+ engineers from infrastructure management by moving to Anyscale. More compute capacity, same team.</div><div style="height:10px"></div><div style="margin-bottom:0;line-height:1.6;">For a CEO where faster candidate selection is a direct business outcome, that's the infrastructure investment argument.</div><div style="height:10px"></div><div style="margin-bottom:0;line-height:1.6;">Happy to map this to Iambic's specific pipeline. 20 minutes?</div><div style="height:10px"></div><div style="margin-bottom:0;line-height:1.6;">Dylan</div></div>
+          
+        <div style="background:#0E1408;border-top:1px solid #30363D;padding:10px 16px;font-size:13px;color:#3FB950;font-style:italic;">📌 Proof: Zoox (1,000s of parallel sim jobs) + Physical Intelligence (16+ engineers freed)</div>
+        </div>
+        <div style="border:1px solid #30363D;border-top:3px solid #3FB950;border-radius:4px;margin-bottom:12px;overflow:hidden;">
+          <div style="background:#1a1a1a;padding:10px 16px;border-bottom:1px solid #30363D;">
+            <span style="color:#3FB950;font-weight:700;font-size:13px;">Step 3&nbsp;&nbsp;</span>
+            <span style="color:#6E7681;font-size:13px;">Subject: </span>
+            <span style="color:#F0F6FC;font-weight:700;font-size:13px;">Infrastructure efficiency as a competitive moat</span>
+          </div>
+          <div style="background:#161B22;padding:14px 18px;font-size:14px;color:#C9D1D9;font-family:Arial,sans-serif;line-height:1.7;"><div style="margin-bottom:0;line-height:1.6;">Thomas —</div><div style="height:10px"></div><div style="margin-bottom:0;line-height:1.6;">One framing worth considering: in AI drug discovery, compute infrastructure efficiency is a competitive moat — not just a cost center.</div><div style="height:10px"></div><div style="margin-bottom:0;line-height:1.6;">If Iambic can run 2× as many molecular design cycles in the same time as a competitor using the same headcount, that's a direct advantage in candidate quality and program velocity. The ML pipeline is the engine; Anyscale is the transmission.</div><div style="height:10px"></div><div style="margin-bottom:0;line-height:1.6;">Uber achieved 50% compute savings on heterogeneous GPU+CPU workloads by letting Ray's scheduler optimize resource allocation automatically. For a company with significant GPU infrastructure for simulation and training, that efficiency gain compounds directly into more programs per compute-dollar.</div><div style="height:10px"></div><div style="margin-bottom:0;line-height:1.6;">Happy to quantify what this looks like for Iambic's workload profile. No commitment.</div><div style="height:10px"></div><div style="margin-bottom:0;line-height:1.6;">Dylan</div></div>
+          
+        <div style="background:#0E1408;border-top:1px solid #30363D;padding:10px 16px;font-size:13px;color:#3FB950;font-style:italic;">📌 Proof: Uber — 50% compute savings via Ray scheduling on heterogeneous GPU+CPU cluster</div>
+        </div>
+        <div style="border:1px solid #30363D;border-top:3px solid #3FB950;border-radius:4px;margin-bottom:12px;overflow:hidden;">
+          <div style="background:#1a1a1a;padding:10px 16px;border-bottom:1px solid #30363D;">
+            <span style="color:#3FB950;font-weight:700;font-size:13px;">Step 4&nbsp;&nbsp;</span>
+            <span style="color:#6E7681;font-size:13px;">Subject: </span>
+            <span style="color:#F0F6FC;font-weight:700;font-size:13px;">Last note — ML pipeline velocity</span>
+          </div>
+          <div style="background:#161B22;padding:14px 18px;font-size:14px;color:#C9D1D9;font-family:Arial,sans-serif;line-height:1.7;"><div style="margin-bottom:0;line-height:1.6;">Thomas —</div><div style="height:10px"></div><div style="margin-bottom:0;line-height:1.6;">Last one from me.</div><div style="height:10px"></div><div style="margin-bottom:0;line-height:1.6;">Blue River: parallel pipeline 2.5× faster on same hardware. Zoox: thousands of parallel simulation jobs managed automatically. Physical Intelligence: 16+ engineers freed, 2× faster iteration at similar scale. Uber: 50% compute savings on heterogeneous workloads.</div><div style="height:10px"></div><div style="margin-bottom:0;line-height:1.6;">All directly applicable to AI drug discovery compute infrastructure. If ML pipeline velocity is a lever you're pulling on as Iambic advances more programs — I'd welcome a conversation.</div><div style="height:10px"></div><div style="margin-bottom:0;line-height:1.6;">Dylan</div></div>
+          
+        <div style="background:#0E1408;border-top:1px solid #30363D;padding:10px 16px;font-size:13px;color:#3FB950;font-style:italic;">📌 Proof: Blue River (2.5×) + Zoox (parallel sim) + Physical Intelligence (2×, 16+ freed) + Uber (50%)</div>
+        </div>
+      </div><hr style="border:none;border-top:1px solid #30363D;margin:24px 0;">
+      <div id="contact-2" style="scroll-margin-top:60px;">
+        <div style="display:flex;align-items:stretch;margin-bottom:14px;border:1px solid #30363D;border-radius:4px;overflow:hidden;">
+          <div style="background:#F78166;width:48px;min-width:48px;display:flex;align-items:center;justify-content:center;font-size:22px;font-weight:700;color:#fff;">2</div>
+          <div style="background:#161B22;flex:1;padding:12px 18px;">
+            <div style="font-size:18px;font-weight:700;color:#F0F6FC;">Fred Manby <span style="color:#6E7681;font-size:14px;font-weight:400;"> · Co-Founder &amp; CTO</span></div>
+            <div style="margin-top:5px;font-size:12px;">
+              <span style="color:#F78166;font-weight:700;">P1</span>
+              <span style="color:#6E7681;"> · Iambic Therapeutics · </span>
+              <span style="color:#3FB950;">Molecular Simulation + Training Orchestration</span>
+              <span style="color:#6E7681;"> · Contact 2 of 9</span>
+            </div><div style="margin-top:5px;font-size:12px;color:#8B949E;">📧 <a href="mailto:fred.manby@iambic.ai" style="color:#58A6FF;text-decoration:none;">fred.manby@iambic.ai</a><span style="font-size:10px;background:rgba(139,148,158,0.1);color:#6E7681;border:1px solid #30363D;border-radius:3px;padding:1px 5px;margin-left:6px;">inferred</span></div>
+          </div>
+        </div>
+        
+        <div style="border:1px solid #30363D;border-top:3px solid #3FB950;border-radius:4px;margin-bottom:12px;overflow:hidden;">
+          <div style="background:#1a1a1a;padding:10px 16px;border-bottom:1px solid #30363D;">
+            <span style="color:#3FB950;font-weight:700;font-size:13px;">Step 1&nbsp;&nbsp;</span>
+            <span style="color:#6E7681;font-size:13px;">Subject: </span>
+            <span style="color:#F0F6FC;font-weight:700;font-size:13px;">Orchestrating molecular simulation + model training — architecture question</span>
+          </div>
+          <div style="background:#161B22;padding:14px 18px;font-size:14px;color:#C9D1D9;font-family:Arial,sans-serif;line-height:1.7;"><div style="margin-bottom:0;line-height:1.6;">Fred —</div><div style="height:10px"></div><div style="margin-bottom:0;line-height:1.6;">Iambic's compute architecture is genuinely interesting — running molecular simulation alongside generative model training is exactly the workload profile that distributed compute frameworks are built for, but the orchestration across both is non-trivial.</div><div style="height:10px"></div><div style="margin-bottom:0;line-height:1.6;">Straight question: are you orchestrating those parallel jobs on Ray today, or a different framework? And how are you handling scheduling when simulation jobs and training jobs compete for the same GPU pool?</div><div style="height:10px"></div><div style="margin-bottom:0;line-height:1.6;">We work with a few computational biology and physical AI teams on similar mixed workload pipelines. Would love to compare architectures — 20 minutes, no slides, just technical conversation.</div><div style="height:10px"></div><div style="margin-bottom:0;line-height:1.6;">Dylan</div></div>
+          
+        <div style="background:#0E1408;border-top:1px solid #30363D;padding:10px 16px;font-size:13px;color:#3FB950;font-style:italic;">📌 Proof: Zoox — mixed simulation + training workloads on managed Ray, automatic scheduling</div>
+        </div>
+        <div style="border:1px solid #30363D;border-top:3px solid #3FB950;border-radius:4px;margin-bottom:12px;overflow:hidden;">
+          <div style="background:#1a1a1a;padding:10px 16px;border-bottom:1px solid #30363D;">
+            <span style="color:#3FB950;font-weight:700;font-size:13px;">Step 2&nbsp;&nbsp;</span>
+            <span style="color:#6E7681;font-size:13px;">Subject: </span>
+            <span style="color:#F0F6FC;font-weight:700;font-size:13px;">Re: thousands of parallel simulation jobs — scheduling architecture</span>
+          </div>
+          <div style="background:#161B22;padding:14px 18px;font-size:14px;color:#C9D1D9;font-family:Arial,sans-serif;line-height:1.7;"><div style="margin-bottom:0;line-height:1.6;">Fred —</div><div style="height:10px"></div><div style="margin-bottom:0;line-height:1.6;">Following up. The core scheduling problem for molecular simulation at scale: thousands of short-lived jobs with heterogeneous resource requirements (some GPU-heavy for ML scoring, some CPU-heavy for physics simulation) competing for the same cluster.</div><div style="height:10px"></div><div style="margin-bottom:0;line-height:1.6;">Zoox runs exactly this class of mixed parallel workload on Anyscale's managed Ray — thousands of simultaneous jobs, automatic resource allocation, fault-tolerant task retry without manual intervention.</div><div style="height:10px"></div><div style="margin-bottom:0;line-height:1.6;">Anyscale adds an autoscaling layer on top of Ray that dynamically provisions compute as job queues grow — so peak simulation runs don't require pre-provisioned overcapacity. Happy to walk through the scheduling architecture in detail.</div><div style="height:10px"></div><div style="margin-bottom:0;line-height:1.6;">20 minutes?</div><div style="height:10px"></div><div style="margin-bottom:0;line-height:1.6;">Dylan</div></div>
+          
+        <div style="background:#0E1408;border-top:1px solid #30363D;padding:10px 16px;font-size:13px;color:#3FB950;font-style:italic;">📌 Proof: Zoox — 1,000s of parallel jobs, mixed GPU/CPU, automatic fault recovery on managed Ray</div>
+        </div>
+        <div style="border:1px solid #30363D;border-top:3px solid #3FB950;border-radius:4px;margin-bottom:12px;overflow:hidden;">
+          <div style="background:#1a1a1a;padding:10px 16px;border-bottom:1px solid #30363D;">
+            <span style="color:#3FB950;font-weight:700;font-size:13px;">Step 3&nbsp;&nbsp;</span>
+            <span style="color:#6E7681;font-size:13px;">Subject: </span>
+            <span style="color:#F0F6FC;font-weight:700;font-size:13px;">Unified pipeline: simulation → generative design → training</span>
+          </div>
+          <div style="background:#161B22;padding:14px 18px;font-size:14px;color:#C9D1D9;font-family:Arial,sans-serif;line-height:1.7;"><div style="margin-bottom:0;line-height:1.6;">Fred —</div><div style="height:10px"></div><div style="margin-bottom:0;line-height:1.6;">One architecture worth discussing: unified simulation, generative design, and training on the same Ray cluster.</div><div style="height:10px"></div><div style="margin-bottom:0;line-height:1.6;">The typical workflow at AI drug discovery companies: molecular simulation feeds data into model training, model outputs feed into generative design, generative design outputs feed back into simulation — a tight feedback loop. Running each stage on separate infrastructure creates handoff friction and data movement overhead.</div><div style="height:10px"></div><div style="margin-bottom:0;line-height:1.6;">Physical Intelligence runs an analogous tight-loop pipeline — sensor data → model training → model serving — on a single Anyscale deployment. The result: faster iteration across the full loop and engineers focused on the science, not the plumbing.</div><div style="height:10px"></div><div style="margin-bottom:0;line-height:1.6;">I'd find the architecture conversation genuinely interesting regardless of where Iambic lands on tooling. Worth a call?</div><div style="height:10px"></div><div style="margin-bottom:0;line-height:1.6;">Dylan</div></div>
+          
+        <div style="background:#0E1408;border-top:1px solid #30363D;padding:10px 16px;font-size:13px;color:#3FB950;font-style:italic;">📌 Proof: Physical Intelligence — unified data-to-model pipeline, 2× full-loop iteration speed</div>
+        </div>
+        <div style="border:1px solid #30363D;border-top:3px solid #3FB950;border-radius:4px;margin-bottom:12px;overflow:hidden;">
+          <div style="background:#1a1a1a;padding:10px 16px;border-bottom:1px solid #30363D;">
+            <span style="color:#3FB950;font-weight:700;font-size:13px;">Step 4&nbsp;&nbsp;</span>
+            <span style="color:#6E7681;font-size:13px;">Subject: </span>
+            <span style="color:#F0F6FC;font-weight:700;font-size:13px;">Last note — distributed ML architecture</span>
+          </div>
+          <div style="background:#161B22;padding:14px 18px;font-size:14px;color:#C9D1D9;font-family:Arial,sans-serif;line-height:1.7;"><div style="margin-bottom:0;line-height:1.6;">Fred —</div><div style="height:10px"></div><div style="margin-bottom:0;line-height:1.6;">Last one from me.</div><div style="height:10px"></div><div style="margin-bottom:0;line-height:1.6;">If the distributed orchestration question — simulation + training + generative design on shared infrastructure — comes up as an architecture decision, I'd welcome a technical conversation. Zoox, Physical Intelligence, and Uber are examples of teams running comparably complex mixed workloads on Anyscale.</div><div style="height:10px"></div><div style="margin-bottom:0;line-height:1.6;">No commitment. Happy to share architecture docs and benchmark data whenever it's relevant.</div><div style="height:10px"></div><div style="margin-bottom:0;line-height:1.6;">Dylan</div></div>
+          
+        <div style="background:#0E1408;border-top:1px solid #30363D;padding:10px 16px;font-size:13px;color:#3FB950;font-style:italic;">📌 Proof: Zoox (mixed sim+training) + Physical Intelligence (unified pipeline) + Uber (50% savings)</div>
+        </div>
+      </div><hr style="border:none;border-top:1px solid #30363D;margin:24px 0;">
+      <div id="contact-3" style="scroll-margin-top:60px;">
+        <div style="display:flex;align-items:stretch;margin-bottom:14px;border:1px solid #30363D;border-radius:4px;overflow:hidden;">
+          <div style="background:#F78166;width:48px;min-width:48px;display:flex;align-items:center;justify-content:center;font-size:22px;font-weight:700;color:#fff;">3</div>
+          <div style="background:#161B22;flex:1;padding:12px 18px;">
+            <div style="font-size:18px;font-weight:700;color:#F0F6FC;">Michael D. <span style="color:#6E7681;font-size:14px;font-weight:400;"> · Principal Machine Learning Scientist</span></div>
+            <div style="margin-top:5px;font-size:12px;">
+              <span style="color:#F78166;font-weight:700;">P1</span>
+              <span style="color:#6E7681;"> · Iambic Therapeutics · </span>
+              <span style="color:#3FB950;">Large-Scale Experiment Parallelism / Researcher Productivity</span>
+              <span style="color:#6E7681;"> · Contact 3 of 9</span>
+            </div><div style="margin-top:5px;font-size:12px;color:#8B949E;">📧 <a href="mailto:michael.d@iambic.ai" style="color:#58A6FF;text-decoration:none;">michael.d@iambic.ai</a><span style="font-size:10px;background:rgba(139,148,158,0.1);color:#6E7681;border:1px solid #30363D;border-radius:3px;padding:1px 5px;margin-left:6px;">inferred</span></div>
+          </div>
+        </div>
+        
+        <div style="border:1px solid #30363D;border-top:3px solid #3FB950;border-radius:4px;margin-bottom:12px;overflow:hidden;">
+          <div style="background:#1a1a1a;padding:10px 16px;border-bottom:1px solid #30363D;">
+            <span style="color:#3FB950;font-weight:700;font-size:13px;">Step 1&nbsp;&nbsp;</span>
+            <span style="color:#6E7681;font-size:13px;">Subject: </span>
+            <span style="color:#F0F6FC;font-weight:700;font-size:13px;">Parallelizing ML experiments in drug discovery</span>
+          </div>
+          <div style="background:#161B22;padding:14px 18px;font-size:14px;color:#C9D1D9;font-family:Arial,sans-serif;line-height:1.7;"><div style="margin-bottom:0;line-height:1.6;">Michael —</div><div style="height:10px"></div><div style="margin-bottom:0;line-height:1.6;">Running large-scale ML experiments in drug discovery — binding affinity prediction, molecular property modeling, generative design — requires serious distributed compute. The question is usually how much of your time goes into managing that infrastructure vs. running the actual experiments.</div><div style="height:10px"></div><div style="margin-bottom:0;line-height:1.6;">We make managed Ray that eliminates cluster management overhead for ML researchers. You write Python Ray tasks — distributed training, parallel experiment runs, hyperparameter search — and the cluster handles scheduling, fault recovery, and resource allocation automatically.</div><div style="height:10px"></div><div style="margin-bottom:0;line-height:1.6;">Physical Intelligence runs terabyte-scale ML pipelines this way with a small team. 2× faster research iteration because researchers aren't managing infrastructure.</div><div style="height:10px"></div><div style="margin-bottom:0;line-height:1.6;">Happy to show you what that looks like for workflows similar to Iambic's. 20 minutes?</div><div style="height:10px"></div><div style="margin-bottom:0;line-height:1.6;">Dylan</div></div>
+          
+        <div style="background:#0E1408;border-top:1px solid #30363D;padding:10px 16px;font-size:13px;color:#3FB950;font-style:italic;">📌 Proof: Physical Intelligence — 2× faster ML research iteration, Python-native, no cluster management</div>
+        </div>
+        <div style="border:1px solid #30363D;border-top:3px solid #3FB950;border-radius:4px;margin-bottom:12px;overflow:hidden;">
+          <div style="background:#1a1a1a;padding:10px 16px;border-bottom:1px solid #30363D;">
+            <span style="color:#3FB950;font-weight:700;font-size:13px;">Step 2&nbsp;&nbsp;</span>
+            <span style="color:#6E7681;font-size:13px;">Subject: </span>
+            <span style="color:#F0F6FC;font-weight:700;font-size:13px;">Re: distributed hyperparameter search at molecular ML scale</span>
+          </div>
+          <div style="background:#161B22;padding:14px 18px;font-size:14px;color:#C9D1D9;font-family:Arial,sans-serif;line-height:1.7;"><div style="margin-bottom:0;line-height:1.6;">Michael —</div><div style="height:10px"></div><div style="margin-bottom:0;line-height:1.6;">Following up. One specific place managed Ray tends to pay off for principal-level ML scientists: large-scale hyperparameter search and ablation studies.</div><div style="height:10px"></div><div style="margin-bottom:0;line-height:1.6;">Ray Tune on Anyscale schedules parallel trials automatically — ASHA early stopping, population-based training, Bayesian optimization — across the full cluster. Run 50 trials in the time it takes to run 5 sequentially, with automatic checkpointing so a node failure doesn't lose experiment state.</div><div style="height:10px"></div><div style="margin-bottom:0;line-height:1.6;">Uber ran distributed search on heterogeneous GPU clusters and cut compute costs by 50% via smarter scheduling. The same infrastructure handles training and search workloads on the same cluster.</div><div style="height:10px"></div><div style="margin-bottom:0;line-height:1.6;">For a Principal ML Scientist running a large experimental portfolio, that's the difference between exploring 5 model variants per week vs. 25.</div><div style="height:10px"></div><div style="margin-bottom:0;line-height:1.6;">20 minutes?</div><div style="height:10px"></div><div style="margin-bottom:0;line-height:1.6;">Dylan</div></div>
+          
+        <div style="background:#0E1408;border-top:1px solid #30363D;padding:10px 16px;font-size:13px;color:#3FB950;font-style:italic;">📌 Proof: Uber — 50% compute savings, parallel distributed search on heterogeneous Ray cluster</div>
+        </div>
+        <div style="border:1px solid #30363D;border-top:3px solid #3FB950;border-radius:4px;margin-bottom:12px;overflow:hidden;">
+          <div style="background:#1a1a1a;padding:10px 16px;border-bottom:1px solid #30363D;">
+            <span style="color:#3FB950;font-weight:700;font-size:13px;">Step 3&nbsp;&nbsp;</span>
+            <span style="color:#6E7681;font-size:13px;">Subject: </span>
+            <span style="color:#F0F6FC;font-weight:700;font-size:13px;">Molecular simulation + ML training on one pipeline</span>
+          </div>
+          <div style="background:#161B22;padding:14px 18px;font-size:14px;color:#C9D1D9;font-family:Arial,sans-serif;line-height:1.7;"><div style="margin-bottom:0;line-height:1.6;">Michael —</div><div style="height:10px"></div><div style="margin-bottom:0;line-height:1.6;">One architecture worth discussing: unified molecular simulation and ML training on the same cluster.</div><div style="height:10px"></div><div style="margin-bottom:0;line-height:1.6;">The typical bottleneck at AI drug discovery companies: simulation outputs need to be featurized and loaded before training can start. That staging step — if not parallelized — creates a wall between simulation throughput and training throughput.</div><div style="height:10px"></div><div style="margin-bottom:0;line-height:1.6;">Ray Data distributes data preprocessing and featurization across workers so training starts without waiting for a full simulation batch to complete. Blue River Technology used this to cut their data pipeline from 24 hours to 9.5 hours — the training stage had data available continuously rather than in batches.</div><div style="height:10px"></div><div style="margin-bottom:0;line-height:1.6;">For molecular ML at Iambic's scale, that architectural change would compound across every experimental cycle.</div><div style="height:10px"></div><div style="margin-bottom:0;line-height:1.6;">Interested in a walkthrough?</div><div style="height:10px"></div><div style="margin-bottom:0;line-height:1.6;">Dylan</div></div>
+          
+        <div style="background:#0E1408;border-top:1px solid #30363D;padding:10px 16px;font-size:13px;color:#3FB950;font-style:italic;">📌 Proof: Blue River — 24h → 9.5h via pipelined data processing, continuous data-to-training flow</div>
+        </div>
+        <div style="border:1px solid #30363D;border-top:3px solid #3FB950;border-radius:4px;margin-bottom:12px;overflow:hidden;">
+          <div style="background:#1a1a1a;padding:10px 16px;border-bottom:1px solid #30363D;">
+            <span style="color:#3FB950;font-weight:700;font-size:13px;">Step 4&nbsp;&nbsp;</span>
+            <span style="color:#6E7681;font-size:13px;">Subject: </span>
+            <span style="color:#F0F6FC;font-weight:700;font-size:13px;">Last note — ML research infrastructure</span>
+          </div>
+          <div style="background:#161B22;padding:14px 18px;font-size:14px;color:#C9D1D9;font-family:Arial,sans-serif;line-height:1.7;"><div style="margin-bottom:0;line-height:1.6;">Michael —</div><div style="height:10px"></div><div style="margin-bottom:0;line-height:1.6;">Last note from me.</div><div style="height:10px"></div><div style="margin-bottom:0;line-height:1.6;">Physical Intelligence: 2× faster ML research iteration, 16+ engineers freed from infra. Blue River: 24h → 9.5h on parallel data pipelines. Uber: 50% compute savings on distributed workloads. Zoox: thousands of parallel simulation jobs managed automatically.</div><div style="height:10px"></div><div style="margin-bottom:0;line-height:1.6;">All applicable to large-scale ML research in drug discovery. If experiment throughput or infrastructure overhead is something you're thinking about — happy to map it to Iambic's workflow.</div><div style="height:10px"></div><div style="margin-bottom:0;line-height:1.6;">Dylan</div></div>
+          
+        <div style="background:#0E1408;border-top:1px solid #30363D;padding:10px 16px;font-size:13px;color:#3FB950;font-style:italic;">📌 Proof: Physical Intelligence (2×, 16+ freed) + Blue River (2.5×) + Zoox (parallel sim) + Uber (50%)</div>
+        </div>
+      </div><hr style="border:none;border-top:1px solid #30363D;margin:24px 0;">
+      <div id="contact-4" style="scroll-margin-top:60px;">
+        <div style="display:flex;align-items:stretch;margin-bottom:14px;border:1px solid #30363D;border-radius:4px;overflow:hidden;">
+          <div style="background:#D29922;width:48px;min-width:48px;display:flex;align-items:center;justify-content:center;font-size:22px;font-weight:700;color:#fff;">4</div>
+          <div style="background:#161B22;flex:1;padding:12px 18px;">
+            <div style="font-size:18px;font-weight:700;color:#F0F6FC;">Marcelo Lacerda, Ph.D. <span style="color:#6E7681;font-size:14px;font-weight:400;"> · Research Data Scientist, ML</span></div>
+            <div style="margin-top:5px;font-size:12px;">
+              <span style="color:#D29922;font-weight:700;">P2</span>
+              <span style="color:#6E7681;"> · Iambic Therapeutics · </span>
+              <span style="color:#3FB950;">Researcher Productivity / Less Cluster Ops, More Science</span>
+              <span style="color:#6E7681;"> · Contact 4 of 9</span>
+            </div><div style="margin-top:5px;font-size:12px;color:#8B949E;">📧 <a href="mailto:marcelo.lacerda@iambic.ai" style="color:#58A6FF;text-decoration:none;">marcelo.lacerda@iambic.ai</a><span style="font-size:10px;background:rgba(139,148,158,0.1);color:#6E7681;border:1px solid #30363D;border-radius:3px;padding:1px 5px;margin-left:6px;">inferred</span></div>
+          </div>
+        </div>
+        
+        <div style="border:1px solid #30363D;border-top:3px solid #3FB950;border-radius:4px;margin-bottom:12px;overflow:hidden;">
+          <div style="background:#1a1a1a;padding:10px 16px;border-bottom:1px solid #30363D;">
+            <span style="color:#3FB950;font-weight:700;font-size:13px;">Step 1&nbsp;&nbsp;</span>
+            <span style="color:#6E7681;font-size:13px;">Subject: </span>
+            <span style="color:#F0F6FC;font-weight:700;font-size:13px;">Cluster ops vs. science time ratio</span>
+          </div>
+          <div style="background:#161B22;padding:14px 18px;font-size:14px;color:#C9D1D9;font-family:Arial,sans-serif;line-height:1.7;"><div style="margin-bottom:0;line-height:1.6;">Marcelo —</div><div style="height:10px"></div><div style="margin-bottom:0;line-height:1.6;">For computational biology ML researchers, cluster management tends to be the biggest time sink outside the actual science — configuring jobs, debugging failures, waiting on scheduling queues.</div><div style="height:10px"></div><div style="margin-bottom:0;line-height:1.6;">We make managed Ray that handles all the infrastructure overhead automatically. You write Python Ray tasks for distributed data processing and training; the cluster handles the rest. Physical Intelligence runs terabyte-scale ML data pipelines this way — 2× faster iteration because researchers aren't managing nodes.</div><div style="height:10px"></div><div style="margin-bottom:0;line-height:1.6;">Are you running distributed workloads on Ray today at Iambic? Happy to show you what managed Ray looks like for similar workflows.</div><div style="height:10px"></div><div style="margin-bottom:0;line-height:1.6;">Dylan</div></div>
+          
+        <div style="background:#0E1408;border-top:1px solid #30363D;padding:10px 16px;font-size:13px;color:#3FB950;font-style:italic;">📌 Proof: Physical Intelligence — 2× faster iteration, researchers off cluster management overhead</div>
+        </div>
+        <div style="border:1px solid #30363D;border-top:3px solid #3FB950;border-radius:4px;margin-bottom:12px;overflow:hidden;">
+          <div style="background:#1a1a1a;padding:10px 16px;border-bottom:1px solid #30363D;">
+            <span style="color:#3FB950;font-weight:700;font-size:13px;">Step 2&nbsp;&nbsp;</span>
+            <span style="color:#6E7681;font-size:13px;">Subject: </span>
+            <span style="color:#F0F6FC;font-weight:700;font-size:13px;">Re: distributed data pipelines for molecular ML</span>
+          </div>
+          <div style="background:#161B22;padding:14px 18px;font-size:14px;color:#C9D1D9;font-family:Arial,sans-serif;line-height:1.7;"><div style="margin-bottom:0;line-height:1.6;">Marcelo —</div><div style="height:10px"></div><div style="margin-bottom:0;line-height:1.6;">Following up. The data scientist side of molecular ML has a specific bottleneck: large-scale data featurization and processing before any model training starts. Conformation sampling outputs, docking scores, ADMET predictions — all need to be aggregated and featurized at scale.</div><div style="height:10px"></div><div style="margin-bottom:0;line-height:1.6;">Ray Data distributes that preprocessing across workers so training jobs have data available continuously rather than waiting on batch processing to complete. Blue River Technology cut their parallel data pipeline from 24 hours to 9.5 hours using exactly this approach.</div><div style="height:10px"></div><div style="margin-bottom:0;line-height:1.6;">For a research data scientist working on molecular ML at Iambic, that's the class of pipeline improvement that changes how many experimental cycles you can run per week.</div><div style="height:10px"></div><div style="margin-bottom:0;line-height:1.6;">20 minutes?</div><div style="height:10px"></div><div style="margin-bottom:0;line-height:1.6;">Dylan</div></div>
+          
+        <div style="background:#0E1408;border-top:1px solid #30363D;padding:10px 16px;font-size:13px;color:#3FB950;font-style:italic;">📌 Proof: Blue River — 24h → 9.5h data pipeline via Ray Data distributed preprocessing</div>
+        </div>
+        <div style="border:1px solid #30363D;border-top:3px solid #3FB950;border-radius:4px;margin-bottom:12px;overflow:hidden;">
+          <div style="background:#1a1a1a;padding:10px 16px;border-bottom:1px solid #30363D;">
+            <span style="color:#3FB950;font-weight:700;font-size:13px;">Step 3&nbsp;&nbsp;</span>
+            <span style="color:#6E7681;font-size:13px;">Subject: </span>
+            <span style="color:#F0F6FC;font-weight:700;font-size:13px;">Fault-tolerant long-running molecular jobs</span>
+          </div>
+          <div style="background:#161B22;padding:14px 18px;font-size:14px;color:#C9D1D9;font-family:Arial,sans-serif;line-height:1.7;"><div style="margin-bottom:0;line-height:1.6;">Marcelo —</div><div style="height:10px"></div><div style="margin-bottom:0;line-height:1.6;">One thing that matters specifically for long-running molecular simulation pipelines: fault tolerance.</div><div style="height:10px"></div><div style="margin-bottom:0;line-height:1.6;">A multi-hour distributed featurization or training run that fails 80% through requires a full manual restart — expensive in both time and researcher attention. Ray on Anyscale includes task-level fault tolerance: a node failure mid-pipeline retries the affected tasks automatically without restarting the full job.</div><div style="height:10px"></div><div style="margin-bottom:0;line-height:1.6;">Zoox runs thousands of parallel simulation workloads with this fault model at scale. For a data scientist running large-scale molecular ML jobs, that means fewer interrupted experiments and less time babysitting long runs.</div><div style="height:10px"></div><div style="margin-bottom:0;line-height:1.6;">Worth a quick walkthrough?</div><div style="height:10px"></div><div style="margin-bottom:0;line-height:1.6;">Dylan</div></div>
+          
+        <div style="background:#0E1408;border-top:1px solid #30363D;padding:10px 16px;font-size:13px;color:#3FB950;font-style:italic;">📌 Proof: Zoox — task-level fault recovery on 1,000s of parallel jobs, no manual restart needed</div>
+        </div>
+        <div style="border:1px solid #30363D;border-top:3px solid #3FB950;border-radius:4px;margin-bottom:12px;overflow:hidden;">
+          <div style="background:#1a1a1a;padding:10px 16px;border-bottom:1px solid #30363D;">
+            <span style="color:#3FB950;font-weight:700;font-size:13px;">Step 4&nbsp;&nbsp;</span>
+            <span style="color:#6E7681;font-size:13px;">Subject: </span>
+            <span style="color:#F0F6FC;font-weight:700;font-size:13px;">Last note — research data pipeline efficiency</span>
+          </div>
+          <div style="background:#161B22;padding:14px 18px;font-size:14px;color:#C9D1D9;font-family:Arial,sans-serif;line-height:1.7;"><div style="margin-bottom:0;line-height:1.6;">Marcelo —</div><div style="height:10px"></div><div style="margin-bottom:0;line-height:1.6;">Last one from me.</div><div style="height:10px"></div><div style="margin-bottom:0;line-height:1.6;">Physical Intelligence: 2× faster iteration, researchers off infrastructure overhead. Blue River: data pipeline 2.5× faster via distributed preprocessing. Zoox: fault-tolerant parallel jobs at scale.</div><div style="height:10px"></div><div style="margin-bottom:0;line-height:1.6;">All Python-native, all applicable to molecular ML data pipelines. If infrastructure friction is something you're working around at Iambic — happy to show you what managed Ray looks like.</div><div style="height:10px"></div><div style="margin-bottom:0;line-height:1.6;">Dylan</div></div>
+          
+        <div style="background:#0E1408;border-top:1px solid #30363D;padding:10px 16px;font-size:13px;color:#3FB950;font-style:italic;">📌 Proof: Physical Intelligence (2×) + Blue River (2.5× pipeline) + Zoox (fault tolerance)</div>
+        </div>
+      </div><hr style="border:none;border-top:1px solid #30363D;margin:24px 0;">
+      <div id="contact-5" style="scroll-margin-top:60px;">
+        <div style="display:flex;align-items:stretch;margin-bottom:14px;border:1px solid #30363D;border-radius:4px;overflow:hidden;">
+          <div style="background:#D29922;width:48px;min-width:48px;display:flex;align-items:center;justify-content:center;font-size:22px;font-weight:700;color:#fff;">5</div>
+          <div style="background:#161B22;flex:1;padding:12px 18px;">
+            <div style="font-size:18px;font-weight:700;color:#F0F6FC;">Michael Irvin, PhD <span style="color:#6E7681;font-size:14px;font-weight:400;"> · Machine Learning Scientist</span></div>
+            <div style="margin-top:5px;font-size:12px;">
+              <span style="color:#D29922;font-weight:700;">P2</span>
+              <span style="color:#6E7681;"> · Iambic Therapeutics · </span>
+              <span style="color:#3FB950;">GPU Cluster Reliability / Long-Running Job Resilience</span>
+              <span style="color:#6E7681;"> · Contact 5 of 9</span>
+            </div><div style="margin-top:5px;font-size:12px;color:#8B949E;">📧 <a href="mailto:michael.irvin@iambic.ai" style="color:#58A6FF;text-decoration:none;">michael.irvin@iambic.ai</a><span style="font-size:10px;background:rgba(139,148,158,0.1);color:#6E7681;border:1px solid #30363D;border-radius:3px;padding:1px 5px;margin-left:6px;">inferred</span></div>
+          </div>
+        </div>
+        
+        <div style="border:1px solid #30363D;border-top:3px solid #3FB950;border-radius:4px;margin-bottom:12px;overflow:hidden;">
+          <div style="background:#1a1a1a;padding:10px 16px;border-bottom:1px solid #30363D;">
+            <span style="color:#3FB950;font-weight:700;font-size:13px;">Step 1&nbsp;&nbsp;</span>
+            <span style="color:#6E7681;font-size:13px;">Subject: </span>
+            <span style="color:#F0F6FC;font-weight:700;font-size:13px;">GPU reliability for long-running drug discovery ML jobs</span>
+          </div>
+          <div style="background:#161B22;padding:14px 18px;font-size:14px;color:#C9D1D9;font-family:Arial,sans-serif;line-height:1.7;"><div style="margin-bottom:0;line-height:1.6;">Michael —</div><div style="height:10px"></div><div style="margin-bottom:0;line-height:1.6;">For ML scientists running long training jobs in drug discovery — binding affinity models, molecular property predictors — cluster reliability is critical. A job failure at hour 18 of a 24-hour training run is a significant cost in both compute and researcher time.</div><div style="height:10px"></div><div style="margin-bottom:0;line-height:1.6;">Managed Ray on Anyscale includes automatic checkpointing and task-level fault recovery — failed nodes retry automatically without restarting the full job. Physical Intelligence runs multi-hour distributed training jobs this way with no manual intervention on failure.</div><div style="height:10px"></div><div style="margin-bottom:0;line-height:1.6;">Are you experiencing job failures or GPU inefficiency with your current cluster setup at Iambic? Happy to walk through how fault tolerance works in practice.</div><div style="height:10px"></div><div style="margin-bottom:0;line-height:1.6;">Dylan</div></div>
+          
+        <div style="background:#0E1408;border-top:1px solid #30363D;padding:10px 16px;font-size:13px;color:#3FB950;font-style:italic;">📌 Proof: Physical Intelligence — fault-tolerant distributed training, no manual intervention on failures</div>
+        </div>
+        <div style="border:1px solid #30363D;border-top:3px solid #3FB950;border-radius:4px;margin-bottom:12px;overflow:hidden;">
+          <div style="background:#1a1a1a;padding:10px 16px;border-bottom:1px solid #30363D;">
+            <span style="color:#3FB950;font-weight:700;font-size:13px;">Step 2&nbsp;&nbsp;</span>
+            <span style="color:#6E7681;font-size:13px;">Subject: </span>
+            <span style="color:#F0F6FC;font-weight:700;font-size:13px;">Re: GPU utilization on molecular ML workloads</span>
+          </div>
+          <div style="background:#161B22;padding:14px 18px;font-size:14px;color:#C9D1D9;font-family:Arial,sans-serif;line-height:1.7;"><div style="margin-bottom:0;line-height:1.6;">Michael —</div><div style="height:10px"></div><div style="margin-bottom:0;line-height:1.6;">Following up. The GPU utilization problem on molecular ML workloads: CPUs handling featurization or simulation can't keep pace with GPU training throughput — GPUs sit idle waiting for data.</div><div style="height:10px"></div><div style="margin-bottom:0;line-height:1.6;">Ray Data's streaming execution model addresses this by pipelining preprocessing and training in parallel — GPUs get data continuously rather than waiting on batch completion. Uber achieved 50% compute savings on heterogeneous CPU+GPU workloads by letting Ray's scheduler optimize across both resource types.</div><div style="height:10px"></div><div style="margin-bottom:0;line-height:1.6;">For an ML scientist optimizing training efficiency at Iambic, better GPU utilization means the same hardware delivers more model training per day.</div><div style="height:10px"></div><div style="margin-bottom:0;line-height:1.6;">20 minutes to walk through the architecture?</div><div style="height:10px"></div><div style="margin-bottom:0;line-height:1.6;">Dylan</div></div>
+          
+        <div style="background:#0E1408;border-top:1px solid #30363D;padding:10px 16px;font-size:13px;color:#3FB950;font-style:italic;">📌 Proof: Uber — 50% compute savings, GPU+CPU pipelining on Ray scheduler</div>
+        </div>
+        <div style="border:1px solid #30363D;border-top:3px solid #3FB950;border-radius:4px;margin-bottom:12px;overflow:hidden;">
+          <div style="background:#1a1a1a;padding:10px 16px;border-bottom:1px solid #30363D;">
+            <span style="color:#3FB950;font-weight:700;font-size:13px;">Step 3&nbsp;&nbsp;</span>
+            <span style="color:#6E7681;font-size:13px;">Subject: </span>
+            <span style="color:#F0F6FC;font-weight:700;font-size:13px;">Reproducible experiments across distributed training runs</span>
+          </div>
+          <div style="background:#161B22;padding:14px 18px;font-size:14px;color:#C9D1D9;font-family:Arial,sans-serif;line-height:1.7;"><div style="margin-bottom:0;line-height:1.6;">Michael —</div><div style="height:10px"></div><div style="margin-bottom:0;line-height:1.6;">One thing worth noting for ML scientists running distributed experiments: reproducibility.</div><div style="height:10px"></div><div style="margin-bottom:0;line-height:1.6;">In self-managed distributed training, non-deterministic scheduling can make reproducing exact experimental conditions difficult. Anyscale's managed Ray logs full execution graphs — task assignments, resource allocations, random seeds — making distributed experiments reproducible by default.</div><div style="height:10px"></div><div style="margin-bottom:0;line-height:1.6;">Physical Intelligence uses this for their experimental pipeline: every distributed training run is auditable and reproducible across the team. For ML scientists in drug discovery where experimental reproducibility matters for regulatory and scientific integrity, that's a meaningful operational difference.</div><div style="height:10px"></div><div style="margin-bottom:0;line-height:1.6;">Interested in a technical walkthrough?</div><div style="height:10px"></div><div style="margin-bottom:0;line-height:1.6;">Dylan</div></div>
+          
+        <div style="background:#0E1408;border-top:1px solid #30363D;padding:10px 16px;font-size:13px;color:#3FB950;font-style:italic;">📌 Proof: Physical Intelligence — reproducible distributed training, full execution graph logging</div>
+        </div>
+        <div style="border:1px solid #30363D;border-top:3px solid #3FB950;border-radius:4px;margin-bottom:12px;overflow:hidden;">
+          <div style="background:#1a1a1a;padding:10px 16px;border-bottom:1px solid #30363D;">
+            <span style="color:#3FB950;font-weight:700;font-size:13px;">Step 4&nbsp;&nbsp;</span>
+            <span style="color:#6E7681;font-size:13px;">Subject: </span>
+            <span style="color:#F0F6FC;font-weight:700;font-size:13px;">Last note — cluster reliability</span>
+          </div>
+          <div style="background:#161B22;padding:14px 18px;font-size:14px;color:#C9D1D9;font-family:Arial,sans-serif;line-height:1.7;"><div style="margin-bottom:0;line-height:1.6;">Michael —</div><div style="height:10px"></div><div style="margin-bottom:0;line-height:1.6;">Last note from me.</div><div style="height:10px"></div><div style="margin-bottom:0;line-height:1.6;">Physical Intelligence: fault-tolerant distributed training, reproducible experiments. Uber: 50% GPU+CPU efficiency improvement. Blue River: 2.5× faster parallel pipeline on same hardware.</div><div style="height:10px"></div><div style="margin-bottom:0;line-height:1.6;">All applicable to long-running molecular ML training workloads. If cluster reliability or GPU efficiency is something you're working around — happy to show you what managed Ray looks like.</div><div style="height:10px"></div><div style="margin-bottom:0;line-height:1.6;">Dylan</div></div>
+          
+        <div style="background:#0E1408;border-top:1px solid #30363D;padding:10px 16px;font-size:13px;color:#3FB950;font-style:italic;">📌 Proof: Physical Intelligence (fault tolerance, reproducibility) + Uber (50%) + Blue River (2.5×)</div>
+        </div>
+      </div><hr style="border:none;border-top:1px solid #30363D;margin:24px 0;">
+      <div id="contact-6" style="scroll-margin-top:60px;">
+        <div style="display:flex;align-items:stretch;margin-bottom:14px;border:1px solid #30363D;border-radius:4px;overflow:hidden;">
+          <div style="background:#D29922;width:48px;min-width:48px;display:flex;align-items:center;justify-content:center;font-size:22px;font-weight:700;color:#fff;">6</div>
+          <div style="background:#161B22;flex:1;padding:12px 18px;">
+            <div style="font-size:18px;font-weight:700;color:#F0F6FC;">David Farina Jr <span style="color:#6E7681;font-size:14px;font-weight:400;"> · Senior Research Scientist, ML</span></div>
+            <div style="margin-top:5px;font-size:12px;">
+              <span style="color:#D29922;font-weight:700;">P2</span>
+              <span style="color:#6E7681;"> · Iambic Therapeutics · </span>
+              <span style="color:#3FB950;">Scaling Experiments Without Scaling Overhead</span>
+              <span style="color:#6E7681;"> · Contact 6 of 9</span>
+            </div><div style="margin-top:5px;font-size:12px;color:#8B949E;">📧 <a href="mailto:david.farina@iambic.ai" style="color:#58A6FF;text-decoration:none;">david.farina@iambic.ai</a><span style="font-size:10px;background:rgba(139,148,158,0.1);color:#6E7681;border:1px solid #30363D;border-radius:3px;padding:1px 5px;margin-left:6px;">inferred</span></div>
+          </div>
+        </div>
+        
+        <div style="border:1px solid #30363D;border-top:3px solid #3FB950;border-radius:4px;margin-bottom:12px;overflow:hidden;">
+          <div style="background:#1a1a1a;padding:10px 16px;border-bottom:1px solid #30363D;">
+            <span style="color:#3FB950;font-weight:700;font-size:13px;">Step 1&nbsp;&nbsp;</span>
+            <span style="color:#6E7681;font-size:13px;">Subject: </span>
+            <span style="color:#F0F6FC;font-weight:700;font-size:13px;">Distributed training at Iambic — how are you managing it?</span>
+          </div>
+          <div style="background:#161B22;padding:14px 18px;font-size:14px;color:#C9D1D9;font-family:Arial,sans-serif;line-height:1.7;"><div style="margin-bottom:0;line-height:1.6;">David —</div><div style="height:10px"></div><div style="margin-bottom:0;line-height:1.6;">Senior ML researchers at AI drug discovery companies often end up being the unofficial infrastructure leads — running distributed training and simulation jobs on clusters that weren't designed for the scale the science now demands.</div><div style="height:10px"></div><div style="margin-bottom:0;line-height:1.6;">We've simplified this significantly for comparable teams. Managed Ray on Anyscale handles job scheduling, resource allocation, and fault recovery automatically. Physical Intelligence freed 16+ engineers from infrastructure management using this approach — same science output, less overhead.</div><div style="height:10px"></div><div style="margin-bottom:0;line-height:1.6;">How are you managing distributed training at Iambic today? Happy to compare approaches — 20 minutes.</div><div style="height:10px"></div><div style="margin-bottom:0;line-height:1.6;">Dylan</div></div>
+          
+        <div style="background:#0E1408;border-top:1px solid #30363D;padding:10px 16px;font-size:13px;color:#3FB950;font-style:italic;">📌 Proof: Physical Intelligence — 16+ engineers freed from infra management, 2× faster iteration</div>
+        </div>
+        <div style="border:1px solid #30363D;border-top:3px solid #3FB950;border-radius:4px;margin-bottom:12px;overflow:hidden;">
+          <div style="background:#1a1a1a;padding:10px 16px;border-bottom:1px solid #30363D;">
+            <span style="color:#3FB950;font-weight:700;font-size:13px;">Step 2&nbsp;&nbsp;</span>
+            <span style="color:#6E7681;font-size:13px;">Subject: </span>
+            <span style="color:#F0F6FC;font-weight:700;font-size:13px;">Re: scaling ML experiments without scaling the team</span>
+          </div>
+          <div style="background:#161B22;padding:14px 18px;font-size:14px;color:#C9D1D9;font-family:Arial,sans-serif;line-height:1.7;"><div style="margin-bottom:0;line-height:1.6;">David —</div><div style="height:10px"></div><div style="margin-bottom:0;line-height:1.6;">Following up. The constraint at growing AI drug discovery companies: experimental throughput needs to scale as programs multiply, but the ML research team size doesn't scale proportionally.</div><div style="height:10px"></div><div style="margin-bottom:0;line-height:1.6;">The way teams solve this without hiring more researchers: better infrastructure leverage. Run more experiments per researcher-day by eliminating the overhead between experiment design and result.</div><div style="height:10px"></div><div style="margin-bottom:0;line-height:1.6;">Blue River Technology increased their parallel computation throughput by 2.5× on the same hardware. Zoox runs thousands of parallel simulation jobs simultaneously without a dedicated infra team. Both achieved this by moving to managed Ray.</div><div style="height:10px"></div><div style="margin-bottom:0;line-height:1.6;">For a Senior Research Scientist looking to scale experimental throughput at Iambic, those are the relevant benchmarks.</div><div style="height:10px"></div><div style="margin-bottom:0;line-height:1.6;">20 minutes?</div><div style="height:10px"></div><div style="margin-bottom:0;line-height:1.6;">Dylan</div></div>
+          
+        <div style="background:#0E1408;border-top:1px solid #30363D;padding:10px 16px;font-size:13px;color:#3FB950;font-style:italic;">📌 Proof: Blue River (2.5× throughput) + Zoox (1,000s of parallel jobs, no dedicated infra team)</div>
+        </div>
+        <div style="border:1px solid #30363D;border-top:3px solid #3FB950;border-radius:4px;margin-bottom:12px;overflow:hidden;">
+          <div style="background:#1a1a1a;padding:10px 16px;border-bottom:1px solid #30363D;">
+            <span style="color:#3FB950;font-weight:700;font-size:13px;">Step 3&nbsp;&nbsp;</span>
+            <span style="color:#6E7681;font-size:13px;">Subject: </span>
+            <span style="color:#F0F6FC;font-weight:700;font-size:13px;">Multi-objective molecular optimization at scale</span>
+          </div>
+          <div style="background:#161B22;padding:14px 18px;font-size:14px;color:#C9D1D9;font-family:Arial,sans-serif;line-height:1.7;"><div style="margin-bottom:0;line-height:1.6;">David —</div><div style="height:10px"></div><div style="margin-bottom:0;line-height:1.6;">One specific research workflow worth discussing: multi-objective molecular optimization.</div><div style="height:10px"></div><div style="margin-bottom:0;line-height:1.6;">Optimizing for binding affinity, selectivity, ADMET properties, and synthesizability simultaneously requires running many parallel evaluation jobs — each with different model and simulation components. Coordinating those jobs manually, or sequentially, limits how broadly you can search the design space.</div><div style="height:10px"></div><div style="margin-bottom:0;line-height:1.6;">Ray on Anyscale handles multi-objective parallel optimization natively — tasks scheduled automatically across the cluster, results aggregated, failed jobs retried without manual intervention. Physical Intelligence uses this architecture for analogous multi-objective physical AI optimization problems.</div><div style="height:10px"></div><div style="margin-bottom:0;line-height:1.6;">Interested in seeing how this maps to Iambic's molecular design workflow?</div><div style="height:10px"></div><div style="margin-bottom:0;line-height:1.6;">Dylan</div></div>
+          
+        <div style="background:#0E1408;border-top:1px solid #30363D;padding:10px 16px;font-size:13px;color:#3FB950;font-style:italic;">📌 Proof: Physical Intelligence — multi-objective distributed optimization on Ray, Python-native</div>
+        </div>
+        <div style="border:1px solid #30363D;border-top:3px solid #3FB950;border-radius:4px;margin-bottom:12px;overflow:hidden;">
+          <div style="background:#1a1a1a;padding:10px 16px;border-bottom:1px solid #30363D;">
+            <span style="color:#3FB950;font-weight:700;font-size:13px;">Step 4&nbsp;&nbsp;</span>
+            <span style="color:#6E7681;font-size:13px;">Subject: </span>
+            <span style="color:#F0F6FC;font-weight:700;font-size:13px;">Last note — research infrastructure</span>
+          </div>
+          <div style="background:#161B22;padding:14px 18px;font-size:14px;color:#C9D1D9;font-family:Arial,sans-serif;line-height:1.7;"><div style="margin-bottom:0;line-height:1.6;">David —</div><div style="height:10px"></div><div style="margin-bottom:0;line-height:1.6;">Last one from me.</div><div style="height:10px"></div><div style="margin-bottom:0;line-height:1.6;">Physical Intelligence: 16+ engineers freed, 2× faster iteration at similar scale. Blue River: 2.5× throughput on same hardware. Zoox: thousands of parallel jobs without dedicated infra team.</div><div style="height:10px"></div><div style="margin-bottom:0;line-height:1.6;">All Python-native. If scaling experimental throughput without scaling overhead is something you're thinking about — happy to map it to Iambic's specific workloads.</div><div style="height:10px"></div><div style="margin-bottom:0;line-height:1.6;">Dylan</div></div>
+          
+        <div style="background:#0E1408;border-top:1px solid #30363D;padding:10px 16px;font-size:13px;color:#3FB950;font-style:italic;">📌 Proof: Physical Intelligence (16+ freed, 2×) + Blue River (2.5×) + Zoox (parallel at scale)</div>
+        </div>
+      </div><hr style="border:none;border-top:1px solid #30363D;margin:24px 0;">
+      <div id="contact-7" style="scroll-margin-top:60px;">
+        <div style="display:flex;align-items:stretch;margin-bottom:14px;border:1px solid #30363D;border-radius:4px;overflow:hidden;">
+          <div style="background:#D29922;width:48px;min-width:48px;display:flex;align-items:center;justify-content:center;font-size:22px;font-weight:700;color:#fff;">7</div>
+          <div style="background:#161B22;flex:1;padding:12px 18px;">
+            <div style="font-size:18px;font-weight:700;color:#F0F6FC;">Mia A. Rosenfeld, PhD <span style="color:#6E7681;font-size:14px;font-weight:400;"> · Research Scientist II, ML</span></div>
+            <div style="margin-top:5px;font-size:12px;">
+              <span style="color:#D29922;font-weight:700;">P2</span>
+              <span style="color:#6E7681;"> · Iambic Therapeutics · </span>
+              <span style="color:#3FB950;">Research Efficiency / Cluster Reliability</span>
+              <span style="color:#6E7681;"> · Contact 7 of 9</span>
+            </div><div style="margin-top:5px;font-size:12px;color:#8B949E;">📧 <a href="mailto:mia.rosenfeld@iambic.ai" style="color:#58A6FF;text-decoration:none;">mia.rosenfeld@iambic.ai</a><span style="font-size:10px;background:rgba(139,148,158,0.1);color:#6E7681;border:1px solid #30363D;border-radius:3px;padding:1px 5px;margin-left:6px;">inferred</span></div>
+          </div>
+        </div>
+        
+        <div style="border:1px solid #30363D;border-top:3px solid #3FB950;border-radius:4px;margin-bottom:12px;overflow:hidden;">
+          <div style="background:#1a1a1a;padding:10px 16px;border-bottom:1px solid #30363D;">
+            <span style="color:#3FB950;font-weight:700;font-size:13px;">Step 1&nbsp;&nbsp;</span>
+            <span style="color:#6E7681;font-size:13px;">Subject: </span>
+            <span style="color:#F0F6FC;font-weight:700;font-size:13px;">Distributed ML experiments in drug discovery — overhead question</span>
+          </div>
+          <div style="background:#161B22;padding:14px 18px;font-size:14px;color:#C9D1D9;font-family:Arial,sans-serif;line-height:1.7;"><div style="margin-bottom:0;line-height:1.6;">Mia —</div><div style="height:10px"></div><div style="margin-bottom:0;line-height:1.6;">ML research in drug discovery at Iambic's scale requires serious distributed compute. The question is usually how much time goes into managing the infrastructure vs. running the experiments themselves.</div><div style="height:10px"></div><div style="margin-bottom:0;line-height:1.6;">We make managed Ray that handles cluster overhead automatically — scheduling, resource allocation, fault recovery. Physical Intelligence runs distributed ML pipelines at terabyte scale with a small team this way, with 2× faster research iteration as a result.</div><div style="height:10px"></div><div style="margin-bottom:0;line-height:1.6;">Are you running distributed experiments on Ray today at Iambic? Happy to show you what a managed setup looks like for comparable workflows.</div><div style="height:10px"></div><div style="margin-bottom:0;line-height:1.6;">Dylan</div></div>
+          
+        <div style="background:#0E1408;border-top:1px solid #30363D;padding:10px 16px;font-size:13px;color:#3FB950;font-style:italic;">📌 Proof: Physical Intelligence — 2× faster research iteration, managed Ray, small team</div>
+        </div>
+        <div style="border:1px solid #30363D;border-top:3px solid #3FB950;border-radius:4px;margin-bottom:12px;overflow:hidden;">
+          <div style="background:#1a1a1a;padding:10px 16px;border-bottom:1px solid #30363D;">
+            <span style="color:#3FB950;font-weight:700;font-size:13px;">Step 2&nbsp;&nbsp;</span>
+            <span style="color:#6E7681;font-size:13px;">Subject: </span>
+            <span style="color:#F0F6FC;font-weight:700;font-size:13px;">Re: experiment reliability and reproducibility</span>
+          </div>
+          <div style="background:#161B22;padding:14px 18px;font-size:14px;color:#C9D1D9;font-family:Arial,sans-serif;line-height:1.7;"><div style="margin-bottom:0;line-height:1.6;">Mia —</div><div style="height:10px"></div><div style="margin-bottom:0;line-height:1.6;">Following up. For ML research scientists running distributed training experiments, two things tend to matter most: reliability (jobs don't fail silently mid-run) and reproducibility (the same experiment produces the same results).</div><div style="height:10px"></div><div style="margin-bottom:0;line-height:1.6;">Anyscale's managed Ray handles both: automatic task-level fault recovery so jobs don't require manual restart, and full execution graph logging so experiments are reproducible across the team.</div><div style="height:10px"></div><div style="margin-bottom:0;line-height:1.6;">Zoox runs thousands of parallel jobs with this architecture — any task failure is retried automatically without interrupting the rest of the batch. Physical Intelligence uses the same approach for their research pipeline.</div><div style="height:10px"></div><div style="margin-bottom:0;line-height:1.6;">For an ML research scientist running experiments at Iambic, that's the difference between confident results and uncertain ones.</div><div style="height:10px"></div><div style="margin-bottom:0;line-height:1.6;">20 minutes?</div><div style="height:10px"></div><div style="margin-bottom:0;line-height:1.6;">Dylan</div></div>
+          
+        <div style="background:#0E1408;border-top:1px solid #30363D;padding:10px 16px;font-size:13px;color:#3FB950;font-style:italic;">📌 Proof: Zoox (task-level recovery) + Physical Intelligence (reproducible distributed experiments)</div>
+        </div>
+        <div style="border:1px solid #30363D;border-top:3px solid #3FB950;border-radius:4px;margin-bottom:12px;overflow:hidden;">
+          <div style="background:#1a1a1a;padding:10px 16px;border-bottom:1px solid #30363D;">
+            <span style="color:#3FB950;font-weight:700;font-size:13px;">Step 3&nbsp;&nbsp;</span>
+            <span style="color:#6E7681;font-size:13px;">Subject: </span>
+            <span style="color:#F0F6FC;font-weight:700;font-size:13px;">Faster feedback loops in molecular ML research</span>
+          </div>
+          <div style="background:#161B22;padding:14px 18px;font-size:14px;color:#C9D1D9;font-family:Arial,sans-serif;line-height:1.7;"><div style="margin-bottom:0;line-height:1.6;">Mia —</div><div style="height:10px"></div><div style="margin-bottom:0;line-height:1.6;">One place managed Ray tends to directly benefit ML research scientists: the feedback loop between experiment design and result.</div><div style="height:10px"></div><div style="margin-bottom:0;line-height:1.6;">When experiments run faster and more reliably, researchers can iterate on model architecture or training data decisions more frequently. Blue River Technology cut their parallel compute pipeline from 24 hours to 9.5 hours — the research team went from one iteration per day to nearly three.</div><div style="height:10px"></div><div style="margin-bottom:0;line-height:1.6;">For molecular ML research at Iambic — where each experimental cycle might involve a new featurization strategy or model variant — that compression in feedback loop time compounds into meaningful research velocity gains.</div><div style="height:10px"></div><div style="margin-bottom:0;line-height:1.6;">Interested in a walkthrough of what this looks like for drug discovery ML workflows?</div><div style="height:10px"></div><div style="margin-bottom:0;line-height:1.6;">Dylan</div></div>
+          
+        <div style="background:#0E1408;border-top:1px solid #30363D;padding:10px 16px;font-size:13px;color:#3FB950;font-style:italic;">📌 Proof: Blue River — 24h → 9.5h pipeline, 2.5× more iterations per day on same hardware</div>
+        </div>
+        <div style="border:1px solid #30363D;border-top:3px solid #3FB950;border-radius:4px;margin-bottom:12px;overflow:hidden;">
+          <div style="background:#1a1a1a;padding:10px 16px;border-bottom:1px solid #30363D;">
+            <span style="color:#3FB950;font-weight:700;font-size:13px;">Step 4&nbsp;&nbsp;</span>
+            <span style="color:#6E7681;font-size:13px;">Subject: </span>
+            <span style="color:#F0F6FC;font-weight:700;font-size:13px;">Last note — research infrastructure</span>
+          </div>
+          <div style="background:#161B22;padding:14px 18px;font-size:14px;color:#C9D1D9;font-family:Arial,sans-serif;line-height:1.7;"><div style="margin-bottom:0;line-height:1.6;">Mia —</div><div style="height:10px"></div><div style="margin-bottom:0;line-height:1.6;">Last one from me.</div><div style="height:10px"></div><div style="margin-bottom:0;line-height:1.6;">Physical Intelligence: 2× faster research iteration, distributed ML at scale. Blue River: 2.5× more iterations per day on same hardware. Zoox: fault-tolerant parallel jobs, automatic recovery.</div><div style="height:10px"></div><div style="margin-bottom:0;line-height:1.6;">All applicable to distributed ML research in drug discovery. If infrastructure friction is something you're working around at Iambic — happy to show you what managed Ray looks like.</div><div style="height:10px"></div><div style="margin-bottom:0;line-height:1.6;">Dylan</div></div>
+          
+        <div style="background:#0E1408;border-top:1px solid #30363D;padding:10px 16px;font-size:13px;color:#3FB950;font-style:italic;">📌 Proof: Physical Intelligence (2×) + Blue River (2.5× iterations/day) + Zoox (fault tolerance)</div>
+        </div>
+      </div><hr style="border:none;border-top:1px solid #30363D;margin:24px 0;">
+      <div id="contact-8" style="scroll-margin-top:60px;">
+        <div style="display:flex;align-items:stretch;margin-bottom:14px;border:1px solid #30363D;border-radius:4px;overflow:hidden;">
+          <div style="background:#D29922;width:48px;min-width:48px;display:flex;align-items:center;justify-content:center;font-size:22px;font-weight:700;color:#fff;">8</div>
+          <div style="background:#161B22;flex:1;padding:12px 18px;">
+            <div style="font-size:18px;font-weight:700;color:#F0F6FC;">Felipe Costa Farias, Ph.D. <span style="color:#6E7681;font-size:14px;font-weight:400;"> · Senior Research Scientist, ML</span></div>
+            <div style="margin-top:5px;font-size:12px;">
+              <span style="color:#D29922;font-weight:700;">P2</span>
+              <span style="color:#6E7681;"> · Iambic Therapeutics · </span>
+              <span style="color:#3FB950;">Molecular ML Workloads: Generative Design &amp; Simulation</span>
+              <span style="color:#6E7681;"> · Contact 8 of 9</span>
+            </div><div style="margin-top:5px;font-size:12px;color:#8B949E;">📧 <a href="mailto:felipe.costa@iambic.ai" style="color:#58A6FF;text-decoration:none;">felipe.costa@iambic.ai</a><span style="font-size:10px;background:rgba(139,148,158,0.1);color:#6E7681;border:1px solid #30363D;border-radius:3px;padding:1px 5px;margin-left:6px;">inferred</span></div>
+          </div>
+        </div>
+        
+        <div style="border:1px solid #30363D;border-top:3px solid #3FB950;border-radius:4px;margin-bottom:12px;overflow:hidden;">
+          <div style="background:#1a1a1a;padding:10px 16px;border-bottom:1px solid #30363D;">
+            <span style="color:#3FB950;font-weight:700;font-size:13px;">Step 1&nbsp;&nbsp;</span>
+            <span style="color:#6E7681;font-size:13px;">Subject: </span>
+            <span style="color:#F0F6FC;font-weight:700;font-size:13px;">Parallel molecular design workloads — architecture question</span>
+          </div>
+          <div style="background:#161B22;padding:14px 18px;font-size:14px;color:#C9D1D9;font-family:Arial,sans-serif;line-height:1.7;"><div style="margin-bottom:0;line-height:1.6;">Felipe —</div><div style="height:10px"></div><div style="margin-bottom:0;line-height:1.6;">Your work on ML for molecular design is genuinely interesting. The parallel nature of those workloads — conformation sampling, binding affinity prediction, generative model scoring at scale — maps almost exactly to what Ray's distributed task model was built for.</div><div style="height:10px"></div><div style="margin-bottom:0;line-height:1.6;">Straight question: are you managing your own clusters for those workloads today, or working within a managed environment? The reason I ask is that the scheduling complexity of mixed simulation + generative model + scoring jobs tends to create significant overhead on self-managed infrastructure.</div><div style="height:10px"></div><div style="margin-bottom:0;line-height:1.6;">Anyscale's managed Ray handles that automatically. Happy to compare approaches — 20 minutes, no slides.</div><div style="height:10px"></div><div style="margin-bottom:0;line-height:1.6;">Dylan</div></div>
+          
+        <div style="background:#0E1408;border-top:1px solid #30363D;padding:10px 16px;font-size:13px;color:#3FB950;font-style:italic;">📌 Proof: Zoox — mixed simulation + ML scoring workloads on managed Ray, automatic scheduling</div>
+        </div>
+        <div style="border:1px solid #30363D;border-top:3px solid #3FB950;border-radius:4px;margin-bottom:12px;overflow:hidden;">
+          <div style="background:#1a1a1a;padding:10px 16px;border-bottom:1px solid #30363D;">
+            <span style="color:#3FB950;font-weight:700;font-size:13px;">Step 2&nbsp;&nbsp;</span>
+            <span style="color:#6E7681;font-size:13px;">Subject: </span>
+            <span style="color:#F0F6FC;font-weight:700;font-size:13px;">Re: scaling conformation sampling and generative design</span>
+          </div>
+          <div style="background:#161B22;padding:14px 18px;font-size:14px;color:#C9D1D9;font-family:Arial,sans-serif;line-height:1.7;"><div style="margin-bottom:0;line-height:1.6;">Felipe —</div><div style="height:10px"></div><div style="margin-bottom:0;line-height:1.6;">Following up. The specific compute challenge for molecular generative design: you need to run a large generative model, score thousands of generated candidates against simulation or ML models, and filter before the next generation round — a tight loop with heterogeneous compute requirements at each step.</div><div style="height:10px"></div><div style="margin-bottom:0;line-height:1.6;">Zoox runs exactly this class of generate-score-filter loop at scale on Anyscale — thousands of parallel scoring jobs scheduled automatically, with fault recovery on individual job failures. Blue River ran a comparable parallel processing pipeline and cut it from 24 hours to 9.5 hours.</div><div style="height:10px"></div><div style="margin-bottom:0;line-height:1.6;">For senior researchers at Iambic optimizing the molecular design cycle, that architectural difference changes how many design rounds you can run per week.</div><div style="height:10px"></div><div style="margin-bottom:0;line-height:1.6;">20 minutes?</div><div style="height:10px"></div><div style="margin-bottom:0;line-height:1.6;">Dylan</div></div>
+          
+        <div style="background:#0E1408;border-top:1px solid #30363D;padding:10px 16px;font-size:13px;color:#3FB950;font-style:italic;">📌 Proof: Zoox (generate-score-filter at scale) + Blue River (24h → 9.5h parallel pipeline)</div>
+        </div>
+        <div style="border:1px solid #30363D;border-top:3px solid #3FB950;border-radius:4px;margin-bottom:12px;overflow:hidden;">
+          <div style="background:#1a1a1a;padding:10px 16px;border-bottom:1px solid #30363D;">
+            <span style="color:#3FB950;font-weight:700;font-size:13px;">Step 3&nbsp;&nbsp;</span>
+            <span style="color:#6E7681;font-size:13px;">Subject: </span>
+            <span style="color:#F0F6FC;font-weight:700;font-size:13px;">Binding affinity prediction at scale — GPU allocation</span>
+          </div>
+          <div style="background:#161B22;padding:14px 18px;font-size:14px;color:#C9D1D9;font-family:Arial,sans-serif;line-height:1.7;"><div style="margin-bottom:0;line-height:1.6;">Felipe —</div><div style="height:10px"></div><div style="margin-bottom:0;line-height:1.6;">One specific workload worth discussing: binding affinity prediction at scale.</div><div style="height:10px"></div><div style="margin-bottom:0;line-height:1.6;">Running binding affinity models across large candidate libraries is GPU-intensive, but the workload is naturally parallel — each candidate can be scored independently. On self-managed clusters, this requires manual batching and queue management. On Anyscale's managed Ray, you express it as a Ray remote function and the cluster handles batching, GPU allocation, and retry automatically.</div><div style="height:10px"></div><div style="margin-bottom:0;line-height:1.6;">Uber achieved 50% GPU efficiency improvement by letting Ray's scheduler optimize allocation across a heterogeneous GPU+CPU pool. For senior researchers running large candidate screening campaigns, that efficiency directly translates to more candidates scored per GPU-hour.</div><div style="height:10px"></div><div style="margin-bottom:0;line-height:1.6;">Interested in seeing how it maps to Iambic's binding prediction pipeline?</div><div style="height:10px"></div><div style="margin-bottom:0;line-height:1.6;">Dylan</div></div>
+          
+        <div style="background:#0E1408;border-top:1px solid #30363D;padding:10px 16px;font-size:13px;color:#3FB950;font-style:italic;">📌 Proof: Uber — 50% GPU efficiency via Ray scheduler on heterogeneous compute</div>
+        </div>
+        <div style="border:1px solid #30363D;border-top:3px solid #3FB950;border-radius:4px;margin-bottom:12px;overflow:hidden;">
+          <div style="background:#1a1a1a;padding:10px 16px;border-bottom:1px solid #30363D;">
+            <span style="color:#3FB950;font-weight:700;font-size:13px;">Step 4&nbsp;&nbsp;</span>
+            <span style="color:#6E7681;font-size:13px;">Subject: </span>
+            <span style="color:#F0F6FC;font-weight:700;font-size:13px;">Last note — molecular ML infrastructure</span>
+          </div>
+          <div style="background:#161B22;padding:14px 18px;font-size:14px;color:#C9D1D9;font-family:Arial,sans-serif;line-height:1.7;"><div style="margin-bottom:0;line-height:1.6;">Felipe —</div><div style="height:10px"></div><div style="margin-bottom:0;line-height:1.6;">Last one from me.</div><div style="height:10px"></div><div style="margin-bottom:0;line-height:1.6;">Zoox: generate-score-filter loop at scale, automatic scheduling. Blue River: parallel processing pipeline 2.5× faster. Uber: 50% GPU efficiency on heterogeneous workloads.</div><div style="height:10px"></div><div style="margin-bottom:0;line-height:1.6;">All directly applicable to molecular generative design and binding affinity prediction pipelines. If the infrastructure layer for those workloads is something you're thinking about — I'd find the technical conversation genuinely interesting.</div><div style="height:10px"></div><div style="margin-bottom:0;line-height:1.6;">Dylan</div></div>
+          
+        <div style="background:#0E1408;border-top:1px solid #30363D;padding:10px 16px;font-size:13px;color:#3FB950;font-style:italic;">📌 Proof: Zoox (generate-score-filter) + Blue River (2.5×) + Uber (50% GPU efficiency)</div>
+        </div>
+      </div><hr style="border:none;border-top:1px solid #30363D;margin:24px 0;">
+      <div id="contact-9" style="scroll-margin-top:60px;">
+        <div style="display:flex;align-items:stretch;margin-bottom:14px;border:1px solid #30363D;border-radius:4px;overflow:hidden;">
+          <div style="background:#58A6FF;width:48px;min-width:48px;display:flex;align-items:center;justify-content:center;font-size:22px;font-weight:700;color:#fff;">9</div>
+          <div style="background:#161B22;flex:1;padding:12px 18px;">
+            <div style="font-size:18px;font-weight:700;color:#F0F6FC;">Daniel Cutting <span style="color:#6E7681;font-size:14px;font-weight:400;"> · ML Research Scientist II</span></div>
+            <div style="margin-top:5px;font-size:12px;">
+              <span style="color:#58A6FF;font-weight:700;">P3</span>
+              <span style="color:#6E7681;"> · Iambic Therapeutics · </span>
+              <span style="color:#3FB950;">Distributed Experiment Scale / Developer Experience</span>
+              <span style="color:#6E7681;"> · Contact 9 of 9</span>
+            </div><div style="margin-top:5px;font-size:12px;color:#8B949E;">📧 <a href="mailto:daniel.cutting@iambic.ai" style="color:#58A6FF;text-decoration:none;">daniel.cutting@iambic.ai</a><span style="font-size:10px;background:rgba(139,148,158,0.1);color:#6E7681;border:1px solid #30363D;border-radius:3px;padding:1px 5px;margin-left:6px;">inferred</span></div>
+          </div>
+        </div>
+        
+        <div style="border:1px solid #30363D;border-top:3px solid #3FB950;border-radius:4px;margin-bottom:12px;overflow:hidden;">
+          <div style="background:#1a1a1a;padding:10px 16px;border-bottom:1px solid #30363D;">
+            <span style="color:#3FB950;font-weight:700;font-size:13px;">Step 1&nbsp;&nbsp;</span>
+            <span style="color:#6E7681;font-size:13px;">Subject: </span>
+            <span style="color:#F0F6FC;font-weight:700;font-size:13px;">Distributed ML training — easier than self-managed clusters</span>
+          </div>
+          <div style="background:#161B22;padding:14px 18px;font-size:14px;color:#C9D1D9;font-family:Arial,sans-serif;line-height:1.7;"><div style="margin-bottom:0;line-height:1.6;">Daniel —</div><div style="height:10px"></div><div style="margin-bottom:0;line-height:1.6;">Running ML experiments at scale in drug discovery? Managed Ray on Anyscale makes distributed training significantly easier than self-managed clusters — you write standard Python Ray tasks, the infrastructure handles scheduling, resource allocation, and fault recovery automatically.</div><div style="height:10px"></div><div style="margin-bottom:0;line-height:1.6;">Physical Intelligence runs terabyte-scale ML pipelines this way with a small team. 2× faster research iteration because researchers aren't managing cluster overhead.</div><div style="height:10px"></div><div style="margin-bottom:0;line-height:1.6;">If you're hitting infrastructure friction on distributed experiments at Iambic — worth a quick look.</div><div style="height:10px"></div><div style="margin-bottom:0;line-height:1.6;">Dylan</div></div>
+          
+        <div style="background:#0E1408;border-top:1px solid #30363D;padding:10px 16px;font-size:13px;color:#3FB950;font-style:italic;">📌 Proof: Physical Intelligence — 2× faster research iteration, Python-native, no cluster management</div>
+        </div>
+        <div style="border:1px solid #30363D;border-top:3px solid #3FB950;border-radius:4px;margin-bottom:12px;overflow:hidden;">
+          <div style="background:#1a1a1a;padding:10px 16px;border-bottom:1px solid #30363D;">
+            <span style="color:#3FB950;font-weight:700;font-size:13px;">Step 2&nbsp;&nbsp;</span>
+            <span style="color:#6E7681;font-size:13px;">Subject: </span>
+            <span style="color:#F0F6FC;font-weight:700;font-size:13px;">Re: parallel hyperparameter search for molecular models</span>
+          </div>
+          <div style="background:#161B22;padding:14px 18px;font-size:14px;color:#C9D1D9;font-family:Arial,sans-serif;line-height:1.7;"><div style="margin-bottom:0;line-height:1.6;">Daniel —</div><div style="height:10px"></div><div style="margin-bottom:0;line-height:1.6;">Following up. One place managed Ray tends to be immediately useful for ML research scientists: parallel hyperparameter search.</div><div style="height:10px"></div><div style="margin-bottom:0;line-height:1.6;">Ray Tune schedules parallel trials automatically across the cluster — run 20 model variants simultaneously instead of sequentially, with ASHA early stopping so poor-performing trials get cut early. A week of sequential hyperparameter search becomes a day.</div><div style="height:10px"></div><div style="margin-bottom:0;line-height:1.6;">Uber ran distributed hyperparameter search on heterogeneous GPU clusters and cut compute costs by 50% via smarter scheduling. The same setup handles training and search on the same cluster.</div><div style="height:10px"></div><div style="margin-bottom:0;line-height:1.6;">For a research scientist exploring model architectures for drug discovery tasks at Iambic, that's a meaningful difference in how many ideas you can test per sprint.</div><div style="height:10px"></div><div style="margin-bottom:0;line-height:1.6;">20 minutes?</div><div style="height:10px"></div><div style="margin-bottom:0;line-height:1.6;">Dylan</div></div>
+          
+        <div style="background:#0E1408;border-top:1px solid #30363D;padding:10px 16px;font-size:13px;color:#3FB950;font-style:italic;">📌 Proof: Uber — 50% compute savings, parallel distributed search on heterogeneous Ray cluster</div>
+        </div>
+        <div style="border:1px solid #30363D;border-top:3px solid #3FB950;border-radius:4px;margin-bottom:12px;overflow:hidden;">
+          <div style="background:#1a1a1a;padding:10px 16px;border-bottom:1px solid #30363D;">
+            <span style="color:#3FB950;font-weight:700;font-size:13px;">Step 3&nbsp;&nbsp;</span>
+            <span style="color:#6E7681;font-size:13px;">Subject: </span>
+            <span style="color:#F0F6FC;font-weight:700;font-size:13px;">Fault tolerance for long drug discovery experiments</span>
+          </div>
+          <div style="background:#161B22;padding:14px 18px;font-size:14px;color:#C9D1D9;font-family:Arial,sans-serif;line-height:1.7;"><div style="margin-bottom:0;line-height:1.6;">Daniel —</div><div style="height:10px"></div><div style="margin-bottom:0;line-height:1.6;">One concrete thing: fault tolerance on long experiments.</div><div style="height:10px"></div><div style="margin-bottom:0;line-height:1.6;">Drug discovery ML jobs — conformation sampling, binding affinity training, property prediction at scale — can run for many hours. A node failure mid-run on a self-managed cluster usually means starting over.</div><div style="height:10px"></div><div style="margin-bottom:0;line-height:1.6;">Ray on Anyscale retries failed tasks automatically at the task level, without restarting the full job. Checkpointing is automatic. Zoox runs thousands of parallel simulation jobs this way — any individual failure is transparent to the researcher.</div><div style="height:10px"></div><div style="margin-bottom:0;line-height:1.6;">For ML research scientists running long experiments at Iambic, that changes how confidently you can kick off a long run and step away.</div><div style="height:10px"></div><div style="margin-bottom:0;line-height:1.6;">Dylan</div></div>
+          
+        <div style="background:#0E1408;border-top:1px solid #30363D;padding:10px 16px;font-size:13px;color:#3FB950;font-style:italic;">📌 Proof: Zoox — 1,000s of parallel jobs, task-level fault recovery, transparent to researchers</div>
+        </div>
+        <div style="border:1px solid #30363D;border-top:3px solid #3FB950;border-radius:4px;margin-bottom:12px;overflow:hidden;">
+          <div style="background:#1a1a1a;padding:10px 16px;border-bottom:1px solid #30363D;">
+            <span style="color:#3FB950;font-weight:700;font-size:13px;">Step 4&nbsp;&nbsp;</span>
+            <span style="color:#6E7681;font-size:13px;">Subject: </span>
+            <span style="color:#F0F6FC;font-weight:700;font-size:13px;">Last note — research tooling</span>
+          </div>
+          <div style="background:#161B22;padding:14px 18px;font-size:14px;color:#C9D1D9;font-family:Arial,sans-serif;line-height:1.7;"><div style="margin-bottom:0;line-height:1.6;">Daniel —</div><div style="height:10px"></div><div style="margin-bottom:0;line-height:1.6;">Last one from me.</div><div style="height:10px"></div><div style="margin-bottom:0;line-height:1.6;">Physical Intelligence: 2× faster research iteration, no cluster management overhead. Uber: 50% compute savings on parallel search. Zoox: fault-tolerant parallel jobs at scale.</div><div style="height:10px"></div><div style="margin-bottom:0;line-height:1.6;">All Python-native, works on existing hardware. If distributed training overhead is friction for your research work at Iambic — happy to give you a quick demo.</div><div style="height:10px"></div><div style="margin-bottom:0;line-height:1.6;">Dylan</div></div>
+          
+        <div style="background:#0E1408;border-top:1px solid #30363D;padding:10px 16px;font-size:13px;color:#3FB950;font-style:italic;">📌 Proof: Physical Intelligence (2×) + Uber (50% savings) + Zoox (fault-tolerant parallel jobs)</div>
+        </div>
+      </div>
+
+  <div style="height:60px;"></div>
+</div>
+
+</body>
+</html>

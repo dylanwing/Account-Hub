@@ -1,0 +1,725 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>fal.ai — Personalized Email Sequences</title>
+<style>
+  * { margin:0; padding:0; box-sizing:border-box; }
+  body { font-family: Arial, 'Helvetica Neue', sans-serif; background:#0D1117; color:#C9D1D9; display:flex; height:100vh; overflow:hidden; }
+  #sidebar { width:220px; min-width:220px; background:#161B22; border-right:1px solid #30363D; display:flex; flex-direction:column; overflow:hidden; }
+  #sidebar-header { padding:16px 14px 12px; border-bottom:1px solid #30363D; }
+  #sidebar-header .co-name { font-size:15px; font-weight:700; color:#58A6FF; margin-bottom:2px; }
+  #sidebar-header .co-sub { font-size:11px; color:#6E7681; }
+  #sidebar-nav { flex:1; overflow-y:auto; padding:8px 6px; }
+  #sidebar-nav::-webkit-scrollbar { width:4px; }
+  #sidebar-nav::-webkit-scrollbar-thumb { background:#30363D; border-radius:2px; }
+  #main { flex:1; overflow-y:auto; padding:24px 28px; }
+  #main::-webkit-scrollbar { width:6px; }
+  #main::-webkit-scrollbar-thumb { background:#30363D; border-radius:3px; }
+  .section-label { font-size:10px;font-weight:600;text-transform:uppercase;letter-spacing:.08em;color:#6E7681;padding:10px 10px 4px; }
+  table { border-collapse:collapse; width:100%; }
+  td, th { font-size:13px; }
+  th { color:#6E7681; font-weight:600; padding:8px 10px; border-bottom:2px solid #58A6FF; text-align:left; background:#161B22; font-size:12px; text-transform:uppercase; letter-spacing:.05em; }
+</style>
+</head>
+<body>
+
+<div id="sidebar">
+  <div id="sidebar-header">
+    <div class="co-name">fal.ai</div>
+    <div class="co-sub">10 contacts · 40 emails</div>
+  </div>
+  <div class="section-label">Contacts</div>
+  <div id="sidebar-nav">
+    <a href="#contact-1" style="display:flex;align-items:center;gap:8px;padding:6px 10px;border-radius:5px;text-decoration:none;color:#C9D1D9;font-size:13px;transition:background 0.15s;" onmouseover="this.style.background='#21262D'" onmouseout="this.style.background='transparent'">
+      <span style="background:#F78166;color:#fff;font-size:11px;font-weight:700;width:20px;height:20px;border-radius:3px;display:flex;align-items:center;justify-content:center;flex-shrink:0;">1</span>
+      <span style="white-space:nowrap;overflow:hidden;text-overflow:ellipsis;">Burkay Gur</span>
+      <span style="color:#F78166;font-size:11px;font-weight:600;margin-left:auto;flex-shrink:0;">P1</span>
+    </a><a href="#contact-2" style="display:flex;align-items:center;gap:8px;padding:6px 10px;border-radius:5px;text-decoration:none;color:#C9D1D9;font-size:13px;transition:background 0.15s;" onmouseover="this.style.background='#21262D'" onmouseout="this.style.background='transparent'">
+      <span style="background:#F78166;color:#fff;font-size:11px;font-weight:700;width:20px;height:20px;border-radius:3px;display:flex;align-items:center;justify-content:center;flex-shrink:0;">2</span>
+      <span style="white-space:nowrap;overflow:hidden;text-overflow:ellipsis;">Gorkem Yurtseven</span>
+      <span style="color:#F78166;font-size:11px;font-weight:600;margin-left:auto;flex-shrink:0;">P1</span>
+    </a><a href="#contact-3" style="display:flex;align-items:center;gap:8px;padding:6px 10px;border-radius:5px;text-decoration:none;color:#C9D1D9;font-size:13px;transition:background 0.15s;" onmouseover="this.style.background='#21262D'" onmouseout="this.style.background='transparent'">
+      <span style="background:#F78166;color:#fff;font-size:11px;font-weight:700;width:20px;height:20px;border-radius:3px;display:flex;align-items:center;justify-content:center;flex-shrink:0;">3</span>
+      <span style="white-space:nowrap;overflow:hidden;text-overflow:ellipsis;">Batuhan Taskaya</span>
+      <span style="color:#F78166;font-size:11px;font-weight:600;margin-left:auto;flex-shrink:0;">P1</span>
+    </a><a href="#contact-4" style="display:flex;align-items:center;gap:8px;padding:6px 10px;border-radius:5px;text-decoration:none;color:#C9D1D9;font-size:13px;transition:background 0.15s;" onmouseover="this.style.background='#21262D'" onmouseout="this.style.background='transparent'">
+      <span style="background:#D29922;color:#fff;font-size:11px;font-weight:700;width:20px;height:20px;border-radius:3px;display:flex;align-items:center;justify-content:center;flex-shrink:0;">4</span>
+      <span style="white-space:nowrap;overflow:hidden;text-overflow:ellipsis;">Gavin Ni</span>
+      <span style="color:#D29922;font-size:11px;font-weight:600;margin-left:auto;flex-shrink:0;">P2</span>
+    </a><a href="#contact-5" style="display:flex;align-items:center;gap:8px;padding:6px 10px;border-radius:5px;text-decoration:none;color:#C9D1D9;font-size:13px;transition:background 0.15s;" onmouseover="this.style.background='#21262D'" onmouseout="this.style.background='transparent'">
+      <span style="background:#D29922;color:#fff;font-size:11px;font-weight:700;width:20px;height:20px;border-radius:3px;display:flex;align-items:center;justify-content:center;flex-shrink:0;">5</span>
+      <span style="white-space:nowrap;overflow:hidden;text-overflow:ellipsis;">Apekshik Panigrahi</span>
+      <span style="color:#D29922;font-size:11px;font-weight:600;margin-left:auto;flex-shrink:0;">P2</span>
+    </a><a href="#contact-6" style="display:flex;align-items:center;gap:8px;padding:6px 10px;border-radius:5px;text-decoration:none;color:#C9D1D9;font-size:13px;transition:background 0.15s;" onmouseover="this.style.background='#21262D'" onmouseout="this.style.background='transparent'">
+      <span style="background:#D29922;color:#fff;font-size:11px;font-weight:700;width:20px;height:20px;border-radius:3px;display:flex;align-items:center;justify-content:center;flex-shrink:0;">6</span>
+      <span style="white-space:nowrap;overflow:hidden;text-overflow:ellipsis;">Ehsan Akhgari</span>
+      <span style="color:#D29922;font-size:11px;font-weight:600;margin-left:auto;flex-shrink:0;">P2</span>
+    </a><a href="#contact-7" style="display:flex;align-items:center;gap:8px;padding:6px 10px;border-radius:5px;text-decoration:none;color:#C9D1D9;font-size:13px;transition:background 0.15s;" onmouseover="this.style.background='#21262D'" onmouseout="this.style.background='transparent'">
+      <span style="background:#58A6FF;color:#fff;font-size:11px;font-weight:700;width:20px;height:20px;border-radius:3px;display:flex;align-items:center;justify-content:center;flex-shrink:0;">7</span>
+      <span style="white-space:nowrap;overflow:hidden;text-overflow:ellipsis;">Tuna Meral</span>
+      <span style="color:#58A6FF;font-size:11px;font-weight:600;margin-left:auto;flex-shrink:0;">P3</span>
+    </a><a href="#contact-8" style="display:flex;align-items:center;gap:8px;padding:6px 10px;border-radius:5px;text-decoration:none;color:#C9D1D9;font-size:13px;transition:background 0.15s;" onmouseover="this.style.background='#21262D'" onmouseout="this.style.background='transparent'">
+      <span style="background:#58A6FF;color:#fff;font-size:11px;font-weight:700;width:20px;height:20px;border-radius:3px;display:flex;align-items:center;justify-content:center;flex-shrink:0;">8</span>
+      <span style="white-space:nowrap;overflow:hidden;text-overflow:ellipsis;">Vishnu Jaddipal</span>
+      <span style="color:#58A6FF;font-size:11px;font-weight:600;margin-left:auto;flex-shrink:0;">P3</span>
+    </a><a href="#contact-9" style="display:flex;align-items:center;gap:8px;padding:6px 10px;border-radius:5px;text-decoration:none;color:#C9D1D9;font-size:13px;transition:background 0.15s;" onmouseover="this.style.background='#21262D'" onmouseout="this.style.background='transparent'">
+      <span style="background:#58A6FF;color:#fff;font-size:11px;font-weight:700;width:20px;height:20px;border-radius:3px;display:flex;align-items:center;justify-content:center;flex-shrink:0;">9</span>
+      <span style="white-space:nowrap;overflow:hidden;text-overflow:ellipsis;">Daniel Wesonga</span>
+      <span style="color:#58A6FF;font-size:11px;font-weight:600;margin-left:auto;flex-shrink:0;">P3</span>
+    </a><a href="#contact-10" style="display:flex;align-items:center;gap:8px;padding:6px 10px;border-radius:5px;text-decoration:none;color:#C9D1D9;font-size:13px;transition:background 0.15s;" onmouseover="this.style.background='#21262D'" onmouseout="this.style.background='transparent'">
+      <span style="background:#58A6FF;color:#fff;font-size:11px;font-weight:700;width:20px;height:20px;border-radius:3px;display:flex;align-items:center;justify-content:center;flex-shrink:0;">10</span>
+      <span style="white-space:nowrap;overflow:hidden;text-overflow:ellipsis;">Mike Pevzner</span>
+      <span style="color:#58A6FF;font-size:11px;font-weight:600;margin-left:auto;flex-shrink:0;">P3</span>
+    </a>
+  </div>
+</div>
+
+<div id="main">
+  <!-- Cover -->
+  <div style="margin-bottom:28px;">
+    <div style="font-size:32px;font-weight:700;color:#58A6FF;margin-bottom:6px;">fal.ai</div>
+    <div style="font-size:18px;color:#F0F6FC;margin-bottom:4px;">Personalized Email Sequences — 10 Contacts</div>
+    <div style="font-size:13px;color:#6E7681;">Anyscale · Sales Development · March 2026 · Serverless GPU Inference Platform</div>
+  </div>
+
+  <!-- Proof points -->
+  <div style="border-left:3px solid #58A6FF;background:#161B22;padding:14px 18px;margin-bottom:24px;border-radius:0 4px 4px 0;">
+    <div style="font-size:11px;font-weight:600;text-transform:uppercase;letter-spacing:.08em;color:#58A6FF;margin-bottom:10px;">Proof Points Reference</div>
+    <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:12px;">
+      <div><div style="color:#58A6FF;font-weight:700;font-size:13px;">Uber</div><div style="color:#56D364;font-weight:700;font-size:12px;margin:3px 0;">50% compute savings</div><div style="color:#6E7681;font-size:12px;">GPU+CPU scheduling on heterogeneous cluster</div></div>
+      <div><div style="color:#58A6FF;font-weight:700;font-size:13px;">Zoox (Amazon)</div><div style="color:#56D364;font-weight:700;font-size:12px;margin:3px 0;">1,000s of parallel jobs</div><div style="color:#6E7681;font-size:12px;">Fault-tolerant parallel workloads on managed Ray</div></div>
+      <div><div style="color:#58A6FF;font-weight:700;font-size:13px;">Physical Intelligence</div><div style="color:#56D364;font-weight:700;font-size:12px;margin:3px 0;">2× faster · 16+ eng freed</div><div style="color:#6E7681;font-size:12px;">Small team, full ML pipeline on Anyscale</div></div>
+      <div><div style="color:#58A6FF;font-weight:700;font-size:13px;">Blue River (Deere)</div><div style="color:#56D364;font-weight:700;font-size:12px;margin:3px 0;">24h → 9.5h · 2.5×</div><div style="color:#6E7681;font-size:12px;">Continuous data pipeline, same hardware</div></div>
+    </div>
+  </div>
+
+  <!-- Contact index -->
+  <div style="margin-bottom:28px;">
+    <div style="font-size:11px;font-weight:600;text-transform:uppercase;letter-spacing:.08em;color:#6E7681;margin-bottom:8px;">Contact Index</div>
+    <table>
+      <thead><tr>
+        <th style="width:36px;">#</th>
+        <th>Name</th>
+        <th>Title</th>
+        <th style="width:60px;">Priority</th>
+        <th>Angle</th>
+      </tr></thead>
+      <tbody><tr>
+      <td style="color:#C9D1D9;padding:7px 10px;border-bottom:1px solid #30363D;">1</td>
+      <td style="color:#F0F6FC;font-weight:600;padding:7px 10px;border-bottom:1px solid #30363D;">Burkay Gur</td>
+      <td style="color:#8B949E;padding:7px 10px;border-bottom:1px solid #30363D;">Co-Founder &amp; CEO</td>
+      <td style="color:#F78166;font-weight:700;padding:7px 10px;border-bottom:1px solid #30363D;">P1</td>
+      <td style="color:#58A6FF;padding:7px 10px;border-bottom:1px solid #30363D;font-size:12px;">GPU Cost Efficiency at Series D Scale</td>
+    </tr><tr>
+      <td style="color:#C9D1D9;padding:7px 10px;border-bottom:1px solid #30363D;">2</td>
+      <td style="color:#F0F6FC;font-weight:600;padding:7px 10px;border-bottom:1px solid #30363D;">Gorkem Yurtseven</td>
+      <td style="color:#8B949E;padding:7px 10px;border-bottom:1px solid #30363D;">Co-Founder &amp; CTO</td>
+      <td style="color:#F78166;font-weight:700;padding:7px 10px;border-bottom:1px solid #30363D;">P1</td>
+      <td style="color:#58A6FF;padding:7px 10px;border-bottom:1px solid #30363D;font-size:12px;">GPU Cluster Orchestration / Architecture</td>
+    </tr><tr>
+      <td style="color:#C9D1D9;padding:7px 10px;border-bottom:1px solid #30363D;">3</td>
+      <td style="color:#F0F6FC;font-weight:600;padding:7px 10px;border-bottom:1px solid #30363D;">Batuhan Taskaya</td>
+      <td style="color:#8B949E;padding:7px 10px;border-bottom:1px solid #30363D;">Head of Engineering</td>
+      <td style="color:#F78166;font-weight:700;padding:7px 10px;border-bottom:1px solid #30363D;">P1</td>
+      <td style="color:#58A6FF;padding:7px 10px;border-bottom:1px solid #30363D;font-size:12px;">Engineering Velocity / Cluster Reliability</td>
+    </tr><tr>
+      <td style="color:#C9D1D9;padding:7px 10px;border-bottom:1px solid #30363D;">4</td>
+      <td style="color:#F0F6FC;font-weight:600;padding:7px 10px;border-bottom:1px solid #30363D;">Gavin Ni</td>
+      <td style="color:#8B949E;padding:7px 10px;border-bottom:1px solid #30363D;">Founding GTM &amp; Partnerships</td>
+      <td style="color:#D29922;font-weight:700;padding:7px 10px;border-bottom:1px solid #30363D;">P2</td>
+      <td style="color:#58A6FF;padding:7px 10px;border-bottom:1px solid #30363D;font-size:12px;">NVIDIA Ecosystem / Partnership Angle</td>
+    </tr><tr>
+      <td style="color:#C9D1D9;padding:7px 10px;border-bottom:1px solid #30363D;">5</td>
+      <td style="color:#F0F6FC;font-weight:600;padding:7px 10px;border-bottom:1px solid #30363D;">Apekshik Panigrahi</td>
+      <td style="color:#8B949E;padding:7px 10px;border-bottom:1px solid #30363D;">AI Engineer</td>
+      <td style="color:#D29922;font-weight:700;padding:7px 10px;border-bottom:1px solid #30363D;">P2</td>
+      <td style="color:#58A6FF;padding:7px 10px;border-bottom:1px solid #30363D;font-size:12px;">Developer Experience / Managed Ray</td>
+    </tr><tr>
+      <td style="color:#C9D1D9;padding:7px 10px;border-bottom:1px solid #30363D;">6</td>
+      <td style="color:#F0F6FC;font-weight:600;padding:7px 10px;border-bottom:1px solid #30363D;">Ehsan Akhgari</td>
+      <td style="color:#8B949E;padding:7px 10px;border-bottom:1px solid #30363D;">Research Engineer</td>
+      <td style="color:#D29922;font-weight:700;padding:7px 10px;border-bottom:1px solid #30363D;">P2</td>
+      <td style="color:#58A6FF;padding:7px 10px;border-bottom:1px solid #30363D;font-size:12px;">Research-to-Production Velocity</td>
+    </tr><tr>
+      <td style="color:#C9D1D9;padding:7px 10px;border-bottom:1px solid #30363D;">7</td>
+      <td style="color:#F0F6FC;font-weight:600;padding:7px 10px;border-bottom:1px solid #30363D;">Tuna Meral</td>
+      <td style="color:#8B949E;padding:7px 10px;border-bottom:1px solid #30363D;">Research Fellow</td>
+      <td style="color:#58A6FF;font-weight:700;padding:7px 10px;border-bottom:1px solid #30363D;">P3</td>
+      <td style="color:#58A6FF;padding:7px 10px;border-bottom:1px solid #30363D;font-size:12px;">Large-Scale Research Experiments</td>
+    </tr><tr>
+      <td style="color:#C9D1D9;padding:7px 10px;border-bottom:1px solid #30363D;">8</td>
+      <td style="color:#F0F6FC;font-weight:600;padding:7px 10px;border-bottom:1px solid #30363D;">Vishnu Jaddipal</td>
+      <td style="color:#8B949E;padding:7px 10px;border-bottom:1px solid #30363D;">Machine Learning Engineer</td>
+      <td style="color:#58A6FF;font-weight:700;padding:7px 10px;border-bottom:1px solid #30363D;">P3</td>
+      <td style="color:#58A6FF;padding:7px 10px;border-bottom:1px solid #30363D;font-size:12px;">Distributed Training / ML Pipeline Efficiency</td>
+    </tr><tr>
+      <td style="color:#C9D1D9;padding:7px 10px;border-bottom:1px solid #30363D;">9</td>
+      <td style="color:#F0F6FC;font-weight:600;padding:7px 10px;border-bottom:1px solid #30363D;">Daniel Wesonga</td>
+      <td style="color:#8B949E;padding:7px 10px;border-bottom:1px solid #30363D;">Enterprise Account Manager</td>
+      <td style="color:#58A6FF;font-weight:700;padding:7px 10px;border-bottom:1px solid #30363D;">P3</td>
+      <td style="color:#58A6FF;padding:7px 10px;border-bottom:1px solid #30363D;font-size:12px;">Enterprise Customer Infrastructure Challenges</td>
+    </tr><tr>
+      <td style="color:#C9D1D9;padding:7px 10px;border-bottom:1px solid #30363D;">10</td>
+      <td style="color:#F0F6FC;font-weight:600;padding:7px 10px;border-bottom:1px solid #30363D;">Mike Pevzner</td>
+      <td style="color:#8B949E;padding:7px 10px;border-bottom:1px solid #30363D;">GTM</td>
+      <td style="color:#58A6FF;font-weight:700;padding:7px 10px;border-bottom:1px solid #30363D;">P3</td>
+      <td style="color:#58A6FF;padding:7px 10px;border-bottom:1px solid #30363D;font-size:12px;">GTM Ecosystem Alignment</td>
+    </tr></tbody>
+    </table>
+  </div>
+
+  <hr style="border:none;border-top:1px solid #30363D;margin-bottom:28px;">
+
+  <!-- Contact sections -->
+  
+      <div id="contact-1" style="scroll-margin-top:60px;">
+        <div style="display:flex;align-items:stretch;margin-bottom:14px;border:1px solid #30363D;border-radius:4px;overflow:hidden;">
+          <div style="background:#F78166;width:48px;min-width:48px;display:flex;align-items:center;justify-content:center;font-size:22px;font-weight:700;color:#fff;">1</div>
+          <div style="background:#161B22;flex:1;padding:12px 18px;">
+            <div style="font-size:18px;font-weight:700;color:#F0F6FC;">Burkay Gur <span style="color:#6E7681;font-size:14px;font-weight:400;"> · Co-Founder &amp; CEO</span></div>
+            <div style="margin-top:5px;font-size:12px;">
+              <span style="color:#F78166;font-weight:700;">P1</span>
+              <span style="color:#6E7681;"> · fal.ai · </span>
+              <span style="color:#58A6FF;">GPU Cost Efficiency at Series D Scale</span>
+              <span style="color:#6E7681;"> · Contact 1 of 10</span>
+            </div><div style="margin-top:5px;font-size:12px;color:#8B949E;">📧 <a href="mailto:burkay@fal.ai" style="color:#58A6FF;text-decoration:none;">burkay@fal.ai</a> &nbsp;·&nbsp; 📞 +1-617-233-3787<span style="font-size:10px;background:rgba(63,185,80,0.15);color:#3fb950;border:1px solid #3fb95044;border-radius:3px;padding:1px 5px;margin-left:6px;">verified</span></div>
+          </div>
+        </div>
+        
+        <div style="border:1px solid #30363D;border-top:3px solid #58A6FF;border-radius:4px;margin-bottom:12px;overflow:hidden;">
+          <div style="background:#1a1a1a;padding:10px 16px;border-bottom:1px solid #30363D;">
+            <span style="color:#58A6FF;font-weight:700;font-size:13px;">Step 1&nbsp;&nbsp;</span>
+            <span style="color:#6E7681;font-size:13px;">Subject: </span>
+            <span style="color:#F0F6FC;font-weight:700;font-size:13px;">GPU cluster efficiency → Series D → IPO</span>
+          </div>
+          <div style="background:#161B22;padding:14px 18px;font-size:14px;color:#C9D1D9;font-family:Arial,sans-serif;line-height:1.7;"><div style="margin-bottom:0;line-height:1.6;">Burkay —</div><div style="height:10px"></div><div style="margin-bottom:0;line-height:1.6;">Congrats on the Series D and NVIDIA partnership — impressive milestone.</div><div style="height:10px"></div><div style="margin-bottom:0;line-height:1.6;">At $4.5B valuation with inference volume at fal's scale, GPU cluster utilization and scheduling efficiency are typically board-level metrics by this stage. The gap between peak and average utilization on heterogeneous GPU clusters tends to be 30–50% for inference workloads — that's a significant cost center as you scale toward IPO.</div><div style="height:10px"></div><div style="margin-bottom:0;line-height:1.6;">Uber ran heterogeneous CPU+GPU clusters on Anyscale's managed Ray and cut compute costs by 50% through smarter job scheduling — same hardware, better orchestration.</div><div style="height:10px"></div><div style="margin-bottom:0;line-height:1.6;">For a CEO approaching the growth stage fal is in, that's the kind of infrastructure efficiency gain that shows up on the P&amp;L.</div><div style="height:10px"></div><div style="margin-bottom:0;line-height:1.6;">Worth 15 minutes?</div><div style="height:10px"></div><div style="margin-bottom:0;line-height:1.6;">Dylan</div></div>
+          
+        <div style="background:#0E1408;border-top:1px solid #30363D;padding:10px 16px;font-size:13px;color:#58A6FF;font-style:italic;">📌 Proof: Uber — 50% compute savings on heterogeneous CPU+GPU cluster via Ray scheduling</div>
+        </div>
+        <div style="border:1px solid #30363D;border-top:3px solid #58A6FF;border-radius:4px;margin-bottom:12px;overflow:hidden;">
+          <div style="background:#1a1a1a;padding:10px 16px;border-bottom:1px solid #30363D;">
+            <span style="color:#58A6FF;font-weight:700;font-size:13px;">Step 2&nbsp;&nbsp;</span>
+            <span style="color:#6E7681;font-size:13px;">Subject: </span>
+            <span style="color:#F0F6FC;font-weight:700;font-size:13px;">Re: what OpenAI uses for inference infrastructure</span>
+          </div>
+          <div style="background:#161B22;padding:14px 18px;font-size:14px;color:#C9D1D9;font-family:Arial,sans-serif;line-height:1.7;"><div style="margin-bottom:0;line-height:1.6;">Burkay —</div><div style="height:10px"></div><div style="margin-bottom:0;line-height:1.6;">Following up. OpenAI, Mistral, and several other leading inference platforms run their serving infrastructure on Ray. At fal's scale and growth trajectory, the question of managed vs. self-operated infrastructure tends to become a strategic decision rather than a purely technical one.</div><div style="height:10px"></div><div style="margin-bottom:0;line-height:1.6;">The cost of self-managing cluster orchestration at scale isn't just the compute — it's the engineering time spent on scheduling, autoscaling, fault recovery, and multi-model endpoint management. Zoox (Amazon's AV division) runs thousands of parallel inference workloads on Anyscale's managed Ray. Physical Intelligence runs terabyte-scale model pipelines with a small team.</div><div style="height:10px"></div><div style="margin-bottom:0;line-height:1.6;">Anyscale offers the infrastructure layer those teams use, managed, so your engineers focus on the inference product — not the cluster.</div><div style="height:10px"></div><div style="margin-bottom:0;line-height:1.6;">20 minutes to discuss where fal is headed infrastructure-wise?</div><div style="height:10px"></div><div style="margin-bottom:0;line-height:1.6;">Dylan</div></div>
+          
+        <div style="background:#0E1408;border-top:1px solid #30363D;padding:10px 16px;font-size:13px;color:#58A6FF;font-style:italic;">📌 Proof: Zoox — 1,000s of parallel inference workloads on managed Ray; Uber 50% compute savings</div>
+        </div>
+        <div style="border:1px solid #30363D;border-top:3px solid #58A6FF;border-radius:4px;margin-bottom:12px;overflow:hidden;">
+          <div style="background:#1a1a1a;padding:10px 16px;border-bottom:1px solid #30363D;">
+            <span style="color:#58A6FF;font-weight:700;font-size:13px;">Step 3&nbsp;&nbsp;</span>
+            <span style="color:#6E7681;font-size:13px;">Subject: </span>
+            <span style="color:#F0F6FC;font-weight:700;font-size:13px;">GPU spend as a competitive moat</span>
+          </div>
+          <div style="background:#161B22;padding:14px 18px;font-size:14px;color:#C9D1D9;font-family:Arial,sans-serif;line-height:1.7;"><div style="margin-bottom:0;line-height:1.6;">Burkay —</div><div style="height:10px"></div><div style="margin-bottom:0;line-height:1.6;">One framing worth considering: at fal's scale, infrastructure efficiency is a competitive moat, not just a cost center.</div><div style="height:10px"></div><div style="margin-bottom:0;line-height:1.6;">If fal can serve the same inference volume at 30–50% lower GPU cost than competitors, that's margin that gets reinvested in model quality, latency improvements, or pricing — all of which compound over time.</div><div style="height:10px"></div><div style="margin-bottom:0;line-height:1.6;">Anyscale's managed Ray handles cluster scheduling across GPU types automatically — including spot/preemptible instances, heterogeneous node pools, and multi-region deployments. The teams running it report significant cost reductions without infrastructure rewrites.</div><div style="height:10px"></div><div style="margin-bottom:0;line-height:1.6;">Happy to share specifics on how the architecture maps to fal's inference stack. No commitment.</div><div style="height:10px"></div><div style="margin-bottom:0;line-height:1.6;">Dylan</div></div>
+          
+        <div style="background:#0E1408;border-top:1px solid #30363D;padding:10px 16px;font-size:13px;color:#58A6FF;font-style:italic;">📌 Proof: Uber (50% savings) + Zoox (parallel inference at scale) on managed Ray</div>
+        </div>
+        <div style="border:1px solid #30363D;border-top:3px solid #58A6FF;border-radius:4px;margin-bottom:12px;overflow:hidden;">
+          <div style="background:#1a1a1a;padding:10px 16px;border-bottom:1px solid #30363D;">
+            <span style="color:#58A6FF;font-weight:700;font-size:13px;">Step 4&nbsp;&nbsp;</span>
+            <span style="color:#6E7681;font-size:13px;">Subject: </span>
+            <span style="color:#F0F6FC;font-weight:700;font-size:13px;">Last note — infrastructure at Series D</span>
+          </div>
+          <div style="background:#161B22;padding:14px 18px;font-size:14px;color:#C9D1D9;font-family:Arial,sans-serif;line-height:1.7;"><div style="margin-bottom:0;line-height:1.6;">Burkay —</div><div style="height:10px"></div><div style="margin-bottom:0;line-height:1.6;">Last one from me.</div><div style="height:10px"></div><div style="margin-bottom:0;line-height:1.6;">The short version: Anyscale's managed Ray powers inference infrastructure for leading AI companies. Uber cut GPU costs by 50%. Zoox runs thousands of parallel inference workloads. Physical Intelligence operates terabyte-scale model pipelines with a small team.</div><div style="height:10px"></div><div style="margin-bottom:0;line-height:1.6;">If GPU cluster efficiency or infrastructure cost becomes a lever you're pulling as fal scales — I'd welcome a conversation.</div><div style="height:10px"></div><div style="margin-bottom:0;line-height:1.6;">Feel free to reach out whenever the timing works.</div><div style="height:10px"></div><div style="margin-bottom:0;line-height:1.6;">Dylan</div></div>
+          
+        <div style="background:#0E1408;border-top:1px solid #30363D;padding:10px 16px;font-size:13px;color:#58A6FF;font-style:italic;">📌 Proof: Uber (50% savings) + Zoox (parallel inference) + Physical Intelligence (small team, TB-scale)</div>
+        </div>
+      </div><hr style="border:none;border-top:1px solid #30363D;margin:24px 0;">
+      <div id="contact-2" style="scroll-margin-top:60px;">
+        <div style="display:flex;align-items:stretch;margin-bottom:14px;border:1px solid #30363D;border-radius:4px;overflow:hidden;">
+          <div style="background:#F78166;width:48px;min-width:48px;display:flex;align-items:center;justify-content:center;font-size:22px;font-weight:700;color:#fff;">2</div>
+          <div style="background:#161B22;flex:1;padding:12px 18px;">
+            <div style="font-size:18px;font-weight:700;color:#F0F6FC;">Gorkem Yurtseven <span style="color:#6E7681;font-size:14px;font-weight:400;"> · Co-Founder &amp; CTO</span></div>
+            <div style="margin-top:5px;font-size:12px;">
+              <span style="color:#F78166;font-weight:700;">P1</span>
+              <span style="color:#6E7681;"> · fal.ai · </span>
+              <span style="color:#58A6FF;">GPU Cluster Orchestration / Architecture</span>
+              <span style="color:#6E7681;"> · Contact 2 of 10</span>
+            </div><div style="margin-top:5px;font-size:12px;color:#8B949E;">📧 <a href="mailto:gorkem@fal.ai" style="color:#58A6FF;text-decoration:none;">gorkem@fal.ai</a><span style="font-size:10px;background:rgba(139,148,158,0.1);color:#6E7681;border:1px solid #30363D;border-radius:3px;padding:1px 5px;margin-left:6px;">inferred</span></div>
+          </div>
+        </div>
+        
+        <div style="border:1px solid #30363D;border-top:3px solid #58A6FF;border-radius:4px;margin-bottom:12px;overflow:hidden;">
+          <div style="background:#1a1a1a;padding:10px 16px;border-bottom:1px solid #30363D;">
+            <span style="color:#58A6FF;font-weight:700;font-size:13px;">Step 1&nbsp;&nbsp;</span>
+            <span style="color:#6E7681;font-size:13px;">Subject: </span>
+            <span style="color:#F0F6FC;font-weight:700;font-size:13px;">Ray Serve vs. custom — what's your stack?</span>
+          </div>
+          <div style="background:#161B22;padding:14px 18px;font-size:14px;color:#C9D1D9;font-family:Arial,sans-serif;line-height:1.7;"><div style="margin-bottom:0;line-height:1.6;">Gorkem —</div><div style="height:10px"></div><div style="margin-bottom:0;line-height:1.6;">I lead sales at Anyscale. Straight question: are you running Ray Serve today for fal's inference stack, or a custom orchestration layer?</div><div style="height:10px"></div><div style="margin-bottom:0;line-height:1.6;">At the inference volume fal operates at, cluster scheduling under traffic spikes and GPU autoscaling are typically the hardest engineering problems. The gap between peak and average load creates a lot of either idle compute or dropped latency SLAs.</div><div style="height:10px"></div><div style="margin-bottom:0;line-height:1.6;">Anyscale's managed Ray handles that automatically — dynamic autoscaling, heterogeneous GPU pools, multi-model endpoint management. Happy to do a technical deep-dive: no slides, just architecture.</div><div style="height:10px"></div><div style="margin-bottom:0;line-height:1.6;">Worth a call?</div><div style="height:10px"></div><div style="margin-bottom:0;line-height:1.6;">Dylan</div></div>
+          
+        <div style="background:#0E1408;border-top:1px solid #30363D;padding:10px 16px;font-size:13px;color:#58A6FF;font-style:italic;">📌 Proof: Zoox — 1,000s of parallel inference rollouts on managed Ray, full autoscaling</div>
+        </div>
+        <div style="border:1px solid #30363D;border-top:3px solid #58A6FF;border-radius:4px;margin-bottom:12px;overflow:hidden;">
+          <div style="background:#1a1a1a;padding:10px 16px;border-bottom:1px solid #30363D;">
+            <span style="color:#58A6FF;font-weight:700;font-size:13px;">Step 2&nbsp;&nbsp;</span>
+            <span style="color:#6E7681;font-size:13px;">Subject: </span>
+            <span style="color:#F0F6FC;font-weight:700;font-size:13px;">Re: P99 latency under traffic spikes</span>
+          </div>
+          <div style="background:#161B22;padding:14px 18px;font-size:14px;color:#C9D1D9;font-family:Arial,sans-serif;line-height:1.7;"><div style="margin-bottom:0;line-height:1.6;">Gorkem —</div><div style="height:10px"></div><div style="margin-bottom:0;line-height:1.6;">Following up. The P99 latency problem under inference spikes is fundamentally a cluster scheduling problem — too many requests queue behind slow cold-starts or misallocated GPU capacity.</div><div style="height:10px"></div><div style="margin-bottom:0;line-height:1.6;">Anyscale's managed Ray handles GPU autoscaling at the task level, not the node level — so scaling is faster and more granular than traditional cluster autoscaling. Zoox runs thousands of parallel workloads with this architecture. Uber achieved 50% compute savings by letting Ray's scheduler optimize across a heterogeneous GPU+CPU pool.</div><div style="height:10px"></div><div style="margin-bottom:0;line-height:1.6;">For a CTO evaluating whether to build or buy the orchestration layer, those benchmarks tend to be the relevant data points.</div><div style="height:10px"></div><div style="margin-bottom:0;line-height:1.6;">Happy to share our architecture docs and benchmark data. No commitment.</div><div style="height:10px"></div><div style="margin-bottom:0;line-height:1.6;">Dylan</div></div>
+          
+        <div style="background:#0E1408;border-top:1px solid #30363D;padding:10px 16px;font-size:13px;color:#58A6FF;font-style:italic;">📌 Proof: Zoox (parallel scale) + Uber (50% compute savings via Ray scheduler)</div>
+        </div>
+        <div style="border:1px solid #30363D;border-top:3px solid #58A6FF;border-radius:4px;margin-bottom:12px;overflow:hidden;">
+          <div style="background:#1a1a1a;padding:10px 16px;border-bottom:1px solid #30363D;">
+            <span style="color:#58A6FF;font-weight:700;font-size:13px;">Step 3&nbsp;&nbsp;</span>
+            <span style="color:#6E7681;font-size:13px;">Subject: </span>
+            <span style="color:#F0F6FC;font-weight:700;font-size:13px;">Multi-model endpoint management at scale</span>
+          </div>
+          <div style="background:#161B22;padding:14px 18px;font-size:14px;color:#C9D1D9;font-family:Arial,sans-serif;line-height:1.7;"><div style="margin-bottom:0;line-height:1.6;">Gorkem —</div><div style="height:10px"></div><div style="margin-bottom:0;line-height:1.6;">One specific technical challenge at fal's scale: managing hundreds of model endpoints with different resource requirements, latency SLAs, and traffic patterns — without either over-provisioning GPU capacity or accepting latency degradation.</div><div style="height:10px"></div><div style="margin-bottom:0;line-height:1.6;">Ray Serve on Anyscale handles multi-model deployment with independent autoscaling per model, fractional GPU allocation (multiple models sharing a single GPU when underloaded), and traffic splitting for A/B testing or canary deployments. All configurable in Python.</div><div style="height:10px"></div><div style="margin-bottom:0;line-height:1.6;">This is the architecture several inference-heavy platforms use at scale. Happy to walk through the specifics for fal's endpoint model.</div><div style="height:10px"></div><div style="margin-bottom:0;line-height:1.6;">20 minutes?</div><div style="height:10px"></div><div style="margin-bottom:0;line-height:1.6;">Dylan</div></div>
+          
+        <div style="background:#0E1408;border-top:1px solid #30363D;padding:10px 16px;font-size:13px;color:#58A6FF;font-style:italic;">📌 Proof: Zoox — multi-workload cluster, independent scaling per job type on managed Ray</div>
+        </div>
+        <div style="border:1px solid #30363D;border-top:3px solid #58A6FF;border-radius:4px;margin-bottom:12px;overflow:hidden;">
+          <div style="background:#1a1a1a;padding:10px 16px;border-bottom:1px solid #30363D;">
+            <span style="color:#58A6FF;font-weight:700;font-size:13px;">Step 4&nbsp;&nbsp;</span>
+            <span style="color:#6E7681;font-size:13px;">Subject: </span>
+            <span style="color:#F0F6FC;font-weight:700;font-size:13px;">Last note — inference infrastructure</span>
+          </div>
+          <div style="background:#161B22;padding:14px 18px;font-size:14px;color:#C9D1D9;font-family:Arial,sans-serif;line-height:1.7;"><div style="margin-bottom:0;line-height:1.6;">Gorkem —</div><div style="height:10px"></div><div style="margin-bottom:0;line-height:1.6;">Last one from me.</div><div style="height:10px"></div><div style="margin-bottom:0;line-height:1.6;">If you're evaluating Anyscale at any point — whether for current pain points or future scale — I'm happy to do a fully technical conversation. Architecture comparison, benchmark data, or a side-by-side on your specific workload.</div><div style="height:10px"></div><div style="margin-bottom:0;line-height:1.6;">No commitment, no slides. Just architecture talk.</div><div style="height:10px"></div><div style="margin-bottom:0;line-height:1.6;">Dylan</div></div>
+          
+        <div style="background:#0E1408;border-top:1px solid #30363D;padding:10px 16px;font-size:13px;color:#58A6FF;font-style:italic;">📌 Proof: Uber (50% savings) + Zoox (parallel inference) on managed Ray — benchmarks available</div>
+        </div>
+      </div><hr style="border:none;border-top:1px solid #30363D;margin:24px 0;">
+      <div id="contact-3" style="scroll-margin-top:60px;">
+        <div style="display:flex;align-items:stretch;margin-bottom:14px;border:1px solid #30363D;border-radius:4px;overflow:hidden;">
+          <div style="background:#F78166;width:48px;min-width:48px;display:flex;align-items:center;justify-content:center;font-size:22px;font-weight:700;color:#fff;">3</div>
+          <div style="background:#161B22;flex:1;padding:12px 18px;">
+            <div style="font-size:18px;font-weight:700;color:#F0F6FC;">Batuhan Taskaya <span style="color:#6E7681;font-size:14px;font-weight:400;"> · Head of Engineering</span></div>
+            <div style="margin-top:5px;font-size:12px;">
+              <span style="color:#F78166;font-weight:700;">P1</span>
+              <span style="color:#6E7681;"> · fal.ai · </span>
+              <span style="color:#58A6FF;">Engineering Velocity / Cluster Reliability</span>
+              <span style="color:#6E7681;"> · Contact 3 of 10</span>
+            </div><div style="margin-top:5px;font-size:12px;color:#8B949E;">📧 <a href="mailto:batuhan@fal.ai" style="color:#58A6FF;text-decoration:none;">batuhan@fal.ai</a><span style="font-size:10px;background:rgba(139,148,158,0.1);color:#6E7681;border:1px solid #30363D;border-radius:3px;padding:1px 5px;margin-left:6px;">inferred</span></div>
+          </div>
+        </div>
+        
+        <div style="border:1px solid #30363D;border-top:3px solid #58A6FF;border-radius:4px;margin-bottom:12px;overflow:hidden;">
+          <div style="background:#1a1a1a;padding:10px 16px;border-bottom:1px solid #30363D;">
+            <span style="color:#58A6FF;font-weight:700;font-size:13px;">Step 1&nbsp;&nbsp;</span>
+            <span style="color:#6E7681;font-size:13px;">Subject: </span>
+            <span style="color:#F0F6FC;font-weight:700;font-size:13px;">Cluster ops overhead vs. feature work ratio</span>
+          </div>
+          <div style="background:#161B22;padding:14px 18px;font-size:14px;color:#C9D1D9;font-family:Arial,sans-serif;line-height:1.7;"><div style="margin-bottom:0;line-height:1.6;">Batuhan —</div><div style="height:10px"></div><div style="margin-bottom:0;line-height:1.6;">Technical question: what's the ratio of engineering time going into cluster ops vs. feature work on fal's inference infrastructure? And what does your P99 latency story look like under traffic spikes?</div><div style="height:10px"></div><div style="margin-bottom:0;line-height:1.6;">For engineering teams running inference at fal's scale, cluster management tends to absorb a disproportionate amount of senior engineer time — scheduling, fault recovery, autoscaling calibration. That's time not going into latency optimization or new model support.</div><div style="height:10px"></div><div style="margin-bottom:0;line-height:1.6;">We've benchmarked self-managed Ray vs. Anyscale across several inference-heavy teams. Happy to share the data, no commitment.</div><div style="height:10px"></div><div style="margin-bottom:0;line-height:1.6;">Dylan</div></div>
+          
+        <div style="background:#0E1408;border-top:1px solid #30363D;padding:10px 16px;font-size:13px;color:#58A6FF;font-style:italic;">📌 Proof: Physical Intelligence — 16+ engineers freed from infra ops, 2× faster iteration</div>
+        </div>
+        <div style="border:1px solid #30363D;border-top:3px solid #58A6FF;border-radius:4px;margin-bottom:12px;overflow:hidden;">
+          <div style="background:#1a1a1a;padding:10px 16px;border-bottom:1px solid #30363D;">
+            <span style="color:#58A6FF;font-weight:700;font-size:13px;">Step 2&nbsp;&nbsp;</span>
+            <span style="color:#6E7681;font-size:13px;">Subject: </span>
+            <span style="color:#F0F6FC;font-weight:700;font-size:13px;">Re: benchmark data — managed vs. self-managed Ray</span>
+          </div>
+          <div style="background:#161B22;padding:14px 18px;font-size:14px;color:#C9D1D9;font-family:Arial,sans-serif;line-height:1.7;"><div style="margin-bottom:0;line-height:1.6;">Batuhan —</div><div style="height:10px"></div><div style="margin-bottom:0;line-height:1.6;">Following up. The benchmark question tends to come down to two metrics: cluster utilization efficiency and engineering hours per GPU-week.</div><div style="height:10px"></div><div style="margin-bottom:0;line-height:1.6;">Physical Intelligence — a physical AI company running terabyte-scale model pipelines — moved to Anyscale and freed 16+ engineers from infrastructure management. Same output, less overhead. 2× faster iteration as a by-product.</div><div style="height:10px"></div><div style="margin-bottom:0;line-height:1.6;">Zoox runs thousands of parallel workloads with full fault tolerance on managed Ray — the kind of reliability SLA that's hard to maintain on self-managed clusters at scale.</div><div style="height:10px"></div><div style="margin-bottom:0;line-height:1.6;">For a Head of Engineering evaluating build vs. buy for cluster orchestration, those are the relevant comparison points.</div><div style="height:10px"></div><div style="margin-bottom:0;line-height:1.6;">Happy to set up a technical call with our engineering team. 20 minutes?</div><div style="height:10px"></div><div style="margin-bottom:0;line-height:1.6;">Dylan</div></div>
+          
+        <div style="background:#0E1408;border-top:1px solid #30363D;padding:10px 16px;font-size:13px;color:#58A6FF;font-style:italic;">📌 Proof: Physical Intelligence (16+ engineers freed) + Zoox (fault-tolerant parallel workloads)</div>
+        </div>
+        <div style="border:1px solid #30363D;border-top:3px solid #58A6FF;border-radius:4px;margin-bottom:12px;overflow:hidden;">
+          <div style="background:#1a1a1a;padding:10px 16px;border-bottom:1px solid #30363D;">
+            <span style="color:#58A6FF;font-weight:700;font-size:13px;">Step 3&nbsp;&nbsp;</span>
+            <span style="color:#6E7681;font-size:13px;">Subject: </span>
+            <span style="color:#F0F6FC;font-weight:700;font-size:13px;">Running a POC on your existing cluster</span>
+          </div>
+          <div style="background:#161B22;padding:14px 18px;font-size:14px;color:#C9D1D9;font-family:Arial,sans-serif;line-height:1.7;"><div style="margin-bottom:0;line-height:1.6;">Batuhan —</div><div style="height:10px"></div><div style="margin-bottom:0;line-height:1.6;">If this is worth exploring, the typical path is a POC on your existing GPU cluster — no infrastructure migration required.</div><div style="height:10px"></div><div style="margin-bottom:0;line-height:1.6;">Anyscale managed Ray installs on your current hardware (or cloud VPC). We scope the POC around your highest-pain workload — usually inference autoscaling or multi-model endpoint management — and measure the engineering time savings and performance delta over 2–3 weeks.</div><div style="height:10px"></div><div style="margin-bottom:0;line-height:1.6;">The teams that run a POC typically see the operational savings clearly within the first week. Happy to design a POC scope that maps to fal's specific architecture.</div><div style="height:10px"></div><div style="margin-bottom:0;line-height:1.6;">Interested?</div><div style="height:10px"></div><div style="margin-bottom:0;line-height:1.6;">Dylan</div></div>
+          
+        <div style="background:#0E1408;border-top:1px solid #30363D;padding:10px 16px;font-size:13px;color:#58A6FF;font-style:italic;">📌 Proof: Zoox + Uber — both ran on existing infrastructure, no hardware migration</div>
+        </div>
+        <div style="border:1px solid #30363D;border-top:3px solid #58A6FF;border-radius:4px;margin-bottom:12px;overflow:hidden;">
+          <div style="background:#1a1a1a;padding:10px 16px;border-bottom:1px solid #30363D;">
+            <span style="color:#58A6FF;font-weight:700;font-size:13px;">Step 4&nbsp;&nbsp;</span>
+            <span style="color:#6E7681;font-size:13px;">Subject: </span>
+            <span style="color:#F0F6FC;font-weight:700;font-size:13px;">Last note — engineering overhead</span>
+          </div>
+          <div style="background:#161B22;padding:14px 18px;font-size:14px;color:#C9D1D9;font-family:Arial,sans-serif;line-height:1.7;"><div style="margin-bottom:0;line-height:1.6;">Batuhan —</div><div style="height:10px"></div><div style="margin-bottom:0;line-height:1.6;">Last one from me.</div><div style="height:10px"></div><div style="margin-bottom:0;line-height:1.6;">If cluster ops overhead ever becomes a pain point you want to solve — I'd be glad to design a specific POC around fal's architecture.</div><div style="height:10px"></div><div style="margin-bottom:0;line-height:1.6;">Physical Intelligence freed 16+ engineers from infra work. Uber cut compute costs by 50%. Zoox runs at scale with managed fault tolerance.</div><div style="height:10px"></div><div style="margin-bottom:0;line-height:1.6;">Feel free to reach out when the timing is right.</div><div style="height:10px"></div><div style="margin-bottom:0;line-height:1.6;">Dylan</div></div>
+          
+        <div style="background:#0E1408;border-top:1px solid #30363D;padding:10px 16px;font-size:13px;color:#58A6FF;font-style:italic;">📌 Proof: Physical Intelligence (16+ freed) + Uber (50% savings) + Zoox (reliability at scale)</div>
+        </div>
+      </div><hr style="border:none;border-top:1px solid #30363D;margin:24px 0;">
+      <div id="contact-4" style="scroll-margin-top:60px;">
+        <div style="display:flex;align-items:stretch;margin-bottom:14px;border:1px solid #30363D;border-radius:4px;overflow:hidden;">
+          <div style="background:#D29922;width:48px;min-width:48px;display:flex;align-items:center;justify-content:center;font-size:22px;font-weight:700;color:#fff;">4</div>
+          <div style="background:#161B22;flex:1;padding:12px 18px;">
+            <div style="font-size:18px;font-weight:700;color:#F0F6FC;">Gavin Ni <span style="color:#6E7681;font-size:14px;font-weight:400;"> · Founding GTM &amp; Partnerships</span></div>
+            <div style="margin-top:5px;font-size:12px;">
+              <span style="color:#D29922;font-weight:700;">P2</span>
+              <span style="color:#6E7681;"> · fal.ai · </span>
+              <span style="color:#58A6FF;">NVIDIA Ecosystem / Partnership Angle</span>
+              <span style="color:#6E7681;"> · Contact 4 of 10</span>
+            </div><div style="margin-top:5px;font-size:12px;color:#8B949E;">📧 <a href="mailto:gavin@fal.ai" style="color:#58A6FF;text-decoration:none;">gavin@fal.ai</a><span style="font-size:10px;background:rgba(139,148,158,0.1);color:#6E7681;border:1px solid #30363D;border-radius:3px;padding:1px 5px;margin-left:6px;">inferred</span></div>
+          </div>
+        </div>
+        
+        <div style="border:1px solid #30363D;border-top:3px solid #58A6FF;border-radius:4px;margin-bottom:12px;overflow:hidden;">
+          <div style="background:#1a1a1a;padding:10px 16px;border-bottom:1px solid #30363D;">
+            <span style="color:#58A6FF;font-weight:700;font-size:13px;">Step 1&nbsp;&nbsp;</span>
+            <span style="color:#6E7681;font-size:13px;">Subject: </span>
+            <span style="color:#F0F6FC;font-weight:700;font-size:13px;">Anyscale + fal.ai — NVIDIA ecosystem overlap</span>
+          </div>
+          <div style="background:#161B22;padding:14px 18px;font-size:14px;color:#C9D1D9;font-family:Arial,sans-serif;line-height:1.7;"><div style="margin-bottom:0;line-height:1.6;">Gavin —</div><div style="height:10px"></div><div style="margin-bottom:0;line-height:1.6;">Congrats on the Series D and the NVIDIA partnership — impressive combination.</div><div style="height:10px"></div><div style="margin-bottom:0;line-height:1.6;">NVIDIA is a strategic investor in both fal and the Ray/Anyscale ecosystem. There may be a natural alignment worth exploring — fal's inference API layer on top of Anyscale's cluster orchestration, with NVIDIA hardware underneath.</div><div style="height:10px"></div><div style="margin-bottom:0;line-height:1.6;">I'd be curious how fal is thinking about vendor relationships in the GPU orchestration space and whether there's a joint story worth building. Happy to connect briefly to explore.</div><div style="height:10px"></div><div style="margin-bottom:0;line-height:1.6;">Dylan</div></div>
+          
+        </div>
+        <div style="border:1px solid #30363D;border-top:3px solid #58A6FF;border-radius:4px;margin-bottom:12px;overflow:hidden;">
+          <div style="background:#1a1a1a;padding:10px 16px;border-bottom:1px solid #30363D;">
+            <span style="color:#58A6FF;font-weight:700;font-size:13px;">Step 2&nbsp;&nbsp;</span>
+            <span style="color:#6E7681;font-size:13px;">Subject: </span>
+            <span style="color:#F0F6FC;font-weight:700;font-size:13px;">Re: infrastructure partners in the GPU ecosystem</span>
+          </div>
+          <div style="background:#161B22;padding:14px 18px;font-size:14px;color:#C9D1D9;font-family:Arial,sans-serif;line-height:1.7;"><div style="margin-bottom:0;line-height:1.6;">Gavin —</div><div style="height:10px"></div><div style="margin-bottom:0;line-height:1.6;">Following up. The partnership angle I have in mind: Anyscale powers Ray-based inference infrastructure for several leading AI companies. fal provides fast inference APIs on top of that kind of infrastructure.</div><div style="height:10px"></div><div style="margin-bottom:0;line-height:1.6;">There's a potential co-sell story — fal customers who need managed cluster orchestration, or Anyscale customers building inference products who could use fal's API layer.</div><div style="height:10px"></div><div style="margin-bottom:0;line-height:1.6;">Uber and Zoox are examples of companies running large-scale inference and parallel workloads on Anyscale. Several of those teams have needs that overlap with what fal offers.</div><div style="height:10px"></div><div style="margin-bottom:0;line-height:1.6;">Happy to explore whether there's a partnership structure that makes sense. 20 minutes?</div><div style="height:10px"></div><div style="margin-bottom:0;line-height:1.6;">Dylan</div></div>
+          
+        <div style="background:#0E1408;border-top:1px solid #30363D;padding:10px 16px;font-size:13px;color:#58A6FF;font-style:italic;">📌 Proof: Uber + Zoox — inference-heavy customers on Anyscale with potential fal.ai API layer fit</div>
+        </div>
+        <div style="border:1px solid #30363D;border-top:3px solid #58A6FF;border-radius:4px;margin-bottom:12px;overflow:hidden;">
+          <div style="background:#1a1a1a;padding:10px 16px;border-bottom:1px solid #30363D;">
+            <span style="color:#58A6FF;font-weight:700;font-size:13px;">Step 3&nbsp;&nbsp;</span>
+            <span style="color:#6E7681;font-size:13px;">Subject: </span>
+            <span style="color:#F0F6FC;font-weight:700;font-size:13px;">Joint GTM in the GPU inference space</span>
+          </div>
+          <div style="background:#161B22;padding:14px 18px;font-size:14px;color:#C9D1D9;font-family:Arial,sans-serif;line-height:1.7;"><div style="margin-bottom:0;line-height:1.6;">Gavin —</div><div style="height:10px"></div><div style="margin-bottom:0;line-height:1.6;">The GTM angle worth exploring: Anyscale has a direct line to enterprise ML teams evaluating inference infrastructure. fal has a fast, developer-friendly inference API layer.</div><div style="height:10px"></div><div style="margin-bottom:0;line-height:1.6;">A joint positioning — Anyscale for cluster orchestration, fal for managed inference endpoints — could serve enterprise customers who need both. NVIDIA's investment in both ecosystems creates a natural co-marketing narrative.</div><div style="height:10px"></div><div style="margin-bottom:0;line-height:1.6;">I'm happy to set up a call with our partnerships team to explore whether this is worth developing. No commitment.</div><div style="height:10px"></div><div style="margin-bottom:0;line-height:1.6;">Dylan</div></div>
+          
+        </div>
+        <div style="border:1px solid #30363D;border-top:3px solid #58A6FF;border-radius:4px;margin-bottom:12px;overflow:hidden;">
+          <div style="background:#1a1a1a;padding:10px 16px;border-bottom:1px solid #30363D;">
+            <span style="color:#58A6FF;font-weight:700;font-size:13px;">Step 4&nbsp;&nbsp;</span>
+            <span style="color:#6E7681;font-size:13px;">Subject: </span>
+            <span style="color:#F0F6FC;font-weight:700;font-size:13px;">Last note — partnership exploration</span>
+          </div>
+          <div style="background:#161B22;padding:14px 18px;font-size:14px;color:#C9D1D9;font-family:Arial,sans-serif;line-height:1.7;"><div style="margin-bottom:0;line-height:1.6;">Gavin —</div><div style="height:10px"></div><div style="margin-bottom:0;line-height:1.6;">Last one from me.</div><div style="height:10px"></div><div style="margin-bottom:0;line-height:1.6;">If the partnership or GTM angle between Anyscale and fal is worth a conversation — happy to set up a call with our team. There may be a co-sell or co-marketing story worth exploring given the shared NVIDIA relationship and overlapping customer base.</div><div style="height:10px"></div><div style="margin-bottom:0;line-height:1.6;">Feel free to reach out whenever it's a good time.</div><div style="height:10px"></div><div style="margin-bottom:0;line-height:1.6;">Dylan</div></div>
+          
+        </div>
+      </div><hr style="border:none;border-top:1px solid #30363D;margin:24px 0;">
+      <div id="contact-5" style="scroll-margin-top:60px;">
+        <div style="display:flex;align-items:stretch;margin-bottom:14px;border:1px solid #30363D;border-radius:4px;overflow:hidden;">
+          <div style="background:#D29922;width:48px;min-width:48px;display:flex;align-items:center;justify-content:center;font-size:22px;font-weight:700;color:#fff;">5</div>
+          <div style="background:#161B22;flex:1;padding:12px 18px;">
+            <div style="font-size:18px;font-weight:700;color:#F0F6FC;">Apekshik Panigrahi <span style="color:#6E7681;font-size:14px;font-weight:400;"> · AI Engineer</span></div>
+            <div style="margin-top:5px;font-size:12px;">
+              <span style="color:#D29922;font-weight:700;">P2</span>
+              <span style="color:#6E7681;"> · fal.ai · </span>
+              <span style="color:#58A6FF;">Developer Experience / Managed Ray</span>
+              <span style="color:#6E7681;"> · Contact 5 of 10</span>
+            </div><div style="margin-top:5px;font-size:12px;color:#8B949E;">📧 <a href="mailto:apekshik@fal.ai" style="color:#58A6FF;text-decoration:none;">apekshik@fal.ai</a><span style="font-size:10px;background:rgba(139,148,158,0.1);color:#6E7681;border:1px solid #30363D;border-radius:3px;padding:1px 5px;margin-left:6px;">inferred</span></div>
+          </div>
+        </div>
+        
+        <div style="border:1px solid #30363D;border-top:3px solid #58A6FF;border-radius:4px;margin-bottom:12px;overflow:hidden;">
+          <div style="background:#1a1a1a;padding:10px 16px;border-bottom:1px solid #30363D;">
+            <span style="color:#58A6FF;font-weight:700;font-size:13px;">Step 1&nbsp;&nbsp;</span>
+            <span style="color:#6E7681;font-size:13px;">Subject: </span>
+            <span style="color:#F0F6FC;font-weight:700;font-size:13px;">Never manage a Ray cluster yourself again</span>
+          </div>
+          <div style="background:#161B22;padding:14px 18px;font-size:14px;color:#C9D1D9;font-family:Arial,sans-serif;line-height:1.7;"><div style="margin-bottom:0;line-height:1.6;">Apekshik —</div><div style="height:10px"></div><div style="margin-bottom:0;line-height:1.6;">Building inference systems at fal must be fast-paced. Quick question: are you using Ray today for any of the serving infrastructure?</div><div style="height:10px"></div><div style="margin-bottom:0;line-height:1.6;">If you are — or if you're managing distributed compute manually — we make managed Ray that handles all the cluster ops automatically. No node management, no scheduler tuning, no fault recovery. You write Python Ray tasks, the cluster handles the rest.</div><div style="height:10px"></div><div style="margin-bottom:0;line-height:1.6;">Physical Intelligence runs terabyte-scale model pipelines this way with a small team. 2× faster iteration because engineers aren't managing infrastructure.</div><div style="height:10px"></div><div style="margin-bottom:0;line-height:1.6;">Worth a look?</div><div style="height:10px"></div><div style="margin-bottom:0;line-height:1.6;">Dylan</div></div>
+          
+        <div style="background:#0E1408;border-top:1px solid #30363D;padding:10px 16px;font-size:13px;color:#58A6FF;font-style:italic;">📌 Proof: Physical Intelligence — 2× faster iteration, 16+ engineers off infra, Python-native</div>
+        </div>
+        <div style="border:1px solid #30363D;border-top:3px solid #58A6FF;border-radius:4px;margin-bottom:12px;overflow:hidden;">
+          <div style="background:#1a1a1a;padding:10px 16px;border-bottom:1px solid #30363D;">
+            <span style="color:#58A6FF;font-weight:700;font-size:13px;">Step 2&nbsp;&nbsp;</span>
+            <span style="color:#6E7681;font-size:13px;">Subject: </span>
+            <span style="color:#F0F6FC;font-weight:700;font-size:13px;">Re: what managed Ray looks like for inference engineers</span>
+          </div>
+          <div style="background:#161B22;padding:14px 18px;font-size:14px;color:#C9D1D9;font-family:Arial,sans-serif;line-height:1.7;"><div style="margin-bottom:0;line-height:1.6;">Apekshik —</div><div style="height:10px"></div><div style="margin-bottom:0;line-height:1.6;">Following up. For AI engineers building inference systems, the managed Ray difference is mostly felt in three places: autoscaling under traffic spikes (no manual intervention), fractional GPU allocation for multi-model deployments, and automatic retry on node failures.</div><div style="height:10px"></div><div style="margin-bottom:0;line-height:1.6;">Zoox runs thousands of parallel inference workloads with full fault tolerance on managed Ray — the kind of reliability that's hard to maintain manually at scale.</div><div style="height:10px"></div><div style="margin-bottom:0;line-height:1.6;">For an AI engineer at fal who ships inference systems, that's less time debugging cluster behavior and more time on model quality.</div><div style="height:10px"></div><div style="margin-bottom:0;line-height:1.6;">Happy to show you what the developer experience looks like. 20 minutes?</div><div style="height:10px"></div><div style="margin-bottom:0;line-height:1.6;">Dylan</div></div>
+          
+        <div style="background:#0E1408;border-top:1px solid #30363D;padding:10px 16px;font-size:13px;color:#58A6FF;font-style:italic;">📌 Proof: Zoox — 1,000s of parallel workloads, full fault tolerance, managed Ray</div>
+        </div>
+        <div style="border:1px solid #30363D;border-top:3px solid #58A6FF;border-radius:4px;margin-bottom:12px;overflow:hidden;">
+          <div style="background:#1a1a1a;padding:10px 16px;border-bottom:1px solid #30363D;">
+            <span style="color:#58A6FF;font-weight:700;font-size:13px;">Step 3&nbsp;&nbsp;</span>
+            <span style="color:#6E7681;font-size:13px;">Subject: </span>
+            <span style="color:#F0F6FC;font-weight:700;font-size:13px;">Fractional GPU allocation for multi-model serving</span>
+          </div>
+          <div style="background:#161B22;padding:14px 18px;font-size:14px;color:#C9D1D9;font-family:Arial,sans-serif;line-height:1.7;"><div style="margin-bottom:0;line-height:1.6;">Apekshik —</div><div style="height:10px"></div><div style="margin-bottom:0;line-height:1.6;">One specific capability worth calling out: fractional GPU allocation.</div><div style="height:10px"></div><div style="margin-bottom:0;line-height:1.6;">Ray Serve on Anyscale lets you run multiple models on a single GPU when they're underloaded — automatically shifting capacity to whichever model needs it. No manual bin-packing. No over-provisioning to handle peak load.</div><div style="height:10px"></div><div style="margin-bottom:0;line-height:1.6;">For an inference platform serving image, video, and audio models with different traffic patterns, fractional allocation and per-model autoscaling can significantly improve GPU utilization — which directly affects cost and serving capacity.</div><div style="height:10px"></div><div style="margin-bottom:0;line-height:1.6;">Interested in seeing how it maps to fal's model serving architecture?</div><div style="height:10px"></div><div style="margin-bottom:0;line-height:1.6;">Dylan</div></div>
+          
+        <div style="background:#0E1408;border-top:1px solid #30363D;padding:10px 16px;font-size:13px;color:#58A6FF;font-style:italic;">📌 Proof: Uber — 50% compute savings via smarter GPU/CPU allocation on Ray</div>
+        </div>
+        <div style="border:1px solid #30363D;border-top:3px solid #58A6FF;border-radius:4px;margin-bottom:12px;overflow:hidden;">
+          <div style="background:#1a1a1a;padding:10px 16px;border-bottom:1px solid #30363D;">
+            <span style="color:#58A6FF;font-weight:700;font-size:13px;">Step 4&nbsp;&nbsp;</span>
+            <span style="color:#6E7681;font-size:13px;">Subject: </span>
+            <span style="color:#F0F6FC;font-weight:700;font-size:13px;">Last note — inference infrastructure</span>
+          </div>
+          <div style="background:#161B22;padding:14px 18px;font-size:14px;color:#C9D1D9;font-family:Arial,sans-serif;line-height:1.7;"><div style="margin-bottom:0;line-height:1.6;">Apekshik —</div><div style="height:10px"></div><div style="margin-bottom:0;line-height:1.6;">Last one from me.</div><div style="height:10px"></div><div style="margin-bottom:0;line-height:1.6;">Physical Intelligence: 2× faster iteration, engineers off infra work. Zoox: parallel inference at scale, managed fault tolerance. Uber: 50% compute savings via smarter scheduling.</div><div style="height:10px"></div><div style="margin-bottom:0;line-height:1.6;">All Python-native, all on existing hardware. If cluster overhead ever becomes a friction point — happy to show you what managed Ray looks like in practice.</div><div style="height:10px"></div><div style="margin-bottom:0;line-height:1.6;">Dylan</div></div>
+          
+        <div style="background:#0E1408;border-top:1px solid #30363D;padding:10px 16px;font-size:13px;color:#58A6FF;font-style:italic;">📌 Proof: Physical Intelligence (2×) + Zoox (scale) + Uber (50% savings)</div>
+        </div>
+      </div><hr style="border:none;border-top:1px solid #30363D;margin:24px 0;">
+      <div id="contact-6" style="scroll-margin-top:60px;">
+        <div style="display:flex;align-items:stretch;margin-bottom:14px;border:1px solid #30363D;border-radius:4px;overflow:hidden;">
+          <div style="background:#D29922;width:48px;min-width:48px;display:flex;align-items:center;justify-content:center;font-size:22px;font-weight:700;color:#fff;">6</div>
+          <div style="background:#161B22;flex:1;padding:12px 18px;">
+            <div style="font-size:18px;font-weight:700;color:#F0F6FC;">Ehsan Akhgari <span style="color:#6E7681;font-size:14px;font-weight:400;"> · Research Engineer</span></div>
+            <div style="margin-top:5px;font-size:12px;">
+              <span style="color:#D29922;font-weight:700;">P2</span>
+              <span style="color:#6E7681;"> · fal.ai · </span>
+              <span style="color:#58A6FF;">Research-to-Production Velocity</span>
+              <span style="color:#6E7681;"> · Contact 6 of 10</span>
+            </div><div style="margin-top:5px;font-size:12px;color:#8B949E;">📧 <a href="mailto:ehsan@fal.ai" style="color:#58A6FF;text-decoration:none;">ehsan@fal.ai</a><span style="font-size:10px;background:rgba(139,148,158,0.1);color:#6E7681;border:1px solid #30363D;border-radius:3px;padding:1px 5px;margin-left:6px;">inferred</span></div>
+          </div>
+        </div>
+        
+        <div style="border:1px solid #30363D;border-top:3px solid #58A6FF;border-radius:4px;margin-bottom:12px;overflow:hidden;">
+          <div style="background:#1a1a1a;padding:10px 16px;border-bottom:1px solid #30363D;">
+            <span style="color:#58A6FF;font-weight:700;font-size:13px;">Step 1&nbsp;&nbsp;</span>
+            <span style="color:#6E7681;font-size:13px;">Subject: </span>
+            <span style="color:#F0F6FC;font-weight:700;font-size:13px;">Research-to-production handoff time</span>
+          </div>
+          <div style="background:#161B22;padding:14px 18px;font-size:14px;color:#C9D1D9;font-family:Arial,sans-serif;line-height:1.7;"><div style="margin-bottom:0;line-height:1.6;">Ehsan —</div><div style="height:10px"></div><div style="margin-bottom:0;line-height:1.6;">For research engineers pushing new models to production, the infrastructure handoff is often the biggest bottleneck — converting a working experiment into a deployed, scalable inference endpoint takes longer than it should.</div><div style="height:10px"></div><div style="margin-bottom:0;line-height:1.6;">Physical Intelligence runs their full research-to-production pipeline on Anyscale — from distributed training and hyperparameter search to inference serving — in a single Python framework. 2× faster iteration from experiment to deployed model.</div><div style="height:10px"></div><div style="margin-bottom:0;line-height:1.6;">For a research engineer at an inference-first company, the question is how much time is spent on the handoff vs. on the model itself.</div><div style="height:10px"></div><div style="margin-bottom:0;line-height:1.6;">Worth a quick conversation?</div><div style="height:10px"></div><div style="margin-bottom:0;line-height:1.6;">Dylan</div></div>
+          
+        <div style="background:#0E1408;border-top:1px solid #30363D;padding:10px 16px;font-size:13px;color:#58A6FF;font-style:italic;">📌 Proof: Physical Intelligence — 2× faster research-to-production, unified Python pipeline</div>
+        </div>
+        <div style="border:1px solid #30363D;border-top:3px solid #58A6FF;border-radius:4px;margin-bottom:12px;overflow:hidden;">
+          <div style="background:#1a1a1a;padding:10px 16px;border-bottom:1px solid #30363D;">
+            <span style="color:#58A6FF;font-weight:700;font-size:13px;">Step 2&nbsp;&nbsp;</span>
+            <span style="color:#6E7681;font-size:13px;">Subject: </span>
+            <span style="color:#F0F6FC;font-weight:700;font-size:13px;">Re: distributed hyperparameter search at fal</span>
+          </div>
+          <div style="background:#161B22;padding:14px 18px;font-size:14px;color:#C9D1D9;font-family:Arial,sans-serif;line-height:1.7;"><div style="margin-bottom:0;line-height:1.6;">Ehsan —</div><div style="height:10px"></div><div style="margin-bottom:0;line-height:1.6;">Following up. One place managed Ray tends to pay off for research engineers: distributed hyperparameter search.</div><div style="height:10px"></div><div style="margin-bottom:0;line-height:1.6;">Ray Tune on Anyscale schedules parallel trials automatically across the cluster — ASHA early stopping, PBT, custom search algorithms. Run 50 trials in the time it takes to run 5 sequentially, with automatic checkpointing and fault recovery.</div><div style="height:10px"></div><div style="margin-bottom:0;line-height:1.6;">For a research engineer evaluating model variants for inference — different architectures, quantization schemes, serving configurations — parallel search compresses the experimental cycle significantly.</div><div style="height:10px"></div><div style="margin-bottom:0;line-height:1.6;">Uber ran distributed search on heterogeneous GPU clusters and cut compute costs by 50% via better scheduling. The same infrastructure handles training and inference serving.</div><div style="height:10px"></div><div style="margin-bottom:0;line-height:1.6;">20 minutes to walk through the research workflow?</div><div style="height:10px"></div><div style="margin-bottom:0;line-height:1.6;">Dylan</div></div>
+          
+        <div style="background:#0E1408;border-top:1px solid #30363D;padding:10px 16px;font-size:13px;color:#58A6FF;font-style:italic;">📌 Proof: Uber — 50% compute savings, distributed search + serving on same Ray infrastructure</div>
+        </div>
+        <div style="border:1px solid #30363D;border-top:3px solid #58A6FF;border-radius:4px;margin-bottom:12px;overflow:hidden;">
+          <div style="background:#1a1a1a;padding:10px 16px;border-bottom:1px solid #30363D;">
+            <span style="color:#58A6FF;font-weight:700;font-size:13px;">Step 3&nbsp;&nbsp;</span>
+            <span style="color:#6E7681;font-size:13px;">Subject: </span>
+            <span style="color:#F0F6FC;font-weight:700;font-size:13px;">Model optimization → inference deployment in one pipeline</span>
+          </div>
+          <div style="background:#161B22;padding:14px 18px;font-size:14px;color:#C9D1D9;font-family:Arial,sans-serif;line-height:1.7;"><div style="margin-bottom:0;line-height:1.6;">Ehsan —</div><div style="height:10px"></div><div style="margin-bottom:0;line-height:1.6;">One architecture worth looking at: unified research and serving on the same Ray cluster.</div><div style="height:10px"></div><div style="margin-bottom:0;line-height:1.6;">The typical flow: Ray Tune for parallel optimization experiments → Ray Train for distributed fine-tuning → Ray Serve for the production inference endpoint. All on Anyscale managed infrastructure, all Python, all on the same cluster without data movement between systems.</div><div style="height:10px"></div><div style="margin-bottom:0;line-height:1.6;">Physical Intelligence uses exactly this pattern — research and production serving on a single Anyscale deployment. The result is less time on toolchain and more time on the model.</div><div style="height:10px"></div><div style="margin-bottom:0;line-height:1.6;">Would a walkthrough of that architecture be useful?</div><div style="height:10px"></div><div style="margin-bottom:0;line-height:1.6;">Dylan</div></div>
+          
+        <div style="background:#0E1408;border-top:1px solid #30363D;padding:10px 16px;font-size:13px;color:#58A6FF;font-style:italic;">📌 Proof: Physical Intelligence — unified research + serving pipeline, 2× iteration speed</div>
+        </div>
+        <div style="border:1px solid #30363D;border-top:3px solid #58A6FF;border-radius:4px;margin-bottom:12px;overflow:hidden;">
+          <div style="background:#1a1a1a;padding:10px 16px;border-bottom:1px solid #30363D;">
+            <span style="color:#58A6FF;font-weight:700;font-size:13px;">Step 4&nbsp;&nbsp;</span>
+            <span style="color:#6E7681;font-size:13px;">Subject: </span>
+            <span style="color:#F0F6FC;font-weight:700;font-size:13px;">Last note — research velocity</span>
+          </div>
+          <div style="background:#161B22;padding:14px 18px;font-size:14px;color:#C9D1D9;font-family:Arial,sans-serif;line-height:1.7;"><div style="margin-bottom:0;line-height:1.6;">Ehsan —</div><div style="height:10px"></div><div style="margin-bottom:0;line-height:1.6;">Last note from me.</div><div style="height:10px"></div><div style="margin-bottom:0;line-height:1.6;">Physical Intelligence: 2× faster model iteration, research to production in a unified pipeline. Uber: 50% compute savings on parallel workloads. All Python-native, existing hardware.</div><div style="height:10px"></div><div style="margin-bottom:0;line-height:1.6;">If the research-to-production handoff is ever a friction point at fal — happy to show you how the pipeline looks in practice.</div><div style="height:10px"></div><div style="margin-bottom:0;line-height:1.6;">Dylan</div></div>
+          
+        <div style="background:#0E1408;border-top:1px solid #30363D;padding:10px 16px;font-size:13px;color:#58A6FF;font-style:italic;">📌 Proof: Physical Intelligence (2×, unified pipeline) + Uber (50% savings on parallel search)</div>
+        </div>
+      </div><hr style="border:none;border-top:1px solid #30363D;margin:24px 0;">
+      <div id="contact-7" style="scroll-margin-top:60px;">
+        <div style="display:flex;align-items:stretch;margin-bottom:14px;border:1px solid #30363D;border-radius:4px;overflow:hidden;">
+          <div style="background:#58A6FF;width:48px;min-width:48px;display:flex;align-items:center;justify-content:center;font-size:22px;font-weight:700;color:#fff;">7</div>
+          <div style="background:#161B22;flex:1;padding:12px 18px;">
+            <div style="font-size:18px;font-weight:700;color:#F0F6FC;">Tuna Meral <span style="color:#6E7681;font-size:14px;font-weight:400;"> · Research Fellow</span></div>
+            <div style="margin-top:5px;font-size:12px;">
+              <span style="color:#58A6FF;font-weight:700;">P3</span>
+              <span style="color:#6E7681;"> · fal.ai · </span>
+              <span style="color:#58A6FF;">Large-Scale Research Experiments</span>
+              <span style="color:#6E7681;"> · Contact 7 of 10</span>
+            </div><div style="margin-top:5px;font-size:12px;color:#8B949E;">📧 <a href="mailto:tuna@fal.ai" style="color:#58A6FF;text-decoration:none;">tuna@fal.ai</a><span style="font-size:10px;background:rgba(139,148,158,0.1);color:#6E7681;border:1px solid #30363D;border-radius:3px;padding:1px 5px;margin-left:6px;">inferred</span></div>
+          </div>
+        </div>
+        
+        <div style="border:1px solid #30363D;border-top:3px solid #58A6FF;border-radius:4px;margin-bottom:12px;overflow:hidden;">
+          <div style="background:#1a1a1a;padding:10px 16px;border-bottom:1px solid #30363D;">
+            <span style="color:#58A6FF;font-weight:700;font-size:13px;">Step 1&nbsp;&nbsp;</span>
+            <span style="color:#6E7681;font-size:13px;">Subject: </span>
+            <span style="color:#F0F6FC;font-weight:700;font-size:13px;">Distributed experiments — no cluster management</span>
+          </div>
+          <div style="background:#161B22;padding:14px 18px;font-size:14px;color:#C9D1D9;font-family:Arial,sans-serif;line-height:1.7;"><div style="margin-bottom:0;line-height:1.6;">Tuna —</div><div style="height:10px"></div><div style="margin-bottom:0;line-height:1.6;">For research fellows running large-scale experiments — distributed training, hyperparameter search, ablation studies — the overhead of managing cluster infrastructure tends to get in the way of the actual research.</div><div style="height:10px"></div><div style="margin-bottom:0;line-height:1.6;">Anyscale's managed Ray handles all of that automatically. You write Python Ray tasks, the cluster schedules and scales them. Physical Intelligence runs terabyte-scale model experiments this way — 2× faster research iteration because engineers aren't managing nodes.</div><div style="height:10px"></div><div style="margin-bottom:0;line-height:1.6;">If you're running anything at scale at fal and hitting cluster overhead, worth a look.</div><div style="height:10px"></div><div style="margin-bottom:0;line-height:1.6;">Dylan</div></div>
+          
+        <div style="background:#0E1408;border-top:1px solid #30363D;padding:10px 16px;font-size:13px;color:#58A6FF;font-style:italic;">📌 Proof: Physical Intelligence — 2× faster research iteration, Python-native, no cluster management</div>
+        </div>
+        <div style="border:1px solid #30363D;border-top:3px solid #58A6FF;border-radius:4px;margin-bottom:12px;overflow:hidden;">
+          <div style="background:#1a1a1a;padding:10px 16px;border-bottom:1px solid #30363D;">
+            <span style="color:#58A6FF;font-weight:700;font-size:13px;">Step 2&nbsp;&nbsp;</span>
+            <span style="color:#6E7681;font-size:13px;">Subject: </span>
+            <span style="color:#F0F6FC;font-weight:700;font-size:13px;">Re: parallel hyperparameter search at research scale</span>
+          </div>
+          <div style="background:#161B22;padding:14px 18px;font-size:14px;color:#C9D1D9;font-family:Arial,sans-serif;line-height:1.7;"><div style="margin-bottom:0;line-height:1.6;">Tuna —</div><div style="height:10px"></div><div style="margin-bottom:0;line-height:1.6;">Following up. Ray Tune on Anyscale is specifically built for the parallel hyperparameter search problem — ASHA, PBT, Bayesian optimization, and custom search algorithms, all scheduled automatically across the cluster.</div><div style="height:10px"></div><div style="margin-bottom:0;line-height:1.6;">Run 50 trials in the time it takes to run 5, with fault tolerance built in. A failed trial retries automatically — no lost experiment state.</div><div style="height:10px"></div><div style="margin-bottom:0;line-height:1.6;">Uber ran distributed search on heterogeneous GPU clusters and cut compute costs by 50% via better scheduling efficiency. The same infrastructure works for research-scale experiments.</div><div style="height:10px"></div><div style="margin-bottom:0;line-height:1.6;">Worth 20 minutes?</div><div style="height:10px"></div><div style="margin-bottom:0;line-height:1.6;">Dylan</div></div>
+          
+        <div style="background:#0E1408;border-top:1px solid #30363D;padding:10px 16px;font-size:13px;color:#58A6FF;font-style:italic;">📌 Proof: Uber — 50% compute savings, parallel distributed search on Ray; Physical Intelligence 2× iteration</div>
+        </div>
+        <div style="border:1px solid #30363D;border-top:3px solid #58A6FF;border-radius:4px;margin-bottom:12px;overflow:hidden;">
+          <div style="background:#1a1a1a;padding:10px 16px;border-bottom:1px solid #30363D;">
+            <span style="color:#58A6FF;font-weight:700;font-size:13px;">Step 3&nbsp;&nbsp;</span>
+            <span style="color:#6E7681;font-size:13px;">Subject: </span>
+            <span style="color:#F0F6FC;font-weight:700;font-size:13px;">Fault-tolerant large-scale experiments</span>
+          </div>
+          <div style="background:#161B22;padding:14px 18px;font-size:14px;color:#C9D1D9;font-family:Arial,sans-serif;line-height:1.7;"><div style="margin-bottom:0;line-height:1.6;">Tuna —</div><div style="height:10px"></div><div style="margin-bottom:0;line-height:1.6;">One thing that matters for long-running research experiments: fault tolerance.</div><div style="height:10px"></div><div style="margin-bottom:0;line-height:1.6;">A multi-hour distributed training run that fails 80% through and requires a full restart is expensive in both time and GPU budget. Ray Train on Anyscale includes automatic checkpointing and task-level retry — a node failure mid-experiment retries the affected tasks without restarting the full run.</div><div style="height:10px"></div><div style="margin-bottom:0;line-height:1.6;">Zoox runs thousands of parallel workloads with this fault model at scale. Physical Intelligence uses the same approach for large research experiments.</div><div style="height:10px"></div><div style="margin-bottom:0;line-height:1.6;">If you're running long distributed experiments at fal, happy to show you how the fault tolerance architecture works.</div><div style="height:10px"></div><div style="margin-bottom:0;line-height:1.6;">Dylan</div></div>
+          
+        <div style="background:#0E1408;border-top:1px solid #30363D;padding:10px 16px;font-size:13px;color:#58A6FF;font-style:italic;">📌 Proof: Zoox — task-level fault recovery on 1,000s of parallel workloads; Physical Intelligence large-scale experiments</div>
+        </div>
+        <div style="border:1px solid #30363D;border-top:3px solid #58A6FF;border-radius:4px;margin-bottom:12px;overflow:hidden;">
+          <div style="background:#1a1a1a;padding:10px 16px;border-bottom:1px solid #30363D;">
+            <span style="color:#58A6FF;font-weight:700;font-size:13px;">Step 4&nbsp;&nbsp;</span>
+            <span style="color:#6E7681;font-size:13px;">Subject: </span>
+            <span style="color:#F0F6FC;font-weight:700;font-size:13px;">Last note — research infrastructure</span>
+          </div>
+          <div style="background:#161B22;padding:14px 18px;font-size:14px;color:#C9D1D9;font-family:Arial,sans-serif;line-height:1.7;"><div style="margin-bottom:0;line-height:1.6;">Tuna —</div><div style="height:10px"></div><div style="margin-bottom:0;line-height:1.6;">Last one from me.</div><div style="height:10px"></div><div style="margin-bottom:0;line-height:1.6;">Physical Intelligence: 2× faster research iteration with no cluster management overhead. Uber: 50% compute savings on parallel distributed workloads. Zoox: fault-tolerant large-scale parallel jobs.</div><div style="height:10px"></div><div style="margin-bottom:0;line-height:1.6;">All Python-native, all on existing compute. If running large-scale experiments at fal hits infrastructure friction — happy to talk.</div><div style="height:10px"></div><div style="margin-bottom:0;line-height:1.6;">Dylan</div></div>
+          
+        <div style="background:#0E1408;border-top:1px solid #30363D;padding:10px 16px;font-size:13px;color:#58A6FF;font-style:italic;">📌 Proof: Physical Intelligence (2×) + Uber (50% savings) + Zoox (fault-tolerant at scale)</div>
+        </div>
+      </div><hr style="border:none;border-top:1px solid #30363D;margin:24px 0;">
+      <div id="contact-8" style="scroll-margin-top:60px;">
+        <div style="display:flex;align-items:stretch;margin-bottom:14px;border:1px solid #30363D;border-radius:4px;overflow:hidden;">
+          <div style="background:#58A6FF;width:48px;min-width:48px;display:flex;align-items:center;justify-content:center;font-size:22px;font-weight:700;color:#fff;">8</div>
+          <div style="background:#161B22;flex:1;padding:12px 18px;">
+            <div style="font-size:18px;font-weight:700;color:#F0F6FC;">Vishnu Jaddipal <span style="color:#6E7681;font-size:14px;font-weight:400;"> · Machine Learning Engineer</span></div>
+            <div style="margin-top:5px;font-size:12px;">
+              <span style="color:#58A6FF;font-weight:700;">P3</span>
+              <span style="color:#6E7681;"> · fal.ai · </span>
+              <span style="color:#58A6FF;">Distributed Training / ML Pipeline Efficiency</span>
+              <span style="color:#6E7681;"> · Contact 8 of 10</span>
+            </div><div style="margin-top:5px;font-size:12px;color:#8B949E;">📧 <a href="mailto:vishnu@fal.ai" style="color:#58A6FF;text-decoration:none;">vishnu@fal.ai</a><span style="font-size:10px;background:rgba(139,148,158,0.1);color:#6E7681;border:1px solid #30363D;border-radius:3px;padding:1px 5px;margin-left:6px;">inferred</span></div>
+          </div>
+        </div>
+        
+        <div style="border:1px solid #30363D;border-top:3px solid #58A6FF;border-radius:4px;margin-bottom:12px;overflow:hidden;">
+          <div style="background:#1a1a1a;padding:10px 16px;border-bottom:1px solid #30363D;">
+            <span style="color:#58A6FF;font-weight:700;font-size:13px;">Step 1&nbsp;&nbsp;</span>
+            <span style="color:#6E7681;font-size:13px;">Subject: </span>
+            <span style="color:#F0F6FC;font-weight:700;font-size:13px;">Distributed training without cluster management</span>
+          </div>
+          <div style="background:#161B22;padding:14px 18px;font-size:14px;color:#C9D1D9;font-family:Arial,sans-serif;line-height:1.7;"><div style="margin-bottom:0;line-height:1.6;">Vishnu —</div><div style="height:10px"></div><div style="margin-bottom:0;line-height:1.6;">Building ML models for inference at fal must be fast-paced. Quick question: are you running distributed training in-house, and how much cluster management overhead goes with it?</div><div style="height:10px"></div><div style="margin-bottom:0;line-height:1.6;">We make managed Ray that handles distributed training automatically — multi-GPU, multi-node, with fault tolerance and checkpointing built in. You write standard PyTorch or TF training code, Ray Train scales it across the cluster.</div><div style="height:10px"></div><div style="margin-bottom:0;line-height:1.6;">Physical Intelligence runs distributed training this way — 2× faster model iteration with no cluster management overhead.</div><div style="height:10px"></div><div style="margin-bottom:0;line-height:1.6;">Worth a look?</div><div style="height:10px"></div><div style="margin-bottom:0;line-height:1.6;">Dylan</div></div>
+          
+        <div style="background:#0E1408;border-top:1px solid #30363D;padding:10px 16px;font-size:13px;color:#58A6FF;font-style:italic;">📌 Proof: Physical Intelligence — 2× faster training iteration, distributed, Python-native</div>
+        </div>
+        <div style="border:1px solid #30363D;border-top:3px solid #58A6FF;border-radius:4px;margin-bottom:12px;overflow:hidden;">
+          <div style="background:#1a1a1a;padding:10px 16px;border-bottom:1px solid #30363D;">
+            <span style="color:#58A6FF;font-weight:700;font-size:13px;">Step 2&nbsp;&nbsp;</span>
+            <span style="color:#6E7681;font-size:13px;">Subject: </span>
+            <span style="color:#F0F6FC;font-weight:700;font-size:13px;">Re: training-to-inference pipeline efficiency</span>
+          </div>
+          <div style="background:#161B22;padding:14px 18px;font-size:14px;color:#C9D1D9;font-family:Arial,sans-serif;line-height:1.7;"><div style="margin-bottom:0;line-height:1.6;">Vishnu —</div><div style="height:10px"></div><div style="margin-bottom:0;line-height:1.6;">Following up. For ML engineers building models for production inference, the training-to-serving handoff is often slow — different tools, different infrastructure, manual handoffs between teams.</div><div style="height:10px"></div><div style="margin-bottom:0;line-height:1.6;">Anyscale's managed Ray unifies training and serving on the same platform. Ray Train for distributed fine-tuning → Ray Serve for the inference endpoint. Same cluster, same Python codebase, no infrastructure migration between stages.</div><div style="height:10px"></div><div style="margin-bottom:0;line-height:1.6;">Physical Intelligence uses this unified architecture — faster iteration from experiment to production endpoint.</div><div style="height:10px"></div><div style="margin-bottom:0;line-height:1.6;">Happy to walk through the technical details. 20 minutes?</div><div style="height:10px"></div><div style="margin-bottom:0;line-height:1.6;">Dylan</div></div>
+          
+        <div style="background:#0E1408;border-top:1px solid #30363D;padding:10px 16px;font-size:13px;color:#58A6FF;font-style:italic;">📌 Proof: Physical Intelligence — unified training + serving pipeline, faster model deployment</div>
+        </div>
+        <div style="border:1px solid #30363D;border-top:3px solid #58A6FF;border-radius:4px;margin-bottom:12px;overflow:hidden;">
+          <div style="background:#1a1a1a;padding:10px 16px;border-bottom:1px solid #30363D;">
+            <span style="color:#58A6FF;font-weight:700;font-size:13px;">Step 3&nbsp;&nbsp;</span>
+            <span style="color:#6E7681;font-size:13px;">Subject: </span>
+            <span style="color:#F0F6FC;font-weight:700;font-size:13px;">GPU efficiency during training</span>
+          </div>
+          <div style="background:#161B22;padding:14px 18px;font-size:14px;color:#C9D1D9;font-family:Arial,sans-serif;line-height:1.7;"><div style="margin-bottom:0;line-height:1.6;">Vishnu —</div><div style="height:10px"></div><div style="margin-bottom:0;line-height:1.6;">One specific thing worth noting: GPU utilization during distributed training.</div><div style="height:10px"></div><div style="margin-bottom:0;line-height:1.6;">The common bottleneck is the data loading stage — GPUs sit idle waiting for data to arrive between batches. Ray Data distributes data preprocessing across workers so GPUs get data faster and run at higher utilization.</div><div style="height:10px"></div><div style="margin-bottom:0;line-height:1.6;">Uber improved GPU scheduling efficiency by 50% across heterogeneous workloads using Ray. Blue River cut their data processing pipeline from 24 hours to 9.5 hours using the same approach.</div><div style="height:10px"></div><div style="margin-bottom:0;line-height:1.6;">For ML engineers working on training-intensive model development at fal, that efficiency gain compounds across every training run.</div><div style="height:10px"></div><div style="margin-bottom:0;line-height:1.6;">Interested in seeing how it maps to your workflow?</div><div style="height:10px"></div><div style="margin-bottom:0;line-height:1.6;">Dylan</div></div>
+          
+        <div style="background:#0E1408;border-top:1px solid #30363D;padding:10px 16px;font-size:13px;color:#58A6FF;font-style:italic;">📌 Proof: Uber (50% GPU efficiency) + Blue River (24h → 9.5h data pipeline)</div>
+        </div>
+        <div style="border:1px solid #30363D;border-top:3px solid #58A6FF;border-radius:4px;margin-bottom:12px;overflow:hidden;">
+          <div style="background:#1a1a1a;padding:10px 16px;border-bottom:1px solid #30363D;">
+            <span style="color:#58A6FF;font-weight:700;font-size:13px;">Step 4&nbsp;&nbsp;</span>
+            <span style="color:#6E7681;font-size:13px;">Subject: </span>
+            <span style="color:#F0F6FC;font-weight:700;font-size:13px;">Last note — training efficiency</span>
+          </div>
+          <div style="background:#161B22;padding:14px 18px;font-size:14px;color:#C9D1D9;font-family:Arial,sans-serif;line-height:1.7;"><div style="margin-bottom:0;line-height:1.6;">Vishnu —</div><div style="height:10px"></div><div style="margin-bottom:0;line-height:1.6;">Last note from me.</div><div style="height:10px"></div><div style="margin-bottom:0;line-height:1.6;">Physical Intelligence: 2× faster training iteration, unified pipeline. Uber: 50% GPU efficiency on distributed workloads. Blue River: data pipeline 2.5× faster.</div><div style="height:10px"></div><div style="margin-bottom:0;line-height:1.6;">All Python-native, no infrastructure migration. If distributed training overhead is ever a friction point — happy to show you what managed Ray looks like.</div><div style="height:10px"></div><div style="margin-bottom:0;line-height:1.6;">Dylan</div></div>
+          
+        <div style="background:#0E1408;border-top:1px solid #30363D;padding:10px 16px;font-size:13px;color:#58A6FF;font-style:italic;">📌 Proof: Physical Intelligence (2×) + Uber (50% efficiency) + Blue River (2.5× data pipeline)</div>
+        </div>
+      </div><hr style="border:none;border-top:1px solid #30363D;margin:24px 0;">
+      <div id="contact-9" style="scroll-margin-top:60px;">
+        <div style="display:flex;align-items:stretch;margin-bottom:14px;border:1px solid #30363D;border-radius:4px;overflow:hidden;">
+          <div style="background:#58A6FF;width:48px;min-width:48px;display:flex;align-items:center;justify-content:center;font-size:22px;font-weight:700;color:#fff;">9</div>
+          <div style="background:#161B22;flex:1;padding:12px 18px;">
+            <div style="font-size:18px;font-weight:700;color:#F0F6FC;">Daniel Wesonga <span style="color:#6E7681;font-size:14px;font-weight:400;"> · Enterprise Account Manager</span></div>
+            <div style="margin-top:5px;font-size:12px;">
+              <span style="color:#58A6FF;font-weight:700;">P3</span>
+              <span style="color:#6E7681;"> · fal.ai · </span>
+              <span style="color:#58A6FF;">Enterprise Customer Infrastructure Challenges</span>
+              <span style="color:#6E7681;"> · Contact 9 of 10</span>
+            </div><div style="margin-top:5px;font-size:12px;color:#8B949E;">📧 <a href="mailto:daniel@fal.ai" style="color:#58A6FF;text-decoration:none;">daniel@fal.ai</a><span style="font-size:10px;background:rgba(139,148,158,0.1);color:#6E7681;border:1px solid #30363D;border-radius:3px;padding:1px 5px;margin-left:6px;">inferred</span></div>
+          </div>
+        </div>
+        
+        <div style="border:1px solid #30363D;border-top:3px solid #58A6FF;border-radius:4px;margin-bottom:12px;overflow:hidden;">
+          <div style="background:#1a1a1a;padding:10px 16px;border-bottom:1px solid #30363D;">
+            <span style="color:#58A6FF;font-weight:700;font-size:13px;">Step 1&nbsp;&nbsp;</span>
+            <span style="color:#6E7681;font-size:13px;">Subject: </span>
+            <span style="color:#F0F6FC;font-weight:700;font-size:13px;">fal enterprise customers + distributed ML infra</span>
+          </div>
+          <div style="background:#161B22;padding:14px 18px;font-size:14px;color:#C9D1D9;font-family:Arial,sans-serif;line-height:1.7;"><div style="margin-bottom:0;line-height:1.6;">Daniel —</div><div style="height:10px"></div><div style="margin-bottom:0;line-height:1.6;">Do fal's enterprise customers ever run into distributed ML infrastructure challenges that come up in your conversations? Curious if Anyscale might be relevant for some of your accounts.</div><div style="height:10px"></div><div style="margin-bottom:0;line-height:1.6;">We help enterprise ML teams manage GPU cluster orchestration, distributed training, and inference serving at scale. Uber, Zoox, and Physical Intelligence are examples of the kinds of teams we work with.</div><div style="height:10px"></div><div style="margin-bottom:0;line-height:1.6;">If any of fal's enterprise accounts face similar challenges — and you get pulled into those conversations — happy to connect and see if there's a fit.</div><div style="height:10px"></div><div style="margin-bottom:0;line-height:1.6;">Dylan</div></div>
+          
+        <div style="background:#0E1408;border-top:1px solid #30363D;padding:10px 16px;font-size:13px;color:#58A6FF;font-style:italic;">📌 Proof: Uber, Zoox, Physical Intelligence — enterprise teams on Anyscale managed Ray</div>
+        </div>
+        <div style="border:1px solid #30363D;border-top:3px solid #58A6FF;border-radius:4px;margin-bottom:12px;overflow:hidden;">
+          <div style="background:#1a1a1a;padding:10px 16px;border-bottom:1px solid #30363D;">
+            <span style="color:#58A6FF;font-weight:700;font-size:13px;">Step 2&nbsp;&nbsp;</span>
+            <span style="color:#6E7681;font-size:13px;">Subject: </span>
+            <span style="color:#F0F6FC;font-weight:700;font-size:13px;">Re: ML infrastructure in enterprise deals</span>
+          </div>
+          <div style="background:#161B22;padding:14px 18px;font-size:14px;color:#C9D1D9;font-family:Arial,sans-serif;line-height:1.7;"><div style="margin-bottom:0;line-height:1.6;">Daniel —</div><div style="height:10px"></div><div style="margin-bottom:0;line-height:1.6;">Following up. The pattern we often see in enterprise accounts: companies start using fal's inference API, then as usage scales, they need to think about their own GPU cluster management for training and fine-tuning workloads.</div><div style="height:10px"></div><div style="margin-bottom:0;line-height:1.6;">That's where Anyscale tends to come in — managed Ray for distributed training, data pipelines, and serving infrastructure on their own hardware or cloud.</div><div style="height:10px"></div><div style="margin-bottom:0;line-height:1.6;">If that pattern shows up in any of your enterprise accounts, I'd be glad to explore whether there's a joint conversation worth having.</div><div style="height:10px"></div><div style="margin-bottom:0;line-height:1.6;">Dylan</div></div>
+          
+        <div style="background:#0E1408;border-top:1px solid #30363D;padding:10px 16px;font-size:13px;color:#58A6FF;font-style:italic;">📌 Proof: Uber + Zoox — enterprise teams managing both inference serving and training on Anyscale</div>
+        </div>
+        <div style="border:1px solid #30363D;border-top:3px solid #58A6FF;border-radius:4px;margin-bottom:12px;overflow:hidden;">
+          <div style="background:#1a1a1a;padding:10px 16px;border-bottom:1px solid #30363D;">
+            <span style="color:#58A6FF;font-weight:700;font-size:13px;">Step 3&nbsp;&nbsp;</span>
+            <span style="color:#6E7681;font-size:13px;">Subject: </span>
+            <span style="color:#F0F6FC;font-weight:700;font-size:13px;">Potential referral or co-sell opportunity</span>
+          </div>
+          <div style="background:#161B22;padding:14px 18px;font-size:14px;color:#C9D1D9;font-family:Arial,sans-serif;line-height:1.7;"><div style="margin-bottom:0;line-height:1.6;">Daniel —</div><div style="height:10px"></div><div style="margin-bottom:0;line-height:1.6;">One angle worth considering: if Anyscale is useful for any of fal's enterprise customers, there may be a mutual referral or co-sell opportunity.</div><div style="height:10px"></div><div style="margin-bottom:0;line-height:1.6;">fal customers who need GPU cluster management for their own training workflows, or Anyscale customers who need a fast inference API layer — both directions are plausible.</div><div style="height:10px"></div><div style="margin-bottom:0;line-height:1.6;">Happy to set up a call to explore what that might look like in practice. No commitment.</div><div style="height:10px"></div><div style="margin-bottom:0;line-height:1.6;">Dylan</div></div>
+          
+        </div>
+        <div style="border:1px solid #30363D;border-top:3px solid #58A6FF;border-radius:4px;margin-bottom:12px;overflow:hidden;">
+          <div style="background:#1a1a1a;padding:10px 16px;border-bottom:1px solid #30363D;">
+            <span style="color:#58A6FF;font-weight:700;font-size:13px;">Step 4&nbsp;&nbsp;</span>
+            <span style="color:#6E7681;font-size:13px;">Subject: </span>
+            <span style="color:#F0F6FC;font-weight:700;font-size:13px;">Last note — enterprise infra</span>
+          </div>
+          <div style="background:#161B22;padding:14px 18px;font-size:14px;color:#C9D1D9;font-family:Arial,sans-serif;line-height:1.7;"><div style="margin-bottom:0;line-height:1.6;">Daniel —</div><div style="height:10px"></div><div style="margin-bottom:0;line-height:1.6;">Last note from me.</div><div style="height:10px"></div><div style="margin-bottom:0;line-height:1.6;">If any of fal's enterprise customers face distributed ML infrastructure challenges — training, cluster management, serving at scale — I'd be glad to explore whether there's a fit.</div><div style="height:10px"></div><div style="margin-bottom:0;line-height:1.6;">Feel free to reach out whenever it makes sense.</div><div style="height:10px"></div><div style="margin-bottom:0;line-height:1.6;">Dylan</div></div>
+          
+        <div style="background:#0E1408;border-top:1px solid #30363D;padding:10px 16px;font-size:13px;color:#58A6FF;font-style:italic;">📌 Proof: Uber + Zoox + Physical Intelligence — enterprise teams on Anyscale</div>
+        </div>
+      </div><hr style="border:none;border-top:1px solid #30363D;margin:24px 0;">
+      <div id="contact-10" style="scroll-margin-top:60px;">
+        <div style="display:flex;align-items:stretch;margin-bottom:14px;border:1px solid #30363D;border-radius:4px;overflow:hidden;">
+          <div style="background:#58A6FF;width:48px;min-width:48px;display:flex;align-items:center;justify-content:center;font-size:22px;font-weight:700;color:#fff;">10</div>
+          <div style="background:#161B22;flex:1;padding:12px 18px;">
+            <div style="font-size:18px;font-weight:700;color:#F0F6FC;">Mike Pevzner <span style="color:#6E7681;font-size:14px;font-weight:400;"> · GTM</span></div>
+            <div style="margin-top:5px;font-size:12px;">
+              <span style="color:#58A6FF;font-weight:700;">P3</span>
+              <span style="color:#6E7681;"> · fal.ai · </span>
+              <span style="color:#58A6FF;">GTM Ecosystem Alignment</span>
+              <span style="color:#6E7681;"> · Contact 10 of 10</span>
+            </div><div style="margin-top:5px;font-size:12px;color:#8B949E;">📧 <a href="mailto:mike@fal.ai" style="color:#58A6FF;text-decoration:none;">mike@fal.ai</a><span style="font-size:10px;background:rgba(139,148,158,0.1);color:#6E7681;border:1px solid #30363D;border-radius:3px;padding:1px 5px;margin-left:6px;">inferred</span></div>
+          </div>
+        </div>
+        
+        <div style="border:1px solid #30363D;border-top:3px solid #58A6FF;border-radius:4px;margin-bottom:12px;overflow:hidden;">
+          <div style="background:#1a1a1a;padding:10px 16px;border-bottom:1px solid #30363D;">
+            <span style="color:#58A6FF;font-weight:700;font-size:13px;">Step 1&nbsp;&nbsp;</span>
+            <span style="color:#6E7681;font-size:13px;">Subject: </span>
+            <span style="color:#F0F6FC;font-weight:700;font-size:13px;">GTM alignment — Anyscale + fal.ai</span>
+          </div>
+          <div style="background:#161B22;padding:14px 18px;font-size:14px;color:#C9D1D9;font-family:Arial,sans-serif;line-height:1.7;"><div style="margin-bottom:0;line-height:1.6;">Mike —</div><div style="height:10px"></div><div style="margin-bottom:0;line-height:1.6;">Exploring whether there's a GTM angle between Anyscale and fal given the overlapping customer base in GPU inference.</div><div style="height:10px"></div><div style="margin-bottom:0;line-height:1.6;">Anyscale works with enterprise ML teams that need managed cluster orchestration for training and inference. fal provides fast inference APIs that those same teams often need. There may be a natural co-sell or referral structure worth exploring.</div><div style="height:10px"></div><div style="margin-bottom:0;line-height:1.6;">Happy to connect briefly to see if there's a fit.</div><div style="height:10px"></div><div style="margin-bottom:0;line-height:1.6;">Dylan</div></div>
+          
+        </div>
+        <div style="border:1px solid #30363D;border-top:3px solid #58A6FF;border-radius:4px;margin-bottom:12px;overflow:hidden;">
+          <div style="background:#1a1a1a;padding:10px 16px;border-bottom:1px solid #30363D;">
+            <span style="color:#58A6FF;font-weight:700;font-size:13px;">Step 2&nbsp;&nbsp;</span>
+            <span style="color:#6E7681;font-size:13px;">Subject: </span>
+            <span style="color:#F0F6FC;font-weight:700;font-size:13px;">Re: overlapping customer base</span>
+          </div>
+          <div style="background:#161B22;padding:14px 18px;font-size:14px;color:#C9D1D9;font-family:Arial,sans-serif;line-height:1.7;"><div style="margin-bottom:0;line-height:1.6;">Mike —</div><div style="height:10px"></div><div style="margin-bottom:0;line-height:1.6;">Following up. The overlap I'm thinking about: Anyscale customers include teams building and serving ML models at scale — exactly the kind of teams that use fal's inference APIs. And fal customers who need cluster orchestration for their own training workflows are a natural fit for Anyscale.</div><div style="height:10px"></div><div style="margin-bottom:0;line-height:1.6;">Uber, Zoox, and Physical Intelligence are examples of the kinds of enterprise ML teams we work with — all of whom also have inference needs.</div><div style="height:10px"></div><div style="margin-bottom:0;line-height:1.6;">Worth 15 minutes to explore if there's a GTM structure that makes sense?</div><div style="height:10px"></div><div style="margin-bottom:0;line-height:1.6;">Dylan</div></div>
+          
+        <div style="background:#0E1408;border-top:1px solid #30363D;padding:10px 16px;font-size:13px;color:#58A6FF;font-style:italic;">📌 Proof: Uber + Zoox + Physical Intelligence — enterprise ML teams on Anyscale with inference needs</div>
+        </div>
+        <div style="border:1px solid #30363D;border-top:3px solid #58A6FF;border-radius:4px;margin-bottom:12px;overflow:hidden;">
+          <div style="background:#1a1a1a;padding:10px 16px;border-bottom:1px solid #30363D;">
+            <span style="color:#58A6FF;font-weight:700;font-size:13px;">Step 3&nbsp;&nbsp;</span>
+            <span style="color:#6E7681;font-size:13px;">Subject: </span>
+            <span style="color:#F0F6FC;font-weight:700;font-size:13px;">NVIDIA relationship — shared ecosystem</span>
+          </div>
+          <div style="background:#161B22;padding:14px 18px;font-size:14px;color:#C9D1D9;font-family:Arial,sans-serif;line-height:1.7;"><div style="margin-bottom:0;line-height:1.6;">Mike —</div><div style="height:10px"></div><div style="margin-bottom:0;line-height:1.6;">One more angle: NVIDIA is a strategic investor in both fal and the Anyscale ecosystem. That creates a natural co-marketing narrative around the GPU inference stack — fal for the API layer, Anyscale for cluster orchestration, NVIDIA hardware underneath.</div><div style="height:10px"></div><div style="margin-bottom:0;line-height:1.6;">Happy to explore whether there's a joint story worth developing. Could involve our partnerships teams on both sides.</div><div style="height:10px"></div><div style="margin-bottom:0;line-height:1.6;">Dylan</div></div>
+          
+        </div>
+        <div style="border:1px solid #30363D;border-top:3px solid #58A6FF;border-radius:4px;margin-bottom:12px;overflow:hidden;">
+          <div style="background:#1a1a1a;padding:10px 16px;border-bottom:1px solid #30363D;">
+            <span style="color:#58A6FF;font-weight:700;font-size:13px;">Step 4&nbsp;&nbsp;</span>
+            <span style="color:#6E7681;font-size:13px;">Subject: </span>
+            <span style="color:#F0F6FC;font-weight:700;font-size:13px;">Last note — GTM partnership</span>
+          </div>
+          <div style="background:#161B22;padding:14px 18px;font-size:14px;color:#C9D1D9;font-family:Arial,sans-serif;line-height:1.7;"><div style="margin-bottom:0;line-height:1.6;">Mike —</div><div style="height:10px"></div><div style="margin-bottom:0;line-height:1.6;">Last one from me.</div><div style="height:10px"></div><div style="margin-bottom:0;line-height:1.6;">If a GTM partnership between Anyscale and fal is worth exploring — I'd be glad to connect our teams. There may be a co-sell, referral, or co-marketing angle worth developing given the overlapping customer base and shared NVIDIA relationship.</div><div style="height:10px"></div><div style="margin-bottom:0;line-height:1.6;">Feel free to reach out whenever it makes sense.</div><div style="height:10px"></div><div style="margin-bottom:0;line-height:1.6;">Dylan</div></div>
+          
+        </div>
+      </div>
+
+  <div style="height:60px;"></div>
+</div>
+
+</body>
+</html>

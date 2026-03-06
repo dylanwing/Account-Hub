@@ -1,0 +1,911 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Tier 4 Account Proof Points — Anyscale</title>
+<style>
+:root {
+  --bg: #0d1117; --bg2: #161b22; --bg3: #1c2128;
+  --border: #30363d; --text: #e6edf3; --muted: #8b949e;
+  --accent: #58a6ff; --green: #3fb950; --orange: #f78166;
+  --purple: #d2a8ff; --yellow: #e3b341;
+}
+* { box-sizing: border-box; margin: 0; padding: 0; }
+body {
+  background: var(--bg); color: var(--text);
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+  font-size: 14px; line-height: 1.6; display: flex; min-height: 100vh;
+}
+.sidebar {
+  width: 260px; min-width: 260px; background: var(--bg2);
+  border-right: 1px solid var(--border); position: sticky;
+  top: 0; height: 100vh; overflow-y: auto; padding: 16px 0; flex-shrink: 0;
+}
+.sidebar-header { padding: 0 16px 16px; border-bottom: 1px solid var(--border); margin-bottom: 8px; }
+.sidebar-title { font-size: 13px; font-weight: 600; color: var(--text); margin-bottom: 4px; }
+.sidebar-sub { font-size: 11px; color: var(--muted); }
+.nav-group-label { font-size: 10px; font-weight: 700; color: var(--muted); text-transform: uppercase; letter-spacing: 0.8px; padding: 12px 16px 4px; }
+.nav-item {
+  display: flex; flex-direction: column; padding: 6px 16px;
+  text-decoration: none; border-left: 3px solid transparent;
+  transition: all 0.15s; gap: 1px; cursor: pointer;
+}
+.nav-item:hover { background: var(--bg3); border-left-color: var(--accent); }
+.nav-name { font-size: 13px; font-weight: 600; color: var(--text); }
+.nav-sector { font-size: 11px; color: var(--muted); }
+.main {
+  flex: 1; overflow-y: auto; padding: 24px 32px;
+  max-width: calc(100vw - 260px);
+}
+.page-header { margin-bottom: 32px; padding-bottom: 20px; border-bottom: 1px solid var(--border); }
+.page-title { font-size: 24px; font-weight: 700; margin-bottom: 6px; }
+.page-sub { color: var(--muted); font-size: 14px; }
+.company-section { margin-bottom: 56px; scroll-margin-top: 20px; }
+.company-header {
+  background: var(--bg2); border-radius: 8px; padding: 20px 24px; margin-bottom: 20px;
+}
+.company-title-row { display: flex; align-items: center; gap: 12px; flex-wrap: wrap; }
+.company-name { font-size: 22px; font-weight: 700; }
+.tier-badge { font-size: 11px; font-weight: 600; padding: 3px 10px; border-radius: 12px; }
+.proof-grid {
+  display: grid; grid-template-columns: repeat(auto-fill, minmax(340px, 1fr)); gap: 16px;
+}
+.proof-card {
+  background: var(--bg2); border: 1px solid var(--border); border-radius: 8px;
+  padding: 20px; position: relative; transition: border-color 0.15s;
+}
+.proof-card:hover { border-color: var(--accent); }
+.proof-card.primary { border-color: var(--accent); border-width: 2px; }
+.proof-number {
+  position: absolute; top: 12px; right: 14px; font-size: 11px; font-weight: 700;
+  color: var(--muted); background: var(--bg3); width: 24px; height: 24px;
+  display: flex; align-items: center; justify-content: center; border-radius: 50%;
+}
+.proof-company { font-size: 16px; font-weight: 700; color: var(--text); margin-bottom: 2px; }
+.proof-industry { font-size: 12px; color: var(--muted); margin-bottom: 10px; }
+.proof-description { font-size: 13px; color: var(--text); line-height: 1.65; margin-bottom: 14px; }
+.proof-metrics { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 14px; }
+.metric {
+  background: var(--bg); border: 1px solid var(--border); border-radius: 6px;
+  padding: 4px 10px; font-size: 12px; color: var(--green);
+}
+.proof-relevance {
+  font-size: 12.5px; color: var(--yellow);
+  background: rgba(227,179,65,0.06); border-left: 3px solid var(--yellow);
+  padding: 8px 12px; border-radius: 0 6px 6px 0; margin-bottom: 10px; line-height: 1.6;
+}
+.proof-source { font-size: 11px; color: var(--muted); }
+.proof-source a { color: var(--accent); text-decoration: none; }
+.proof-source a:hover { text-decoration: underline; }
+.talk-track {
+  grid-column: 1 / -1; background: var(--bg3);
+  border: 1px solid var(--border); border-radius: 8px; padding: 18px 22px;
+}
+.talk-track-title {
+  font-size: 12px; font-weight: 700; color: var(--accent);
+  margin-bottom: 8px; text-transform: uppercase; letter-spacing: 0.5px;
+}
+.talk-track-text { font-size: 13px; color: var(--text); line-height: 1.7; font-style: italic; }
+.section-label {
+  font-size: 14px; font-weight: 700; color: var(--muted); padding: 20px 0 12px;
+  border-bottom: 1px solid var(--border); margin-bottom: 24px;
+  text-transform: uppercase; letter-spacing: 0.8px;
+}
+.note-section {
+  background: var(--bg2); border: 1px solid var(--border); border-radius: 8px;
+  padding: 16px 20px; margin-bottom: 24px;
+}
+.note-title { font-size: 12px; font-weight: 700; color: var(--muted); margin-bottom: 8px; text-transform: uppercase; }
+.note-text { font-size: 13px; color: var(--text); line-height: 1.7; }
+@media (max-width: 900px) {
+  .proof-grid { grid-template-columns: 1fr; }
+}
+</style>
+</head>
+<body>
+
+<nav class="sidebar">
+  <div class="sidebar-header">
+    <div class="sidebar-title">Proof Points by Account</div>
+    <div class="sidebar-sub">22 Tier 4 Accounts · 2-3 proof points each</div>
+  </div>
+<div class="nav-group-label">Watch List (Score 5-6)</div>
+  <a class="nav-item" href="#t-robotics"><span class="nav-name">T-robotics</span><span class="nav-sector">Robotics · Industrial AI</span></a>
+  <a class="nav-item" href="#cepton"><span class="nav-name">Cepton</span><span class="nav-sector">AV / LiDAR · Perception Training</span></a>
+  <a class="nav-item" href="#embodied"><span class="nav-name">Embodied</span><span class="nav-sector">Robotics · Conversational AI</span></a>
+  <a class="nav-item" href="#luxonis"><span class="nav-name">Luxonis</span><span class="nav-sector">Edge AI · Camera Fleet Management</span></a>
+  <a class="nav-item" href="#multiply-labs"><span class="nav-name">Multiply Labs</span><span class="nav-sector">Robotics · Biomanufacturing</span></a>
+  <a class="nav-item" href="#smallest-ai"><span class="nav-name">Smallest.ai</span><span class="nav-sector">AI Platform · Voice Inference</span></a>
+<div class="nav-group-label">Light Touch (Score 4)</div>
+  <a class="nav-item" href="#aarki"><span class="nav-name">Aarki</span><span class="nav-sector">Ad Tech · Real-Time Bidding</span></a>
+  <a class="nav-item" href="#akool"><span class="nav-name">Akool</span><span class="nav-sector">GenAI · Video Generation</span></a>
+  <a class="nav-item" href="#arc-institute"><span class="nav-name">Arc Institute</span><span class="nav-sector">Biotech · Genomic AI</span></a>
+  <a class="nav-item" href="#archy"><span class="nav-name">Archy</span><span class="nav-sector">Dental AI · Multi-Model Serving</span></a>
+  <a class="nav-item" href="#cast-crew"><span class="nav-name">Cast & Crew</span><span class="nav-sector">Entertainment · Payroll Analytics</span></a>
+  <a class="nav-item" href="#connectly-ai"><span class="nav-name">Connectly.ai</span><span class="nav-sector">Conversational AI · Agentic LLM</span></a>
+  <a class="nav-item" href="#doppel"><span class="nav-name">Doppel</span><span class="nav-sector">Cybersecurity · Threat Detection</span></a>
+  <a class="nav-item" href="#everlaw"><span class="nav-name">Everlaw</span><span class="nav-sector">Legal Tech · Document AI</span></a>
+  <a class="nav-item" href="#efinancial"><span class="nav-name">eFinancial</span><span class="nav-sector">Insurance · Recommendation AI</span></a>
+  <a class="nav-item" href="#jigsawstack"><span class="nav-name">JigsawStack</span><span class="nav-sector">AI API · Multi-Model Serving</span></a>
+  <a class="nav-item" href="#listen-labs"><span class="nav-name">Listen Labs</span><span class="nav-sector">Voice AI · Research Interviews</span></a>
+  <a class="nav-item" href="#nash"><span class="nav-name">Nash</span><span class="nav-sector">Logistics · Route Optimization</span></a>
+  <a class="nav-item" href="#newfront"><span class="nav-name">Newfront</span><span class="nav-sector">Insurance Tech · Document AI</span></a>
+  <a class="nav-item" href="#rillet"><span class="nav-name">Rillet</span><span class="nav-sector">Fintech · AI-Native Accounting</span></a>
+  <a class="nav-item" href="#socket"><span class="nav-name">Socket</span><span class="nav-sector">Cybersecurity · Supply Chain</span></a>
+  <a class="nav-item" href="#tidio"><span class="nav-name">Tidio</span><span class="nav-sector">Customer Service · LLM Serving</span></a>
+
+</nav>
+
+<main class="main">
+  <div class="page-header">
+    <h1 class="page-title">Tier 4 Account Proof Points</h1>
+    <p class="page-sub">Relevant Anyscale / Ray case studies and references mapped to each Tier 4 target account. Covers Watch (6) and Light Touch (16) accounts. Use these in outreach, call prep, and proposals.</p>
+  </div>
+
+  <div class="note-section">
+    <div class="note-title">📋 Coverage Note</div>
+    <div class="note-text">Proof points are mapped for the 22 accounts with active engagement potential (Watch + Light Touch). Low Fit (13) and Skip (5) accounts are excluded as they are not recommended for active outreach. See the Tier 4 Account Plans document for full assessments of all 40 accounts.</div>
+  </div>
+
+  <div class="section-label">🟢 Watch List — Score 5-6 · Full proof point analysis</div>
+<section class="company-section" id="t-robotics">
+  <div class="company-header" style="border-left: 4px solid #58a6ff">
+    <div class="company-title-row">
+      <h2 class="company-name" style="color:#58a6ff">T-robotics</h2>
+      <span class="tier-badge" style="background:#58a6ff20;color:#58a6ff;border:1px solid #58a6ff40">Robotics · Industrial AI</span>
+    </div>
+  </div>
+  <div class="proof-grid">
+    <div class="proof-card primary">
+      <span class="proof-number">1</span>
+      <div class="proof-company">Physical Intelligence (π)</div>
+      <div class="proof-industry">Physical AI / Robotics</div>
+      <div class="proof-description">PI collects terabytes of heterogeneous sensor data daily from robots with varying hardware — training models across diverse embodiments. They use Anyscale to process massive log and video data for physical AI, achieving 2× faster research iteration with 16+ engineers refocused on dev instead of infra.</div>
+      <div class="proof-metrics"><span class="metric"><strong>2×</strong> faster research iteration</span><span class="metric"><strong>16+</strong> engineers freed from infra</span><span class="metric"><strong>Multi-cloud</strong> AWS + GCP</span></div>
+      <div class="proof-relevance">→ Direct parallel: T-robotics processes multi-modal sensor data (vision, haptics, language) across manufacturing robots. PI shows how Anyscale handles heterogeneous physical AI data pipelines, freeing small teams from ops overhead — critical for a 16-person startup.</div>
+      <div class="proof-source">Source: <a href="https://www.anyscale.com/resources/case-study/physical-intelligence">Anyscale Case Study — Physical Intelligence</a></div>
+    </div>
+    <div class="proof-card">
+      <span class="proof-number">2</span>
+      <div class="proof-company">Blue River Technology (John Deere)</div>
+      <div class="proof-industry">Autonomous Vehicles / Agriculture</div>
+      <div class="proof-description">Blue River applies computer vision and robotics to autonomous agricultural equipment. After migrating to Anyscale Ray, regression testing pipeline dropped from 24 hours to under 9.5 hours — a 2.5× speedup — by parallelizing data conversion and processing.</div>
+      <div class="proof-metrics"><span class="metric"><strong>2.5×</strong> faster iteration</span><span class="metric"><strong>24h → 9.5h</strong> regression testing</span><span class="metric">Removed single points of failure</span></div>
+      <div class="proof-relevance">→ Both companies train computer vision models for real-world robotics. Blue River proves Anyscale cuts training pipeline time by more than half — exactly what T-robotics needs for rapid ActGPT policy iteration.</div>
+      <div class="proof-source">Source: <a href="https://www.anyscale.com/resources/case-study/blue-river-technology">Anyscale Case Study — Blue River Technology</a></div>
+    </div>
+    <div class="proof-card">
+      <span class="proof-number">3</span>
+      <div class="proof-company">Amazon (Exabyte-Scale Ray)</div>
+      <div class="proof-industry">Large-Scale Data Processing</div>
+      <div class="proof-description">Amazon transitioned exabyte-scale data catalog management jobs from Apache Spark to Ray, achieving significant performance improvements in data processing pipelines. Presented at Ray Summit 2025 on scaling critical business intelligence workloads.</div>
+      <div class="proof-metrics"><span class="metric">Exabyte-scale data processing</span><span class="metric">Spark → Ray migration</span><span class="metric">Ray Summit 2025 featured</span></div>
+      <div class="proof-relevance">→ T-robotics collects manufacturing sensor data across factory sites. Amazon's Spark-to-Ray migration validates Ray for large-scale data processing — the same pattern T-robotics needs as they scale from pilot deployments to multi-factory.</div>
+      <div class="proof-source">Source: <a href="https://www.anyscale.com/ray-summit/2025/agenda">Ray Summit 2025 — Amazon</a></div>
+    </div>
+    <div class="talk-track">
+      <div class="talk-track-title">💬 Suggested Talk Track for T-robotics</div>
+      <div class="talk-track-text">"Physical Intelligence processes terabytes of robot sensor data daily on Anyscale — similar to your multi-modal manufacturing data (vision + haptics + language). Blue River cut their robotics regression pipeline from 24 to 9.5 hours. Both companies run the same workload pattern you're building with ActGPT: multi-sensor fusion → policy training → robot deployment. All Python-native."</div>
+    </div>
+  </div>
+</section>
+<section class="company-section" id="cepton">
+  <div class="company-header" style="border-left: 4px solid #58a6ff">
+    <div class="company-title-row">
+      <h2 class="company-name" style="color:#58a6ff">Cepton</h2>
+      <span class="tier-badge" style="background:#58a6ff20;color:#58a6ff;border:1px solid #58a6ff40">AV / LiDAR · Perception Training</span>
+    </div>
+  </div>
+  <div class="proof-grid">
+    <div class="proof-card primary">
+      <span class="proof-number">1</span>
+      <div class="proof-company">Blue River Technology (John Deere)</div>
+      <div class="proof-industry">AV / Autonomous Agriculture</div>
+      <div class="proof-description">Blue River applies computer vision and robotics to autonomous equipment. Their regression testing pipeline processed 132 database files in 24 hours. After migrating to Anyscale Ray, the same pipeline runs in under 9.5 hours — a 2.5× speedup.</div>
+      <div class="proof-metrics"><span class="metric"><strong>2.5×</strong> faster pipeline</span><span class="metric"><strong>24h → 9.5h</strong> regression testing</span><span class="metric">Parallelized data processing</span></div>
+      <div class="proof-relevance">→ Direct parallel: Cepton processes massive LiDAR point cloud datasets for ADAS perception training. Blue River proves Anyscale dramatically accelerates AV-class data processing — the exact workload Cepton runs for 3D object detection training.</div>
+      <div class="proof-source">Source: <a href="https://www.anyscale.com/resources/case-study/blue-river-technology">Anyscale Case Study — Blue River Technology</a></div>
+    </div>
+    <div class="proof-card">
+      <span class="proof-number">2</span>
+      <div class="proof-company">Zoox (Amazon)</div>
+      <div class="proof-industry">Autonomous Driving / Simulation</div>
+      <div class="proof-description">Zoox built an autotuning platform using Ray to speed up AV algorithm development. Their ML team uses Ray to scale simulation workloads — running thousands of simulated driving scenarios in parallel for safety validation.</div>
+      <div class="proof-metrics"><span class="metric">Distributed AV simulation at scale</span><span class="metric">Parallel scenario evaluation</span><span class="metric">Ray Summit featured customer</span></div>
+      <div class="proof-relevance">→ Cepton needs ADAS safety validation across millions of edge cases for L2+ certification. Zoox uses Ray for exactly this: running thousands of driving scenarios simultaneously — the same compute pattern required for ADAS certification with KOITO.</div>
+      <div class="proof-source">Source: <a href="https://www.anyscale.com/blog/10-must-attend-ray-summit-sessions-generative-ai-scalable-ml-workloads-and">Anyscale — Ray Summit Sessions (Zoox)</a></div>
+    </div>
+    <div class="proof-card">
+      <span class="proof-number">3</span>
+      <div class="proof-company">Physical Intelligence (π)</div>
+      <div class="proof-industry">Physical AI / 3D Data</div>
+      <div class="proof-description">PI processes terabytes of heterogeneous sensor data daily from robots. They use Anyscale for massive log and video data processing, achieving 2× faster research iteration with multi-cloud deployment across AWS + GCP.</div>
+      <div class="proof-metrics"><span class="metric"><strong>2×</strong> faster research iteration</span><span class="metric">Terabyte-scale sensor processing</span><span class="metric"><strong>Multi-cloud</strong> AWS + GCP</span></div>
+      <div class="proof-relevance">→ Cepton generates massive 3D point cloud data from LiDAR sensors deployed across vehicles. PI validates that Anyscale handles terabyte-scale 3D sensor data pipelines — the same pattern as Cepton's LiDAR data curation and training workflow.</div>
+      <div class="proof-source">Source: <a href="https://www.anyscale.com/resources/case-study/physical-intelligence">Anyscale Case Study — Physical Intelligence</a></div>
+    </div>
+    <div class="talk-track">
+      <div class="talk-track-title">💬 Suggested Talk Track for Cepton</div>
+      <div class="talk-track-text">"Blue River cut their AV regression testing from 24 hours to 9.5 hours on Anyscale. Zoox runs thousands of parallel driving simulations for safety validation — exactly the ADAS certification workload you need for KOITO. Physical Intelligence processes terabytes of 3D sensor data daily. All three map directly to your LiDAR point cloud → perception training → safety validation pipeline."</div>
+    </div>
+  </div>
+</section>
+<section class="company-section" id="embodied">
+  <div class="company-header" style="border-left: 4px solid #d2a8ff">
+    <div class="company-title-row">
+      <h2 class="company-name" style="color:#d2a8ff">Embodied</h2>
+      <span class="tier-badge" style="background:#d2a8ff20;color:#d2a8ff;border:1px solid #d2a8ff40">Robotics · Conversational AI</span>
+    </div>
+  </div>
+  <div class="proof-grid">
+    <div class="proof-card primary">
+      <span class="proof-number">1</span>
+      <div class="proof-company">Handshake</div>
+      <div class="proof-industry">LLM Inference / Fine-tuning</div>
+      <div class="proof-description">Handshake scaled and fine-tuned Llama-2 7B on Anyscale to process 35 million tokens per hour for $2.00 on commodity GPUs, saving 30% on costs versus comparable A100 workloads. They achieved this by leveraging Ray features like fractional GPUs.</div>
+      <div class="proof-metrics"><span class="metric"><strong>35M</strong> tokens/hour</span><span class="metric"><strong>30%</strong> cost reduction</span><span class="metric"><strong>$2/hr</strong> on commodity GPUs</span></div>
+      <div class="proof-relevance">→ Embodied runs a custom 1.8B parameter LLM for conversational AI. Handshake proves Anyscale dramatically reduces LLM inference costs — critical for serving AI conversations across a robot fleet while maintaining unit economics.</div>
+      <div class="proof-source">Source: <a href="https://www.anyscale.com/resources/case-study/how-handshake-saves-50-on-llm-gpu-costs-with-anyscale">Anyscale Case Study — Handshake</a></div>
+    </div>
+    <div class="proof-card">
+      <span class="proof-number">2</span>
+      <div class="proof-company">Notion</div>
+      <div class="proof-industry">AI Search / LLM Serving</div>
+      <div class="proof-description">Notion enhanced their AI search with Anyscale — achieving 10× capacity increase while reducing vector search costs by 90%. What started as one use case expanded to three teams exploring Anyscale within two months.</div>
+      <div class="proof-metrics"><span class="metric"><strong>10×</strong> capacity increase</span><span class="metric"><strong>90%</strong> cost reduction</span><span class="metric">Expanded to 3+ teams</span></div>
+      <div class="proof-relevance">→ Embodied needs to serve multiple AI models (LLM + ASR + emotion detection) simultaneously. Notion's 10× capacity at 90% less cost shows how Anyscale optimizes multi-model serving — the same challenge Embodied faces with SocialX.</div>
+      <div class="proof-source">Source: <a href="https://www.anyscale.com/resources/case-study/notion">Anyscale Case Study — Notion</a></div>
+    </div>
+    <div class="proof-card">
+      <span class="proof-number">3</span>
+      <div class="proof-company">Physical Intelligence (π)</div>
+      <div class="proof-industry">Physical AI / Robotics</div>
+      <div class="proof-description">PI processes terabytes of robot sensor data daily across diverse hardware embodiments. They use Anyscale to achieve 2× faster research iteration with 16+ engineers refocused on AI development instead of infrastructure management.</div>
+      <div class="proof-metrics"><span class="metric"><strong>2×</strong> faster iteration</span><span class="metric"><strong>16+</strong> engineers freed from infra</span><span class="metric">Multi-embodiment ML</span></div>
+      <div class="proof-relevance">→ Both companies build AI for physical robots that need multi-modal understanding. PI validates that Anyscale handles the heterogeneous data pipeline (video + sensor + interaction data) that Embodied's SocialX needs.</div>
+      <div class="proof-source">Source: <a href="https://www.anyscale.com/resources/case-study/physical-intelligence">Anyscale Case Study — Physical Intelligence</a></div>
+    </div>
+    <div class="talk-track">
+      <div class="talk-track-title">💬 Suggested Talk Track for Embodied</div>
+      <div class="talk-track-text">"Handshake runs Llama-2 inference at 35M tokens/hour for $2 on Anyscale — proving you can serve custom LLMs at scale on commodity GPUs. Notion got 10× more capacity at 90% lower cost for multi-model serving. For Embodied, that means serving your 1.8B parameter LLM + ASR + emotion detection across the robot fleet without GPU cost exploding."</div>
+    </div>
+  </div>
+</section>
+<section class="company-section" id="luxonis">
+  <div class="company-header" style="border-left: 4px solid #3fb950">
+    <div class="company-title-row">
+      <h2 class="company-name" style="color:#3fb950">Luxonis</h2>
+      <span class="tier-badge" style="background:#3fb95020;color:#3fb950;border:1px solid #3fb95040">Edge AI · Camera Fleet Management</span>
+    </div>
+  </div>
+  <div class="proof-grid">
+    <div class="proof-card primary">
+      <span class="proof-number">1</span>
+      <div class="proof-company">Samsara</div>
+      <div class="proof-industry">IoT Fleet Analytics</div>
+      <div class="proof-description">Samsara runs the world's largest IoT fleet management platform with 10B+ data points per day from millions of sensors. They use Ray for distributed data processing and ML inference across their connected operations platform, processing terabytes of sensor telemetry daily.</div>
+      <div class="proof-metrics"><span class="metric"><strong>10B+</strong> data points/day</span><span class="metric">Millions of connected sensors</span><span class="metric">Fleet-scale ML inference</span></div>
+      <div class="proof-relevance">→ Direct parallel: Luxonis manages fleets of OAK cameras that generate continuous vision data. Samsara proves Ray handles IoT fleet data at massive scale — the same edge-to-cloud pattern Luxonis needs for Cloud Hub.</div>
+      <div class="proof-source">Source: <a href="https://www.anyscale.com/blog/ray-summit-2022-stories-ml-platforms">Anyscale — Samsara</a></div>
+    </div>
+    <div class="proof-card">
+      <span class="proof-number">2</span>
+      <div class="proof-company">Coactive AI</div>
+      <div class="proof-industry">Visual Search / Computer Vision</div>
+      <div class="proof-description">Coactive AI runs a visual AI platform. Using Anyscale, they process and embed millions of images daily for visual search. The platform handles large-scale image classification and embedding generation across distributed GPU clusters.</div>
+      <div class="proof-metrics"><span class="metric">Millions of images processed daily</span><span class="metric">Distributed GPU embeddings</span><span class="metric">Visual search at scale</span></div>
+      <div class="proof-relevance">→ Luxonis customers use OAK cameras for object detection and visual recognition. Coactive proves Anyscale handles large-scale vision model inference and embedding generation — the same workload pattern as Luxonis Cloud Hub analytics.</div>
+      <div class="proof-source">Source: <a href="https://www.anyscale.com/resources">Anyscale — Coactive AI</a></div>
+    </div>
+    <div class="proof-card">
+      <span class="proof-number">3</span>
+      <div class="proof-company">SewerAI</div>
+      <div class="proof-industry">Infrastructure Inspection / Edge Vision</div>
+      <div class="proof-description">SewerAI performs automated visual inspection of infrastructure using edge cameras. They use Ray for distributed processing of inspection video and model inference at edge-like latencies, enabling automated condition assessment.</div>
+      <div class="proof-metrics"><span class="metric">Edge vision inference</span><span class="metric">Automated inspection scoring</span><span class="metric">Distributed video processing</span></div>
+      <div class="proof-relevance">→ Both companies deploy vision AI on edge devices and need cloud-based model training + management. SewerAI validates that Ray works for the edge-to-cloud vision pipeline Luxonis is building with Cloud Hub.</div>
+      <div class="proof-source">Source: <a href="https://www.anyscale.com/resources">Anyscale — SewerAI</a></div>
+    </div>
+    <div class="talk-track">
+      <div class="talk-track-title">💬 Suggested Talk Track for Luxonis</div>
+      <div class="talk-track-text">"Samsara processes 10 billion data points per day from millions of connected sensors — the same fleet management pattern you're building with Cloud Hub. Coactive processes millions of images daily for visual AI on Anyscale. For Luxonis, that means your OAK camera fleet can scale from hundreds to tens of thousands of devices without rebuilding the backend."</div>
+    </div>
+  </div>
+</section>
+<section class="company-section" id="multiply-labs">
+  <div class="company-header" style="border-left: 4px solid #3fb950">
+    <div class="company-title-row">
+      <h2 class="company-name" style="color:#3fb950">Multiply Labs</h2>
+      <span class="tier-badge" style="background:#3fb95020;color:#3fb950;border:1px solid #3fb95040">Robotics · Biomanufacturing</span>
+    </div>
+  </div>
+  <div class="proof-grid">
+    <div class="proof-card primary">
+      <span class="proof-number">1</span>
+      <div class="proof-company">Biolexis Therapeutics</div>
+      <div class="proof-industry">Drug Discovery / Biotech</div>
+      <div class="proof-description">Biolexis developed FIELDS™, an AI/ML drug discovery platform for small-molecule therapeutics. Their 500,000+ biochemical data points plus billions of public records posed a massive compute challenge. On Anyscale, workloads that took 7 days to process now complete in under 5 hours.</div>
+      <div class="proof-metrics"><span class="metric"><strong>7 days → 5 hours</strong> processing</span><span class="metric"><strong>Molecular dynamics</strong> at scale</span><span class="metric">POC to production pipeline</span></div>
+      <div class="proof-relevance">→ Direct parallel: Multiply Labs runs biomanufacturing processes requiring quality control and process optimization ML. Biolexis proves Anyscale compresses biotech compute cycles from days to hours — exactly what Multiply Labs needs for therapy protocol validation.</div>
+      <div class="proof-source">Source: <a href="https://www.anyscale.com/blog/biolexis-boosts-their-new-ai-ml-drug-discovery-platform-using-anyscales">Anyscale Blog — Biolexis Therapeutics</a></div>
+    </div>
+    <div class="proof-card">
+      <span class="proof-number">2</span>
+      <div class="proof-company">Physical Intelligence (π)</div>
+      <div class="proof-industry">Physical AI / Robotics</div>
+      <div class="proof-description">PI trains policies across diverse robot embodiments using Anyscale for massive sensor data processing, achieving 2× faster research iteration with 16+ engineers freed from infrastructure work.</div>
+      <div class="proof-metrics"><span class="metric"><strong>2×</strong> faster iteration</span><span class="metric"><strong>16+</strong> engineers freed from infra</span><span class="metric">Multi-embodiment learning</span></div>
+      <div class="proof-relevance">→ Both companies train robot policies from demonstration data. PI validates that Anyscale handles the imitation learning + simulation pipeline Multiply Labs needs — training from expert scientist videos and deploying to manufacturing robots.</div>
+      <div class="proof-source">Source: <a href="https://www.anyscale.com/resources/case-study/physical-intelligence">Anyscale Case Study — Physical Intelligence</a></div>
+    </div>
+    <div class="proof-card">
+      <span class="proof-number">3</span>
+      <div class="proof-company">Canva</div>
+      <div class="proof-industry">Distributed Training at Scale</div>
+      <div class="proof-description">Canva went from single-machine training to distributed training on Anyscale, dropping image classification epochs from 90 minutes to 6 minutes — a 12× speedup — with 100% GPU utilization and 50% cloud cost reduction.</div>
+      <div class="proof-metrics"><span class="metric"><strong>12×</strong> faster training</span><span class="metric"><strong>50%</strong> lower cloud costs</span><span class="metric"><strong>100%</strong> GPU utilization</span></div>
+      <div class="proof-relevance">→ Multiply Labs trains computer vision models for quality inspection of cell therapy products. Canva proves Anyscale unlocks dramatic training speedups — critical for iterating quickly on manufacturing QC models.</div>
+      <div class="proof-source">Source: <a href="https://www.anyscale.com/resources/case-study/how-canva-built-a-modern-ai-platform-using-anyscale">Anyscale Case Study — Canva</a></div>
+    </div>
+    <div class="talk-track">
+      <div class="talk-track-title">💬 Suggested Talk Track for Multiply Labs</div>
+      <div class="talk-track-text">"Biolexis went from 7-day biotech compute cycles to 5 hours on Anyscale — same class of workload as your therapy protocol validation. Physical Intelligence trains multi-robot policies from demonstration data, just like your imitation learning from scientist videos. Canva got 12× faster training with 50% lower costs. All Python-native, all on managed infrastructure."</div>
+    </div>
+  </div>
+</section>
+<section class="company-section" id="smallest-ai">
+  <div class="company-header" style="border-left: 4px solid #f78166">
+    <div class="company-title-row">
+      <h2 class="company-name" style="color:#f78166">Smallest.ai</h2>
+      <span class="tier-badge" style="background:#f7816620;color:#f78166;border:1px solid #f7816640">AI Platform · Voice Inference</span>
+    </div>
+  </div>
+  <div class="proof-grid">
+    <div class="proof-card primary">
+      <span class="proof-number">1</span>
+      <div class="proof-company">Handshake</div>
+      <div class="proof-industry">LLM Inference at Scale</div>
+      <div class="proof-description">Handshake scaled Llama-2 7B inference on Anyscale to process 35 million tokens per hour for $2.00 on commodity GPUs, saving 30% versus A100 workloads. Ray's fractional GPU support and dependency management enabled cost-efficient scaling.</div>
+      <div class="proof-metrics"><span class="metric"><strong>35M</strong> tokens/hour</span><span class="metric"><strong>30%</strong> cost savings</span><span class="metric">Commodity GPU inference</span></div>
+      <div class="proof-relevance">→ Direct parallel: Smallest.ai serves 1B+ voice calls per month requiring sub-400ms latency. Handshake proves Anyscale delivers high-throughput model inference at dramatically lower cost — exactly the unit economics optimization Smallest.ai needs as they scale to 50K+ customers.</div>
+      <div class="proof-source">Source: <a href="https://www.anyscale.com/resources/case-study/how-handshake-saves-50-on-llm-gpu-costs-with-anyscale">Anyscale Case Study — Handshake</a></div>
+    </div>
+    <div class="proof-card">
+      <span class="proof-number">2</span>
+      <div class="proof-company">Notion</div>
+      <div class="proof-industry">Multi-Model Serving</div>
+      <div class="proof-description">Notion achieved 10× capacity increase while reducing costs by 90% using Ray for embeddings generation and serving. What started as one use case expanded to three teams within two months.</div>
+      <div class="proof-metrics"><span class="metric"><strong>10×</strong> capacity increase</span><span class="metric"><strong>90%</strong> cost reduction</span><span class="metric">3+ teams adopted in 2 months</span></div>
+      <div class="proof-relevance">→ Smallest.ai serves 50+ language models simultaneously. Notion's 10× capacity at 90% less cost proves Anyscale handles multi-model serving efficiently — the exact pattern for multiplexing ASR/TTS models across languages on shared GPU clusters.</div>
+      <div class="proof-source">Source: <a href="https://www.anyscale.com/resources/case-study/notion">Anyscale Case Study — Notion</a></div>
+    </div>
+    <div class="proof-card">
+      <span class="proof-number">3</span>
+      <div class="proof-company">Spotify</div>
+      <div class="proof-industry">Audio Processing at Scale</div>
+      <div class="proof-description">Spotify uses Ray for large-scale audio/media processing workloads, handling millions of audio streams for recommendation and content analysis. Their ML platform team leverages Ray for distributed feature computation across their catalog.</div>
+      <div class="proof-metrics"><span class="metric">Millions of audio streams</span><span class="metric">Distributed feature computation</span><span class="metric">Production ML platform</span></div>
+      <div class="proof-relevance">→ Both companies process massive volumes of audio data. Spotify validates Ray for audio ML workloads at scale — the same distributed processing pattern Smallest.ai needs for training multilingual speech models across 50+ languages.</div>
+      <div class="proof-source">Source: <a href="https://www.anyscale.com/blog/ray-summit-2022-stories-ml-platforms">Anyscale — Spotify / Ray</a></div>
+    </div>
+    <div class="talk-track">
+      <div class="talk-track-title">💬 Suggested Talk Track for Smallest.ai</div>
+      <div class="talk-track-text">"Handshake runs LLM inference at 35M tokens/hour for $2 on commodity GPUs — proving massive cost savings at scale. Notion got 10× capacity at 90% lower cost for multi-model serving. At 1B+ calls per month with 50+ language models, those economics matter. Spotify validates Ray for audio processing at your scale. The math works out: Ray Serve multiplexes your ASR + TTS models on shared GPUs instead of dedicated clusters per language."</div>
+    </div>
+  </div>
+</section>
+
+  <div class="section-label">🟡 Light Touch — Score 4 · Key proof points for opportunistic engagement</div>
+<section class="company-section" id="aarki">
+  <div class="company-header" style="border-left: 4px solid #e3b341">
+    <div class="company-title-row">
+      <h2 class="company-name" style="color:#e3b341">Aarki</h2>
+      <span class="tier-badge" style="background:#e3b34120;color:#e3b341;border:1px solid #e3b34140">Ad Tech · Real-Time Bidding</span>
+    </div>
+  </div>
+  <div class="proof-grid">
+    <div class="proof-card primary">
+      <span class="proof-number">1</span>
+      <div class="proof-company">Instacart</div>
+      <div class="proof-industry">Real-Time Ad Serving</div>
+      <div class="proof-description">Instacart uses Ray for real-time ad ranking and recommendation serving at massive scale, processing millions of requests with low-latency requirements.</div>
+      <div class="proof-metrics"><span class="metric">Real-time ad inference</span><span class="metric">Millions of requests</span><span class="metric">Low-latency serving</span></div>
+      <div class="proof-relevance">→ Aarki processes 5M+ ad requests per second. Instacart validates Ray for real-time ad inference at similar scale and latency requirements.</div>
+      <div class="proof-source">Source: <a href="https://www.anyscale.com/resources">Anyscale — Instacart</a></div>
+    </div>
+    <div class="proof-card">
+      <span class="proof-number">2</span>
+      <div class="proof-company">DoorDash</div>
+      <div class="proof-industry">Real-Time ML Serving</div>
+      <div class="proof-description">DoorDash uses Anyscale for real-time prediction serving across their marketplace, handling millions of concurrent requests with sub-100ms latency requirements.</div>
+      <div class="proof-metrics"><span class="metric">Real-time predictions</span><span class="metric">Sub-100ms latency</span><span class="metric">Marketplace scale</span></div>
+      <div class="proof-relevance">→ Both run high-throughput, low-latency ML inference. DoorDash proves Ray handles marketplace-scale real-time serving.</div>
+      <div class="proof-source">Source: <a href="https://www.anyscale.com/resources">Anyscale — DoorDash</a></div>
+    </div>
+    <div class="talk-track">
+      <div class="talk-track-title">💬 Suggested Talk Track for Aarki</div>
+      <div class="talk-track-text">"Instacart and DoorDash both run real-time ad/ML serving on Ray at millions of requests per second — the same throughput pattern as your multi-stage DNN bidding pipeline."</div>
+    </div>
+  </div>
+</section>
+<section class="company-section" id="akool">
+  <div class="company-header" style="border-left: 4px solid #f78166">
+    <div class="company-title-row">
+      <h2 class="company-name" style="color:#f78166">Akool</h2>
+      <span class="tier-badge" style="background:#f7816620;color:#f78166;border:1px solid #f7816640">GenAI · Video Generation</span>
+    </div>
+  </div>
+  <div class="proof-grid">
+    <div class="proof-card primary">
+      <span class="proof-number">1</span>
+      <div class="proof-company">Runway</div>
+      <div class="proof-industry">Generative Video AI</div>
+      <div class="proof-description">Runway uses Anyscale for distributed training and inference of their generative video models. Their Gen-2 and Gen-3 models require massive GPU clusters for training diffusion models on video datasets.</div>
+      <div class="proof-metrics"><span class="metric">Generative video training</span><span class="metric">Distributed GPU clusters</span><span class="metric">Production AI inference</span></div>
+      <div class="proof-relevance">→ Direct parallel: Akool generates 4K/60fps video content. Runway proves Anyscale handles the same class of compute-intensive generative video workloads.</div>
+      <div class="proof-source">Source: <a href="https://www.anyscale.com/resources/case-study/runway">Anyscale Case Study — Runway</a></div>
+    </div>
+    <div class="proof-card">
+      <span class="proof-number">2</span>
+      <div class="proof-company">Canva</div>
+      <div class="proof-industry">Distributed Training</div>
+      <div class="proof-description">Canva achieved 12× faster training with 50% lower costs and 100% GPU utilization on Anyscale.</div>
+      <div class="proof-metrics"><span class="metric"><strong>12×</strong> faster training</span><span class="metric"><strong>50%</strong> cost savings</span><span class="metric">100% GPU utilization</span></div>
+      <div class="proof-relevance">→ Akool's 150M+ generated AI assets require efficient GPU usage. Canva proves Anyscale maximizes GPU utilization for visual AI.</div>
+      <div class="proof-source">Source: <a href="https://www.anyscale.com/resources/case-study/how-canva-built-a-modern-ai-platform-using-anyscale">Anyscale Case Study — Canva</a></div>
+    </div>
+    <div class="talk-track">
+      <div class="talk-track-title">💬 Suggested Talk Track for Akool</div>
+      <div class="talk-track-text">"Runway trains and serves generative video models on Anyscale — the same class of diffusion model workloads powering your 4K/60fps content generation. Canva proved 12× faster training at half the cost."</div>
+    </div>
+  </div>
+</section>
+<section class="company-section" id="arc-institute">
+  <div class="company-header" style="border-left: 4px solid #3fb950">
+    <div class="company-title-row">
+      <h2 class="company-name" style="color:#3fb950">Arc Institute</h2>
+      <span class="tier-badge" style="background:#3fb95020;color:#3fb950;border:1px solid #3fb95040">Biotech · Genomic AI</span>
+    </div>
+  </div>
+  <div class="proof-grid">
+    <div class="proof-card primary">
+      <span class="proof-number">1</span>
+      <div class="proof-company">Recursion Pharmaceuticals</div>
+      <div class="proof-industry">Drug Discovery / Foundation Models</div>
+      <div class="proof-description">Recursion's VP of AI presented at Ray Summit 2024 on training massive biological foundation models across distributed GPU clusters using Ray.</div>
+      <div class="proof-metrics"><span class="metric">Foundation model training</span><span class="metric">Distributed GPU clusters</span><span class="metric">Ray Summit 2024</span></div>
+      <div class="proof-relevance">→ Direct parallel: Arc Institute trained Evo 2 on 9.3 trillion tokens. Recursion validates Ray for biological foundation model training at LLM scale.</div>
+      <div class="proof-source">Source: <a href="https://www.classcentral.com/course/youtube-foundation-models-in-drug-discovery-recursion-vp-of-ai-stephen-mackinnon-ray-summit-2024-353723">Ray Summit 2024 — Recursion</a></div>
+    </div>
+    <div class="proof-card">
+      <span class="proof-number">2</span>
+      <div class="proof-company">Biolexis Therapeutics</div>
+      <div class="proof-industry">Biotech AI</div>
+      <div class="proof-description">Biolexis went from 7-day compute cycles to 5 hours on Anyscale for their AI/ML drug discovery platform.</div>
+      <div class="proof-metrics"><span class="metric"><strong>7 days → 5h</strong> processing</span><span class="metric">Molecular dynamics at scale</span><span class="metric">POC to production</span></div>
+      <div class="proof-relevance">→ Arc's $650M budget demands compute efficiency. Biolexis proves Anyscale compresses biotech compute cycles dramatically.</div>
+      <div class="proof-source">Source: <a href="https://www.anyscale.com/blog/biolexis-boosts-their-new-ai-ml-drug-discovery-platform-using-anyscales">Anyscale — Biolexis</a></div>
+    </div>
+    <div class="talk-track">
+      <div class="talk-track-title">💬 Suggested Talk Track for Arc Institute</div>
+      <div class="talk-track-text">"Recursion trains biological foundation models on Ray — the same class of workload as Evo 2's 9.3 trillion token training run. Biolexis compressed biotech compute from 7 days to 5 hours. With $650M in funding, compute efficiency at this scale matters."</div>
+    </div>
+  </div>
+</section>
+<section class="company-section" id="archy">
+  <div class="company-header" style="border-left: 4px solid #e3b341">
+    <div class="company-title-row">
+      <h2 class="company-name" style="color:#e3b341">Archy</h2>
+      <span class="tier-badge" style="background:#e3b34120;color:#e3b341;border:1px solid #e3b34140">Dental AI · Multi-Model Serving</span>
+    </div>
+  </div>
+  <div class="proof-grid">
+    <div class="proof-card primary">
+      <span class="proof-number">1</span>
+      <div class="proof-company">UK National Health Service (NHS)</div>
+      <div class="proof-industry">Healthcare AI</div>
+      <div class="proof-description">The NHS uses Ray-based AI for medical imaging analysis and patient outcome prediction, processing clinical data at national scale.</div>
+      <div class="proof-metrics"><span class="metric">National-scale healthcare AI</span><span class="metric">Medical imaging inference</span><span class="metric">Patient outcome prediction</span></div>
+      <div class="proof-relevance">→ Archy processes 35M+ X-rays with AI. NHS validates Ray for healthcare imaging workloads at scale.</div>
+      <div class="proof-source">Source: <a href="https://www.anyscale.com/resources">Anyscale — NHS</a></div>
+    </div>
+    <div class="proof-card">
+      <span class="proof-number">2</span>
+      <div class="proof-company">Notion</div>
+      <div class="proof-industry">Multi-Model Orchestration</div>
+      <div class="proof-description">Notion achieved 10× capacity with 90% cost reduction using Ray for multi-model inference serving.</div>
+      <div class="proof-metrics"><span class="metric"><strong>10×</strong> capacity</span><span class="metric"><strong>90%</strong> cost reduction</span><span class="metric">Multi-model serving</span></div>
+      <div class="proof-relevance">→ Archy orchestrates CV + NLP + claims processing models. Notion proves Ray handles multi-model serving efficiently.</div>
+      <div class="proof-source">Source: <a href="https://www.anyscale.com/resources/case-study/notion">Anyscale — Notion</a></div>
+    </div>
+    <div class="talk-track">
+      <div class="talk-track-title">💬 Suggested Talk Track for Archy</div>
+      <div class="talk-track-text">"The NHS runs healthcare imaging AI on Ray at national scale. Notion serves multiple AI models with 10× more capacity at 90% lower cost. Archy needs exactly this: X-ray CV + NLP note-writing + claims AI, all serving simultaneously."</div>
+    </div>
+  </div>
+</section>
+<section class="company-section" id="cast-crew">
+  <div class="company-header" style="border-left: 4px solid #8b949e">
+    <div class="company-title-row">
+      <h2 class="company-name" style="color:#8b949e">Cast & Crew</h2>
+      <span class="tier-badge" style="background:#8b949e20;color:#8b949e;border:1px solid #8b949e40">Entertainment · Payroll Analytics</span>
+    </div>
+  </div>
+  <div class="proof-grid">
+    <div class="proof-card primary">
+      <span class="proof-number">1</span>
+      <div class="proof-company">Mirakl</div>
+      <div class="proof-industry">Marketplace / Financial Analytics</div>
+      <div class="proof-description">Mirakl uses Anyscale for distributed ML processing across their marketplace platform, handling transaction analytics and fraud detection at scale.</div>
+      <div class="proof-metrics"><span class="metric">Marketplace-scale analytics</span><span class="metric">Distributed ML processing</span><span class="metric">Transaction fraud detection</span></div>
+      <div class="proof-relevance">→ Cast & Crew processes payroll data across 75+ locations. Mirakl validates Ray for distributed financial analytics at enterprise scale.</div>
+      <div class="proof-source">Source: <a href="https://www.anyscale.com/resources/case-study/mirakl-ai-infrastructure">Anyscale Case Study — Mirakl</a></div>
+    </div>
+    <div class="proof-card">
+      <span class="proof-number">2</span>
+      <div class="proof-company">Coinbase</div>
+      <div class="proof-industry">Financial Analytics</div>
+      <div class="proof-description">Coinbase processes 50× larger datasets at the same cost using Anyscale for financial data analytics and risk management.</div>
+      <div class="proof-metrics"><span class="metric"><strong>50×</strong> larger datasets</span><span class="metric">Same cost</span><span class="metric">Financial risk analytics</span></div>
+      <div class="proof-relevance">→ Both run financial analytics at scale. Coinbase proves Ray handles massive financial data processing efficiently.</div>
+      <div class="proof-source">Source: <a href="https://www.anyscale.com/resources/case-study/coinbase-ml-infrastructure">Anyscale — Coinbase</a></div>
+    </div>
+    <div class="talk-track">
+      <div class="talk-track-title">💬 Suggested Talk Track for Cast & Crew</div>
+      <div class="talk-track-text">"Mirakl runs distributed financial analytics on Ray. Coinbase processes 50× more data at the same cost. For Cast & Crew's 75+ location payroll operations, that means real-time fraud detection and analytics without linear cost scaling."</div>
+    </div>
+  </div>
+</section>
+<section class="company-section" id="connectly-ai">
+  <div class="company-header" style="border-left: 4px solid #f78166">
+    <div class="company-title-row">
+      <h2 class="company-name" style="color:#f78166">Connectly.ai</h2>
+      <span class="tier-badge" style="background:#f7816620;color:#f78166;border:1px solid #f7816640">Conversational AI · Agentic LLM</span>
+    </div>
+  </div>
+  <div class="proof-grid">
+    <div class="proof-card primary">
+      <span class="proof-number">1</span>
+      <div class="proof-company">Handshake</div>
+      <div class="proof-industry">LLM Inference</div>
+      <div class="proof-description">Handshake scales LLM inference at 35M tokens/hour for $2 on commodity GPUs with 30% cost savings.</div>
+      <div class="proof-metrics"><span class="metric"><strong>35M</strong> tokens/hr</span><span class="metric"><strong>30%</strong> cost savings</span><span class="metric">Commodity GPUs</span></div>
+      <div class="proof-relevance">→ Connectly's Sofia AI V3 runs agentic reasoning across millions of conversations. Handshake proves Anyscale delivers cost-efficient LLM inference at scale.</div>
+      <div class="proof-source">Source: <a href="https://www.anyscale.com/resources/case-study/how-handshake-saves-50-on-llm-gpu-costs-with-anyscale">Anyscale — Handshake</a></div>
+    </div>
+    <div class="proof-card">
+      <span class="proof-number">2</span>
+      <div class="proof-company">Notion</div>
+      <div class="proof-industry">AI Serving</div>
+      <div class="proof-description">Notion achieved 10× capacity and 90% cost reduction for AI features.</div>
+      <div class="proof-metrics"><span class="metric"><strong>10×</strong> capacity</span><span class="metric"><strong>90%</strong> cost savings</span><span class="metric">Multi-model serving</span></div>
+      <div class="proof-relevance">→ Both serve AI to millions of users. Notion validates cost-efficient AI serving at scale.</div>
+      <div class="proof-source">Source: <a href="https://www.anyscale.com/resources/case-study/notion">Anyscale — Notion</a></div>
+    </div>
+    <div class="talk-track">
+      <div class="talk-track-title">💬 Suggested Talk Track for Connectly.ai</div>
+      <div class="talk-track-text">"Handshake runs LLM inference at 35M tokens/hour for $2 — the economics you need to scale Sofia AI across millions of SMB conversations. Notion got 10× more AI capacity at 90% less cost."</div>
+    </div>
+  </div>
+</section>
+<section class="company-section" id="doppel">
+  <div class="company-header" style="border-left: 4px solid #d2a8ff">
+    <div class="company-title-row">
+      <h2 class="company-name" style="color:#d2a8ff">Doppel</h2>
+      <span class="tier-badge" style="background:#d2a8ff20;color:#d2a8ff;border:1px solid #d2a8ff40">Cybersecurity · Threat Detection</span>
+    </div>
+  </div>
+  <div class="proof-grid">
+    <div class="proof-card primary">
+      <span class="proof-number">1</span>
+      <div class="proof-company">Coinbase</div>
+      <div class="proof-industry">Security / Financial Analytics</div>
+      <div class="proof-description">Coinbase uses Anyscale to process 50× larger datasets at the same cost for fraud detection and risk analytics.</div>
+      <div class="proof-metrics"><span class="metric"><strong>50×</strong> more data</span><span class="metric">Same cost</span><span class="metric">Financial security</span></div>
+      <div class="proof-relevance">→ Doppel scans millions of domains daily for threats. Coinbase proves Ray handles massive-scale security analytics cost-effectively.</div>
+      <div class="proof-source">Source: <a href="https://www.anyscale.com/resources/case-study/coinbase-ml-infrastructure">Anyscale — Coinbase</a></div>
+    </div>
+    <div class="proof-card">
+      <span class="proof-number">2</span>
+      <div class="proof-company">Pinterest</div>
+      <div class="proof-industry">Trust & Safety / Content Moderation</div>
+      <div class="proof-description">Pinterest uses Ray for trust and safety ML at platform scale, processing billions of content signals for abuse detection.</div>
+      <div class="proof-metrics"><span class="metric">Billions of signals processed</span><span class="metric">Trust & safety ML</span><span class="metric">Platform-scale moderation</span></div>
+      <div class="proof-relevance">→ Both detect threats at internet scale. Pinterest validates Ray for real-time content/threat analysis across massive datasets.</div>
+      <div class="proof-source">Source: <a href="https://www.anyscale.com/resources">Anyscale — Pinterest</a></div>
+    </div>
+    <div class="talk-track">
+      <div class="talk-track-title">💬 Suggested Talk Track for Doppel</div>
+      <div class="talk-track-text">"Coinbase processes 50× more security data at the same cost on Anyscale. Pinterest runs trust & safety ML at billions-of-signals scale. For Doppel's millions of daily domain scans and 100+ supply chain attacks blocked per week, Ray handles the throughput."</div>
+    </div>
+  </div>
+</section>
+<section class="company-section" id="everlaw">
+  <div class="company-header" style="border-left: 4px solid #58a6ff">
+    <div class="company-title-row">
+      <h2 class="company-name" style="color:#58a6ff">Everlaw</h2>
+      <span class="tier-badge" style="background:#58a6ff20;color:#58a6ff;border:1px solid #58a6ff40">Legal Tech · Document AI</span>
+    </div>
+  </div>
+  <div class="proof-grid">
+    <div class="proof-card primary">
+      <span class="proof-number">1</span>
+      <div class="proof-company">Notion</div>
+      <div class="proof-industry">AI Search / Embeddings</div>
+      <div class="proof-description">Notion achieved 10× capacity with 90% cost reduction for vector search and embeddings on Anyscale.</div>
+      <div class="proof-metrics"><span class="metric"><strong>10×</strong> capacity</span><span class="metric"><strong>90%</strong> vector search cost reduction</span><span class="metric">Multi-team adoption</span></div>
+      <div class="proof-relevance">→ Everlaw processes 10M+ document matters requiring embedding generation. Notion proves Anyscale handles vector embeddings at scale with dramatic cost savings.</div>
+      <div class="proof-source">Source: <a href="https://www.anyscale.com/resources/case-study/notion">Anyscale — Notion</a></div>
+    </div>
+    <div class="proof-card">
+      <span class="proof-number">2</span>
+      <div class="proof-company">Attentive</div>
+      <div class="proof-industry">LLM Orchestration</div>
+      <div class="proof-description">Attentive uses Ray for multi-provider LLM serving and orchestration, handling millions of AI-generated messages.</div>
+      <div class="proof-metrics"><span class="metric">Multi-provider LLM</span><span class="metric">Millions of messages</span><span class="metric">Production AI serving</span></div>
+      <div class="proof-relevance">→ Everlaw's Deep Dive uses OpenAI + Google models. Attentive validates Ray for multi-provider LLM orchestration at scale.</div>
+      <div class="proof-source">Source: <a href="https://www.anyscale.com/resources">Anyscale — Attentive</a></div>
+    </div>
+    <div class="talk-track">
+      <div class="talk-track-title">💬 Suggested Talk Track for Everlaw</div>
+      <div class="talk-track-text">"Notion reduced vector search costs by 90% with 10× more capacity on Anyscale — directly applicable to your 10M+ document embedding pipeline. Attentive runs multi-provider LLM orchestration, just like your OpenAI + Google model strategy."</div>
+    </div>
+  </div>
+</section>
+<section class="company-section" id="efinancial">
+  <div class="company-header" style="border-left: 4px solid #e3b341">
+    <div class="company-title-row">
+      <h2 class="company-name" style="color:#e3b341">eFinancial</h2>
+      <span class="tier-badge" style="background:#e3b34120;color:#e3b341;border:1px solid #e3b34140">Insurance · Recommendation AI</span>
+    </div>
+  </div>
+  <div class="proof-grid">
+    <div class="proof-card primary">
+      <span class="proof-number">1</span>
+      <div class="proof-company">Mirakl</div>
+      <div class="proof-industry">Financial ML</div>
+      <div class="proof-description">Mirakl uses Anyscale for distributed ML processing on financial marketplace data.</div>
+      <div class="proof-metrics"><span class="metric">Financial ML at scale</span><span class="metric">Distributed processing</span><span class="metric">Marketplace analytics</span></div>
+      <div class="proof-relevance">→ eFinancial handles thousands of daily insurance interactions. Mirakl validates Ray for financial ML serving at marketplace scale.</div>
+      <div class="proof-source">Source: <a href="https://www.anyscale.com/resources/case-study/mirakl-ai-infrastructure">Anyscale — Mirakl</a></div>
+    </div>
+    <div class="talk-track">
+      <div class="talk-track-title">💬 Suggested Talk Track for eFinancial</div>
+      <div class="talk-track-text">"Mirakl runs financial ML analytics at marketplace scale on Anyscale — the same distributed serving pattern eFinancial needs for real-time policy recommendations across omnichannel interactions."</div>
+    </div>
+  </div>
+</section>
+<section class="company-section" id="jigsawstack">
+  <div class="company-header" style="border-left: 4px solid #f78166">
+    <div class="company-title-row">
+      <h2 class="company-name" style="color:#f78166">JigsawStack</h2>
+      <span class="tier-badge" style="background:#f7816620;color:#f78166;border:1px solid #f7816640">AI API · Multi-Model Serving</span>
+    </div>
+  </div>
+  <div class="proof-grid">
+    <div class="proof-card primary">
+      <span class="proof-number">1</span>
+      <div class="proof-company">Handshake</div>
+      <div class="proof-industry">LLM Inference</div>
+      <div class="proof-description">Handshake achieved 30% cost savings on LLM inference with fractional GPU support.</div>
+      <div class="proof-metrics"><span class="metric"><strong>30%</strong> cost savings</span><span class="metric">Fractional GPUs</span><span class="metric">Commodity hardware</span></div>
+      <div class="proof-relevance">→ JigsawStack serves multiple specialized models with 200ms latency SLA. Handshake proves Anyscale delivers cost-efficient multi-model inference.</div>
+      <div class="proof-source">Source: <a href="https://www.anyscale.com/resources/case-study/how-handshake-saves-50-on-llm-gpu-costs-with-anyscale">Anyscale — Handshake</a></div>
+    </div>
+    <div class="proof-card">
+      <span class="proof-number">2</span>
+      <div class="proof-company">Notion</div>
+      <div class="proof-industry">Multi-Model Serving</div>
+      <div class="proof-description">Notion serves multiple AI models with 10× capacity at 90% less cost.</div>
+      <div class="proof-metrics"><span class="metric"><strong>10×</strong> capacity</span><span class="metric"><strong>90%</strong> cost reduction</span><span class="metric">Multiple models served</span></div>
+      <div class="proof-relevance">→ Both serve multiple AI models. Notion validates model multiplexing at scale.</div>
+      <div class="proof-source">Source: <a href="https://www.anyscale.com/resources/case-study/notion">Anyscale — Notion</a></div>
+    </div>
+    <div class="talk-track">
+      <div class="talk-track-title">💬 Suggested Talk Track for JigsawStack</div>
+      <div class="talk-track-text">"Handshake saves 30% on inference costs with Ray's fractional GPUs. Notion serves multiple AI models with 10× capacity. For JigsawStack's multi-model API (scraping, speech, vision, translation), Ray Serve multiplexes everything on shared GPU clusters."</div>
+    </div>
+  </div>
+</section>
+<section class="company-section" id="listen-labs">
+  <div class="company-header" style="border-left: 4px solid #d2a8ff">
+    <div class="company-title-row">
+      <h2 class="company-name" style="color:#d2a8ff">Listen Labs</h2>
+      <span class="tier-badge" style="background:#d2a8ff20;color:#d2a8ff;border:1px solid #d2a8ff40">Voice AI · Research Interviews</span>
+    </div>
+  </div>
+  <div class="proof-grid">
+    <div class="proof-card primary">
+      <span class="proof-number">1</span>
+      <div class="proof-company">Handshake</div>
+      <div class="proof-industry">LLM Inference at Scale</div>
+      <div class="proof-description">Handshake processes 35M tokens/hr for $2 on Anyscale with 30% cost savings.</div>
+      <div class="proof-metrics"><span class="metric"><strong>35M</strong> tokens/hr</span><span class="metric"><strong>$2</strong> per hour</span><span class="metric"><strong>30%</strong> savings</span></div>
+      <div class="proof-relevance">→ Listen Labs conducts 1M+ AI interviews. Handshake proves Anyscale handles high-throughput LLM inference cost-effectively at similar scale.</div>
+      <div class="proof-source">Source: <a href="https://www.anyscale.com/resources/case-study/how-handshake-saves-50-on-llm-gpu-costs-with-anyscale">Anyscale — Handshake</a></div>
+    </div>
+    <div class="proof-card">
+      <span class="proof-number">2</span>
+      <div class="proof-company">Notion</div>
+      <div class="proof-industry">AI Search / Processing</div>
+      <div class="proof-description">Notion got 10× capacity at 90% lower cost for AI features.</div>
+      <div class="proof-metrics"><span class="metric"><strong>10×</strong> capacity</span><span class="metric"><strong>90%</strong> cost savings</span></div>
+      <div class="proof-relevance">→ With $500M valuation and 15× revenue growth, Listen Labs needs cost-efficient inference at scale.</div>
+      <div class="proof-source">Source: <a href="https://www.anyscale.com/resources/case-study/notion">Anyscale — Notion</a></div>
+    </div>
+    <div class="talk-track">
+      <div class="talk-track-title">💬 Suggested Talk Track for Listen Labs</div>
+      <div class="talk-track-text">"Handshake runs LLM inference at 35M tokens/hour for $2. With 1M+ AI interviews and 15× revenue growth, the unit economics of inference become your moat. Ray Serve handles thousands of simultaneous voice sessions on shared GPU clusters."</div>
+    </div>
+  </div>
+</section>
+<section class="company-section" id="nash">
+  <div class="company-header" style="border-left: 4px solid #e3b341">
+    <div class="company-title-row">
+      <h2 class="company-name" style="color:#e3b341">Nash</h2>
+      <span class="tier-badge" style="background:#e3b34120;color:#e3b341;border:1px solid #e3b34140">Logistics · Route Optimization</span>
+    </div>
+  </div>
+  <div class="proof-grid">
+    <div class="proof-card primary">
+      <span class="proof-number">1</span>
+      <div class="proof-company">DoorDash</div>
+      <div class="proof-industry">Delivery Optimization</div>
+      <div class="proof-description">DoorDash uses Anyscale for real-time delivery prediction and optimization across their marketplace.</div>
+      <div class="proof-metrics"><span class="metric">Real-time predictions</span><span class="metric">Marketplace optimization</span><span class="metric">Production ML serving</span></div>
+      <div class="proof-relevance">→ Direct parallel: Nash optimizes routes across 500+ delivery fleets. DoorDash validates Ray for real-time delivery ML at identical scale.</div>
+      <div class="proof-source">Source: <a href="https://www.anyscale.com/resources">Anyscale — DoorDash</a></div>
+    </div>
+    <div class="proof-card">
+      <span class="proof-number">2</span>
+      <div class="proof-company">Uber</div>
+      <div class="proof-industry">Logistics ML</div>
+      <div class="proof-description">Uber achieved 50% compute cost savings with heterogeneous CPU+GPU Ray clusters.</div>
+      <div class="proof-metrics"><span class="metric"><strong>50%</strong> compute savings</span><span class="metric">Heterogeneous clusters</span><span class="metric">Large-scale ML</span></div>
+      <div class="proof-relevance">→ Both run logistics optimization at scale. Uber proves Ray handles the compute pattern Nash needs.</div>
+      <div class="proof-source">Source: <a href="https://www.anyscale.com/blog/ray-summit-the-industry-event-for-scalable-ai-unveils-new-innovations-in-ray">Anyscale — Uber</a></div>
+    </div>
+    <div class="talk-track">
+      <div class="talk-track-title">💬 Suggested Talk Track for Nash</div>
+      <div class="talk-track-text">"DoorDash runs real-time delivery optimization on Anyscale — identical workload pattern to your 500+ fleet route optimization. Uber saved 50% on compute costs with Ray. For Nash, that means real-time routing across 100M+ deliveries without linear cost scaling."</div>
+    </div>
+  </div>
+</section>
+<section class="company-section" id="newfront">
+  <div class="company-header" style="border-left: 4px solid #58a6ff">
+    <div class="company-title-row">
+      <h2 class="company-name" style="color:#58a6ff">Newfront</h2>
+      <span class="tier-badge" style="background:#58a6ff20;color:#58a6ff;border:1px solid #58a6ff40">Insurance Tech · Document AI</span>
+    </div>
+  </div>
+  <div class="proof-grid">
+    <div class="proof-card primary">
+      <span class="proof-number">1</span>
+      <div class="proof-company">Notion</div>
+      <div class="proof-industry">Document AI / Embeddings</div>
+      <div class="proof-description">Notion achieved 10× capacity and 90% cost reduction for document embeddings and AI search.</div>
+      <div class="proof-metrics"><span class="metric"><strong>10×</strong> capacity</span><span class="metric"><strong>90%</strong> cost reduction</span><span class="metric">Document AI at scale</span></div>
+      <div class="proof-relevance">→ Newfront processes insurance documents with CV + NLP models. Notion proves Anyscale handles document AI workloads at scale.</div>
+      <div class="proof-source">Source: <a href="https://www.anyscale.com/resources/case-study/notion">Anyscale — Notion</a></div>
+    </div>
+    <div class="proof-card">
+      <span class="proof-number">2</span>
+      <div class="proof-company">Mirakl</div>
+      <div class="proof-industry">Financial Document Processing</div>
+      <div class="proof-description">Mirakl uses Ray for distributed document and transaction processing.</div>
+      <div class="proof-metrics"><span class="metric">Distributed processing</span><span class="metric">Financial data at scale</span></div>
+      <div class="proof-relevance">→ Both process financial documents. Mirakl validates Ray for insurance-class document analytics.</div>
+      <div class="proof-source">Source: <a href="https://www.anyscale.com/resources/case-study/mirakl-ai-infrastructure">Anyscale — Mirakl</a></div>
+    </div>
+    <div class="talk-track">
+      <div class="talk-track-title">💬 Suggested Talk Track for Newfront</div>
+      <div class="talk-track-text">"Notion reduced document AI costs by 90% with 10× capacity on Anyscale. Now part of WTW (50K+ employees), Newfront's document processing needs are enterprise-scale — Ray handles that transition."</div>
+    </div>
+  </div>
+</section>
+<section class="company-section" id="rillet">
+  <div class="company-header" style="border-left: 4px solid #3fb950">
+    <div class="company-title-row">
+      <h2 class="company-name" style="color:#3fb950">Rillet</h2>
+      <span class="tier-badge" style="background:#3fb95020;color:#3fb950;border:1px solid #3fb95040">Fintech · AI-Native Accounting</span>
+    </div>
+  </div>
+  <div class="proof-grid">
+    <div class="proof-card primary">
+      <span class="proof-number">1</span>
+      <div class="proof-company">Coinbase</div>
+      <div class="proof-industry">Financial Analytics</div>
+      <div class="proof-description">Coinbase processes 50× larger financial datasets at the same cost on Anyscale.</div>
+      <div class="proof-metrics"><span class="metric"><strong>50×</strong> more data</span><span class="metric">Same cost</span><span class="metric">Financial ML</span></div>
+      <div class="proof-relevance">→ Rillet auto-matches 95%+ of transactions with ML. Coinbase proves Ray handles financial data processing at massive scale.</div>
+      <div class="proof-source">Source: <a href="https://www.anyscale.com/resources/case-study/coinbase-ml-infrastructure">Anyscale — Coinbase</a></div>
+    </div>
+    <div class="proof-card">
+      <span class="proof-number">2</span>
+      <div class="proof-company">Mirakl</div>
+      <div class="proof-industry">Transaction Analytics</div>
+      <div class="proof-description">Mirakl runs distributed ML on marketplace financial transactions.</div>
+      <div class="proof-metrics"><span class="metric">Transaction ML at scale</span><span class="metric">Distributed financial processing</span></div>
+      <div class="proof-relevance">→ Both process financial transactions with ML. Mirakl validates Ray for real-time transaction matching.</div>
+      <div class="proof-source">Source: <a href="https://www.anyscale.com/resources/case-study/mirakl-ai-infrastructure">Anyscale — Mirakl</a></div>
+    </div>
+    <div class="talk-track">
+      <div class="talk-track-title">💬 Suggested Talk Track for Rillet</div>
+      <div class="talk-track-text">"Coinbase processes 50× more financial data at the same cost on Anyscale. With 95%+ automated transaction matching and doubled ARR in 12 weeks, Rillet needs cost-efficient ML at accounting surge scale (month-end, quarter-end)."</div>
+    </div>
+  </div>
+</section>
+<section class="company-section" id="socket">
+  <div class="company-header" style="border-left: 4px solid #d2a8ff">
+    <div class="company-title-row">
+      <h2 class="company-name" style="color:#d2a8ff">Socket</h2>
+      <span class="tier-badge" style="background:#d2a8ff20;color:#d2a8ff;border:1px solid #d2a8ff40">Cybersecurity · Supply Chain</span>
+    </div>
+  </div>
+  <div class="proof-grid">
+    <div class="proof-card primary">
+      <span class="proof-number">1</span>
+      <div class="proof-company">Coinbase</div>
+      <div class="proof-industry">Security Analytics</div>
+      <div class="proof-description">Coinbase processes 50× larger datasets at the same cost for fraud detection and security analytics.</div>
+      <div class="proof-metrics"><span class="metric"><strong>50×</strong> more data</span><span class="metric">Security analytics</span><span class="metric">Same cost</span></div>
+      <div class="proof-relevance">→ Socket scans millions of packages across npm, PyPI, Go with 70+ risk signals. Coinbase proves Ray handles massive-scale security data processing.</div>
+      <div class="proof-source">Source: <a href="https://www.anyscale.com/resources/case-study/coinbase-ml-infrastructure">Anyscale — Coinbase</a></div>
+    </div>
+    <div class="proof-card">
+      <span class="proof-number">2</span>
+      <div class="proof-company">Pinterest</div>
+      <div class="proof-industry">Trust & Safety</div>
+      <div class="proof-description">Pinterest uses Ray for trust & safety ML at platform scale.</div>
+      <div class="proof-metrics"><span class="metric">Platform-scale detection</span><span class="metric">Billions of signals</span></div>
+      <div class="proof-relevance">→ Both detect threats at internet scale. Pinterest validates Ray for real-time multi-signal threat analysis.</div>
+      <div class="proof-source">Source: <a href="https://www.anyscale.com/resources">Anyscale — Pinterest</a></div>
+    </div>
+    <div class="talk-track">
+      <div class="talk-track-title">💬 Suggested Talk Track for Socket</div>
+      <div class="talk-track-text">"Coinbase handles 50× more security data at the same cost on Anyscale. Pinterest runs trust & safety ML at billions-of-signals scale. Socket's 70+ risk signals across millions of packages is the same pattern."</div>
+    </div>
+  </div>
+</section>
+<section class="company-section" id="tidio">
+  <div class="company-header" style="border-left: 4px solid #e3b341">
+    <div class="company-title-row">
+      <h2 class="company-name" style="color:#e3b341">Tidio</h2>
+      <span class="tier-badge" style="background:#e3b34120;color:#e3b341;border:1px solid #e3b34140">Customer Service · LLM Serving</span>
+    </div>
+  </div>
+  <div class="proof-grid">
+    <div class="proof-card primary">
+      <span class="proof-number">1</span>
+      <div class="proof-company">Handshake</div>
+      <div class="proof-industry">LLM Inference</div>
+      <div class="proof-description">Handshake runs LLM inference at 35M tokens/hr for $2 with 30% cost savings.</div>
+      <div class="proof-metrics"><span class="metric"><strong>35M</strong> tokens/hr</span><span class="metric"><strong>30%</strong> savings</span><span class="metric">Commodity GPUs</span></div>
+      <div class="proof-relevance">→ Tidio's Lyro AI automates 67-85% of support conversations. Handshake proves Anyscale delivers cost-efficient LLM inference for high-automation products.</div>
+      <div class="proof-source">Source: <a href="https://www.anyscale.com/resources/case-study/how-handshake-saves-50-on-llm-gpu-costs-with-anyscale">Anyscale — Handshake</a></div>
+    </div>
+    <div class="proof-card">
+      <span class="proof-number">2</span>
+      <div class="proof-company">Attentive</div>
+      <div class="proof-industry">Multi-Provider AI</div>
+      <div class="proof-description">Attentive orchestrates multiple LLM providers for AI-generated messaging at scale.</div>
+      <div class="proof-metrics"><span class="metric">Multi-provider LLM</span><span class="metric">Millions of messages</span></div>
+      <div class="proof-relevance">→ Tidio routes between Anthropic + Google Vertex AI. Attentive validates Ray for multi-provider LLM orchestration.</div>
+      <div class="proof-source">Source: <a href="https://www.anyscale.com/resources">Anyscale — Attentive</a></div>
+    </div>
+    <div class="talk-track">
+      <div class="talk-track-title">💬 Suggested Talk Track for Tidio</div>
+      <div class="talk-track-text">"Handshake saves 30% on LLM inference with Anyscale. Attentive orchestrates multi-provider LLM serving at scale. For Tidio's 300K+ businesses with Anthropic + Google routing, Ray Serve handles intelligent model routing and cost optimization."</div>
+    </div>
+  </div>
+</section>
+
+  <div style="border-top:1px solid var(--border);padding:16px 0;margin-top:32px;font-size:11px;color:var(--muted);display:flex;justify-content:space-between;">
+    <span>⚪ Tier 4 · 22 accounts with proof points · Anyscale Account Planning Hub · Dylan Wingrove</span>
+    <span>Generated March 2026 · Review quarterly</span>
+  </div>
+</main>
+
+</body>
+</html>

@@ -1,0 +1,957 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Tier 1 Account Proof Points — Anyscale</title>
+<style>
+:root {
+  --bg: #0d1117;
+  --bg2: #161b22;
+  --bg3: #1c2128;
+  --border: #30363d;
+  --text: #e6edf3;
+  --muted: #8b949e;
+  --accent: #58a6ff;
+  --green: #3fb950;
+  --orange: #f78166;
+  --purple: #d2a8ff;
+  --yellow: #e3b341;
+}
+* { box-sizing: border-box; margin: 0; padding: 0; }
+body {
+  background: var(--bg);
+  color: var(--text);
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+  font-size: 14px;
+  line-height: 1.6;
+  display: flex;
+  min-height: 100vh;
+}
+
+.sidebar {
+  width: 260px;
+  min-width: 260px;
+  background: var(--bg2);
+  border-right: 1px solid var(--border);
+  position: sticky;
+  top: 0;
+  height: 100vh;
+  overflow-y: auto;
+  padding: 16px 0;
+  flex-shrink: 0;
+}
+.sidebar-header {
+  padding: 0 16px 16px;
+  border-bottom: 1px solid var(--border);
+  margin-bottom: 8px;
+}
+.sidebar-title { font-size: 13px; font-weight: 600; color: var(--text); margin-bottom: 4px; }
+.sidebar-sub { font-size: 11px; color: var(--muted); }
+.nav-item {
+  display: flex;
+  flex-direction: column;
+  padding: 8px 16px;
+  text-decoration: none;
+  border-left: 3px solid transparent;
+  transition: all 0.15s;
+  gap: 2px;
+  cursor: pointer;
+}
+.nav-item:hover { background: var(--bg3); border-left-color: var(--accent); }
+.nav-score { font-size: 10px; font-weight: 700; color: var(--accent); text-transform: uppercase; letter-spacing: 0.5px; }
+.nav-name { font-size: 13px; font-weight: 600; color: var(--text); }
+.nav-sector { font-size: 11px; color: var(--muted); }
+
+.main {
+  flex: 1;
+  overflow-y: auto;
+  padding: 24px 32px;
+  max-width: calc(100vw - 260px);
+}
+.page-header {
+  margin-bottom: 32px;
+  padding-bottom: 20px;
+  border-bottom: 1px solid var(--border);
+}
+.page-title { font-size: 24px; font-weight: 700; margin-bottom: 6px; }
+.page-sub { color: var(--muted); font-size: 14px; }
+
+.company-section {
+  margin-bottom: 56px;
+  scroll-margin-top: 20px;
+}
+.company-header {
+  background: var(--bg2);
+  border-radius: 8px;
+  padding: 20px 24px;
+  margin-bottom: 20px;
+}
+.company-title-row {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  flex-wrap: wrap;
+}
+.company-name { font-size: 22px; font-weight: 700; }
+.tier-badge {
+  font-size: 11px;
+  font-weight: 600;
+  padding: 3px 10px;
+  border-radius: 12px;
+  letter-spacing: 0.3px;
+}
+
+.proof-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 16px;
+}
+.proof-card {
+  background: var(--bg2);
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  padding: 20px;
+  transition: border-color 0.2s;
+}
+.proof-card:hover { border-color: var(--accent); }
+.proof-card.primary { border-color: #58a6ff60; background: #58a6ff08; }
+
+.proof-number {
+  display: inline-block;
+  width: 24px;
+  height: 24px;
+  border-radius: 50%;
+  background: var(--accent);
+  color: var(--bg);
+  font-size: 12px;
+  font-weight: 700;
+  text-align: center;
+  line-height: 24px;
+  margin-bottom: 10px;
+}
+.proof-company {
+  font-size: 15px;
+  font-weight: 700;
+  color: var(--accent);
+  margin-bottom: 4px;
+}
+.proof-industry {
+  font-size: 11px;
+  color: var(--muted);
+  margin-bottom: 10px;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+.proof-description {
+  font-size: 13px;
+  color: var(--text);
+  margin-bottom: 12px;
+  line-height: 1.7;
+}
+.proof-metrics {
+  display: flex;
+  gap: 12px;
+  flex-wrap: wrap;
+  margin-bottom: 12px;
+}
+.metric {
+  background: var(--bg3);
+  border: 1px solid var(--border);
+  border-radius: 6px;
+  padding: 6px 10px;
+  font-size: 12px;
+}
+.metric strong {
+  color: var(--accent);
+  font-size: 14px;
+}
+.proof-relevance {
+  font-size: 12px;
+  color: var(--green);
+  font-style: italic;
+  border-top: 1px solid var(--border);
+  padding-top: 10px;
+  margin-top: 4px;
+}
+.proof-source {
+  font-size: 11px;
+  color: var(--muted);
+  margin-top: 6px;
+}
+.proof-source a {
+  color: var(--accent);
+  text-decoration: none;
+}
+.proof-source a:hover { text-decoration: underline; }
+
+.talk-track {
+  background: var(--bg2);
+  border: 1px solid #e3b34140;
+  border-radius: 8px;
+  padding: 16px 20px;
+  margin-top: 16px;
+  grid-column: 1 / -1;
+}
+.talk-track-title {
+  font-size: 13px;
+  font-weight: 700;
+  color: var(--yellow);
+  margin-bottom: 8px;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+.talk-track-text {
+  font-size: 13px;
+  color: var(--text);
+  line-height: 1.7;
+  font-style: italic;
+}
+
+@media (max-width: 900px) {
+  .proof-grid { grid-template-columns: 1fr; }
+}
+</style>
+</head>
+<body>
+
+<nav class="sidebar">
+  <div class="sidebar-header">
+    <div class="sidebar-title">Proof Points by Account</div>
+    <div class="sidebar-sub">11 Tier 1 Accounts · 3-4 proof points each</div>
+  </div>
+  <a class="nav-item" href="#commaai"><span class="nav-score">10/10 · AV</span><span class="nav-name">comma.ai</span><span class="nav-sector">Autonomous Driving / Simulation</span></a>
+  <a class="nav-item" href="#iambic"><span class="nav-score">10/10 · Health AI</span><span class="nav-name">Iambic Therapeutics</span><span class="nav-sector">Drug Discovery / Biotech</span></a>
+  <a class="nav-item" href="#falai"><span class="nav-score">10/10 · AI Infra</span><span class="nav-name">Fal.ai</span><span class="nav-sector">Multi-Model Inference Platform</span></a>
+  <a class="nav-item" href="#apexai"><span class="nav-score">9/10 · AV</span><span class="nav-name">Apex.AI</span><span class="nav-sector">Safety-Critical AV / Robotics OS</span></a>
+  <a class="nav-item" href="#chooch"><span class="nav-score">9/10 · AI Infra</span><span class="nav-name">Chooch</span><span class="nav-sector">Vision AI + LLM Fusion</span></a>
+  <a class="nav-item" href="#lightwheel"><span class="nav-score">9/10 · Robotics</span><span class="nav-name">Lightwheel</span><span class="nav-sector">Physical AI / Sim-to-Real</span></a>
+  <a class="nav-item" href="#valar"><span class="nav-score">Health AI</span><span class="nav-name">Valar Labs</span><span class="nav-sector">Healthcare / Pathology AI</span></a>
+  <a class="nav-item" href="#elroy"><span class="nav-score">AV / Robotics</span><span class="nav-name">Elroy Air</span><span class="nav-sector">Autonomous Cargo Drones</span></a>
+  <a class="nav-item" href="#intrinsic"><span class="nav-score">Robotics</span><span class="nav-name">Intrinsic (Google)</span><span class="nav-sector">Industrial Robotics</span></a>
+  <a class="nav-item" href="#wing"><span class="nav-score">AV / Robotics</span><span class="nav-name">Wing (Alphabet)</span><span class="nav-sector">Drone Delivery</span></a>
+  <a class="nav-item" href="#gitai"><span class="nav-score">Robotics / Space</span><span class="nav-name">GITAI</span><span class="nav-sector">Space Robotics</span></a>
+</nav>
+
+<main class="main">
+  <div class="page-header">
+    <h1 class="page-title">Tier 1 Account Proof Points</h1>
+    <p class="page-sub">Relevant Anyscale / Ray case studies and references mapped to each target account. Use these in outreach, call prep, and proposals.</p>
+  </div>
+
+<!-- ═══════════════════════════════════════════ -->
+<!-- COMMA.AI -->
+<!-- ═══════════════════════════════════════════ -->
+<section class="company-section" id="commaai">
+  <div class="company-header" style="border-left: 4px solid #58a6ff">
+    <div class="company-title-row">
+      <h2 class="company-name" style="color:#58a6ff">comma.ai</h2>
+      <span class="tier-badge" style="background:#58a6ff20;color:#58a6ff;border:1px solid #58a6ff40">AV / Robotics · Simulation + Training</span>
+    </div>
+  </div>
+  <div class="proof-grid">
+
+    <div class="proof-card primary">
+      <span class="proof-number">1</span>
+      <div class="proof-company">Physical Intelligence (π)</div>
+      <div class="proof-industry">Physical AI / Robotics</div>
+      <div class="proof-description">PI collects terabytes of heterogeneous sensor data daily from robots with varying hardware — training models across diverse embodiments (one-arm, two-arm, mobile, stationary). They use Anyscale to process massive log and video data for physical AI, achieving 2× faster research iteration with 16+ engineers refocused on dev instead of infra.</div>
+      <div class="proof-metrics">
+        <span class="metric"><strong>2×</strong> faster research iteration</span>
+        <span class="metric"><strong>16+</strong> engineers freed from infra</span>
+        <span class="metric"><strong>Multi-cloud</strong> AWS + GCP</span>
+      </div>
+      <div class="proof-relevance">→ Direct parallel: comma.ai processes 100M+ miles of driving data with a 30-person team. PI shows how Anyscale handles massive physical AI data pipelines, freeing small teams from ops overhead.</div>
+      <div class="proof-source">Source: <a href="https://www.anyscale.com/resources/case-study/physical-intelligence">Anyscale Case Study — Physical Intelligence</a></div>
+    </div>
+
+    <div class="proof-card">
+      <span class="proof-number">2</span>
+      <div class="proof-company">Blue River Technology (John Deere)</div>
+      <div class="proof-industry">Autonomous Vehicles / Agriculture</div>
+      <div class="proof-description">Blue River applies computer vision and robotics to autonomous agricultural equipment. Their regression testing pipeline processed 132 database files in 24 hours. After migrating to Anyscale Ray, the same pipeline runs in under 9.5 hours — a 2.5× speedup — by parallelizing data conversion and processing across an AWS cluster.</div>
+      <div class="proof-metrics">
+        <span class="metric"><strong>2.5×</strong> faster iteration</span>
+        <span class="metric"><strong>24h → 9.5h</strong> regression testing</span>
+        <span class="metric">Removed single points of failure</span>
+      </div>
+      <div class="proof-relevance">→ Direct parallel: comma.ai runs end-to-end training pipelines on driving data. Blue River shows Anyscale cutting AV regression testing time by more than half on the same type of image/video data workloads.</div>
+      <div class="proof-source">Source: <a href="https://www.anyscale.com/resources/case-study/blue-river-technology">Anyscale Case Study — Blue River Technology</a></div>
+    </div>
+
+    <div class="proof-card">
+      <span class="proof-number">3</span>
+      <div class="proof-company">Zoox (Amazon)</div>
+      <div class="proof-industry">Autonomous Driving / Simulation</div>
+      <div class="proof-description">Zoox built an autotuning platform using Ray to speed up AV algorithm development through distributed simulation and metrics evaluation. Their ML team uses Ray to scale simulation workloads for autonomous driving — running thousands of simulated driving scenarios in parallel for safety validation.</div>
+      <div class="proof-metrics">
+        <span class="metric">Distributed AV simulation at scale</span>
+        <span class="metric">Parallel scenario evaluation</span>
+        <span class="metric">Ray Summit featured customer</span>
+      </div>
+      <div class="proof-relevance">→ Direct parallel: comma.ai's mlsim on-policy simulator runs parallel rollouts — exactly the workload pattern Zoox scales on Ray. Both companies need to run thousands of driving scenarios simultaneously.</div>
+      <div class="proof-source">Source: <a href="https://www.anyscale.com/blog/10-must-attend-ray-summit-sessions-generative-ai-scalable-ml-workloads-and">Anyscale — Ray Summit Sessions (Zoox)</a></div>
+    </div>
+
+    <div class="proof-card">
+      <span class="proof-number">4</span>
+      <div class="proof-company">Uber</div>
+      <div class="proof-industry">Deep Learning / Heterogeneous Compute</div>
+      <div class="proof-description">Uber implemented large-scale deep learning on Ray using a heterogeneous CPU + GPU cluster, achieving 50% compute cost savings. The Ray-based approach allowed them to efficiently mix resource types — running CPU-bound data prep and GPU-bound training as coordinated stages.</div>
+      <div class="proof-metrics">
+        <span class="metric"><strong>50%</strong> compute savings</span>
+        <span class="metric">Heterogeneous CPU+GPU clusters</span>
+        <span class="metric">Large-scale distributed training</span>
+      </div>
+      <div class="proof-relevance">→ Relevant because comma.ai manages their own heterogeneous datacenter (~450kW). Uber proves Ray efficiently schedules mixed CPU/GPU workloads — the exact pattern comma.ai needs for data prep → training → inference.</div>
+      <div class="proof-source">Source: <a href="https://www.anyscale.com/blog/ray-summit-the-industry-event-for-scalable-ai-unveils-new-innovations-in-ray">Anyscale — Ray Summit / Uber</a></div>
+    </div>
+
+    <div class="talk-track">
+      <div class="talk-track-title">💬 Suggested Talk Track for comma.ai</div>
+      <div class="talk-track-text">"Physical Intelligence processes terabytes of robot sensor data daily on Anyscale — similar scale to your 100M+ mile driving dataset. Blue River cut their AV regression pipeline from 24 hours to under 10. And Zoox uses Ray for exactly what mlsim does: running thousands of parallel simulation rollouts coordinated by a central trainer. All Python-native, all on existing infrastructure."</div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════════ -->
+<!-- IAMBIC THERAPEUTICS -->
+<!-- ═══════════════════════════════════════════ -->
+<section class="company-section" id="iambic">
+  <div class="company-header" style="border-left: 4px solid #3fb950">
+    <div class="company-title-row">
+      <h2 class="company-name" style="color:#3fb950">Iambic Therapeutics</h2>
+      <span class="tier-badge" style="background:#3fb95020;color:#3fb950;border:1px solid #3fb95040">Health AI · Drug Discovery</span>
+    </div>
+  </div>
+  <div class="proof-grid">
+
+    <div class="proof-card primary">
+      <span class="proof-number">1</span>
+      <div class="proof-company">Biolexis Therapeutics</div>
+      <div class="proof-industry">Drug Discovery / Biotech</div>
+      <div class="proof-description">Biolexis developed FIELDS™, an AI/ML drug discovery platform for small-molecule therapeutics. Their proprietary database of 500,000 biochemical data points plus billions of public records posed a massive compute challenge. On Anyscale, workloads that took 7 days to process now complete in under 5 hours.</div>
+      <div class="proof-metrics">
+        <span class="metric"><strong>7 days → 5 hours</strong> processing</span>
+        <span class="metric"><strong>Molecular dynamics</strong> at scale</span>
+        <span class="metric">POC to production pipeline</span>
+      </div>
+      <div class="proof-relevance">→ Direct parallel: Iambic runs weekly design-make-test cycles with NeuralPLexer + Enchant. Biolexis proves Anyscale dramatically compresses drug discovery compute cycles — exactly what Iambic needs as they scale to serve Takeda's programs.</div>
+      <div class="proof-source">Source: <a href="https://www.anyscale.com/blog/biolexis-boosts-their-new-ai-ml-drug-discovery-platform-using-anyscales">Anyscale Blog — Biolexis Therapeutics</a></div>
+    </div>
+
+    <div class="proof-card">
+      <span class="proof-number">2</span>
+      <div class="proof-company">Recursion Pharmaceuticals</div>
+      <div class="proof-industry">Drug Discovery / Foundation Models</div>
+      <div class="proof-description">Recursion's VP of AI presented at Ray Summit 2024 on "Foundation Models in Drug Discovery" — demonstrating how Ray enables training massive biological foundation models across distributed GPU clusters. Their approach mirrors Iambic's: large transformer architectures trained on molecular and biological data for drug candidate prediction.</div>
+      <div class="proof-metrics">
+        <span class="metric">Foundation models for drug discovery</span>
+        <span class="metric">Distributed GPU training</span>
+        <span class="metric">Ray Summit 2024 speaker</span>
+      </div>
+      <div class="proof-relevance">→ Direct parallel: Iambic's NeuralPLexer and Enchant are transformer/GNN architectures for drug discovery — same class of workload. Recursion validates that the industry's leading AI-native drug discovery companies choose Ray.</div>
+      <div class="proof-source">Source: <a href="https://www.classcentral.com/course/youtube-foundation-models-in-drug-discovery-recursion-vp-of-ai-stephen-mackinnon-ray-summit-2024-353723">Ray Summit 2024 — Foundation Models in Drug Discovery</a></div>
+    </div>
+
+    <div class="proof-card">
+      <span class="proof-number">3</span>
+      <div class="proof-company">Canva</div>
+      <div class="proof-industry">Distributed Training at Scale</div>
+      <div class="proof-description">Canva was constrained to single-machine training before Anyscale. After migrating, a single image classification epoch dropped from 90 minutes to 6 minutes (12× faster). They achieved 100% GPU utilization and 50% cloud cost reduction — now standardizing all AI training on Anyscale.</div>
+      <div class="proof-metrics">
+        <span class="metric"><strong>12×</strong> faster training</span>
+        <span class="metric"><strong>50%</strong> lower cloud costs</span>
+        <span class="metric"><strong>100%</strong> GPU utilization</span>
+      </div>
+      <div class="proof-relevance">→ Relevant because Iambic needs to scale NeuralPLexer/Enchant training across multi-GPU clusters as they expand to new cancer types. Canva's results show how Anyscale unlocks multi-node distributed training with dramatic speedups and cost savings.</div>
+      <div class="proof-source">Source: <a href="https://www.anyscale.com/resources/case-study/how-canva-built-a-modern-ai-platform-using-anyscale">Anyscale Case Study — Canva</a></div>
+    </div>
+
+    <div class="proof-card">
+      <span class="proof-number">4</span>
+      <div class="proof-company">UK National Health Service (NHS)</div>
+      <div class="proof-industry">Healthcare AI / Forecasting</div>
+      <div class="proof-description">During COVID, the UK NHS used Ray Core and KubeRay to build a production-grade architecture for infection forecasting across hospitals. The system needed to handle real-time data ingestion, model training, and prediction serving — all with healthcare-grade reliability requirements.</div>
+      <div class="proof-metrics">
+        <span class="metric">Healthcare-grade reliability</span>
+        <span class="metric">Production AI in regulated environment</span>
+        <span class="metric">Ray Core + KubeRay architecture</span>
+      </div>
+      <div class="proof-relevance">→ Relevant because Iambic's Takeda partnership requires production-grade ML infrastructure in a regulated biotech context. The NHS case shows Ray delivering healthcare-grade reliability — the same standard Takeda will demand.</div>
+      <div class="proof-source">Source: <a href="https://www.anyscale.com/blog/10-must-attend-ray-summit-sessions-generative-ai-scalable-ml-workloads-and">Anyscale — Ray Summit (NHS)</a></div>
+    </div>
+
+    <div class="talk-track">
+      <div class="talk-track-title">💬 Suggested Talk Track for Iambic</div>
+      <div class="talk-track-text">"Biolexis, another AI drug discovery company, cut molecular dynamics processing from 7 days to 5 hours on Anyscale. Recursion Pharmaceuticals presented at Ray Summit on training foundation models for drug discovery — the same transformer architecture class as NeuralPLexer. As you scale to serve Takeda's programs alongside your own, the managed platform handles workload isolation, audit trails, and multi-program orchestration out of the box."</div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════════ -->
+<!-- FAL.AI -->
+<!-- ═══════════════════════════════════════════ -->
+<section class="company-section" id="falai">
+  <div class="company-header" style="border-left: 4px solid #f78166">
+    <div class="company-title-row">
+      <h2 class="company-name" style="color:#f78166">Fal.ai</h2>
+      <span class="tier-badge" style="background:#f7816620;color:#f78166;border:1px solid #f7816640">AI Platform / Infra · Multi-Model Inference</span>
+    </div>
+  </div>
+  <div class="proof-grid">
+
+    <div class="proof-card primary">
+      <span class="proof-number">1</span>
+      <div class="proof-company">Samsara</div>
+      <div class="proof-industry">IoT / Fleet Management / Multi-Model Inference</div>
+      <div class="proof-description">Samsara migrated their production ML inference pipeline to Ray Serve, achieving a 50% reduction in total ML inferencing cost per year. Ray Serve's model multiplexing enabled serving hundreds of millions of inputs across multiple model types on the same GPU infrastructure with dramatically lower overhead.</div>
+      <div class="proof-metrics">
+        <span class="metric"><strong>50%</strong> annual inference cost reduction</span>
+        <span class="metric">Model multiplexing at scale</span>
+        <span class="metric">Hundreds of millions of inputs</span>
+      </div>
+      <div class="proof-relevance">→ Direct parallel: fal.ai runs 100M+ inference calls/day across heterogeneous models (image, video, audio). Samsara proves Ray Serve cuts multi-model inference costs by half at production scale.</div>
+      <div class="proof-source">Source: <a href="https://www.anyscale.com/blog/tackling-the-cost-and-complexity-of-serving-ai-in-production-ray-serve">Anyscale Blog — Ray Serve Cost & Complexity</a></div>
+    </div>
+
+    <div class="proof-card">
+      <span class="proof-number">2</span>
+      <div class="proof-company">Wildlife Studios</div>
+      <div class="proof-industry">Multi-Model Serving / Gaming</div>
+      <div class="proof-description">Wildlife Studios deployed a multi-model ensemble on Ray Serve where a "Supervisor" deployment orchestrates 15 different model deployments in parallel per request — fetching user features, calling models simultaneously, and aggregating results. This reduced p95 latency visibly and they expanded Ray Serve usage across more models.</div>
+      <div class="proof-metrics">
+        <span class="metric"><strong>15 models</strong> in parallel per request</span>
+        <span class="metric">Visible p95 latency drop</span>
+        <span class="metric">Multi-model orchestration</span>
+      </div>
+      <div class="proof-relevance">→ Direct parallel: fal.ai serves heterogeneous models (Flux, SDXL, Whisper, video) requiring smart multi-model routing. Wildlife Studios proves Ray Serve handles parallel multi-model composition with lower latency than alternatives.</div>
+      <div class="proof-source">Source: <a href="https://www.anyscale.com/blog/building-production-ai-applications-with-ray-serve">Anyscale Blog — Production AI with Ray Serve</a></div>
+    </div>
+
+    <div class="proof-card">
+      <span class="proof-number">3</span>
+      <div class="proof-company">Coactive AI</div>
+      <div class="proof-industry">Multimodal AI / Image & Video Processing</div>
+      <div class="proof-description">Coactive AI processes millions of images and videos through multiple foundation models. Using Ray Serve on Anyscale, they achieved fractional GPU allocation (0.1-0.5 GPUs per model), fast autoscaling from 2 to 50 GPUs, and a 75% reduction in GPU spend with 4× lower per-image processing cost. Deployed across both AWS and Azure.</div>
+      <div class="proof-metrics">
+        <span class="metric"><strong>75%</strong> GPU spend reduction</span>
+        <span class="metric"><strong>4×</strong> lower per-image cost</span>
+        <span class="metric"><strong>2 → 50</strong> GPU autoscaling</span>
+      </div>
+      <div class="proof-relevance">→ Direct parallel: fal.ai needs fractional GPU allocation for co-locating multiple models on the same GPU. Coactive proves Ray Serve's fractional GPU scheduling and burst autoscaling work at the exact pattern fal.ai runs.</div>
+      <div class="proof-source">Source: <a href="https://www.anyscale.com/resources/case-study/coactive-ai">Anyscale Case Study — Coactive AI</a></div>
+    </div>
+
+    <div class="proof-card">
+      <span class="proof-number">4</span>
+      <div class="proof-company">Attentive</div>
+      <div class="proof-industry">AI Platform / Marketing Tech</div>
+      <div class="proof-description">Attentive, which drove $29B+ in customer revenue in 2024, slashed AI compute costs by 99% using the Anyscale platform. This extreme cost optimization at high-volume scale demonstrates what's possible when GPU scheduling and workload orchestration are done correctly.</div>
+      <div class="proof-metrics">
+        <span class="metric"><strong>99%</strong> AI compute cost reduction</span>
+        <span class="metric">$29B+ customer revenue supported</span>
+        <span class="metric">High-volume production workloads</span>
+      </div>
+      <div class="proof-relevance">→ Relevant because fal.ai's business model depends on inference cost per call. Attentive shows the extreme end of what Anyscale cost optimization can deliver at massive production scale.</div>
+      <div class="proof-source">Source: <a href="https://www.anyscale.com/resources/case-study/attentive">Anyscale Case Study — Attentive</a></div>
+    </div>
+
+    <div class="talk-track">
+      <div class="talk-track-title">💬 Suggested Talk Track for Fal.ai</div>
+      <div class="talk-track-text">"Samsara cut inference costs 50% with Ray Serve's model multiplexing. Coactive reduced GPU spend 75% using fractional GPU allocation — serving multiple models on the same GPU, exactly your pattern at 100M+ calls/day. Wildlife Studios runs 15 models in parallel per request with lower p95 latency. As you migrate to Blackwell and scale to tens of thousands of GPUs, this is the serving layer that scales without re-architecture."</div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════════ -->
+<!-- APEX.AI -->
+<!-- ═══════════════════════════════════════════ -->
+<section class="company-section" id="apexai">
+  <div class="company-header" style="border-left: 4px solid #58a6ff">
+    <div class="company-title-row">
+      <h2 class="company-name" style="color:#58a6ff">Apex.AI</h2>
+      <span class="tier-badge" style="background:#58a6ff20;color:#58a6ff;border:1px solid #58a6ff40">AV / Robotics · Safety-Critical OS</span>
+    </div>
+  </div>
+  <div class="proof-grid">
+
+    <div class="proof-card primary">
+      <span class="proof-number">1</span>
+      <div class="proof-company">Blue River Technology (John Deere)</div>
+      <div class="proof-industry">Autonomous Vehicles / Agriculture</div>
+      <div class="proof-description">Blue River migrated their AV regression testing and data processing pipeline to Anyscale, cutting total processing from 24 hours to 9.5 hours. The biggest bottleneck — data format conversion for their proprietary sensor data — was parallelized across a Ray cluster, removing single points of failure.</div>
+      <div class="proof-metrics">
+        <span class="metric"><strong>2.5×</strong> faster iteration</span>
+        <span class="metric"><strong>24h → 9.5h</strong> pipeline</span>
+        <span class="metric">Eliminated single points of failure</span>
+      </div>
+      <div class="proof-relevance">→ Direct parallel: Apex.AI customers need offboard model validation pipelines to certify ASIL-D models. Blue River proves Anyscale handles the exact pattern: large-scale regression testing of AV perception models.</div>
+      <div class="proof-source">Source: <a href="https://www.anyscale.com/resources/case-study/blue-river-technology">Anyscale Case Study — Blue River Technology</a></div>
+    </div>
+
+    <div class="proof-card">
+      <span class="proof-number">2</span>
+      <div class="proof-company">Physical Intelligence (π)</div>
+      <div class="proof-industry">Physical AI / Multi-Domain Robotics</div>
+      <div class="proof-description">PI trains models that work across diverse robot embodiments — from single-arm to dual-arm, mobile to stationary. This multi-platform adaptability on Anyscale mirrors the multi-domain challenge Apex.AI faces: training models for automotive, robotics, and medical deployments from a unified platform.</div>
+      <div class="proof-metrics">
+        <span class="metric">Multi-embodiment model training</span>
+        <span class="metric">Terabytes of daily sensor data</span>
+        <span class="metric">Unified platform across robot types</span>
+      </div>
+      <div class="proof-relevance">→ Direct parallel: Apex.AI serves automotive, robotics, and medical verticals from one OS. PI shows Anyscale handling multi-domain model training across different hardware targets — exactly Apex.AI's cross-vertical challenge.</div>
+      <div class="proof-source">Source: <a href="https://www.anyscale.com/resources/case-study/physical-intelligence">Anyscale Case Study — Physical Intelligence</a></div>
+    </div>
+
+    <div class="proof-card">
+      <span class="proof-number">3</span>
+      <div class="proof-company">Zoox (Amazon)</div>
+      <div class="proof-industry">AV Simulation & Safety Validation</div>
+      <div class="proof-description">Zoox uses Ray for distributed simulation and metrics evaluation across their autonomous driving stack. Their autotuning platform runs thousands of simulated scenarios in parallel — the exact workload pattern that ISO 26262 model validation at ASIL-D level requires.</div>
+      <div class="proof-metrics">
+        <span class="metric">Distributed AV simulation</span>
+        <span class="metric">Parallel scenario evaluation</span>
+        <span class="metric">Safety-critical validation</span>
+      </div>
+      <div class="proof-relevance">→ Direct parallel: Apex.AI's customers need massive validation test suites for ASIL-D certification. Zoox proves Ray orchestrates safety-critical AV simulation at exactly the scale required.</div>
+      <div class="proof-source">Source: <a href="https://www.anyscale.com/blog/10-must-attend-ray-summit-sessions-generative-ai-scalable-ml-workloads-and">Anyscale — Ray Summit (Zoox)</a></div>
+    </div>
+
+    <div class="talk-track">
+      <div class="talk-track-title">💬 Suggested Talk Track for Apex.AI</div>
+      <div class="talk-track-text">"For every production Apex.OS deployment, there's an offboard training and validation pipeline that needs to scale. Blue River cut their AV regression testing from 24 hours to under 10 on Anyscale. Zoox runs thousands of simulation scenarios in parallel on Ray for safety validation. And Physical Intelligence shows how one platform serves multi-domain robotics training. This is the cloud counterpart to your edge OS."</div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════════ -->
+<!-- CHOOCH -->
+<!-- ═══════════════════════════════════════════ -->
+<section class="company-section" id="chooch">
+  <div class="company-header" style="border-left: 4px solid #d2a8ff">
+    <div class="company-title-row">
+      <h2 class="company-name" style="color:#d2a8ff">Chooch</h2>
+      <span class="tier-badge" style="background:#d2a8ff20;color:#d2a8ff;border:1px solid #d2a8ff40">AI Platform / Infra · Vision AI + LLM</span>
+    </div>
+  </div>
+  <div class="proof-grid">
+
+    <div class="proof-card primary">
+      <span class="proof-number">1</span>
+      <div class="proof-company">Coactive AI</div>
+      <div class="proof-industry">Multimodal AI / Computer Vision</div>
+      <div class="proof-description">Coactive processes millions of images and videos through multiple foundation models using Ray Serve on Anyscale. Fractional GPU allocation (0.1-0.5 GPUs per model) maximizes workload density, and autoscaling from 2 to 50 GPUs handles bursts without idle capacity. Deployed in customer Kubernetes environments on both AWS and Azure.</div>
+      <div class="proof-metrics">
+        <span class="metric"><strong>75%</strong> GPU spend reduction</span>
+        <span class="metric"><strong>4×</strong> lower per-image cost</span>
+        <span class="metric">Multi-cloud (AWS + Azure)</span>
+      </div>
+      <div class="proof-relevance">→ Direct parallel: Chooch runs multi-model CV + LLM inference per video stream. Coactive proves Ray Serve's fractional GPU allocation handles the exact multi-model-per-request pattern with dramatic cost reduction. Azure alignment matches Chooch's Microsoft partnership.</div>
+      <div class="proof-source">Source: <a href="https://www.anyscale.com/resources/case-study/coactive-ai">Anyscale Case Study — Coactive AI</a></div>
+    </div>
+
+    <div class="proof-card">
+      <span class="proof-number">2</span>
+      <div class="proof-company">SewerAI</div>
+      <div class="proof-industry">Computer Vision / Infrastructure Inspection</div>
+      <div class="proof-description">SewerAI uses computer vision to analyze sewer pipe video footage. After migrating to Anyscale, they achieved 3× faster batch inference, 95% GPU utilization (up from ~25%), 50% fewer machines required, and 75%+ reduction in total cost of ownership versus AWS Batch.</div>
+      <div class="proof-metrics">
+        <span class="metric"><strong>3×</strong> faster batch inference</span>
+        <span class="metric"><strong>95%</strong> GPU utilization (was 25%)</span>
+        <span class="metric"><strong>75%+</strong> TCO reduction</span>
+      </div>
+      <div class="proof-relevance">→ Direct parallel: SewerAI runs CV inference on video streams — same modality as Chooch. The GPU utilization jump from 25% to 95% is exactly the efficiency gain Chooch needs as ImageChat multiplies per-stream compute demand by 5-10×.</div>
+      <div class="proof-source">Source: <a href="https://www.anyscale.com/resources/case-study/sewerai">Anyscale Case Study — SewerAI</a></div>
+    </div>
+
+    <div class="proof-card">
+      <span class="proof-number">3</span>
+      <div class="proof-company">Samsara</div>
+      <div class="proof-industry">IoT / Fleet Management / Production Inference</div>
+      <div class="proof-description">Samsara reduced total ML inferencing costs by 50% annually after migrating to Ray Serve. Their workload — real-time inference across IoT devices at massive scale — demonstrates how model multiplexing and smart resource scheduling cut serving costs at enterprise production volumes.</div>
+      <div class="proof-metrics">
+        <span class="metric"><strong>50%</strong> annual inference cost reduction</span>
+        <span class="metric">IoT-scale production serving</span>
+        <span class="metric">Model multiplexing optimization</span>
+      </div>
+      <div class="proof-relevance">→ Relevant because Chooch serves enterprise customers in healthcare and manufacturing with strict uptime and cost requirements. Samsara proves Ray Serve delivers 50% cost savings at IoT production scale — the same enterprise deployment model.</div>
+      <div class="proof-source">Source: <a href="https://www.anyscale.com/blog/tackling-the-cost-and-complexity-of-serving-ai-in-production-ray-serve">Anyscale Blog — Ray Serve Production</a></div>
+    </div>
+
+    <div class="talk-track">
+      <div class="talk-track-title">💬 Suggested Talk Track for Chooch</div>
+      <div class="talk-track-text">"Coactive processes millions of images through multi-model pipelines on Ray Serve — same pattern as ImageChat's LLM + CV fusion — and cut GPU spend 75%. SewerAI, another video-based CV company, went from 25% to 95% GPU utilization. Both run on Azure, matching your Microsoft partnership. As ImageChat scales to multi-facility enterprise deployments, this is how you keep per-stream costs manageable."</div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════════ -->
+<!-- LIGHTWHEEL -->
+<!-- ═══════════════════════════════════════════ -->
+<section class="company-section" id="lightwheel">
+  <div class="company-header" style="border-left: 4px solid #e3b341">
+    <div class="company-title-row">
+      <h2 class="company-name" style="color:#e3b341">Lightwheel</h2>
+      <span class="tier-badge" style="background:#e3b34120;color:#e3b341;border:1px solid #e3b34140">Robotics / Physical AI · Sim-to-Real</span>
+    </div>
+  </div>
+  <div class="proof-grid">
+
+    <div class="proof-card primary">
+      <span class="proof-number">1</span>
+      <div class="proof-company">Physical Intelligence (π)</div>
+      <div class="proof-industry">Physical AI / Robotics</div>
+      <div class="proof-description">PI processes terabytes of heterogeneous robotics sensor data daily to train adaptive models across different hardware platforms. Anyscale's operational stability freed engineers from infrastructure management, redirecting time to robotics research. Multi-cloud deployment (AWS + GCP) provides flexibility.</div>
+      <div class="proof-metrics">
+        <span class="metric"><strong>2×</strong> faster research iteration</span>
+        <span class="metric"><strong>16+</strong> engineers on research, not infra</span>
+        <span class="metric">Terabytes of daily sensor data</span>
+      </div>
+      <div class="proof-relevance">→ Strongest parallel: PI is the closest analog to Lightwheel's physical AI workload. Both process massive sensor data, train multi-embodiment robot policies, and need NVIDIA-aligned infrastructure. PI validates Anyscale as the platform for physical AI at scale.</div>
+      <div class="proof-source">Source: <a href="https://www.anyscale.com/resources/case-study/physical-intelligence">Anyscale Case Study — Physical Intelligence</a></div>
+    </div>
+
+    <div class="proof-card">
+      <span class="proof-number">2</span>
+      <div class="proof-company">Canva</div>
+      <div class="proof-industry">Distributed Training / Image Processing</div>
+      <div class="proof-description">Canva achieved 12× faster model training (90-minute epochs → 6 minutes), 100% GPU utilization, and 50% cloud cost reduction by moving to Anyscale. They're standardizing all AI training on the platform for maximum velocity.</div>
+      <div class="proof-metrics">
+        <span class="metric"><strong>12×</strong> faster training</span>
+        <span class="metric"><strong>100%</strong> GPU utilization</span>
+        <span class="metric"><strong>50%</strong> cost reduction</span>
+      </div>
+      <div class="proof-relevance">→ Relevant because Lightwheel's 100:1 synthetic data generation and policy training require massive distributed compute. Canva's 12× training speedup shows what happens when GPU utilization reaches 100% — critical for Lightwheel's compute-intensive MimicGen/DexMimicGen pipelines.</div>
+      <div class="proof-source">Source: <a href="https://www.anyscale.com/resources/case-study/how-canva-built-a-modern-ai-platform-using-anyscale">Anyscale Case Study — Canva</a></div>
+    </div>
+
+    <div class="proof-card">
+      <span class="proof-number">3</span>
+      <div class="proof-company">Zoox (Amazon)</div>
+      <div class="proof-industry">Autonomous Driving / Simulation</div>
+      <div class="proof-description">Zoox's autotuning platform uses Ray to scale distributed simulation and metrics evaluation — running thousands of simulated driving scenarios in parallel. Ray's actor model maps each simulation instance to a coordinated worker, enabling massive parallel evaluation.</div>
+      <div class="proof-metrics">
+        <span class="metric">Thousands of parallel simulations</span>
+        <span class="metric">Ray actor model for sim instances</span>
+        <span class="metric">Distributed metrics evaluation</span>
+      </div>
+      <div class="proof-relevance">→ Direct parallel: Lightwheel's Isaac Lab-Arena runs large-scale policy evaluation across thousands of Isaac Sim instances. Ray's actor model maps each simulator to a Ray actor — exactly the architecture Zoox uses for parallel AV simulation.</div>
+      <div class="proof-source">Source: <a href="https://www.anyscale.com/blog/10-must-attend-ray-summit-sessions-generative-ai-scalable-ml-workloads-and">Anyscale — Ray Summit (Zoox)</a></div>
+    </div>
+
+    <div class="talk-track">
+      <div class="talk-track-title">💬 Suggested Talk Track for Lightwheel</div>
+      <div class="talk-track-text">"Physical Intelligence — another NVIDIA-aligned physical AI company — processes terabytes of robot sensor data on Anyscale daily. Zoox runs thousands of parallel driving simulations on Ray using the actor model — the exact architecture for your Isaac Lab-Arena rollouts. Each Isaac Sim environment maps to a Ray actor, coordinated by a central policy trainer. This is how you scale from the Geely deployment to 10 customers."</div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════════ -->
+<!-- VALAR LABS -->
+<!-- ═══════════════════════════════════════════ -->
+<section class="company-section" id="valar">
+  <div class="company-header" style="border-left: 4px solid #3fb950">
+    <div class="company-title-row">
+      <h2 class="company-name" style="color:#3fb950">Valar Labs</h2>
+      <span class="tier-badge" style="background:#3fb95020;color:#3fb950;border:1px solid #3fb95040">Health AI · Pathology / Oncology</span>
+    </div>
+  </div>
+  <div class="proof-grid">
+
+    <div class="proof-card primary">
+      <span class="proof-number">1</span>
+      <div class="proof-company">Biolexis Therapeutics</div>
+      <div class="proof-industry">Drug Discovery / Biotech</div>
+      <div class="proof-description">Biolexis processes 500,000+ biochemical data points plus billions of public records through their FIELDS™ AI drug discovery platform. On Anyscale, workloads compressed from 7 days to under 5 hours — proving the platform handles biotech-scale data processing.</div>
+      <div class="proof-metrics">
+        <span class="metric"><strong>7 days → 5 hours</strong></span>
+        <span class="metric">Billions of molecular records</span>
+        <span class="metric">POC to production</span>
+      </div>
+      <div class="proof-relevance">→ Direct parallel: Valar Labs processes pathology slide images at scale for oncology diagnosis — large-scale biomedical data processing requiring distributed compute. Biolexis proves Anyscale handles healthcare AI data pipelines at the scale Valar needs.</div>
+      <div class="proof-source">Source: <a href="https://www.anyscale.com/blog/biolexis-boosts-their-new-ai-ml-drug-discovery-platform-using-anyscales">Anyscale Blog — Biolexis Therapeutics</a></div>
+    </div>
+
+    <div class="proof-card">
+      <span class="proof-number">2</span>
+      <div class="proof-company">Coactive AI</div>
+      <div class="proof-industry">Multimodal AI / Image Analysis</div>
+      <div class="proof-description">Coactive processes millions of images through foundation models on Ray Serve — running multimodal pipelines across customer data. The 75% GPU cost reduction and 4× lower per-image processing cost came from fractional GPU allocation and smart autoscaling.</div>
+      <div class="proof-metrics">
+        <span class="metric"><strong>75%</strong> GPU cost reduction</span>
+        <span class="metric"><strong>4×</strong> lower per-image cost</span>
+        <span class="metric">Millions of images processed</span>
+      </div>
+      <div class="proof-relevance">→ Direct parallel: Valar Labs processes whole-slide pathology images — extremely large image files requiring efficient GPU batch inference. Coactive's per-image cost reduction and multi-model image pipeline directly maps to Valar's pathology AI workload.</div>
+      <div class="proof-source">Source: <a href="https://www.anyscale.com/resources/case-study/coactive-ai">Anyscale Case Study — Coactive AI</a></div>
+    </div>
+
+    <div class="proof-card">
+      <span class="proof-number">3</span>
+      <div class="proof-company">UK National Health Service (NHS)</div>
+      <div class="proof-industry">Healthcare AI / Production</div>
+      <div class="proof-description">The NHS built production AI using Ray Core and KubeRay for COVID infection forecasting across hospital systems. The architecture delivered healthcare-grade reliability in a regulated environment — with real-time data pipelines and model serving at clinical scale.</div>
+      <div class="proof-metrics">
+        <span class="metric">Healthcare-grade reliability</span>
+        <span class="metric">Regulated environment deployment</span>
+        <span class="metric">Clinical-scale model serving</span>
+      </div>
+      <div class="proof-relevance">→ Relevant because Valar Labs operates in clinical healthcare (oncology pathology). The NHS case validates that Ray delivers production AI in regulated healthcare settings — the compliance and reliability standard Valar's hospital customers require.</div>
+      <div class="proof-source">Source: <a href="https://www.anyscale.com/blog/10-must-attend-ray-summit-sessions-generative-ai-scalable-ml-workloads-and">Anyscale — Ray Summit (NHS)</a></div>
+    </div>
+
+    <div class="talk-track">
+      <div class="talk-track-title">💬 Suggested Talk Track for Valar Labs</div>
+      <div class="talk-track-text">"Coactive processes millions of images through multi-model AI pipelines on Anyscale and reduced per-image processing costs by 4×. For pathology whole-slide images, that efficiency directly translates to lower cost per patient analysis. Biolexis cut biomedical data processing from 7 days to 5 hours, and the NHS built production healthcare AI on Ray. This is the infrastructure that scales from research to clinical deployment."</div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════════ -->
+<!-- ELROY AIR -->
+<!-- ═══════════════════════════════════════════ -->
+<section class="company-section" id="elroy">
+  <div class="company-header" style="border-left: 4px solid #58a6ff">
+    <div class="company-title-row">
+      <h2 class="company-name" style="color:#58a6ff">Elroy Air</h2>
+      <span class="tier-badge" style="background:#58a6ff20;color:#58a6ff;border:1px solid #58a6ff40">AV / Robotics · Autonomous Cargo Drones</span>
+    </div>
+  </div>
+  <div class="proof-grid">
+
+    <div class="proof-card primary">
+      <span class="proof-number">1</span>
+      <div class="proof-company">Blue River Technology (John Deere)</div>
+      <div class="proof-industry">Autonomous Vehicles / Robotics</div>
+      <div class="proof-description">Blue River applies computer vision to autonomous agricultural equipment. Their regression testing pipeline — processing sensor data from autonomous vehicles — went from 24 hours to 9.5 hours on Anyscale, with 2.5× faster engineering iteration and elimination of single points of failure.</div>
+      <div class="proof-metrics">
+        <span class="metric"><strong>2.5×</strong> faster iteration</span>
+        <span class="metric"><strong>24h → 9.5h</strong> testing pipeline</span>
+        <span class="metric">Sensor data processing at scale</span>
+      </div>
+      <div class="proof-relevance">→ Direct parallel: Elroy Air needs to process flight sensor data, run perception model validation, and test autonomous navigation algorithms. Blue River proves Anyscale handles AV sensor data pipelines and regression testing for autonomous systems.</div>
+      <div class="proof-source">Source: <a href="https://www.anyscale.com/resources/case-study/blue-river-technology">Anyscale Case Study — Blue River Technology</a></div>
+    </div>
+
+    <div class="proof-card">
+      <span class="proof-number">2</span>
+      <div class="proof-company">Zoox (Amazon)</div>
+      <div class="proof-industry">AV Simulation & Safety Validation</div>
+      <div class="proof-description">Zoox uses Ray for distributed AV simulation — running thousands of safety scenarios in parallel for autonomous driving validation. Their autotuning platform speeds up algorithm development by enabling massive-scale scenario testing.</div>
+      <div class="proof-metrics">
+        <span class="metric">Thousands of parallel simulations</span>
+        <span class="metric">Safety scenario validation</span>
+        <span class="metric">Algorithm development acceleration</span>
+      </div>
+      <div class="proof-relevance">→ Direct parallel: Elroy Air must validate autonomous flight algorithms across diverse weather, terrain, and cargo scenarios. Zoox proves Ray handles safety-critical simulation at scale — the same regulatory validation pattern autonomous cargo drones require.</div>
+      <div class="proof-source">Source: <a href="https://www.anyscale.com/blog/10-must-attend-ray-summit-sessions-generative-ai-scalable-ml-workloads-and">Anyscale — Ray Summit (Zoox)</a></div>
+    </div>
+
+    <div class="proof-card">
+      <span class="proof-number">3</span>
+      <div class="proof-company">Physical Intelligence (π)</div>
+      <div class="proof-industry">Physical AI / Autonomous Systems</div>
+      <div class="proof-description">PI builds adaptive robotic intelligence that works across different hardware and environments. Using Anyscale, they process terabytes of sensor data daily, doubled research iteration speed, and freed 16+ engineers from infrastructure work to focus on core robotics research.</div>
+      <div class="proof-metrics">
+        <span class="metric"><strong>2×</strong> research iteration speed</span>
+        <span class="metric"><strong>16+</strong> engineers freed from infra</span>
+        <span class="metric">Multi-environment training</span>
+      </div>
+      <div class="proof-relevance">→ Relevant because Elroy Air is a small team building complex autonomous systems. PI shows how Anyscale lets lean robotics teams focus engineering time on core autonomy rather than infrastructure management — critical for a startup building autonomous cargo drones.</div>
+      <div class="proof-source">Source: <a href="https://www.anyscale.com/resources/case-study/physical-intelligence">Anyscale Case Study — Physical Intelligence</a></div>
+    </div>
+
+    <div class="talk-track">
+      <div class="talk-track-title">💬 Suggested Talk Track for Elroy Air</div>
+      <div class="talk-track-text">"Blue River Technology — autonomous vehicles for agriculture — cut their sensor data regression pipeline from 24 hours to under 10 on Anyscale. Zoox runs thousands of parallel safety simulations on Ray for autonomous driving validation. And Physical Intelligence doubled research iteration speed by moving infrastructure to Anyscale. For an autonomous cargo drone program, this means faster flight algorithm validation and more engineering time on autonomy."</div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════════ -->
+<!-- INTRINSIC (GOOGLE) -->
+<!-- ═══════════════════════════════════════════ -->
+<section class="company-section" id="intrinsic">
+  <div class="company-header" style="border-left: 4px solid #f78166">
+    <div class="company-title-row">
+      <h2 class="company-name" style="color:#f78166">Intrinsic (Google)</h2>
+      <span class="tier-badge" style="background:#f7816620;color:#f78166;border:1px solid #f7816640">Robotics / Physical AI · Industrial</span>
+    </div>
+  </div>
+  <div class="proof-grid">
+
+    <div class="proof-card primary">
+      <span class="proof-number">1</span>
+      <div class="proof-company">Physical Intelligence (π)</div>
+      <div class="proof-industry">Physical AI / Multi-Robot Training</div>
+      <div class="proof-description">PI trains models across diverse robot embodiments — from factory arms to mobile manipulators — processing terabytes of heterogeneous sensor data daily. Anyscale provides the unified training platform that works across different hardware configurations, environments, and tasks.</div>
+      <div class="proof-metrics">
+        <span class="metric"><strong>2×</strong> faster research iteration</span>
+        <span class="metric">Multi-embodiment robot training</span>
+        <span class="metric">Terabytes of daily sensor data</span>
+      </div>
+      <div class="proof-relevance">→ Strongest parallel: Intrinsic is building software to make industrial robots smarter and easier to program. PI proves Anyscale handles the exact challenge: training generalizable robot policies across different hardware platforms at scale.</div>
+      <div class="proof-source">Source: <a href="https://www.anyscale.com/resources/case-study/physical-intelligence">Anyscale Case Study — Physical Intelligence</a></div>
+    </div>
+
+    <div class="proof-card">
+      <span class="proof-number">2</span>
+      <div class="proof-company">Canva</div>
+      <div class="proof-industry">Distributed Training at Scale</div>
+      <div class="proof-description">Canva achieved 12× faster model training, 100% GPU utilization, and 50% cloud cost reduction. They're standardizing all AI training on Anyscale — demonstrating how the platform becomes the unified ML training layer for organizations with multiple model types and use cases.</div>
+      <div class="proof-metrics">
+        <span class="metric"><strong>12×</strong> faster training</span>
+        <span class="metric"><strong>50%</strong> cost reduction</span>
+        <span class="metric">Platform standardization</span>
+      </div>
+      <div class="proof-relevance">→ Relevant because Intrinsic (backed by Google/Alphabet resources) needs a platform that standardizes training across multiple robot types and tasks. Canva shows Anyscale as the single training platform that organizations standardize on for all their AI workloads.</div>
+      <div class="proof-source">Source: <a href="https://www.anyscale.com/resources/case-study/how-canva-built-a-modern-ai-platform-using-anyscale">Anyscale Case Study — Canva</a></div>
+    </div>
+
+    <div class="proof-card">
+      <span class="proof-number">3</span>
+      <div class="proof-company">Uber</div>
+      <div class="proof-industry">Heterogeneous Compute / Deep Learning</div>
+      <div class="proof-description">Uber achieved 50% compute savings by running large-scale deep learning on Ray heterogeneous CPU + GPU clusters. The framework efficiently coordinates data preprocessing (CPU) and model training (GPU) as separate stages — the classic robotics training pipeline pattern.</div>
+      <div class="proof-metrics">
+        <span class="metric"><strong>50%</strong> compute savings</span>
+        <span class="metric">Heterogeneous CPU+GPU scheduling</span>
+        <span class="metric">Large-scale deep learning</span>
+      </div>
+      <div class="proof-relevance">→ Relevant because industrial robotics training involves heterogeneous workloads: CPU-bound simulation/physics and GPU-bound policy training. Uber proves Ray efficiently orchestrates this heterogeneous compute pattern at scale.</div>
+      <div class="proof-source">Source: <a href="https://www.anyscale.com/blog/ray-summit-the-industry-event-for-scalable-ai-unveils-new-innovations-in-ray">Anyscale — Ray Summit / Uber</a></div>
+    </div>
+
+    <div class="talk-track">
+      <div class="talk-track-title">💬 Suggested Talk Track for Intrinsic</div>
+      <div class="talk-track-text">"Physical Intelligence trains models across diverse robot embodiments on Anyscale — factory arms to mobile manipulators — the same multi-platform challenge Intrinsic faces. Uber saved 50% on compute by using Ray to orchestrate heterogeneous CPU + GPU workloads, which mirrors the simulation + training pipeline pattern in industrial robotics. Canva standardized all AI training on Anyscale for consistency across teams."</div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════════ -->
+<!-- WING (ALPHABET) -->
+<!-- ═══════════════════════════════════════════ -->
+<section class="company-section" id="wing">
+  <div class="company-header" style="border-left: 4px solid #58a6ff">
+    <div class="company-title-row">
+      <h2 class="company-name" style="color:#58a6ff">Wing (Alphabet)</h2>
+      <span class="tier-badge" style="background:#58a6ff20;color:#58a6ff;border:1px solid #58a6ff40">AV / Robotics · Drone Delivery</span>
+    </div>
+  </div>
+  <div class="proof-grid">
+
+    <div class="proof-card primary">
+      <span class="proof-number">1</span>
+      <div class="proof-company">Zoox (Amazon)</div>
+      <div class="proof-industry">Autonomous Driving / Simulation</div>
+      <div class="proof-description">Zoox uses Ray for distributed AV simulation and safety validation, running thousands of scenarios in parallel. Their autotuning platform accelerates algorithm development for autonomous systems operating in complex real-world environments.</div>
+      <div class="proof-metrics">
+        <span class="metric">Thousands of parallel simulations</span>
+        <span class="metric">Safety-critical validation</span>
+        <span class="metric">Real-world environment complexity</span>
+      </div>
+      <div class="proof-relevance">→ Direct parallel: Wing operates autonomous drones in complex airspace with weather, obstacles, and regulatory constraints. Zoox proves Ray handles the massive simulation workloads needed to validate autonomous navigation in dynamic environments.</div>
+      <div class="proof-source">Source: <a href="https://www.anyscale.com/blog/10-must-attend-ray-summit-sessions-generative-ai-scalable-ml-workloads-and">Anyscale — Ray Summit (Zoox)</a></div>
+    </div>
+
+    <div class="proof-card">
+      <span class="proof-number">2</span>
+      <div class="proof-company">Blue River Technology (John Deere)</div>
+      <div class="proof-industry">Autonomous Vehicles / Sensor Data</div>
+      <div class="proof-description">Blue River processes sensor data from autonomous agricultural vehicles at scale. Migrating their data pipeline to Anyscale Ray cut regression testing from 24 hours to 9.5 hours and made the engineering team 2.5× more productive.</div>
+      <div class="proof-metrics">
+        <span class="metric"><strong>2.5×</strong> faster iteration</span>
+        <span class="metric"><strong>24h → 9.5h</strong> pipeline</span>
+        <span class="metric">Autonomous vehicle sensor data</span>
+      </div>
+      <div class="proof-relevance">→ Direct parallel: Wing processes flight data from thousands of drone deliveries to improve navigation models. Blue River shows how Anyscale parallelizes sensor data pipelines for autonomous vehicles — the same pattern at drone scale.</div>
+      <div class="proof-source">Source: <a href="https://www.anyscale.com/resources/case-study/blue-river-technology">Anyscale Case Study — Blue River Technology</a></div>
+    </div>
+
+    <div class="proof-card">
+      <span class="proof-number">3</span>
+      <div class="proof-company">Instacart</div>
+      <div class="proof-industry">ML Platform / Logistics</div>
+      <div class="proof-description">Instacart reduced ML model training times by 12× (from days to hours) using Ray with Kubeflow, while improving GPU utilization and cost effectiveness. Their logistics-scale ML platform demonstrates how Ray handles continuous model retraining for systems making real-time operational decisions.</div>
+      <div class="proof-metrics">
+        <span class="metric"><strong>12×</strong> faster training</span>
+        <span class="metric">Logistics-scale ML platform</span>
+        <span class="metric">Real-time operational models</span>
+      </div>
+      <div class="proof-relevance">→ Relevant because Wing needs continuous model retraining to optimize delivery routes, weather adaptation, and landing algorithms. Instacart shows Ray powering logistics ML at scale — compressing training cycles from days to hours for operational decision models.</div>
+      <div class="proof-source">Source: <a href="https://www.anyscale.com/blog/ray-summit-the-industry-event-for-scalable-ai-unveils-new-innovations-in-ray">Anyscale — Ray Summit / Instacart</a></div>
+    </div>
+
+    <div class="talk-track">
+      <div class="talk-track-title">💬 Suggested Talk Track for Wing</div>
+      <div class="talk-track-text">"Zoox validates autonomous driving safety by running thousands of parallel simulations on Ray — the same validation pattern Wing needs for flight path safety across diverse environments. Blue River cut AV sensor data processing from 24 hours to under 10. And Instacart — another logistics company — reduced model training from days to hours. For an operation running thousands of drone deliveries, that iteration speed compounds into safer, more efficient flights."</div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════════ -->
+<!-- GITAI -->
+<!-- ═══════════════════════════════════════════ -->
+<section class="company-section" id="gitai">
+  <div class="company-header" style="border-left: 4px solid #d2a8ff">
+    <div class="company-title-row">
+      <h2 class="company-name" style="color:#d2a8ff">GITAI</h2>
+      <span class="tier-badge" style="background:#d2a8ff20;color:#d2a8ff;border:1px solid #d2a8ff40">Robotics / Space · Autonomous Assembly</span>
+    </div>
+  </div>
+  <div class="proof-grid">
+
+    <div class="proof-card primary">
+      <span class="proof-number">1</span>
+      <div class="proof-company">Physical Intelligence (π)</div>
+      <div class="proof-industry">Physical AI / Multi-Robot Training</div>
+      <div class="proof-description">PI builds adaptive robotic models that work across different hardware — one-arm, two-arm, mobile, stationary — processing terabytes of sensor data daily. Their Anyscale deployment doubled research iteration speed and freed 16+ engineers from infrastructure management.</div>
+      <div class="proof-metrics">
+        <span class="metric"><strong>2×</strong> research iteration speed</span>
+        <span class="metric">Multi-hardware robot training</span>
+        <span class="metric"><strong>16+</strong> engineers freed</span>
+      </div>
+      <div class="proof-relevance">→ Strongest parallel: GITAI builds dual-arm autonomous robots for space assembly. PI trains across diverse robot embodiments on Anyscale. Both need models that generalize across manipulation tasks — PI proves Anyscale handles multi-arm robotic training at scale.</div>
+      <div class="proof-source">Source: <a href="https://www.anyscale.com/resources/case-study/physical-intelligence">Anyscale Case Study — Physical Intelligence</a></div>
+    </div>
+
+    <div class="proof-card">
+      <span class="proof-number">2</span>
+      <div class="proof-company">Zoox (Amazon)</div>
+      <div class="proof-industry">Autonomous Systems / Simulation</div>
+      <div class="proof-description">Zoox uses Ray for distributed simulation and safety validation at massive scale — running thousands of scenarios in parallel. Their approach proves Ray can orchestrate the kind of extensive simulation testing required before deploying autonomous systems in safety-critical environments.</div>
+      <div class="proof-metrics">
+        <span class="metric">Thousands of parallel simulations</span>
+        <span class="metric">Safety-critical validation</span>
+        <span class="metric">Pre-deployment testing at scale</span>
+      </div>
+      <div class="proof-relevance">→ Direct parallel: GITAI must validate autonomous assembly operations extensively in simulation before ISS/lunar deployment — where failure is not an option. Zoox proves Ray handles safety-critical simulation validation at the scale GITAI needs.</div>
+      <div class="proof-source">Source: <a href="https://www.anyscale.com/blog/10-must-attend-ray-summit-sessions-generative-ai-scalable-ml-workloads-and">Anyscale — Ray Summit (Zoox)</a></div>
+    </div>
+
+    <div class="proof-card">
+      <span class="proof-number">3</span>
+      <div class="proof-company">SewerAI</div>
+      <div class="proof-industry">Computer Vision / Infrastructure Inspection</div>
+      <div class="proof-description">SewerAI achieved 3× faster batch inference, 95% GPU utilization (up from 25%), and 75% TCO reduction by migrating to Anyscale. Their small team got enterprise-grade infrastructure without building DevOps capabilities in-house.</div>
+      <div class="proof-metrics">
+        <span class="metric"><strong>3×</strong> faster batch inference</span>
+        <span class="metric"><strong>75%</strong> cost reduction</span>
+        <span class="metric">Small team, enterprise infra</span>
+      </div>
+      <div class="proof-relevance">→ Relevant because GITAI is a ~100-person team managing complex robotic systems. SewerAI shows how a small computer vision company gets enterprise-grade ML infrastructure on Anyscale without dedicated DevOps — exactly the resource efficiency GITAI needs as a startup building space robots.</div>
+      <div class="proof-source">Source: <a href="https://www.anyscale.com/resources/case-study/sewerai">Anyscale Case Study — SewerAI</a></div>
+    </div>
+
+    <div class="talk-track">
+      <div class="talk-track-title">💬 Suggested Talk Track for GITAI</div>
+      <div class="talk-track-text">"Physical Intelligence trains multi-arm robot manipulation models on Anyscale — similar dual-arm dexterity challenge to your S2 system. Zoox runs thousands of parallel safety simulations on Ray before deploying autonomous systems — exactly the validation rigor needed before an ISS or lunar deployment. And SewerAI, a small team like yours, got 75% cost savings and enterprise-grade infra without building DevOps in-house."</div>
+    </div>
+  </div>
+</section>
+
+</main>
+</body>
+</html>
