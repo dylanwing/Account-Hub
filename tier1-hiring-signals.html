@@ -1,0 +1,1266 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Tier 1 Hiring Signals — Anyscale</title>
+<style>
+  :root {
+    --bg: #0f1117;
+    --surface: #1a1d27;
+    --surface2: #22263a;
+    --border: #2a2e3f;
+    --text: #e8eaf6;
+    --muted: #7b82a8;
+    --accent: #6366f1;
+    --accent2: #818cf8;
+    --green: #22c55e;
+    --yellow: #eab308;
+    --red: #ef4444;
+    --purple: #a78bfa;
+    --cyan: #22d3ee;
+    --orange: #f97316;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body { background: var(--bg); color: var(--text); font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; min-height: 100vh; }
+
+  .layout { display: flex; min-height: 100vh; }
+  .sidebar { width: 260px; min-width: 260px; background: var(--surface); border-right: 1px solid var(--border); padding: 24px 0; position: sticky; top: 0; height: 100vh; overflow-y: auto; }
+  .main { flex: 1; padding: 36px 40px; max-width: 1150px; }
+
+  .sidebar-logo { padding: 0 20px 20px; border-bottom: 1px solid var(--border); margin-bottom: 16px; }
+  .sidebar-logo .brand { font-size: 11px; font-weight: 700; letter-spacing: 1.5px; text-transform: uppercase; color: var(--muted); }
+  .sidebar-logo .title { font-size: 15px; font-weight: 600; color: var(--text); margin-top: 4px; }
+  .sidebar-logo .sub { font-size: 11px; color: var(--muted); margin-top: 2px; }
+  .sidebar-section { padding: 6px 20px 2px; font-size: 10px; font-weight: 700; letter-spacing: 1px; text-transform: uppercase; color: var(--muted); margin-top: 8px; }
+  .sidebar-item { display: flex; align-items: center; gap: 10px; padding: 7px 20px; cursor: pointer; font-size: 13px; color: var(--muted); transition: all 0.15s; text-decoration: none; }
+  .sidebar-item:hover, .sidebar-item.active { background: var(--surface2); color: var(--text); }
+  .sidebar-item .dot { width: 8px; height: 8px; border-radius: 50%; flex-shrink: 0; }
+  .sidebar-item .count { margin-left: auto; font-size: 11px; color: var(--muted); background: var(--surface2); padding: 1px 6px; border-radius: 10px; }
+
+  .page-header { margin-bottom: 32px; }
+  .page-header h1 { font-size: 26px; font-weight: 700; color: var(--text); }
+  .page-header .meta { font-size: 13px; color: var(--muted); margin-top: 6px; }
+  .updated-badge { display: inline-flex; align-items: center; gap: 5px; background: rgba(99,102,241,0.1); border: 1px solid rgba(99,102,241,0.25); color: var(--accent2); font-size: 11px; font-weight: 600; padding: 3px 10px; border-radius: 12px; margin-top: 10px; }
+  .updated-badge::before { content: ''; width: 6px; height: 6px; background: var(--accent2); border-radius: 50%; display: inline-block; }
+
+  .stats-bar { display: flex; gap: 16px; flex-wrap: wrap; margin-bottom: 32px; }
+  .stat-card { background: var(--surface); border: 1px solid var(--border); border-radius: 10px; padding: 14px 20px; flex: 1; min-width: 120px; }
+  .stat-num { font-size: 22px; font-weight: 700; color: var(--text); }
+  .stat-label { font-size: 11px; color: var(--muted); margin-top: 2px; text-transform: uppercase; letter-spacing: 0.5px; }
+
+  .signal-banner { background: linear-gradient(135deg, rgba(99,102,241,0.12), rgba(167,139,250,0.08)); border: 1px solid rgba(99,102,241,0.25); border-radius: 10px; padding: 14px 18px; margin-bottom: 28px; font-size: 13px; color: var(--accent2); }
+  .signal-banner strong { color: var(--text); }
+
+  .company-section { margin-bottom: 36px; border: 1px solid var(--border); border-radius: 12px; overflow: hidden; }
+  .company-header { background: var(--surface); padding: 16px 20px; display: flex; align-items: center; gap: 14px; border-bottom: 1px solid var(--border); }
+  .company-icon { width: 36px; height: 36px; border-radius: 8px; display: flex; align-items: center; justify-content: center; font-size: 17px; flex-shrink: 0; }
+  .company-info { flex: 1; }
+  .company-name { font-size: 16px; font-weight: 700; color: var(--text); }
+  .company-meta-row { display: flex; align-items: center; gap: 10px; margin-top: 3px; flex-wrap: wrap; }
+  .chip { display: inline-flex; align-items: center; font-size: 11px; font-weight: 600; padding: 2px 8px; border-radius: 8px; }
+  .chip-sector { background: rgba(34,211,238,0.1); color: var(--cyan); border: 1px solid rgba(34,211,238,0.2); }
+  .chip-location { background: var(--surface2); color: var(--muted); }
+  .chip-roles { background: rgba(34,197,94,0.1); color: var(--green); border: 1px solid rgba(34,197,94,0.2); }
+  .company-jobs-link { font-size: 12px; color: var(--accent2); text-decoration: none; margin-left: auto; display: flex; align-items: center; gap: 4px; white-space: nowrap; }
+  .company-jobs-link:hover { text-decoration: underline; }
+
+  .urgency { display: flex; align-items: center; gap: 6px; font-size: 12px; font-weight: 600; }
+  .urgency.high { color: var(--red); }
+  .urgency.medium { color: var(--yellow); }
+  .urgency.low { color: var(--muted); }
+  .urgency-dot { width: 7px; height: 7px; border-radius: 50%; }
+  .urgency.high .urgency-dot { background: var(--red); box-shadow: 0 0 6px var(--red); }
+  .urgency.medium .urgency-dot { background: var(--yellow); }
+  .urgency.low .urgency-dot { background: var(--muted); }
+
+  .roles-body { background: var(--bg); }
+  .role-row { padding: 18px 20px; border-bottom: 1px solid var(--border); display: flex; align-items: flex-start; gap: 14px; }
+  .role-row:last-child { border-bottom: none; }
+  .role-row:hover { background: rgba(99,102,241,0.03); }
+  .rel-badge { flex-shrink: 0; font-size: 10px; font-weight: 700; padding: 3px 8px; border-radius: 6px; text-transform: uppercase; letter-spacing: 0.5px; margin-top: 2px; }
+  .rel-high { background: rgba(239,68,68,0.15); color: #f87171; border: 1px solid rgba(239,68,68,0.25); }
+  .rel-medium { background: rgba(234,179,8,0.12); color: #fbbf24; border: 1px solid rgba(234,179,8,0.2); }
+  .rel-low { background: rgba(99,102,241,0.1); color: var(--accent2); border: 1px solid rgba(99,102,241,0.2); }
+  .role-content { flex: 1; min-width: 0; }
+  .role-title-row { display: flex; align-items: center; gap: 10px; flex-wrap: wrap; margin-bottom: 12px; }
+  .role-title { font-size: 15px; font-weight: 700; color: var(--text); }
+  .comp-badge { font-size: 11px; font-weight: 600; color: var(--green); background: rgba(34,197,94,0.1); border: 1px solid rgba(34,197,94,0.2); padding: 2px 8px; border-radius: 8px; }
+
+  .jd-sections { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin-bottom: 10px; }
+  @media (max-width: 900px) { .jd-sections { grid-template-columns: 1fr; } }
+  .jd-col { background: var(--surface); border: 1px solid var(--border); border-radius: 8px; padding: 12px 14px; }
+  .signal-col { background: rgba(167,139,250,0.05); border-color: rgba(167,139,250,0.2); }
+  .jd-section-label { font-size: 10px; font-weight: 700; letter-spacing: 0.8px; text-transform: uppercase; color: var(--muted); margin-bottom: 7px; }
+  .signal-label { color: var(--purple); }
+  .jd-list { list-style: none; padding: 0; }
+  .jd-list li { font-size: 12px; color: var(--muted); padding: 3px 0 3px 14px; position: relative; line-height: 1.5; }
+  .jd-list li::before { content: '•'; position: absolute; left: 0; color: var(--border); }
+  .jd-list li strong { color: var(--text); font-weight: 600; }
+  .signal-list { list-style: none; padding: 0; }
+  .signal-list li { font-size: 12px; color: #c4b5fd; padding: 4px 0 4px 18px; position: relative; line-height: 1.5; border-bottom: 1px solid rgba(167,139,250,0.1); }
+  .signal-list li:last-child { border-bottom: none; }
+  .signal-list li::before { content: '⚡'; position: absolute; left: 0; font-size: 10px; top: 5px; }
+  .signal-list li strong { color: #ede9fe; font-weight: 700; }
+
+  .tech-tags { display: flex; gap: 5px; flex-wrap: wrap; margin-top: 8px; }
+  .tech-tag { font-size: 10px; background: var(--surface2); color: var(--muted); border: 1px solid var(--border); padding: 2px 7px; border-radius: 5px; }
+  .no-listings { padding: 18px 20px; font-size: 13px; color: var(--muted); font-style: italic; background: var(--bg); }
+  .legend { display: flex; gap: 16px; flex-wrap: wrap; margin-bottom: 20px; font-size: 12px; color: var(--muted); align-items: center; }
+  .legend-item { display: flex; align-items: center; gap: 6px; }
+  .footer-note { text-align: center; color: var(--muted); font-size: 12px; margin-top: 40px; padding-bottom: 40px; line-height: 2; }
+  .footer-note a { color: var(--accent2); text-decoration: none; }
+</style>
+</head>
+<body>
+<div class="layout">
+  <aside class="sidebar">
+    <div class="sidebar-logo">
+      <div class="brand">Anyscale</div>
+      <div class="title">Tier 1 Hiring Signals</div>
+      <div class="sub">11 accounts &middot; Refreshed Mar 9, 2026</div>
+    </div>
+    <div class="sidebar-section">Accounts</div>
+    <a class="sidebar-item active" href="#commaai"><span class="dot" style="background:#ef4444"></span>comma.ai<span class="count">1</span></a>
+    <a class="sidebar-item" href="#iambic"><span class="dot" style="background:#ef4444"></span>Iambic Therapeutics<span class="count">4</span></a>
+    <a class="sidebar-item" href="#falai"><span class="dot" style="background:#ef4444"></span>fal.ai<span class="count">2</span></a>
+    <a class="sidebar-item" href="#apexai"><span class="dot" style="background:#f59e0b"></span>Apex.AI<span class="count">3</span></a>
+    <a class="sidebar-item" href="#chooch"><span class="dot" style="background:#7b82a8"></span>Chooch<span class="count">—</span></a>
+    <a class="sidebar-item" href="#lightwheel"><span class="dot" style="background:#ef4444"></span>Lightwheel<span class="count">3</span></a>
+    <a class="sidebar-item" href="#valar"><span class="dot" style="background:#ef4444"></span>Valar Labs<span class="count">2</span></a>
+    <a class="sidebar-item" href="#elroyair"><span class="dot" style="background:#f59e0b"></span>Elroy Air<span class="count">2</span></a>
+    <a class="sidebar-item" href="#intrinsic"><span class="dot" style="background:#ef4444"></span>Intrinsic (Google)<span class="count">4</span></a>
+    <a class="sidebar-item" href="#wing"><span class="dot" style="background:#ef4444"></span>Wing (Alphabet)<span class="count">3</span></a>
+    <a class="sidebar-item" href="#gitai"><span class="dot" style="background:#f59e0b"></span>GITAI<span class="count">3</span></a>
+    <div class="sidebar-section" style="margin-top:16px">Relevance Key</div>
+    <div style="padding: 8px 20px; font-size:11px; color: var(--muted); line-height: 1.8;">
+      <div>&#x1F534; <strong style="color:#f87171">High</strong> — direct infra/ML buying signal</div>
+      <div>&#x1F7E1; <strong style="color:#fbbf24">Medium</strong> — adjacent, use as opener</div>
+      <div>&#x1F535; <strong style="color:var(--accent2)">Low</strong> — awareness / warm touch</div>
+    </div>
+  </aside>
+
+  <main class="main">
+    <div class="page-header">
+      <h1>Tier 1 Hiring Signals</h1>
+      <div class="meta">Active job postings at your 11 Tier 1 accounts — full JD details + Anyscale signals</div>
+      <div class="updated-badge">Researched March 9, 2026</div>
+    </div>
+
+    <div class="stats-bar">
+      <div class="stat-card"><div class="stat-num">27</div><div class="stat-label">Relevant Roles Found</div></div>
+      <div class="stat-card"><div class="stat-num" style="color:#f87171">13</div><div class="stat-label">High-Relevance Roles</div></div>
+      <div class="stat-card"><div class="stat-num">10</div><div class="stat-label">Accounts Actively Hiring</div></div>
+      <div class="stat-card"><div class="stat-num" style="color:var(--purple)">11</div><div class="stat-label">Tier 1 Accounts Tracked</div></div>
+    </div>
+
+    <div class="signal-banner">
+      <strong>How to use this doc:</strong> Each role includes full job description details alongside specific Anyscale signals — exact language from the JD that maps to Ray/Anyscale use cases, and specific discovery questions to ask on your next call.
+    </div>
+
+    <div class="legend">
+      <div class="legend-item"><span class="rel-badge rel-high">High</span> Direct infra/ML platform buying signal</div>
+      <div class="legend-item"><span class="rel-badge rel-medium">Med</span> Adjacent — relevant opener</div>
+      <div class="legend-item"><span class="rel-badge rel-low">Low</span> Awareness / timing signal only</div>
+    </div>
+
+
+    <div class="company-section" id="commaai">
+      <div class="company-header">
+        <div class="company-icon" style="background:rgba(239,68,68,0.12)">🚗</div>
+        <div class="company-info">
+          <div class="company-name">comma.ai</div>
+          <div class="company-meta-row">
+            <span class="chip chip-sector">AV / Robotics</span>
+            <span class="chip chip-location">San Diego, CA</span>
+            <span class="chip chip-roles">1 relevant role</span>
+            <div class="urgency high"><span class="urgency-dot"></span>High urgency</div>
+          </div>
+        </div>
+        <a class="company-jobs-link" href="https://comma.ai/jobs" target="_blank" rel="noopener">View all jobs &#x2197;</a>
+      </div>
+      <div class="roles-body">
+        <div class="role-row">
+          <span class="rel-badge rel-high">High</span>
+          <div class="role-content">
+            <div class="role-title-row">
+              <div class="role-title">Infrastructure Software Engineer</div>
+              
+            </div>
+            <div class="jd-sections">
+              <div class="jd-col">
+                <div class="jd-section-label">&#x1F4CB; Responsibilities</div>
+                <ul class="jd-list">              <li>Design and maintain systems powering <strong>openpilot</strong>, the fleet of edge devices, and the training stack behind driving models</li>
+              <li>Build and maintain <strong>data pipelines for fleet-wide logging and telemetry processing</strong> from hundreds of thousands of vehicles</li>
+              <li>Manage infrastructure for <strong>model training, deployment, and fleet operations</strong></li>
+              <li>Enhance observability, debugging tools, and <strong>real-time monitoring systems</strong></li>
+              <li>Build scalable infrastructure spanning real-time data ingestion, model training, CI/CD pipelines, and internal developer tooling</li>
+                </ul>
+                <div class="jd-section-label" style="margin-top:10px">&#x1F527; Requirements</div>
+                <ul class="jd-list">              <li><strong>Python required</strong>; Go or C/C++ a plus</li>
+              <li>Demonstrated ability to build and operate large-scale distributed systems</li>
+              <li>Apply via challenge completion + work@comma.ai (no resume-only pipeline)</li>
+                </ul>
+              </div>
+              <div class="jd-col signal-col">
+                <div class="jd-section-label signal-label">&#x26A1; Anyscale Signals</div>
+                <ul class="signal-list">              <li>"data pipelines for fleet-wide logging" — Ray Data is designed exactly for this at scale</li>
+              <li>"model training infrastructure" — explicit confirmation they run their own training stack</li>
+              <li>"100M+ miles of driving data" referenced company-wide — suggests very large-scale data processing needs</li>
+              <li>Small team (~30 engineers) running own GPU cluster = high ops burden, ideal Anyscale candidate</li>
+                </ul>
+              </div>
+            </div>
+            <div class="tech-tags"><span class="tech-tag">Python</span><span class="tech-tag">Data Pipelines</span><span class="tech-tag">Fleet Infra</span><span class="tech-tag">Training Infra</span><span class="tech-tag">Observability</span></div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="company-section" id="iambic">
+      <div class="company-header">
+        <div class="company-icon" style="background:rgba(99,102,241,0.12)">🧬</div>
+        <div class="company-info">
+          <div class="company-name">Iambic Therapeutics</div>
+          <div class="company-meta-row">
+            <span class="chip chip-sector">AI Drug Discovery</span>
+            <span class="chip chip-location">San Diego, CA (Remote, East Coast preferred)</span>
+            <span class="chip chip-roles">4 relevant roles</span>
+            <div class="urgency high"><span class="urgency-dot"></span>High urgency</div>
+          </div>
+        </div>
+        <a class="company-jobs-link" href="https://www.iambic.ai/careers" target="_blank" rel="noopener">View all jobs &#x2197;</a>
+      </div>
+      <div class="roles-body">
+        <div class="role-row">
+          <span class="rel-badge rel-high">High</span>
+          <div class="role-content">
+            <div class="role-title-row">
+              <div class="role-title">ML Scientist II/Sr — Omics</div>
+              
+            </div>
+            <div class="jd-sections">
+              <div class="jd-col">
+                <div class="jd-section-label">&#x1F4CB; Responsibilities</div>
+                <ul class="jd-list">              <li>Extend <strong>Enchant</strong> — Iambic's multimodal transformer — by incorporating genomics, transcriptomics, proteomics, and metabolomics signals</li>
+              <li>Create <strong>robust data pipelines for multi-omics data</strong> at scale (multi-TB datasets)</li>
+              <li>Curate benchmarking datasets and develop models combining multi-omics with existing Enchant context</li>
+              <li>Target selection and biomarker discovery for oncology drug programs</li>
+              <li>Work across East Coast US and UK Bristol teams</li>
+                </ul>
+                <div class="jd-section-label" style="margin-top:10px">&#x1F527; Requirements</div>
+                <ul class="jd-list">              <li><strong>Python + PyTorch or JAX</strong> — explicitly required</li>
+              <li><strong>Distributed training experience</strong> — explicitly listed as required</li>
+              <li><strong>Cloud or HPC environment</strong> experience required</li>
+              <li>Designing and operating data pipelines for genomics, transcriptomics, proteomics, or metabolomics</li>
+              <li>Solid grasp of causal inference, experimental design, statistics</li>
+              <li>Familiarity with <strong>multimodal transformers preferred</strong></li>
+              <li>SW engineering best practices: version control, CI, code review, containerization</li>
+                </ul>
+              </div>
+              <div class="jd-col signal-col">
+                <div class="jd-section-label signal-label">&#x26A1; Anyscale Signals</div>
+                <ul class="signal-list">              <li><strong>"Distributed training experience" listed as a requirement</strong> — they are already thinking about scale</li>
+              <li>"Cloud or HPC environment" — confirms compute-intensive training; ask which cloud and what orchestration they use</li>
+              <li>Enchant transformer + multi-omics = massive heterogeneous dataset problem (ideal Ray Data)</li>
+              <li>PyTorch + JAX dual requirement = they are exploring training framework flexibility — Anyscale supports both natively</li>
+                </ul>
+              </div>
+            </div>
+            <div class="tech-tags"><span class="tech-tag">Python</span><span class="tech-tag">PyTorch</span><span class="tech-tag">JAX</span><span class="tech-tag">Distributed Training</span><span class="tech-tag">Genomics</span><span class="tech-tag">Transformers</span><span class="tech-tag">HPC/Cloud</span></div>
+          </div>
+        </div>
+        <div class="role-row">
+          <span class="rel-badge rel-high">High</span>
+          <div class="role-content">
+            <div class="role-title-row">
+              <div class="role-title">ML Scientist II/Sr — Biomedical Images</div>
+              
+            </div>
+            <div class="jd-sections">
+              <div class="jd-col">
+                <div class="jd-section-label">&#x1F4CB; Responsibilities</div>
+                <ul class="jd-list">              <li>Extend Enchant multimodal platform by incorporating <strong>medical imaging data</strong></li>
+              <li>Design models combining biomedical images (pathology slides, radiology) with molecular and clinical data</li>
+              <li>Align image embeddings with molecular or clinical endpoints</li>
+              <li>Contribute to open-source computer-vision or ML projects</li>
+                </ul>
+                <div class="jd-section-label" style="margin-top:10px">&#x1F527; Requirements</div>
+                <ul class="jd-list">              <li>Strong software engineering habits: version control, testing, <strong>continuous integration, containerization</strong></li>
+              <li>Experience <strong>aligning image embeddings with molecular or clinical endpoints</strong></li>
+              <li><strong>Familiarity with multimodal transformers preferred</strong></li>
+              <li>Cross-disciplinary team collaboration (ML + biology + chemistry)</li>
+                </ul>
+              </div>
+              <div class="jd-col signal-col">
+                <div class="jd-section-label signal-label">&#x26A1; Anyscale Signals</div>
+                <ul class="signal-list">              <li>Multi-modal training (images + molecules + clinical) = heterogeneous data pipeline — Ray Data handles mixed data types natively</li>
+              <li>Containerization requirement signals they are thinking about reproducible training environments</li>
+              <li>Second ML scientist hire in imaging suggests Enchant is actively expanding modalities = compute will grow with it</li>
+                </ul>
+              </div>
+            </div>
+            <div class="tech-tags"><span class="tech-tag">PyTorch</span><span class="tech-tag">Medical Imaging</span><span class="tech-tag">Multimodal ML</span><span class="tech-tag">Containerization</span><span class="tech-tag">CV</span></div>
+          </div>
+        </div>
+        <div class="role-row">
+          <span class="rel-badge rel-high">High</span>
+          <div class="role-content">
+            <div class="role-title-row">
+              <div class="role-title">Software Data Engineer</div>
+              
+            </div>
+            <div class="jd-sections">
+              <div class="jd-col">
+                <div class="jd-section-label">&#x1F4CB; Responsibilities</div>
+                <ul class="jd-list">              <li>Build and optimize <strong>data pipelines for AI model training</strong> across biological and clinical datasets</li>
+              <li>Enhance data storage and improve Python-based data processing workflows</li>
+              <li><strong>ETL systems, orchestration tools, and multi-terabyte data processing</strong></li>
+              <li>Empower ML researchers to move quickly — pragmatic, tradeoff-focused engineering</li>
+                </ul>
+                <div class="jd-section-label" style="margin-top:10px">&#x1F527; Requirements</div>
+                <ul class="jd-list">              <li><strong>Strong Python software engineering skills</strong></li>
+              <li><strong>ETL systems, orchestration tools, multi-terabyte data processing</strong> — explicitly required</li>
+              <li>Preferred: <strong>AWS, Kubernetes</strong>, and data lake technologies</li>
+              <li>Background in bioinformatics or chemistry a plus</li>
+              <li>Remote, East Coast preferred; posted on Ashby HQ</li>
+                </ul>
+              </div>
+              <div class="jd-col signal-col">
+                <div class="jd-section-label signal-label">&#x26A1; Anyscale Signals</div>
+                <ul class="signal-list">              <li><strong>"Multi-terabyte data processing" explicitly listed</strong> — they have hit scale limits on current setup</li>
+              <li>"Orchestration tools" — they are actively evaluating workflow orchestration, ask which ones (Airflow? custom?) — opportunity to position Ray Workflows</li>
+              <li>AWS + Kubernetes preferred = cloud-native team; Anyscale on AWS/EKS is a direct fit</li>
+              <li>"Empower ML researchers to move quickly" = productivity-focused buyer, not just cost buyer — lead with iteration speed</li>
+                </ul>
+              </div>
+            </div>
+            <div class="tech-tags"><span class="tech-tag">Python</span><span class="tech-tag">ETL</span><span class="tech-tag">AWS</span><span class="tech-tag">Kubernetes</span><span class="tech-tag">Multi-TB Data</span><span class="tech-tag">Orchestration</span></div>
+          </div>
+        </div>
+        <div class="role-row">
+          <span class="rel-badge rel-medium">Medium</span>
+          <div class="role-content">
+            <div class="role-title-row">
+              <div class="role-title">Software Engineer II / Sr Software Engineer</div>
+              
+            </div>
+            <div class="jd-sections">
+              <div class="jd-col">
+                <div class="jd-section-label">&#x1F4CB; Responsibilities</div>
+                <ul class="jd-list">              <li>General software engineering supporting Iambic's AI drug discovery platform</li>
+              <li>Tooling around the Enchant training and inference pipeline</li>
+              <li>Platform engineering adjacent to ML research team</li>
+                </ul>
+                <div class="jd-section-label" style="margin-top:10px">&#x1F527; Requirements</div>
+                <ul class="jd-list">              <li>Python-first engineering culture</li>
+              <li>ML platform integration experience preferred</li>
+                </ul>
+              </div>
+              <div class="jd-col signal-col">
+                <div class="jd-section-label signal-label">&#x26A1; Anyscale Signals</div>
+                <ul class="signal-list">              <li>Platform engineers who own the inference stack are often the key technical decision-influencer (not the ML scientists)</li>
+              <li>Probe for: which frameworks do they use for inference serving? (Ray Serve opportunity)</li>
+                </ul>
+              </div>
+            </div>
+            <div class="tech-tags"><span class="tech-tag">Python</span><span class="tech-tag">MLOps</span><span class="tech-tag">Platform Engineering</span><span class="tech-tag">Inference</span></div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="company-section" id="falai">
+      <div class="company-header">
+        <div class="company-icon" style="background:rgba(34,197,94,0.12)">⚡</div>
+        <div class="company-info">
+          <div class="company-name">fal.ai</div>
+          <div class="company-meta-row">
+            <span class="chip chip-sector">ML Inference / GPU Cloud</span>
+            <span class="chip chip-location">San Francisco, CA (in-person)</span>
+            <span class="chip chip-roles">2 relevant roles</span>
+            <div class="urgency high"><span class="urgency-dot"></span>High urgency</div>
+          </div>
+        </div>
+        <a class="company-jobs-link" href="https://fal.ai/careers" target="_blank" rel="noopener">View all jobs &#x2197;</a>
+      </div>
+      <div class="roles-body">
+        <div class="role-row">
+          <span class="rel-badge rel-high">High</span>
+          <div class="role-content">
+            <div class="role-title-row">
+              <div class="role-title">Senior / Staff Infrastructure Engineer</div>
+              
+            </div>
+            <div class="jd-sections">
+              <div class="jd-col">
+                <div class="jd-section-label">&#x1F4CB; Responsibilities</div>
+                <ul class="jd-list">              <li>Build software and processes that <strong>keep large fleets of GPU servers healthy and productive</strong></li>
+              <li>Manage and optimize <strong>distributed and local storage systems for AI workloads</strong></li>
+              <li>Linux system tuning for GPU performance</li>
+              <li><strong>Infrastructure-as-code with Ansible and Terraform</strong></li>
+              <li>40-person in-person SF company — looking for engineers who can independently build world-class infrastructure</li>
+                </ul>
+                <div class="jd-section-label" style="margin-top:10px">&#x1F527; Requirements</div>
+                <ul class="jd-list">              <li>Hands-on experience with large GPU server fleets</li>
+              <li>Deep Linux and <strong>distributed systems expertise</strong></li>
+              <li>Familiarity with Ansible, Terraform (IaC)</li>
+              <li>Independent, world-class execution mindset (small team)</li>
+                </ul>
+              </div>
+              <div class="jd-col signal-col">
+                <div class="jd-section-label signal-label">&#x26A1; Anyscale Signals</div>
+                <ul class="signal-list">              <li><strong>"Keeping large fleets of GPU servers healthy" at 40 people</strong> = extremely high ops burden per engineer — exact Anyscale managed-Ray value prop</li>
+              <li>fal's Python-native serverless ML runtime is architecturally parallel to Anyscale — position as "what you're building but already built"</li>
+              <li>Hiring for this at staffing level signals they are hitting scaling limits on hand-rolled infra</li>
+                </ul>
+              </div>
+            </div>
+            <div class="tech-tags"><span class="tech-tag">Linux/GPU</span><span class="tech-tag">Distributed Storage</span><span class="tech-tag">Ansible</span><span class="tech-tag">Terraform</span><span class="tech-tag">GPU Fleet Ops</span></div>
+          </div>
+        </div>
+        <div class="role-row">
+          <span class="rel-badge rel-high">High</span>
+          <div class="role-content">
+            <div class="role-title-row">
+              <div class="role-title">Applied ML Engineer</div>
+              
+            </div>
+            <div class="jd-sections">
+              <div class="jd-col">
+                <div class="jd-section-label">&#x1F4CB; Responsibilities</div>
+                <ul class="jd-list">              <li>Build and deploy ML models on fal's serverless GPU platform <strong>across thousands of parallel workers</strong></li>
+              <li>Work across image, video, and audio generation models (diffusion, LLMs, multimodal)</li>
+              <li>Push state-of-the-art performance across fal's model catalog</li>
+                </ul>
+                <div class="jd-section-label" style="margin-top:10px">&#x1F527; Requirements</div>
+                <ul class="jd-list">              <li><strong>Python + PyTorch</strong> required</li>
+              <li><strong>GPU programming experience</strong> required</li>
+              <li>Diffusers library experience required</li>
+              <li>Remote full-time</li>
+                </ul>
+              </div>
+              <div class="jd-col signal-col">
+                <div class="jd-section-label signal-label">&#x26A1; Anyscale Signals</div>
+                <ul class="signal-list">              <li><strong>"Thousands of parallel workers"</strong> — Ray's actor model was built for this exact use case</li>
+              <li>Diffusion model inference at scale = multi-model routing problem → Ray Serve</li>
+              <li>LoRA variant management at scale: each customer model variant = a new serving endpoint; Ray Serve handles this natively</li>
+              <li>Ask: "How are you managing the combinatorial explosion of model variants × GPU types × batch sizes today?"</li>
+                </ul>
+              </div>
+            </div>
+            <div class="tech-tags"><span class="tech-tag">Python</span><span class="tech-tag">PyTorch</span><span class="tech-tag">GPU</span><span class="tech-tag">Diffusers</span><span class="tech-tag">Parallel Workers</span><span class="tech-tag">Model Serving</span></div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="company-section" id="apexai">
+      <div class="company-header">
+        <div class="company-icon" style="background:rgba(234,179,8,0.12)">🚘</div>
+        <div class="company-info">
+          <div class="company-name">Apex.AI</div>
+          <div class="company-meta-row">
+            <span class="chip chip-sector">Automotive / AV OS</span>
+            <span class="chip chip-location">Palo Alto, CA · Germany · Sweden</span>
+            <span class="chip chip-roles">3 relevant roles</span>
+            <div class="urgency medium"><span class="urgency-dot"></span>Medium urgency</div>
+          </div>
+        </div>
+        <a class="company-jobs-link" href="https://jobs.lever.co/apex-ai" target="_blank" rel="noopener">View all jobs &#x2197;</a>
+      </div>
+      <div class="roles-body">
+        <div class="role-row">
+          <span class="rel-badge rel-medium">Medium</span>
+          <div class="role-content">
+            <div class="role-title-row">
+              <div class="role-title">Senior Application Engineer</div>
+              <span class="comp-badge">&#x1F4B0; $134K–$190K + equity + variable bonus</span>
+            </div>
+            <div class="jd-sections">
+              <div class="jd-col">
+                <div class="jd-section-label">&#x1F4CB; Responsibilities</div>
+                <ul class="jd-list">              <li>Develop applications with product teams and <strong>global OEM customers</strong></li>
+              <li>Deploy and support software for customers, cooperating with internal development teams</li>
+              <li>Work at the intersection of Apex.OS and customer integration programs</li>
+                </ul>
+                <div class="jd-section-label" style="margin-top:10px">&#x1F527; Requirements</div>
+                <ul class="jd-list">              <li><strong>Strong C++ development skills</strong></li>
+              <li>Understanding of <strong>OS and network concepts</strong> (UDP, Multicast)</li>
+              <li>Messaging systems: <strong>DDS, ROS</strong></li>
+              <li>Real-time systems or automotive architectures: <strong>AUTOSAR</strong></li>
+              <li>Previous experience in technical professional services or sales a plus</li>
+                </ul>
+              </div>
+              <div class="jd-col signal-col">
+                <div class="jd-section-label signal-label">&#x26A1; Anyscale Signals</div>
+                <ul class="signal-list">              <li>Application Engineers with customer-facing roles often own technical integration decisions — valuable champion target</li>
+              <li>DDS + ROS2 expertise = knows exactly where the ML data flows in the stack; probe for where model retraining pipelines sit</li>
+              <li>"Technical professional services" background = will understand ROI conversations quickly</li>
+                </ul>
+              </div>
+            </div>
+            <div class="tech-tags"><span class="tech-tag">C++</span><span class="tech-tag">ROS</span><span class="tech-tag">DDS</span><span class="tech-tag">AUTOSAR</span><span class="tech-tag">Customer-Facing</span></div>
+          </div>
+        </div>
+        <div class="role-row">
+          <span class="rel-badge rel-medium">Medium</span>
+          <div class="role-content">
+            <div class="role-title-row">
+              <div class="role-title">Senior DevOps Engineer</div>
+              <span class="comp-badge">&#x1F4B0; $158K–$223K + equity + variable bonus (hybrid, 3 days Palo Alto)</span>
+            </div>
+            <div class="jd-sections">
+              <div class="jd-col">
+                <div class="jd-section-label">&#x1F4CB; Responsibilities</div>
+                <ul class="jd-list">              <li><strong>Design and scale Apex.AI's build and release systems</strong></li>
+              <li>Architect solutions that impact developer productivity company-wide</li>
+              <li>Extend and optimize build, release and packaging system</li>
+              <li>Improve <strong>CI/CD pipelines</strong></li>
+                </ul>
+                <div class="jd-section-label" style="margin-top:10px">&#x1F527; Requirements</div>
+                <ul class="jd-list">              <li><strong>C++, Bash, Python, AWS, Terraform</strong></li>
+              <li>Proven experience maintaining a <strong>cross-platform build system</strong></li>
+              <li>BS+ in technical field, 5+ years relevant experience</li>
+              <li>Hybrid: 3 days minimum in Palo Alto office</li>
+                </ul>
+              </div>
+              <div class="jd-col signal-col">
+                <div class="jd-section-label signal-label">&#x26A1; Anyscale Signals</div>
+                <ul class="signal-list">              <li>AWS + Terraform = cloud-native infra team; Anyscale on AWS is natively supported</li>
+              <li>"Cross-platform build system" at an automotive SW company hints at growing ML model validation CI workloads</li>
+              <li>DevOps who own CI/CD often decide how ML training jobs are triggered and managed — ask if they run any ML jobs in their CI pipeline today</li>
+                </ul>
+              </div>
+            </div>
+            <div class="tech-tags"><span class="tech-tag">Python</span><span class="tech-tag">AWS</span><span class="tech-tag">Terraform</span><span class="tech-tag">CI/CD</span><span class="tech-tag">C++</span><span class="tech-tag">Cross-Platform Build</span></div>
+          </div>
+        </div>
+        <div class="role-row">
+          <span class="rel-badge rel-low">Low</span>
+          <div class="role-content">
+            <div class="role-title-row">
+              <div class="role-title">Software Engineer — Automotive (Sweden)</div>
+              
+            </div>
+            <div class="jd-sections">
+              <div class="jd-col">
+                <div class="jd-section-label">&#x1F4CB; Responsibilities</div>
+                <ul class="jd-list">              <li>Implement Apex.AI Automotive features for OEM software-defined vehicle programs</li>
+              <li>Fulfill OEM requirements across safety-certified automotive SW stack</li>
+                </ul>
+                <div class="jd-section-label" style="margin-top:10px">&#x1F527; Requirements</div>
+                <ul class="jd-list">              <li>C++ development for safety-certified embedded systems</li>
+              <li>Experience with AUTOSAR or automotive SW stacks</li>
+                </ul>
+              </div>
+              <div class="jd-col signal-col">
+                <div class="jd-section-label signal-label">&#x26A1; Anyscale Signals</div>
+                <ul class="signal-list">              <li>Sweden expansion signals Apex is closing large OEM deals (VW, Volvo, Scania ecosystem) — OEM-scale deployments typically trigger ML training infrastructure investment upstream</li>
+              <li>Low direct relevance today — use as a timing signal to prospect in 6–9 months</li>
+                </ul>
+              </div>
+            </div>
+            <div class="tech-tags"><span class="tech-tag">C++</span><span class="tech-tag">Embedded</span><span class="tech-tag">AUTOSAR</span><span class="tech-tag">Software-Defined Vehicle</span><span class="tech-tag">Sweden</span></div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="company-section" id="chooch">
+      <div class="company-header">
+        <div class="company-icon" style="background:rgba(99,102,241,0.12)">👁️</div>
+        <div class="company-info">
+          <div class="company-name">Chooch</div>
+          <div class="company-meta-row">
+            <span class="chip chip-sector">Computer Vision / Edge AI</span>
+            <span class="chip chip-location">San Mateo, CA</span>
+            <span class="chip chip-roles">No public listings</span>
+            <div class="urgency low"><span class="urgency-dot"></span>Monitor</div>
+          </div>
+        </div>
+        <a class="company-jobs-link" href="https://wellfound.com/company/chooch-computer-vision" target="_blank" rel="noopener">View all jobs &#x2197;</a>
+      </div>
+      <div class="roles-body">      <div class="no-listings">&#x26A0;&#xFE0F; No active public job listings found at this time. Chooch&#39;s Wellfound page is in "get notified" mode, suggesting a pause in public hiring or unlisted roles. Edge AI at enterprise scale will require distributed training/inference infrastructure as their model catalog grows. Recommended: direct LinkedIn outreach to gauge growth plans and infrastructure roadmap.</div>
+
+      </div>
+    </div>
+
+    <div class="company-section" id="lightwheel">
+      <div class="company-header">
+        <div class="company-icon" style="background:rgba(34,211,238,0.12)">🤖</div>
+        <div class="company-info">
+          <div class="company-name">Lightwheel</div>
+          <div class="company-meta-row">
+            <span class="chip chip-sector">Embodied AI / Synthetic Data</span>
+            <span class="chip chip-location">Santa Clara, CA</span>
+            <span class="chip chip-roles">3 relevant roles</span>
+            <div class="urgency high"><span class="urgency-dot"></span>High urgency</div>
+          </div>
+        </div>
+        <a class="company-jobs-link" href="https://lightwheel.ai/careers" target="_blank" rel="noopener">View all jobs &#x2197;</a>
+      </div>
+      <div class="roles-body">
+        <div class="role-row">
+          <span class="rel-badge rel-high">High</span>
+          <div class="role-content">
+            <div class="role-title-row">
+              <div class="role-title">Simulation Engine Engineer</div>
+              
+            </div>
+            <div class="jd-sections">
+              <div class="jd-col">
+                <div class="jd-section-label">&#x1F4CB; Responsibilities</div>
+                <ul class="jd-list">              <li>Build <strong>next-generation simulation engines for high-fidelity robot learning and world models</strong></li>
+              <li>Core infrastructure powering Lightwheel's <strong>synthetic data generation pipeline</strong> for embodied AI</li>
+              <li>Design simulation environments that scale to support millions of parallel simulation rollouts</li>
+              <li>Work across NVIDIA USD, IsaacSim, and custom simulation runtimes</li>
+                </ul>
+                <div class="jd-section-label" style="margin-top:10px">&#x1F527; Requirements</div>
+                <ul class="jd-list">              <li>Deep expertise in real-time rendering or physics simulation engines</li>
+              <li>Experience with <strong>large-scale distributed compute for simulation</strong></li>
+              <li>NVIDIA Omniverse / USD ecosystem familiarity a plus</li>
+                </ul>
+              </div>
+              <div class="jd-col signal-col">
+                <div class="jd-section-label signal-label">&#x26A1; Anyscale Signals</div>
+                <ul class="signal-list">              <li><strong>"Synthetic data generation pipeline"</strong> at scale = massively parallel simulation = Ray's actor model is the natural orchestration layer</li>
+              <li>NVIDIA IsaacSim + Ray is an established pattern for distributed robot sim — use as a proof point in outreach</li>
+              <li>Ask: "How many parallel simulation environments are you running today, and are you bottlenecked by orchestration or compute?"</li>
+              <li>Lightwheel's customers (robotics OEMs) will need to run their own sim pipelines — Anyscale could be part of the Lightwheel platform stack</li>
+                </ul>
+              </div>
+            </div>
+            <div class="tech-tags"><span class="tech-tag">Simulation</span><span class="tech-tag">Robot Learning</span><span class="tech-tag">Distributed Compute</span><span class="tech-tag">Synthetic Data</span><span class="tech-tag">NVIDIA USD</span></div>
+          </div>
+        </div>
+        <div class="role-row">
+          <span class="rel-badge rel-high">High</span>
+          <div class="role-content">
+            <div class="role-title-row">
+              <div class="role-title">Enterprise Solutions Engineer</div>
+              
+            </div>
+            <div class="jd-sections">
+              <div class="jd-col">
+                <div class="jd-section-label">&#x1F4CB; Responsibilities</div>
+                <ul class="jd-list">              <li>Design and deliver <strong>end-to-end technical solutions for enterprise robotics and AI clients</strong></li>
+              <li>Integrate Lightwheel's SimReady assets and evaluation platforms into customer workflows</li>
+              <li>Own customer technical architecture through the full engagement lifecycle</li>
+                </ul>
+                <div class="jd-section-label" style="margin-top:10px">&#x1F527; Requirements</div>
+                <ul class="jd-list">              <li>Strong technical background in robotics, AI infrastructure, or simulation</li>
+              <li>Customer-facing solutions architecture experience</li>
+              <li>Ability to understand and translate customer compute pain points</li>
+                </ul>
+              </div>
+              <div class="jd-col signal-col">
+                <div class="jd-section-label signal-label">&#x26A1; Anyscale Signals</div>
+                <ul class="signal-list">              <li>Solutions Engineers at Lightwheel will hear firsthand which compute bottlenecks their customers hit — <strong>high-value champion target</strong></li>
+              <li>They sit between Lightwheel's platform and robotics company buyers — can introduce you into accounts you're already targeting</li>
+              <li>Use Lightwheel as a potential channel partner conversation, not just a prospect</li>
+                </ul>
+              </div>
+            </div>
+            <div class="tech-tags"><span class="tech-tag">Enterprise AI</span><span class="tech-tag">Robotics Integration</span><span class="tech-tag">Solutions Architecture</span><span class="tech-tag">Customer-Facing</span></div>
+          </div>
+        </div>
+        <div class="role-row">
+          <span class="rel-badge rel-medium">Medium</span>
+          <div class="role-content">
+            <div class="role-title-row">
+              <div class="role-title">Operations Lead — Global Data Collection</div>
+              
+            </div>
+            <div class="jd-sections">
+              <div class="jd-col">
+                <div class="jd-section-label">&#x1F4CB; Responsibilities</div>
+                <ul class="jd-list">              <li>Lead large-scale <strong>global operations for egocentric and embodied data collection programs</strong></li>
+              <li>Manage high-volume human motion capture and annotation pipelines</li>
+              <li>Coordinate logistics and quality for multi-continent data collection programs</li>
+                </ul>
+                <div class="jd-section-label" style="margin-top:10px">&#x1F527; Requirements</div>
+                <ul class="jd-list">              <li>Experience scaling global data operations</li>
+              <li>Annotation pipeline management at volume</li>
+                </ul>
+              </div>
+              <div class="jd-col signal-col">
+                <div class="jd-section-label signal-label">&#x26A1; Anyscale Signals</div>
+                <ul class="signal-list">              <li>Scaled data collection → massive downstream data processing → Ray Data</li>
+              <li>This hire signals Lightwheel's ground-truth data operation is scaling rapidly — infrastructure investment follows in 6–12 months</li>
+              <li>Ask on outreach: "As your data collection scales, how are you thinking about the processing and training pipelines downstream?"</li>
+                </ul>
+              </div>
+            </div>
+            <div class="tech-tags"><span class="tech-tag">Data Operations</span><span class="tech-tag">Embodied AI Data</span><span class="tech-tag">Annotation Pipelines</span><span class="tech-tag">Global Ops</span></div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="company-section" id="valar">
+      <div class="company-header">
+        <div class="company-icon" style="background:rgba(167,139,250,0.12)">🔬</div>
+        <div class="company-info">
+          <div class="company-name">Valar Labs</div>
+          <div class="company-meta-row">
+            <span class="chip chip-sector">AI Oncology Diagnostics</span>
+            <span class="chip chip-location">Remote (SF Bay preferred)</span>
+            <span class="chip chip-roles">2 relevant roles</span>
+            <div class="urgency high"><span class="urgency-dot"></span>High urgency</div>
+          </div>
+        </div>
+        <a class="company-jobs-link" href="https://www.valarlabs.com/careers" target="_blank" rel="noopener">View all jobs &#x2197;</a>
+      </div>
+      <div class="roles-body">
+        <div class="role-row">
+          <span class="rel-badge rel-high">High</span>
+          <div class="role-content">
+            <div class="role-title-row">
+              <div class="role-title">Machine Learning Engineer</div>
+              
+            </div>
+            <div class="jd-sections">
+              <div class="jd-col">
+                <div class="jd-section-label">&#x1F4CB; Responsibilities</div>
+                <ul class="jd-list">              <li>Build <strong>clinical-grade AI used by oncologists worldwide</strong> for treatment response prediction</li>
+              <li>Develop and deploy AI diagnostics from <strong>pathology slides and clinical data</strong></li>
+              <li>Own the full ML lifecycle: data prep → training → validation → deployment</li>
+              <li>Fast-growing team (a16z-backed, StatNews coverage Feb 2026)</li>
+                </ul>
+                <div class="jd-section-label" style="margin-top:10px">&#x1F527; Requirements</div>
+                <ul class="jd-list">              <li><strong>Python + PyTorch</strong> required</li>
+              <li>Experience with <strong>distributed training</strong></li>
+              <li>Clinical ML or pathology AI experience preferred</li>
+              <li>Strong software engineering background alongside ML expertise</li>
+                </ul>
+              </div>
+              <div class="jd-col signal-col">
+                <div class="jd-section-label signal-label">&#x26A1; Anyscale Signals</div>
+                <ul class="signal-list">              <li><strong>"Distributed training"</strong> listed in requirements = they have already hit or are anticipating training bottlenecks</li>
+              <li>StatNews article (Feb 2026) confirms products are actively hitting the market — scale pressure is real and immediate</li>
+              <li>Clinical-grade AI = strict reproducibility requirements → Anyscale's job checkpointing and versioned runs are directly relevant</li>
+              <li>Ask: "How are you managing training run reproducibility as you add new hospital datasets and modalities?"</li>
+                </ul>
+              </div>
+            </div>
+            <div class="tech-tags"><span class="tech-tag">Python</span><span class="tech-tag">PyTorch</span><span class="tech-tag">Distributed Training</span><span class="tech-tag">Pathology AI</span><span class="tech-tag">Clinical ML</span></div>
+          </div>
+        </div>
+        <div class="role-row">
+          <span class="rel-badge rel-medium">Medium</span>
+          <div class="role-content">
+            <div class="role-title-row">
+              <div class="role-title">ML Research Scientist</div>
+              
+            </div>
+            <div class="jd-sections">
+              <div class="jd-col">
+                <div class="jd-section-label">&#x1F4CB; Responsibilities</div>
+                <ul class="jd-list">              <li>Research and develop novel AI approaches for oncology diagnostics</li>
+              <li>Multimodal learning across pathology images, genomics, and clinical records</li>
+              <li>Publish and present research while building production models</li>
+                </ul>
+                <div class="jd-section-label" style="margin-top:10px">&#x1F527; Requirements</div>
+                <ul class="jd-list">              <li>PhD or strong research background in ML/CV/computational biology</li>
+              <li>Multimodal learning expertise</li>
+              <li>Publications at top ML/CV venues preferred</li>
+                </ul>
+              </div>
+              <div class="jd-col signal-col">
+                <div class="jd-section-label signal-label">&#x26A1; Anyscale Signals</div>
+                <ul class="signal-list">              <li>Research scientists who train experimental models are the first to hit distributed training bottlenecks — early champion target</li>
+              <li>"Multimodal learning" = multi-TB heterogeneous data = Ray Data opportunity alongside Ray Train</li>
+              <li>Target before the MLOps/infrastructure hire lands — they'll advocate for better tooling proactively</li>
+                </ul>
+              </div>
+            </div>
+            <div class="tech-tags"><span class="tech-tag">Multimodal Learning</span><span class="tech-tag">Pathology</span><span class="tech-tag">Genomics</span><span class="tech-tag">Research ML</span><span class="tech-tag">PhD-level</span></div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="company-section" id="elroyair">
+      <div class="company-header">
+        <div class="company-icon" style="background:rgba(249,115,22,0.12)">✈️</div>
+        <div class="company-info">
+          <div class="company-name">Elroy Air</div>
+          <div class="company-meta-row">
+            <span class="chip chip-sector">Autonomous Cargo Drone</span>
+            <span class="chip chip-location">South San Francisco, CA</span>
+            <span class="chip chip-roles">2 relevant roles</span>
+            <div class="urgency medium"><span class="urgency-dot"></span>Medium urgency</div>
+          </div>
+        </div>
+        <a class="company-jobs-link" href="https://jobs.lever.co/elroyair" target="_blank" rel="noopener">View all jobs &#x2197;</a>
+      </div>
+      <div class="roles-body">
+        <div class="role-row">
+          <span class="rel-badge rel-medium">Medium</span>
+          <div class="role-content">
+            <div class="role-title-row">
+              <div class="role-title">Senior GNC Engineer</div>
+              <span class="comp-badge">&#x1F4B0; $200K–$240K (SF Bay Area)</span>
+            </div>
+            <div class="jd-sections">
+              <div class="jd-col">
+                <div class="jd-section-label">&#x1F4CB; Responsibilities</div>
+                <ul class="jd-list">              <li>Design, implementation, <strong>verification and deployment of GNC algorithms</strong> on full-scale autonomous cargo aircraft</li>
+              <li>Develop <strong>linear and non-linear simulations of full flight envelope</strong> using system ID, CFD predictions, and physics-based modeling</li>
+              <li>Apply Model-Based Design best practices to optimize control laws</li>
+              <li>Develop contingency strategies for safe system response during off-nominal flight conditions</li>
+              <li>7+ years of hands-on GNC algorithm experience required</li>
+                </ul>
+                <div class="jd-section-label" style="margin-top:10px">&#x1F527; Requirements</div>
+                <ul class="jd-list">              <li><strong>Matlab/Simulink, Python, C++</strong> required</li>
+              <li>Familiarity with aviation software certification standards: <strong>DO-178C</strong></li>
+              <li>Familiarity with flight control requirement standards: ADS-33, MIL-F-9490, MIL-STD-1797</li>
+              <li>7+ years experience designing, implementing, deploying GNC algorithms</li>
+                </ul>
+              </div>
+              <div class="jd-col signal-col">
+                <div class="jd-section-label signal-label">&#x26A1; Anyscale Signals</div>
+                <ul class="signal-list">              <li><strong>"Develop non-linear simulations of full flight envelope"</strong> = Python-based simulation sweeps = parallelizable with Ray</li>
+              <li>"System identification" = parameter estimation runs across many flight conditions = embarrassingly parallel Ray workload</li>
+              <li>Python is explicitly listed = Ray is natively Python, zero friction to adopt</li>
+              <li>Ask: "How are you running your parameter sweep campaigns for flight envelope characterization? How many runs are you managing at once?"</li>
+                </ul>
+              </div>
+            </div>
+            <div class="tech-tags"><span class="tech-tag">Python</span><span class="tech-tag">MATLAB/Simulink</span><span class="tech-tag">C++</span><span class="tech-tag">GNC</span><span class="tech-tag">Simulation</span><span class="tech-tag">DO-178C</span></div>
+          </div>
+        </div>
+        <div class="role-row">
+          <span class="rel-badge rel-medium">Medium</span>
+          <div class="role-content">
+            <div class="role-title-row">
+              <div class="role-title">Senior Embedded Software Engineer</div>
+              <span class="comp-badge">&#x1F4B0; $200K–$240K (SF Bay Area)</span>
+            </div>
+            <div class="jd-sections">
+              <div class="jd-col">
+                <div class="jd-section-label">&#x1F4CB; Responsibilities</div>
+                <ul class="jd-list">              <li>Deploy <strong>flight controls, autonomy algorithms, sensor fusion, and navigation</strong> on resource-constrained embedded targets</li>
+              <li>Work on autonomy stack that runs at the edge during cargo delivery operations</li>
+                </ul>
+                <div class="jd-section-label" style="margin-top:10px">&#x1F527; Requirements</div>
+                <ul class="jd-list">              <li>Experience deploying flight controls, autonomy, sensor fusion on embedded targets</li>
+              <li>Strong C++ required</li>
+                </ul>
+              </div>
+              <div class="jd-col signal-col">
+                <div class="jd-section-label signal-label">&#x26A1; Anyscale Signals</div>
+                <ul class="signal-list">              <li>Primarily embedded, but this team is adjacent to the team running HIL sim and ML model validation pipelines</li>
+              <li>Probe: "Does the team run distributed HIL simulation or ML training off-vehicle?" — opens door to Anyscale conversation</li>
+              <li>High comp ($200K+) signals Elroy is growing and has budget</li>
+                </ul>
+              </div>
+            </div>
+            <div class="tech-tags"><span class="tech-tag">C++</span><span class="tech-tag">Embedded SW</span><span class="tech-tag">Sensor Fusion</span><span class="tech-tag">Autonomy</span><span class="tech-tag">Flight Controls</span></div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="company-section" id="intrinsic">
+      <div class="company-header">
+        <div class="company-icon" style="background:rgba(34,197,94,0.12)">🦾</div>
+        <div class="company-info">
+          <div class="company-name">Intrinsic (Google)</div>
+          <div class="company-meta-row">
+            <span class="chip chip-sector">Industrial Robotics Software</span>
+            <span class="chip chip-location">Mountain View, CA · Munich · Singapore</span>
+            <span class="chip chip-roles">4 relevant roles</span>
+            <div class="urgency high"><span class="urgency-dot"></span>High urgency</div>
+          </div>
+        </div>
+        <a class="company-jobs-link" href="https://www.intrinsic.ai/careers" target="_blank" rel="noopener">View all jobs &#x2197;</a>
+      </div>
+      <div class="roles-body">
+        <div class="role-row">
+          <span class="rel-badge rel-high">High</span>
+          <div class="role-content">
+            <div class="role-title-row">
+              <div class="role-title">Software Engineer — ML / Cloud Infrastructure</div>
+              
+            </div>
+            <div class="jd-sections">
+              <div class="jd-col">
+                <div class="jd-section-label">&#x1F4CB; Responsibilities</div>
+                <ul class="jd-list">              <li>Help determine <strong>data and ML infrastructure requirements</strong> for training large-scale robotic foundation models</li>
+              <li>Design solutions and review engineering specifications for <strong>distributed computing and data processing pipelines</strong></li>
+              <li>Improve existing systems by <strong>adapting scalable pipelines for distributed ML</strong></li>
+              <li>Collaborate with product and engineering teams to support German industry partner use cases</li>
+              <li>Build a <strong>data ecosystem for robotics</strong> foundation model training</li>
+                </ul>
+                <div class="jd-section-label" style="margin-top:10px">&#x1F527; Requirements</div>
+                <ul class="jd-list">              <li><strong>Google Cloud Platform</strong> experience required</li>
+              <li><strong>Kubernetes and Docker</strong> required</li>
+              <li>Service-oriented architectures required</li>
+              <li><strong>ML frameworks: TensorFlow, JAX</strong> (not PyTorch — notable)</li>
+              <li>Experience with distributed training pipelines</li>
+                </ul>
+              </div>
+              <div class="jd-col signal-col">
+                <div class="jd-section-label signal-label">&#x26A1; Anyscale Signals</div>
+                <ul class="signal-list">              <li><strong>GCP + Kubernetes + JAX = Google-native stack</strong> — Anyscale supports GCP + GKE natively; JAX + Ray Train is a supported combination</li>
+              <li>"Training large-scale robotic foundation models" = enormous distributed training job = direct Anyscale pitch</li>
+              <li>German industry partners = Siemens, BMW, Bosch ecosystem — scaling to enterprise use cases intensifies infra pressure</li>
+              <li>Explicit mention of distributed computing pipelines in JD = they know they have a scale problem</li>
+                </ul>
+              </div>
+            </div>
+            <div class="tech-tags"><span class="tech-tag">GCP</span><span class="tech-tag">Kubernetes</span><span class="tech-tag">JAX</span><span class="tech-tag">TensorFlow</span><span class="tech-tag">Distributed Training</span><span class="tech-tag">Docker</span><span class="tech-tag">Foundation Models</span></div>
+          </div>
+        </div>
+        <div class="role-row">
+          <span class="rel-badge rel-high">High</span>
+          <div class="role-content">
+            <div class="role-title-row">
+              <div class="role-title">Robotics SW Engineer — Robot Learning &amp; Manipulation</div>
+              
+            </div>
+            <div class="jd-sections">
+              <div class="jd-col">
+                <div class="jd-section-label">&#x1F4CB; Responsibilities</div>
+                <ul class="jd-list">              <li>Develop <strong>learning algorithms for manipulation tasks</strong> — imitation learning, RL, generalization across robot morphologies</li>
+              <li>Work across Mountain View, Munich, and Singapore offices (42 open positions company-wide)</li>
+              <li>Apply SOTA learning approaches to real-world manipulation challenges</li>
+                </ul>
+                <div class="jd-section-label" style="margin-top:10px">&#x1F527; Requirements</div>
+                <ul class="jd-list">              <li>Strong background in imitation learning, RL, or robot manipulation</li>
+              <li>Experience with simulation environments (IsaacSim, MuJoCo, etc.)</li>
+              <li>Python + ML framework proficiency</li>
+                </ul>
+              </div>
+              <div class="jd-col signal-col">
+                <div class="jd-section-label signal-label">&#x26A1; Anyscale Signals</div>
+                <ul class="signal-list">              <li>RL at scale = distributed rollout collection + distributed training; <strong>Ray RLlib is purpose-built for this</strong></li>
+              <li>Robotics teams using Ray RLlib + Anyscale run 10K+ parallel rollouts — use as a proof point</li>
+              <li>42 open positions = Intrinsic is in a major growth phase; infra team will be under significant pressure</li>
+              <li>Ask: "What simulation environment are you using, and how are you scaling rollout collection as model complexity grows?"</li>
+                </ul>
+              </div>
+            </div>
+            <div class="tech-tags"><span class="tech-tag">RL</span><span class="tech-tag">Imitation Learning</span><span class="tech-tag">Robot Manipulation</span><span class="tech-tag">Simulation</span><span class="tech-tag">Foundation Models</span></div>
+          </div>
+        </div>
+        <div class="role-row">
+          <span class="rel-badge rel-high">High</span>
+          <div class="role-content">
+            <div class="role-title-row">
+              <div class="role-title">Cloud Infrastructure Engineer</div>
+              
+            </div>
+            <div class="jd-sections">
+              <div class="jd-col">
+                <div class="jd-section-label">&#x1F4CB; Responsibilities</div>
+                <ul class="jd-list">              <li>Design and scale Intrinsic's <strong>cloud infrastructure for robot learning workloads</strong></li>
+              <li>Kubernetes orchestration, autoscaling, and resource management for multi-GPU training jobs</li>
+              <li>Support German industry partner deployments at enterprise scale</li>
+                </ul>
+                <div class="jd-section-label" style="margin-top:10px">&#x1F527; Requirements</div>
+                <ul class="jd-list">              <li>Deep Kubernetes and GCP experience</li>
+              <li>Multi-GPU cluster management</li>
+              <li>Autoscaling and resource allocation for ML workloads</li>
+                </ul>
+              </div>
+              <div class="jd-col signal-col">
+                <div class="jd-section-label signal-label">&#x26A1; Anyscale Signals</div>
+                <ul class="signal-list">              <li>Cloud infra engineers who own Kubernetes-based ML workload orchestration are <strong>the primary Anyscale technical evaluators</strong></li>
+              <li>"Autoscaling for multi-GPU training" = the exact problem Anyscale solves vs. hand-rolled K8s</li>
+              <li>Lead with TCO: "How many hours per week does your team spend on cluster configuration vs. actual ML work?"</li>
+                </ul>
+              </div>
+            </div>
+            <div class="tech-tags"><span class="tech-tag">Kubernetes</span><span class="tech-tag">GCP</span><span class="tech-tag">Multi-GPU</span><span class="tech-tag">Autoscaling</span><span class="tech-tag">Cloud Infra</span></div>
+          </div>
+        </div>
+        <div class="role-row">
+          <span class="rel-badge rel-medium">Medium</span>
+          <div class="role-content">
+            <div class="role-title-row">
+              <div class="role-title">Robotics SW Engineer — Interoperability</div>
+              
+            </div>
+            <div class="jd-sections">
+              <div class="jd-col">
+                <div class="jd-section-label">&#x1F4CB; Responsibilities</div>
+                <ul class="jd-list">              <li>Enable Intrinsic's software stack to work across diverse robot hardware morphologies</li>
+              <li>Cross-platform abstraction and runtime design</li>
+                </ul>
+                <div class="jd-section-label" style="margin-top:10px">&#x1F527; Requirements</div>
+                <ul class="jd-list">              <li>ROS2 / robotics runtime experience</li>
+              <li>Platform engineering background</li>
+                </ul>
+              </div>
+              <div class="jd-col signal-col">
+                <div class="jd-section-label signal-label">&#x26A1; Anyscale Signals</div>
+                <ul class="signal-list">              <li>Interoperability investment often precedes standardization of the ML stack — good warm contact</li>
+              <li>Probe: "Is there a plan to standardize how training and simulation pipelines run across robot platforms?"</li>
+                </ul>
+              </div>
+            </div>
+            <div class="tech-tags"><span class="tech-tag">ROS2</span><span class="tech-tag">Platform Engineering</span><span class="tech-tag">Interoperability</span><span class="tech-tag">Robotics Runtime</span></div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="company-section" id="wing">
+      <div class="company-header">
+        <div class="company-icon" style="background:rgba(34,211,238,0.12)">📦</div>
+        <div class="company-info">
+          <div class="company-name">Wing (Alphabet)</div>
+          <div class="company-meta-row">
+            <span class="chip chip-sector">Autonomous Drone Delivery</span>
+            <span class="chip chip-location">Palo Alto, CA</span>
+            <span class="chip chip-roles">3 relevant roles</span>
+            <div class="urgency high"><span class="urgency-dot"></span>High urgency</div>
+          </div>
+        </div>
+        <a class="company-jobs-link" href="https://wing.com/careers" target="_blank" rel="noopener">View all jobs &#x2197;</a>
+      </div>
+      <div class="roles-body">
+        <div class="role-row">
+          <span class="rel-badge rel-high">High</span>
+          <div class="role-content">
+            <div class="role-title-row">
+              <div class="role-title">Senior ML Engineer — Perception</div>
+              <span class="comp-badge">&#x1F4B0; $222K–$236K USD + bonus + equity</span>
+            </div>
+            <div class="jd-sections">
+              <div class="jd-col">
+                <div class="jd-section-label">&#x1F4CB; Responsibilities</div>
+                <ul class="jd-list">              <li>Research, build and deploy <strong>highly reliable ML models optimized for resource-constrained, real-time environments</strong></li>
+              <li>Utilize Wing's <strong>massive datasets</strong> to develop and refine complex perception models</li>
+              <li>Apply state-of-the-art CV foundation models to solve real-world drone delivery challenges</li>
+              <li>Partner across hardware, software, and flight-testing teams — concept to production flight code</li>
+              <li><strong>Educate and drive ML/AI adoption at Wing</strong></li>
+                </ul>
+                <div class="jd-section-label" style="margin-top:10px">&#x1F527; Requirements</div>
+                <ul class="jd-list">              <li><strong>8+ years experience</strong> in ML, deep learning, or computer vision within robotics or autonomous systems</li>
+              <li><strong>MS or PhD</strong> in CS, Robotics, EE, or equivalent</li>
+              <li><strong>Python and/or C++</strong>, hands-on experience with <strong>JAX, PyTorch, or TensorFlow</strong></li>
+              <li>Publications at top-tier venues (CVPR, ICCV, ECCV, ICML, ICRA, RSS, NeurIPS) <strong>preferred</strong></li>
+                </ul>
+              </div>
+              <div class="jd-col signal-col">
+                <div class="jd-section-label signal-label">&#x26A1; Anyscale Signals</div>
+                <ul class="signal-list">              <li><strong>"Massive datasets" + 8+ years experience + production flight code</strong> = this is a strategic hire who will own the training infrastructure direction</li>
+              <li>JAX/PyTorch/TensorFlow all listed = they are framework-agnostic and focused on scale — Anyscale supports all three natively</li>
+              <li>"Drive ML adoption at Wing" = this person will be building the internal ML platform; they will influence tooling choices</li>
+              <li>"Resource-constrained, real-time environments" = they need efficient training with tight deployment targets — Anyscale's resource management is a fit</li>
+              <li>Comp ($222K–$236K) signals budget is not the constraint — focus on time-to-value and ops efficiency</li>
+                </ul>
+              </div>
+            </div>
+            <div class="tech-tags"><span class="tech-tag">Python</span><span class="tech-tag">JAX</span><span class="tech-tag">PyTorch</span><span class="tech-tag">TensorFlow</span><span class="tech-tag">Computer Vision</span><span class="tech-tag">Autonomous Systems</span><span class="tech-tag">8+ years</span></div>
+          </div>
+        </div>
+        <div class="role-row">
+          <span class="rel-badge rel-medium">Medium</span>
+          <div class="role-content">
+            <div class="role-title-row">
+              <div class="role-title">Backend Software Engineer Intern — Summer 2026</div>
+              
+            </div>
+            <div class="jd-sections">
+              <div class="jd-col">
+                <div class="jd-section-label">&#x1F4CB; Responsibilities</div>
+                <ul class="jd-list">              <li>Backend engineering contributing to Wing's global flight operations and delivery platform</li>
+              <li>12-week hybrid internship in Palo Alto; graduating Dec 2026–Aug 2027</li>
+                </ul>
+                <div class="jd-section-label" style="margin-top:10px">&#x1F527; Requirements</div>
+                <ul class="jd-list">              <li>Python/CS background</li>
+              <li>Distributed systems interest</li>
+                </ul>
+              </div>
+              <div class="jd-col signal-col">
+                <div class="jd-section-label signal-label">&#x26A1; Anyscale Signals</div>
+                <ul class="signal-list">              <li>Intern hiring is a 6–9 month leading indicator for senior FTE hires</li>
+              <li>Wing hiring for backend + UTM simultaneously = scaling delivery ops infra across multiple fronts</li>
+              <li>Track for follow-on Sr. Backend or ML Infra hires in Q3/Q4 2026</li>
+                </ul>
+              </div>
+            </div>
+            <div class="tech-tags"><span class="tech-tag">Python</span><span class="tech-tag">Backend</span><span class="tech-tag">Distributed Systems</span><span class="tech-tag">Internship</span></div>
+          </div>
+        </div>
+        <div class="role-row">
+          <span class="rel-badge rel-medium">Medium</span>
+          <div class="role-content">
+            <div class="role-title-row">
+              <div class="role-title">UTM Software Engineering Intern — Summer 2026</div>
+              
+            </div>
+            <div class="jd-sections">
+              <div class="jd-col">
+                <div class="jd-section-label">&#x1F4CB; Responsibilities</div>
+                <ul class="jd-list">              <li>Unmanned Traffic Management (UTM) systems for drone fleet airspace coordination at scale</li>
+              <li>Real-time airspace conflict resolution and routing</li>
+                </ul>
+                <div class="jd-section-label" style="margin-top:10px">&#x1F527; Requirements</div>
+                <ul class="jd-list">              <li>Systems engineering background</li>
+              <li>Python or systems programming interest</li>
+                </ul>
+              </div>
+              <div class="jd-col signal-col">
+                <div class="jd-section-label signal-label">&#x26A1; Anyscale Signals</div>
+                <ul class="signal-list">              <li>UTM at fleet scale will eventually incorporate real-time ML for conflict prediction — watch for Sr. ML UTM hire in 2026–27</li>
+              <li>Simultaneous intern hiring across backend + UTM + perception = Wing is in active platform expansion phase</li>
+                </ul>
+              </div>
+            </div>
+            <div class="tech-tags"><span class="tech-tag">UTM</span><span class="tech-tag">Fleet Operations</span><span class="tech-tag">Real-Time Systems</span><span class="tech-tag">Internship</span></div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="company-section" id="gitai">
+      <div class="company-header">
+        <div class="company-icon" style="background:rgba(234,179,8,0.12)">🛸</div>
+        <div class="company-info">
+          <div class="company-name">GITAI</div>
+          <div class="company-meta-row">
+            <span class="chip chip-sector">Space Robotics</span>
+            <span class="chip chip-location">USA (HQ relocated from Tokyo, 2023)</span>
+            <span class="chip chip-roles">3 relevant roles</span>
+            <div class="urgency medium"><span class="urgency-dot"></span>Medium urgency</div>
+          </div>
+        </div>
+        <a class="company-jobs-link" href="https://gitai.tech/job-board/" target="_blank" rel="noopener">View all jobs &#x2197;</a>
+      </div>
+      <div class="roles-body">
+        <div class="role-row">
+          <span class="rel-badge rel-medium">Medium</span>
+          <div class="role-content">
+            <div class="role-title-row">
+              <div class="role-title">Robotics Software Engineer (Intern / Full-Time)</div>
+              
+            </div>
+            <div class="jd-sections">
+              <div class="jd-col">
+                <div class="jd-section-label">&#x1F4CB; Responsibilities</div>
+                <ul class="jd-list">              <li>Enhance GITAI's robot capabilities through <strong>tangible demonstrations</strong></li>
+              <li>Develop software for space manipulation tasks: autonomy, perception, control</li>
+              <li>Work with manufacturing team on hardware/software integration</li>
+              <li>Perform manual and <strong>automated testing</strong> of robotic systems</li>
+              <li><strong>~50% of engineering team holds PhDs in robotics</strong></li>
+                </ul>
+                <div class="jd-section-label" style="margin-top:10px">&#x1F527; Requirements</div>
+                <ul class="jd-list">              <li><strong>C++ and Python</strong> required</li>
+              <li><strong>ROS (Robot Operating System) and Linux</strong> required</li>
+              <li>Basic understanding of robotic kinematics and computer vision</li>
+              <li>Master's or PhD in Robotics, CS, or related field (for intern role)</li>
+              <li>Legal authorization to work in the US required (no visa sponsorship)</li>
+                </ul>
+              </div>
+              <div class="jd-col signal-col">
+                <div class="jd-section-label signal-label">&#x26A1; Anyscale Signals</div>
+                <ul class="signal-list">              <li>Space robotics = <strong>no iterating in orbit</strong> — extensive simulation-based testing is mandatory before launch</li>
+              <li><strong>2026 on-orbit service launch</strong> creates hard deadline pressure on their simulation and validation pipeline</li>
+              <li>Python + ROS + simulation = natural Ray use case for parallelizing sim validation campaigns</li>
+              <li>Ask: "With your 2026 launch window, how are you scaling your pre-flight simulation coverage? What orchestrates your test campaigns?"</li>
+                </ul>
+              </div>
+            </div>
+            <div class="tech-tags"><span class="tech-tag">C++</span><span class="tech-tag">Python</span><span class="tech-tag">ROS</span><span class="tech-tag">Linux</span><span class="tech-tag">Simulation</span><span class="tech-tag">Space Robotics</span><span class="tech-tag">Automated Testing</span></div>
+          </div>
+        </div>
+        <div class="role-row">
+          <span class="rel-badge rel-low">Low</span>
+          <div class="role-content">
+            <div class="role-title-row">
+              <div class="role-title">Mechanical Engineer</div>
+              
+            </div>
+            <div class="jd-sections">
+              <div class="jd-col">
+                <div class="jd-section-label">&#x1F4CB; Responsibilities</div>
+                <ul class="jd-list">              <li>Hardware design for space manipulation robot</li>
+              <li>Structural design, mechanism development, hardware/software integration</li>
+                </ul>
+                <div class="jd-section-label" style="margin-top:10px">&#x1F527; Requirements</div>
+                <ul class="jd-list">              <li>ME background, space systems experience a plus</li>
+                </ul>
+              </div>
+              <div class="jd-col signal-col">
+                <div class="jd-section-label signal-label">&#x26A1; Anyscale Signals</div>
+                <ul class="signal-list">              <li>Mechanical + Electronics hiring = hardware push toward 2026 on-orbit milestone</li>
+              <li>ML infrastructure investment typically follows hardware maturity — flag for 6-month follow-up after on-orbit demo</li>
+                </ul>
+              </div>
+            </div>
+            <div class="tech-tags"><span class="tech-tag">Hardware Design</span><span class="tech-tag">Space Systems</span><span class="tech-tag">Mechanical Engineering</span></div>
+          </div>
+        </div>
+        <div class="role-row">
+          <span class="rel-badge rel-low">Low</span>
+          <div class="role-content">
+            <div class="role-title-row">
+              <div class="role-title">Test Engineer</div>
+              
+            </div>
+            <div class="jd-sections">
+              <div class="jd-col">
+                <div class="jd-section-label">&#x1F4CB; Responsibilities</div>
+                <ul class="jd-list">              <li>Design and execute test programs for space robotics hardware and software</li>
+              <li>Qualification testing, anomaly resolution, test infrastructure development</li>
+                </ul>
+                <div class="jd-section-label" style="margin-top:10px">&#x1F527; Requirements</div>
+                <ul class="jd-list">              <li>Test automation background</li>
+              <li>Space qualification experience a plus</li>
+                </ul>
+              </div>
+              <div class="jd-col signal-col">
+                <div class="jd-section-label signal-label">&#x26A1; Anyscale Signals</div>
+                <ul class="signal-list">              <li>Test campaigns for space = highly parallelizable simulations — long-term Ray/Anyscale opportunity as GITAI moves toward software-defined testing</li>
+              <li>Low relevance today; revisit after 2026 on-orbit milestone is demonstrated</li>
+                </ul>
+              </div>
+            </div>
+            <div class="tech-tags"><span class="tech-tag">Test Automation</span><span class="tech-tag">Space Qualification</span><span class="tech-tag">Hardware Testing</span></div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="footer-note">
+      Data compiled March 9, 2026 via public job boards. Direct links:<br>
+      <a href="https://comma.ai/jobs" target="_blank">comma.ai</a> &middot;
+      <a href="https://www.iambic.ai/careers" target="_blank">Iambic Therapeutics</a> &middot;
+      <a href="https://fal.ai/careers" target="_blank">fal.ai</a> &middot;
+      <a href="https://jobs.lever.co/apex-ai" target="_blank">Apex.AI</a> &middot;
+      <a href="https://wellfound.com/company/chooch-computer-vision" target="_blank">Chooch</a> &middot;
+      <a href="https://lightwheel.ai/careers" target="_blank">Lightwheel</a> &middot;
+      <a href="https://www.valarlabs.com/careers" target="_blank">Valar Labs</a> &middot;
+      <a href="https://jobs.lever.co/elroyair" target="_blank">Elroy Air</a> &middot;
+      <a href="https://www.intrinsic.ai/careers" target="_blank">Intrinsic (Google)</a> &middot;
+      <a href="https://wing.com/careers" target="_blank">Wing (Alphabet)</a> &middot;
+      <a href="https://gitai.tech/job-board/" target="_blank">GITAI</a>
+    </div>
+  </main>
+</div>
+<script>
+document.querySelectorAll('.sidebar-item[href^="#"]').forEach(link => {
+  link.addEventListener('click', e => {
+    e.preventDefault();
+    document.querySelectorAll('.sidebar-item').forEach(i => i.classList.remove('active'));
+    link.classList.add('active');
+    const target = document.querySelector(link.getAttribute('href'));
+    if (target) target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+  });
+});
+const sections = document.querySelectorAll('.company-section[id]');
+const sidebarLinks = document.querySelectorAll('.sidebar-item[href^="#"]');
+window.addEventListener('scroll', () => {
+  let current = '';
+  sections.forEach(s => { if (window.scrollY + 120 >= s.offsetTop) current = s.id; });
+  sidebarLinks.forEach(l => { l.classList.toggle('active', l.getAttribute('href') === '#' + current); });
+});
+</script>
+</body>
+</html>
