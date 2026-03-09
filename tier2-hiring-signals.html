@@ -1,0 +1,1357 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Tier 2 Hiring Signals — Anyscale</title>
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;background:#0f172a;color:#e2e8f0;min-height:100vh;display:flex;flex-direction:column}
+a{color:#60a5fa}
+
+/* ── HEADER ── */
+.header{background:linear-gradient(135deg,#1e1b4b 0%,#1e3a5f 100%);border-bottom:1px solid #334155;padding:20px 32px;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:12px}
+.header-title{font-size:22px;font-weight:700;color:#e2e8f0}
+.header-sub{font-size:13px;color:#94a3b8;margin-top:2px}
+.stat-pills{display:flex;gap:10px;flex-wrap:wrap}
+.stat-pill{background:#0f172a;border:1px solid #334155;border-radius:8px;padding:6px 14px;text-align:center}
+.stat-pill .num{font-size:20px;font-weight:700;color:#60a5fa}
+.stat-pill .lbl{font-size:11px;color:#64748b;text-transform:uppercase;letter-spacing:.5px}
+
+/* ── LAYOUT ── */
+.layout{display:flex;flex:1;height:calc(100vh - 80px);overflow:hidden}
+.sidebar{width:260px;flex-shrink:0;background:#0d1526;border-right:1px solid #1e293b;overflow-y:auto;padding:16px 12px}
+.sidebar-title{font-size:11px;font-weight:600;color:#64748b;text-transform:uppercase;letter-spacing:.8px;margin-bottom:12px;padding:0 4px}
+.sidebar-item{border-radius:8px;padding:10px 12px;cursor:pointer;transition:background .15s;margin-bottom:4px;border:1px solid transparent}
+.sidebar-item:hover{background:#1e293b;border-color:#334155}
+
+/* ── MAIN ── */
+.main{flex:1;overflow-y:auto;padding:24px 28px}
+
+/* ── COMPANY SECTION ── */
+.company-section{margin-bottom:36px;border:1px solid #1e293b;border-radius:14px;overflow:hidden;background:#111827}
+.company-header{background:#161f2e;border-bottom:1px solid #1e293b;padding:18px 22px;display:flex;align-items:flex-start;justify-content:space-between;gap:12px}
+.company-name{font-size:19px;font-weight:700;color:#f1f5f9}
+
+/* ── ROLE CARD ── */
+.role-card{border-left:4px solid #334155;margin:16px;border-radius:10px;background:#0f172a;border:1px solid #1e293b;overflow:hidden}
+.role-card.rel-high{border-left:4px solid #ef4444}
+.role-card.rel-medium{border-left:4px solid #f59e0b}
+.role-card.rel-low{border-left:4px solid #6b7280}
+.role-header{padding:14px 18px 10px;border-bottom:1px solid #1e293b;background:#0d1526}
+.role-title{font-size:16px;font-weight:700;color:#f1f5f9}
+.role-panels{display:grid;grid-template-columns:1fr 1fr;gap:0}
+@media(max-width:900px){.role-panels{grid-template-columns:1fr}}
+.panel-jd{padding:16px 18px;border-right:1px solid #1e293b}
+.panel-signals{padding:16px 18px;background:#0a111e}
+.panel-label{font-size:11px;font-weight:700;color:#64748b;text-transform:uppercase;letter-spacing:.8px;margin-bottom:12px}
+.jd-section{margin-bottom:14px}
+.jd-section-title{font-size:12px;font-weight:600;color:#94a3b8;margin-bottom:6px;text-transform:uppercase;letter-spacing:.5px}
+.jd-section ul{padding-left:18px}
+.jd-section li{font-size:13px;color:#cbd5e1;line-height:1.6;margin-bottom:3px}
+.panel-signals li{font-size:13px;color:#93c5fd;line-height:1.5}
+
+/* ── FOOTER ── */
+.footer{background:#0d1526;border-top:1px solid #1e293b;padding:16px 28px;display:flex;flex-wrap:wrap;gap:8px;align-items:center}
+.footer-label{font-size:12px;color:#64748b;margin-right:4px;white-space:nowrap}
+
+/* SCROLLBAR */
+::-webkit-scrollbar{width:6px}
+::-webkit-scrollbar-track{background:#0d1526}
+::-webkit-scrollbar-thumb{background:#334155;border-radius:3px}
+</style>
+</head>
+<body>
+
+<div class="header">
+  <div>
+    <div class="header-title">⚡ Tier 2 Hiring Signals</div>
+    <div class="header-sub">Anyscale-relevant job postings across 25 Tier 2 accounts · Updated March 2026</div>
+  </div>
+  <div class="stat-pills">
+    <div class="stat-pill"><div class="num">25</div><div class="lbl">Accounts</div></div>
+    <div class="stat-pill"><div class="num">27</div><div class="lbl">Roles Tracked</div></div>
+    <div class="stat-pill"><div class="num" style="color:#ef4444">18</div><div class="lbl">High Signal</div></div>
+    <div class="stat-pill"><div class="num" style="color:#f59e0b">9</div><div class="lbl">Medium Signal</div></div>
+  </div>
+</div>
+
+<div class="layout">
+  <div class="sidebar">
+    <div class="sidebar-title">25 Accounts</div>
+    <div class="sidebar-item" onclick="scrollTo('Anyware_Robotics')">
+  <div style="font-size:13px;font-weight:600;color:#e2e8f0;line-height:1.3">Anyware Robotics</div>
+  <div style="display:flex;align-items:center;gap:6px;margin-top:4px">
+    <span style="display:inline-block;width:8px;height:8px;border-radius:50%;background:#ef4444;margin-right:2px" title="high"></span>
+    <span style="font-size:11px;color:#94a3b8">1 role</span>
+  </div>
+</div>
+<div class="sidebar-item" onclick="scrollTo('AppliedVR')">
+  <div style="font-size:13px;font-weight:600;color:#e2e8f0;line-height:1.3">AppliedVR</div>
+  <div style="display:flex;align-items:center;gap:6px;margin-top:4px">
+    <span style="display:inline-block;width:8px;height:8px;border-radius:50%;background:#f59e0b;margin-right:2px" title="medium"></span>
+    <span style="font-size:11px;color:#94a3b8">1 role</span>
+  </div>
+</div>
+<div class="sidebar-item" onclick="scrollTo('Armstrong_Robotics')">
+  <div style="font-size:13px;font-weight:600;color:#e2e8f0;line-height:1.3">Armstrong Robotics</div>
+  <div style="display:flex;align-items:center;gap:6px;margin-top:4px">
+    <span style="display:inline-block;width:8px;height:8px;border-radius:50%;background:#ef4444;margin-right:2px" title="high"></span>
+    <span style="font-size:11px;color:#94a3b8">1 role</span>
+  </div>
+</div>
+<div class="sidebar-item" onclick="scrollTo('Autonomize_AI')">
+  <div style="font-size:13px;font-weight:600;color:#e2e8f0;line-height:1.3">Autonomize AI</div>
+  <div style="display:flex;align-items:center;gap:6px;margin-top:4px">
+    <span style="display:inline-block;width:8px;height:8px;border-radius:50%;background:#ef4444;margin-right:2px" title="high"></span>
+    <span style="font-size:11px;color:#94a3b8">1 role</span>
+  </div>
+</div>
+<div class="sidebar-item" onclick="scrollTo('Compound_Eye')">
+  <div style="font-size:13px;font-weight:600;color:#e2e8f0;line-height:1.3">Compound Eye</div>
+  <div style="display:flex;align-items:center;gap:6px;margin-top:4px">
+    <span style="display:inline-block;width:8px;height:8px;border-radius:50%;background:#ef4444;margin-right:2px" title="high"></span>
+    <span style="font-size:11px;color:#94a3b8">1 role</span>
+  </div>
+</div>
+<div class="sidebar-item" onclick="scrollTo('Culture_Biosciences')">
+  <div style="font-size:13px;font-weight:600;color:#e2e8f0;line-height:1.3">Culture Biosciences</div>
+  <div style="display:flex;align-items:center;gap:6px;margin-top:4px">
+    <span style="display:inline-block;width:8px;height:8px;border-radius:50%;background:#f59e0b;margin-right:2px" title="medium"></span>
+    <span style="font-size:11px;color:#94a3b8">1 role</span>
+  </div>
+</div>
+<div class="sidebar-item" onclick="scrollTo('Cytek_Biosciences')">
+  <div style="font-size:13px;font-weight:600;color:#e2e8f0;line-height:1.3">Cytek Biosciences</div>
+  <div style="display:flex;align-items:center;gap:6px;margin-top:4px">
+    <span style="display:inline-block;width:8px;height:8px;border-radius:50%;background:#f59e0b;margin-right:2px" title="medium"></span>
+    <span style="font-size:11px;color:#94a3b8">1 role</span>
+  </div>
+</div>
+<div class="sidebar-item" onclick="scrollTo('Firefliesai')">
+  <div style="font-size:13px;font-weight:600;color:#e2e8f0;line-height:1.3">Fireflies.ai</div>
+  <div style="display:flex;align-items:center;gap:6px;margin-top:4px">
+    <span style="display:inline-block;width:8px;height:8px;border-radius:50%;background:#ef4444;margin-right:2px" title="high"></span>
+    <span style="font-size:11px;color:#94a3b8">1 role</span>
+  </div>
+</div>
+<div class="sidebar-item" onclick="scrollTo('Formant')">
+  <div style="font-size:13px;font-weight:600;color:#e2e8f0;line-height:1.3">Formant</div>
+  <div style="display:flex;align-items:center;gap:6px;margin-top:4px">
+    <span style="display:inline-block;width:8px;height:8px;border-radius:50%;background:#ef4444;margin-right:2px" title="high"></span>
+    <span style="font-size:11px;color:#94a3b8">1 role</span>
+  </div>
+</div>
+<div class="sidebar-item" onclick="scrollTo('Foxglove')">
+  <div style="font-size:13px;font-weight:600;color:#e2e8f0;line-height:1.3">Foxglove</div>
+  <div style="display:flex;align-items:center;gap:6px;margin-top:4px">
+    <span style="display:inline-block;width:8px;height:8px;border-radius:50%;background:#f59e0b;margin-right:2px" title="medium"></span>
+    <span style="font-size:11px;color:#94a3b8">1 role</span>
+  </div>
+</div>
+<div class="sidebar-item" onclick="scrollTo('Fulgent_Genetics')">
+  <div style="font-size:13px;font-weight:600;color:#e2e8f0;line-height:1.3">Fulgent Genetics</div>
+  <div style="display:flex;align-items:center;gap:6px;margin-top:4px">
+    <span style="display:inline-block;width:8px;height:8px;border-radius:50%;background:#f59e0b;margin-right:2px" title="medium"></span>
+    <span style="font-size:11px;color:#94a3b8">1 role</span>
+  </div>
+</div>
+<div class="sidebar-item" onclick="scrollTo('Gorgias')">
+  <div style="font-size:13px;font-weight:600;color:#e2e8f0;line-height:1.3">Gorgias</div>
+  <div style="display:flex;align-items:center;gap:6px;margin-top:4px">
+    <span style="display:inline-block;width:8px;height:8px;border-radius:50%;background:#ef4444;margin-right:2px" title="high"></span>
+    <span style="font-size:11px;color:#94a3b8">1 role</span>
+  </div>
+</div>
+<div class="sidebar-item" onclick="scrollTo('HeadSpin')">
+  <div style="font-size:13px;font-weight:600;color:#e2e8f0;line-height:1.3">HeadSpin</div>
+  <div style="display:flex;align-items:center;gap:6px;margin-top:4px">
+    <span style="display:inline-block;width:8px;height:8px;border-radius:50%;background:#f59e0b;margin-right:2px" title="medium"></span>
+    <span style="font-size:11px;color:#94a3b8">1 role</span>
+  </div>
+</div>
+<div class="sidebar-item" onclick="scrollTo('Kiwibot')">
+  <div style="font-size:13px;font-weight:600;color:#e2e8f0;line-height:1.3">Kiwibot</div>
+  <div style="display:flex;align-items:center;gap:6px;margin-top:4px">
+    <span style="display:inline-block;width:8px;height:8px;border-radius:50%;background:#ef4444;margin-right:2px" title="high"></span>
+    <span style="font-size:11px;color:#94a3b8">1 role</span>
+  </div>
+</div>
+<div class="sidebar-item" onclick="scrollTo('Krisp')">
+  <div style="font-size:13px;font-weight:600;color:#e2e8f0;line-height:1.3">Krisp</div>
+  <div style="display:flex;align-items:center;gap:6px;margin-top:4px">
+    <span style="display:inline-block;width:8px;height:8px;border-radius:50%;background:#ef4444;margin-right:2px" title="high"></span>
+    <span style="font-size:11px;color:#94a3b8">1 role</span>
+  </div>
+</div>
+<div class="sidebar-item" onclick="scrollTo('Matterport')">
+  <div style="font-size:13px;font-weight:600;color:#e2e8f0;line-height:1.3">Matterport</div>
+  <div style="display:flex;align-items:center;gap:6px;margin-top:4px">
+    <span style="display:inline-block;width:8px;height:8px;border-radius:50%;background:#ef4444;margin-right:2px" title="high"></span>
+    <span style="font-size:11px;color:#94a3b8">1 role</span>
+  </div>
+</div>
+<div class="sidebar-item" onclick="scrollTo('Overviewai')">
+  <div style="font-size:13px;font-weight:600;color:#e2e8f0;line-height:1.3">Overview.ai</div>
+  <div style="display:flex;align-items:center;gap:6px;margin-top:4px">
+    <span style="display:inline-block;width:8px;height:8px;border-radius:50%;background:#ef4444;margin-right:2px" title="high"></span>
+    <span style="font-size:11px;color:#94a3b8">1 role</span>
+  </div>
+</div>
+<div class="sidebar-item" onclick="scrollTo('Pyka')">
+  <div style="font-size:13px;font-weight:600;color:#e2e8f0;line-height:1.3">Pyka</div>
+  <div style="display:flex;align-items:center;gap:6px;margin-top:4px">
+    <span style="display:inline-block;width:8px;height:8px;border-radius:50%;background:#f59e0b;margin-right:2px" title="medium"></span>
+    <span style="font-size:11px;color:#94a3b8">1 role</span>
+  </div>
+</div>
+<div class="sidebar-item" onclick="scrollTo('Samba_TV')">
+  <div style="font-size:13px;font-weight:600;color:#e2e8f0;line-height:1.3">Samba TV</div>
+  <div style="display:flex;align-items:center;gap:6px;margin-top:4px">
+    <span style="display:inline-block;width:8px;height:8px;border-radius:50%;background:#ef4444;margin-right:2px" title="high"></span>
+    <span style="font-size:11px;color:#94a3b8">2 roles</span>
+  </div>
+</div>
+<div class="sidebar-item" onclick="scrollTo('Suki')">
+  <div style="font-size:13px;font-weight:600;color:#e2e8f0;line-height:1.3">Suki</div>
+  <div style="display:flex;align-items:center;gap:6px;margin-top:4px">
+    <span style="display:inline-block;width:8px;height:8px;border-radius:50%;background:#ef4444;margin-right:2px" title="high"></span>
+    <span style="font-size:11px;color:#94a3b8">2 roles</span>
+  </div>
+</div>
+<div class="sidebar-item" onclick="scrollTo('Techcyte')">
+  <div style="font-size:13px;font-weight:600;color:#e2e8f0;line-height:1.3">Techcyte</div>
+  <div style="display:flex;align-items:center;gap:6px;margin-top:4px">
+    <span style="display:inline-block;width:8px;height:8px;border-radius:50%;background:#f59e0b;margin-right:2px" title="medium"></span>
+    <span style="font-size:11px;color:#94a3b8">1 role</span>
+  </div>
+</div>
+<div class="sidebar-item" onclick="scrollTo('Topaz_Labs')">
+  <div style="font-size:13px;font-weight:600;color:#e2e8f0;line-height:1.3">Topaz Labs</div>
+  <div style="display:flex;align-items:center;gap:6px;margin-top:4px">
+    <span style="display:inline-block;width:8px;height:8px;border-radius:50%;background:#ef4444;margin-right:2px" title="high"></span>
+    <span style="font-size:11px;color:#94a3b8">1 role</span>
+  </div>
+</div>
+<div class="sidebar-item" onclick="scrollTo('Uplight')">
+  <div style="font-size:13px;font-weight:600;color:#e2e8f0;line-height:1.3">Uplight</div>
+  <div style="display:flex;align-items:center;gap:6px;margin-top:4px">
+    <span style="display:inline-block;width:8px;height:8px;border-radius:50%;background:#ef4444;margin-right:2px" title="high"></span>
+    <span style="font-size:11px;color:#94a3b8">1 role</span>
+  </div>
+</div>
+<div class="sidebar-item" onclick="scrollTo('Weave_Robotics')">
+  <div style="font-size:13px;font-weight:600;color:#e2e8f0;line-height:1.3">Weave Robotics</div>
+  <div style="display:flex;align-items:center;gap:6px;margin-top:4px">
+    <span style="display:inline-block;width:8px;height:8px;border-radius:50%;background:#ef4444;margin-right:2px" title="high"></span>
+    <span style="font-size:11px;color:#94a3b8">1 role</span>
+  </div>
+</div>
+<div class="sidebar-item" onclick="scrollTo('Wobot_AI')">
+  <div style="font-size:13px;font-weight:600;color:#e2e8f0;line-height:1.3">Wobot AI</div>
+  <div style="display:flex;align-items:center;gap:6px;margin-top:4px">
+    <span style="display:inline-block;width:8px;height:8px;border-radius:50%;background:#f59e0b;margin-right:2px" title="medium"></span>
+    <span style="font-size:11px;color:#94a3b8">1 role</span>
+  </div>
+</div>
+  </div>
+  <div class="main">
+    <div class="company-section" id="Anyware_Robotics">
+  <div class="company-header">
+    <div>
+      <div class="company-name">Anyware Robotics</div>
+      <div style="display:flex;gap:6px;flex-wrap:wrap;margin-top:6px"><span style="background:#1e3a5f;color:#93c5fd;border:1px solid #1d4ed8;border-radius:4px;padding:2px 8px;font-size:11px">Series A</span><span style="background:#1e293b;color:#94a3b8;border:1px solid #334155;border-radius:4px;padding:2px 8px;font-size:11px">📍 Fremont, CA</span></div>
+    </div>
+    <a href="https://anywarerobotics.com/jobs" target="_blank" rel="noopener"
+       style="color:#60a5fa;font-size:13px;text-decoration:none;border:1px solid #1d4ed8;border-radius:6px;padding:6px 14px;background:#1e3a5f;white-space:nowrap;flex-shrink:0">
+      View Job Board ↗
+    </a>
+  </div>
+  <div class="role-card rel-high">
+  <div class="role-header">
+    <div>
+      <div class="role-title">Senior Perception Engineer</div>
+      <div style="display:flex;align-items:center;gap:8px;flex-wrap:wrap;margin-top:6px">
+        <span class="rel-badge" style="background:#fef2f2;color:#ef4444;border:1px solid #ef444440;border-radius:4px;padding:2px 10px;font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.5px">🔴 High Relevance</span>
+        
+      </div>
+    </div>
+  </div>
+  <div class="role-panels">
+    <div class="panel-jd">
+      <div class="panel-label">📋 Job Description</div>
+      <div class="jd-section">
+        <div class="jd-section-title">Responsibilities</div>
+        <ul><li>Develop algorithms for 3D perception tasks using RGB-D and LiDAR data</li><li>Build and maintain perception pipelines combining geometric and data-driven methods</li><li>Ensure reliable real-time performance on embedded and GPU platforms</li><li>Contribute to data collection, labeling, evaluation, and model training processes</li><li>Collaborate with motion planning and manipulation teams for system integration</li></ul>
+      </div>
+      <div class="jd-section">
+        <div class="jd-section-title">Requirements</div>
+        <ul><li>Master's or PhD in Robotics, Computer Vision, or related field</li><li>5+ years professional experience in 3D perception for robotics/autonomous systems</li><li>Proficiency in point cloud processing (PCL, Open3D, ROS perception stack)</li><li>Strong C++ and Python development skills</li><li>Experience with GPU-accelerated computing for real-time perception</li></ul>
+      </div>
+      <div style="display:flex;flex-wrap:wrap;gap:6px;margin-top:12px"><span style="background:#1e293b;color:#94a3b8;border:1px solid #334155;border-radius:4px;padding:1px 7px;font-size:11px">C++</span><span style="background:#1e293b;color:#94a3b8;border:1px solid #334155;border-radius:4px;padding:1px 7px;font-size:11px">Python</span><span style="background:#1e293b;color:#94a3b8;border:1px solid #334155;border-radius:4px;padding:1px 7px;font-size:11px">GPU</span><span style="background:#1e293b;color:#94a3b8;border:1px solid #334155;border-radius:4px;padding:1px 7px;font-size:11px">LiDAR</span><span style="background:#1e293b;color:#94a3b8;border:1px solid #334155;border-radius:4px;padding:1px 7px;font-size:11px">Point Cloud</span><span style="background:#1e293b;color:#94a3b8;border:1px solid #334155;border-radius:4px;padding:1px 7px;font-size:11px">ROS</span><span style="background:#1e293b;color:#94a3b8;border:1px solid #334155;border-radius:4px;padding:1px 7px;font-size:11px">CUDA</span><span style="background:#1e293b;color:#94a3b8;border:1px solid #334155;border-radius:4px;padding:1px 7px;font-size:11px">PyTorch</span></div>
+    </div>
+    <div class="panel-signals">
+      <div class="panel-label">⚡ Anyscale Signals</div>
+      <ul style="list-style:none;padding:0;margin:0"><li style="margin-bottom:8px">⚡ "GPU platforms" + "real-time performance" — fleet-scale perception needs distributed GPU orchestration</li><li style="margin-bottom:8px">⚡ "Point cloud processing" from LiDAR + RGB-D = heterogeneous data pipelines Ray handles natively</li><li style="margin-bottom:8px">⚡ Multi-modal sensor fusion (30+ sensors per robot) requires parallel data ingestion at scale</li><li style="margin-bottom:8px">⚡ "Thousands of hours" of training data across robot fleet = distributed data pipeline buying signal</li><li style="margin-bottom:8px">⚡ Perception + motion planning integration = multi-actor Ray workflow opportunity</li></ul>
+    </div>
+  </div>
+</div>
+</div>
+<div class="company-section" id="AppliedVR">
+  <div class="company-header">
+    <div>
+      <div class="company-name">AppliedVR</div>
+      <div style="display:flex;gap:6px;flex-wrap:wrap;margin-top:6px"><span style="background:#1e3a5f;color:#93c5fd;border:1px solid #1d4ed8;border-radius:4px;padding:2px 8px;font-size:11px">Series B</span><span style="background:#1e293b;color:#94a3b8;border:1px solid #334155;border-radius:4px;padding:2px 8px;font-size:11px">📍 Los Angeles, CA</span></div>
+    </div>
+    <a href="https://appliedvr.io/jobs" target="_blank" rel="noopener"
+       style="color:#60a5fa;font-size:13px;text-decoration:none;border:1px solid #1d4ed8;border-radius:6px;padding:6px 14px;background:#1e3a5f;white-space:nowrap;flex-shrink:0">
+      View Job Board ↗
+    </a>
+  </div>
+  <div class="role-card rel-medium">
+  <div class="role-header">
+    <div>
+      <div class="role-title">Machine Learning Engineer</div>
+      <div style="display:flex;align-items:center;gap:8px;flex-wrap:wrap;margin-top:6px">
+        <span class="rel-badge" style="background:#fffbeb;color:#f59e0b;border:1px solid #f59e0b40;border-radius:4px;padding:2px 10px;font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.5px">🟡 Medium Relevance</span>
+        
+      </div>
+    </div>
+  </div>
+  <div class="role-panels">
+    <div class="panel-jd">
+      <div class="panel-label">📋 Job Description</div>
+      <div class="jd-section">
+        <div class="jd-section-title">Responsibilities</div>
+        <ul><li>Develop AI/ML models for personalized VR therapeutic delivery</li><li>Process healthcare data for patient efficacy and outcome tracking</li><li>Build integrations with healthcare data platforms (EMR/EHR)</li><li>Implement AI algorithms for adaptive treatment optimization</li><li>Scale ML inference infrastructure for enterprise health system deployments</li></ul>
+      </div>
+      <div class="jd-section">
+        <div class="jd-section-title">Requirements</div>
+        <ul><li>3+ years ML engineering experience in regulated healthcare or medical device context</li><li>Proficiency in Python with TensorFlow or PyTorch</li><li>Knowledge of HIPAA-compliant data handling and regulated software (FDA SaMD)</li><li>Experience with cloud ML deployment on AWS or Azure</li><li>Familiarity with clinical data formats (HL7, FHIR) preferred</li></ul>
+      </div>
+      <div style="display:flex;flex-wrap:wrap;gap:6px;margin-top:12px"><span style="background:#1e293b;color:#94a3b8;border:1px solid #334155;border-radius:4px;padding:1px 7px;font-size:11px">Python</span><span style="background:#1e293b;color:#94a3b8;border:1px solid #334155;border-radius:4px;padding:1px 7px;font-size:11px">PyTorch</span><span style="background:#1e293b;color:#94a3b8;border:1px solid #334155;border-radius:4px;padding:1px 7px;font-size:11px">TensorFlow</span><span style="background:#1e293b;color:#94a3b8;border:1px solid #334155;border-radius:4px;padding:1px 7px;font-size:11px">Healthcare AI</span><span style="background:#1e293b;color:#94a3b8;border:1px solid #334155;border-radius:4px;padding:1px 7px;font-size:11px">AWS</span><span style="background:#1e293b;color:#94a3b8;border:1px solid #334155;border-radius:4px;padding:1px 7px;font-size:11px">HIPAA</span><span style="background:#1e293b;color:#94a3b8;border:1px solid #334155;border-radius:4px;padding:1px 7px;font-size:11px">HL7</span></div>
+    </div>
+    <div class="panel-signals">
+      <div class="panel-label">⚡ Anyscale Signals</div>
+      <ul style="list-style:none;padding:0;margin:0"><li style="margin-bottom:8px">⚡ Healthcare AI aggregating data from "hundreds of sources" = distributed data ingestion use case</li><li style="margin-bottom:8px">⚡ Personalized VR therapeutic delivery at scale = real-time ML inference infrastructure need</li><li style="margin-bottom:8px">⚡ Payer/health system enterprise deployments = high-availability serving requirements</li><li style="margin-bottom:8px">⚡ FDA SaMD compliance = reproducible, traceable ML pipelines that Ray Workflows provides</li></ul>
+    </div>
+  </div>
+</div>
+</div>
+<div class="company-section" id="Armstrong_Robotics">
+  <div class="company-header">
+    <div>
+      <div class="company-name">Armstrong Robotics</div>
+      <div style="display:flex;gap:6px;flex-wrap:wrap;margin-top:6px"><span style="background:#1e3a5f;color:#93c5fd;border:1px solid #1d4ed8;border-radius:4px;padding:2px 8px;font-size:11px">Seed</span><span style="background:#1e293b;color:#94a3b8;border:1px solid #334155;border-radius:4px;padding:2px 8px;font-size:11px">📍 San Francisco, CA</span></div>
+    </div>
+    <a href="https://armstrongrobotics.com/jobs" target="_blank" rel="noopener"
+       style="color:#60a5fa;font-size:13px;text-decoration:none;border:1px solid #1d4ed8;border-radius:6px;padding:6px 14px;background:#1e3a5f;white-space:nowrap;flex-shrink:0">
+      View Job Board ↗
+    </a>
+  </div>
+  <div class="role-card rel-high">
+  <div class="role-header">
+    <div>
+      <div class="role-title">ML / Perception Engineer</div>
+      <div style="display:flex;align-items:center;gap:8px;flex-wrap:wrap;margin-top:6px">
+        <span class="rel-badge" style="background:#fef2f2;color:#ef4444;border:1px solid #ef444440;border-radius:4px;padding:2px 10px;font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.5px">🔴 High Relevance</span>
+        
+      </div>
+    </div>
+  </div>
+  <div class="role-panels">
+    <div class="panel-jd">
+      <div class="panel-label">📋 Job Description</div>
+      <div class="jd-section">
+        <div class="jd-section-title">Responsibilities</div>
+        <ul><li>Train neural networks on millions of dish imagery examples for robotic grasping</li><li>Develop real-time 3D perception for semantic segmentation and instance segmentation</li><li>Deploy ML models to robot edge devices operating in live restaurant environments</li><li>Build large-scale training data pipelines from 30+ sensors per robot</li><li>Integrate perception with gripper control and motion planning</li></ul>
+      </div>
+      <div class="jd-section">
+        <div class="jd-section-title">Requirements</div>
+        <ul><li>Deep learning and computer vision expertise (segmentation, object detection)</li><li>Point cloud processing and 3D geometry (PCL, Open3D)</li><li>Real-time embedded ML deployment on GPU hardware</li><li>Python and C++ for performance-critical perception code</li><li>Experience with distributed training on large image/video datasets</li></ul>
+      </div>
+      <div style="display:flex;flex-wrap:wrap;gap:6px;margin-top:12px"><span style="background:#1e293b;color:#94a3b8;border:1px solid #334155;border-radius:4px;padding:1px 7px;font-size:11px">Python</span><span style="background:#1e293b;color:#94a3b8;border:1px solid #334155;border-radius:4px;padding:1px 7px;font-size:11px">C++</span><span style="background:#1e293b;color:#94a3b8;border:1px solid #334155;border-radius:4px;padding:1px 7px;font-size:11px">PyTorch</span><span style="background:#1e293b;color:#94a3b8;border:1px solid #334155;border-radius:4px;padding:1px 7px;font-size:11px">Semantic Segmentation</span><span style="background:#1e293b;color:#94a3b8;border:1px solid #334155;border-radius:4px;padding:1px 7px;font-size:11px">Point Cloud</span><span style="background:#1e293b;color:#94a3b8;border:1px solid #334155;border-radius:4px;padding:1px 7px;font-size:11px">CUDA</span><span style="background:#1e293b;color:#94a3b8;border:1px solid #334155;border-radius:4px;padding:1px 7px;font-size:11px">ROS</span></div>
+    </div>
+    <div class="panel-signals">
+      <div class="panel-label">⚡ Anyscale Signals</div>
+      <ul style="list-style:none;padding:0;margin:0"><li style="margin-bottom:8px">⚡ "Millions of examples of dishes" for training = distributed data pipeline and training at scale</li><li style="margin-bottom:8px">⚡ 30 sensors per robot + "thousands of hours" = massive Ray Data preprocessing opportunity</li><li style="margin-bottom:8px">⚡ Multi-restaurant fleet deployment = distributed inference serving across edge devices</li><li style="margin-bottom:8px">⚡ "Static and dynamic obstruction detection" in real-time = low-latency Ray Serve use case</li><li style="margin-bottom:8px">⚡ Seed-stage company scaling fast = buy vs. build inflection point approaching</li></ul>
+    </div>
+  </div>
+</div>
+</div>
+<div class="company-section" id="Autonomize_AI">
+  <div class="company-header">
+    <div>
+      <div class="company-name">Autonomize AI</div>
+      <div style="display:flex;gap:6px;flex-wrap:wrap;margin-top:6px"><span style="background:#1e3a5f;color:#93c5fd;border:1px solid #1d4ed8;border-radius:4px;padding:2px 8px;font-size:11px">Series A</span><span style="background:#1e293b;color:#94a3b8;border:1px solid #334155;border-radius:4px;padding:2px 8px;font-size:11px">📍 San Jose, CA</span></div>
+    </div>
+    <a href="https://autonomize.ai/jobs" target="_blank" rel="noopener"
+       style="color:#60a5fa;font-size:13px;text-decoration:none;border:1px solid #1d4ed8;border-radius:6px;padding:6px 14px;background:#1e3a5f;white-space:nowrap;flex-shrink:0">
+      View Job Board ↗
+    </a>
+  </div>
+  <div class="role-card rel-high">
+  <div class="role-header">
+    <div>
+      <div class="role-title">Senior ML Engineer</div>
+      <div style="display:flex;align-items:center;gap:8px;flex-wrap:wrap;margin-top:6px">
+        <span class="rel-badge" style="background:#fef2f2;color:#ef4444;border:1px solid #ef444440;border-radius:4px;padding:2px 10px;font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.5px">🔴 High Relevance</span>
+        
+      </div>
+    </div>
+  </div>
+  <div class="role-panels">
+    <div class="panel-jd">
+      <div class="panel-label">📋 Job Description</div>
+      <div class="jd-section">
+        <div class="jd-section-title">Responsibilities</div>
+        <ul><li>Lead development and deployment of ML solutions emphasizing LLMs, vision models, and NLP</li><li>Fine-tune large language models (GPT, BERT, domain-specific) for healthcare applications</li><li>Deploy and manage ML models in production regulated healthcare environments</li><li>Develop ML pipelines for document understanding and unstructured clinical data processing</li><li>Implement LLMOps workflows across customer healthcare engagements</li></ul>
+      </div>
+      <div class="jd-section">
+        <div class="jd-section-title">Requirements</div>
+        <ul><li>5–7 years ML engineering experience with production-grade models in regulated industries</li><li>Hands-on expertise with LLMs (GPT, BERT) and classic NLP technologies</li><li>Proficiency in Python with TensorFlow, PyTorch, and OpenCV</li><li>MLOps/LLMOps experience: MLflow, KubeFlow</li><li>Working knowledge of Azure ML or SageMaker preferred</li></ul>
+      </div>
+      <div style="display:flex;flex-wrap:wrap;gap:6px;margin-top:12px"><span style="background:#1e293b;color:#94a3b8;border:1px solid #334155;border-radius:4px;padding:1px 7px;font-size:11px">Python</span><span style="background:#1e293b;color:#94a3b8;border:1px solid #334155;border-radius:4px;padding:1px 7px;font-size:11px">PyTorch</span><span style="background:#1e293b;color:#94a3b8;border:1px solid #334155;border-radius:4px;padding:1px 7px;font-size:11px">LLM</span><span style="background:#1e293b;color:#94a3b8;border:1px solid #334155;border-radius:4px;padding:1px 7px;font-size:11px">NLP</span><span style="background:#1e293b;color:#94a3b8;border:1px solid #334155;border-radius:4px;padding:1px 7px;font-size:11px">KubeFlow</span><span style="background:#1e293b;color:#94a3b8;border:1px solid #334155;border-radius:4px;padding:1px 7px;font-size:11px">MLflow</span><span style="background:#1e293b;color:#94a3b8;border:1px solid #334155;border-radius:4px;padding:1px 7px;font-size:11px">Healthcare AI</span><span style="background:#1e293b;color:#94a3b8;border:1px solid #334155;border-radius:4px;padding:1px 7px;font-size:11px">Azure ML</span></div>
+    </div>
+    <div class="panel-signals">
+      <div class="panel-label">⚡ Anyscale Signals</div>
+      <ul style="list-style:none;padding:0;margin:0"><li style="margin-bottom:8px">⚡ Explicitly mentions "MLOps and LLMOps using tools like mlflow, kubeflow" — Ray replaces KubeFlow with less YAML</li><li style="margin-bottom:8px">⚡ "Large language model fine-tuning" for healthcare = distributed LLM training use case</li><li style="margin-bottom:8px">⚡ Clinical NLP on unstructured EMR data = parallel document processing with Ray Data</li><li style="margin-bottom:8px">⚡ Multi-tenant enterprise deployments = scalable multi-model Ray Serve inference</li><li style="margin-bottom:8px">⚡ Azure ML / SageMaker dependency = Anyscale on any cloud is a consolidation pitch</li></ul>
+    </div>
+  </div>
+</div>
+</div>
+<div class="company-section" id="Compound_Eye">
+  <div class="company-header">
+    <div>
+      <div class="company-name">Compound Eye</div>
+      <div style="display:flex;gap:6px;flex-wrap:wrap;margin-top:6px"><span style="background:#1e3a5f;color:#93c5fd;border:1px solid #1d4ed8;border-radius:4px;padding:2px 8px;font-size:11px">Series A</span><span style="background:#1e293b;color:#94a3b8;border:1px solid #334155;border-radius:4px;padding:2px 8px;font-size:11px">📍 San Francisco, CA</span></div>
+    </div>
+    <a href="https://compoundeye.ai/jobs" target="_blank" rel="noopener"
+       style="color:#60a5fa;font-size:13px;text-decoration:none;border:1px solid #1d4ed8;border-radius:6px;padding:6px 14px;background:#1e3a5f;white-space:nowrap;flex-shrink:0">
+      View Job Board ↗
+    </a>
+  </div>
+  <div class="role-card rel-high">
+  <div class="role-header">
+    <div>
+      <div class="role-title">Machine Learning Engineer</div>
+      <div style="display:flex;align-items:center;gap:8px;flex-wrap:wrap;margin-top:6px">
+        <span class="rel-badge" style="background:#fef2f2;color:#ef4444;border:1px solid #ef444440;border-radius:4px;padding:2px 10px;font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.5px">🔴 High Relevance</span>
+        <span style="background:#1e3a5f;color:#60a5fa;border:1px solid #1d4ed8;border-radius:4px;padding:2px 8px;font-size:11px;font-weight:600">$155,000–$205,000</span>
+      </div>
+    </div>
+  </div>
+  <div class="role-panels">
+    <div class="panel-jd">
+      <div class="panel-label">📋 Job Description</div>
+      <div class="jd-section">
+        <div class="jd-section-title">Responsibilities</div>
+        <ul><li>Design and implement production-quality ML training pipelines and infrastructure</li><li>Train and analyze state-of-the-art networks for semantic segmentation, depth estimation, and 3D scene understanding</li><li>Build visualization and verification tools for large-scale image/video dataset curation</li><li>Design data processing pipeline best practices at scale</li><li>Help recruit and onboard ML engineers</li></ul>
+      </div>
+      <div class="jd-section">
+        <div class="jd-section-title">Requirements</div>
+        <ul><li>2+ years developing and implementing deep learning pipelines for images or video</li><li>Experience analyzing and curating large image/video datasets at scale</li><li>Strong understanding of software engineering best practices for data processing pipelines</li><li>Experience with PyTorch, TensorFlow, or similar deep learning frameworks</li><li>BS/MS in CS, Computer Engineering, or related field</li></ul>
+      </div>
+      <div style="display:flex;flex-wrap:wrap;gap:6px;margin-top:12px"><span style="background:#1e293b;color:#94a3b8;border:1px solid #334155;border-radius:4px;padding:1px 7px;font-size:11px">Python</span><span style="background:#1e293b;color:#94a3b8;border:1px solid #334155;border-radius:4px;padding:1px 7px;font-size:11px">PyTorch</span><span style="background:#1e293b;color:#94a3b8;border:1px solid #334155;border-radius:4px;padding:1px 7px;font-size:11px">TensorFlow</span><span style="background:#1e293b;color:#94a3b8;border:1px solid #334155;border-radius:4px;padding:1px 7px;font-size:11px">Computer Vision</span><span style="background:#1e293b;color:#94a3b8;border:1px solid #334155;border-radius:4px;padding:1px 7px;font-size:11px">Semantic Segmentation</span><span style="background:#1e293b;color:#94a3b8;border:1px solid #334155;border-radius:4px;padding:1px 7px;font-size:11px">Depth Estimation</span></div>
+    </div>
+    <div class="panel-signals">
+      <div class="panel-label">⚡ Anyscale Signals</div>
+      <ul style="list-style:none;padding:0;margin:0"><li style="margin-bottom:8px">⚡ "Production-quality ML training pipelines and infrastructure" = direct Ray Train selling motion</li><li style="margin-bottom:8px">⚡ "Large-scale image/video dataset" curation = Ray Data distributed preprocessing</li><li style="margin-bottom:8px">⚡ Multi-camera 3D scene understanding = parallel multi-view training with Ray</li><li style="margin-bottom:8px">⚡ "Data processing pipeline design" as core JD responsibility = infrastructure-first buyer</li><li style="margin-bottom:8px">⚡ Early-stage hiring ramp ("help recruit") = building from scratch, open to best-in-class stack</li></ul>
+    </div>
+  </div>
+</div>
+</div>
+<div class="company-section" id="Culture_Biosciences">
+  <div class="company-header">
+    <div>
+      <div class="company-name">Culture Biosciences</div>
+      <div style="display:flex;gap:6px;flex-wrap:wrap;margin-top:6px"><span style="background:#1e3a5f;color:#93c5fd;border:1px solid #1d4ed8;border-radius:4px;padding:2px 8px;font-size:11px">Series B</span><span style="background:#1e293b;color:#94a3b8;border:1px solid #334155;border-radius:4px;padding:2px 8px;font-size:11px">📍 South San Francisco, CA</span></div>
+    </div>
+    <a href="https://culturebiosciences.com/jobs" target="_blank" rel="noopener"
+       style="color:#60a5fa;font-size:13px;text-decoration:none;border:1px solid #1d4ed8;border-radius:6px;padding:6px 14px;background:#1e3a5f;white-space:nowrap;flex-shrink:0">
+      View Job Board ↗
+    </a>
+  </div>
+  <div class="role-card rel-medium">
+  <div class="role-header">
+    <div>
+      <div class="role-title">Senior Full Stack Software Engineer</div>
+      <div style="display:flex;align-items:center;gap:8px;flex-wrap:wrap;margin-top:6px">
+        <span class="rel-badge" style="background:#fffbeb;color:#f59e0b;border:1px solid #f59e0b40;border-radius:4px;padding:2px 10px;font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.5px">🟡 Medium Relevance</span>
+        <span style="background:#1e3a5f;color:#60a5fa;border:1px solid #1d4ed8;border-radius:4px;padding:2px 8px;font-size:11px;font-weight:600">$180,000–$205,000</span>
+      </div>
+    </div>
+  </div>
+  <div class="role-panels">
+    <div class="panel-jd">
+      <div class="panel-label">📋 Job Description</div>
+      <div class="jd-section">
+        <div class="jd-section-title">Responsibilities</div>
+        <ul><li>Design and lead complex technical projects across software, hardware, and product teams</li><li>Own initiatives to reduce critical technical debt in cloud bioreactor infrastructure</li><li>Design and build internal and customer-facing software for remote bioprocess optimization</li><li>Build features ensuring experiment quality, safety, and efficiency at scale</li><li>Define architecture for cloud-connected hardware data pipelines</li></ul>
+      </div>
+      <div class="jd-section">
+        <div class="jd-section-title">Requirements</div>
+        <ul><li>Strong full-stack software engineering background (Python + TypeScript preferred)</li><li>Experience building cloud-connected hardware systems with real-time data ingestion</li><li>Data pipeline and analysis experience at scale</li><li>Bioprocess or biotechnology domain knowledge preferred</li><li>Ability to lead cross-functional technical projects</li></ul>
+      </div>
+      <div style="display:flex;flex-wrap:wrap;gap:6px;margin-top:12px"><span style="background:#1e293b;color:#94a3b8;border:1px solid #334155;border-radius:4px;padding:1px 7px;font-size:11px">Python</span><span style="background:#1e293b;color:#94a3b8;border:1px solid #334155;border-radius:4px;padding:1px 7px;font-size:11px">TypeScript</span><span style="background:#1e293b;color:#94a3b8;border:1px solid #334155;border-radius:4px;padding:1px 7px;font-size:11px">Cloud Infrastructure</span><span style="background:#1e293b;color:#94a3b8;border:1px solid #334155;border-radius:4px;padding:1px 7px;font-size:11px">Data Pipelines</span><span style="background:#1e293b;color:#94a3b8;border:1px solid #334155;border-radius:4px;padding:1px 7px;font-size:11px">Real-Time Systems</span><span style="background:#1e293b;color:#94a3b8;border:1px solid #334155;border-radius:4px;padding:1px 7px;font-size:11px">GCP/AWS</span></div>
+    </div>
+    <div class="panel-signals">
+      <div class="panel-label">⚡ Anyscale Signals</div>
+      <ul style="list-style:none;padding:0;margin:0"><li style="margin-bottom:8px">⚡ "Cloud bioreactor facility" with real-time sensor data = distributed IoT + ML data pipeline</li><li style="margin-bottom:8px">⚡ "Large-scale data generation" from hundreds of bioreactors = parallel data ingestion opportunity</li><li style="margin-bottom:8px">⚡ Technical debt reduction in data infrastructure = likely hitting limits of current tooling</li><li style="margin-bottom:8px">⚡ Remote bioprocess optimization = ML-driven predictive modeling on live experiment data</li><li style="margin-bottom:8px">⚡ Biopharma customers need reproducible, auditable ML workflows = Ray Workflows fit</li></ul>
+    </div>
+  </div>
+</div>
+</div>
+<div class="company-section" id="Cytek_Biosciences">
+  <div class="company-header">
+    <div>
+      <div class="company-name">Cytek Biosciences</div>
+      <div style="display:flex;gap:6px;flex-wrap:wrap;margin-top:6px"><span style="background:#1e3a5f;color:#93c5fd;border:1px solid #1d4ed8;border-radius:4px;padding:2px 8px;font-size:11px">Public (CTKB)</span><span style="background:#1e293b;color:#94a3b8;border:1px solid #334155;border-radius:4px;padding:2px 8px;font-size:11px">📍 Fremont, CA</span></div>
+    </div>
+    <a href="https://cytekbio.com/jobs" target="_blank" rel="noopener"
+       style="color:#60a5fa;font-size:13px;text-decoration:none;border:1px solid #1d4ed8;border-radius:6px;padding:6px 14px;background:#1e3a5f;white-space:nowrap;flex-shrink:0">
+      View Job Board ↗
+    </a>
+  </div>
+  <div class="role-card rel-medium">
+  <div class="role-header">
+    <div>
+      <div class="role-title">ML / Computational Biology Engineer</div>
+      <div style="display:flex;align-items:center;gap:8px;flex-wrap:wrap;margin-top:6px">
+        <span class="rel-badge" style="background:#fffbeb;color:#f59e0b;border:1px solid #f59e0b40;border-radius:4px;padding:2px 10px;font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.5px">🟡 Medium Relevance</span>
+        
+      </div>
+    </div>
+  </div>
+  <div class="role-panels">
+    <div class="panel-jd">
+      <div class="panel-label">📋 Job Description</div>
+      <div class="jd-section">
+        <div class="jd-section-title">Responsibilities</div>
+        <ul><li>Build AI/ML-driven analysis tools for full-spectrum flow cytometry data</li><li>Develop algorithms for high-dimensional spectral unmixing (40+ color panels)</li><li>Integrate AI algorithms with single-cell imaging and cell quantification systems</li><li>Support next-gen imaging flow cytometry with deep learning population identification</li><li>Process high-throughput data from multiple cytometer instruments in parallel</li></ul>
+      </div>
+      <div class="jd-section">
+        <div class="jd-section-title">Requirements</div>
+        <ul><li>Software engineering with life sciences or biotech domain experience</li><li>Experience with scientific computing (NumPy, SciPy, scikit-learn, PyTorch)</li><li>Familiarity with medical device software and FDA regulatory context</li><li>Data visualization and analysis capabilities for high-dimensional data</li><li>Python proficiency; C++ beneficial for performance-critical components</li></ul>
+      </div>
+      <div style="display:flex;flex-wrap:wrap;gap:6px;margin-top:12px"><span style="background:#1e293b;color:#94a3b8;border:1px solid #334155;border-radius:4px;padding:1px 7px;font-size:11px">Python</span><span style="background:#1e293b;color:#94a3b8;border:1px solid #334155;border-radius:4px;padding:1px 7px;font-size:11px">PyTorch</span><span style="background:#1e293b;color:#94a3b8;border:1px solid #334155;border-radius:4px;padding:1px 7px;font-size:11px">NumPy</span><span style="background:#1e293b;color:#94a3b8;border:1px solid #334155;border-radius:4px;padding:1px 7px;font-size:11px">SciPy</span><span style="background:#1e293b;color:#94a3b8;border:1px solid #334155;border-radius:4px;padding:1px 7px;font-size:11px">Computer Vision</span><span style="background:#1e293b;color:#94a3b8;border:1px solid #334155;border-radius:4px;padding:1px 7px;font-size:11px">Bioinformatics</span><span style="background:#1e293b;color:#94a3b8;border:1px solid #334155;border-radius:4px;padding:1px 7px;font-size:11px">High-Dimensional ML</span></div>
+    </div>
+    <div class="panel-signals">
+      <div class="panel-label">⚡ Anyscale Signals</div>
+      <ul style="list-style:none;padding:0;margin:0"><li style="margin-bottom:8px">⚡ High-dimensional spectral unmixing (40+ color panels) = massive parallelization on GPU</li><li style="margin-bottom:8px">⚡ Single-cell imaging across instrument fleets = distributed batch inference use case</li><li style="margin-bottom:8px">⚡ Real-time data from multiple cytometers = Ray Data streaming ingestion pattern</li><li style="margin-bottom:8px">⚡ Public company (Nasdaq: CTKB) scaling ML products = budget + procurement infrastructure</li></ul>
+    </div>
+  </div>
+</div>
+</div>
+<div class="company-section" id="Firefliesai">
+  <div class="company-header">
+    <div>
+      <div class="company-name">Fireflies.ai</div>
+      <div style="display:flex;gap:6px;flex-wrap:wrap;margin-top:6px"><span style="background:#1e3a5f;color:#93c5fd;border:1px solid #1d4ed8;border-radius:4px;padding:2px 8px;font-size:11px">Series A</span><span style="background:#1e293b;color:#94a3b8;border:1px solid #334155;border-radius:4px;padding:2px 8px;font-size:11px">📍 San Francisco, CA</span></div>
+    </div>
+    <a href="https://fireflies.ai/jobs" target="_blank" rel="noopener"
+       style="color:#60a5fa;font-size:13px;text-decoration:none;border:1px solid #1d4ed8;border-radius:6px;padding:6px 14px;background:#1e3a5f;white-space:nowrap;flex-shrink:0">
+      View Job Board ↗
+    </a>
+  </div>
+  <div class="role-card rel-high">
+  <div class="role-header">
+    <div>
+      <div class="role-title">Backend / ML Infrastructure Engineer</div>
+      <div style="display:flex;align-items:center;gap:8px;flex-wrap:wrap;margin-top:6px">
+        <span class="rel-badge" style="background:#fef2f2;color:#ef4444;border:1px solid #ef444440;border-radius:4px;padding:2px 10px;font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.5px">🔴 High Relevance</span>
+        
+      </div>
+    </div>
+  </div>
+  <div class="role-panels">
+    <div class="panel-jd">
+      <div class="panel-label">📋 Job Description</div>
+      <div class="jd-section">
+        <div class="jd-section-title">Responsibilities</div>
+        <ul><li>Build backend infrastructure for real-time meeting transcription and NLP analysis at scale</li><li>Develop speech recognition and NLP processing pipelines across tens of thousands of orgs</li><li>Scale audio ingestion, processing, and storage for concurrent meeting streams</li><li>Build real-time inference pipelines for meeting summarization and action item extraction</li><li>Optimize throughput and latency for high-volume ASR/NLP workloads</li></ul>
+      </div>
+      <div class="jd-section">
+        <div class="jd-section-title">Requirements</div>
+        <ul><li>Backend infrastructure engineering with distributed systems experience</li><li>Experience with audio processing and/or speech recognition (Whisper, DeepSpeech, etc.)</li><li>High-throughput data pipeline design and optimization</li><li>Python; Node.js or Go for API services</li><li>Cloud infrastructure (AWS, GCP) with Kubernetes experience preferred</li></ul>
+      </div>
+      <div style="display:flex;flex-wrap:wrap;gap:6px;margin-top:12px"><span style="background:#1e293b;color:#94a3b8;border:1px solid #334155;border-radius:4px;padding:1px 7px;font-size:11px">Python</span><span style="background:#1e293b;color:#94a3b8;border:1px solid #334155;border-radius:4px;padding:1px 7px;font-size:11px">NLP</span><span style="background:#1e293b;color:#94a3b8;border:1px solid #334155;border-radius:4px;padding:1px 7px;font-size:11px">ASR</span><span style="background:#1e293b;color:#94a3b8;border:1px solid #334155;border-radius:4px;padding:1px 7px;font-size:11px">Speech Recognition</span><span style="background:#1e293b;color:#94a3b8;border:1px solid #334155;border-radius:4px;padding:1px 7px;font-size:11px">Distributed Systems</span><span style="background:#1e293b;color:#94a3b8;border:1px solid #334155;border-radius:4px;padding:1px 7px;font-size:11px">Kubernetes</span><span style="background:#1e293b;color:#94a3b8;border:1px solid #334155;border-radius:4px;padding:1px 7px;font-size:11px">LLM Inference</span></div>
+    </div>
+    <div class="panel-signals">
+      <div class="panel-label">⚡ Anyscale Signals</div>
+      <ul style="list-style:none;padding:0;margin:0"><li style="margin-bottom:8px">⚡ "Tens of thousands of organizations" = real-time multi-tenant inference at scale = Ray Serve</li><li style="margin-bottom:8px">⚡ Concurrent meeting transcription = parallel ASR workloads across GPU clusters</li><li style="margin-bottom:8px">⚡ Meeting summarization + action extraction = LLM inference pipeline on Ray</li><li style="margin-bottom:8px">⚡ Fortune 500 integrations = SLA-bound serving infrastructure requirements</li><li style="margin-bottom:8px">⚡ Audio + NLP combined workload = heterogeneous resource scheduling that Ray excels at</li></ul>
+    </div>
+  </div>
+</div>
+</div>
+<div class="company-section" id="Formant">
+  <div class="company-header">
+    <div>
+      <div class="company-name">Formant</div>
+      <div style="display:flex;gap:6px;flex-wrap:wrap;margin-top:6px"><span style="background:#1e3a5f;color:#93c5fd;border:1px solid #1d4ed8;border-radius:4px;padding:2px 8px;font-size:11px">Series B</span><span style="background:#1e293b;color:#94a3b8;border:1px solid #334155;border-radius:4px;padding:2px 8px;font-size:11px">📍 San Francisco, CA</span></div>
+    </div>
+    <a href="https://formant.io/jobs" target="_blank" rel="noopener"
+       style="color:#60a5fa;font-size:13px;text-decoration:none;border:1px solid #1d4ed8;border-radius:6px;padding:6px 14px;background:#1e3a5f;white-space:nowrap;flex-shrink:0">
+      View Job Board ↗
+    </a>
+  </div>
+  <div class="role-card rel-high">
+  <div class="role-header">
+    <div>
+      <div class="role-title">Infrastructure / Platform Engineer</div>
+      <div style="display:flex;align-items:center;gap:8px;flex-wrap:wrap;margin-top:6px">
+        <span class="rel-badge" style="background:#fef2f2;color:#ef4444;border:1px solid #ef444440;border-radius:4px;padding:2px 10px;font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.5px">🔴 High Relevance</span>
+        
+      </div>
+    </div>
+  </div>
+  <div class="role-panels">
+    <div class="panel-jd">
+      <div class="panel-label">📋 Job Description</div>
+      <div class="jd-section">
+        <div class="jd-section-title">Responsibilities</div>
+        <ul><li>Build cloud infrastructure for robot fleet management, data ingestion, and operations</li><li>Develop APIs for robot telemetry, video, and sensor data storage and querying at scale</li><li>Create ML training infrastructure using data collected across robot fleets</li><li>Build automation for routine robotics operations workflows</li><li>Scale data infrastructure to support growing enterprise robot deployments</li></ul>
+      </div>
+      <div class="jd-section">
+        <div class="jd-section-title">Requirements</div>
+        <ul><li>Cloud infrastructure and distributed systems experience (AWS/GCP)</li><li>API design for high-throughput time-series and multimodal data</li><li>Python for ML automation and data pipeline workflows</li><li>Experience with robot data formats (ROS bags, MCAP, etc.) preferred</li><li>Kubernetes and container orchestration experience</li></ul>
+      </div>
+      <div style="display:flex;flex-wrap:wrap;gap:6px;margin-top:12px"><span style="background:#1e293b;color:#94a3b8;border:1px solid #334155;border-radius:4px;padding:1px 7px;font-size:11px">Python</span><span style="background:#1e293b;color:#94a3b8;border:1px solid #334155;border-radius:4px;padding:1px 7px;font-size:11px">Cloud Infrastructure</span><span style="background:#1e293b;color:#94a3b8;border:1px solid #334155;border-radius:4px;padding:1px 7px;font-size:11px">APIs</span><span style="background:#1e293b;color:#94a3b8;border:1px solid #334155;border-radius:4px;padding:1px 7px;font-size:11px">Kubernetes</span><span style="background:#1e293b;color:#94a3b8;border:1px solid #334155;border-radius:4px;padding:1px 7px;font-size:11px">Distributed Systems</span><span style="background:#1e293b;color:#94a3b8;border:1px solid #334155;border-radius:4px;padding:1px 7px;font-size:11px">ROS</span><span style="background:#1e293b;color:#94a3b8;border:1px solid #334155;border-radius:4px;padding:1px 7px;font-size:11px">MLOps</span></div>
+    </div>
+    <div class="panel-signals">
+      <div class="panel-label">⚡ Anyscale Signals</div>
+      <ul style="list-style:none;padding:0;margin:0"><li style="margin-bottom:8px">⚡ "ML engineer could query Formant for robot logs, train a model, deploy to fleet" = Ray full lifecycle fit</li><li style="margin-bottom:8px">⚡ "Securely ingesting, storing, and processing data from robots" = Ray Data distributed ETL</li><li style="margin-bottom:8px">⚡ "Machine-readable APIs for end-to-end automation" = Ray orchestration as the backbone</li><li style="margin-bottom:8px">⚡ Enterprise robot fleet management = multi-model deployment on Ray Serve</li><li style="margin-bottom:8px">⚡ Python-first automation emphasis = natural fit for Ray's Python-native API</li></ul>
+    </div>
+  </div>
+</div>
+</div>
+<div class="company-section" id="Foxglove">
+  <div class="company-header">
+    <div>
+      <div class="company-name">Foxglove</div>
+      <div style="display:flex;gap:6px;flex-wrap:wrap;margin-top:6px"><span style="background:#1e3a5f;color:#93c5fd;border:1px solid #1d4ed8;border-radius:4px;padding:2px 8px;font-size:11px">Series B</span><span style="background:#1e293b;color:#94a3b8;border:1px solid #334155;border-radius:4px;padding:2px 8px;font-size:11px">📍 San Francisco, CA</span></div>
+    </div>
+    <a href="https://foxglove.dev/jobs" target="_blank" rel="noopener"
+       style="color:#60a5fa;font-size:13px;text-decoration:none;border:1px solid #1d4ed8;border-radius:6px;padding:6px 14px;background:#1e3a5f;white-space:nowrap;flex-shrink:0">
+      View Job Board ↗
+    </a>
+  </div>
+  <div class="role-card rel-medium">
+  <div class="role-header">
+    <div>
+      <div class="role-title">Lead Infrastructure Engineer</div>
+      <div style="display:flex;align-items:center;gap:8px;flex-wrap:wrap;margin-top:6px">
+        <span class="rel-badge" style="background:#fffbeb;color:#f59e0b;border:1px solid #f59e0b40;border-radius:4px;padding:2px 10px;font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.5px">🟡 Medium Relevance</span>
+        
+      </div>
+    </div>
+  </div>
+  <div class="role-panels">
+    <div class="panel-jd">
+      <div class="panel-label">📋 Job Description</div>
+      <div class="jd-section">
+        <div class="jd-section-title">Responsibilities</div>
+        <ul><li>End-to-end ownership of data infrastructure supporting the robotics development platform</li><li>Manage incident response and on-call for production systems</li><li>Support private cloud and on-premise deployments for enterprise robotics customers</li><li>Collaborate with engineering to implement infrastructure improvements at scale</li><li>Scale multimodal robotics data collection, analysis, and replay pipelines</li></ul>
+      </div>
+      <div class="jd-section">
+        <div class="jd-section-title">Requirements</div>
+        <ul><li>5+ years Infrastructure / DevOps / SRE experience</li><li>Cloud platform expertise (AWS, GCP, or Azure)</li><li>Kubernetes and container orchestration proficiency</li><li>Distributed data systems understanding</li><li>US time zone preferred</li></ul>
+      </div>
+      <div style="display:flex;flex-wrap:wrap;gap:6px;margin-top:12px"><span style="background:#1e293b;color:#94a3b8;border:1px solid #334155;border-radius:4px;padding:1px 7px;font-size:11px">Kubernetes</span><span style="background:#1e293b;color:#94a3b8;border:1px solid #334155;border-radius:4px;padding:1px 7px;font-size:11px">AWS</span><span style="background:#1e293b;color:#94a3b8;border:1px solid #334155;border-radius:4px;padding:1px 7px;font-size:11px">GCP</span><span style="background:#1e293b;color:#94a3b8;border:1px solid #334155;border-radius:4px;padding:1px 7px;font-size:11px">DevOps</span><span style="background:#1e293b;color:#94a3b8;border:1px solid #334155;border-radius:4px;padding:1px 7px;font-size:11px">Distributed Systems</span><span style="background:#1e293b;color:#94a3b8;border:1px solid #334155;border-radius:4px;padding:1px 7px;font-size:11px">Robotics Data</span><span style="background:#1e293b;color:#94a3b8;border:1px solid #334155;border-radius:4px;padding:1px 7px;font-size:11px">Infrastructure</span></div>
+    </div>
+    <div class="panel-signals">
+      <div class="panel-label">⚡ Anyscale Signals</div>
+      <ul style="list-style:none;padding:0;margin:0"><li style="margin-bottom:8px">⚡ Managing large-scale multimodal sensor data (LiDAR, camera, IMU) = distributed ingestion with Ray Data</li><li style="margin-bottom:8px">⚡ Private cloud + on-prem deployments = Anyscale's hybrid cloud story is relevant</li><li style="margin-bottom:8px">⚡ Training data management for ML across robot fleets = Ray Data + Ray Train workflow</li><li style="margin-bottom:8px">⚡ Kubernetes-based orchestration of robotics workflows = Ray on K8s replaces custom k8s jobs</li></ul>
+    </div>
+  </div>
+</div>
+</div>
+<div class="company-section" id="Fulgent_Genetics">
+  <div class="company-header">
+    <div>
+      <div class="company-name">Fulgent Genetics</div>
+      <div style="display:flex;gap:6px;flex-wrap:wrap;margin-top:6px"><span style="background:#1e3a5f;color:#93c5fd;border:1px solid #1d4ed8;border-radius:4px;padding:2px 8px;font-size:11px">Public (FLGT)</span><span style="background:#1e293b;color:#94a3b8;border:1px solid #334155;border-radius:4px;padding:2px 8px;font-size:11px">📍 Temple City, CA</span></div>
+    </div>
+    <a href="https://fulgentgenetics.com/jobs" target="_blank" rel="noopener"
+       style="color:#60a5fa;font-size:13px;text-decoration:none;border:1px solid #1d4ed8;border-radius:6px;padding:6px 14px;background:#1e3a5f;white-space:nowrap;flex-shrink:0">
+      View Job Board ↗
+    </a>
+  </div>
+  <div class="role-card rel-medium">
+  <div class="role-header">
+    <div>
+      <div class="role-title">AI-Operations Engineer / Scientist</div>
+      <div style="display:flex;align-items:center;gap:8px;flex-wrap:wrap;margin-top:6px">
+        <span class="rel-badge" style="background:#fffbeb;color:#f59e0b;border:1px solid #f59e0b40;border-radius:4px;padding:2px 10px;font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.5px">🟡 Medium Relevance</span>
+        
+      </div>
+    </div>
+  </div>
+  <div class="role-panels">
+    <div class="panel-jd">
+      <div class="panel-label">📋 Job Description</div>
+      <div class="jd-section">
+        <div class="jd-section-title">Responsibilities</div>
+        <ul><li>Develop and implement AI/ML systems for bioinformatics data processing</li><li>Build scalable AI models connecting clinical genomics services to research data</li><li>Implement local inference software for clinical applications (llama.cpp, Ollama)</li><li>Process genomics workflows and manage inference pipelines at scale</li><li>Connect AI outputs to clinical reporting and laboratory workflows</li></ul>
+      </div>
+      <div class="jd-section">
+        <div class="jd-section-title">Requirements</div>
+        <ul><li>BA/BS in Computer Science, Data Science, or Machine Learning (MS preferred)</li><li>Experience with Python, Node.js, SQL</li><li>Experience with local inferencing software (llama.cpp, Ollama)</li><li>Bioinformatics domain experience preferred</li><li>Clinical data workflow knowledge (HL7, FHIR) a plus</li></ul>
+      </div>
+      <div style="display:flex;flex-wrap:wrap;gap:6px;margin-top:12px"><span style="background:#1e293b;color:#94a3b8;border:1px solid #334155;border-radius:4px;padding:1px 7px;font-size:11px">Python</span><span style="background:#1e293b;color:#94a3b8;border:1px solid #334155;border-radius:4px;padding:1px 7px;font-size:11px">Bioinformatics</span><span style="background:#1e293b;color:#94a3b8;border:1px solid #334155;border-radius:4px;padding:1px 7px;font-size:11px">Genomics</span><span style="background:#1e293b;color:#94a3b8;border:1px solid #334155;border-radius:4px;padding:1px 7px;font-size:11px">LLM Inference</span><span style="background:#1e293b;color:#94a3b8;border:1px solid #334155;border-radius:4px;padding:1px 7px;font-size:11px">SQL</span><span style="background:#1e293b;color:#94a3b8;border:1px solid #334155;border-radius:4px;padding:1px 7px;font-size:11px">Clinical AI</span><span style="background:#1e293b;color:#94a3b8;border:1px solid #334155;border-radius:4px;padding:1px 7px;font-size:11px">HL7</span></div>
+    </div>
+    <div class="panel-signals">
+      <div class="panel-label">⚡ Anyscale Signals</div>
+      <ul style="list-style:none;padding:0;margin:0"><li style="margin-bottom:8px">⚡ Large-scale genomic sequencing data processing = distributed batch workloads on Ray</li><li style="margin-bottom:8px">⚡ "Scalable AI models for clinical genomics" = managed serving infrastructure need</li><li style="margin-bottom:8px">⚡ Local inference (llama.cpp, Ollama) = opportunity to upgrade to full Ray Serve stack</li><li style="margin-bottom:8px">⚡ Public company scaling AI operations = procurement budget and multi-year contracts likely</li></ul>
+    </div>
+  </div>
+</div>
+</div>
+<div class="company-section" id="Gorgias">
+  <div class="company-header">
+    <div>
+      <div class="company-name">Gorgias</div>
+      <div style="display:flex;gap:6px;flex-wrap:wrap;margin-top:6px"><span style="background:#1e3a5f;color:#93c5fd;border:1px solid #1d4ed8;border-radius:4px;padding:2px 8px;font-size:11px">Series C</span><span style="background:#1e293b;color:#94a3b8;border:1px solid #334155;border-radius:4px;padding:2px 8px;font-size:11px">📍 San Francisco, CA</span></div>
+    </div>
+    <a href="https://gorgias.com/jobs" target="_blank" rel="noopener"
+       style="color:#60a5fa;font-size:13px;text-decoration:none;border:1px solid #1d4ed8;border-radius:6px;padding:6px 14px;background:#1e3a5f;white-space:nowrap;flex-shrink:0">
+      View Job Board ↗
+    </a>
+  </div>
+  <div class="role-card rel-high">
+  <div class="role-header">
+    <div>
+      <div class="role-title">Senior ML Engineer (Backend / Infrastructure)</div>
+      <div style="display:flex;align-items:center;gap:8px;flex-wrap:wrap;margin-top:6px">
+        <span class="rel-badge" style="background:#fef2f2;color:#ef4444;border:1px solid #ef444440;border-radius:4px;padding:2px 10px;font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.5px">🔴 High Relevance</span>
+        
+      </div>
+    </div>
+  </div>
+  <div class="role-panels">
+    <div class="panel-jd">
+      <div class="panel-label">📋 Job Description</div>
+      <div class="jd-section">
+        <div class="jd-section-title">Responsibilities</div>
+        <ul><li>Design and maintain backend services and APIs supporting ML models and data pipelines</li><li>Deploy and integrate ML models into production using FastAPI and Kubernetes</li><li>Build and maintain infrastructure for continuous model training and deployment</li><li>Own ML model lifecycle management in collaboration with data scientists</li><li>Build real-time inference pipelines for AI-powered customer support automation</li></ul>
+      </div>
+      <div class="jd-section">
+        <div class="jd-section-title">Requirements</div>
+        <ul><li>Python proficiency with ML frameworks (PyTorch, TensorFlow)</li><li>Distributed systems and cloud platforms (AWS, GCP, Azure)</li><li>Kubernetes and container orchestration (Docker, KubeFlow)</li><li>SQL and NoSQL database experience</li><li>CI/CD, Terraform, and infrastructure automation</li></ul>
+      </div>
+      <div style="display:flex;flex-wrap:wrap;gap:6px;margin-top:12px"><span style="background:#1e293b;color:#94a3b8;border:1px solid #334155;border-radius:4px;padding:1px 7px;font-size:11px">Python</span><span style="background:#1e293b;color:#94a3b8;border:1px solid #334155;border-radius:4px;padding:1px 7px;font-size:11px">PyTorch</span><span style="background:#1e293b;color:#94a3b8;border:1px solid #334155;border-radius:4px;padding:1px 7px;font-size:11px">Kubernetes</span><span style="background:#1e293b;color:#94a3b8;border:1px solid #334155;border-radius:4px;padding:1px 7px;font-size:11px">KubeFlow</span><span style="background:#1e293b;color:#94a3b8;border:1px solid #334155;border-radius:4px;padding:1px 7px;font-size:11px">FastAPI</span><span style="background:#1e293b;color:#94a3b8;border:1px solid #334155;border-radius:4px;padding:1px 7px;font-size:11px">Docker</span><span style="background:#1e293b;color:#94a3b8;border:1px solid #334155;border-radius:4px;padding:1px 7px;font-size:11px">MLOps</span><span style="background:#1e293b;color:#94a3b8;border:1px solid #334155;border-radius:4px;padding:1px 7px;font-size:11px">LLM Serving</span></div>
+    </div>
+    <div class="panel-signals">
+      <div class="panel-label">⚡ Anyscale Signals</div>
+      <ul style="list-style:none;padding:0;margin:0"><li style="margin-bottom:8px">⚡ Explicitly mentions "KubeFlow" for ML pipeline orchestration — direct Ray replacement conversation</li><li style="margin-bottom:8px">⚡ Continuous model training + deployment = Ray Train + Ray Serve end-to-end</li><li style="margin-bottom:8px">⚡ Real-time customer support automation = high-availability LLM inference on Ray Serve</li><li style="margin-bottom:8px">⚡ "High-volume customer inquiry processing" = distributed multi-tenant inference at scale</li><li style="margin-bottom:8px">⚡ Kubernetes + KubeFlow complexity = consolidation opportunity with Anyscale</li></ul>
+    </div>
+  </div>
+</div>
+</div>
+<div class="company-section" id="HeadSpin">
+  <div class="company-header">
+    <div>
+      <div class="company-name">HeadSpin</div>
+      <div style="display:flex;gap:6px;flex-wrap:wrap;margin-top:6px"><span style="background:#1e3a5f;color:#93c5fd;border:1px solid #1d4ed8;border-radius:4px;padding:2px 8px;font-size:11px">Series C</span><span style="background:#1e293b;color:#94a3b8;border:1px solid #334155;border-radius:4px;padding:2px 8px;font-size:11px">📍 Palo Alto, CA</span></div>
+    </div>
+    <a href="https://headspin.io/jobs" target="_blank" rel="noopener"
+       style="color:#60a5fa;font-size:13px;text-decoration:none;border:1px solid #1d4ed8;border-radius:6px;padding:6px 14px;background:#1e3a5f;white-space:nowrap;flex-shrink:0">
+      View Job Board ↗
+    </a>
+  </div>
+  <div class="role-card rel-medium">
+  <div class="role-header">
+    <div>
+      <div class="role-title">ML / AI Platform Engineer</div>
+      <div style="display:flex;align-items:center;gap:8px;flex-wrap:wrap;margin-top:6px">
+        <span class="rel-badge" style="background:#fffbeb;color:#f59e0b;border:1px solid #f59e0b40;border-radius:4px;padding:2px 10px;font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.5px">🟡 Medium Relevance</span>
+        
+      </div>
+    </div>
+  </div>
+  <div class="role-panels">
+    <div class="panel-jd">
+      <div class="panel-label">📋 Job Description</div>
+      <div class="jd-section">
+        <div class="jd-section-title">Responsibilities</div>
+        <ul><li>Build ML-driven performance analytics across global distributed device infrastructure</li><li>Develop automated issue detection models for mobile, web, and OTT applications</li><li>Scale ML inference across 90+ global testing locations and millions of test sessions</li><li>Build data pipelines aggregating device metrics, network performance, and user flows</li><li>Maintain real-time monitoring and alerting infrastructure using AI/ML</li></ul>
+      </div>
+      <div class="jd-section">
+        <div class="jd-section-title">Requirements</div>
+        <ul><li>ML engineering experience with large-scale distributed systems</li><li>Python and ML frameworks (PyTorch/TensorFlow/scikit-learn)</li><li>Experience with real-time data streaming and analytics pipelines</li><li>Cloud infrastructure (AWS, GCP) with Kubernetes</li><li>Understanding of mobile testing, video quality, or performance analytics preferred</li></ul>
+      </div>
+      <div style="display:flex;flex-wrap:wrap;gap:6px;margin-top:12px"><span style="background:#1e293b;color:#94a3b8;border:1px solid #334155;border-radius:4px;padding:1px 7px;font-size:11px">Python</span><span style="background:#1e293b;color:#94a3b8;border:1px solid #334155;border-radius:4px;padding:1px 7px;font-size:11px">PyTorch</span><span style="background:#1e293b;color:#94a3b8;border:1px solid #334155;border-radius:4px;padding:1px 7px;font-size:11px">Distributed Systems</span><span style="background:#1e293b;color:#94a3b8;border:1px solid #334155;border-radius:4px;padding:1px 7px;font-size:11px">Kubernetes</span><span style="background:#1e293b;color:#94a3b8;border:1px solid #334155;border-radius:4px;padding:1px 7px;font-size:11px">Real-Time Analytics</span><span style="background:#1e293b;color:#94a3b8;border:1px solid #334155;border-radius:4px;padding:1px 7px;font-size:11px">MLOps</span></div>
+    </div>
+    <div class="panel-signals">
+      <div class="panel-label">⚡ Anyscale Signals</div>
+      <ul style="list-style:none;padding:0;margin:0"><li style="margin-bottom:8px">⚡ 90+ global locations + millions of test sessions = distributed inference at global scale</li><li style="margin-bottom:8px">⚡ Automated issue detection models = continuous training + serving pipeline need</li><li style="margin-bottom:8px">⚡ Real-time performance aggregation = Ray Data streaming workload</li><li style="margin-bottom:8px">⚡ Enterprise SLA-bound analytics = high-availability serving with Ray Serve</li></ul>
+    </div>
+  </div>
+</div>
+</div>
+<div class="company-section" id="Kiwibot">
+  <div class="company-header">
+    <div>
+      <div class="company-name">Kiwibot</div>
+      <div style="display:flex;gap:6px;flex-wrap:wrap;margin-top:6px"><span style="background:#1e3a5f;color:#93c5fd;border:1px solid #1d4ed8;border-radius:4px;padding:2px 8px;font-size:11px">Series B</span><span style="background:#1e293b;color:#94a3b8;border:1px solid #334155;border-radius:4px;padding:2px 8px;font-size:11px">📍 Medellín, Colombia / Berkeley, CA</span></div>
+    </div>
+    <a href="https://kiwibot.com/jobs" target="_blank" rel="noopener"
+       style="color:#60a5fa;font-size:13px;text-decoration:none;border:1px solid #1d4ed8;border-radius:6px;padding:6px 14px;background:#1e3a5f;white-space:nowrap;flex-shrink:0">
+      View Job Board ↗
+    </a>
+  </div>
+  <div class="role-card rel-high">
+  <div class="role-header">
+    <div>
+      <div class="role-title">Machine Learning Engineer (Autonomous Robotics)</div>
+      <div style="display:flex;align-items:center;gap:8px;flex-wrap:wrap;margin-top:6px">
+        <span class="rel-badge" style="background:#fef2f2;color:#ef4444;border:1px solid #ef444440;border-radius:4px;padding:2px 10px;font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.5px">🔴 High Relevance</span>
+        
+      </div>
+    </div>
+  </div>
+  <div class="role-panels">
+    <div class="panel-jd">
+      <div class="panel-label">📋 Job Description</div>
+      <div class="jd-section">
+        <div class="jd-section-title">Responsibilities</div>
+        <ul><li>Develop ML algorithms for autonomous robot perception and sidewalk navigation</li><li>Work on object detection, localization, and hazard avoidance for delivery robots</li><li>Implement real-time deep learning models for deployment across robot fleet</li><li>Train and deploy models with continuous iteration from live robot data</li><li>Optimize perception pipelines for edge hardware constraints</li></ul>
+      </div>
+      <div class="jd-section">
+        <div class="jd-section-title">Requirements</div>
+        <ul><li>Strong ML/DL fundamentals with robotics or autonomous systems experience</li><li>Python and deep learning frameworks (PyTorch or TensorFlow)</li><li>Computer vision: object detection, semantic segmentation</li><li>ROS or robotics middleware experience beneficial</li><li>Understanding of edge deployment and model optimization</li></ul>
+      </div>
+      <div style="display:flex;flex-wrap:wrap;gap:6px;margin-top:12px"><span style="background:#1e293b;color:#94a3b8;border:1px solid #334155;border-radius:4px;padding:1px 7px;font-size:11px">Python</span><span style="background:#1e293b;color:#94a3b8;border:1px solid #334155;border-radius:4px;padding:1px 7px;font-size:11px">PyTorch</span><span style="background:#1e293b;color:#94a3b8;border:1px solid #334155;border-radius:4px;padding:1px 7px;font-size:11px">Computer Vision</span><span style="background:#1e293b;color:#94a3b8;border:1px solid #334155;border-radius:4px;padding:1px 7px;font-size:11px">ROS</span><span style="background:#1e293b;color:#94a3b8;border:1px solid #334155;border-radius:4px;padding:1px 7px;font-size:11px">Edge AI</span><span style="background:#1e293b;color:#94a3b8;border:1px solid #334155;border-radius:4px;padding:1px 7px;font-size:11px">Object Detection</span><span style="background:#1e293b;color:#94a3b8;border:1px solid #334155;border-radius:4px;padding:1px 7px;font-size:11px">Robotics</span></div>
+    </div>
+    <div class="panel-signals">
+      <div class="panel-label">⚡ Anyscale Signals</div>
+      <ul style="list-style:none;padding:0;margin:0"><li style="margin-bottom:8px">⚡ Fleet-scale perception model training across "thousands of delivery robots" = distributed training with Ray</li><li style="margin-bottom:8px">⚡ Continuous model improvement from live robot data = Ray Data + Ray Train feedback loop</li><li style="margin-bottom:8px">⚡ Nav2 + ROS distributed robotics infrastructure = natural Ray cluster integration</li><li style="margin-bottom:8px">⚡ Edge deployment on constrained hardware = Ray's heterogeneous resource scheduling</li><li style="margin-bottom:8px">⚡ Real-time multi-robot coordination = Ray's actor model fits distributed robot management</li></ul>
+    </div>
+  </div>
+</div>
+</div>
+<div class="company-section" id="Krisp">
+  <div class="company-header">
+    <div>
+      <div class="company-name">Krisp</div>
+      <div style="display:flex;gap:6px;flex-wrap:wrap;margin-top:6px"><span style="background:#1e3a5f;color:#93c5fd;border:1px solid #1d4ed8;border-radius:4px;padding:2px 8px;font-size:11px">Series B</span><span style="background:#1e293b;color:#94a3b8;border:1px solid #334155;border-radius:4px;padding:2px 8px;font-size:11px">📍 San Francisco, CA</span></div>
+    </div>
+    <a href="https://krisp.ai/jobs" target="_blank" rel="noopener"
+       style="color:#60a5fa;font-size:13px;text-decoration:none;border:1px solid #1d4ed8;border-radius:6px;padding:6px 14px;background:#1e3a5f;white-space:nowrap;flex-shrink:0">
+      View Job Board ↗
+    </a>
+  </div>
+  <div class="role-card rel-high">
+  <div class="role-header">
+    <div>
+      <div class="role-title">ML Engineer I — Audio Deep Learning</div>
+      <div style="display:flex;align-items:center;gap:8px;flex-wrap:wrap;margin-top:6px">
+        <span class="rel-badge" style="background:#fef2f2;color:#ef4444;border:1px solid #ef444440;border-radius:4px;padding:2px 10px;font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.5px">🔴 High Relevance</span>
+        
+      </div>
+    </div>
+  </div>
+  <div class="role-panels">
+    <div class="panel-jd">
+      <div class="panel-label">📋 Job Description</div>
+      <div class="jd-section">
+        <div class="jd-section-title">Responsibilities</div>
+        <ul><li>Support complete lifecycle of audio ML products from research to production</li><li>Prepare and augment training data for audio deep learning models at scale</li><li>Train and fine-tune cutting-edge neural network architectures for audio processing</li><li>Optimize neural networks for real-time audio processing (<3ms latency requirements)</li><li>Research modern approaches to noise suppression, echo cancellation, and speech enhancement</li></ul>
+      </div>
+      <div class="jd-section">
+        <div class="jd-section-title">Requirements</div>
+        <ul><li>Experience with deep neural networks and audio signal processing</li><li>Python with TensorFlow or PyTorch</li><li>Understanding of audio preprocessing and feature extraction (spectrograms, MFCCs)</li><li>Ability to optimize models for extreme latency and computational constraints</li><li>Background in ML theory and implementation</li></ul>
+      </div>
+      <div style="display:flex;flex-wrap:wrap;gap:6px;margin-top:12px"><span style="background:#1e293b;color:#94a3b8;border:1px solid #334155;border-radius:4px;padding:1px 7px;font-size:11px">Python</span><span style="background:#1e293b;color:#94a3b8;border:1px solid #334155;border-radius:4px;padding:1px 7px;font-size:11px">PyTorch</span><span style="background:#1e293b;color:#94a3b8;border:1px solid #334155;border-radius:4px;padding:1px 7px;font-size:11px">TensorFlow</span><span style="background:#1e293b;color:#94a3b8;border:1px solid #334155;border-radius:4px;padding:1px 7px;font-size:11px">Audio Processing</span><span style="background:#1e293b;color:#94a3b8;border:1px solid #334155;border-radius:4px;padding:1px 7px;font-size:11px">DNNs</span><span style="background:#1e293b;color:#94a3b8;border:1px solid #334155;border-radius:4px;padding:1px 7px;font-size:11px">Edge Optimization</span><span style="background:#1e293b;color:#94a3b8;border:1px solid #334155;border-radius:4px;padding:1px 7px;font-size:11px">Signal Processing</span></div>
+    </div>
+    <div class="panel-signals">
+      <div class="panel-label">⚡ Anyscale Signals</div>
+      <ul style="list-style:none;padding:0;margin:0"><li style="margin-bottom:8px">⚡ Training on "170 years equivalent of speech data" = massive distributed data pipeline with Ray Data</li><li style="margin-bottom:8px">⚡ Diverse acoustic conditions + microphone diversity = large-scale distributed training</li><li style="margin-bottom:8px">⚡ Model compression for <3ms latency = Ray's distributed hyperparameter tuning (Ray Tune)</li><li style="margin-bottom:8px">⚡ Data augmentation at massive scale = Ray Data parallel preprocessing</li><li style="margin-bottom:8px">⚡ Research-to-production lifecycle for audio models = Ray Train + Ray Serve end-to-end</li></ul>
+    </div>
+  </div>
+</div>
+</div>
+<div class="company-section" id="Matterport">
+  <div class="company-header">
+    <div>
+      <div class="company-name">Matterport</div>
+      <div style="display:flex;gap:6px;flex-wrap:wrap;margin-top:6px"><span style="background:#1e3a5f;color:#93c5fd;border:1px solid #1d4ed8;border-radius:4px;padding:2px 8px;font-size:11px">Acquired (CoStar)</span><span style="background:#1e293b;color:#94a3b8;border:1px solid #334155;border-radius:4px;padding:2px 8px;font-size:11px">📍 Sunnyvale, CA</span></div>
+    </div>
+    <a href="https://matterport.com/jobs" target="_blank" rel="noopener"
+       style="color:#60a5fa;font-size:13px;text-decoration:none;border:1px solid #1d4ed8;border-radius:6px;padding:6px 14px;background:#1e3a5f;white-space:nowrap;flex-shrink:0">
+      View Job Board ↗
+    </a>
+  </div>
+  <div class="role-card rel-high">
+  <div class="role-header">
+    <div>
+      <div class="role-title">Senior / Staff Deep Learning Engineer</div>
+      <div style="display:flex;align-items:center;gap:8px;flex-wrap:wrap;margin-top:6px">
+        <span class="rel-badge" style="background:#fef2f2;color:#ef4444;border:1px solid #ef444440;border-radius:4px;padding:2px 10px;font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.5px">🔴 High Relevance</span>
+        
+      </div>
+    </div>
+  </div>
+  <div class="role-panels">
+    <div class="panel-jd">
+      <div class="panel-label">📋 Job Description</div>
+      <div class="jd-section">
+        <div class="jd-section-title">Responsibilities</div>
+        <ul><li>Develop fully-automated computer vision and ML algorithms for spatial understanding at scale</li><li>Work on point cloud alignment, 3D mesh generation, SLAM, and multi-view stereo reconstruction</li><li>Design and optimize deep learning models for 3D reconstruction and semantic segmentation</li><li>Conduct experiments on 3D spatial data processing and present findings</li><li>Build scalable inference pipelines for mobile-to-stadium-scale 3D captures</li></ul>
+      </div>
+      <div class="jd-section">
+        <div class="jd-section-title">Requirements</div>
+        <ul><li>5+ years ML/computer vision OR 10+ years software development</li><li>Python proficiency required</li><li>Experience with 3D algorithms (alignment, reconstruction, mesh processing, SLAM)</li><li>2D vision fundamentals (image processing, feature detection)</li><li>Familiarity with deep learning frameworks (PyTorch, TensorFlow)</li></ul>
+      </div>
+      <div style="display:flex;flex-wrap:wrap;gap:6px;margin-top:12px"><span style="background:#1e293b;color:#94a3b8;border:1px solid #334155;border-radius:4px;padding:1px 7px;font-size:11px">Python</span><span style="background:#1e293b;color:#94a3b8;border:1px solid #334155;border-radius:4px;padding:1px 7px;font-size:11px">PyTorch</span><span style="background:#1e293b;color:#94a3b8;border:1px solid #334155;border-radius:4px;padding:1px 7px;font-size:11px">TensorFlow</span><span style="background:#1e293b;color:#94a3b8;border:1px solid #334155;border-radius:4px;padding:1px 7px;font-size:11px">3D Computer Vision</span><span style="background:#1e293b;color:#94a3b8;border:1px solid #334155;border-radius:4px;padding:1px 7px;font-size:11px">SLAM</span><span style="background:#1e293b;color:#94a3b8;border:1px solid #334155;border-radius:4px;padding:1px 7px;font-size:11px">Point Cloud</span><span style="background:#1e293b;color:#94a3b8;border:1px solid #334155;border-radius:4px;padding:1px 7px;font-size:11px">Deep Learning</span><span style="background:#1e293b;color:#94a3b8;border:1px solid #334155;border-radius:4px;padding:1px 7px;font-size:11px">GPU</span></div>
+    </div>
+    <div class="panel-signals">
+      <div class="panel-label">⚡ Anyscale Signals</div>
+      <ul style="list-style:none;padding:0;margin:0"><li style="margin-bottom:8px">⚡ Stadium-to-mobile-scale 3D processing = massive variation in compute workloads = Ray's autoscaling</li><li style="margin-bottom:8px">⚡ Fully-automated pipeline at scale = Ray Workflows for complex multi-stage CV pipelines</li><li style="margin-bottom:8px">⚡ Multi-view stereo + SLAM on large 3D datasets = distributed GPU training requirement</li><li style="margin-bottom:8px">⚡ Post-acquisition integration with CoStar = cloud infrastructure rationalization opportunity</li><li style="margin-bottom:8px">⚡ Point cloud alignment across millions of spaces = parallel processing with Ray Data</li></ul>
+    </div>
+  </div>
+</div>
+</div>
+<div class="company-section" id="Overviewai">
+  <div class="company-header">
+    <div>
+      <div class="company-name">Overview.ai</div>
+      <div style="display:flex;gap:6px;flex-wrap:wrap;margin-top:6px"><span style="background:#1e3a5f;color:#93c5fd;border:1px solid #1d4ed8;border-radius:4px;padding:2px 8px;font-size:11px">Series A</span><span style="background:#1e293b;color:#94a3b8;border:1px solid #334155;border-radius:4px;padding:2px 8px;font-size:11px">📍 San Francisco, CA</span></div>
+    </div>
+    <a href="https://overview.ai/jobs" target="_blank" rel="noopener"
+       style="color:#60a5fa;font-size:13px;text-decoration:none;border:1px solid #1d4ed8;border-radius:6px;padding:6px 14px;background:#1e3a5f;white-space:nowrap;flex-shrink:0">
+      View Job Board ↗
+    </a>
+  </div>
+  <div class="role-card rel-high">
+  <div class="role-header">
+    <div>
+      <div class="role-title">Computer Vision / ML Engineer</div>
+      <div style="display:flex;align-items:center;gap:8px;flex-wrap:wrap;margin-top:6px">
+        <span class="rel-badge" style="background:#fef2f2;color:#ef4444;border:1px solid #ef444440;border-radius:4px;padding:2px 10px;font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.5px">🔴 High Relevance</span>
+        
+      </div>
+    </div>
+  </div>
+  <div class="role-panels">
+    <div class="panel-jd">
+      <div class="panel-label">📋 Job Description</div>
+      <div class="jd-section">
+        <div class="jd-section-title">Responsibilities</div>
+        <ul><li>Build computer vision models for industrial quality inspection and defect detection</li><li>Develop real-time vision inference pipelines for factory floor deployments</li><li>Train and fine-tune models on manufacturing datasets for high-accuracy defect detection</li><li>Scale ML inference across multiple factory sites and camera networks</li><li>Build active learning pipelines to continuously improve models from production data</li></ul>
+      </div>
+      <div class="jd-section">
+        <div class="jd-section-title">Requirements</div>
+        <ul><li>Computer vision and deep learning expertise (object detection, anomaly detection)</li><li>Python with PyTorch or TensorFlow</li><li>Experience with industrial or manufacturing AI deployment</li><li>Real-time inference optimization for edge and cloud hybrid deployments</li><li>Experience building active learning or human-in-the-loop labeling workflows</li></ul>
+      </div>
+      <div style="display:flex;flex-wrap:wrap;gap:6px;margin-top:12px"><span style="background:#1e293b;color:#94a3b8;border:1px solid #334155;border-radius:4px;padding:1px 7px;font-size:11px">Python</span><span style="background:#1e293b;color:#94a3b8;border:1px solid #334155;border-radius:4px;padding:1px 7px;font-size:11px">PyTorch</span><span style="background:#1e293b;color:#94a3b8;border:1px solid #334155;border-radius:4px;padding:1px 7px;font-size:11px">Computer Vision</span><span style="background:#1e293b;color:#94a3b8;border:1px solid #334155;border-radius:4px;padding:1px 7px;font-size:11px">Anomaly Detection</span><span style="background:#1e293b;color:#94a3b8;border:1px solid #334155;border-radius:4px;padding:1px 7px;font-size:11px">Edge AI</span><span style="background:#1e293b;color:#94a3b8;border:1px solid #334155;border-radius:4px;padding:1px 7px;font-size:11px">Active Learning</span><span style="background:#1e293b;color:#94a3b8;border:1px solid #334155;border-radius:4px;padding:1px 7px;font-size:11px">MLOps</span></div>
+    </div>
+    <div class="panel-signals">
+      <div class="panel-label">⚡ Anyscale Signals</div>
+      <ul style="list-style:none;padding:0;margin:0"><li style="margin-bottom:8px">⚡ Industrial inspection at scale = parallel inference across camera networks = Ray Serve</li><li style="margin-bottom:8px">⚡ Multi-factory deployment = distributed model serving across heterogeneous edge/cloud</li><li style="margin-bottom:8px">⚡ Active learning from production data = continuous Ray Train retraining loops</li><li style="margin-bottom:8px">⚡ High-accuracy defect detection = extensive hyperparameter search with Ray Tune</li><li style="margin-bottom:8px">⚡ Real-time factory floor inference = low-latency Ray Serve SLOs</li></ul>
+    </div>
+  </div>
+</div>
+</div>
+<div class="company-section" id="Pyka">
+  <div class="company-header">
+    <div>
+      <div class="company-name">Pyka</div>
+      <div style="display:flex;gap:6px;flex-wrap:wrap;margin-top:6px"><span style="background:#1e3a5f;color:#93c5fd;border:1px solid #1d4ed8;border-radius:4px;padding:2px 8px;font-size:11px">Series B</span><span style="background:#1e293b;color:#94a3b8;border:1px solid #334155;border-radius:4px;padding:2px 8px;font-size:11px">📍 Oakland, CA</span></div>
+    </div>
+    <a href="https://flypyka.com/jobs" target="_blank" rel="noopener"
+       style="color:#60a5fa;font-size:13px;text-decoration:none;border:1px solid #1d4ed8;border-radius:6px;padding:6px 14px;background:#1e3a5f;white-space:nowrap;flex-shrink:0">
+      View Job Board ↗
+    </a>
+  </div>
+  <div class="role-card rel-medium">
+  <div class="role-header">
+    <div>
+      <div class="role-title">Senior Software Engineer (Autonomous Aircraft)</div>
+      <div style="display:flex;align-items:center;gap:8px;flex-wrap:wrap;margin-top:6px">
+        <span class="rel-badge" style="background:#fffbeb;color:#f59e0b;border:1px solid #f59e0b40;border-radius:4px;padding:2px 10px;font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.5px">🟡 Medium Relevance</span>
+        
+      </div>
+    </div>
+  </div>
+  <div class="role-panels">
+    <div class="panel-jd">
+      <div class="panel-label">📋 Job Description</div>
+      <div class="jd-section">
+        <div class="jd-section-title">Responsibilities</div>
+        <ul><li>Scope, plan, and implement large-scale features for autonomous aircraft and ground infrastructure</li><li>Work on path planning, mapping, object detection, simulation, and flight control systems</li><li>Research and prototype solutions for autonomous agricultural aviation</li><li>Implement tests and validation through flight and field testing</li><li>Collaborate with operations teams on autonomous fleet scaling</li></ul>
+      </div>
+      <div class="jd-section">
+        <div class="jd-section-title">Requirements</div>
+        <ul><li>Experience in path planning, mapping, object detection, simulation, or aviation controls</li><li>Strong software engineering fundamentals (Python and/or C++)</li><li>Real-time systems and embedded control experience</li><li>Simulation environment and flight dynamics familiarity</li><li>Ability to work across full-stack aviation robotics problems</li></ul>
+      </div>
+      <div style="display:flex;flex-wrap:wrap;gap:6px;margin-top:12px"><span style="background:#1e293b;color:#94a3b8;border:1px solid #334155;border-radius:4px;padding:1px 7px;font-size:11px">C++</span><span style="background:#1e293b;color:#94a3b8;border:1px solid #334155;border-radius:4px;padding:1px 7px;font-size:11px">Python</span><span style="background:#1e293b;color:#94a3b8;border:1px solid #334155;border-radius:4px;padding:1px 7px;font-size:11px">Simulation</span><span style="background:#1e293b;color:#94a3b8;border:1px solid #334155;border-radius:4px;padding:1px 7px;font-size:11px">Control Systems</span><span style="background:#1e293b;color:#94a3b8;border:1px solid #334155;border-radius:4px;padding:1px 7px;font-size:11px">Autonomous Systems</span><span style="background:#1e293b;color:#94a3b8;border:1px solid #334155;border-radius:4px;padding:1px 7px;font-size:11px">Path Planning</span><span style="background:#1e293b;color:#94a3b8;border:1px solid #334155;border-radius:4px;padding:1px 7px;font-size:11px">Real-Time</span></div>
+    </div>
+    <div class="panel-signals">
+      <div class="panel-label">⚡ Anyscale Signals</div>
+      <ul style="list-style:none;padding:0;margin:0"><li style="margin-bottom:8px">⚡ Autonomous flight simulation environments = massive distributed sim training with Ray</li><li style="margin-bottom:8px">⚡ Large-scale perception for autonomous aircraft = parallel GPU training pipeline</li><li style="margin-bottom:8px">⚡ Multi-aircraft autonomous fleet scaling = distributed coordination with Ray actors</li><li style="margin-bottom:8px">⚡ Path planning + ML integration = Ray Workflows for flight decision pipelines</li></ul>
+    </div>
+  </div>
+</div>
+</div>
+<div class="company-section" id="Samba_TV">
+  <div class="company-header">
+    <div>
+      <div class="company-name">Samba TV</div>
+      <div style="display:flex;gap:6px;flex-wrap:wrap;margin-top:6px"><span style="background:#1e3a5f;color:#93c5fd;border:1px solid #1d4ed8;border-radius:4px;padding:2px 8px;font-size:11px">Series D</span><span style="background:#1e293b;color:#94a3b8;border:1px solid #334155;border-radius:4px;padding:2px 8px;font-size:11px">📍 San Francisco, CA</span></div>
+    </div>
+    <a href="https://samba.tv/jobs" target="_blank" rel="noopener"
+       style="color:#60a5fa;font-size:13px;text-decoration:none;border:1px solid #1d4ed8;border-radius:6px;padding:6px 14px;background:#1e3a5f;white-space:nowrap;flex-shrink:0">
+      View Job Board ↗
+    </a>
+  </div>
+  <div class="role-card rel-high">
+  <div class="role-header">
+    <div>
+      <div class="role-title">Senior Data Scientist — Measurement</div>
+      <div style="display:flex;align-items:center;gap:8px;flex-wrap:wrap;margin-top:6px">
+        <span class="rel-badge" style="background:#fef2f2;color:#ef4444;border:1px solid #ef444440;border-radius:4px;padding:2px 10px;font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.5px">🔴 High Relevance</span>
+        <span style="background:#1e3a5f;color:#60a5fa;border:1px solid #1d4ed8;border-radius:4px;padding:2px 8px;font-size:11px;font-weight:600">$160,000–$220,000</span>
+      </div>
+    </div>
+  </div>
+  <div class="role-panels">
+    <div class="panel-jd">
+      <div class="panel-label">📋 Job Description</div>
+      <div class="jd-section">
+        <div class="jd-section-title">Responsibilities</div>
+        <ul><li>Design and operationalize measurement frameworks using causal inference and advanced ML</li><li>Deliver insights on ad incrementality, audience targeting, and cross-platform attribution</li><li>Provide technical leadership on TV campaign measurement across linear and streaming</li><li>Mentor junior data scientists and analytics engineers</li><li>Drive technical vision for data modeling and ML infrastructure initiatives</li></ul>
+      </div>
+      <div class="jd-section">
+        <div class="jd-section-title">Requirements</div>
+        <ul><li>Master's or advanced degree in Statistics, Econometrics, Data Science, or CS</li><li>7–10 years in advertising/marketing analytics or media measurement</li><li>Expert in causal inference: RCT design, diff-in-diff, propensity scoring, uplift modeling</li><li>Advanced Python and SQL; familiarity with Spark or distributed compute frameworks</li><li>Proven track record mentoring data scientists</li></ul>
+      </div>
+      <div style="display:flex;flex-wrap:wrap;gap:6px;margin-top:12px"><span style="background:#1e293b;color:#94a3b8;border:1px solid #334155;border-radius:4px;padding:1px 7px;font-size:11px">Python</span><span style="background:#1e293b;color:#94a3b8;border:1px solid #334155;border-radius:4px;padding:1px 7px;font-size:11px">SQL</span><span style="background:#1e293b;color:#94a3b8;border:1px solid #334155;border-radius:4px;padding:1px 7px;font-size:11px">Spark</span><span style="background:#1e293b;color:#94a3b8;border:1px solid #334155;border-radius:4px;padding:1px 7px;font-size:11px">Causal Inference</span><span style="background:#1e293b;color:#94a3b8;border:1px solid #334155;border-radius:4px;padding:1px 7px;font-size:11px">Statistical Modeling</span><span style="background:#1e293b;color:#94a3b8;border:1px solid #334155;border-radius:4px;padding:1px 7px;font-size:11px">Distributed Computing</span><span style="background:#1e293b;color:#94a3b8;border:1px solid #334155;border-radius:4px;padding:1px 7px;font-size:11px">ML Infrastructure</span></div>
+    </div>
+    <div class="panel-signals">
+      <div class="panel-label">⚡ Anyscale Signals</div>
+      <ul style="list-style:none;padding:0;margin:0"><li style="margin-bottom:8px">⚡ Explicitly mentions "Spark or other distributed compute frameworks" = open to Ray as modern replacement</li><li style="margin-bottom:8px">⚡ Cross-platform TV attribution at scale = massive distributed data processing with Ray Data</li><li style="margin-bottom:8px">⚡ Causal inference at TV measurement scale = computationally intensive distributed workloads</li><li style="margin-bottom:8px">⚡ Series D with enterprise advertiser base = substantial ML infrastructure budget</li><li style="margin-bottom:8px">⚡ Data modeling initiative leadership = buying-level decision maker in role</li></ul>
+    </div>
+  </div>
+</div>
+<div class="role-card rel-high">
+  <div class="role-header">
+    <div>
+      <div class="role-title">Data Science Manager — Viewership</div>
+      <div style="display:flex;align-items:center;gap:8px;flex-wrap:wrap;margin-top:6px">
+        <span class="rel-badge" style="background:#fef2f2;color:#ef4444;border:1px solid #ef444440;border-radius:4px;padding:2px 10px;font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.5px">🔴 High Relevance</span>
+        
+      </div>
+    </div>
+  </div>
+  <div class="role-panels">
+    <div class="panel-jd">
+      <div class="panel-label">📋 Job Description</div>
+      <div class="jd-section">
+        <div class="jd-section-title">Responsibilities</div>
+        <ul><li>Lead team of ML Engineers, Data Scientists, and Data Engineers</li><li>Guide technical vision around ML and data science applications for TV viewership</li><li>Strengthen foundational platforms for data modeling and large-scale ML processing</li><li>Enable data usage across Samba TV's product offerings</li><li>Deliver large-scale ML models for viewership behavior prediction</li></ul>
+      </div>
+      <div class="jd-section">
+        <div class="jd-section-title">Requirements</div>
+        <ul><li>7+ years in engineering or data science with ML focus</li><li>Hands-on coding experience delivering large-scale ML models</li><li>Extensive Python, Java, or Scala programming skills</li><li>Data mining and statistical modeling techniques</li><li>Working knowledge of RDBMS and dimensional data models</li></ul>
+      </div>
+      <div style="display:flex;flex-wrap:wrap;gap:6px;margin-top:12px"><span style="background:#1e293b;color:#94a3b8;border:1px solid #334155;border-radius:4px;padding:1px 7px;font-size:11px">Python</span><span style="background:#1e293b;color:#94a3b8;border:1px solid #334155;border-radius:4px;padding:1px 7px;font-size:11px">Java</span><span style="background:#1e293b;color:#94a3b8;border:1px solid #334155;border-radius:4px;padding:1px 7px;font-size:11px">Scala</span><span style="background:#1e293b;color:#94a3b8;border:1px solid #334155;border-radius:4px;padding:1px 7px;font-size:11px">ML Infrastructure</span><span style="background:#1e293b;color:#94a3b8;border:1px solid #334155;border-radius:4px;padding:1px 7px;font-size:11px">Data Pipelines</span><span style="background:#1e293b;color:#94a3b8;border:1px solid #334155;border-radius:4px;padding:1px 7px;font-size:11px">Statistical Modeling</span><span style="background:#1e293b;color:#94a3b8;border:1px solid #334155;border-radius:4px;padding:1px 7px;font-size:11px">Team Leadership</span></div>
+    </div>
+    <div class="panel-signals">
+      <div class="panel-label">⚡ Anyscale Signals</div>
+      <ul style="list-style:none;padding:0;margin:0"><li style="margin-bottom:8px">⚡ Manager-level role owning ML platform = champion / economic buyer profile for Anyscale</li><li style="margin-bottom:8px">⚡ "Large-scale ML model delivery" as explicit success criteria = infrastructure investment justified</li><li style="margin-bottom:8px">⚡ "Foundational platform" initiative = greenfield infrastructure decision approaching</li><li style="margin-bottom:8px">⚡ Multiple engineers reporting up = team scaling that Anyscale onboards en masse</li></ul>
+    </div>
+  </div>
+</div>
+</div>
+<div class="company-section" id="Suki">
+  <div class="company-header">
+    <div>
+      <div class="company-name">Suki</div>
+      <div style="display:flex;gap:6px;flex-wrap:wrap;margin-top:6px"><span style="background:#1e3a5f;color:#93c5fd;border:1px solid #1d4ed8;border-radius:4px;padding:2px 8px;font-size:11px">Series D</span><span style="background:#1e293b;color:#94a3b8;border:1px solid #334155;border-radius:4px;padding:2px 8px;font-size:11px">📍 Redwood City, CA</span></div>
+    </div>
+    <a href="https://suki.ai/jobs" target="_blank" rel="noopener"
+       style="color:#60a5fa;font-size:13px;text-decoration:none;border:1px solid #1d4ed8;border-radius:6px;padding:6px 14px;background:#1e3a5f;white-space:nowrap;flex-shrink:0">
+      View Job Board ↗
+    </a>
+  </div>
+  <div class="role-card rel-high">
+  <div class="role-header">
+    <div>
+      <div class="role-title">Senior ML Engineer — NLP</div>
+      <div style="display:flex;align-items:center;gap:8px;flex-wrap:wrap;margin-top:6px">
+        <span class="rel-badge" style="background:#fef2f2;color:#ef4444;border:1px solid #ef444440;border-radius:4px;padding:2px 10px;font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.5px">🔴 High Relevance</span>
+        <span style="background:#1e3a5f;color:#60a5fa;border:1px solid #1d4ed8;border-radius:4px;padding:2px 8px;font-size:11px;font-weight:600">$210,000–$225,000 (Staff level)</span>
+      </div>
+    </div>
+  </div>
+  <div class="role-panels">
+    <div class="panel-jd">
+      <div class="panel-label">📋 Job Description</div>
+      <div class="jd-section">
+        <div class="jd-section-title">Responsibilities</div>
+        <ul><li>Develop NLP solutions and enhance computational infrastructure for healthcare applications</li><li>Improve algorithms for clinical documentation, ambient AI, and SOAP note generation</li><li>Build and maintain distributed backend services for ML/AI platform</li><li>Manage and curate large clinical datasets for model training and evaluation</li><li>Monitor and analyze system performance metrics to identify ML optimization areas</li></ul>
+      </div>
+      <div class="jd-section">
+        <div class="jd-section-title">Requirements</div>
+        <ul><li>5+ years ML experience with 3+ years focused on NLP and contextual embeddings</li><li>Proven end-to-end workflow with at least one NLP model shipped to enterprise production</li><li>Expert in deployment of state-of-the-art deep neural networks</li><li>Experience building and maintaining distributed backend services for ML/AI</li><li>Strong CS fundamentals: algorithms, probability, data structures, system design</li></ul>
+      </div>
+      <div style="display:flex;flex-wrap:wrap;gap:6px;margin-top:12px"><span style="background:#1e293b;color:#94a3b8;border:1px solid #334155;border-radius:4px;padding:1px 7px;font-size:11px">Python</span><span style="background:#1e293b;color:#94a3b8;border:1px solid #334155;border-radius:4px;padding:1px 7px;font-size:11px">NLP</span><span style="background:#1e293b;color:#94a3b8;border:1px solid #334155;border-radius:4px;padding:1px 7px;font-size:11px">Distributed Systems</span><span style="background:#1e293b;color:#94a3b8;border:1px solid #334155;border-radius:4px;padding:1px 7px;font-size:11px">PyTorch</span><span style="background:#1e293b;color:#94a3b8;border:1px solid #334155;border-radius:4px;padding:1px 7px;font-size:11px">Healthcare AI</span><span style="background:#1e293b;color:#94a3b8;border:1px solid #334155;border-radius:4px;padding:1px 7px;font-size:11px">Production ML</span><span style="background:#1e293b;color:#94a3b8;border:1px solid #334155;border-radius:4px;padding:1px 7px;font-size:11px">Deep Learning</span></div>
+    </div>
+    <div class="panel-signals">
+      <div class="panel-label">⚡ Anyscale Signals</div>
+      <ul style="list-style:none;padding:0;margin:0"><li style="margin-bottom:8px">⚡ "Distributed backend services for ML/AI applications" = literally describes Ray infrastructure need</li><li style="margin-bottom:8px">⚡ Enterprise healthcare NLP deployment = high-reliability Ray Serve for ambient AI</li><li style="margin-bottom:8px">⚡ Large clinical dataset curation = Ray Data pipeline for PHI-compliant distributed processing</li><li style="margin-bottom:8px">⚡ Series D with hospital system clients = substantial budget + multi-year contracts</li><li style="margin-bottom:8px">⚡ Ambient AI dictation at scale = real-time low-latency inference = Ray Serve</li></ul>
+    </div>
+  </div>
+</div>
+<div class="role-card rel-high">
+  <div class="role-header">
+    <div>
+      <div class="role-title">Senior ML Engineer — ASR</div>
+      <div style="display:flex;align-items:center;gap:8px;flex-wrap:wrap;margin-top:6px">
+        <span class="rel-badge" style="background:#fef2f2;color:#ef4444;border:1px solid #ef444440;border-radius:4px;padding:2px 10px;font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.5px">🔴 High Relevance</span>
+        <span style="background:#1e3a5f;color:#60a5fa;border:1px solid #1d4ed8;border-radius:4px;padding:2px 8px;font-size:11px;font-weight:600">$210,000–$225,000 (Staff level)</span>
+      </div>
+    </div>
+  </div>
+  <div class="role-panels">
+    <div class="panel-jd">
+      <div class="panel-label">📋 Job Description</div>
+      <div class="jd-section">
+        <div class="jd-section-title">Responsibilities</div>
+        <ul><li>Develop and optimize ASR models for real-time clinical documentation</li><li>Implement state-of-the-art neural network architectures for medical speech recognition</li><li>Optimize performance for production inference and continuous training at scale</li><li>Collaborate on healthcare voice intelligence platform for enterprise hospitals</li><li>Scale ASR systems for simultaneous use across tens of thousands of clinicians</li></ul>
+      </div>
+      <div class="jd-section">
+        <div class="jd-section-title">Requirements</div>
+        <ul><li>5+ years ML experience with 3+ years specifically in ASR</li><li>Expertise in deep neural network ASR architectures</li><li>Proven ability to build and maintain distributed backend services for ML/AI</li><li>Experience moving ASR models from research to enterprise production at scale</li><li>Strong system design and CS fundamentals</li></ul>
+      </div>
+      <div style="display:flex;flex-wrap:wrap;gap:6px;margin-top:12px"><span style="background:#1e293b;color:#94a3b8;border:1px solid #334155;border-radius:4px;padding:1px 7px;font-size:11px">Python</span><span style="background:#1e293b;color:#94a3b8;border:1px solid #334155;border-radius:4px;padding:1px 7px;font-size:11px">ASR</span><span style="background:#1e293b;color:#94a3b8;border:1px solid #334155;border-radius:4px;padding:1px 7px;font-size:11px">Audio Deep Learning</span><span style="background:#1e293b;color:#94a3b8;border:1px solid #334155;border-radius:4px;padding:1px 7px;font-size:11px">Distributed Systems</span><span style="background:#1e293b;color:#94a3b8;border:1px solid #334155;border-radius:4px;padding:1px 7px;font-size:11px">PyTorch</span><span style="background:#1e293b;color:#94a3b8;border:1px solid #334155;border-radius:4px;padding:1px 7px;font-size:11px">Real-Time Inference</span><span style="background:#1e293b;color:#94a3b8;border:1px solid #334155;border-radius:4px;padding:1px 7px;font-size:11px">Healthcare</span></div>
+    </div>
+    <div class="panel-signals">
+      <div class="panel-label">⚡ Anyscale Signals</div>
+      <ul style="list-style:none;padding:0;margin:0"><li style="margin-bottom:8px">⚡ "Distributed backend services for ML/AI" mentioned twice across NLP + ASR JDs = confirmed infra need</li><li style="margin-bottom:8px">⚡ Real-time ASR for "tens of thousands of clinicians" = multi-tenant Ray Serve cluster</li><li style="margin-bottom:8px">⚡ Continuous model improvement loop = Ray Train + Ray Serve integrated retraining</li><li style="margin-bottom:8px">⚡ Research-to-enterprise-production ASR = Ray's full lifecycle simplifies handoff</li></ul>
+    </div>
+  </div>
+</div>
+</div>
+<div class="company-section" id="Techcyte">
+  <div class="company-header">
+    <div>
+      <div class="company-name">Techcyte</div>
+      <div style="display:flex;gap:6px;flex-wrap:wrap;margin-top:6px"><span style="background:#1e3a5f;color:#93c5fd;border:1px solid #1d4ed8;border-radius:4px;padding:2px 8px;font-size:11px">Series B</span><span style="background:#1e293b;color:#94a3b8;border:1px solid #334155;border-radius:4px;padding:2px 8px;font-size:11px">📍 Lindon, UT</span></div>
+    </div>
+    <a href="https://techcyte.com/jobs" target="_blank" rel="noopener"
+       style="color:#60a5fa;font-size:13px;text-decoration:none;border:1px solid #1d4ed8;border-radius:6px;padding:6px 14px;background:#1e3a5f;white-space:nowrap;flex-shrink:0">
+      View Job Board ↗
+    </a>
+  </div>
+  <div class="role-card rel-medium">
+  <div class="role-header">
+    <div>
+      <div class="role-title">Senior Software Engineer — AI Platform</div>
+      <div style="display:flex;align-items:center;gap:8px;flex-wrap:wrap;margin-top:6px">
+        <span class="rel-badge" style="background:#fffbeb;color:#f59e0b;border:1px solid #f59e0b40;border-radius:4px;padding:2px 10px;font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.5px">🟡 Medium Relevance</span>
+        <span style="background:#1e3a5f;color:#60a5fa;border:1px solid #1d4ed8;border-radius:4px;padding:2px 8px;font-size:11px;font-weight:600">$91,000–$128,000</span>
+      </div>
+    </div>
+  </div>
+  <div class="role-panels">
+    <div class="panel-jd">
+      <div class="panel-label">📋 Job Description</div>
+      <div class="jd-section">
+        <div class="jd-section-title">Responsibilities</div>
+        <ul><li>Design cloud-native AI diagnostics applications for clinical pathology</li><li>Develop microservices and queuing systems balancing AI workload throughput with cost</li><li>Build pipelines around ML models meeting healthcare accuracy requirements</li><li>Handle terabytes of medical imaging data transfer, processing, and storage</li><li>Create systems integrating ML outputs into clinical laboratory workflows</li></ul>
+      </div>
+      <div class="jd-section">
+        <div class="jd-section-title">Requirements</div>
+        <ul><li>Bachelor's in Computer Science or related field</li><li>Core Java and Spring Boot experience</li><li>Microservices architecture and database technologies</li><li>US work authorization required</li><li>Healthcare or biotech domain experience preferred</li></ul>
+      </div>
+      <div style="display:flex;flex-wrap:wrap;gap:6px;margin-top:12px"><span style="background:#1e293b;color:#94a3b8;border:1px solid #334155;border-radius:4px;padding:1px 7px;font-size:11px">Java</span><span style="background:#1e293b;color:#94a3b8;border:1px solid #334155;border-radius:4px;padding:1px 7px;font-size:11px">Python</span><span style="background:#1e293b;color:#94a3b8;border:1px solid #334155;border-radius:4px;padding:1px 7px;font-size:11px">Spring Boot</span><span style="background:#1e293b;color:#94a3b8;border:1px solid #334155;border-radius:4px;padding:1px 7px;font-size:11px">Microservices</span><span style="background:#1e293b;color:#94a3b8;border:1px solid #334155;border-radius:4px;padding:1px 7px;font-size:11px">Cloud-Native</span><span style="background:#1e293b;color:#94a3b8;border:1px solid #334155;border-radius:4px;padding:1px 7px;font-size:11px">AI Pipelines</span><span style="background:#1e293b;color:#94a3b8;border:1px solid #334155;border-radius:4px;padding:1px 7px;font-size:11px">Medical Imaging</span></div>
+    </div>
+    <div class="panel-signals">
+      <div class="panel-label">⚡ Anyscale Signals</div>
+      <ul style="list-style:none;padding:0;margin:0"><li style="margin-bottom:8px">⚡ "Terabytes of medical imaging data" = distributed batch processing with Ray Data</li><li style="margin-bottom:8px">⚡ "Pipelines around ML models for healthcare" = Ray Workflows for regulated ML pipelines</li><li style="margin-bottom:8px">⚡ Cost-optimized queuing for AI workloads = Ray's auto-scaling cuts cloud compute costs</li><li style="margin-bottom:8px">⚡ Cloud-native pathology AI = scalable serving infrastructure for lab deployments</li></ul>
+    </div>
+  </div>
+</div>
+</div>
+<div class="company-section" id="Topaz_Labs">
+  <div class="company-header">
+    <div>
+      <div class="company-name">Topaz Labs</div>
+      <div style="display:flex;gap:6px;flex-wrap:wrap;margin-top:6px"><span style="background:#1e3a5f;color:#93c5fd;border:1px solid #1d4ed8;border-radius:4px;padding:2px 8px;font-size:11px">Bootstrapped</span><span style="background:#1e293b;color:#94a3b8;border:1px solid #334155;border-radius:4px;padding:2px 8px;font-size:11px">📍 Dallas, TX</span></div>
+    </div>
+    <a href="https://topazlabs.com/jobs" target="_blank" rel="noopener"
+       style="color:#60a5fa;font-size:13px;text-decoration:none;border:1px solid #1d4ed8;border-radius:6px;padding:6px 14px;background:#1e3a5f;white-space:nowrap;flex-shrink:0">
+      View Job Board ↗
+    </a>
+  </div>
+  <div class="role-card rel-high">
+  <div class="role-header">
+    <div>
+      <div class="role-title">Software Engineer — ML Performance / HPC</div>
+      <div style="display:flex;align-items:center;gap:8px;flex-wrap:wrap;margin-top:6px">
+        <span class="rel-badge" style="background:#fef2f2;color:#ef4444;border:1px solid #ef444440;border-radius:4px;padding:2px 10px;font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.5px">🔴 High Relevance</span>
+        <span style="background:#1e3a5f;color:#60a5fa;border:1px solid #1d4ed8;border-radius:4px;padding:2px 8px;font-size:11px;font-weight:600">$110,000–$150,000</span>
+      </div>
+    </div>
+  </div>
+  <div class="role-panels">
+    <div class="panel-jd">
+      <div class="panel-label">📋 Job Description</div>
+      <div class="jd-section">
+        <div class="jd-section-title">Responsibilities</div>
+        <ul><li>Optimize app performance, stability, and availability for AI image/video enhancement products</li><li>Serve as technical bridge between Deep Learning research team and production products</li><li>Prepare and optimize new generative AI models for consumer and professional deployment</li><li>Conduct GPU/CPU performance optimization for inference and training workloads</li><li>Work with hardware partners (NVIDIA, AMD, Intel, Apple) for cross-platform inference optimization</li></ul>
+      </div>
+      <div class="jd-section">
+        <div class="jd-section-title">Requirements</div>
+        <ul><li>Deep understanding of GPU computation, CUDA, and HPC optimization</li><li>ML model optimization and deployment expertise</li><li>Systems programming background (C++)</li><li>Experience with PyTorch or TensorFlow internals</li><li>Hardware-level performance profiling and optimization</li></ul>
+      </div>
+      <div style="display:flex;flex-wrap:wrap;gap:6px;margin-top:12px"><span style="background:#1e293b;color:#94a3b8;border:1px solid #334155;border-radius:4px;padding:1px 7px;font-size:11px">CUDA</span><span style="background:#1e293b;color:#94a3b8;border:1px solid #334155;border-radius:4px;padding:1px 7px;font-size:11px">C++</span><span style="background:#1e293b;color:#94a3b8;border:1px solid #334155;border-radius:4px;padding:1px 7px;font-size:11px">GPU Optimization</span><span style="background:#1e293b;color:#94a3b8;border:1px solid #334155;border-radius:4px;padding:1px 7px;font-size:11px">PyTorch</span><span style="background:#1e293b;color:#94a3b8;border:1px solid #334155;border-radius:4px;padding:1px 7px;font-size:11px">HPC</span><span style="background:#1e293b;color:#94a3b8;border:1px solid #334155;border-radius:4px;padding:1px 7px;font-size:11px">Generative AI</span><span style="background:#1e293b;color:#94a3b8;border:1px solid #334155;border-radius:4px;padding:1px 7px;font-size:11px">Model Inference</span><span style="background:#1e293b;color:#94a3b8;border:1px solid #334155;border-radius:4px;padding:1px 7px;font-size:11px">Performance Engineering</span></div>
+    </div>
+    <div class="panel-signals">
+      <div class="panel-label">⚡ Anyscale Signals</div>
+      <ul style="list-style:none;padding:0;margin:0"><li style="margin-bottom:8px">⚡ Cross-hardware GPU optimization (NVIDIA, AMD, Intel, Apple) = heterogeneous resource scheduling</li><li style="margin-bottom:8px">⚡ "AI Engine framework" internal tooling = Ray could replace custom infrastructure</li><li style="margin-bottom:8px">⚡ Research-to-production model pipeline = Ray Train + Ray Serve handoff</li><li style="margin-bottom:8px">⚡ Generative AI video/image at scale = distributed GPU inference on Ray Serve</li><li style="margin-bottom:8px">⚡ Bootstrapped / profitable = cost-efficiency pitch resonates strongly</li></ul>
+    </div>
+  </div>
+</div>
+</div>
+<div class="company-section" id="Uplight">
+  <div class="company-header">
+    <div>
+      <div class="company-name">Uplight</div>
+      <div style="display:flex;gap:6px;flex-wrap:wrap;margin-top:6px"><span style="background:#1e3a5f;color:#93c5fd;border:1px solid #1d4ed8;border-radius:4px;padding:2px 8px;font-size:11px">Series C</span><span style="background:#1e293b;color:#94a3b8;border:1px solid #334155;border-radius:4px;padding:2px 8px;font-size:11px">📍 Boulder, CO</span></div>
+    </div>
+    <a href="https://uplight.com/jobs" target="_blank" rel="noopener"
+       style="color:#60a5fa;font-size:13px;text-decoration:none;border:1px solid #1d4ed8;border-radius:6px;padding:6px 14px;background:#1e3a5f;white-space:nowrap;flex-shrink:0">
+      View Job Board ↗
+    </a>
+  </div>
+  <div class="role-card rel-high">
+  <div class="role-header">
+    <div>
+      <div class="role-title">Staff Software Engineer — Machine Learning</div>
+      <div style="display:flex;align-items:center;gap:8px;flex-wrap:wrap;margin-top:6px">
+        <span class="rel-badge" style="background:#fef2f2;color:#ef4444;border:1px solid #ef444440;border-radius:4px;padding:2px 10px;font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.5px">🔴 High Relevance</span>
+        <span style="background:#1e3a5f;color:#60a5fa;border:1px solid #1d4ed8;border-radius:4px;padding:2px 8px;font-size:11px;font-weight:600">$150,000–$180,000</span>
+      </div>
+    </div>
+  </div>
+  <div class="role-panels">
+    <div class="panel-jd">
+      <div class="panel-label">📋 Job Description</div>
+      <div class="jd-section">
+        <div class="jd-section-title">Responsibilities</div>
+        <ul><li>Provide technical leadership on high-impact ML infrastructure projects</li><li>Architect and develop ML operations systems: data pipelines, feature stores, data lakes, model registries, and model serving</li><li>Collaborate with product and stakeholders to operationalize and maintain ML models</li><li>Own full service lifecycle: building, testing, deployment, and maintenance</li><li>Lead cross-functional collaboration between data scientists and engineers</li></ul>
+      </div>
+      <div class="jd-section">
+        <div class="jd-section-title">Requirements</div>
+        <ul><li>Extensive Python experience (primary language)</li><li>FastAPI, SQL/NoSQL databases, Terraform, Docker, CI/CD tooling</li><li>Cloud experience (GCP, AWS, or Azure)</li><li>ETL and data pipelines: Airflow, Spark, Databricks</li><li>Experience deploying ML models into production</li></ul>
+      </div>
+      <div style="display:flex;flex-wrap:wrap;gap:6px;margin-top:12px"><span style="background:#1e293b;color:#94a3b8;border:1px solid #334155;border-radius:4px;padding:1px 7px;font-size:11px">Python</span><span style="background:#1e293b;color:#94a3b8;border:1px solid #334155;border-radius:4px;padding:1px 7px;font-size:11px">Spark</span><span style="background:#1e293b;color:#94a3b8;border:1px solid #334155;border-radius:4px;padding:1px 7px;font-size:11px">Airflow</span><span style="background:#1e293b;color:#94a3b8;border:1px solid #334155;border-radius:4px;padding:1px 7px;font-size:11px">Databricks</span><span style="background:#1e293b;color:#94a3b8;border:1px solid #334155;border-radius:4px;padding:1px 7px;font-size:11px">GCP</span><span style="background:#1e293b;color:#94a3b8;border:1px solid #334155;border-radius:4px;padding:1px 7px;font-size:11px">FastAPI</span><span style="background:#1e293b;color:#94a3b8;border:1px solid #334155;border-radius:4px;padding:1px 7px;font-size:11px">Docker</span><span style="background:#1e293b;color:#94a3b8;border:1px solid #334155;border-radius:4px;padding:1px 7px;font-size:11px">MLOps</span><span style="background:#1e293b;color:#94a3b8;border:1px solid #334155;border-radius:4px;padding:1px 7px;font-size:11px">Feature Store</span></div>
+    </div>
+    <div class="panel-signals">
+      <div class="panel-label">⚡ Anyscale Signals</div>
+      <ul style="list-style:none;padding:0;margin:0"><li style="margin-bottom:8px">⚡ Explicitly lists "Airflow, Spark, Databricks" as current stack = direct Ray displacement opportunity</li><li style="margin-bottom:8px">⚡ Feature stores + model registries + serving = Anyscale replaces this entire MLOps stack</li><li style="margin-bottom:8px">⚡ "ML operations software systems" as core scope = infrastructure buyer profile</li><li style="margin-bottom:8px">⚡ GCP-primary + Terraform = Anyscale on GCP deployment is a natural fit</li><li style="margin-bottom:8px">⚡ Staff-level role owning ML infra = champion and technical decision maker</li></ul>
+    </div>
+  </div>
+</div>
+</div>
+<div class="company-section" id="Weave_Robotics">
+  <div class="company-header">
+    <div>
+      <div class="company-name">Weave Robotics</div>
+      <div style="display:flex;gap:6px;flex-wrap:wrap;margin-top:6px"><span style="background:#1e3a5f;color:#93c5fd;border:1px solid #1d4ed8;border-radius:4px;padding:2px 8px;font-size:11px">Seed (YC)</span><span style="background:#1e293b;color:#94a3b8;border:1px solid #334155;border-radius:4px;padding:2px 8px;font-size:11px">📍 San Francisco, CA</span></div>
+    </div>
+    <a href="https://weaverobotics.com/jobs" target="_blank" rel="noopener"
+       style="color:#60a5fa;font-size:13px;text-decoration:none;border:1px solid #1d4ed8;border-radius:6px;padding:6px 14px;background:#1e3a5f;white-space:nowrap;flex-shrink:0">
+      View Job Board ↗
+    </a>
+  </div>
+  <div class="role-card rel-high">
+  <div class="role-header">
+    <div>
+      <div class="role-title">ML Research Scientist</div>
+      <div style="display:flex;align-items:center;gap:8px;flex-wrap:wrap;margin-top:6px">
+        <span class="rel-badge" style="background:#fef2f2;color:#ef4444;border:1px solid #ef444440;border-radius:4px;padding:2px 10px;font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.5px">🔴 High Relevance</span>
+        
+      </div>
+    </div>
+  </div>
+  <div class="role-panels">
+    <div class="panel-jd">
+      <div class="panel-label">📋 Job Description</div>
+      <div class="jd-section">
+        <div class="jd-section-title">Responsibilities</div>
+        <ul><li>Design and build Isaac autonomy pipeline for robotic manipulation</li><li>Design model architectures for robotic control and policy learning</li><li>Train and iterate on robotic policies using reinforcement learning</li><li>Work with software engineers to build online inference and training stack</li><li>Optimize vision language models for real-world robot deployment</li></ul>
+      </div>
+      <div class="jd-section">
+        <div class="jd-section-title">Requirements</div>
+        <ul><li>Deep experience in vision language models, reinforcement learning, and robotics</li><li>Strong research fundamentals and publication record preferred</li><li>Strong Python proficiency and deep learning frameworks (PyTorch)</li><li>Experience training and deploying models on robotic hardware</li><li>Distributed training experience for large-scale RL likely required</li></ul>
+      </div>
+      <div style="display:flex;flex-wrap:wrap;gap:6px;margin-top:12px"><span style="background:#1e293b;color:#94a3b8;border:1px solid #334155;border-radius:4px;padding:1px 7px;font-size:11px">Python</span><span style="background:#1e293b;color:#94a3b8;border:1px solid #334155;border-radius:4px;padding:1px 7px;font-size:11px">PyTorch</span><span style="background:#1e293b;color:#94a3b8;border:1px solid #334155;border-radius:4px;padding:1px 7px;font-size:11px">Reinforcement Learning</span><span style="background:#1e293b;color:#94a3b8;border:1px solid #334155;border-radius:4px;padding:1px 7px;font-size:11px">Vision Language Models</span><span style="background:#1e293b;color:#94a3b8;border:1px solid #334155;border-radius:4px;padding:1px 7px;font-size:11px">Robotics</span><span style="background:#1e293b;color:#94a3b8;border:1px solid #334155;border-radius:4px;padding:1px 7px;font-size:11px">Ray RLlib</span><span style="background:#1e293b;color:#94a3b8;border:1px solid #334155;border-radius:4px;padding:1px 7px;font-size:11px">GPU</span></div>
+    </div>
+    <div class="panel-signals">
+      <div class="panel-label">⚡ Anyscale Signals</div>
+      <ul style="list-style:none;padding:0;margin:0"><li style="margin-bottom:8px">⚡ "Online inference and training stack" = real-time Ray Train + Ray Serve integrated system</li><li style="margin-bottom:8px">⚡ Reinforcement learning at scale = Ray RLlib is the de facto distributed RL library</li><li style="margin-bottom:8px">⚡ Vision language models for robotics = large model distributed training with Ray Train</li><li style="margin-bottom:8px">⚡ YC-backed seed stage = fast-growing, infrastructure decisions being made now</li><li style="margin-bottom:8px">⚡ NVIDIA Isaac integration = GPU-optimized Ray cluster on Isaac-compatible hardware</li></ul>
+    </div>
+  </div>
+</div>
+</div>
+<div class="company-section" id="Wobot_AI">
+  <div class="company-header">
+    <div>
+      <div class="company-name">Wobot AI</div>
+      <div style="display:flex;gap:6px;flex-wrap:wrap;margin-top:6px"><span style="background:#1e3a5f;color:#93c5fd;border:1px solid #1d4ed8;border-radius:4px;padding:2px 8px;font-size:11px">Series A</span><span style="background:#1e293b;color:#94a3b8;border:1px solid #334155;border-radius:4px;padding:2px 8px;font-size:11px">📍 Palo Alto, CA</span></div>
+    </div>
+    <a href="https://wobot.ai/jobs" target="_blank" rel="noopener"
+       style="color:#60a5fa;font-size:13px;text-decoration:none;border:1px solid #1d4ed8;border-radius:6px;padding:6px 14px;background:#1e3a5f;white-space:nowrap;flex-shrink:0">
+      View Job Board ↗
+    </a>
+  </div>
+  <div class="role-card rel-medium">
+  <div class="role-header">
+    <div>
+      <div class="role-title">Computer Vision Engineer</div>
+      <div style="display:flex;align-items:center;gap:8px;flex-wrap:wrap;margin-top:6px">
+        <span class="rel-badge" style="background:#fffbeb;color:#f59e0b;border:1px solid #f59e0b40;border-radius:4px;padding:2px 10px;font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.5px">🟡 Medium Relevance</span>
+        <span style="background:#1e3a5f;color:#60a5fa;border:1px solid #1d4ed8;border-radius:4px;padding:2px 8px;font-size:11px;font-weight:600">$64/hour</span>
+      </div>
+    </div>
+  </div>
+  <div class="role-panels">
+    <div class="panel-jd">
+      <div class="panel-label">📋 Job Description</div>
+      <div class="jd-section">
+        <div class="jd-section-title">Responsibilities</div>
+        <ul><li>Develop computer vision models for CCTV-based AI video intelligence platform</li><li>Build video analytics systems detecting deviations in operating procedures</li><li>Deploy and optimize vision models for production surveillance deployments</li><li>Create scalable video processing pipelines for concurrent camera streams</li><li>Build AI-powered video analytics for enterprise compliance and safety use cases</li></ul>
+      </div>
+      <div class="jd-section">
+        <div class="jd-section-title">Requirements</div>
+        <ul><li>Computer vision expertise (OpenCV, PyTorch/TensorFlow)</li><li>Video processing and real-time inference experience</li><li>ML model development and deployment</li><li>Python programming proficiency</li><li>Surveillance or industrial AI deployment experience preferred</li></ul>
+      </div>
+      <div style="display:flex;flex-wrap:wrap;gap:6px;margin-top:12px"><span style="background:#1e293b;color:#94a3b8;border:1px solid #334155;border-radius:4px;padding:1px 7px;font-size:11px">Python</span><span style="background:#1e293b;color:#94a3b8;border:1px solid #334155;border-radius:4px;padding:1px 7px;font-size:11px">OpenCV</span><span style="background:#1e293b;color:#94a3b8;border:1px solid #334155;border-radius:4px;padding:1px 7px;font-size:11px">PyTorch</span><span style="background:#1e293b;color:#94a3b8;border:1px solid #334155;border-radius:4px;padding:1px 7px;font-size:11px">Computer Vision</span><span style="background:#1e293b;color:#94a3b8;border:1px solid #334155;border-radius:4px;padding:1px 7px;font-size:11px">Video Processing</span><span style="background:#1e293b;color:#94a3b8;border:1px solid #334155;border-radius:4px;padding:1px 7px;font-size:11px">Real-Time Inference</span><span style="background:#1e293b;color:#94a3b8;border:1px solid #334155;border-radius:4px;padding:1px 7px;font-size:11px">Edge AI</span></div>
+    </div>
+    <div class="panel-signals">
+      <div class="panel-label">⚡ Anyscale Signals</div>
+      <ul style="list-style:none;padding:0;margin:0"><li style="margin-bottom:8px">⚡ Thousands of concurrent CCTV streams = massively parallel distributed video inference</li><li style="margin-bottom:8px">⚡ Real-time operating procedure deviation detection = low-latency Ray Serve deployment</li><li style="margin-bottom:8px">⚡ Enterprise multi-site camera network = distributed model serving across geography</li><li style="margin-bottom:8px">⚡ Video analytics at scale = Ray Data for parallel video frame preprocessing</li></ul>
+    </div>
+  </div>
+</div>
+</div>
+  </div>
+</div>
+
+<div class="footer">
+  <span class="footer-label">🔗 Job Boards:</span>
+  <a href="https://anywarerobotics.com/jobs" target="_blank" rel="noopener" style="color:#60a5fa;text-decoration:none;font-size:12px;border:1px solid #334155;border-radius:6px;padding:4px 12px;background:#0f172a">Anyware Robotics ↗</a><a href="https://appliedvr.io/jobs" target="_blank" rel="noopener" style="color:#60a5fa;text-decoration:none;font-size:12px;border:1px solid #334155;border-radius:6px;padding:4px 12px;background:#0f172a">AppliedVR ↗</a><a href="https://armstrongrobotics.com/jobs" target="_blank" rel="noopener" style="color:#60a5fa;text-decoration:none;font-size:12px;border:1px solid #334155;border-radius:6px;padding:4px 12px;background:#0f172a">Armstrong Robotics ↗</a><a href="https://autonomize.ai/jobs" target="_blank" rel="noopener" style="color:#60a5fa;text-decoration:none;font-size:12px;border:1px solid #334155;border-radius:6px;padding:4px 12px;background:#0f172a">Autonomize AI ↗</a><a href="https://compoundeye.ai/jobs" target="_blank" rel="noopener" style="color:#60a5fa;text-decoration:none;font-size:12px;border:1px solid #334155;border-radius:6px;padding:4px 12px;background:#0f172a">Compound Eye ↗</a><a href="https://culturebiosciences.com/jobs" target="_blank" rel="noopener" style="color:#60a5fa;text-decoration:none;font-size:12px;border:1px solid #334155;border-radius:6px;padding:4px 12px;background:#0f172a">Culture Biosciences ↗</a><a href="https://cytekbio.com/jobs" target="_blank" rel="noopener" style="color:#60a5fa;text-decoration:none;font-size:12px;border:1px solid #334155;border-radius:6px;padding:4px 12px;background:#0f172a">Cytek Biosciences ↗</a><a href="https://fireflies.ai/jobs" target="_blank" rel="noopener" style="color:#60a5fa;text-decoration:none;font-size:12px;border:1px solid #334155;border-radius:6px;padding:4px 12px;background:#0f172a">Fireflies.ai ↗</a><a href="https://formant.io/jobs" target="_blank" rel="noopener" style="color:#60a5fa;text-decoration:none;font-size:12px;border:1px solid #334155;border-radius:6px;padding:4px 12px;background:#0f172a">Formant ↗</a><a href="https://foxglove.dev/jobs" target="_blank" rel="noopener" style="color:#60a5fa;text-decoration:none;font-size:12px;border:1px solid #334155;border-radius:6px;padding:4px 12px;background:#0f172a">Foxglove ↗</a><a href="https://fulgentgenetics.com/jobs" target="_blank" rel="noopener" style="color:#60a5fa;text-decoration:none;font-size:12px;border:1px solid #334155;border-radius:6px;padding:4px 12px;background:#0f172a">Fulgent Genetics ↗</a><a href="https://gorgias.com/jobs" target="_blank" rel="noopener" style="color:#60a5fa;text-decoration:none;font-size:12px;border:1px solid #334155;border-radius:6px;padding:4px 12px;background:#0f172a">Gorgias ↗</a><a href="https://headspin.io/jobs" target="_blank" rel="noopener" style="color:#60a5fa;text-decoration:none;font-size:12px;border:1px solid #334155;border-radius:6px;padding:4px 12px;background:#0f172a">HeadSpin ↗</a><a href="https://kiwibot.com/jobs" target="_blank" rel="noopener" style="color:#60a5fa;text-decoration:none;font-size:12px;border:1px solid #334155;border-radius:6px;padding:4px 12px;background:#0f172a">Kiwibot ↗</a><a href="https://krisp.ai/jobs" target="_blank" rel="noopener" style="color:#60a5fa;text-decoration:none;font-size:12px;border:1px solid #334155;border-radius:6px;padding:4px 12px;background:#0f172a">Krisp ↗</a><a href="https://matterport.com/jobs" target="_blank" rel="noopener" style="color:#60a5fa;text-decoration:none;font-size:12px;border:1px solid #334155;border-radius:6px;padding:4px 12px;background:#0f172a">Matterport ↗</a><a href="https://overview.ai/jobs" target="_blank" rel="noopener" style="color:#60a5fa;text-decoration:none;font-size:12px;border:1px solid #334155;border-radius:6px;padding:4px 12px;background:#0f172a">Overview.ai ↗</a><a href="https://flypyka.com/jobs" target="_blank" rel="noopener" style="color:#60a5fa;text-decoration:none;font-size:12px;border:1px solid #334155;border-radius:6px;padding:4px 12px;background:#0f172a">Pyka ↗</a><a href="https://samba.tv/jobs" target="_blank" rel="noopener" style="color:#60a5fa;text-decoration:none;font-size:12px;border:1px solid #334155;border-radius:6px;padding:4px 12px;background:#0f172a">Samba TV ↗</a><a href="https://suki.ai/jobs" target="_blank" rel="noopener" style="color:#60a5fa;text-decoration:none;font-size:12px;border:1px solid #334155;border-radius:6px;padding:4px 12px;background:#0f172a">Suki ↗</a><a href="https://techcyte.com/jobs" target="_blank" rel="noopener" style="color:#60a5fa;text-decoration:none;font-size:12px;border:1px solid #334155;border-radius:6px;padding:4px 12px;background:#0f172a">Techcyte ↗</a><a href="https://topazlabs.com/jobs" target="_blank" rel="noopener" style="color:#60a5fa;text-decoration:none;font-size:12px;border:1px solid #334155;border-radius:6px;padding:4px 12px;background:#0f172a">Topaz Labs ↗</a><a href="https://uplight.com/jobs" target="_blank" rel="noopener" style="color:#60a5fa;text-decoration:none;font-size:12px;border:1px solid #334155;border-radius:6px;padding:4px 12px;background:#0f172a">Uplight ↗</a><a href="https://weaverobotics.com/jobs" target="_blank" rel="noopener" style="color:#60a5fa;text-decoration:none;font-size:12px;border:1px solid #334155;border-radius:6px;padding:4px 12px;background:#0f172a">Weave Robotics ↗</a><a href="https://wobot.ai/jobs" target="_blank" rel="noopener" style="color:#60a5fa;text-decoration:none;font-size:12px;border:1px solid #334155;border-radius:6px;padding:4px 12px;background:#0f172a">Wobot AI ↗</a>
+</div>
+
+<script>
+function scrollTo(id) {
+  const el = document.getElementById(id);
+  if (el) el.scrollIntoView({behavior:'smooth', block:'start'});
+}
+</script>
+</body>
+</html>
