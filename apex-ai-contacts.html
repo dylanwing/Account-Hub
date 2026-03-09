@@ -1,0 +1,771 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Apex.AI — Contact Intelligence for Anyscale</title>
+<style>
+:root {
+  --bg: #0b0f1a; --bg2: #111827; --bg3: #1a2235; --bg4: #1e2d42;
+  --text: #f0f4ff; --text2: #8b98b4; --text3: #4f5b78;
+  --acc: #3b82f6; --acc2: #60a5fa; --green: #10b981; --amber: #f59e0b; --red: #ef4444;
+  --bdr: #1e2d42;
+}
+* { box-sizing: border-box; margin: 0; padding: 0; }
+body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; background: var(--bg); color: var(--text); line-height: 1.5; }
+
+.header { background: linear-gradient(135deg, #1e3a5f 0%, #0f2744 100%); padding: 32px 40px 24px; border-bottom: 1px solid var(--bdr); }
+.header h1 { font-size: 24px; font-weight: 700; }
+.header .sub { color: var(--text2); font-size: 13px; margin-top: 4px; }
+.header .company-row { display: flex; align-items: center; gap: 12px; margin-top: 12px; }
+.header .company-logo { width: 40px; height: 40px; background: #1a1a2e; border-radius: 10px; display: flex; align-items: center; justify-content: center; font-size: 20px; }
+.header .company-info { font-size: 13px; color: var(--text2); }
+.header .company-info strong { color: var(--text); font-size: 15px; display: block; }
+
+.value-prop-bar { background: var(--bg2); border-bottom: 1px solid var(--bdr); padding: 16px 40px; }
+.value-prop-bar h3 { font-size: 12px; text-transform: uppercase; letter-spacing: 0.08em; color: var(--acc); margin-bottom: 8px; }
+.value-prop-bar p { font-size: 13px; color: var(--text2); max-width: 900px; line-height: 1.6; }
+.qualifier-tags { display: flex; gap: 8px; flex-wrap: wrap; margin-top: 10px; }
+.qualifier-tag { padding: 4px 10px; border-radius: 12px; font-size: 11px; font-weight: 600; background: rgba(59,130,246,0.15); color: var(--acc2); border: 1px solid rgba(59,130,246,0.25); }
+
+.stats-bar { display: flex; gap: 24px; padding: 16px 40px; background: var(--bg3); border-bottom: 1px solid var(--bdr); }
+.stat-box { display: flex; flex-direction: column; }
+.stat-box .val { font-size: 22px; font-weight: 700; color: var(--acc2); }
+.stat-box .lbl { font-size: 11px; color: var(--text3); text-transform: uppercase; letter-spacing: 0.06em; }
+
+.filters { padding: 12px 40px; background: var(--bg2); border-bottom: 1px solid var(--bdr); display: flex; gap: 8px; flex-wrap: wrap; align-items: center; }
+.filter-btn { padding: 5px 14px; border-radius: 16px; border: 1px solid var(--bdr); background: var(--bg3); color: var(--text2); font-size: 12px; cursor: pointer; transition: all 0.15s; }
+.filter-btn:hover, .filter-btn.active { background: rgba(59,130,246,0.2); border-color: var(--acc); color: var(--acc2); }
+.filter-label { font-size: 11px; color: var(--text3); text-transform: uppercase; letter-spacing: 0.06em; margin-right: 4px; }
+
+.contacts { padding: 24px 40px; display: flex; flex-direction: column; gap: 16px; }
+
+.contact-card { background: var(--bg2); border: 1px solid var(--bdr); border-radius: 12px; overflow: hidden; transition: border-color 0.2s; }
+.contact-card:hover { border-color: var(--acc); }
+.contact-card.priority-1 { border-left: 4px solid var(--green); }
+.contact-card.priority-2 { border-left: 4px solid var(--acc); }
+.contact-card.priority-3 { border-left: 4px solid var(--amber); }
+
+.card-header { display: flex; justify-content: space-between; align-items: flex-start; padding: 16px 20px; cursor: pointer; }
+.card-left { display: flex; gap: 14px; align-items: flex-start; flex: 1; }
+.avatar { width: 44px; height: 44px; border-radius: 50%; background: var(--bg4); display: flex; align-items: center; justify-content: center; font-size: 16px; font-weight: 700; color: var(--acc2); flex-shrink: 0; }
+.card-name { font-size: 15px; font-weight: 600; }
+.card-title { font-size: 13px; color: var(--text2); margin-top: 1px; }
+.card-location { font-size: 11px; color: var(--text3); margin-top: 2px; }
+.card-right { display: flex; gap: 8px; align-items: center; flex-shrink: 0; }
+.priority-badge { padding: 3px 10px; border-radius: 10px; font-size: 11px; font-weight: 600; }
+.priority-badge.p1 { background: rgba(16,185,129,0.15); color: var(--green); }
+.priority-badge.p2 { background: rgba(59,130,246,0.15); color: var(--acc2); }
+.priority-badge.p3 { background: rgba(245,158,11,0.15); color: var(--amber); }
+.persona-tag { padding: 3px 10px; border-radius: 10px; font-size: 11px; font-weight: 500; background: rgba(139,152,180,0.1); color: var(--text2); }
+
+.card-body { display: none; padding: 0 20px 16px; }
+.card-body.open { display: block; }
+
+.detail-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+.detail-section h4 { font-size: 11px; text-transform: uppercase; letter-spacing: 0.06em; color: var(--text3); margin-bottom: 6px; }
+.detail-section p, .detail-section a { font-size: 13px; color: var(--text2); line-height: 1.5; text-decoration: none; }
+.detail-section a { color: var(--acc2); }
+.detail-section a:hover { text-decoration: underline; }
+
+.outreach-box { background: rgba(59,130,246,0.08); border: 1px solid rgba(59,130,246,0.2); border-radius: 8px; padding: 12px 16px; margin-top: 12px; }
+.outreach-box h4 { font-size: 11px; text-transform: uppercase; letter-spacing: 0.06em; color: var(--acc); margin-bottom: 6px; }
+.outreach-box p { font-size: 13px; color: var(--text2); line-height: 1.6; }
+
+.contact-links { display: flex; gap: 8px; margin-top: 8px; flex-wrap: wrap; }
+.contact-link { display: inline-flex; align-items: center; gap: 4px; padding: 4px 10px; border-radius: 8px; background: var(--bg3); border: 1px solid var(--bdr); font-size: 11px; color: var(--text2); text-decoration: none; transition: all 0.15s; }
+.contact-link:hover { border-color: var(--acc); color: var(--acc2); }
+
+.footer { padding: 16px 40px; text-align: center; font-size: 11px; color: var(--text3); border-top: 1px solid var(--bdr); margin-top: 16px; }
+
+.expand-icon { color: var(--text3); font-size: 18px; transition: transform 0.2s; cursor: pointer; }
+.expand-icon.open { transform: rotate(180deg); }
+
+.excluded-note { background: var(--bg3); border: 1px solid var(--bdr); border-radius: 8px; padding: 12px 16px; margin: 0 40px 16px; font-size: 12px; color: var(--text3); }
+</style>
+</head>
+<body>
+
+<div class="header">
+  <h1>Apex.AI — Contact Intelligence</h1>
+  <div class="sub">Anyscale Outreach Targets • Cross-referenced from Common Room Prospector & Web Research</div>
+  <div class="company-row">
+    <div class="company-logo">🏎️</div>
+    <div class="company-info">
+      <strong>Apex.AI</strong>
+      Autonomous Vehicle OS • Palo Alto, CA + Munich, DE • ~80 employees • apex.ai • Tier 1 Account
+    </div>
+  </div>
+</div>
+
+<div class="value-prop-bar">
+  <h3>Anyscale Value Proposition for Apex.AI</h3>
+  <p>Apex.AI's production-grade AV OS needs a scalable offboard training backend for their ML models. Anyscale provides managed distributed training + serving that pairs cleanly with their deterministic edge runtime. Ray's heterogeneous compute handles the mixed CPU/GPU training pipelines common in AV. Their QNX partnership (Dec 2025) for AI-native, deterministic real-time further underscores the need for a robust cloud-side training platform.</p>
+  <div class="qualifier-tags">
+    <span class="qualifier-tag">Production AV OS (ROS2)</span>
+    <span class="qualifier-tag">ISO 26262 ASIL-D Certified</span>
+    <span class="qualifier-tag">QNX Partnership (Dec 2025)</span>
+    <span class="qualifier-tag">Offboard ML Training Need</span>
+    <span class="qualifier-tag">Mixed CPU/GPU Pipelines</span>
+    <span class="qualifier-tag">Edge Inference + Cloud Training</span>
+    <span class="qualifier-tag">Tier 1 Account</span>
+  </div>
+</div>
+
+<div class="stats-bar">
+  <div class="stat-box"><span class="val">16</span><span class="lbl">Target Contacts</span></div>
+  <div class="stat-box"><span class="val">4</span><span class="lbl">P1 — Must Reach</span></div>
+  <div class="stat-box"><span class="val">7</span><span class="lbl">P2 — Strong Fit</span></div>
+  <div class="stat-box"><span class="val">5</span><span class="lbl">P3 — Supporting</span></div>
+  <div class="stat-box"><span class="val">8</span><span class="lbl">Excluded (BD/Non-Tech)</span></div>
+</div>
+
+<div class="filters">
+  <span class="filter-label">Priority:</span>
+  <button class="filter-btn active" onclick="filterCards('all')">All (16)</button>
+  <button class="filter-btn" onclick="filterCards('1')">🟢 Must Reach (4)</button>
+  <button class="filter-btn" onclick="filterCards('2')">🔵 Strong Fit (7)</button>
+  <button class="filter-btn" onclick="filterCards('3')">🟡 Supporting (5)</button>
+  <span class="filter-label" style="margin-left:16px">Persona:</span>
+  <button class="filter-btn" onclick="filterCards('exec')">Tech Exec</button>
+  <button class="filter-btn" onclick="filterCards('platform')">Platform / Infra</button>
+  <button class="filter-btn" onclick="filterCards('eng')">Staff+ Engineer</button>
+</div>
+
+<div class="contacts" id="contacts">
+
+<!-- ======================== PRIORITY 1: MUST REACH ======================== -->
+
+<div class="contact-card priority-1" data-priority="1" data-persona="exec">
+<div class="card-header" onclick="toggleCard(this)">
+  <div class="card-left">
+    <div class="avatar">DP</div>
+    <div>
+      <div class="card-name">Dejan Pangercic</div>
+      <div class="card-title">CTO & Co-Founder</div>
+      <div class="card-location">Palo Alto, CA</div>
+    </div>
+  </div>
+  <div class="card-right">
+    <span class="priority-badge p1">P1 — Must Reach</span>
+    <span class="persona-tag">CTO / Co-Founder</span>
+    <span class="expand-icon">▼</span>
+  </div>
+</div>
+<div class="card-body">
+  <div class="detail-grid">
+    <div class="detail-section">
+      <h4>Contact Information</h4>
+      <div class="contact-links">
+        <a class="contact-link" href="https://www.linkedin.com/in/dejanpan/" target="_blank">🔗 LinkedIn</a>
+        <a class="contact-link" href="https://rocketreach.co/dejan-pangercic-email_83684940" target="_blank">📧 RocketReach</a>
+      </div>
+      <p style="margin-top:8px"><strong>Background:</strong> Co-founded Apex.AI with Jan Becker. 20+ years in autonomous systems. Leading researcher who brought academic AD breakthroughs to production.</p>
+    </div>
+    <div class="detail-section">
+      <h4>Why This Person</h4>
+      <p>As CTO & Co-Founder, Dejan is THE technical decision maker at Apex.AI. He sets the architecture direction for the entire platform, including how ML models are trained offboard and deployed to the edge. He would own or directly influence any compute platform decision.</p>
+    </div>
+  </div>
+  <div class="outreach-box">
+    <h4>Outreach Angle — Mapped to Anyscale</h4>
+    <p><strong>Lead with the QNX partnership angle.</strong> The Dec 2025 QNX deal for AI-native deterministic real-time means Apex.AI is doubling down on edge inference — which requires robust offboard training at scale. "As you scale the AI-native runtime with QNX, the offboard training backend becomes critical. Managed Ray handles the heterogeneous CPU/GPU training pipelines that AV workloads demand — happy to show how other AV platform teams use it."</p>
+  </div>
+</div>
+</div>
+
+<div class="contact-card priority-1" data-priority="1" data-persona="exec">
+<div class="card-header" onclick="toggleCard(this)">
+  <div class="card-left">
+    <div class="avatar">AP</div>
+    <div>
+      <div class="card-name">Anup Pemmaiah</div>
+      <div class="card-title">VP of Engineering</div>
+      <div class="card-location">San Francisco Bay Area</div>
+    </div>
+  </div>
+  <div class="card-right">
+    <span class="priority-badge p1">P1 — Must Reach</span>
+    <span class="persona-tag">VP Engineering / Executive</span>
+    <span class="expand-icon">▼</span>
+  </div>
+</div>
+<div class="card-body">
+  <div class="detail-grid">
+    <div class="detail-section">
+      <h4>Contact Information</h4>
+      <div class="contact-links">
+        <a class="contact-link" href="https://www.linkedin.com/in/anup-pemmaiah-8441741/" target="_blank">🔗 LinkedIn</a>
+        <a class="contact-link" href="https://rocketreach.co/anup-pemmaiah-email_8441741" target="_blank">📧 RocketReach</a>
+      </div>
+      <p style="margin-top:8px"><strong>Skills:</strong> C, Device Drivers, Linux Kernel, Debugging, Solaris, Firmware, Embedded Linux, C++, High Availability, Performance Tuning</p>
+      <p><strong>Seniority:</strong> Executive</p>
+    </div>
+    <div class="detail-section">
+      <h4>Why This Person</h4>
+      <p>VP Engineering owns the engineering organization and infrastructure decisions. His deep Linux kernel and embedded systems background means he understands compute at a fundamental level. He'd evaluate Anyscale from both a technical architecture and team productivity lens.</p>
+    </div>
+  </div>
+  <div class="outreach-box">
+    <h4>Outreach Angle — Mapped to Anyscale</h4>
+    <p><strong>Lead with engineering team productivity.</strong> "Your engineering team builds safety-critical AV software — they shouldn't also be managing ML training clusters. Managed Ray lets your engineers focus on model quality while we handle the distributed compute orchestration. We work with several AV teams running similar offboard training workloads."</p>
+  </div>
+</div>
+</div>
+
+<div class="contact-card priority-1" data-priority="1" data-persona="exec">
+<div class="card-header" onclick="toggleCard(this)">
+  <div class="card-left">
+    <div class="avatar">MA</div>
+    <div>
+      <div class="card-name">Michael Aeberhard</div>
+      <div class="card-title">Vice President of Engineering EU</div>
+      <div class="card-location">Munich, Bavaria, Germany</div>
+    </div>
+  </div>
+  <div class="card-right">
+    <span class="priority-badge p1">P1 — Must Reach</span>
+    <span class="persona-tag">VP Engineering EU</span>
+    <span class="expand-icon">▼</span>
+  </div>
+</div>
+<div class="card-body">
+  <div class="detail-grid">
+    <div class="detail-section">
+      <h4>Contact Information</h4>
+      <div class="contact-links">
+        <a class="contact-link" href="https://www.linkedin.com/in/michaelaeberhard/" target="_blank">🔗 LinkedIn</a>
+        <a class="contact-link" href="https://rocketreach.co/michael-aeberhard-email_52304579" target="_blank">📧 RocketReach</a>
+      </div>
+      <p style="margin-top:8px"><strong>Location:</strong> Munich — Apex.AI's EU engineering hub with a large portion of the team</p>
+    </div>
+    <div class="detail-section">
+      <h4>Why This Person</h4>
+      <p>VP Engineering for the EU operation (Munich, Stuttgart, Gothenburg). A significant portion of Apex.AI's engineering is in Europe. Michael mirrors Anup's role for the EU team — any compute platform decision would need his buy-in for EU workloads and data residency requirements.</p>
+    </div>
+  </div>
+  <div class="outreach-box">
+    <h4>Outreach Angle — Mapped to Anyscale</h4>
+    <p><strong>EU data residency + distributed training.</strong> "With engineering teams across Palo Alto and Munich, coordinating ML training infrastructure across regions is a real challenge. Anyscale's managed Ray platform handles multi-region compute orchestration — your EU team gets the same training infrastructure as HQ without managing separate clusters."</p>
+  </div>
+</div>
+</div>
+
+<div class="contact-card priority-1" data-priority="1" data-persona="platform exec">
+<div class="card-header" onclick="toggleCard(this)">
+  <div class="card-left">
+    <div class="avatar">DL</div>
+    <div>
+      <div class="card-name">David L.</div>
+      <div class="card-title">Engineering Manager DevOps & Platform</div>
+      <div class="card-location">Palo Alto, CA</div>
+    </div>
+  </div>
+  <div class="card-right">
+    <span class="priority-badge p1">P1 — Must Reach</span>
+    <span class="persona-tag">Platform / DevOps Lead</span>
+    <span class="expand-icon">▼</span>
+  </div>
+</div>
+<div class="card-body">
+  <div class="detail-grid">
+    <div class="detail-section">
+      <h4>Contact Information</h4>
+      <div class="contact-links">
+        <a class="contact-link" href="https://www.linkedin.com/in/david-l-a36506159/" target="_blank">🔗 LinkedIn</a>
+      </div>
+    </div>
+    <div class="detail-section">
+      <h4>Why This Person</h4>
+      <p><strong>This is your #1 technical champion target.</strong> As Engineering Manager of DevOps & Platform, David directly owns the infrastructure that ML training runs on. He's the person who manages clusters, CI/CD pipelines, and compute provisioning. He lives the pain of managing distributed training infrastructure daily and would be the strongest internal advocate for Anyscale.</p>
+    </div>
+  </div>
+  <div class="outreach-box">
+    <h4>Outreach Angle — Mapped to Anyscale</h4>
+    <p><strong>Lead with infrastructure pain relief.</strong> "Managing GPU clusters for ML training alongside safety-critical CI/CD is a heavy lift for any platform team. Anyscale's managed Ray eliminates the cluster management overhead entirely — auto-scaling, job scheduling, GPU utilization monitoring all handled. Your platform team can focus on the dev experience rather than keeping clusters running. Happy to show how it maps to your AV training workflow."</p>
+  </div>
+</div>
+</div>
+
+<!-- ======================== PRIORITY 2: STRONG FIT ======================== -->
+
+<div class="contact-card priority-2" data-priority="2" data-persona="exec platform">
+<div class="card-header" onclick="toggleCard(this)">
+  <div class="card-left">
+    <div class="avatar">DT</div>
+    <div>
+      <div class="card-name">Dmytro T.</div>
+      <div class="card-title">VP of IT and Security</div>
+      <div class="card-location">San Francisco Bay Area</div>
+    </div>
+  </div>
+  <div class="card-right">
+    <span class="priority-badge p2">P2 — Strong Fit</span>
+    <span class="persona-tag">VP IT & Security</span>
+    <span class="expand-icon">▼</span>
+  </div>
+</div>
+<div class="card-body">
+  <div class="detail-grid">
+    <div class="detail-section">
+      <h4>Contact Information</h4>
+      <div class="contact-links">
+        <a class="contact-link" href="https://www.linkedin.com/in/dmytro-t-982bb975/" target="_blank">🔗 LinkedIn</a>
+      </div>
+    </div>
+    <div class="detail-section">
+      <h4>Why This Person</h4>
+      <p>VP of IT and Security is a key stakeholder for any cloud compute platform decision at an ISO 26262-certified company. Dmytro would evaluate Anyscale on security posture, compliance, and IT governance. Need his sign-off for procurement.</p>
+    </div>
+  </div>
+  <div class="outreach-box">
+    <h4>Outreach Angle — Mapped to Anyscale</h4>
+    <p><strong>Security and compliance angle.</strong> "For a safety-certified AV company, cloud compute security is non-negotiable. Anyscale's managed platform is SOC 2 Type II certified with enterprise-grade access controls — designed for teams building safety-critical systems. Happy to share our security whitepaper."</p>
+  </div>
+</div>
+</div>
+
+<div class="contact-card priority-2" data-priority="2" data-persona="eng">
+<div class="card-header" onclick="toggleCard(this)">
+  <div class="card-left">
+    <div class="avatar">MS</div>
+    <div>
+      <div class="card-name">Misha Shalem</div>
+      <div class="card-title">Principal Engineer</div>
+      <div class="card-location">United States</div>
+    </div>
+  </div>
+  <div class="card-right">
+    <span class="priority-badge p2">P2 — Strong Fit</span>
+    <span class="persona-tag">Principal Engineer</span>
+    <span class="expand-icon">▼</span>
+  </div>
+</div>
+<div class="card-body">
+  <div class="detail-grid">
+    <div class="detail-section">
+      <h4>Contact Information</h4>
+      <div class="contact-links">
+        <a class="contact-link" href="https://www.linkedin.com/in/misha-shalem/" target="_blank">🔗 LinkedIn</a>
+      </div>
+      <p style="margin-top:8px"><strong>Seniority:</strong> Mid-Senior level (Principal)</p>
+    </div>
+    <div class="detail-section">
+      <h4>Why This Person</h4>
+      <p>Principal Engineer is the highest individual contributor rank. Misha likely sets technical standards and architecture patterns across the org. His endorsement of a training platform would carry enormous weight with both VPs and IC engineers.</p>
+    </div>
+  </div>
+  <div class="outreach-box">
+    <h4>Outreach Angle — Mapped to Anyscale</h4>
+    <p><strong>Technical architecture discussion.</strong> "As a Principal Engineer at a safety-critical AV company, you're the right person to evaluate how offboard training infrastructure maps to your overall system architecture. Ray's Python-native distributed compute was designed for the heterogeneous CPU/GPU workloads common in AV — happy to do a technical deep-dive."</p>
+  </div>
+</div>
+</div>
+
+<div class="contact-card priority-2" data-priority="2" data-persona="eng">
+<div class="card-header" onclick="toggleCard(this)">
+  <div class="card-left">
+    <div class="avatar">SNG</div>
+    <div>
+      <div class="card-name">Sumanth Nirmal Gavarraju</div>
+      <div class="card-title">Staff Engineer</div>
+      <div class="card-location">Fremont, CA</div>
+    </div>
+  </div>
+  <div class="card-right">
+    <span class="priority-badge p2">P2 — Strong Fit</span>
+    <span class="persona-tag">Staff Engineer / ML-Adjacent</span>
+    <span class="expand-icon">▼</span>
+  </div>
+</div>
+<div class="card-body">
+  <div class="detail-grid">
+    <div class="detail-section">
+      <h4>Contact Information</h4>
+      <div class="contact-links">
+        <a class="contact-link" href="https://www.linkedin.com/in/sumanth-nirmal/" target="_blank">🔗 LinkedIn</a>
+      </div>
+      <p style="margin-top:8px"><strong>Skills:</strong> C, C++, Python, Embedded Systems, RTOS, ROS, OpenCV, Gazebo, Path Planning, <strong>Caffe, TensorFlow, Deep Learning</strong>, Robotics</p>
+    </div>
+    <div class="detail-section">
+      <h4>Why This Person</h4>
+      <p><strong>Key ML-adjacent target.</strong> Sumanth has explicit deep learning skills (Caffe, TensorFlow) combined with robotics and ROS experience. He bridges the embedded/robotics world with ML training — exactly where Anyscale's offboard training value prop lands.</p>
+    </div>
+  </div>
+  <div class="outreach-box">
+    <h4>Outreach Angle — Mapped to Anyscale</h4>
+    <p><strong>ML + robotics practitioner angle.</strong> "Your background spanning TensorFlow, ROS, and embedded systems is the exact profile we see benefiting most from Ray. Teams training perception and planning models on driving data get massive speedups with managed distributed training — no cluster ops, just Python. Would love to share how."</p>
+  </div>
+</div>
+</div>
+
+<div class="contact-card priority-2" data-priority="2" data-persona="eng">
+<div class="card-header" onclick="toggleCard(this)">
+  <div class="card-left">
+    <div class="avatar">AR</div>
+    <div>
+      <div class="card-name">Alfonso Ros Dos Santos</div>
+      <div class="card-title">Senior Software Engineer</div>
+      <div class="card-location">Munich, Bavaria, Germany</div>
+    </div>
+  </div>
+  <div class="card-right">
+    <span class="priority-badge p2">P2 — Strong Fit</span>
+    <span class="persona-tag">Sr. SWE / ML + CV Skills</span>
+    <span class="expand-icon">▼</span>
+  </div>
+</div>
+<div class="card-body">
+  <div class="detail-grid">
+    <div class="detail-section">
+      <h4>Contact Information</h4>
+      <div class="contact-links">
+        <a class="contact-link" href="https://www.linkedin.com/in/alfonsorosdossantos/" target="_blank">🔗 LinkedIn</a>
+      </div>
+      <p style="margin-top:8px"><strong>Skills:</strong> Python, C++, Computer Vision, OpenCV, <strong>Machine Learning, CUDA</strong>, Django, OpenGL, Linux, Git</p>
+    </div>
+    <div class="detail-section">
+      <h4>Why This Person</h4>
+      <p>Alfonso has explicit Machine Learning and CUDA skills alongside computer vision — he's likely hands-on with ML model training and GPU compute at Apex.AI. Munich-based, part of the EU engineering hub.</p>
+    </div>
+  </div>
+  <div class="outreach-box">
+    <h4>Outreach Angle — Mapped to Anyscale</h4>
+    <p><strong>CUDA/ML practitioner.</strong> "With your CUDA and ML background, you know the pain of managing GPU compute for training runs. Ray Train handles distributed GPU scheduling natively in Python — no more manual CUDA memory management across nodes. Share a quick comparison?"</p>
+  </div>
+</div>
+</div>
+
+<div class="contact-card priority-2" data-priority="2" data-persona="eng">
+<div class="card-header" onclick="toggleCard(this)">
+  <div class="card-left">
+    <div class="avatar">MO</div>
+    <div>
+      <div class="card-name">Michael Orlov</div>
+      <div class="card-title">Staff Software Engineer | ROS PMC Member</div>
+      <div class="card-location">Livermore, CA</div>
+    </div>
+  </div>
+  <div class="card-right">
+    <span class="priority-badge p2">P2 — Strong Fit</span>
+    <span class="persona-tag">Staff SWE / ROS PMC</span>
+    <span class="expand-icon">▼</span>
+  </div>
+</div>
+<div class="card-body">
+  <div class="detail-grid">
+    <div class="detail-section">
+      <h4>Contact Information</h4>
+      <div class="contact-links">
+        <a class="contact-link" href="https://www.linkedin.com/in/michaelorlov/" target="_blank">🔗 LinkedIn</a>
+      </div>
+      <p style="margin-top:8px"><strong>Skills:</strong> Embedded Software, C, C++, RTOS, DSP, Firmware, Algorithms, Software Engineering, Unix, Embedded Linux</p>
+    </div>
+    <div class="detail-section">
+      <h4>Why This Person</h4>
+      <p><strong>ROS Project Management Committee member.</strong> Michael is on the ROS PMC — meaning he's a core contributor to the open-source ROS ecosystem that Apex.AI's entire platform is built on. He has deep influence on the technical direction and could champion Ray as a complementary compute layer to ROS.</p>
+    </div>
+  </div>
+  <div class="outreach-box">
+    <h4>Outreach Angle — Mapped to Anyscale</h4>
+    <p><strong>ROS + Ray synergy.</strong> "As a ROS PMC member, you know the ROS2 ecosystem better than anyone. Ray complements ROS beautifully — ROS handles the real-time robot control, Ray handles the offboard distributed training and data processing that feeds the models. Several robotics teams use this pattern. Worth a conversation?"</p>
+  </div>
+</div>
+</div>
+
+<div class="contact-card priority-2" data-priority="2" data-persona="eng">
+<div class="card-header" onclick="toggleCard(this)">
+  <div class="card-left">
+    <div class="avatar">SH</div>
+    <div>
+      <div class="card-name">Simon Hoinkis</div>
+      <div class="card-title">Senior Staff Software Engineer</div>
+      <div class="card-location">Ditzingen, Baden-Württemberg, Germany</div>
+    </div>
+  </div>
+  <div class="card-right">
+    <span class="priority-badge p2">P2 — Strong Fit</span>
+    <span class="persona-tag">Senior Staff SWE</span>
+    <span class="expand-icon">▼</span>
+  </div>
+</div>
+<div class="card-body">
+  <div class="detail-grid">
+    <div class="detail-section">
+      <h4>Contact Information</h4>
+      <div class="contact-links">
+        <a class="contact-link" href="https://www.linkedin.com/in/simon-hoinkis/" target="_blank">🔗 LinkedIn</a>
+      </div>
+      <p style="margin-top:8px"><strong>Seniority:</strong> Senior (Senior Staff level)</p>
+    </div>
+    <div class="detail-section">
+      <h4>Why This Person</h4>
+      <p>Senior Staff SWE is one of the highest IC levels at Apex.AI. Simon has significant influence on technical decisions in the EU office. Stuttgart-area location suggests he may work on the automotive OEM partnerships side.</p>
+    </div>
+  </div>
+  <div class="outreach-box">
+    <h4>Outreach Angle — Mapped to Anyscale</h4>
+    <p><strong>Senior IC influence.</strong> Technical content sharing — invite to Ray Summit, share AV-relevant blog posts. Build awareness and let him become an internal champion organically. Senior Staff engineers carry significant weight in tooling decisions.</p>
+  </div>
+</div>
+</div>
+
+<div class="contact-card priority-2" data-priority="2" data-persona="eng platform">
+<div class="card-header" onclick="toggleCard(this)">
+  <div class="card-left">
+    <div class="avatar">ND</div>
+    <div>
+      <div class="card-name">Nachiket Dongre</div>
+      <div class="card-title">Staff Application Engineer</div>
+      <div class="card-location">Cologne, Germany</div>
+    </div>
+  </div>
+  <div class="card-right">
+    <span class="priority-badge p2">P2 — Strong Fit</span>
+    <span class="persona-tag">Staff App Eng / Robotics + ML</span>
+    <span class="expand-icon">▼</span>
+  </div>
+</div>
+<div class="card-body">
+  <div class="detail-grid">
+    <div class="detail-section">
+      <h4>Contact Information</h4>
+      <div class="contact-links">
+        <a class="contact-link" href="https://www.linkedin.com/in/nachiket-dongre-91742240/" target="_blank">🔗 LinkedIn</a>
+      </div>
+      <p style="margin-top:8px"><strong>Skills:</strong> C, Matlab, Embedded C, Mobile Robotics, Robot Programming, RTOS, Arduino, Embedded Linux, C++, Robotics, Algorithms, <strong>Robot Operating System (ROS)</strong>, Java</p>
+    </div>
+    <div class="detail-section">
+      <h4>Why This Person</h4>
+      <p>Staff Application Engineer with deep robotics and ROS skills. Application Engineers at Apex.AI work closely with customers to deploy the platform — Nachiket would see the training infrastructure pain points across multiple customer deployments.</p>
+    </div>
+  </div>
+  <div class="outreach-box">
+    <h4>Outreach Angle — Mapped to Anyscale</h4>
+    <p><strong>Customer-facing technical role.</strong> "As a Staff Application Engineer, you see how customers deploy Apex.AI's platform. Many of them likely need offboard training infrastructure — Ray could be a complementary offering. Interested in exploring a partnership angle?"</p>
+  </div>
+</div>
+</div>
+
+<!-- ======================== PRIORITY 3: SUPPORTING ======================== -->
+
+<div class="contact-card priority-3" data-priority="3" data-persona="eng">
+<div class="card-header" onclick="toggleCard(this)">
+  <div class="card-left">
+    <div class="avatar">CL</div>
+    <div>
+      <div class="card-name">Carlos Loera</div>
+      <div class="card-title">Director Product Delivery</div>
+      <div class="card-location">San Francisco Bay Area</div>
+    </div>
+  </div>
+  <div class="card-right">
+    <span class="priority-badge p3">P3 — Supporting</span>
+    <span class="persona-tag">Product Delivery Lead</span>
+    <span class="expand-icon">▼</span>
+  </div>
+</div>
+<div class="card-body">
+  <div class="detail-grid">
+    <div class="detail-section">
+      <h4>Contact Information</h4>
+      <div class="contact-links">
+        <a class="contact-link" href="https://www.linkedin.com/in/carlosloera/" target="_blank">🔗 LinkedIn</a>
+      </div>
+      <p style="margin-top:8px"><strong>Skills:</strong> Product Design, Program Management, AutoCAD, SolidWorks, Management, Graphic Design, Leadership</p>
+    </div>
+    <div class="detail-section">
+      <h4>Why This Person</h4>
+      <p>Director of Product Delivery — bridges engineering and product. Would care about anything that accelerates delivery timelines (faster training = faster product iterations).</p>
+    </div>
+  </div>
+  <div class="outreach-box">
+    <h4>Outreach Angle</h4>
+    <p>Engage after you have technical buy-in from Dejan, Anup, or David. Carlos would care about delivery speed impact.</p>
+  </div>
+</div>
+</div>
+
+<div class="contact-card priority-3" data-priority="3" data-persona="eng">
+<div class="card-header" onclick="toggleCard(this)">
+  <div class="card-left">
+    <div class="avatar">VL</div>
+    <div>
+      <div class="card-name">Victor La</div>
+      <div class="card-title">Senior Software Engineer, DevOps</div>
+      <div class="card-location">Troy, Michigan</div>
+    </div>
+  </div>
+  <div class="card-right">
+    <span class="priority-badge p3">P3 — Supporting</span>
+    <span class="persona-tag">DevOps Engineer</span>
+    <span class="expand-icon">▼</span>
+  </div>
+</div>
+<div class="card-body">
+  <div class="detail-grid">
+    <div class="detail-section">
+      <h4>Contact Information</h4>
+      <div class="contact-links">
+        <a class="contact-link" href="https://www.linkedin.com/in/victorla/" target="_blank">🔗 LinkedIn</a>
+      </div>
+    </div>
+    <div class="detail-section">
+      <h4>Why This Person</h4>
+      <p>Sr. DevOps Engineer reports to David L. (Platform EM). Victor would be a hands-on evaluator of any infrastructure platform. Michigan location suggests he may support the automotive OEM customer base.</p>
+    </div>
+  </div>
+  <div class="outreach-box">
+    <h4>Outreach Angle</h4>
+    <p>Bottom-up champion via DevOps community. Share content about Ray's infrastructure management capabilities. Engage after David L. is in conversation.</p>
+  </div>
+</div>
+</div>
+
+<div class="contact-card priority-3" data-priority="3" data-persona="eng">
+<div class="card-header" onclick="toggleCard(this)">
+  <div class="card-left">
+    <div class="avatar">EF</div>
+    <div>
+      <div class="card-name">Evan Flynn</div>
+      <div class="card-title">Staff Software Engineer</div>
+      <div class="card-location">Los Angeles Metropolitan Area</div>
+    </div>
+  </div>
+  <div class="card-right">
+    <span class="priority-badge p3">P3 — Supporting</span>
+    <span class="persona-tag">Staff SWE</span>
+    <span class="expand-icon">▼</span>
+  </div>
+</div>
+<div class="card-body">
+  <div class="detail-grid">
+    <div class="detail-section">
+      <h4>Contact Information</h4>
+      <div class="contact-links">
+        <a class="contact-link" href="https://www.linkedin.com/in/flynneva/" target="_blank">🔗 LinkedIn</a>
+      </div>
+      <p style="margin-top:8px"><strong>Skills:</strong> Engineering, Matlab, Solidworks, NX Unigraphics, Program Management, Lean Manufacturing, Automotive, Siemens NX</p>
+    </div>
+    <div class="detail-section">
+      <h4>Why This Person</h4>
+      <p>Staff SWE with strong automotive and manufacturing background. May work on the platform's integration with automotive OEMs. Good community engagement target.</p>
+    </div>
+  </div>
+  <div class="outreach-box">
+    <h4>Outreach Angle</h4>
+    <p>Technical content sharing — Ray Summit invites, AV-focused Ray blog posts. Build passive awareness.</p>
+  </div>
+</div>
+</div>
+
+<div class="contact-card priority-3" data-priority="3" data-persona="eng">
+<div class="card-header" onclick="toggleCard(this)">
+  <div class="card-left">
+    <div class="avatar">YK</div>
+    <div>
+      <div class="card-name">Yevhen Kuznetsov</div>
+      <div class="card-title">Staff Software Engineer</div>
+      <div class="card-location">Munich, Bavaria, Germany</div>
+    </div>
+  </div>
+  <div class="card-right">
+    <span class="priority-badge p3">P3 — Supporting</span>
+    <span class="persona-tag">Staff SWE (EU)</span>
+    <span class="expand-icon">▼</span>
+  </div>
+</div>
+<div class="card-body">
+  <div class="detail-grid">
+    <div class="detail-section">
+      <h4>Contact Information</h4>
+      <div class="contact-links">
+        <a class="contact-link" href="https://www.linkedin.com/in/ekuznetsov/" target="_blank">🔗 LinkedIn</a>
+      </div>
+    </div>
+    <div class="detail-section">
+      <h4>Why This Person</h4>
+      <p>Staff SWE in the Munich office. Another senior IC who influences tooling and infrastructure decisions in the EU engineering hub.</p>
+    </div>
+  </div>
+  <div class="outreach-box">
+    <h4>Outreach Angle</h4>
+    <p>Community engagement — share technical content, Ray meetup invites. Build awareness in the EU team alongside Michael Aeberhard and Simon Hoinkis.</p>
+  </div>
+</div>
+</div>
+
+<div class="contact-card priority-3" data-priority="3" data-persona="eng">
+<div class="card-header" onclick="toggleCard(this)">
+  <div class="card-left">
+    <div class="avatar">LP</div>
+    <div>
+      <div class="card-name">Lamar Pierce</div>
+      <div class="card-title">Senior Lab Infrastructure Engineer</div>
+      <div class="card-location">Livermore, CA</div>
+    </div>
+  </div>
+  <div class="card-right">
+    <span class="priority-badge p3">P3 — Supporting</span>
+    <span class="persona-tag">Lab Infra Engineer</span>
+    <span class="expand-icon">▼</span>
+  </div>
+</div>
+<div class="card-body">
+  <div class="detail-grid">
+    <div class="detail-section">
+      <h4>Contact Information</h4>
+      <div class="contact-links">
+        <a class="contact-link" href="https://www.linkedin.com/in/lamar-pierce/" target="_blank">🔗 LinkedIn</a>
+      </div>
+    </div>
+    <div class="detail-section">
+      <h4>Why This Person</h4>
+      <p>Lab Infrastructure Engineer manages the physical compute and test infrastructure. He'd understand how cloud-based training (Anyscale) complements on-prem lab resources. Relevant for hybrid cloud discussions.</p>
+    </div>
+  </div>
+  <div class="outreach-box">
+    <h4>Outreach Angle</h4>
+    <p>Hybrid cloud angle — "Cloud burst" for training while keeping lab infra for testing and edge validation. Engage after David L. and the VPs.</p>
+  </div>
+</div>
+</div>
+
+</div>
+
+<div class="excluded-note">
+  <strong>Excluded contacts (8):</strong> Chris Phillips (Dir. BD), Tavis Szeto (EVP — BD role), Lore Beck (Sr. BD Manager), Maxime Lefebvre (Head of BD Western Europe), Martin Petrov (Dir. Customer Solutions), Adriaan Mier (Sr. Customer PM), Nicole Pavelka (VP Brand & Marketing), Karina Scher (HR). Per your instructions, BD and non-technical roles were filtered out.
+</div>
+
+<div class="footer">
+  Apex.AI Contact Intelligence Report • Generated March 2026 • Sources: Common Room Prospector (35 Apex.AI contacts from 106 results), Web Research, Crunchbase, RocketReach<br>
+  Co-Founders: Jan Becker (CEO) + Dejan Pangercic (CTO) • Offices: Palo Alto, Munich, Stuttgart, Gothenburg
+</div>
+
+<script>
+function toggleCard(header) {
+  const body = header.nextElementSibling;
+  const icon = header.querySelector('.expand-icon');
+  body.classList.toggle('open');
+  icon.classList.toggle('open');
+}
+
+function filterCards(filter) {
+  document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+  event.target.classList.add('active');
+  document.querySelectorAll('.contact-card').forEach(card => {
+    if (filter === 'all') {
+      card.style.display = '';
+    } else if (['1','2','3'].includes(filter)) {
+      card.style.display = card.dataset.priority === filter ? '' : 'none';
+    } else {
+      card.style.display = card.dataset.persona.includes(filter) ? '' : 'none';
+    }
+  });
+}
+
+// Auto-expand P1 cards
+document.querySelectorAll('.contact-card.priority-1 .card-header').forEach(h => toggleCard(h));
+</script>
+</body>
+</html>

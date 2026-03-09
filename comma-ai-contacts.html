@@ -1,0 +1,564 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>comma.ai — Contact Intelligence for Anyscale</title>
+<style>
+:root {
+  --bg: #0b0f1a; --bg2: #111827; --bg3: #1a2235; --bg4: #1e2d42;
+  --text: #f0f4ff; --text2: #8b98b4; --text3: #4f5b78;
+  --acc: #3b82f6; --acc2: #60a5fa; --green: #10b981; --amber: #f59e0b; --red: #ef4444;
+  --bdr: #1e2d42;
+}
+* { box-sizing: border-box; margin: 0; padding: 0; }
+body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; background: var(--bg); color: var(--text); line-height: 1.5; }
+
+.header { background: linear-gradient(135deg, #1e3a5f 0%, #0f2744 100%); padding: 32px 40px 24px; border-bottom: 1px solid var(--bdr); }
+.header h1 { font-size: 24px; font-weight: 700; }
+.header .sub { color: var(--text2); font-size: 13px; margin-top: 4px; }
+.header .company-row { display: flex; align-items: center; gap: 12px; margin-top: 12px; }
+.header .company-logo { width: 40px; height: 40px; background: #1a1a2e; border-radius: 10px; display: flex; align-items: center; justify-content: center; font-size: 20px; }
+.header .company-info { font-size: 13px; color: var(--text2); }
+.header .company-info strong { color: var(--text); font-size: 15px; display: block; }
+
+.value-prop-bar { background: var(--bg2); border-bottom: 1px solid var(--bdr); padding: 16px 40px; }
+.value-prop-bar h3 { font-size: 12px; text-transform: uppercase; letter-spacing: 0.08em; color: var(--acc); margin-bottom: 8px; }
+.value-prop-bar p { font-size: 13px; color: var(--text2); max-width: 900px; line-height: 1.6; }
+.value-prop-bar .qualifier-tags { display: flex; gap: 8px; flex-wrap: wrap; margin-top: 10px; }
+.qualifier-tag { padding: 4px 10px; border-radius: 12px; font-size: 11px; font-weight: 600; background: rgba(59,130,246,0.15); color: var(--acc2); border: 1px solid rgba(59,130,246,0.25); }
+
+.stats-bar { display: flex; gap: 24px; padding: 16px 40px; background: var(--bg3); border-bottom: 1px solid var(--bdr); }
+.stat-box { display: flex; flex-direction: column; }
+.stat-box .val { font-size: 22px; font-weight: 700; color: var(--acc2); }
+.stat-box .lbl { font-size: 11px; color: var(--text3); text-transform: uppercase; letter-spacing: 0.06em; }
+
+.filters { padding: 12px 40px; background: var(--bg2); border-bottom: 1px solid var(--bdr); display: flex; gap: 8px; flex-wrap: wrap; align-items: center; }
+.filter-btn { padding: 5px 14px; border-radius: 16px; border: 1px solid var(--bdr); background: var(--bg3); color: var(--text2); font-size: 12px; cursor: pointer; transition: all 0.15s; }
+.filter-btn:hover, .filter-btn.active { background: rgba(59,130,246,0.2); border-color: var(--acc); color: var(--acc2); }
+.filter-label { font-size: 11px; color: var(--text3); text-transform: uppercase; letter-spacing: 0.06em; margin-right: 4px; }
+
+.contacts { padding: 24px 40px; display: flex; flex-direction: column; gap: 16px; }
+
+.contact-card {
+  background: var(--bg2); border: 1px solid var(--bdr); border-radius: 12px;
+  overflow: hidden; transition: border-color 0.2s;
+}
+.contact-card:hover { border-color: var(--acc); }
+.contact-card.priority-1 { border-left: 4px solid var(--green); }
+.contact-card.priority-2 { border-left: 4px solid var(--acc); }
+.contact-card.priority-3 { border-left: 4px solid var(--amber); }
+
+.card-header {
+  display: flex; justify-content: space-between; align-items: flex-start;
+  padding: 16px 20px; cursor: pointer;
+}
+.card-left { display: flex; gap: 14px; align-items: flex-start; flex: 1; }
+.avatar { width: 44px; height: 44px; border-radius: 50%; background: var(--bg4); display: flex; align-items: center; justify-content: center; font-size: 16px; font-weight: 700; color: var(--acc2); flex-shrink: 0; }
+.card-name { font-size: 15px; font-weight: 600; }
+.card-title { font-size: 13px; color: var(--text2); margin-top: 1px; }
+.card-location { font-size: 11px; color: var(--text3); margin-top: 2px; }
+.card-right { display: flex; gap: 8px; align-items: center; flex-shrink: 0; }
+.priority-badge { padding: 3px 10px; border-radius: 10px; font-size: 11px; font-weight: 600; }
+.priority-badge.p1 { background: rgba(16,185,129,0.15); color: var(--green); }
+.priority-badge.p2 { background: rgba(59,130,246,0.15); color: var(--acc2); }
+.priority-badge.p3 { background: rgba(245,158,11,0.15); color: var(--amber); }
+.persona-tag { padding: 3px 10px; border-radius: 10px; font-size: 11px; font-weight: 500; background: rgba(139,152,180,0.1); color: var(--text2); }
+
+.card-body { display: none; padding: 0 20px 16px; }
+.card-body.open { display: block; }
+
+.detail-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+.detail-section h4 { font-size: 11px; text-transform: uppercase; letter-spacing: 0.06em; color: var(--text3); margin-bottom: 6px; }
+.detail-section p, .detail-section a { font-size: 13px; color: var(--text2); line-height: 1.5; text-decoration: none; }
+.detail-section a { color: var(--acc2); }
+.detail-section a:hover { text-decoration: underline; }
+
+.outreach-box {
+  background: rgba(59,130,246,0.08); border: 1px solid rgba(59,130,246,0.2);
+  border-radius: 8px; padding: 12px 16px; margin-top: 12px;
+}
+.outreach-box h4 { font-size: 11px; text-transform: uppercase; letter-spacing: 0.06em; color: var(--acc); margin-bottom: 6px; }
+.outreach-box p { font-size: 13px; color: var(--text2); line-height: 1.6; }
+
+.contact-links { display: flex; gap: 8px; margin-top: 8px; flex-wrap: wrap; }
+.contact-link { display: inline-flex; align-items: center; gap: 4px; padding: 4px 10px; border-radius: 8px; background: var(--bg3); border: 1px solid var(--bdr); font-size: 11px; color: var(--text2); text-decoration: none; transition: all 0.15s; }
+.contact-link:hover { border-color: var(--acc); color: var(--acc2); }
+
+.footer { padding: 16px 40px; text-align: center; font-size: 11px; color: var(--text3); border-top: 1px solid var(--bdr); margin-top: 16px; }
+
+.expand-icon { color: var(--text3); font-size: 18px; transition: transform 0.2s; cursor: pointer; }
+.expand-icon.open { transform: rotate(180deg); }
+</style>
+</head>
+<body>
+
+<div class="header">
+  <h1>comma.ai — Contact Intelligence</h1>
+  <div class="sub">Anyscale Outreach Targets • Cross-referenced from LinkedIn Sales Navigator, Common Room & Web Research</div>
+  <div class="company-row">
+    <div class="company-logo">🚗</div>
+    <div class="company-info">
+      <strong>comma.ai</strong>
+      Software Development • San Diego, CA • ~30 employees • comma.ai
+    </div>
+  </div>
+</div>
+
+<div class="value-prop-bar">
+  <h3>Anyscale Value Proposition for comma.ai</h3>
+  <p>comma.ai has 60K+ lines of Python powering end-to-end autonomous driving world model training on 100M+ miles of driving data. Ray's native Python scheduler is a perfect fit for their all-Python stack. Managed Ray removes cluster ops overhead so their small team can focus entirely on model quality. Their end-to-end world model training is exactly what Anyscale was built for.</p>
+  <div class="qualifier-tags">
+    <span class="qualifier-tag">All-Python ML Stack</span>
+    <span class="qualifier-tag">End-to-End World Model Training</span>
+    <span class="qualifier-tag">100M+ Miles Training Data</span>
+    <span class="qualifier-tag">Small Team → Managed Infra Need</span>
+    <span class="qualifier-tag">Distributed GPU Training</span>
+    <span class="qualifier-tag">openpilot Open Source</span>
+    <span class="qualifier-tag">Tier 1 Account</span>
+  </div>
+</div>
+
+<div class="stats-bar">
+  <div class="stat-box"><span class="val">10</span><span class="lbl">Target Contacts</span></div>
+  <div class="stat-box"><span class="val">3</span><span class="lbl">Priority 1 (Must Reach)</span></div>
+  <div class="stat-box"><span class="val">4</span><span class="lbl">Priority 2 (Strong Fit)</span></div>
+  <div class="stat-box"><span class="val">3</span><span class="lbl">Priority 3 (Supporting)</span></div>
+  <div class="stat-box"><span class="val">4</span><span class="lbl">Sources Cross-Referenced</span></div>
+</div>
+
+<div class="filters">
+  <span class="filter-label">Priority:</span>
+  <button class="filter-btn active" onclick="filterCards('all')">All (10)</button>
+  <button class="filter-btn" onclick="filterCards('1')">🟢 Must Reach (3)</button>
+  <button class="filter-btn" onclick="filterCards('2')">🔵 Strong Fit (4)</button>
+  <button class="filter-btn" onclick="filterCards('3')">🟡 Supporting (3)</button>
+  <span class="filter-label" style="margin-left:16px">Persona:</span>
+  <button class="filter-btn" onclick="filterCards('ml')">ML / AI</button>
+  <button class="filter-btn" onclick="filterCards('exec')">Executive</button>
+  <button class="filter-btn" onclick="filterCards('eng')">Engineering</button>
+</div>
+
+<div class="contacts" id="contacts">
+<!-- ======== PRIORITY 1: MUST REACH ======== -->
+
+<div class="contact-card priority-1" data-priority="1" data-persona="ml exec">
+<div class="card-header" onclick="toggleCard(this)">
+  <div class="card-left">
+    <div class="avatar">HS</div>
+    <div>
+      <div class="card-name">Harald Schäfer</div>
+      <div class="card-title">Chief Technology Officer</div>
+      <div class="card-location">Santa Barbara County, CA • 2nd degree connection</div>
+    </div>
+  </div>
+  <div class="card-right">
+    <span class="priority-badge p1">P1 — Must Reach</span>
+    <span class="persona-tag">CTO / Technical Decision Maker</span>
+    <span class="expand-icon">▼</span>
+  </div>
+</div>
+<div class="card-body">
+  <div class="detail-grid">
+    <div class="detail-section">
+      <h4>Contact Information</h4>
+      <div class="contact-links">
+        <a class="contact-link" href="https://www.linkedin.com/in/harald-sch%C3%A4fer-567830132/" target="_blank">🔗 LinkedIn</a>
+        <a class="contact-link" href="https://rocketreach.co/harald-schafer-email_241690730" target="_blank">📧 RocketReach (Email)</a>
+        <a class="contact-link" href="https://contactout.com/Harald-Schafer-84523858" target="_blank">📞 ContactOut (Phone)</a>
+      </div>
+      <p style="margin-top:8px"><strong>Skills:</strong> Electrical Engineering, Computer Science, C++, Java, Matlab, Haptics</p>
+      <p><strong>Education:</strong> UC Santa Barbara</p>
+      <p><strong>Seniority:</strong> Executive</p>
+    </div>
+    <div class="detail-section">
+      <h4>Background</h4>
+      <p>Harald is the CTO and day-to-day technical leader of comma.ai. With George Hotz having departed (Nov 2025), Harald is now the most senior technical decision maker at the company. He oversees all infrastructure, ML training, and systems architecture decisions. Previous experience at VIBE haptics and UCSB.</p>
+    </div>
+  </div>
+  <div class="outreach-box">
+    <h4>Why Reach Out — Mapped to Anyscale Value Props</h4>
+    <p><strong>As CTO, Harald owns the entire technical stack including ML training infrastructure.</strong> comma.ai's world model training runs massive distributed GPU workloads on 100M+ miles of data — exactly Anyscale's sweet spot. With a ~30 person team, they can't afford dedicated infra engineers. Anyscale's managed Ray eliminates cluster ops overhead, letting Harald's team focus on model quality. He'd be the budget holder and final technical decision maker for any compute platform purchase. Lead with: "Your team's end-to-end driving model training on 100M+ miles is the exact workload Anyscale was built to scale — happy to show how managed Ray can remove the cluster ops overhead so your engineers stay focused on model quality."</p>
+  </div>
+</div>
+</div>
+
+<div class="contact-card priority-1" data-priority="1" data-persona="ml">
+<div class="card-header" onclick="toggleCard(this)">
+  <div class="card-left">
+    <div class="avatar">YY</div>
+    <div>
+      <div class="card-name">Yassine Yousfi</div>
+      <div class="card-title">Head of Machine Learning</div>
+      <div class="card-location">San Diego, CA • 3rd degree</div>
+    </div>
+  </div>
+  <div class="card-right">
+    <span class="priority-badge p1">P1 — Must Reach</span>
+    <span class="persona-tag">ML Leadership / Technical Champion</span>
+    <span class="expand-icon">▼</span>
+  </div>
+</div>
+<div class="card-body">
+  <div class="detail-grid">
+    <div class="detail-section">
+      <h4>Contact Information</h4>
+      <div class="contact-links">
+        <a class="contact-link" href="https://www.linkedin.com/in/yassine-yousfi-/" target="_blank">🔗 LinkedIn</a>
+        <a class="contact-link" href="https://rocketreach.co/yassine-yousfi-email_103284096" target="_blank">📧 RocketReach (Email)</a>
+        <a class="contact-link" href="https://github.com/YassineYousfi" target="_blank">🐙 GitHub</a>
+        <a class="contact-link" href="https://yassineyousfi.github.io/" target="_blank">🌐 Personal Site</a>
+      </div>
+      <p style="margin-top:8px"><strong>Skills:</strong> Python, Machine Learning, Cognitive Modeling, Matlab, Management, Growth Hacking</p>
+      <p><strong>Education:</strong> Binghamton University (Watson School of Engineering)</p>
+      <p><strong>Tenure:</strong> Head of ML since Feb 2022</p>
+    </div>
+    <div class="detail-section">
+      <h4>Background</h4>
+      <p>Yassine leads the entire ML function at comma.ai, directly responsible for the end-to-end driving models including the "Learning to Drive from a World Model" work published in 2025. He presented at COMMA_CON on learning a driving simulator. As Head of ML, he's the person who decides how models are trained, what frameworks to use, and what infra to run on.</p>
+    </div>
+  </div>
+  <div class="outreach-box">
+    <h4>Why Reach Out — Mapped to Anyscale Value Props</h4>
+    <p><strong>Yassine is the #1 technical champion target.</strong> He directly owns the ML training pipeline that processes 100M+ miles of driving data. He lives the pain of managing distributed training at scale daily. Anyscale's managed Ray Train can dramatically accelerate his model iteration cycles — faster training, better GPU utilization, zero cluster management. He's also the person who would evaluate and champion any new training infrastructure internally. Lead with: "Your world model work is fascinating — how are you currently handling distributed training scale as your dataset grows past 100M miles? We've seen teams like yours get 2-3x faster iteration with managed Ray Train."</p>
+  </div>
+</div>
+</div>
+
+<div class="contact-card priority-1" data-priority="1" data-persona="exec">
+<div class="card-header" onclick="toggleCard(this)">
+  <div class="card-left">
+    <div class="avatar">AS</div>
+    <div>
+      <div class="card-name">Adeeb Shihadeh</div>
+      <div class="card-title">Chief Product Officer</div>
+      <div class="card-location">San Diego, CA</div>
+    </div>
+  </div>
+  <div class="card-right">
+    <span class="priority-badge p1">P1 — Must Reach</span>
+    <span class="persona-tag">Executive / Product Decision Maker</span>
+    <span class="expand-icon">▼</span>
+  </div>
+</div>
+<div class="card-body">
+  <div class="detail-grid">
+    <div class="detail-section">
+      <h4>Contact Information</h4>
+      <div class="contact-links">
+        <a class="contact-link" href="https://www.linkedin.com/in/adeeb-shihadeh-531963296/" target="_blank">🔗 LinkedIn</a>
+        <a class="contact-link" href="https://rocketreach.co/adeeb-shihadeh-email_718504945" target="_blank">📧 RocketReach (Email)</a>
+        <a class="contact-link" href="https://github.com/adeebshihadeh" target="_blank">🐙 GitHub</a>
+      </div>
+      <p style="margin-top:8px"><strong>Tenure:</strong> ~6 years at comma.ai as CPO</p>
+    </div>
+    <div class="detail-section">
+      <h4>Background</h4>
+      <p>Adeeb has been CPO for approximately 6 years, making him one of the longest-tenured executives. As CPO, he bridges product direction with engineering execution. With George Hotz gone, Adeeb along with Harald and Julie form the senior leadership triad making strategic decisions including vendor and infrastructure choices.</p>
+    </div>
+  </div>
+  <div class="outreach-box">
+    <h4>Why Reach Out — Mapped to Anyscale Value Props</h4>
+    <p><strong>As CPO, Adeeb cares about shipping better driving models faster.</strong> Anyscale's value here is direct: managed Ray accelerates model training iteration → faster product improvements → better openpilot for customers. He'd champion Anyscale from a product velocity angle. Lead with: "Faster model training directly translates to better openpilot releases — we help teams like yours cut training iteration time significantly with managed Ray, letting your product roadmap move faster."</p>
+  </div>
+</div>
+</div>
+
+<!-- ======== PRIORITY 2: STRONG FIT ======== -->
+
+<div class="contact-card priority-2" data-priority="2" data-persona="ml eng">
+<div class="card-header" onclick="toggleCard(this)">
+  <div class="card-left">
+    <div class="avatar">MG</div>
+    <div>
+      <div class="card-name">Mitchell Goff</div>
+      <div class="card-title">Machine Learning Engineer</div>
+      <div class="card-location">San Diego, CA</div>
+    </div>
+  </div>
+  <div class="card-right">
+    <span class="priority-badge p2">P2 — Strong Fit</span>
+    <span class="persona-tag">ML Engineer / Practitioner</span>
+    <span class="expand-icon">▼</span>
+  </div>
+</div>
+<div class="card-body">
+  <div class="detail-grid">
+    <div class="detail-section">
+      <h4>Contact Information</h4>
+      <div class="contact-links">
+        <a class="contact-link" href="https://www.linkedin.com/in/mitchell-goff-a1596b66/" target="_blank">🔗 LinkedIn</a>
+      </div>
+      <p style="margin-top:8px"><strong>Skills:</strong> Web Design, Programming, Piano, Violin</p>
+    </div>
+    <div class="detail-section">
+      <h4>Background</h4>
+      <p>MLE at comma.ai working directly on the driving models. As a hands-on ML engineer, Mitchell would be an end user of any training infrastructure and a key internal voice on tooling decisions.</p>
+    </div>
+  </div>
+  <div class="outreach-box">
+    <h4>Why Reach Out — Mapped to Anyscale Value Props</h4>
+    <p><strong>Bottom-up champion potential.</strong> MLEs are the ones who feel training infrastructure pain daily — slow jobs, GPU idle time, cluster headaches. Getting Mitchell excited about Ray's Python-native distributed training could create internal pull. Lead with: "Ever run into GPU idle time or slow distributed training jobs? Ray Train handles the scheduling natively in Python — no infra overhead."</p>
+  </div>
+</div>
+</div>
+
+<div class="contact-card priority-2" data-priority="2" data-persona="ml eng">
+<div class="card-header" onclick="toggleCard(this)">
+  <div class="card-left">
+    <div class="avatar">WZ</div>
+    <div>
+      <div class="card-name">Weixing Zhang</div>
+      <div class="card-title">Machine Learning Engineer</div>
+      <div class="card-location">San Diego, CA</div>
+    </div>
+  </div>
+  <div class="card-right">
+    <span class="priority-badge p2">P2 — Strong Fit</span>
+    <span class="persona-tag">ML Engineer / Practitioner</span>
+    <span class="expand-icon">▼</span>
+  </div>
+</div>
+<div class="card-body">
+  <div class="detail-grid">
+    <div class="detail-section">
+      <h4>Contact Information</h4>
+      <div class="contact-links">
+        <a class="contact-link" href="https://www.linkedin.com/in/weixing-zhang/" target="_blank">🔗 LinkedIn</a>
+      </div>
+    </div>
+    <div class="detail-section">
+      <h4>Background</h4>
+      <p>MLE at comma.ai in San Diego. Works on the core ML training pipeline alongside Yassine and Mitchell. Another key hands-on practitioner who would directly benefit from Anyscale's managed training infrastructure.</p>
+    </div>
+  </div>
+  <div class="outreach-box">
+    <h4>Why Reach Out — Mapped to Anyscale Value Props</h4>
+    <p><strong>Same bottom-up play as Mitchell.</strong> Weixing directly trains models on driving data — he knows the pain of distributed training at scale. Building awareness with multiple MLEs creates a stronger internal groundswell. Lead with technical content: share a case study or blog post about Ray Train for autonomous driving workloads.</p>
+  </div>
+</div>
+</div>
+
+<div class="contact-card priority-2" data-priority="2" data-persona="ml eng">
+<div class="card-header" onclick="toggleCard(this)">
+  <div class="card-left">
+    <div class="avatar">AdP</div>
+    <div>
+      <div class="card-name">Armand du Parc Locmaria</div>
+      <div class="card-title">Machine Learning Engineer</div>
+      <div class="card-location">Greater Paris Metropolitan Region, France</div>
+    </div>
+  </div>
+  <div class="card-right">
+    <span class="priority-badge p2">P2 — Strong Fit</span>
+    <span class="persona-tag">ML Engineer / Practitioner</span>
+    <span class="expand-icon">▼</span>
+  </div>
+</div>
+<div class="card-body">
+  <div class="detail-grid">
+    <div class="detail-section">
+      <h4>Contact Information</h4>
+      <div class="contact-links">
+        <a class="contact-link" href="https://www.linkedin.com/in/armand-du-parc-locmaria/" target="_blank">🔗 LinkedIn</a>
+        <a class="contact-link" href="https://armandpi.com" target="_blank">🌐 Personal Site</a>
+      </div>
+      <p style="margin-top:8px"><strong>Tenure:</strong> 2 years in role / 2 years at company</p>
+    </div>
+    <div class="detail-section">
+      <h4>Background</h4>
+      <p>Paris-based MLE at comma.ai. Remote contributor to the ML training pipeline. 2 years tenure indicates he's well-embedded in the codebase and training infrastructure decisions.</p>
+    </div>
+  </div>
+  <div class="outreach-box">
+    <h4>Why Reach Out — Mapped to Anyscale Value Props</h4>
+    <p><strong>Remote ML contributor — distributed infra pain is even more acute for remote team members.</strong> Anyscale's managed cloud platform means remote engineers like Armand don't need to manage their own clusters or coordinate GPU access. Lead with: "For distributed ML teams, managed Ray means everyone gets consistent, scalable training infrastructure without local cluster management."</p>
+  </div>
+</div>
+</div>
+
+<div class="contact-card priority-2" data-priority="2" data-persona="eng">
+<div class="card-header" onclick="toggleCard(this)">
+  <div class="card-left">
+    <div class="avatar">KR</div>
+    <div>
+      <div class="card-name">Kacper Rączy</div>
+      <div class="card-title">Research Engineer</div>
+      <div class="card-location">United States</div>
+    </div>
+  </div>
+  <div class="card-right">
+    <span class="priority-badge p2">P2 — Strong Fit</span>
+    <span class="persona-tag">Research Engineer</span>
+    <span class="expand-icon">▼</span>
+  </div>
+</div>
+<div class="card-body">
+  <div class="detail-grid">
+    <div class="detail-section">
+      <h4>Contact Information</h4>
+      <div class="contact-links">
+        <a class="contact-link" href="https://www.linkedin.com/in/kacper-raczy/" target="_blank">🔗 LinkedIn (search)</a>
+      </div>
+      <p style="margin-top:8px"><strong>Tenure:</strong> 3 years in role / 3 years at company</p>
+    </div>
+    <div class="detail-section">
+      <h4>Background</h4>
+      <p>Research Engineer with 3 years at comma.ai. Research engineers bridge ML research and production — they prototype new model architectures, run training experiments, and evaluate results. Kacper likely works closely with Yassine on the world model research.</p>
+    </div>
+  </div>
+  <div class="outreach-box">
+    <h4>Why Reach Out — Mapped to Anyscale Value Props</h4>
+    <p><strong>Research engineers need fast experiment iteration above all else.</strong> They constantly launch training runs, compare results, and try new architectures. Anyscale's managed Ray Train with auto-scaling means Kacper can run more experiments in less time with zero infrastructure friction. Lead with: "Research engineers we work with love that Ray Train lets them launch distributed experiments in Python with zero cluster config — iterate faster on model architectures."</p>
+  </div>
+</div>
+</div>
+
+<!-- ======== PRIORITY 3: SUPPORTING ======== -->
+
+<div class="contact-card priority-3" data-priority="3" data-persona="exec">
+<div class="card-header" onclick="toggleCard(this)">
+  <div class="card-left">
+    <div class="avatar">JH</div>
+    <div>
+      <div class="card-name">Julie Hendy</div>
+      <div class="card-title">Vice President Operations</div>
+      <div class="card-location">San Diego, CA</div>
+    </div>
+  </div>
+  <div class="card-right">
+    <span class="priority-badge p3">P3 — Supporting</span>
+    <span class="persona-tag">Operations / Budget Influence</span>
+    <span class="expand-icon">▼</span>
+  </div>
+</div>
+<div class="card-body">
+  <div class="detail-grid">
+    <div class="detail-section">
+      <h4>Contact Information</h4>
+      <div class="contact-links">
+        <a class="contact-link" href="https://www.linkedin.com/in/julie-hendy-815181125/" target="_blank">🔗 LinkedIn</a>
+      </div>
+      <p style="margin-top:8px"><strong>Skills:</strong> French, German</p>
+    </div>
+    <div class="detail-section">
+      <h4>Background</h4>
+      <p>VP Operations at comma.ai. In a ~30 person company, the VP Ops likely touches procurement, vendor management, and budget allocation. She may not be the technical champion but could be a key budget stakeholder.</p>
+    </div>
+  </div>
+  <div class="outreach-box">
+    <h4>Why Reach Out — Mapped to Anyscale Value Props</h4>
+    <p><strong>Budget and vendor stakeholder.</strong> If Harald or Yassine champion Anyscale technically, Julie would likely be involved in the procurement and vendor evaluation process. Not a cold outreach target, but someone to engage once you have technical buy-in. Lead with ROI: "Managed Ray typically reduces total infra cost 20-30% vs self-managed clusters while increasing training throughput — happy to share a cost analysis for your workload."</p>
+  </div>
+</div>
+</div>
+
+<div class="contact-card priority-3" data-priority="3" data-persona="eng">
+<div class="card-header" onclick="toggleCard(this)">
+  <div class="card-left">
+    <div class="avatar">SS</div>
+    <div>
+      <div class="card-name">Shane Smiskol</div>
+      <div class="card-title">openpilot Engineer</div>
+      <div class="card-location">San Diego, CA</div>
+    </div>
+  </div>
+  <div class="card-right">
+    <span class="priority-badge p3">P3 — Supporting</span>
+    <span class="persona-tag">Software Engineer</span>
+    <span class="expand-icon">▼</span>
+  </div>
+</div>
+<div class="card-body">
+  <div class="detail-grid">
+    <div class="detail-section">
+      <h4>Contact Information</h4>
+      <div class="contact-links">
+        <a class="contact-link" href="https://www.linkedin.com/in/sh4ne/" target="_blank">🔗 LinkedIn</a>
+      </div>
+      <p style="margin-top:8px"><strong>Tenure:</strong> 4 years in role / 4+ years at company</p>
+    </div>
+    <div class="detail-section">
+      <h4>Background</h4>
+      <p>Long-tenured openpilot engineer (4+ years). Shane works on the core openpilot software stack — the consumer-facing autonomous driving system. While his role is more on the inference/deployment side, he's deeply embedded in the engineering culture and can influence tooling decisions.</p>
+    </div>
+  </div>
+  <div class="outreach-box">
+    <h4>Why Reach Out — Mapped to Anyscale Value Props</h4>
+    <p><strong>Internal influencer and long-tenured engineer.</strong> Shane has been there 4+ years and knows the pain points. While his primary work is openpilot (inference side), Ray Serve could be relevant for any serving workloads, and his voice carries weight internally. Good for community engagement — invite to Ray meetups, share openpilot-relevant content.</p>
+  </div>
+</div>
+</div>
+
+<div class="contact-card priority-3" data-priority="3" data-persona="eng">
+<div class="card-header" onclick="toggleCard(this)">
+  <div class="card-left">
+    <div class="avatar">NR</div>
+    <div>
+      <div class="card-name">Nick Ruiz</div>
+      <div class="card-title">Senior Software Engineer</div>
+      <div class="card-location">Spring, TX</div>
+    </div>
+  </div>
+  <div class="card-right">
+    <span class="priority-badge p3">P3 — Supporting</span>
+    <span class="persona-tag">Senior Engineer</span>
+    <span class="expand-icon">▼</span>
+  </div>
+</div>
+<div class="card-body">
+  <div class="detail-grid">
+    <div class="detail-section">
+      <h4>Contact Information</h4>
+      <div class="contact-links">
+        <a class="contact-link" href="https://www.linkedin.com/in/nick-ruiz-b6a8ba261/" target="_blank">🔗 LinkedIn</a>
+      </div>
+      <p style="margin-top:8px"><strong>Seniority:</strong> Senior</p>
+    </div>
+    <div class="detail-section">
+      <h4>Background</h4>
+      <p>Senior Software Engineer at comma.ai, based remotely in Texas. Senior engineers at a small company like comma.ai have significant influence on infrastructure and tooling decisions. His Texas location makes him another remote contributor who'd benefit from managed cloud infra.</p>
+    </div>
+  </div>
+  <div class="outreach-box">
+    <h4>Why Reach Out — Mapped to Anyscale Value Props</h4>
+    <p><strong>Senior engineer with influence on infra decisions.</strong> At a 30-person company, senior SWEs touch everything — including training infra. Remote location means he'd especially benefit from Anyscale's managed platform vs. managing local clusters. Good for technical content sharing and community building.</p>
+  </div>
+</div>
+</div>
+
+</div>
+
+<div class="footer">
+  comma.ai Contact Intelligence Report • Generated March 2026 • Sources: LinkedIn Sales Navigator (27 results), Common Room Prospector (21 contacts), Crunchbase, RocketReach, Web Research<br>
+  Note: George Hotz (Founder/President) departed comma.ai Nov 2025. Alex Matzner (COO) status unclear — may have departed. Current leadership: Harald Schäfer (CTO), Adeeb Shihadeh (CPO), Julie Hendy (VP Ops).
+</div>
+
+<script>
+function toggleCard(header) {
+  const body = header.nextElementSibling;
+  const icon = header.querySelector('.expand-icon');
+  body.classList.toggle('open');
+  icon.classList.toggle('open');
+}
+
+function filterCards(filter) {
+  document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+  event.target.classList.add('active');
+
+  document.querySelectorAll('.contact-card').forEach(card => {
+    if (filter === 'all') {
+      card.style.display = '';
+    } else if (['1','2','3'].includes(filter)) {
+      card.style.display = card.dataset.priority === filter ? '' : 'none';
+    } else {
+      card.style.display = card.dataset.persona.includes(filter) ? '' : 'none';
+    }
+  });
+}
+
+// Auto-expand P1 cards
+document.querySelectorAll('.contact-card.priority-1 .card-header').forEach(h => toggleCard(h));
+</script>
+</body>
+</html>
