@@ -550,13 +550,10 @@ body.light .status-sel{background:var(--bg-card);}
 const DEFAULT_ACCOUNTS = [
   {name:"Tier 1 Account Plans",file:"tier1-account-plans.html",category:"Tier 1 — Strategic",tag:"Tier 1",meta:"11 accounts • Full account plans"},
   {name:"Tier 1 Proof Points",file:"tier1-proof-points.html",category:"Tier 1 — Strategic",tag:"Tier 1",meta:"Case studies & talk tracks • 11 accounts"},
-  {name:"Tier 1 Hiring Signals",file:"tier1-hiring-signals.html",category:"Tier 1 — Strategic",tag:"Tier 1",meta:"11 accounts · 27 roles · Full JD + Anyscale signals"},
   {name:"Tier 1 Prospect Briefs",file:"detailed-prospect-brief.html",category:"Tier 1 — Strategic",tag:"Tier 1",meta:"7 companies • 67 contacts • Email & phone"},
-  {name:"Tier 2 Hiring Signals",file:"tier2-hiring-signals.html",category:"Tier 2 — Growth",tag:"Tier 2",meta:"25 accounts · 27 roles · Full JD + Anyscale signals"},
   {name:"Tier 2 Prospect Briefs",file:"detailed-prospect-brief-tier2.html",category:"Tier 2 — Growth",tag:"Tier 2",meta:"25 companies • 76 contacts"},
   {name:"Tier 2 Proof Points",file:"tier2-proof-points.html",category:"Tier 2 — Growth",tag:"Tier 2",meta:"Case studies & talk tracks • 25 accounts"},
   {name:"Tier 2 Account Plans",file:"tier2-account-plans.html",category:"Tier 2 — Growth",tag:"Tier 2",meta:"25 companies • Full strategic plans • Ray library fit mapped"},
-  {name:"Tier 3 Hiring Signals",file:"tier3-hiring-signals.html",category:"Tier 3 — Prospecting",tag:"Tier 3",meta:"23 accounts · 34 roles · Full JD + Anyscale signals"},
   {name:"Tier 3 Account Plans",file:"tier3-account-plans.html",category:"Tier 3 — Prospecting",tag:"Tier 3",meta:"Long-tail account plans"},
   {name:"Tier 3 Prospect Briefs",file:"detailed-prospect-brief-tier3.html",category:"Tier 3 — Prospecting",tag:"Tier 3",meta:"23 companies • 62 contacts • Email & phone"},
   {name:"Tier 3 Proof Points",file:"tier3-proof-points.html",category:"Tier 3 — Prospecting",tag:"Tier 3",meta:"23 companies • 75 proof cards • Talk tracks"},
@@ -583,9 +580,7 @@ const DEFAULT_ACCOUNTS = [
   {name:"Call Prep Generator",file:"call-prep-generator.html",category:"Intelligence",tag:"New",meta:"11 Tier 1 accounts • One-click call prep"},
   {name:"Competitive Battlecards",file:"competitive-battlecards.html",category:"Intelligence",tag:"New",meta:"6 competitors • Talk tracks & objection handling"},
   {name:"Coverage Heatmap",file:"coverage-heatmap.html",category:"Analytics",tag:"New",meta:"99 accounts • 6 asset types • Gap analysis"},
-  {name:"Territory Dashboard",file:"territory-dashboard.html",category:"Analytics",tag:"New",meta:"$2.8M pipeline • KPIs • Industry breakdown"},
-  {name:"comma.ai — Contact Intel",file:"comma-ai-contacts.html",category:"Contact Intelligence",tag:"New",meta:"10 targets • P1/P2/P3 prioritized • LinkedIn + outreach"},
-  {name:"Apex.AI — Contact Intel",file:"apex-ai-contacts.html",category:"Contact Intelligence",tag:"New",meta:"16 targets • ML/Platform/Exec focus • LinkedIn + outreach"}
+  {name:"Territory Dashboard",file:"territory-dashboard.html",category:"Analytics",tag:"New",meta:"$2.8M pipeline • KPIs • Industry breakdown"}
 ];
 
 // ═══════════ STATE ═══════════
@@ -838,10 +833,10 @@ function showSingleView(acc){
   const ca=document.getElementById('contentArea');
   const zs=zoomLevel!==100?`style="zoom:${zoomLevel}%"`:'';
   if(notesOpen){
-    ca.innerHTML=`<iframe class="c-frame" id="mainFrame" src="${escH(acc.file)}" sandbox="allow-scripts allow-same-origin" ${zs}></iframe>${notesHTML()}`;
+    ca.innerHTML=`<iframe class="c-frame" id="mainFrame" src="${escH(acc.file)}" sandbox="allow-scripts allow-same-origin allow-popups allow-popups-to-escape-sandbox" ${zs}></iframe>${notesHTML()}`;
     initNotesSave();
   }else{
-    ca.innerHTML=`<iframe class="c-frame" id="mainFrame" src="${escH(acc.file)}" sandbox="allow-scripts allow-same-origin" ${zs}></iframe>`;
+    ca.innerHTML=`<iframe class="c-frame" id="mainFrame" src="${escH(acc.file)}" sandbox="allow-scripts allow-same-origin allow-popups allow-popups-to-escape-sandbox" ${zs}></iframe>`;
   }
   checkFrame('mainFrame',acc.file);splitIdx=-1;
 }
@@ -918,12 +913,12 @@ function rebuildSplit(){
   ca.innerHTML=`
     <div class="split-pane" id="splitL" style="flex:${splitLeftW}">
       <div class="split-bar"><span style="font-size:11px;color:var(--text2);overflow:hidden;text-overflow:ellipsis;white-space:nowrap;flex:1">${escH(la.name)}</span><button onclick="openInTab(${activeIdx})">↗</button></div>
-      <iframe class="c-frame" src="${escH(la.file)}" sandbox="allow-scripts allow-same-origin" style="margin-top:34px;height:calc(100% - 34px)"></iframe>
+      <iframe class="c-frame" src="${escH(la.file)}" sandbox="allow-scripts allow-same-origin allow-popups allow-popups-to-escape-sandbox" style="margin-top:34px;height:calc(100% - 34px)"></iframe>
     </div>
     <div class="split-divider" id="splitDiv"></div>
     <div class="split-pane" id="splitR" style="flex:${100-splitLeftW}">
       <div class="split-bar"><select onchange="changeSplitRight(this.value)">${opts}</select><button onclick="openInTab(${splitIdx})">↗</button></div>
-      <iframe class="c-frame" id="splitRFrame" src="${ra?escH(ra.file):''}" sandbox="allow-scripts allow-same-origin" style="margin-top:34px;height:calc(100% - 34px)"></iframe>
+      <iframe class="c-frame" id="splitRFrame" src="${ra?escH(ra.file):''}" sandbox="allow-scripts allow-same-origin allow-popups allow-popups-to-escape-sandbox" style="margin-top:34px;height:calc(100% - 34px)"></iframe>
     </div>`;
   const div=document.getElementById('splitDiv');let dragging=false,startX,startW;
   div.addEventListener('mousedown',e=>{dragging=true;startX=e.clientX;startW=splitLeftW;div.classList.add('drag');e.preventDefault();});
