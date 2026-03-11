@@ -548,39 +548,51 @@ body.light .status-sel{background:var(--bg-card);}
 <script>
 // ═══════════ DATA ═══════════
 const DEFAULT_ACCOUNTS = [
-  {name:"Tier 1 Account Plans",file:"tier1-account-plans.html",category:"Tier 1 — Strategic",tag:"Tier 1",meta:"11 accounts • Full account plans"},
-  {name:"Tier 1 Proof Points",file:"tier1-proof-points.html",category:"Tier 1 — Strategic",tag:"Tier 1",meta:"Case studies & talk tracks • 11 accounts"},
-  {name:"Tier 1 Prospect Briefs",file:"detailed-prospect-brief.html",category:"Tier 1 — Strategic",tag:"Tier 1",meta:"7 companies • 67 contacts • Email & phone"},
-  {name:"Tier 2 Prospect Briefs",file:"detailed-prospect-brief-tier2.html",category:"Tier 2 — Growth",tag:"Tier 2",meta:"25 companies • 76 contacts"},
-  {name:"Tier 2 Proof Points",file:"tier2-proof-points.html",category:"Tier 2 — Growth",tag:"Tier 2",meta:"Case studies & talk tracks • 25 accounts"},
-  {name:"Tier 2 Account Plans",file:"tier2-account-plans.html",category:"Tier 2 — Growth",tag:"Tier 2",meta:"25 companies • Full strategic plans • Ray library fit mapped"},
-  {name:"Tier 3 Account Plans",file:"tier3-account-plans.html",category:"Tier 3 — Prospecting",tag:"Tier 3",meta:"Long-tail account plans"},
-  {name:"Tier 3 Prospect Briefs",file:"detailed-prospect-brief-tier3.html",category:"Tier 3 — Prospecting",tag:"Tier 3",meta:"23 companies • 62 contacts • Email & phone"},
-  {name:"Tier 3 Proof Points",file:"tier3-proof-points.html",category:"Tier 3 — Prospecting",tag:"Tier 3",meta:"23 companies • 75 proof cards • Talk tracks"},
-  {name:"Tier 4 Account Plans",file:"tier4-account-plans.html",category:"Tier 4 — Watch List",tag:"Tier 4",meta:"40 accounts • Watch / Light / Low / Skip tiers"},
-  {name:"Tier 4 Proof Points",file:"tier4-proof-points.html",category:"Tier 4 — Watch List",tag:"Tier 4",meta:"22 accounts • 49 proof points • Watch + Light Touch"},
-  {name:"Tier 4 Detailed Prospect Brief",file:"tier4-detailed-prospect-brief.html",category:"Tier 4 — Watch List",tag:"Tier 4",meta:"10 Watch companies • 26 contacts • Email, phone & outreach"},
-  {name:"New Proof Points Addendum",file:"new-proof-points-addendum.html",category:"Cross-Tier Resources",tag:"New",meta:"9 new case studies • Mapped to Tier 1 & Tier 2"},
+  // ── Tier 1 — Plans & Research ──
+  {name:"Account Plans",file:"tier1-account-plans.html",category:"Tier 1 — Plans & Research",tag:"Tier 1",meta:"11 accounts • Full account plans"},
+  {name:"Proof Points",file:"tier1-proof-points.html",category:"Tier 1 — Plans & Research",tag:"Tier 1",meta:"Case studies & talk tracks • 11 accounts"},
+  {name:"Prospect Briefs",file:"detailed-prospect-brief.html",category:"Tier 1 — Plans & Research",tag:"Tier 1",meta:"7 companies • 67 contacts • Email & phone"},
+  {name:"Champion Mapping",file:"champion-mapping.html",category:"Tier 1 — Plans & Research",tag:"Tier 1",meta:"Org charts • 32 contacts • 5 Tier 1 accounts"},
+  {name:"Call Prep Generator",file:"call-prep-generator.html",category:"Tier 1 — Plans & Research",tag:"Tier 1",meta:"11 Tier 1 accounts • One-click call prep"},
+  // ── Tier 1 — Account Assets ──
+  {name:"comma.ai — Email Sequences",file:"commaai-email-sequences.html",category:"Tier 1 — Account Assets",tag:"Seq",meta:"comma.ai email sequences"},
+  {name:"comma.ai — Personalized Sequences",file:"commaai-personalized-sequences.html",category:"Tier 1 — Account Assets",tag:"Seq",meta:"10 contacts • 40 emails • AV software stack"},
+  {name:"comma.ai — Contact Intel",file:"comma-ai-contacts.html",category:"Tier 1 — Account Assets",tag:"Intel",meta:"10 targets • P1/P2/P3 prioritized • LinkedIn + outreach"},
+  {name:"fal.ai — Personalized Sequences",file:"falai-personalized-sequences.html",category:"Tier 1 — Account Assets",tag:"Seq",meta:"10 contacts • 40 emails • Serverless GPU inference"},
+  {name:"Iambic — Personalized Sequences",file:"iambic-personalized-sequences.html",category:"Tier 1 — Account Assets",tag:"Seq",meta:"9 contacts • 36 emails • AI drug discovery"},
+  {name:"Apex.AI — Personalized Sequences",file:"apexai-personalized-sequences.html",category:"Tier 1 — Account Assets",tag:"Seq",meta:"9 contacts • 36 emails • AV software platform"},
+  {name:"Apex.AI — Contact Intel",file:"apex-ai-contacts.html",category:"Tier 1 — Account Assets",tag:"Intel",meta:"16 targets • ML/Platform/Exec focus • LinkedIn + outreach"},
+  {name:"Chooch AI — Personalized Sequences",file:"choochai-personalized-sequences.html",category:"Tier 1 — Account Assets",tag:"Seq",meta:"9 contacts • 36 emails • Enterprise CV platform"},
+  {name:"Chooch AI — Email Sequences",file:"chooch-ai-email-sequences.html",category:"Tier 1 — Account Assets",tag:"New",meta:"4-step sequence • CV+LLM inference • ICP-targeted"},
+  {name:"Valar Labs — Personalized Sequences",file:"valarlabs-personalized-sequences.html",category:"Tier 1 — Account Assets",tag:"Seq",meta:"10 contacts • 40 emails • Clinical AI / Oncology"},
+  // ── Tier 2 — Growth ──
+  {name:"Account Plans",file:"tier2-account-plans.html",category:"Tier 2 — Growth",tag:"Tier 2",meta:"25 companies • Full strategic plans • Ray library fit mapped"},
+  {name:"Proof Points",file:"tier2-proof-points.html",category:"Tier 2 — Growth",tag:"Tier 2",meta:"Case studies & talk tracks • 25 accounts"},
+  {name:"Prospect Briefs",file:"detailed-prospect-brief-tier2.html",category:"Tier 2 — Growth",tag:"Tier 2",meta:"25 companies • 76 contacts"},
+  {name:"Lightwheel AI — Personalized Sequences",file:"lightwheel-personalized-sequences.html",category:"Tier 2 — Growth",tag:"Seq",meta:"10 contacts • 40 emails • AV synthetic data"},
+  // ── Tier 3 — Prospecting ──
+  {name:"Account Plans",file:"tier3-account-plans.html",category:"Tier 3 — Prospecting",tag:"Tier 3",meta:"Long-tail account plans"},
+  {name:"Proof Points",file:"tier3-proof-points.html",category:"Tier 3 — Prospecting",tag:"Tier 3",meta:"23 companies • 75 proof cards • Talk tracks"},
+  {name:"Prospect Briefs",file:"detailed-prospect-brief-tier3.html",category:"Tier 3 — Prospecting",tag:"Tier 3",meta:"23 companies • 62 contacts • Email & phone"},
+  // ── Tier 4 — Watch List ──
+  {name:"Account Plans",file:"tier4-account-plans.html",category:"Tier 4 — Watch List",tag:"Tier 4",meta:"40 accounts • Watch / Light / Low / Skip tiers"},
+  {name:"Proof Points",file:"tier4-proof-points.html",category:"Tier 4 — Watch List",tag:"Tier 4",meta:"22 accounts • 49 proof points • Watch + Light Touch"},
+  {name:"Prospect Briefs",file:"tier4-detailed-prospect-brief.html",category:"Tier 4 — Watch List",tag:"Tier 4",meta:"10 Watch companies • 26 contacts • Email, phone & outreach"},
+  // ── Prospecting Lists ──
   {name:"Top 10 Prospects",file:"top-10-prospects.html",category:"Prospecting Lists",tag:"",meta:"Highest-priority prospects"},
   {name:"All 120 Prospects",file:"all-120-prospects.html",category:"Prospecting Lists",tag:"",meta:"Full prospect database"},
   {name:"Enriched Account List",file:"dylan-account-list-enriched.html",category:"Prospecting Lists",tag:"",meta:"Master account list with enrichment"},
-  {name:"comma.ai — Email Sequences",file:"commaai-email-sequences.html",category:"Personalized Email Sequences",tag:"Seq",meta:"comma.ai email sequences"},
-  {name:"comma.ai — Personalized Sequences",file:"commaai-personalized-sequences.html",category:"Personalized Email Sequences",tag:"Seq",meta:"10 contacts • 40 emails • AV software stack"},
-  {name:"fal.ai — Personalized Sequences",file:"falai-personalized-sequences.html",category:"Personalized Email Sequences",tag:"Seq",meta:"10 contacts • 40 emails • Serverless GPU inference"},
-  {name:"Iambic Therapeutics — Personalized Sequences",file:"iambic-personalized-sequences.html",category:"Personalized Email Sequences",tag:"Seq",meta:"9 contacts • 36 emails • AI drug discovery"},
-  {name:"Apex.AI — Personalized Sequences",file:"apexai-personalized-sequences.html",category:"Personalized Email Sequences",tag:"Seq",meta:"9 contacts • 36 emails • AV software platform"},
-  {name:"Chooch AI — Personalized Sequences",file:"choochai-personalized-sequences.html",category:"Personalized Email Sequences",tag:"Seq",meta:"9 contacts • 36 emails • Enterprise CV platform"},
-  {name:"Lightwheel AI — Personalized Sequences",file:"lightwheel-personalized-sequences.html",category:"Personalized Email Sequences",tag:"Seq",meta:"10 contacts • 40 emails • AV synthetic data"},
-  {name:"Valar Labs — Personalized Sequences",file:"valarlabs-personalized-sequences.html",category:"Personalized Email Sequences",tag:"Seq",meta:"10 contacts • 40 emails • Clinical AI / Oncology"},
+  // ── Cross-Tier Resources ──
+  {name:"New Proof Points Addendum",file:"new-proof-points-addendum.html",category:"Cross-Tier Resources",tag:"New",meta:"9 new case studies • Mapped to Tier 1 & Tier 2"},
+  {name:"Competitive Battlecards",file:"competitive-battlecards.html",category:"Cross-Tier Resources",tag:"New",meta:"6 competitors • Talk tracks & objection handling"},
+  // ── Sales Tools ──
   {name:"Deal Tracker — Pipeline View",file:"deal-tracker.html",category:"Sales Tools",tag:"New",meta:"Kanban pipeline • Drag & drop • Tier 1 & 2 deals"},
   {name:"Signal Feed",file:"signal-feed.html",category:"Sales Tools",tag:"New",meta:"Live signals • Funding, hiring, news, tech stack"},
   {name:"Email Tracker",file:"email-tracker.html",category:"Sales Tools",tag:"New",meta:"287 emails • 7 sequences • Open & reply tracking"},
   {name:"Weekly Sales Briefing",file:"weekly-briefing.html",category:"Sales Tools",tag:"New",meta:"Week of Mar 3 • Priority actions & meetings"},
-  {name:"Champion Mapping",file:"champion-mapping.html",category:"Intelligence",tag:"New",meta:"Org charts • 32 contacts • 5 Tier 1 accounts"},
-  {name:"Call Prep Generator",file:"call-prep-generator.html",category:"Intelligence",tag:"New",meta:"11 Tier 1 accounts • One-click call prep"},
-  {name:"Competitive Battlecards",file:"competitive-battlecards.html",category:"Intelligence",tag:"New",meta:"6 competitors • Talk tracks & objection handling"},
-  {name:"Coverage Heatmap",file:"coverage-heatmap.html",category:"Analytics",tag:"New",meta:"99 accounts • 6 asset types • Gap analysis"},
-  {name:"Territory Dashboard",file:"territory-dashboard.html",category:"Analytics",tag:"New",meta:"$2.8M pipeline • KPIs • Industry breakdown"}
+  // ── Analytics & Dashboards ──
+  {name:"Coverage Heatmap",file:"coverage-heatmap.html",category:"Analytics & Dashboards",tag:"New",meta:"99 accounts • 6 asset types • Gap analysis"},
+  {name:"Territory Dashboard",file:"territory-dashboard.html",category:"Analytics & Dashboards",tag:"New",meta:"$2.8M pipeline • KPIs • Industry breakdown"}
 ];
 
 // ═══════════ STATE ═══════════
