@@ -226,6 +226,12 @@ li { margin-bottom: 5px; font-size: 13px; }
       <h3 class="section-title">🛠 Tech Stack</h3>
       <ul class="stack-list"><li>Python (primary language — 60K+ LOC in openpilot)</li><li>PyTorch / custom neural network training loops</li><li>ONNX for model export to edge hardware</li><li>Linux (Ubuntu) on custom comma 3X hardware</li><li>C++ for low-level vehicle interface layer</li><li>Android for the comma device OS layer</li><li>Self-managed GPU cluster (~450kW datacenter)</li><li>Custom data pipeline (no public details — likely Kafka/Spark or custom Python)</li></ul>
     </div>
+    <div class="plan-section" style="border-left: 3px solid #8b949e; background: #0d1a2a;">
+      <h3 class="section-title">🏭 Cloud Infrastructure</h3>
+      <div style="margin-bottom:8px;"><span style="display:inline-block;padding:3px 10px;border-radius:20px;font-size:12px;font-weight:700;background:#8b949e20;color:#8b949e;border:1px solid #8b949e40;">On-Premises (Self-Managed)</span></div>
+      <ul class="stack-list"><li><strong>Infrastructure:</strong> Private GPU data center (~450kW, $5M investment)</li><li><strong>Hardware:</strong> Custom NVIDIA GPU cluster — self-owned and operated</li><li><strong>Deployment Model:</strong> 100% On-Prem — no public cloud dependency</li><li><strong>Philosophy:</strong> George Hotz has publicly stated it is ~5× cheaper than equivalent cloud spend; strong preference for infra independence</li><li><strong>Anyscale Fit:</strong> Ray runs on existing on-prem cluster — Anyscale managed layer removes ops overhead without forcing a cloud migration</li></ul>
+    </div>
+
 
     <div class="plan-section">
       <h3 class="section-title">🚀 5 AI / ML Initiatives</h3>
@@ -410,6 +416,12 @@ If it ever makes sense to talk about where comma.ai's infra needs to be in 12 mo
       <h3 class="section-title">🛠 Tech Stack</h3>
       <ul class="stack-list"><li>Python / PyTorch (primary ML stack)</li><li>GNN + Transformer architectures (NeuralPLexer, Enchant)</li><li>GPU clusters (NVIDIA-backed — likely A100/H100)</li><li>Automated synthesis integration (wet lab ↔ computational loop)</li><li>Protein structure databases (PDB, AlphaFold) as training data sources</li><li>MLflow / W&amp;B for experiment tracking (likely)</li><li>Cloud infrastructure (AWS or GCP — unconfirmed)</li></ul>
     </div>
+    <div class="plan-section" style="border-left: 3px solid #f0ad4e; background: #0d1a2a;">
+      <h3 class="section-title">☁️ Cloud Infrastructure</h3>
+      <div style="margin-bottom:8px;"><span style="display:inline-block;padding:3px 10px;border-radius:20px;font-size:12px;font-weight:700;background:#f0ad4e20;color:#f0ad4e;border:1px solid #f0ad4e40;">AWS</span></div>
+      <ul class="stack-list"><li><strong>Primary Cloud:</strong> Amazon Web Services (AWS) — confirmed via AWS ML Blog case study</li><li><strong>Key Services:</strong> Amazon EKS (Elastic Kubernetes Service), EC2 GPU instances (A100/H100), Karpenter for auto-scaling</li><li><strong>Deployment Model:</strong> Public Cloud (AWS)</li><li><strong>Evidence:</strong> Published AWS ML Blog post: 'Scale AI training and inference for drug discovery through Amazon EKS and Karpenter'</li><li><strong>Anyscale Fit:</strong> Anyscale runs natively on AWS EKS — can slot directly into their existing Kubernetes environment</li></ul>
+    </div>
+
 
     <div class="plan-section">
       <h3 class="section-title">🚀 5 AI / ML Initiatives</h3>
@@ -587,6 +599,12 @@ Open whenever it makes sense.</pre>
       <h3 class="section-title">🛠 Tech Stack</h3>
       <ul class="stack-list"><li>Custom inference engine (proprietary, 10× faster than baseline)</li><li>NVIDIA H100 / H200 / B200 GPU fleet (scaling to tens of thousands)</li><li>Kubernetes for container orchestration (likely)</li><li>Python-based model serving layer</li><li>Hopper → Blackwell GPU migration underway</li><li>Custom load balancing and routing for multi-model workloads</li><li>99.99% uptime SLA infrastructure</li></ul>
     </div>
+    <div class="plan-section" style="border-left: 3px solid #d2a8ff; background: #0d1a2a;">
+      <h3 class="section-title">🖥️ Cloud Infrastructure</h3>
+      <div style="margin-bottom:8px;"><span style="display:inline-block;padding:3px 10px;border-radius:20px;font-size:12px;font-weight:700;background:#d2a8ff20;color:#d2a8ff;border:1px solid #d2a8ff40;">Proprietary GPU Cloud</span></div>
+      <ul class="stack-list"><li><strong>Infrastructure:</strong> fal.ai operates its own global GPU inference fleet — they ARE a GPU cloud provider</li><li><strong>Hardware:</strong> NVIDIA H100 / H200 / B200 (Blackwell) — scaling to tens of thousands of GPUs</li><li><strong>Deployment Model:</strong> Proprietary Cloud (self-owned and operated hardware)</li><li><strong>Secondary Product:</strong> fal compute — offering raw GPU access to developers alongside the inference API</li><li><strong>Anyscale Fit:</strong> Value prop is the orchestration layer — Ray Serve for intelligent multi-model routing, prefix caching, and auto-scaling across their heterogeneous GPU fleet</li></ul>
+    </div>
+
 
     <div class="plan-section">
       <h3 class="section-title">🚀 5 AI / ML Initiatives</h3>
@@ -764,6 +782,12 @@ Open whenever it makes sense.</pre>
       <h3 class="section-title">🛠 Tech Stack</h3>
       <ul class="stack-list"><li>Apex.OS (ROS2-based, C++/Rust/Python, ASIL-D certified)</li><li>QNX SDP 8.0 (real-time OS layer, Dec 2025 partnership)</li><li>Python for ML model training and tooling</li><li>PyTorch / TensorFlow for model development</li><li>Custom safety validation frameworks (ISO 26262 compliant)</li><li>Edge deployment: ARM/x86 embedded processors</li><li>C++ for performance-critical vehicle interface layer</li></ul>
     </div>
+    <div class="plan-section" style="border-left: 3px solid #8b949e; background: #0d1a2a;">
+      <h3 class="section-title">❓ Cloud Infrastructure</h3>
+      <div style="margin-bottom:8px;"><span style="display:inline-block;padding:3px 10px;border-radius:20px;font-size:12px;font-weight:700;background:#8b949e20;color:#8b949e;border:1px solid #8b949e40;">Unknown — Likely Hybrid</span></div>
+      <ul class="stack-list"><li><strong>Status:</strong> No public cloud provider information available</li><li><strong>Core Product:</strong> Apex.OS is edge/embedded software — production deployments are on-device (automotive hardware)</li><li><strong>Training Infra:</strong> Unconfirmed — likely cloud (AWS or Azure) for CI/CD, validation test suites, and safety certification pipelines</li><li><strong>Defense/Automotive Context:</strong> ISO 26262 / ASIL-D certifications may impose specific data residency requirements</li><li><strong>Anyscale Fit:</strong> Discovery needed — ask about offboard training pipeline; QNX + LG partnerships signal scaling compute needs are imminent</li></ul>
+    </div>
+
 
     <div class="plan-section">
       <h3 class="section-title">🚀 5 AI / ML Initiatives</h3>
@@ -941,6 +965,12 @@ Open when the timing makes sense.</pre>
       <h3 class="section-title">🛠 Tech Stack</h3>
       <ul class="stack-list"><li>Python (primary ML + serving stack)</li><li>PyTorch / TensorFlow for model training and inference</li><li>Large language models (GPT-family or Llama for ImageChat)</li><li>Computer vision models (YOLO-family + custom detection/segmentation)</li><li>Edge deployment: NVIDIA Jetson, Intel NUC, or similar</li><li>Azure cloud (Microsoft for Startups partnership)</li><li>REST API for enterprise integration</li></ul>
     </div>
+    <div class="plan-section" style="border-left: 3px solid #0078d4; background: #0d1a2a;">
+      <h3 class="section-title">☁️ Cloud Infrastructure</h3>
+      <div style="margin-bottom:8px;"><span style="display:inline-block;padding:3px 10px;border-radius:20px;font-size:12px;font-weight:700;background:#0078d420;color:#0078d4;border:1px solid #0078d440;">Microsoft Azure</span></div>
+      <ul class="stack-list"><li><strong>Primary Cloud:</strong> Microsoft Azure — confirmed via Microsoft for Startups partnership</li><li><strong>Key Services:</strong> Azure VMs (GPU), Azure Kubernetes Service (AKS), Azure AI / Cognitive Services</li><li><strong>Deployment Model:</strong> Public Cloud (Azure) + Edge (NVIDIA Jetson for on-site inference)</li><li><strong>Edge Layer:</strong> NVIDIA Jetson, Intel NUC, and similar edge devices for factory/healthcare floor inference</li><li><strong>Anyscale Fit:</strong> Anyscale runs on AKS — direct fit into existing Azure Kubernetes infrastructure; Azure credits may be running low, creating an infrastructure decision window</li></ul>
+    </div>
+
 
     <div class="plan-section">
       <h3 class="section-title">🚀 5 AI / ML Initiatives</h3>
@@ -1125,6 +1155,12 @@ Open whenever it makes sense.</pre>
       <h3 class="section-title">🛠 Tech Stack</h3>
       <ul class="stack-list"><li>NVIDIA Isaac Sim (primary simulation environment)</li><li>NVIDIA Isaac Lab / Isaac Lab-Arena (open-source robot policy framework)</li><li>GR00T N1.5 (humanoid robot foundation model)</li><li>MimicGen / DexMimicGen (synthetic data generation)</li><li>NVIDIA Omniverse / USD (3D asset pipeline)</li><li>Python / PyTorch (ML training stack)</li><li>Unitree H1 humanoid robot (deployment platform at Geely)</li></ul>
     </div>
+    <div class="plan-section" style="border-left: 3px solid #76b900; background: #0d1a2a;">
+      <h3 class="section-title">🟢 Cloud Infrastructure</h3>
+      <div style="margin-bottom:8px;"><span style="display:inline-block;padding:3px 10px;border-radius:20px;font-size:12px;font-weight:700;background:#76b90020;color:#76b900;border:1px solid #76b90040;">NVIDIA DGX Cloud</span></div>
+      <ul class="stack-list"><li><strong>Primary Cloud:</strong> NVIDIA DGX Cloud — confirmed via NVIDIA case study and deep partnership</li><li><strong>Key Services:</strong> DGX A100/H100 compute, NVIDIA Isaac Sim, Isaac Lab, Omniverse (3D asset pipeline)</li><li><strong>Deployment Model:</strong> NVIDIA-hosted Cloud (DGX Cloud) + NVIDIA Isaac ecosystem</li><li><strong>Partnership:</strong> Co-developing Isaac Lab-Arena with NVIDIA; deep integration into the NVIDIA physical AI stack</li><li><strong>Anyscale Fit:</strong> Anyscale supports NVIDIA DGX Cloud — Ray can orchestrate large-scale Isaac Sim rollouts and the Real2Sim2Real pipeline on their existing NVIDIA infrastructure</li></ul>
+    </div>
+
 
     <div class="plan-section">
       <h3 class="section-title">🚀 5 AI / ML Initiatives</h3>
@@ -1302,6 +1338,12 @@ Open when the timing makes sense.</pre>
       <h3 class="section-title">🛠 Tech Stack</h3>
       <ul class="stack-list"><li>Python / PyTorch (primary ML stack)</li><li>Whole slide image processing libraries (OpenSlide, CLAM, or similar)</li><li>CNN + Vision Transformer architectures for pathology analysis</li><li>GPU compute for multi-gigapixel image processing</li><li>Clinical data pipelines with de-identification and HIPAA compliance</li><li>Likely AWS or GCP for cloud training</li><li>MLflow / W&amp;B for experiment tracking</li></ul>
     </div>
+    <div class="plan-section" style="border-left: 3px solid #8b949e; background: #0d1a2a;">
+      <h3 class="section-title">❓ Cloud Infrastructure</h3>
+      <div style="margin-bottom:8px;"><span style="display:inline-block;padding:3px 10px;border-radius:20px;font-size:12px;font-weight:700;background:#8b949e20;color:#8b949e;border:1px solid #8b949e40;">AWS or GCP (Unconfirmed)</span></div>
+      <ul class="stack-list"><li><strong>Status:</strong> Cloud provider unconfirmed — no public documentation</li><li><strong>Likely:</strong> AWS or GCP based on typical Health AI startup patterns and HIPAA compliance requirements</li><li><strong>Compliance:</strong> HIPAA required for patient pathology data — points to AWS HealthLake or GCP Healthcare API</li><li><strong>Stanford Connection:</strong> Co-founders from Stanford AI Lab — GCP is common in Stanford research contexts</li><li><strong>Anyscale Fit:</strong> Discovery question: 'Are you training on AWS or GCP?' — HIPAA-compliant Ray clusters available on both; FDA validation requirements favor reproducible, managed infra</li></ul>
+    </div>
+
 
     <div class="plan-section">
       <h3 class="section-title">🚀 5 AI / ML Initiatives</h3>
@@ -1479,6 +1521,12 @@ Open whenever it makes sense.</pre>
       <h3 class="section-title">🛠 Tech Stack</h3>
       <ul class="stack-list"><li>Python for ML training and autonomy stack</li><li>Docker for containerized development environment</li><li>AS9100 quality management (aerospace certification)</li><li>Embedded Linux for onboard flight computer</li><li>ROS or custom middleware for sensor fusion</li><li>Simulation environment (X-Plane, AirSim, or custom)</li><li>Cloud training infrastructure (unconfirmed provider)</li></ul>
     </div>
+    <div class="plan-section" style="border-left: 3px solid #8b949e; background: #0d1a2a;">
+      <h3 class="section-title">❓ Cloud Infrastructure</h3>
+      <div style="margin-bottom:8px;"><span style="display:inline-block;padding:3px 10px;border-radius:20px;font-size:12px;font-weight:700;background:#8b949e20;color:#8b949e;border:1px solid #8b949e40;">Unknown — Likely AWS or AWS GovCloud</span></div>
+      <ul class="stack-list"><li><strong>Status:</strong> Cloud provider unconfirmed — no public documentation</li><li><strong>Defense Context:</strong> USMC contract and Leidos partnership may constrain to FedRAMP-authorized platforms (AWS GovCloud or Azure Government)</li><li><strong>AS9100 Certification:</strong> Aerospace quality management may impose data residency and auditability requirements</li><li><strong>Likely Setup:</strong> Cloud GPU compute for simulation training + on-prem for hardware-in-the-loop testing</li><li><strong>Anyscale Fit:</strong> Discovery needed — if on defense track, AWS GovCloud is the most likely path; Anyscale supports FedRAMP-authorized AWS infrastructure</li></ul>
+    </div>
+
 
     <div class="plan-section">
       <h3 class="section-title">🚀 5 AI / ML Initiatives</h3>
@@ -1626,6 +1674,12 @@ Open when the timing makes sense.</pre>
       <h3 class="section-title">🛠 Tech Stack</h3>
       <ul class="stack-list"><li>Flowstate (web-based robot programming platform)</li><li>Google Cloud Platform (GCP) — primary cloud infrastructure</li><li>Google Gemini AI models (LLM integration)</li><li>NVIDIA GPU infrastructure (via Google Cloud)</li><li>Python / JAX / TensorFlow (Google's ML stack)</li><li>ROS integration layer for robot hardware compatibility</li><li>Kubernetes / Google Borg for container orchestration</li></ul>
     </div>
+    <div class="plan-section" style="border-left: 3px solid #4285f4; background: #0d1a2a;">
+      <h3 class="section-title">☁️ Cloud Infrastructure</h3>
+      <div style="margin-bottom:8px;"><span style="display:inline-block;padding:3px 10px;border-radius:20px;font-size:12px;font-weight:700;background:#4285f420;color:#4285f4;border:1px solid #4285f440;">Google Cloud Platform (GCP)</span></div>
+      <ul class="stack-list"><li><strong>Primary Cloud:</strong> Google Cloud Platform (GCP) — Alphabet subsidiary, all infra on GCP</li><li><strong>Key Services:</strong> Vertex AI, TPUs / NVIDIA GPUs via GCE, Google Kubernetes Engine (GKE), Google Borg, Gemini AI APIs</li><li><strong>Deployment Model:</strong> Google Cloud (GCP) — deep integration with Google internal ML stack</li><li><strong>ML Stack:</strong> Python / JAX / TensorFlow (Google preferred ML frameworks) + Gemini LLMs for robot programming</li><li><strong>Anyscale Fit:</strong> Anyscale runs on GKE — Ray complements Vertex AI by providing flexible, Python-native distributed computing for custom robot policy training above the managed GKE layer</li></ul>
+    </div>
+
 
     <div class="plan-section">
       <h3 class="section-title">🚀 5 AI / ML Initiatives</h3>
@@ -1775,6 +1829,12 @@ Open when the timing makes sense.</pre>
       <h3 class="section-title">🛠 Tech Stack</h3>
       <ul class="stack-list"><li>Google Cloud Platform (primary infrastructure)</li><li>Google's AI/ML tools (TensorFlow, JAX, Vertex AI)</li><li>Kubernetes / Google Borg for fleet management</li><li>Custom drone OS and flight control software</li><li>Google's distributed computing infrastructure</li><li>Advanced computer vision (Google AI integration)</li><li>Cloud-based fleet management system</li></ul>
     </div>
+    <div class="plan-section" style="border-left: 3px solid #4285f4; background: #0d1a2a;">
+      <h3 class="section-title">☁️ Cloud Infrastructure</h3>
+      <div style="margin-bottom:8px;"><span style="display:inline-block;padding:3px 10px;border-radius:20px;font-size:12px;font-weight:700;background:#4285f420;color:#4285f4;border:1px solid #4285f440;">Google Cloud Platform (GCP)</span></div>
+      <ul class="stack-list"><li><strong>Primary Cloud:</strong> Google Cloud Platform (GCP) — Alphabet subsidiary, all infra on GCP</li><li><strong>Key Services:</strong> Vertex AI, TensorFlow / JAX, Google Kubernetes Engine (GKE), Google Borg, Cloud Storage for flight data</li><li><strong>Deployment Model:</strong> Google Cloud (GCP) — full Alphabet infrastructure stack</li><li><strong>Fleet Management:</strong> Custom drone OS + Google distributed computing for coordinating global delivery fleet</li><li><strong>Anyscale Fit:</strong> Anyscale runs on GKE — Ray can orchestrate fleet simulation and model improvement pipelines alongside Vertex AI; value is custom distributed training flexibility above GKE</li></ul>
+    </div>
+
 
     <div class="plan-section">
       <h3 class="section-title">🚀 5 AI / ML Initiatives</h3>
@@ -1952,6 +2012,12 @@ Open when it makes sense.</pre>
       <h3 class="section-title">🛠 Tech Stack</h3>
       <ul class="stack-list"><li>ROS2 (robot operating system — standard in space robotics)</li><li>Python for ML training and policy development</li><li>Custom simulation environment for space (microgravity, vacuum physics)</li><li>C++ for real-time robot control layer</li><li>NASA-certified software development processes</li><li>GPU compute for policy training (likely cloud + on-prem)</li><li>Physics simulation (MuJoCo, PyBullet, or custom space-physics sim)</li></ul>
     </div>
+    <div class="plan-section" style="border-left: 3px solid #8b949e; background: #0d1a2a;">
+      <h3 class="section-title">❓ Cloud Infrastructure</h3>
+      <div style="margin-bottom:8px;"><span style="display:inline-block;padding:3px 10px;border-radius:20px;font-size:12px;font-weight:700;background:#8b949e20;color:#8b949e;border:1px solid #8b949e40;">Unknown — Likely Cloud + On-Prem Hybrid</span></div>
+      <ul class="stack-list"><li><strong>Status:</strong> Cloud provider unconfirmed — no public documentation</li><li><strong>Likely Setup:</strong> Hybrid — on-prem simulation lab for hardware-in-the-loop testing (space physics, microgravity) + cloud for scale training</li><li><strong>Data Sovereignty:</strong> JAXA and NASA partnerships may require Japanese or US data residency (AWS Japan / AWS GovCloud plausible)</li><li><strong>NASA TRL Process:</strong> Software development must follow NASA-certified processes — requires highly auditable, reproducible infrastructure</li><li><strong>Anyscale Fit:</strong> Discovery needed — space robotics often requires on-prem simulation with cloud burst for training; Ray hybrid on-prem + cloud model is a strong fit</li></ul>
+    </div>
+
 
     <div class="plan-section">
       <h3 class="section-title">🚀 5 AI / ML Initiatives</h3>

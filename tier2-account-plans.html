@@ -190,6 +190,12 @@ li { margin-bottom: 5px; font-size: 13px; }
       <h3 class="section-title">🛠 Tech Stack</h3>
       <ul class="stack-list"><li>Python (primary ML + data science stack)</li><li>PyTorch for perception model training</li><li>ONNX for model export to automotive-grade hardware</li><li>C++ for sensor interface and real-time vehicle integration layer</li><li>AWS or GCP for distributed training infrastructure</li><li>ROS2 for vehicle data collection and sensor integration</li><li>MLflow or W&amp;B for experiment tracking</li></ul>
     </div>
+    <div class="plan-section" style="border-left: 3px solid #8b949e; background: #0d1a2a;">
+      <h3 class="section-title">❓ Cloud Infrastructure</h3>
+      <div style="margin-bottom:8px;"><span style="display:inline-block;padding:3px 10px;border-radius:20px;font-size:12px;font-weight:700;background:#8b949e20;color:#8b949e;border:1px solid #8b949e40;">AWS or GCP (Unconfirmed)</span></div>
+      <ul class="stack-list"><li><strong>Status:</strong> Cloud provider unconfirmed — tech stack references 'AWS or GCP'</li><li><strong>Use Case:</strong> Distributed training for AV perception models + automotive sensor data storage</li><li><strong>Deployment Model:</strong> Cloud training + automotive-grade edge hardware (ADAS integration)</li><li><strong>Anyscale Fit:</strong> Discovery needed — ask about current training infra and whether scaling bottlenecks exist</li></ul>
+    </div>
+
 
     <div class="plan-section">
       <h3 class="section-title">🚀 5 AI / ML Initiatives</h3>
@@ -346,6 +352,12 @@ Open whenever it makes sense for Compound Eye.</pre>
       <h3 class="section-title">🛠 Tech Stack</h3>
       <ul class="stack-list"><li>Python (ML + backend stack)</li><li>PyTorch or TensorFlow for defect detection CV models</li><li>AWS for cloud training and storage</li><li>NVIDIA Jetson or industrial edge compute for factory floor inference</li><li>REST API for factory PLC integration</li><li>PostgreSQL for defect metadata and analytics</li><li>MLflow or W&amp;B for experiment tracking and model versioning</li></ul>
     </div>
+    <div class="plan-section" style="border-left: 3px solid #f0ad4e; background: #0d1a2a;">
+      <h3 class="section-title">☁️ Cloud Infrastructure</h3>
+      <div style="margin-bottom:8px;"><span style="display:inline-block;padding:3px 10px;border-radius:20px;font-size:12px;font-weight:700;background:#f0ad4e20;color:#f0ad4e;border:1px solid #f0ad4e40;">AWS</span></div>
+      <ul class="stack-list"><li><strong>Primary Cloud:</strong> Amazon Web Services (AWS)</li><li><strong>Key Services:</strong> EC2 (GPU compute for CV model training), S3 (image/video storage), likely SageMaker for model management</li><li><strong>Edge Layer:</strong> NVIDIA Jetson or industrial edge compute for factory floor inference</li><li><strong>Deployment Model:</strong> AWS cloud training + Edge (factory floor devices)</li><li><strong>Anyscale Fit:</strong> Anyscale on AWS — Ray Train for distributed CV model training; Ray Serve for multi-site inference coordination</li></ul>
+    </div>
+
 
     <div class="plan-section">
       <h3 class="section-title">🚀 5 AI / ML Initiatives</h3>
@@ -497,6 +509,12 @@ Open whenever it makes sense.</pre>
       <h3 class="section-title">🛠 Tech Stack</h3>
       <ul class="stack-list"><li>TypeScript / React (primary frontend stack for Foxglove Studio)</li><li>Python + Rust for backend data processing services</li><li>ROS / ROS2 protocol support (MCAP, rosbag, etc.)</li><li>AWS S3 / GCS for large ROS bag cloud storage</li><li>PostgreSQL for metadata and user data</li><li>WebSocket + gRPC for real-time data streaming</li><li>Docker / Kubernetes for cloud backend infrastructure</li></ul>
     </div>
+    <div class="plan-section" style="border-left: 3px solid #f0ad4e; background: #0d1a2a;">
+      <h3 class="section-title">☁️ Cloud Infrastructure</h3>
+      <div style="margin-bottom:8px;"><span style="display:inline-block;padding:3px 10px;border-radius:20px;font-size:12px;font-weight:700;background:#f0ad4e20;color:#f0ad4e;border:1px solid #f0ad4e40;">AWS + GCS (Multi-Cloud)</span></div>
+      <ul class="stack-list"><li><strong>Primary Storage:</strong> AWS S3 and Google Cloud Storage (GCS) — both used for ROS bag cloud storage</li><li><strong>Deployment Model:</strong> Multi-cloud storage layer; single primary cloud for compute (AWS or GCP)</li><li><strong>Key Services:</strong> S3 / GCS for large robotics bag files, PostgreSQL for metadata, Docker/Kubernetes for backend services</li><li><strong>Anyscale Fit:</strong> Ray can process distributed ROS bag analysis and model training jobs across their multi-cloud storage setup</li></ul>
+    </div>
+
 
     <div class="plan-section">
       <h3 class="section-title">🚀 5 AI / ML Initiatives</h3>
@@ -653,6 +671,12 @@ Open whenever it makes sense.</pre>
       <h3 class="section-title">🛠 Tech Stack</h3>
       <ul class="stack-list"><li>Python (primary ML stack)</li><li>PyTorch for CV and manipulation model training</li><li>ROS2 for robot control and sensor integration</li><li>NVIDIA Isaac Sim or similar for manipulation simulation</li><li>AWS or GCP for cloud training</li><li>Custom grasping pipeline (proprietary)</li><li>REST API for warehouse management system (WMS) integration</li></ul>
     </div>
+    <div class="plan-section" style="border-left: 3px solid #8b949e; background: #0d1a2a;">
+      <h3 class="section-title">❓ Cloud Infrastructure</h3>
+      <div style="margin-bottom:8px;"><span style="display:inline-block;padding:3px 10px;border-radius:20px;font-size:12px;font-weight:700;background:#8b949e20;color:#8b949e;border:1px solid #8b949e40;">AWS or GCP (Unconfirmed)</span></div>
+      <ul class="stack-list"><li><strong>Status:</strong> Cloud provider unconfirmed — tech stack references 'AWS or GCP'</li><li><strong>Use Case:</strong> GPU compute for manipulation policy training with Isaac Sim; WMS API integrations</li><li><strong>Deployment Model:</strong> Cloud training + on-prem warehouse deployment</li><li><strong>Anyscale Fit:</strong> Discovery needed — distributed RL training for grasping policies is a natural Ray workload</li></ul>
+    </div>
+
 
     <div class="plan-section">
       <h3 class="section-title">🚀 5 AI / ML Initiatives</h3>
@@ -809,6 +833,12 @@ Open whenever it makes sense.</pre>
       <h3 class="section-title">🛠 Tech Stack</h3>
       <ul class="stack-list"><li>Python (primary ML stack)</li><li>PyTorch for policy network training</li><li>Isaac Sim, PyBullet, or MuJoCo for physics simulation</li><li>ROS2 for robot hardware integration</li><li>NVIDIA GPUs for distributed training</li><li>C++ for low-level robot control layer</li><li>AWS or GCP for cloud training infrastructure</li></ul>
     </div>
+    <div class="plan-section" style="border-left: 3px solid #8b949e; background: #0d1a2a;">
+      <h3 class="section-title">❓ Cloud Infrastructure</h3>
+      <div style="margin-bottom:8px;"><span style="display:inline-block;padding:3px 10px;border-radius:20px;font-size:12px;font-weight:700;background:#8b949e20;color:#8b949e;border:1px solid #8b949e40;">AWS or GCP (Unconfirmed)</span></div>
+      <ul class="stack-list"><li><strong>Status:</strong> Cloud provider unconfirmed — tech stack references 'AWS or GCP'</li><li><strong>Use Case:</strong> GPU training for RL policy networks with physics simulation (Isaac Sim / PyBullet / MuJoCo)</li><li><strong>Hardware:</strong> NVIDIA GPUs for distributed training</li><li><strong>Anyscale Fit:</strong> Ray Tune for distributed hyperparameter search + Ray Train for RL policy training at scale</li></ul>
+    </div>
+
 
     <div class="plan-section">
       <h3 class="section-title">🚀 5 AI / ML Initiatives</h3>
@@ -965,6 +995,12 @@ Open whenever it makes sense.</pre>
       <h3 class="section-title">🛠 Tech Stack</h3>
       <ul class="stack-list"><li>Python (primary ML + backend stack)</li><li>PyTorch for navigation and perception model training</li><li>ROS2 for robot hardware integration</li><li>AWS or GCP for cloud training</li><li>Custom navigation stack (proprietary)</li><li>Kafka or similar for real-time fleet telemetry streaming</li><li>PostgreSQL for operational data</li></ul>
     </div>
+    <div class="plan-section" style="border-left: 3px solid #8b949e; background: #0d1a2a;">
+      <h3 class="section-title">❓ Cloud Infrastructure</h3>
+      <div style="margin-bottom:8px;"><span style="display:inline-block;padding:3px 10px;border-radius:20px;font-size:12px;font-weight:700;background:#8b949e20;color:#8b949e;border:1px solid #8b949e40;">AWS or GCP (Unconfirmed)</span></div>
+      <ul class="stack-list"><li><strong>Status:</strong> Cloud provider unconfirmed — tech stack references 'AWS or GCP'</li><li><strong>Use Case:</strong> Cloud training for navigation/perception models; real-time fleet telemetry via Kafka</li><li><strong>Deployment Model:</strong> Cloud training + on-device edge inference (sidewalk delivery robots)</li><li><strong>Anyscale Fit:</strong> Ray for distributed navigation model training + Ray Serve for fleet coordination APIs</li></ul>
+    </div>
+
 
     <div class="plan-section">
       <h3 class="section-title">🚀 5 AI / ML Initiatives</h3>
@@ -1121,6 +1157,12 @@ Open whenever it makes sense.</pre>
       <h3 class="section-title">🛠 Tech Stack</h3>
       <ul class="stack-list"><li>Python (ML and backend stack)</li><li>PyTorch for GAN / diffusion model training</li><li>ONNX / TensorRT for model export and inference optimization</li><li>NVIDIA GPUs (A100 / H100 for training, T4 / A10G for inference)</li><li>AWS for cloud infrastructure</li><li>Electron (desktop apps — Topaz Studio, Photo AI, Video AI)</li><li>Custom model serving layer for high-throughput image processing</li></ul>
     </div>
+    <div class="plan-section" style="border-left: 3px solid #f0ad4e; background: #0d1a2a;">
+      <h3 class="section-title">☁️ Cloud Infrastructure</h3>
+      <div style="margin-bottom:8px;"><span style="display:inline-block;padding:3px 10px;border-radius:20px;font-size:12px;font-weight:700;background:#f0ad4e20;color:#f0ad4e;border:1px solid #f0ad4e40;">AWS</span></div>
+      <ul class="stack-list"><li><strong>Primary Cloud:</strong> Amazon Web Services (AWS)</li><li><strong>Key Services:</strong> EC2 (A100/H100 training instances), S3 (image/video storage and distribution)</li><li><strong>Deployment Model:</strong> AWS cloud training + Electron desktop apps (Photo AI, Video AI, Topaz Studio)</li><li><strong>Expansion:</strong> Building cloud processing tier for batch jobs — new architectural requirement beyond desktop-only model</li><li><strong>Anyscale Fit:</strong> Ray Serve for the new cloud processing tier; Ray Train for scaled GAN/diffusion model training on AWS</li></ul>
+    </div>
+
 
     <div class="plan-section">
       <h3 class="section-title">🚀 5 AI / ML Initiatives</h3>
@@ -1277,6 +1319,12 @@ Open whenever it makes sense.</pre>
       <h3 class="section-title">🛠 Tech Stack</h3>
       <ul class="stack-list"><li>C++ + Python (real-time audio processing + ML stack)</li><li>PyTorch for model training</li><li>Custom real-time inference engine (sub-20ms constraint)</li><li>WebRTC for browser-based audio processing</li><li>AWS for cloud API infrastructure</li><li>ONNX for model export to cross-platform deployment</li><li>ARM/x86 edge deployment for local processing mode</li></ul>
     </div>
+    <div class="plan-section" style="border-left: 3px solid #f0ad4e; background: #0d1a2a;">
+      <h3 class="section-title">☁️ Cloud Infrastructure</h3>
+      <div style="margin-bottom:8px;"><span style="display:inline-block;padding:3px 10px;border-radius:20px;font-size:12px;font-weight:700;background:#f0ad4e20;color:#f0ad4e;border:1px solid #f0ad4e40;">AWS</span></div>
+      <ul class="stack-list"><li><strong>Primary Cloud:</strong> Amazon Web Services (AWS)</li><li><strong>Key Services:</strong> EC2 (GPU training), S3 (model/data storage), CloudFront (global API distribution)</li><li><strong>Deployment Model:</strong> AWS cloud for API infrastructure + Edge (ARM/x86 local processing mode)</li><li><strong>Constraint:</strong> Real-time inference requires sub-20ms latency — edge deployment is critical for latency-sensitive use cases</li><li><strong>Anyscale Fit:</strong> Ray Train for distributed audio model training; Ray Serve for cloud API with smart routing and autoscaling</li></ul>
+    </div>
+
 
     <div class="plan-section">
       <h3 class="section-title">🚀 5 AI / ML Initiatives</h3>
@@ -1426,6 +1474,12 @@ Open whenever it makes sense for Krisp.</pre>
       <h3 class="section-title">🛠 Tech Stack</h3>
       <ul class="stack-list"><li>Python (ML + data analytics stack)</li><li>PyTorch or scikit-learn for anomaly detection and classification models</li><li>Kafka for real-time telemetry streaming from device network</li><li>Elasticsearch + ClickHouse for telemetry indexing and analytics</li><li>AWS for cloud infrastructure</li><li>Kubernetes for microservices orchestration</li><li>React for analytics dashboard frontend</li></ul>
     </div>
+    <div class="plan-section" style="border-left: 3px solid #f0ad4e; background: #0d1a2a;">
+      <h3 class="section-title">☁️ Cloud Infrastructure</h3>
+      <div style="margin-bottom:8px;"><span style="display:inline-block;padding:3px 10px;border-radius:20px;font-size:12px;font-weight:700;background:#f0ad4e20;color:#f0ad4e;border:1px solid #f0ad4e40;">AWS</span></div>
+      <ul class="stack-list"><li><strong>Primary Cloud:</strong> Amazon Web Services (AWS)</li><li><strong>Key Services:</strong> EC2, S3, Kafka (real-time telemetry streaming), Kubernetes (microservices orchestration)</li><li><strong>Deployment Model:</strong> AWS cloud backend + distributed global edge device network</li><li><strong>Data Volume:</strong> Real-time telemetry streaming from global device network via Kafka</li><li><strong>Anyscale Fit:</strong> Ray for distributed anomaly detection model training on streaming telemetry data from global device lab</li></ul>
+    </div>
+
 
     <div class="plan-section">
       <h3 class="section-title">🚀 5 AI / ML Initiatives</h3>
@@ -1582,6 +1636,12 @@ Open whenever it makes sense.</pre>
       <h3 class="section-title">🛠 Tech Stack</h3>
       <ul class="stack-list"><li>Python (ML + data engineering stack)</li><li>Spark or Flink for large-scale data processing (likely)</li><li>TensorFlow or PyTorch for content recognition models</li><li>Kafka for real-time ACR event streaming</li><li>AWS or GCP for cloud infrastructure</li><li>Snowflake or Redshift for data warehouse</li><li>Custom ACR fingerprinting engine (proprietary)</li></ul>
     </div>
+    <div class="plan-section" style="border-left: 3px solid #8b949e; background: #0d1a2a;">
+      <h3 class="section-title">❓ Cloud Infrastructure</h3>
+      <div style="margin-bottom:8px;"><span style="display:inline-block;padding:3px 10px;border-radius:20px;font-size:12px;font-weight:700;background:#8b949e20;color:#8b949e;border:1px solid #8b949e40;">AWS or GCP (Unconfirmed)</span></div>
+      <ul class="stack-list"><li><strong>Status:</strong> Cloud provider unconfirmed — tech stack references 'AWS or GCP'</li><li><strong>Key Services:</strong> Kafka (real-time ACR event streaming), Snowflake or Redshift (data warehouse)</li><li><strong>Scale:</strong> Content recognition fingerprinting across millions of TV devices</li><li><strong>Deployment Model:</strong> Cloud-first data platform</li><li><strong>Anyscale Fit:</strong> Ray Data for distributed ACR fingerprinting pipeline; Ray Train for content recognition model training</li></ul>
+    </div>
+
 
     <div class="plan-section">
       <h3 class="section-title">🚀 5 AI / ML Initiatives</h3>
@@ -1738,6 +1798,12 @@ Open whenever it makes sense.</pre>
       <h3 class="section-title">🛠 Tech Stack</h3>
       <ul class="stack-list"><li>Python + C++ (3D processing + ML stack)</li><li>PyTorch for spatial AI model training</li><li>Open3D or PCL for point cloud processing</li><li>AWS or Azure (CoStar integration) for cloud infrastructure</li><li>Custom 3D rendering engine (proprietary)</li><li>NeRF / Gaussian Splatting for neural 3D reconstruction</li><li>REST API for developer platform</li></ul>
     </div>
+    <div class="plan-section" style="border-left: 3px solid #0078d4; background: #0d1a2a;">
+      <h3 class="section-title">☁️ Cloud Infrastructure</h3>
+      <div style="margin-bottom:8px;"><span style="display:inline-block;padding:3px 10px;border-radius:20px;font-size:12px;font-weight:700;background:#0078d420;color:#0078d4;border:1px solid #0078d440;">AWS + Azure (Multi-Cloud)</span></div>
+      <ul class="stack-list"><li><strong>Primary Clouds:</strong> AWS and Microsoft Azure — both referenced in tech stack</li><li><strong>Azure Context:</strong> CoStar Group acquisition (2024) — CoStar is a major Azure customer, driving Azure infrastructure integration</li><li><strong>AWS Services:</strong> EC2, S3 for compute and 3D spatial data storage</li><li><strong>Deployment Model:</strong> Multi-cloud (AWS + Azure) with hybrid developer platform</li><li><strong>Anyscale Fit:</strong> Ray on AWS or Azure — distributed 3D reconstruction model training (NeRF, Gaussian Splatting) across both clouds</li></ul>
+    </div>
+
 
     <div class="plan-section">
       <h3 class="section-title">🚀 5 AI / ML Initiatives</h3>
@@ -1894,6 +1960,12 @@ Open whenever it makes sense.</pre>
       <h3 class="section-title">🛠 Tech Stack</h3>
       <ul class="stack-list"><li>Python (ML + backend stack)</li><li>PyTorch for ASR and NLP model training</li><li>GPT-4 or similar LLM for note generation (cloud or on-premise)</li><li>Whisper or proprietary ASR (clinical domain fine-tuned)</li><li>HIPAA-compliant AWS infrastructure</li><li>EHR integration: Epic, Cerner, Allscripts API</li><li>iOS / Android for physician mobile app</li></ul>
     </div>
+    <div class="plan-section" style="border-left: 3px solid #f0ad4e; background: #0d1a2a;">
+      <h3 class="section-title">☁️ Cloud Infrastructure</h3>
+      <div style="margin-bottom:8px;"><span style="display:inline-block;padding:3px 10px;border-radius:20px;font-size:12px;font-weight:700;background:#f0ad4e20;color:#f0ad4e;border:1px solid #f0ad4e40;">AWS (HIPAA-Compliant)</span></div>
+      <ul class="stack-list"><li><strong>Primary Cloud:</strong> Amazon Web Services (AWS) — HIPAA-compliant configuration</li><li><strong>Key Services:</strong> EC2 GPU compute, S3 for audio/transcript storage, AWS HealthLake (HIPAA-compliant PHI storage)</li><li><strong>Compliance:</strong> HIPAA Business Associate Agreement (BAA) with AWS; PHI data isolated in HealthLake</li><li><strong>LLM Layer:</strong> GPT-4 or proprietary clinical ASR (Whisper fine-tuned) — cloud or on-premise options</li><li><strong>Anyscale Fit:</strong> HIPAA-compliant Ray clusters available on AWS — distributed ASR fine-tuning and clinical NLP training with proper data isolation</li></ul>
+    </div>
+
 
     <div class="plan-section">
       <h3 class="section-title">🚀 5 AI / ML Initiatives</h3>
@@ -2050,6 +2122,12 @@ Open whenever it makes sense for Suki.</pre>
       <h3 class="section-title">🛠 Tech Stack</h3>
       <ul class="stack-list"><li>Python (primary ML + data science stack)</li><li>scikit-learn, PyTorch, or GPflow for bioprocess ML models</li><li>AWS for cloud infrastructure and data storage</li><li>PostgreSQL + time-series database for bioreactor sensor data</li><li>Bokeh or Dash for data visualization</li><li>Custom bioreactor control software (proprietary)</li><li>REST API for customer data access and analysis tools</li></ul>
     </div>
+    <div class="plan-section" style="border-left: 3px solid #f0ad4e; background: #0d1a2a;">
+      <h3 class="section-title">☁️ Cloud Infrastructure</h3>
+      <div style="margin-bottom:8px;"><span style="display:inline-block;padding:3px 10px;border-radius:20px;font-size:12px;font-weight:700;background:#f0ad4e20;color:#f0ad4e;border:1px solid #f0ad4e40;">AWS</span></div>
+      <ul class="stack-list"><li><strong>Primary Cloud:</strong> Amazon Web Services (AWS)</li><li><strong>Key Services:</strong> EC2 (compute), S3 (bioreactor sensor data), PostgreSQL + time-series database</li><li><strong>Deployment Model:</strong> AWS cloud data platform + on-prem bioreactor lab hardware (physical cloud bioreactor infrastructure)</li><li><strong>Unique Setup:</strong> Physical bioreactors as a service — AWS manages the data/ML layer above on-premises lab hardware</li><li><strong>Anyscale Fit:</strong> Ray for distributed bioprocess ML model training across multi-variable time-series bioreactor datasets on AWS</li></ul>
+    </div>
+
 
     <div class="plan-section">
       <h3 class="section-title">🚀 5 AI / ML Initiatives</h3>
@@ -2206,6 +2284,12 @@ Open whenever it makes sense.</pre>
       <h3 class="section-title">🛠 Tech Stack</h3>
       <ul class="stack-list"><li>PyTorch — primary deep learning framework for CV model development</li><li>OpenSlide / cuCIM — whole-slide image I/O and GPU-accelerated image processing</li><li>AWS (EC2, S3, ECS) — cloud compute and storage for training and inference</li><li>Docker / Kubernetes — containerized deployment for lab partner integrations</li><li>DICOM / HL7 FHIR — medical imaging and health data interchange standards</li><li>Weights &amp; Biases — experiment tracking for pathology model runs</li><li>PostgreSQL — annotation metadata and lab result storage</li></ul>
     </div>
+    <div class="plan-section" style="border-left: 3px solid #f0ad4e; background: #0d1a2a;">
+      <h3 class="section-title">☁️ Cloud Infrastructure</h3>
+      <div style="margin-bottom:8px;"><span style="display:inline-block;padding:3px 10px;border-radius:20px;font-size:12px;font-weight:700;background:#f0ad4e20;color:#f0ad4e;border:1px solid #f0ad4e40;">AWS</span></div>
+      <ul class="stack-list"><li><strong>Primary Cloud:</strong> Amazon Web Services (AWS)</li><li><strong>Key Services:</strong> EC2 (GPU training), S3 (whole-slide image storage), ECS (containerized inference deployment)</li><li><strong>Compliance:</strong> HIPAA-compliant AWS for patient pathology data (DICOM, HL7 FHIR standards)</li><li><strong>Deployment Model:</strong> AWS cloud training + containerized deployment for lab partner integrations</li><li><strong>Anyscale Fit:</strong> Ray for distributed whole-slide image model training; multi-gigapixel datasets benefit from Ray Data distributed preprocessing on AWS</li></ul>
+    </div>
+
 
     <div class="plan-section">
       <h3 class="section-title">🚀 5 AI / ML Initiatives</h3>
@@ -2382,6 +2466,12 @@ Dylan</pre>
       <h3 class="section-title">🛠 Tech Stack</h3>
       <ul class="stack-list"><li>Python (NumPy, SciPy, scikit-learn) — core scientific computing for spectral analysis</li><li>PyTorch / TensorFlow — deep learning for cell classification and unmixing models</li><li>AWS (EC2, S3, RDS) — cloud infrastructure for SpectroFlo cloud analysis platform</li><li>Docker / Kubernetes — microservices deployment for cloud analysis pipeline</li><li>Qt / C++ — instrument-side real-time data acquisition software</li><li>PostgreSQL / Redshift — customer experiment metadata and instrument telemetry</li><li>Tableau / Looker — internal analytics on instrument fleet and customer usage</li></ul>
     </div>
+    <div class="plan-section" style="border-left: 3px solid #f0ad4e; background: #0d1a2a;">
+      <h3 class="section-title">☁️ Cloud Infrastructure</h3>
+      <div style="margin-bottom:8px;"><span style="display:inline-block;padding:3px 10px;border-radius:20px;font-size:12px;font-weight:700;background:#f0ad4e20;color:#f0ad4e;border:1px solid #f0ad4e40;">AWS</span></div>
+      <ul class="stack-list"><li><strong>Primary Cloud:</strong> Amazon Web Services (AWS)</li><li><strong>Key Services:</strong> EC2 (compute), S3 (experiment data), RDS (customer metadata), Redshift (data warehouse)</li><li><strong>Deployment Model:</strong> AWS cloud platform (SpectroFlo cloud analysis) + on-instrument real-time processing (Qt/C++)</li><li><strong>Instrument Layer:</strong> Real-time data acquisition on-instrument; analysis and ML processing in AWS cloud</li><li><strong>Anyscale Fit:</strong> Ray for distributed spectral unmixing model training and large-scale customer experiment processing in SpectroFlo cloud on AWS</li></ul>
+    </div>
+
 
     <div class="plan-section">
       <h3 class="section-title">🚀 5 AI / ML Initiatives</h3>
@@ -2558,6 +2648,12 @@ Dylan</pre>
       <h3 class="section-title">🛠 Tech Stack</h3>
       <ul class="stack-list"><li>PyTorch / TensorFlow — CV model development for detection and action recognition</li><li>YOLO / EfficientDet — object detection backbone architectures for real-time inference</li><li>RTSP / ONVIF — IP camera stream integration protocols</li><li>AWS (EC2, S3, Kinesis Video Streams) — cloud video processing and storage</li><li>Docker / Kubernetes — containerized inference microservice deployment</li><li>Redis — low-latency event streaming for real-time alert delivery</li><li>React / Node.js — customer-facing dashboard and alert management UI</li></ul>
     </div>
+    <div class="plan-section" style="border-left: 3px solid #f0ad4e; background: #0d1a2a;">
+      <h3 class="section-title">☁️ Cloud Infrastructure</h3>
+      <div style="margin-bottom:8px;"><span style="display:inline-block;padding:3px 10px;border-radius:20px;font-size:12px;font-weight:700;background:#f0ad4e20;color:#f0ad4e;border:1px solid #f0ad4e40;">AWS</span></div>
+      <ul class="stack-list"><li><strong>Primary Cloud:</strong> Amazon Web Services (AWS)</li><li><strong>Key Services:</strong> EC2 (GPU compute), S3 (video storage), Amazon Kinesis Video Streams (real-time camera ingestion)</li><li><strong>Deployment Model:</strong> AWS cloud video processing + Edge inference (on-prem cameras to reduce bandwidth costs)</li><li><strong>Scale:</strong> Real-time video processing from restaurant/QSR camera networks via Kinesis Video Streams</li><li><strong>Anyscale Fit:</strong> Ray Train for distributed CV model training; Ray Serve for multi-location inference coordination with active learning pipeline on AWS</li></ul>
+    </div>
+
 
     <div class="plan-section">
       <h3 class="section-title">🚀 5 AI / ML Initiatives</h3>
@@ -2734,6 +2830,12 @@ Dylan</pre>
       <h3 class="section-title">🛠 Tech Stack</h3>
       <ul class="stack-list"><li>PyTorch — deep learning for perception and control model development</li><li>ROS 2 — robot operating system for onboard sensor integration and mission execution</li><li>Gazebo / Isaac Sim — physics simulation environments for RL policy training</li><li>NVIDIA Jetson — onboard edge compute for real-time flight control inference</li><li>AWS (EC2 P-series, S3) — cloud simulation and training compute</li><li>Pixhawk / ArduPilot — flight control firmware base</li><li>InfluxDB — time-series flight telemetry storage and analysis</li></ul>
     </div>
+    <div class="plan-section" style="border-left: 3px solid #f0ad4e; background: #0d1a2a;">
+      <h3 class="section-title">☁️ Cloud Infrastructure</h3>
+      <div style="margin-bottom:8px;"><span style="display:inline-block;padding:3px 10px;border-radius:20px;font-size:12px;font-weight:700;background:#f0ad4e20;color:#f0ad4e;border:1px solid #f0ad4e40;">AWS</span></div>
+      <ul class="stack-list"><li><strong>Primary Cloud:</strong> Amazon Web Services (AWS)</li><li><strong>Key Services:</strong> EC2 P-series (GPU simulation/training), S3 (flight data storage), InfluxDB (time-series telemetry)</li><li><strong>Deployment Model:</strong> AWS cloud training + on-device NVIDIA Jetson (real-time flight control inference)</li><li><strong>Edge Layer:</strong> NVIDIA Jetson for onboard flight control; AWS EC2 P-series for simulation and training at scale</li><li><strong>Anyscale Fit:</strong> Ray for distributed RL policy training in Gazebo/Isaac Sim on AWS; Ray Data for flight telemetry preprocessing pipeline</li></ul>
+    </div>
+
 
     <div class="plan-section">
       <h3 class="section-title">🚀 5 AI / ML Initiatives</h3>
@@ -2910,6 +3012,12 @@ Dylan</pre>
       <h3 class="section-title">🛠 Tech Stack</h3>
       <ul class="stack-list"><li>Unity — VR application development and therapy experience delivery</li><li>Python (scikit-learn, PyTorch) — ML model development for outcome prediction</li><li>AWS (EC2, S3, HealthLake) — HIPAA-compliant cloud infrastructure</li><li>HTC Vive / Meta Quest — VR headset platforms for patient deployment</li><li>HL7 FHIR — EHR integration for patient data and outcomes documentation</li><li>Snowflake — clinical trial and outcomes data warehouse</li><li>Tableau — outcomes reporting for health system customers</li></ul>
     </div>
+    <div class="plan-section" style="border-left: 3px solid #f0ad4e; background: #0d1a2a;">
+      <h3 class="section-title">☁️ Cloud Infrastructure</h3>
+      <div style="margin-bottom:8px;"><span style="display:inline-block;padding:3px 10px;border-radius:20px;font-size:12px;font-weight:700;background:#f0ad4e20;color:#f0ad4e;border:1px solid #f0ad4e40;">AWS (HIPAA-Compliant)</span></div>
+      <ul class="stack-list"><li><strong>Primary Cloud:</strong> Amazon Web Services (AWS) — HIPAA-compliant configuration</li><li><strong>Key Services:</strong> EC2 (compute), S3 (VR session data), AWS HealthLake (HIPAA-compliant clinical outcomes storage)</li><li><strong>Compliance:</strong> HIPAA-compliant; FDA-cleared digital therapeutic (EaseVRx) requires full audit trails</li><li><strong>Data Warehouse:</strong> Snowflake for clinical trial and outcomes data analytics</li><li><strong>Anyscale Fit:</strong> Ray for distributed outcome prediction model training on clinical VR session data; HIPAA-compliant Ray clusters available on AWS</li></ul>
+    </div>
+
 
     <div class="plan-section">
       <h3 class="section-title">🚀 5 AI / ML Initiatives</h3>
@@ -3086,6 +3194,12 @@ Dylan</pre>
       <h3 class="section-title">🛠 Tech Stack</h3>
       <ul class="stack-list"><li>Python (Hugging Face Transformers, LangChain) — LLM fine-tuning and application development</li><li>OpenAI GPT / Anthropic Claude — foundation model APIs for clinical AI applications</li><li>AWS (EC2, SageMaker, HealthLake) — HIPAA-compliant ML training and inference infrastructure</li><li>Epic/HL7 FHIR — EHR data integration and interoperability standards</li><li>Pinecone / Weaviate — vector database for clinical knowledge retrieval</li><li>Docker / Kubernetes — containerized API deployment for health system integrations</li><li>Snowflake — clinical data warehouse for model training and analytics</li></ul>
     </div>
+    <div class="plan-section" style="border-left: 3px solid #f0ad4e; background: #0d1a2a;">
+      <h3 class="section-title">☁️ Cloud Infrastructure</h3>
+      <div style="margin-bottom:8px;"><span style="display:inline-block;padding:3px 10px;border-radius:20px;font-size:12px;font-weight:700;background:#f0ad4e20;color:#f0ad4e;border:1px solid #f0ad4e40;">AWS (HIPAA-Compliant)</span></div>
+      <ul class="stack-list"><li><strong>Primary Cloud:</strong> Amazon Web Services (AWS) — HIPAA-compliant configuration</li><li><strong>Key Services:</strong> EC2 (GPU compute), SageMaker (model training/deployment), AWS HealthLake (PHI data), S3 (storage)</li><li><strong>Compliance:</strong> HIPAA BAA with AWS; clinical AI requires full PHI data isolation</li><li><strong>LLM Layer:</strong> OpenAI GPT / Anthropic Claude APIs via AWS infrastructure</li><li><strong>Anyscale Fit:</strong> Ray can replace or complement SageMaker for LLM fine-tuning on clinical data with better distributed training flexibility and lower cost</li></ul>
+    </div>
+
 
     <div class="plan-section">
       <h3 class="section-title">🚀 5 AI / ML Initiatives</h3>
@@ -3262,6 +3376,12 @@ Dylan</pre>
       <h3 class="section-title">🛠 Tech Stack</h3>
       <ul class="stack-list"><li>Python (scikit-learn, XGBoost, PyTorch) — ML for forecasting and customer behavior models</li><li>Apache Spark / Databricks — large-scale smart meter data ETL and feature engineering</li><li>AWS (EC2, S3, EMR) — cloud data processing and model training infrastructure</li><li>Kafka — real-time smart meter event streaming</li><li>Snowflake — utility customer data warehouse and feature store</li><li>Tableau / Grafana — utility analytics dashboards and grid operations monitoring</li><li>Kubernetes — microservices deployment for utility API integrations</li></ul>
     </div>
+    <div class="plan-section" style="border-left: 3px solid #f0ad4e; background: #0d1a2a;">
+      <h3 class="section-title">☁️ Cloud Infrastructure</h3>
+      <div style="margin-bottom:8px;"><span style="display:inline-block;padding:3px 10px;border-radius:20px;font-size:12px;font-weight:700;background:#f0ad4e20;color:#f0ad4e;border:1px solid #f0ad4e40;">AWS</span></div>
+      <ul class="stack-list"><li><strong>Primary Cloud:</strong> Amazon Web Services (AWS)</li><li><strong>Key Services:</strong> EC2 (compute), S3 (data lake), EMR (Spark for smart meter ETL), Kafka (real-time meter streaming)</li><li><strong>Data Scale:</strong> Apache Spark / Databricks on AWS EMR for large-scale smart meter data processing across utility customers</li><li><strong>Deployment Model:</strong> AWS cloud + Kubernetes microservices + Snowflake data warehouse</li><li><strong>Anyscale Fit:</strong> Ray can replace or complement Spark/EMR — Python-native with better GPU support for deep forecasting models on smart meter data</li></ul>
+    </div>
+
 
     <div class="plan-section">
       <h3 class="section-title">🚀 5 AI / ML Initiatives</h3>
@@ -3438,6 +3558,12 @@ Dylan</pre>
       <h3 class="section-title">🛠 Tech Stack</h3>
       <ul class="stack-list"><li>Python (PyTorch, scikit-learn, Biopython) — ML and bioinformatics development</li><li>BWA / GATK / DeepVariant — genomic alignment and variant calling pipeline</li><li>AWS (EC2, S3, Batch) — cloud genomic data processing at scale</li><li>Nextflow / Snakemake — bioinformatics workflow orchestration</li><li>PostgreSQL / MongoDB — variant database and clinical report storage</li><li>Docker / Singularity — containerized bioinformatics pipeline deployment</li><li>Ensembl / ClinVar APIs — variant annotation and clinical database integration</li></ul>
     </div>
+    <div class="plan-section" style="border-left: 3px solid #f0ad4e; background: #0d1a2a;">
+      <h3 class="section-title">☁️ Cloud Infrastructure</h3>
+      <div style="margin-bottom:8px;"><span style="display:inline-block;padding:3px 10px;border-radius:20px;font-size:12px;font-weight:700;background:#f0ad4e20;color:#f0ad4e;border:1px solid #f0ad4e40;">AWS</span></div>
+      <ul class="stack-list"><li><strong>Primary Cloud:</strong> Amazon Web Services (AWS)</li><li><strong>Key Services:</strong> EC2 (genomic compute), S3 (genomic data), AWS Batch (large-scale pipeline jobs)</li><li><strong>Workflows:</strong> Nextflow / Snakemake bioinformatics pipelines on AWS Batch; BWA / GATK / DeepVariant for variant calling</li><li><strong>Compliance:</strong> HIPAA-compliant AWS for clinical genomic data (PHI)</li><li><strong>Anyscale Fit:</strong> Ray can orchestrate genomic ML pipelines as a complement or alternative to AWS Batch — better ML model integration in the variant calling pipeline</li></ul>
+    </div>
+
 
     <div class="plan-section">
       <h3 class="section-title">🚀 5 AI / ML Initiatives</h3>
@@ -3614,6 +3740,12 @@ Dylan</pre>
       <h3 class="section-title">🛠 Tech Stack</h3>
       <ul class="stack-list"><li>Whisper (OpenAI) / AssemblyAI — ASR for meeting transcription</li><li>OpenAI GPT-4 / Claude — LLM APIs for summarization and AI assistant</li><li>Python (FastAPI) — backend API and ML service layer</li><li>AWS (EC2, S3, Lambda) — cloud infrastructure for transcription and LLM serving</li><li>Pinecone — vector search for meeting transcript retrieval</li><li>PostgreSQL / Redis — meeting metadata, caching, and session management</li><li>React / Node.js — web and browser extension frontend</li></ul>
     </div>
+    <div class="plan-section" style="border-left: 3px solid #f0ad4e; background: #0d1a2a;">
+      <h3 class="section-title">☁️ Cloud Infrastructure</h3>
+      <div style="margin-bottom:8px;"><span style="display:inline-block;padding:3px 10px;border-radius:20px;font-size:12px;font-weight:700;background:#f0ad4e20;color:#f0ad4e;border:1px solid #f0ad4e40;">AWS</span></div>
+      <ul class="stack-list"><li><strong>Primary Cloud:</strong> Amazon Web Services (AWS)</li><li><strong>Key Services:</strong> EC2 (compute), S3 (meeting recording storage), Lambda (serverless transcription triggers)</li><li><strong>Migration Signal:</strong> At $15-25M ARR, actively planning migration from OpenAI APIs to self-hosted LLMs for cost/latency optimization</li><li><strong>Deployment Model:</strong> AWS cloud — currently API-dependent but moving to self-hosted model serving</li><li><strong>Anyscale Fit:</strong> Timing is excellent — self-hosted LLM migration requires distributed fine-tuning infra; Ray Serve for multi-model self-hosted LLM deployment on AWS</li></ul>
+    </div>
+
 
     <div class="plan-section">
       <h3 class="section-title">🚀 5 AI / ML Initiatives</h3>
@@ -3783,6 +3915,12 @@ Dylan</pre>
       <h3 class="section-title">🛠 Tech Stack</h3>
       <ul class="stack-list"><li>Python (pandas, scikit-learn, PyTorch) — ML for fleet analytics and anomaly detection</li><li>InfluxDB / TimescaleDB — time-series robot telemetry storage</li><li>Apache Kafka — real-time robot telemetry streaming</li><li>AWS (EC2, S3, RDS) — cloud infrastructure for fleet data processing</li><li>Grafana — telemetry visualization and fleet monitoring dashboards</li><li>Docker / Kubernetes — containerized data processing and API deployment</li><li>React — web-based fleet operations interface</li></ul>
     </div>
+    <div class="plan-section" style="border-left: 3px solid #f0ad4e; background: #0d1a2a;">
+      <h3 class="section-title">☁️ Cloud Infrastructure</h3>
+      <div style="margin-bottom:8px;"><span style="display:inline-block;padding:3px 10px;border-radius:20px;font-size:12px;font-weight:700;background:#f0ad4e20;color:#f0ad4e;border:1px solid #f0ad4e40;">AWS</span></div>
+      <ul class="stack-list"><li><strong>Primary Cloud:</strong> Amazon Web Services (AWS)</li><li><strong>Key Services:</strong> EC2 (compute), S3 (robot telemetry storage), RDS (fleet metadata), Kafka (real-time telemetry streaming)</li><li><strong>Deployment Model:</strong> AWS cloud fleet operations platform + on-robot edge inference</li><li><strong>Scale:</strong> Real-time telemetry streaming from distributed robot fleets via Kafka; InfluxDB/TimescaleDB for time-series analytics</li><li><strong>Anyscale Fit:</strong> Ray for distributed fleet analytics model training and anomaly detection across multi-robot telemetry streams on AWS</li></ul>
+    </div>
+
 
     <div class="plan-section">
       <h3 class="section-title">🚀 5 AI / ML Initiatives</h3>
@@ -3959,6 +4097,12 @@ Dylan</pre>
       <h3 class="section-title">🛠 Tech Stack</h3>
       <ul class="stack-list"><li>Python (Hugging Face Transformers, FastAPI) — LLM fine-tuning and API serving</li><li>OpenAI GPT-4 / Claude — foundation model APIs for support automation</li><li>Shopify API — deep e-commerce platform integration for order/customer context</li><li>AWS (EC2, S3, ECS) — cloud infrastructure for ML training and serving</li><li>PostgreSQL / Redis — support ticket storage, caching, and session management</li><li>Kafka — real-time support event streaming for agent assist features</li><li>React — merchant-facing support helpdesk interface</li></ul>
     </div>
+    <div class="plan-section" style="border-left: 3px solid #f0ad4e; background: #0d1a2a;">
+      <h3 class="section-title">☁️ Cloud Infrastructure</h3>
+      <div style="margin-bottom:8px;"><span style="display:inline-block;padding:3px 10px;border-radius:20px;font-size:12px;font-weight:700;background:#f0ad4e20;color:#f0ad4e;border:1px solid #f0ad4e40;">AWS</span></div>
+      <ul class="stack-list"><li><strong>Primary Cloud:</strong> Amazon Web Services (AWS)</li><li><strong>Key Services:</strong> EC2 (compute), S3 (ticket/conversation data), ECS (containerized ML service deployment)</li><li><strong>LLM Layer:</strong> OpenAI GPT-4 / Claude APIs — external LLM calls for support automation</li><li><strong>Deployment Model:</strong> AWS cloud SaaS platform with deep Shopify API integration</li><li><strong>Anyscale Fit:</strong> Ray for distributed LLM fine-tuning on support ticket datasets; Ray Serve for self-hosted model serving to reduce OpenAI API costs at scale</li></ul>
+    </div>
+
 
     <div class="plan-section">
       <h3 class="section-title">🚀 5 AI / ML Initiatives</h3>
@@ -4135,6 +4279,12 @@ Dylan</pre>
       <h3 class="section-title">🛠 Tech Stack</h3>
       <ul class="stack-list"><li>PyTorch — deep learning for manipulation policy development</li><li>Isaac Sim / MuJoCo — physics simulation for RL policy training</li><li>ROS 2 — robot operating system for onboard sensor integration</li><li>NVIDIA Jetson — onboard edge inference for real-time manipulation control</li><li>AWS (EC2 P-series) — cloud GPU compute for simulation and training</li><li>Weights &amp; Biases — experiment tracking for RL policy runs</li><li>Python (NumPy, Open3D) — point cloud processing for 3D scene understanding</li></ul>
     </div>
+    <div class="plan-section" style="border-left: 3px solid #f0ad4e; background: #0d1a2a;">
+      <h3 class="section-title">☁️ Cloud Infrastructure</h3>
+      <div style="margin-bottom:8px;"><span style="display:inline-block;padding:3px 10px;border-radius:20px;font-size:12px;font-weight:700;background:#f0ad4e20;color:#f0ad4e;border:1px solid #f0ad4e40;">AWS</span></div>
+      <ul class="stack-list"><li><strong>Primary Cloud:</strong> Amazon Web Services (AWS)</li><li><strong>Key Services:</strong> EC2 P-series (GPU simulation and RL training), S3 (training data and model storage)</li><li><strong>Deployment Model:</strong> AWS cloud training + NVIDIA Jetson edge inference (onboard manipulation control)</li><li><strong>Simulation:</strong> Isaac Sim / MuJoCo on AWS EC2 P-series for RL policy training at scale</li><li><strong>Anyscale Fit:</strong> Ray for distributed RL simulation — parallel Isaac Sim / MuJoCo rollouts across EC2 P-series fleet using Ray's actor model</li></ul>
+    </div>
+
 
     <div class="plan-section">
       <h3 class="section-title">🚀 5 AI / ML Initiatives</h3>
