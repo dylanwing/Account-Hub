@@ -564,6 +564,7 @@ const DEFAULT_ACCOUNTS = [
   {name:"Apex.AI — Contact Intel",file:"apex-ai-contacts.html",category:"Tier 1 — Account Assets",tag:"Intel",meta:"16 targets • ML/Platform/Exec focus • LinkedIn + outreach"},
   {name:"Chooch AI — Personalized Sequences",file:"choochai-personalized-sequences.html",category:"Tier 1 — Account Assets",tag:"Seq",meta:"9 contacts • 36 emails • Enterprise CV platform"},
   {name:"Chooch AI — Email Sequences",file:"chooch-ai-email-sequences.html",category:"Tier 1 — Account Assets",tag:"New",meta:"4-step sequence • CV+LLM inference • ICP-targeted"},
+  {name:"Apex.AI — ML Engineer Sequences",file:"apexai-ml-engineer-sequences.html",category:"Tier 1 — Account Assets",tag:"New",meta:"4-step sequence • Dongil Chang + ML/AI engineers • Sensor data & AV"},
   {name:"Valar Labs — Personalized Sequences",file:"valarlabs-personalized-sequences.html",category:"Tier 1 — Account Assets",tag:"Seq",meta:"10 contacts • 40 emails • Clinical AI / Oncology"},
   // ── Tier 2 — Growth ──
   {name:"Account Plans",file:"tier2-account-plans.html",category:"Tier 2 — Growth",tag:"Tier 2",meta:"25 companies • Full strategic plans • Ray library fit mapped"},
@@ -645,7 +646,7 @@ function toast(msg,icon='✓'){
 }
 
 // ═══════════ PERSISTENCE ═══════════
-const VER=()=>'v2_'+DEFAULT_ACCOUNTS.length+'_'+DEFAULT_ACCOUNTS.map(a=>a.file).join('').length;
+const VER=()=>'v3_'+DEFAULT_ACCOUNTS.length+'_'+DEFAULT_ACCOUNTS.map(a=>a.file).join('').length;
 function save(){
   try{
     localStorage.setItem('hub_recents',JSON.stringify(recents));
