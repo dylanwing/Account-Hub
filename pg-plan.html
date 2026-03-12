@@ -1,0 +1,820 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Weekly PG Plan — Anyscale</title>
+<style>
+:root{
+  --bg:#0b0f1a;--bg2:#111827;--bg3:#1a2235;--bg4:#1e2d42;
+  --text:#f0f4ff;--text2:#8b98b4;--text3:#4f5b78;
+  --acc:#3b82f6;--acc-l:#60a5fa;
+  --bdr:#1e2d42;--bdr-l:#2a3a56;
+  --green:#22c55e;--amber:#f59e0b;--red:#ef4444;--purple:#8b5cf6;--cyan:#06b6d4;
+}
+*{margin:0;padding:0;box-sizing:border-box;}
+body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif;background:var(--bg);color:var(--text);min-height:100vh;}
+
+/* TOP BAR */
+.topbar{background:var(--bg2);border-bottom:1px solid var(--bdr);padding:14px 24px;display:flex;align-items:center;gap:16px;flex-wrap:wrap;position:sticky;top:0;z-index:100;}
+.topbar-title{font-size:16px;font-weight:700;color:var(--text);}
+.topbar-title span{color:var(--acc);}
+.week-nav{display:flex;align-items:center;gap:8px;background:var(--bg3);border:1px solid var(--bdr);border-radius:8px;padding:6px 12px;}
+.week-nav button{background:none;border:none;color:var(--text2);cursor:pointer;font-size:14px;padding:2px 6px;border-radius:4px;transition:all .15s;}
+.week-nav button:hover{background:var(--bg4);color:var(--text);}
+.week-label{font-size:13px;font-weight:600;color:var(--text);min-width:140px;text-align:center;}
+.topbar-actions{display:flex;gap:8px;margin-left:auto;}
+.btn{padding:7px 14px;border-radius:6px;border:none;font-size:13px;font-weight:600;cursor:pointer;transition:all .15s;display:flex;align-items:center;gap:6px;}
+.btn-primary{background:var(--acc);color:#fff;}
+.btn-primary:hover{background:var(--acc-l);}
+.btn-outline{background:transparent;color:var(--text2);border:1px solid var(--bdr-l);}
+.btn-outline:hover{background:var(--bg4);color:var(--text);}
+.btn-green{background:#16653a;color:#4ade80;border:1px solid #2d7a50;}
+.btn-green:hover{background:#1a7a44;}
+
+/* MAIN LAYOUT */
+.main{display:grid;grid-template-columns:1fr 1fr;gap:0;min-height:calc(100vh - 57px);}
+@media(max-width:900px){.main{grid-template-columns:1fr;}}
+
+/* PANELS */
+.panel{border-right:1px solid var(--bdr);display:flex;flex-direction:column;}
+.panel:last-child{border-right:none;}
+.panel-head{padding:16px 20px;border-bottom:1px solid var(--bdr);display:flex;align-items:center;justify-content:space-between;background:var(--bg2);position:sticky;top:57px;z-index:50;}
+.panel-title{font-size:14px;font-weight:700;display:flex;align-items:center;gap:8px;}
+.panel-title .dot{width:8px;height:8px;border-radius:50%;}
+.panel-count{font-size:11px;color:var(--text3);background:var(--bg4);padding:2px 8px;border-radius:10px;}
+.panel-body{flex:1;padding:16px;display:flex;flex-direction:column;gap:12px;overflow-y:auto;}
+.empty-state{flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:12px;color:var(--text3);padding:40px;text-align:center;}
+.empty-state .es-icon{font-size:32px;opacity:0.4;}
+.empty-state p{font-size:13px;line-height:1.6;}
+.empty-state .es-hint{font-size:11px;color:var(--text3);}
+
+/* ACCOUNT CARD */
+.account-card{background:var(--bg3);border:1px solid var(--bdr);border-radius:10px;overflow:hidden;transition:border-color .2s;}
+.account-card:hover{border-color:var(--bdr-l);}
+.card-header{padding:12px 14px;display:flex;align-items:flex-start;gap:10px;cursor:pointer;}
+.card-icon{width:36px;height:36px;border-radius:8px;display:flex;align-items:center;justify-content:center;font-weight:800;font-size:12px;flex-shrink:0;color:#fff;}
+.card-info{flex:1;min-width:0;}
+.card-name{font-size:14px;font-weight:700;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
+.card-meta{display:flex;align-items:center;gap:6px;margin-top:3px;flex-wrap:wrap;}
+.tier-badge{font-size:9px;font-weight:700;padding:2px 6px;border-radius:4px;}
+.t1{background:rgba(239,68,68,.15);color:#fca5a5;}
+.t2{background:rgba(245,158,11,.15);color:#fcd34d;}
+.product-chip{font-size:9px;font-weight:600;padding:2px 6px;border-radius:4px;background:rgba(59,130,246,.12);color:#93c5fd;}
+.card-actions{display:flex;align-items:center;gap:6px;flex-shrink:0;}
+.status-sel{font-size:11px;padding:4px 8px;border-radius:5px;border:1px solid var(--bdr-l);background:var(--bg4);color:var(--text);cursor:pointer;outline:none;transition:all .15s;}
+.status-sel:focus{border-color:var(--acc);}
+.status-sel.s-emailed{border-color:#3b82f6;color:#93c5fd;background:rgba(59,130,246,.1);}
+.status-sel.s-called{border-color:#f59e0b;color:#fcd34d;background:rgba(245,158,11,.1);}
+.status-sel.s-replied{border-color:#8b5cf6;color:#c4b5fd;background:rgba(139,92,246,.1);}
+.status-sel.s-meeting{border-color:#22c55e;color:#86efac;background:rgba(34,197,94,.1);}
+.status-sel.s-not-started{border-color:var(--bdr-l);color:var(--text2);}
+.remove-btn{width:26px;height:26px;border-radius:5px;border:none;background:transparent;color:var(--text3);cursor:pointer;display:flex;align-items:center;justify-content:center;font-size:12px;transition:all .15s;}
+.remove-btn:hover{background:rgba(239,68,68,.15);color:#ef4444;}
+
+/* CARD BODY */
+.card-body{border-top:1px solid var(--bdr);padding:12px 14px;display:flex;flex-direction:column;gap:10px;}
+.card-section{display:flex;flex-direction:column;gap:4px;}
+.cs-label{font-size:9px;font-weight:700;text-transform:uppercase;letter-spacing:.08em;color:var(--text3);}
+.cs-content{font-size:12px;color:var(--text2);line-height:1.5;}
+.cs-bullet{font-size:12px;color:var(--text2);line-height:1.6;padding-left:12px;position:relative;}
+.cs-bullet::before{content:"•";position:absolute;left:0;color:var(--text3);}
+.contact-row{display:flex;align-items:center;gap:8px;padding:6px 8px;background:var(--bg2);border-radius:6px;border:1px solid var(--bdr);}
+.cr-avatar{width:28px;height:28px;border-radius:6px;display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:700;flex-shrink:0;background:var(--bg4);color:var(--acc-l);}
+.cr-info{flex:1;min-width:0;}
+.cr-name{font-size:12px;font-weight:600;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
+.cr-title{font-size:10px;color:var(--text3);white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
+.cr-links{display:flex;gap:4px;flex-shrink:0;}
+.cr-link{width:22px;height:22px;border-radius:4px;background:var(--bg4);border:1px solid var(--bdr-l);display:flex;align-items:center;justify-content:center;font-size:10px;text-decoration:none;color:var(--text2);transition:all .15s;}
+.cr-link:hover{background:var(--bg3);color:var(--text);border-color:var(--acc);}
+.notes-area{width:100%;background:var(--bg2);border:1px solid var(--bdr);border-radius:6px;padding:8px 10px;color:var(--text);font-size:12px;font-family:inherit;resize:vertical;min-height:56px;outline:none;transition:border-color .2s;line-height:1.5;}
+.notes-area:focus{border-color:var(--acc);}
+.notes-area::placeholder{color:var(--text3);}
+.card-expand{display:flex;align-items:center;gap:6px;font-size:11px;color:var(--text3);padding:8px 14px;border-top:1px solid var(--bdr);cursor:pointer;transition:all .15s;}
+.card-expand:hover{background:var(--bg2);color:var(--text2);}
+.card-expand.open{color:var(--acc);}
+
+/* MODAL */
+.modal-overlay{position:fixed;inset:0;background:rgba(0,0,0,.65);z-index:200;display:flex;align-items:center;justify-content:center;padding:20px;}
+.modal{background:var(--bg2);border:1px solid var(--bdr-l);border-radius:12px;width:100%;max-width:560px;max-height:85vh;display:flex;flex-direction:column;overflow:hidden;}
+.modal-head{padding:18px 20px;border-bottom:1px solid var(--bdr);display:flex;align-items:center;justify-content:space-between;}
+.modal-title{font-size:16px;font-weight:700;}
+.modal-close{width:28px;height:28px;border-radius:6px;border:none;background:transparent;color:var(--text2);cursor:pointer;font-size:16px;display:flex;align-items:center;justify-content:center;}
+.modal-close:hover{background:var(--bg4);color:var(--text);}
+.modal-body{flex:1;overflow-y:auto;padding:16px 20px;display:flex;flex-direction:column;gap:12px;}
+.modal-search{width:100%;padding:9px 12px;border-radius:7px;border:1px solid var(--bdr-l);background:var(--bg3);color:var(--text);font-size:13px;outline:none;transition:border-color .2s;}
+.modal-search:focus{border-color:var(--acc);}
+.modal-search::placeholder{color:var(--text3);}
+.account-list{display:flex;flex-direction:column;gap:4px;max-height:340px;overflow-y:auto;}
+.acc-opt{display:flex;align-items:center;gap:10px;padding:10px 12px;border-radius:8px;cursor:pointer;border:1px solid transparent;transition:all .15s;}
+.acc-opt:hover{background:var(--bg3);border-color:var(--bdr);}
+.acc-opt.selected{background:rgba(59,130,246,.1);border-color:rgba(59,130,246,.4);}
+.acc-opt-icon{width:32px;height:32px;border-radius:7px;display:flex;align-items:center;justify-content:center;font-weight:800;font-size:11px;flex-shrink:0;color:#fff;}
+.acc-opt-info{flex:1;min-width:0;}
+.acc-opt-name{font-size:13px;font-weight:600;}
+.acc-opt-meta{font-size:11px;color:var(--text3);margin-top:1px;}
+.acc-opt-check{width:18px;height:18px;border-radius:4px;border:1.5px solid var(--bdr-l);background:transparent;flex-shrink:0;display:flex;align-items:center;justify-content:center;}
+.acc-opt.selected .acc-opt-check{background:var(--acc);border-color:var(--acc);}
+.modal-foot{padding:14px 20px;border-top:1px solid var(--bdr);display:flex;gap:8px;justify-content:flex-end;}
+
+/* REPORT MODAL */
+.report-modal{max-width:820px;}
+.report-content{font-family:inherit;font-size:13px;line-height:1.7;color:var(--text2);}
+.report-section{margin-bottom:24px;}
+.report-section h3{font-size:14px;font-weight:700;color:var(--text);margin-bottom:12px;padding-bottom:6px;border-bottom:1px solid var(--bdr);}
+.report-table{width:100%;border-collapse:collapse;font-size:12px;}
+.report-table th{text-align:left;padding:6px 10px;color:var(--text3);font-size:10px;text-transform:uppercase;letter-spacing:.06em;border-bottom:1px solid var(--bdr);}
+.report-table td{padding:8px 10px;border-bottom:1px solid rgba(255,255,255,.05);vertical-align:top;}
+.report-table tr:last-child td{border-bottom:none;}
+.report-table tr:hover td{background:var(--bg3);}
+.rt-company{font-weight:700;color:var(--text);}
+.rt-status{font-size:10px;padding:2px 7px;border-radius:10px;font-weight:600;display:inline-block;}
+
+/* SUMMARY BAR */
+.summary-bar{background:var(--bg2);border-top:1px solid var(--bdr);padding:10px 20px;display:flex;gap:20px;align-items:center;flex-wrap:wrap;}
+.stat{display:flex;align-items:center;gap:6px;font-size:12px;}
+.stat-num{font-size:18px;font-weight:700;}
+.stat-lbl{color:var(--text3);font-size:11px;}
+</style>
+</head>
+<body>
+
+<!-- TOP BAR -->
+<div class="topbar">
+  <div class="topbar-title">📊 <span>Weekly PG Plan</span></div>
+  <div class="week-nav">
+    <button onclick="changeWeek(-1)" title="Previous week">‹</button>
+    <div class="week-label" id="weekLabel">Loading...</div>
+    <button onclick="changeWeek(1)" title="Next week">›</button>
+    <button onclick="goToCurrentWeek()" style="font-size:10px;padding:3px 8px;border:1px solid var(--bdr-l);border-radius:4px;margin-left:4px;" title="Go to current week">Today</button>
+  </div>
+  <div class="topbar-actions">
+    <button class="btn btn-outline" onclick="showReport()">📋 Generate Report</button>
+    <button class="btn btn-outline" onclick="copyReportText()">📎 Copy Report</button>
+  </div>
+</div>
+
+<!-- MAIN PANELS -->
+<div class="main">
+  <!-- THIS WEEK -->
+  <div class="panel">
+    <div class="panel-head">
+      <div class="panel-title">
+        <div class="dot" style="background:#3b82f6;box-shadow:0 0 6px #3b82f6;"></div>
+        ✅ This Week — Outreach Done
+      </div>
+      <div style="display:flex;align-items:center;gap:8px;">
+        <span class="panel-count" id="thisWeekCount">0</span>
+        <button class="btn btn-primary" style="padding:5px 10px;font-size:12px;" onclick="openAddModal('this')">+ Add Account</button>
+      </div>
+    </div>
+    <div class="panel-body" id="thisWeekPanel">
+      <div class="empty-state">
+        <div class="es-icon">📬</div>
+        <p>No accounts logged yet for this week.</p>
+        <p class="es-hint">Click <strong>+ Add Account</strong> to log companies you've reached out to.</p>
+      </div>
+    </div>
+  </div>
+  
+  <!-- NEXT WEEK -->
+  <div class="panel">
+    <div class="panel-head">
+      <div class="panel-title">
+        <div class="dot" style="background:#f59e0b;box-shadow:0 0 6px #f59e0b;"></div>
+        🎯 Next Week — Planned Outreach
+      </div>
+      <div style="display:flex;align-items:center;gap:8px;">
+        <span class="panel-count" id="nextWeekCount">0</span>
+        <button class="btn btn-outline" style="padding:5px 10px;font-size:12px;border-color:#f59e0b;color:#fcd34d;" onclick="openAddModal('next')">+ Add Account</button>
+      </div>
+    </div>
+    <div class="panel-body" id="nextWeekPanel">
+      <div class="empty-state">
+        <div class="es-icon">🗓️</div>
+        <p>No accounts planned for next week yet.</p>
+        <p class="es-hint">Click <strong>+ Add Account</strong> to build your pipeline plan.</p>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- SUMMARY BAR -->
+<div class="summary-bar" id="summaryBar" style="display:none;">
+  <div class="stat">
+    <div class="stat-num" id="statTotal" style="color:var(--acc);">0</div>
+    <div class="stat-lbl">Total<br>Accounts</div>
+  </div>
+  <div class="stat">
+    <div class="stat-num" id="statEmailed" style="color:#93c5fd;">0</div>
+    <div class="stat-lbl">Emailed</div>
+  </div>
+  <div class="stat">
+    <div class="stat-num" id="statReplied" style="color:#c4b5fd;">0</div>
+    <div class="stat-lbl">Replied</div>
+  </div>
+  <div class="stat">
+    <div class="stat-num" id="statMeeting" style="color:#86efac;">0</div>
+    <div class="stat-lbl">Meeting<br>Booked</div>
+  </div>
+  <div class="stat" style="margin-left:auto;">
+    <div class="stat-num" id="statNextWeek" style="color:#fcd34d;">0</div>
+    <div class="stat-lbl">Next Week<br>Planned</div>
+  </div>
+</div>
+
+<!-- ADD ACCOUNT MODAL -->
+<div class="modal-overlay" id="addModal" style="display:none;" onclick="e=>{if(e.target===this)closeAddModal()}">
+  <div class="modal" onclick="event.stopPropagation()">
+    <div class="modal-head">
+      <div class="modal-title" id="addModalTitle">Add Accounts — This Week</div>
+      <button class="modal-close" onclick="closeAddModal()">✕</button>
+    </div>
+    <div class="modal-body">
+      <input class="modal-search" type="text" id="accSearch" placeholder="Search by company name..." oninput="filterAccounts()">
+      <div id="accountList" class="account-list"></div>
+    </div>
+    <div class="modal-foot">
+      <button class="btn btn-outline" onclick="closeAddModal()">Cancel</button>
+      <button class="btn btn-primary" onclick="addSelectedAccounts()" id="addBtn">Add Selected (0)</button>
+    </div>
+  </div>
+</div>
+
+<!-- REPORT MODAL -->
+<div class="modal-overlay" id="reportModal" style="display:none;" onclick="e=>{if(e.target===this)closeReport()}">
+  <div class="modal report-modal" onclick="event.stopPropagation()" style="max-width:820px;">
+    <div class="modal-head">
+      <div class="modal-title">📋 Weekly PG Report</div>
+      <div style="display:flex;gap:8px;align-items:center;">
+        <button class="btn btn-outline" style="padding:5px 10px;font-size:11px;" onclick="copyReportText()">📎 Copy</button>
+        <button class="btn btn-outline" style="padding:5px 10px;font-size:11px;" onclick="printReport()">🖨️ Print</button>
+        <button class="modal-close" onclick="closeReport()">✕</button>
+      </div>
+    </div>
+    <div class="modal-body" id="reportContent"></div>
+  </div>
+</div>
+
+<script>
+// ============================================================
+// EMBEDDED ACCOUNT DATA
+// ============================================================
+const ACCOUNTS = [{"id":"commaai","name":"comma.ai","tier":1,"overview":"","why":["Ray's Python-native scheduler matches comma.ai's all-Python stack — zero adoption friction vs. Spark/Flink alternatives","Ray Train handles distributed PyTorch training across their GPU cluster — drop-in for their current setup","Ray Data handles the distributed data pipeline (ingestion + featurization of 100M+ mile fleet data)"],"signals":["Owns a $5M private data center — indicates extreme cost-sensitivity and desire for infra control, but also a major CapEx commitment they're already managing","60K+ lines of openpilot Python — entire training stack is Python-native, making Ray a natural fit with zero language-switching overhead","End-to-end world model 'mlsim' blog post — on-policy simulation training is massively parallelizable and benefits directly from distributed Ray scheduling"],"products":[{"name":"Ray Data","priority":"PRIMARY"},{"name":"Ray Train","priority":"PRIMARY"},{"name":"RLlib","priority":"PRIMARY"},{"name":"Ray Tune","priority":"SECONDARY"}],"mlCases":["End-to-end AV world model training — training driving policy on 100M+ miles of real-world data","On-policy simulator (mlsim) — generating synthetic training scenarios at scale, running parallel rollouts","Distributed data pipeline — ingesting, cleaning, featurizing drive data from fleet of devices"],"timing":["mlsim blog post signals they're actively working on distributed sim training — exactly when managed orchestration adds most value","Fleet growing → data volume scaling → existing pipeline showing strain at current team size"],"contacts":[{"name":"George Hotz","title":"President & Founder","email":"george@comma.ai","linkedin":"https://linkedin.com/in/priyakeshav"},{"name":"Adeeb Shihadeh","title":"Chief Product Officer","email":"adeeb@comma.ai","linkedin":"https://linkedin.com/in/priyakeshav"},{"name":"Yassine Yousfi","title":"Head of Machine Learning","email":"yassine@comma.ai","linkedin":"https://linkedin.com/in/priyakeshav"},{"name":"Igor Biletski","title":"Head of Hardware Development","email":"igor@comma.ai","linkedin":"https://linkedin.com/in/priyakeshav"},{"name":"Julie Hendy","title":"VP Operations","email":"julie@comma.ai","linkedin":"https://linkedin.com/in/priyakeshav"},{"name":"Shane Smiskol","title":"openpilot Engineer","email":"shane@comma.ai","linkedin":"https://linkedin.com/in/priyakeshav"}]},{"id":"iambic-therapeutics","name":"iambic-therapeutics","tier":1,"overview":"","why":["Ray's distributed hyperparameter search (Ray Tune) is purpose-built for the molecular property optimization problem — search millions of candidates in parallel","Ray Train handles large-scale NeuralPLexer/Enchant training runs across GPU clusters without custom orchestration code","Ray Data can build the data pipeline connecting automated synthesis results → training dataset updates in real time"],"signals":["NVIDIA investment + Takeda partnership in quick succession → massive credibility + capital for infrastructure scaling","$100M oversubscribed round (Nov 2025) + Takeda deal (Feb 2026) = 3 months of back-to-back major events, signaling infrastructure scaling is imminent","Weekly design-make-test cycles — computational throughput is the rate-limiting step for discovery speed"],"products":[{"name":"Ray Train","priority":"PRIMARY"},{"name":"Ray Tune","priority":"PRIMARY"},{"name":"Ray Data","priority":"PRIMARY"}],"mlCases":["NeuralPLexer — protein-ligand structure prediction at scale (requires distributed GPU inference + training)","Enchant — multimodal transformer predicting clinical/preclinical endpoints from molecular data","Design-make-test cycle optimization — running thousands of molecular design iterations per week"],"timing":["$100M fresh capital (Nov 2025) + Takeda deal (Feb 2026) = infrastructure scaling is now, not later","Takeda deal requires scaling ML capacity to serve external client — need reproducible, production-grade pipelines"],"contacts":[{"name":"Thomas Miller","title":"Co-Founder & CEO","email":"thomas.miller@iambic.ai","linkedin":"https://linkedin.com/in/priyakeshav"},{"name":"Fred Manby","title":"Co-Founder & CTO","email":"fred.manby@iambic.ai","linkedin":"https://linkedin.com/in/michaelrdoane"}]},{"id":"falai","name":"Fal.ai","tier":1,"overview":"","why":["Ray Serve's fractional GPU scheduling enables co-locating multiple models on the same GPU — directly reduces infrastructure cost at fal.ai's scale","Ray Serve's prefix caching for video/image generation models can cut per-call GPU seconds significantly","Ray's heterogeneous resource scheduling handles fal's multi-model portfolio (image/video/audio/3D) with different GPU footprints"],"signals":["Scaling from thousands of Hopper GPUs → tens of thousands of Blackwell GPUs — massive infrastructure overhaul underway","100M+ inference calls/day with 99.99% uptime — production-grade scale where scheduling efficiency compounds","Custom inference engine (10× faster claim) — they've invested deeply in performance; Ray Serve adds routing/scaling intelligence on top"],"products":[{"name":"Ray Data","priority":"SECONDARY"},{"name":"Ray Train","priority":"SECONDARY"}],"mlCases":["Multi-model generative AI inference — serving image, video, audio, 3D models via unified API","Real-time video generation — latency-critical, millisecond-level scheduling requirements","LoRA fine-tuning at scale — running customer-specific model variants on shared GPU infrastructure"],"timing":["Blackwell GPU migration = infrastructure overhaul in progress — ideal moment to evaluate serving layer architecture","Rumored $250M round at $4B → next scaling wave imminent; foundation of the serving stack gets set now"],"contacts":[{"name":"Burkay Gur","title":"Co-Founder & CEO","email":"burkay@fal.ai","linkedin":"https://linkedin.com/in/jingsong-wang"},{"name":"Batuhan Taskaya","title":"Head of Engineering","email":"batuhan@fal.ai","linkedin":"https://linkedin.com/in/luistong"},{"name":"Ehsan Akhgari","title":"Research Engineer","email":"ehsan@fal.ai","linkedin":"https://linkedin.com/in/jingsong-wang"},{"name":"Tuna Meral","title":"Research Fellow","email":"tuna@fal.ai","linkedin":"https://linkedin.com/in/cagrikumas"}]},{"id":"apexai","name":"Apex.AI","tier":1,"overview":"","why":["Anyscale managed Ray handles the offboard distributed training that Apex.OS needs for its edge deployments — the cloud counterpart to their edge OS","Ray's actor model can orchestrate safety validation test suites across thousands of simulated scenarios in parallel","ROS2/Python ecosystem alignment — Apex.AI engineers write Python; Ray is Python-native with no stack-switching"],"signals":["QNX partnership (Dec 2025) — bridging AI-native Apex.OS with safety-certified real-time OS signals production AV deployment is accelerating","LG Electronics strategic investment (Feb 2025) — Korean OEM entry opens automotive manufacturing partnership channel","ISO 26262 ASIL-D certification — highest safety standard; models deployed on Apex.OS require rigorous validation at scale"],"products":[{"name":"Ray Train","priority":"PRIMARY"},{"name":"Ray Data","priority":"PRIMARY"},{"name":"RLlib","priority":"SECONDARY"}],"mlCases":["Offboard distributed model training — training perception, prediction, and planning models for Apex.OS deployments","Safety-critical ML validation — running large-scale test suites to validate ASIL-D compliant model behavior","Simulation-based policy learning — generating synthetic training data for diverse AV/robotics environments"],"timing":["QNX partnership is recent (Dec 2025) — joint customers are now evaluating infrastructure for the offboard training side","LG Electronics investment (Feb 2025) opens automotive manufacturing at scale — more models, more retraining cycles"],"contacts":[{"name":"Jan Becker","title":"Co-Founder & CEO","email":"jan.becker@apex.ai","linkedin":"https://linkedin.com/in/priyakeshav"},{"name":"Dejan Pangercic","title":"Co-Founder & CTO","email":"dejan.pangercic@apex.ai","linkedin":"https://linkedin.com/in/priyakeshav"},{"name":"Tavis Szeto","title":"Executive Vice President","email":"tavis.szeto@apex.ai","linkedin":"https://linkedin.com/in/priyakeshav"},{"name":"Misha Shalem","title":"Principal Engineer","email":"misha.shalem@apex.ai","linkedin":"https://linkedin.com/in/priyakeshav"},{"name":"Tom Winkle","title":"VP Business Development","email":"tom.winkle@apex.ai","linkedin":"https://linkedin.com/in/priyakeshav"},{"name":"Jesse Lovell","title":"Director of Engineering","email":"jesse.lovell@apex.ai","linkedin":"https://linkedin.com/in/priyakeshav"}]},{"id":"chooch","name":"Chooch","tier":1,"overview":"","why":["Ray Serve's fractional GPU scheduling handles the multi-model-per-stream pattern (CV + LLM simultaneously) with much lower GPU waste than process-per-model appr","Ray Train can orchestrate the customer-specific fine-tuning jobs that drive Chooch's enterprise customization value","Ray's Python-native API matches Chooch's existing stack — no framework rewrite required"],"signals":["2025 AI Breakthrough Award — Decision Management Solution of the Year — strong market validation at a key moment","ImageChat launch — LLM + computer vision fusion is a new product tier requiring significantly more compute per inference call","Multi-model fusion (LLM + CV) per video stream — each stream now runs N models simultaneously, multiplying GPU demand"],"products":[{"name":"Ray Train","priority":"PRIMARY"},{"name":"Ray Data","priority":"SECONDARY"}],"mlCases":["Multi-model computer vision inference — running object detection, classification, and scene understanding simultaneously","LLM + CV fusion (ImageChat) — combining visual features with language model reasoning for contextual video understanding","Healthcare inventory AI — real-time product recognition and tracking across hospital supply chains"],"timing":["2025 AI Breakthrough Award winner = sales momentum and enterprise customer conversations are active now","ImageChat launch = new product tier driving up inference compute requirements significantly"],"contacts":[{"name":"Emrah Gultekin","title":"Co-Founder & CEO","email":"emrah@chooch.ai","linkedin":"https://linkedin.com/in/priyakeshav"},{"name":"Hakan Gultekin","title":"Co-Founder & CTO","email":"hakan@chooch.ai","linkedin":"https://linkedin.com/in/luistong"},{"name":"Berk Baytar","title":"Cloud & DevOps Team Lead","email":"berk@chooch.ai","linkedin":"https://linkedin.com/in/priyakeshav"},{"name":"Shine Fernandes","title":"Sr Manager Global Accounts / AI Ops","email":"shine@chooch.ai","linkedin":"https://linkedin.com/in/luistong"}]},{"id":"lightwheel","name":"Lightwheel","tier":1,"overview":"","why":["Ray is the natural orchestration layer for Lightwheel's MimicGen/DexMimicGen pipeline — running thousands of parallel synthetic data generation jobs","Ray Train handles distributed policy training across Isaac Lab-Arena benchmark runs at massive scale","Ray Data can build the Real2Sim2Real data pipeline — ingesting real robot data, triggering simulation variants, feeding training jobs"],"signals":["NVIDIA case study + Isaac Lab-Arena co-development — highest-tier NVIDIA endorsement possible for a startup","100:1 sim-to-real data ratio achieved — this is the core proof point for the business and requires massive compute to sustain","Deployed GR00T N1.5 at Geely automotive factory — real production deployment, validating the sim-to-real transfer works"],"products":[{"name":"Ray Data","priority":"PRIMARY"},{"name":"Ray Train","priority":"PRIMARY"},{"name":"RLlib","priority":"PRIMARY"},{"name":"Ray Tune","priority":"SECONDARY"}],"mlCases":["Synthetic data generation at scale — running MimicGen/DexMimicGen to create 100× teleoperation data variants","Robot policy training — distributed RL and imitation learning for manipulation, locomotion, and mobile manipulation","Sim-to-real transfer pipeline — training in NVIDIA Isaac Sim, validating in real environments"],"timing":["Geely factory deployment is live — proof of concept proven, scaling to more factories/customers is the next step and requires more compute","NVIDIA Isaac Lab-Arena launch = ecosystem adoption happening now — Lightwheel needs to scale to serve partner demand"],"contacts":[{"name":"Jay Yang","title":"Chief Architect (ex-Meta PyTorch)","email":"jay.yang@lightwheel.ai","linkedin":"https://linkedin.com/in/priyakeshav"},{"name":"Wayne Zhang","title":"VP of Solutions for AD","email":"wayne.zhang@lightwheel.ai","linkedin":"https://linkedin.com/in/priyakeshav"},{"name":"Edward Liu","title":"Director of Sales","email":"edward.liu@lightwheel.ai","linkedin":"https://linkedin.com/in/priyakeshav"},{"name":"Huang Yang","title":"Product Manager","email":"huang.yang@lightwheel.ai","linkedin":"https://linkedin.com/in/priyakeshav"},{"name":"Erdao Liang","title":"Algorithm Engineer","email":"erdao.liang@lightwheel.ai","linkedin":"https://linkedin.com/in/priyakeshav"}]},{"id":"valar-labs","name":"valar-labs","tier":1,"overview":"","why":["Ray Data handles the distributed preprocessing of whole slide images — gigapixel images require parallelized tile extraction before model training","Ray Train orchestrates multi-GPU training across large patient cohort datasets without custom parallelism code","Ray Tune runs hyperparameter optimization across Vesta model variants to maximize clinical prediction accuracy"],"signals":["STAT News coverage + DCVC/a16z backing — highest-signal investors in health AI validate the technical approach","1000+ patient cohort across 4 continents — data scale requires serious distributed compute for model training","Vesta generalization to pancreatic cancer + other tumor types — each new cancer type is a new large training job"],"products":[{"name":"Ray Data","priority":"PRIMARY"},{"name":"Ray Train","priority":"PRIMARY"},{"name":"Ray Tune","priority":"PRIMARY"}],"mlCases":["Whole slide image (WSI) analysis — gigapixel pathology slide processing requires distributed preprocessing and model inf","Histology model training — training CNN/transformer models on large patient cohorts (1000+ patient datasets)","Multi-cancer generalization — fine-tuning and transfer learning across bladder, pancreatic, and additional cancer types"],"timing":["Series A freshly closed (May 2024) → infrastructure investment cycle is open now","Expanding to new cancer types = immediate new training jobs needed"],"contacts":[{"name":"Anirudh Joshi","title":"Co-Founder & CEO","email":"anirudh@valarlabs.com","linkedin":"https://linkedin.com/in/priyakeshav"},{"name":"Viswesh Krishna","title":"Co-Founder & CTO","email":"viswesh@valarlabs.com","linkedin":"https://linkedin.com/in/erik-seliger"},{"name":"Damir Vrabac","title":"Co-Founder","email":"damir@valarlabs.com","linkedin":"https://linkedin.com/in/priyakeshav"},{"name":"Haochen Zhang","title":"Data Scientist","email":"haochen@valarlabs.com","linkedin":"https://linkedin.com/in/priyakeshav"},{"name":"Ahmed Elbakri","title":"Commercial Lead","email":"ahmed@valarlabs.com","linkedin":"https://linkedin.com/in/priyakeshav"}]},{"id":"elroy-air","name":"Elroy Air","tier":1,"overview":"","why":["Ray's distributed simulation support handles running thousands of Chaparral flight simulation scenarios in parallel — compresses training cycles dramatically","Ray Train orchestrates multi-GPU training for Elroy's flight control neural networks across diverse weather/payload conditions","Ray Data manages the data pipeline from flight simulation → training dataset with proper versioning and reproducibility"],"signals":["Kratos exclusive manufacturing partnership (2025) — production-intent aircraft coming in 2026, requiring production-grade ML pipelines","First autonomous A-to-B cargo delivery milestone — product validation proven, scaling is next","USMC autonomous aerial resupply contract (Leidos/Elroy) — defense contract adds federal compliance + reliability requirements"],"products":[{"name":"Ray Train","priority":"PRIMARY"},{"name":"RLlib","priority":"PRIMARY"},{"name":"Ray Data","priority":"PRIMARY"}],"mlCases":["Flight control neural network training — training RL and supervised models for VTOL flight across diverse weather/payloa","Computer vision for autonomous operations — obstacle detection, landing zone identification, payload verification","Path planning and logistics optimization — distributed route planning across fleet of delivery drones"],"timing":["2026 production aircraft delivery (Kratos partnership) — production ML pipeline needs to be ready before manufacturing scales","USMC contract testing underway — defense validation requires rigorous, documented ML development process"],"contacts":[]},{"id":"intrinsic-google","name":"Intrinsic (Google)","tier":1,"overview":"","why":["Anyscale runs on GCP — direct alignment with Intrinsic's post-Google-integration infrastructure stack","Ray Train handles distributed IVM training across large-scale industrial vision datasets on Google Cloud TPUs/GPUs","Ray Serve can handle model serving for Flowstate's real-time robot skill inference at manufacturing scale"],"signals":["Joined Google Feb 2026 — 'Android of Robotics' strategy signals massive infrastructure investment ahead","Intrinsic Vision Model (IVM) topped benchmarks — training state-of-the-art vision model requires large-scale distributed compute","Google Gemini AI integration announced — LLM + robotics fusion = new compute-intensive model training paradigm"],"products":[],"mlCases":["Intrinsic Vision Model (IVM) training — large-scale visual perception model for industrial robot programming","Flowstate skill learning — training task-specific robot skills from demonstrations and simulation","Gemini-powered robot programming — LLM + robot action model fine-tuning for natural language robot control"],"timing":["Google integration (Feb 2026) = infrastructure realignment happening NOW — new GCP-native ML pipelines being built","DeepMind collaboration = physical AI research is actively scaling — compute requirements multiplying"],"contacts":[]},{"id":"wing-alphabet","name":"Wing (Alphabet)","tier":1,"overview":"","why":["Even within Google Cloud, many teams find that managed Ray provides better ML-specific scheduling than Vertex AI for custom research workloads","Ray's fleet simulation capabilities handle training flight AI for thousands of simultaneous drone scenarios — exactly Wing's scale","Ray Data manages the massive continuous flight data pipeline (telemetry → training → model update → fleet deployment)"],"signals":["Walmart 100-store, 6-city deployment — largest commercial drone delivery expansion in US history, signaling production ML pipeline is critical","New high-payload drone (5lb capacity) launching globally — new model requires new training pipeline for different flight characteristics","450K+ total deliveries → growing to millions — fleet scaling requires continuous ML model improvement"],"products":[],"mlCases":["Flight AI training — training obstacle avoidance, path planning, and landing zone detection models","Fleet management optimization — ML for route planning, payload assignment, and maintenance prediction across growing fle","Real-time obstacle detection — computer vision for in-flight obstacle avoidance (birds, other drones, power lines)"],"timing":["Walmart 100-store deployment is LIVE — production ML at scale is operational, model improvement cycles are now critical","New drone model global rollout = new training jobs needed immediately for different flight dynamics"],"contacts":[]},{"id":"gitai","name":"GITAI","tier":1,"overview":"","why":["Ray's distributed simulation handles running thousands of space environment training scenarios in parallel — critical for sim-to-real transfer where real-world ","Ray Train orchestrates multi-GPU manipulation policy training for GITAI's diverse ISAM task set","The actor model in Ray maps directly to parallel space environment simulator instances — each physics sim is a Ray actor"],"signals":["NASA TRL-7 achieved for S2 robotic arm — highest readiness level before production deployment, signals production training infrastructure is needed now","ISS Bishop Airlock mission completed — live space demonstration validated; scaling is next","2026 on-orbit servicing mission planned — commercial launch requiring production-grade ML for manipulation"],"products":[{"name":"Ray Train","priority":"PRIMARY"},{"name":"RLlib","priority":"PRIMARY"},{"name":"Ray Data","priority":"PRIMARY"}],"mlCases":["Manipulation policy training — training dexterous manipulation policies for space assembly (antenna, solar panel install","Space environment simulation — generating training scenarios for microgravity, vacuum, temperature extremes","Proximity operations ML — training models for satellite approach, docking, and grappling"],"timing":["2026 on-orbit servicing commercial launch = production ML pipeline must be ready before the mission","Lunar surface demo discussions underway = second program starting soon, doubling compute requirements"],"contacts":[]},{"id":"compound-eye","name":"Compound Eye","tier":2,"overview":"","why":["Ray Data handles the multi-camera streaming data pipeline — distributed ingestion, labeling, and preprocessing of petabytes of surround-vision footage without c","Ray Train scales PyTorch perception model training across GPU clusters — critical when ADAS models require training on 100M+ scene examples","Ray's actor model maps directly to parallel simulation rollouts for ADAS safety validation — run thousands of edge case scenarios simultaneously"],"signals":["Toyota (Woven Capital) backed — automotive OEM investment signals Compound Eye is on the production deployment path for L2+ ADAS, which demands rigorous ML trai","Single-chip surround-vision sensor generates continuous multi-view video streams — each vehicle generates terabytes of training data per hour that must be proce","L2+ ADAS certification requires safety validation across millions of simulated edge cases — parallel simulation across Ray actors is the native solution"],"products":[{"name":"Ray Data","priority":"PRIMARY"},{"name":"Ray Train","priority":"PRIMARY"},{"name":"Ray Tune","priority":"SECONDARY"}],"mlCases":["Surround-vision perception model training — distributed training of 3D object detection and occupancy prediction models ","Sensor fusion ML — fusing radar + camera streams from a single-chip design into unified 3D scene understanding models tr","ADAS safety validation — parallel simulation across thousands of edge case scenarios to validate model behavior under L2"],"timing":["Toyota Woven investment signals production deployment timeline is compressing — infrastructure decisions made now will scale into OEM production programs","L2+ ADAS competitive landscape is accelerating (Mobileye, Wayve, NVIDIA) — faster model iteration means faster competitive validation"],"contacts":[{"name":"Jason Devitt","title":"CEO","email":"","linkedin":"https://linkedin.com/in/devitt"},{"name":"Konstantin Azarov","title":"CTO","email":"","linkedin":"https://linkedin.com/in/konstantin-azarov-0165992a"},{"name":"Quan Yuan","title":"Machine Learning Tech Lead","email":"","linkedin":"https://linkedin.com/in/quan-yuan-481a463"},{"name":"David Laziuk","title":"Machine Learning Engineer","email":"","linkedin":"https://linkedin.com/in/david-laziuk"}]},{"id":"overviewai","name":"Overview.ai","tier":2,"overview":"","why":["Ray Train's distributed training handles Overview's core product loop: train a new factory's defect model quickly, deploy to production, retrain when accuracy d","Ray Serve runs production inference at factory floor latency requirements — fractional GPU allocation lets multiple factory models run on shared GPU infrastruct","Ray Data preprocesses defect image datasets from multiple factories simultaneously — one pipeline for all factory customers instead of per-factory scripts"],"signals":["Industrial CV requires model retraining every time a new product, defect type, or factory layout is onboarded — scale of new deployments directly drives compute","Factory floor inference must run at sub-100ms latency — production line downtime from a missed defect costs more than the entire ML infrastructure budget","Expanding from single-factory to multi-factory deployments multiplies training jobs proportionally — each customer represents a new ML workload"],"products":[{"name":"Ray Train","priority":"PRIMARY"},{"name":"Ray Data","priority":"SECONDARY"}],"mlCases":["Defect detection model training — factory-specific CV models trained on labeled defect images from assembly line cameras","Real-time inference serving — sub-100ms defect classification and anomaly detection deployed directly to factory floor p","Continuous model retraining — automated pipeline triggered by new defect types, product variants, or accuracy degradatio"],"timing":["Industrial AI adoption is at an inflection — manufacturers are now mandating AI-based quality systems, not just considering them","Overview's Series A (Initialized Capital) creates 18-24 month pressure to scale factory deployments before the next raise"],"contacts":[{"name":"Chris Van Dyke","title":"Co-Founder, CEO","email":"","linkedin":"https://linkedin.com/in/christopher-van-dyke"},{"name":"Austin Appel","title":"Co-Founder","email":"","linkedin":"https://linkedin.com/in/austin-appel"},{"name":"Xiaoyang Kao","title":"Co-Founder","email":"","linkedin":"https://linkedin.com/in/xykao"},{"name":"Surya K.","title":"Deep Learning Engineer","email":"","linkedin":"https://linkedin.com/in/skrishnan99"}]},{"id":"foxglove","name":"Foxglove","tier":2,"overview":"","why":["Ray Data is the natural distributed processing layer for ROS bag files at scale — parallel ingestion and preprocessing of multi-topic telemetry without custom M","Foxglove's developer community (Python-native robotics engineers) is the same community building Ray training pipelines — zero adoption friction for an Anyscale","The Foxglove data → Anyscale training pipeline is a compelling integration story: customers who use Foxglove for visualization can train models directly on thei"],"signals":["Foxglove ingests and indexes massive ROS bag files (100GB+ per robot-hour) — the data pipeline challenge maps directly to Ray Data's distributed processing","Sequoia-backed with developer-led growth — the tooling ecosystem around robotics ML is consolidating, and Foxglove is the standard for data visualization in the","Users go from Foxglove visualization to ML training — there's a natural integration opportunity between Foxglove's data layer and Anyscale's training infrastruc"],"products":[{"name":"Ray Data","priority":"PRIMARY"},{"name":"Ray Train","priority":"SECONDARY"}],"mlCases":["ROS bag distributed processing — ingesting, decompressing, indexing, and converting multi-topic ROS bags from robot flee","Sensor fusion data pipeline — aligning and synchronizing camera, LiDAR, IMU, and other sensor streams from ROS data for ","Fleet telemetry ML — training anomaly detection and predictive maintenance models on aggregated robot telemetry data fro"],"timing":["Robotics deployment scale is accelerating (AMRs, delivery robots, humanoids) — data volumes from robot fleets are growing faster than manual processing can hand","Sequoia Series A puts Foxglove on a 18-24 month path to scale — growing developer community means growing data processing demands"],"contacts":[{"name":"Adrian Macneil","title":"Co-Founder & CEO","email":"","linkedin":"https://linkedin.com/in/adrianmacneil"},{"name":"Nick Brachet","title":"Head of Engineering","email":"","linkedin":"https://linkedin.com/in/nick-brachet"},{"name":"Jeff Zellner","title":"Director of Engineering","email":"","linkedin":"https://linkedin.com/in/jzellner"},{"name":"Bahram Banisadr","title":"Head of Product","email":"","linkedin":"https://linkedin.com/in/bahrambanisadr"},{"name":"Sandeep Kini","title":"Head of Growth","email":"","linkedin":"https://linkedin.com/in/sandeepkini"}]},{"id":"anyware-robotics","name":"Anyware Robotics","tier":2,"overview":"","why":["Ray Train handles distributed manipulation + CV co-training across Anyware's GPU cluster — critical when training on millions of SKU images simultaneously","Ray Serve runs production picking inference at sub-100ms latency with fractional GPU allocation across the robot fleet — more efficient than per-robot compute","Ray Data builds the continuous retraining pipeline — automated ingestion of picking failure data from deployed robots into the next training run"],"signals":["Foxconn Ventures backing signals production-intent — Foxconn's involvement means Anyware needs to demonstrate manufacturing-scale robotics capability","Warehouse piece-picking requires recognizing millions of distinct SKUs — model retraining as catalogs grow is a core, continuous workload","Sub-100ms picking cycle time requirement means inference infrastructure is latency-critical — production line uptime depends on compute reliability"],"products":[{"name":"Ray Train","priority":"PRIMARY"},{"name":"Ray Data","priority":"SECONDARY"}],"mlCases":["SKU recognition model training — distributed CV training across product image datasets spanning millions of distinct war","Manipulation policy learning — distributes RL and behavioral cloning training for gripper control policies that generali","Real-time picking inference — sub-100ms classification of target SKU, grasp point prediction, and trajectory planning fo"],"timing":["E-commerce SKU proliferation is accelerating — Amazon, Shopify merchants, and 3PL customers are adding new product catalogs faster than manual annotation can tr","Foxconn involvement signals production deployment timelines are compressing — warehouse automation at Foxconn scale requires production-grade ML infrastructure"],"contacts":[{"name":"Rin Imai","title":"Co-Founder & CEO","email":"","linkedin":"https://linkedin.com/in/rin-imai"},{"name":"Head of ML / AI Engineering","title":"ML or AI Engineering Lead","email":"","linkedin":"https://linkedin.com/in/batuhan-taskaya-7803b61a0"}]},{"id":"armstrong-robotics","name":"Armstrong Robotics","tier":2,"overview":"","why":["RLlib is purpose-built for the parallel RL training Armstrong needs — thousands of simulation rollout workers coordinated by a central policy trainer without cu","Ray Train handles the distributed PyTorch training for perception + policy networks across multi-GPU clusters","Anyscale's managed layer removes simulation infrastructure ops from a small team splitting focus between hardware and ML"],"signals":["Sim-to-real RL for manipulation requires running thousands of parallel simulation rollouts — this is Ray's native workload and where compute investment has high","General-purpose manipulation requires training policies across diverse task types — scaling the simulation environment is the primary constraint on model qualit","Small team building both hardware and ML simultaneously — infrastructure overhead is disproportionately costly in engineering time and focus"],"products":[{"name":"Ray Train","priority":"PRIMARY"},{"name":"RLlib","priority":"PRIMARY"},{"name":"Ray Data","priority":"SECONDARY"}],"mlCases":["Sim-to-real manipulation policy training — training grasping and assembly policies in parallel physics simulation, then ","RL policy optimization — running PPO, SAC, and other policy gradient algorithms across thousands of parallel simulation ","Perception-to-action training — jointly training visual perception and manipulation policy networks end-to-end for fully"],"timing":["Physical AI investment wave (Figure, 1X, Physical Intelligence, Apptronik) is at peak — window to raise and scale is now","OpenAI, Google DeepMind, and Meta are investing heavily in robot learning research — startup teams need to keep pace with compute investment"],"contacts":[{"name":"Founding Team / CTO","title":"CTO or VP Engineering","email":"","linkedin":"https://linkedin.com/in/batuhan-taskaya-7803b61a0"},{"name":"ML Research Lead","title":"ML Research Lead","email":"","linkedin":"https://linkedin.com/in/gorkemy"}]},{"id":"kiwibot","name":"Kiwibot","tier":2,"overview":"","why":["Ray Train distributes navigation and CV model training across GPU clusters — critical when training on millions of kilometers of fleet telemetry data","Ray Serve handles variable real-time inference load from robot fleet operations with autoscaling as delivery volume changes","Ray Data builds the fleet data pipeline — parallel processing of telemetry from hundreds of robots simultaneously without custom ETL code"],"signals":["Deployed robot fleet generates continuous telemetry — each kilometer driven creates training data that should feed back into model improvement cycles","Expanding to new campuses and cities requires adapting navigation models to new environments — distributed training with domain adaptation is core to scaling","Sub-50ms navigation inference requirement — the robot makes hundreds of decisions per second in complex pedestrian environments"],"products":[{"name":"Ray Train","priority":"PRIMARY"},{"name":"Ray Data","priority":"SECONDARY"}],"mlCases":["Autonomous navigation model training — distributed training of perception and path planning models for sidewalk navigati","CV obstacle detection and avoidance — training real-time detection models for pedestrians, vehicles, steps, and other de","Fleet data to model improvement loop — continuous pipeline from robot telemetry (successes, failures, edge cases) to tar"],"timing":["Campus delivery robot market is growing rapidly — DoorDash, Starship, and Amazon are all scaling simultaneously, creating competition and urgency","New campus partnership signings require rapid navigation model adaptation — deployment velocity is a sales differentiator"],"contacts":[{"name":"Cesar Ardila","title":"Head of IT & Digital Product","email":"","linkedin":"https://linkedin.com/in/cesarardilab"},{"name":"Andres Rengifo","title":"Hardware Lead Engineer","email":"","linkedin":"https://linkedin.com/in/andresr8"},{"name":"CEO / Head of Engineering","title":"CEO or Head of Engineering","email":"","linkedin":"https://linkedin.com/in/batuhan-taskaya-7803b61a0"}]},{"id":"topaz-labs","name":"Topaz Labs","tier":2,"overview":"","why":["Ray Train handles large GAN and diffusion model training across multi-GPU clusters — critical for Topaz's 4K+ video enhancement models that require massive comp","Ray Serve manages high-throughput image and video processing serving — fractional GPU allocation lets multiple enhancement models share infrastructure cost-effi","Ray Data preprocesses the high-volume training datasets (images, video frames) needed for model training without custom pipeline code"],"signals":["Multi-product AI platform (Photo AI, Video AI, Gigapixel, DeNoise) — each product is a distinct model requiring independent training pipelines and serving infra","Consumer + professional B2C scale means processing millions of user-submitted images and videos — inference load at this scale demands intelligent autoscaling","Generative AI competition (Midjourney, Adobe Firefly, Runway) is intensifying — faster model iteration is the primary competitive response"],"products":[{"name":"Ray Train","priority":"PRIMARY"},{"name":"Ray Data","priority":"PRIMARY"}],"mlCases":["GAN/diffusion model training — distributed training of image enhancement models (upscaling, denoising, sharpening) acros","Video AI model training — training temporal consistency models for video enhancement that require processing sequences o","High-throughput inference serving — processing millions of user-uploaded images and videos simultaneously with prioritiz"],"timing":["Video AI processing demand is exploding (social media 4K/8K, streaming, YouTube) — scaling serving infrastructure to meet demand is urgent","Adobe Firefly and Luminar AI are investing aggressively — Topaz must iterate on model quality faster than well-funded competitors"],"contacts":[{"name":"Eric Yang","title":"CEO","email":"","linkedin":"https://linkedin.com/in/ericy"},{"name":"Suraj Raghuraman","title":"Head of AI Engine","email":"","linkedin":"https://linkedin.com/in/suraj-raghuraman"},{"name":"Lingyu Kong","title":"Technical Product Manager","email":"","linkedin":"https://linkedin.com/in/lingyukong1"}]},{"id":"krisp","name":"Krisp","tier":2,"overview":"","why":["Ray Serve handles Krisp's 50M+ user inference load with intelligent autoscaling — more cost-efficient than fixed infrastructure that over-provisions for peak","Multi-model audio pipeline (noise + echo + transcription) is Ray Serve's strength — fractional GPU allocation across models reduces infrastructure cost per user","Ray Train handles distributed audio model training — training noise cancellation models on large, diverse audio datasets from real-world user environments"],"signals":["50M+ users generating real-time audio inference requests simultaneously — inference infrastructure at this scale demands intelligent load management and autosca","Real-time noise cancellation requires sub-20ms latency — inference serving architecture directly impacts product quality and user experience","Enterprise API expansion means Krisp serves Zoom, Teams, and other platforms — SLA requirements are stricter than consumer-only"],"products":[{"name":"Ray Train","priority":"SECONDARY"},{"name":"Ray Tune","priority":"SECONDARY"}],"mlCases":["Real-time noise cancellation inference — serving Krisp's noise suppression model to 50M+ users simultaneously with sub-2","Voice isolation model training — distributed training of audio separation models across diverse noise environments and r","Multi-model audio pipeline — orchestrating noise cancellation, echo removal, and voice enhancement models in a sequentia"],"timing":["50M users generates a massive amount of model telemetry — training on real-world audio feedback requires production-grade data pipeline at this scale","Enterprise API expansion (Zoom, Teams integrations) means SLA requirements have escalated — managed infrastructure with uptime guarantees is now required"],"contacts":[{"name":"Arto Minasyan","title":"Co-Founder & President","email":"","linkedin":"https://linkedin.com/in/artominasyan"},{"name":"Anush Martirosyan","title":"Head of AI Engineering","email":"","linkedin":"https://linkedin.com/in/anush-martirosyan"},{"name":"Daniel Haver","title":"Head of Global Sales","email":"","linkedin":"https://linkedin.com/in/daniel-haver"}]},{"id":"headspin","name":"HeadSpin","tier":2,"overview":"","why":["Ray Data is the native distributed processing layer for HeadSpin's telemetry pipeline — parallel ingestion and analysis of thousands of device streams without c","Ray Train handles anomaly detection model training on multimodal performance data — combining network, visual, and hardware signals in a unified training pipeli","Anyscale's managed layer reduces infrastructure ops overhead for a team running a global real-device network alongside ML development"],"signals":["Thousands of real devices generating continuous telemetry (network, CPU, GPU, memory, visual) — distributed data processing pipeline is the core infrastructure ","$117M raised but in a challenging growth environment — efficiency in ML infrastructure (doing more with existing compute) is high priority","Microsoft Ventures (M12) backing signals enterprise distribution potential — credibility with large enterprise customers creates compliance and SLA requirements"],"products":[{"name":"Ray Data","priority":"PRIMARY"},{"name":"Ray Train","priority":"SECONDARY"}],"mlCases":["Performance anomaly detection — ML models identifying regressions, crashes, and performance degradation in mobile app bu","Root cause attribution ML — correlating performance anomalies across network conditions, device hardware, app versions, ","AI-powered test prioritization — ML models predicting which test scenarios are most likely to catch regressions given co"],"timing":["Mobile app performance is a top-10 enterprise software priority — and AI-native analytics platforms are winning vs. manual testing tools","$117M raised but growth efficiency pressure means infrastructure ROI needs to be clear — Anyscale conversation should lead with cost efficiency"],"contacts":[{"name":"Manish Lachwani","title":"Founder & CEO","email":"","linkedin":"https://linkedin.com/in/manish-lachwani-headspin"},{"name":"VP Engineering / Head of ML","title":"VP Engineering or Head of ML","email":"","linkedin":"https://linkedin.com/in/batuhan-taskaya-7803b61a0"}]},{"id":"samba-tv","name":"Samba TV","tier":2,"overview":"","why":["Ray Data is the natural replacement for Spark for Samba TV's ACR pipeline — faster distributed processing of audio/video fingerprints from millions of TV signal","Ray Serve handles the real-time audience measurement inference use case — serving audience segmentation models on continuous TV viewing events","Ray's autoscaling manages Samba TV's bursty load pattern (high during primetime, low overnight) without manual scaling operations"],"signals":["ACR processes audio and video fingerprints from tens of millions of connected TVs simultaneously — distributed data processing at this scale is a genuine infras","Real-time audience measurement (campaign attribution, frequency capping) requires sub-second inference on continuous TV viewing signals","Connected TV advertising market is growing rapidly — Samba TV's revenue depends on delivering audience data with lower latency than competitors"],"products":[{"name":"Ray Data","priority":"PRIMARY"},{"name":"Ray Train","priority":"SECONDARY"}],"mlCases":["Automatic Content Recognition (ACR) — distributed processing of TV audio/video fingerprints from millions of TVs to iden","Audience segmentation ML — training and serving behavioral ML models that segment TV viewers into advertising audience c","Cross-platform attribution — ML models correlating TV ad exposure with digital purchase behavior across Samba TV's data "],"timing":["Connected TV advertising is growing at 20%+ annually — Samba TV must scale data processing infrastructure to capture market share","Privacy regulation changes (deprecation of third-party cookies) make TV viewership data more valuable — processing accuracy and scale are differentiators"],"contacts":[{"name":"Travis Gingerich","title":"VP of Engineering","email":"","linkedin":"https://linkedin.com/in/travisgingerich"},{"name":"Piotr Kwasniewski","title":"Engineering Manager","email":"","linkedin":"https://linkedin.com/in/piotr-kwa%C5%9Bniewski-753a8084"},{"name":"Michal Bukowski","title":"Lead Data Scientist","email":"","linkedin":"https://linkedin.com/in/michal-bukowski"}]},{"id":"matterport","name":"Matterport","tier":2,"overview":"","why":["Ray Data handles the distributed 3D data processing pipeline — parallel reconstruction and analysis of point clouds and depth maps from millions of property sca","Ray Train scales spatial AI model training on Matterport's 10M+ property dataset — a unique training asset that requires distributed compute to leverage fully","CoStar integration creates enterprise SLA requirements that Anyscale's managed infrastructure and uptime guarantees satisfy"],"signals":["CoStar acquisition creates pressure to scale Matterport's 3D data platform for commercial real estate — building, room, and property ML at scale is now a CoStar","Processing 3D scan data (point clouds, depth maps, RGB images) is computationally intensive — distributed processing pipeline is the core infrastructure need","10M+ properties in the Matterport platform represent an enormous ML training dataset for spatial AI"],"products":[{"name":"Ray Data","priority":"PRIMARY"},{"name":"Ray Train","priority":"PRIMARY"}],"mlCases":["3D reconstruction ML — distributed processing of depth camera and photogrammetry data into high-quality 3D digital twins","Spatial understanding models — training ML models for room classification, object detection, and architectural feature e","Property analytics ML — training valuation, condition assessment, and space optimization models on the Matterport proper"],"timing":["CoStar acquisition creates a near-term integration mandate — Matterport's ML capabilities need to scale to CoStar's enterprise customer base quickly","Commercial real estate AI is an emerging high-value market — property analytics, space optimization, and construction AI are all growing"],"contacts":[{"name":"Raghu Munaswamy","title":"Director of Product Management","email":"","linkedin":"https://linkedin.com/in/raghumunaswamy"},{"name":"Kevin Chen","title":"Staff Machine Learning Engineer","email":"","linkedin":"https://linkedin.com/in/kevinddchen"},{"name":"Venkat Raghavan Saranathan","title":"Lead Software Engineer","email":"","linkedin":"https://linkedin.com/in/venkatraghavans"},{"name":"Stephanie Lin","title":"VP & General Manager, Operate Solutions","email":"","linkedin":"https://linkedin.com/in/stephanie-s-lin"}]},{"id":"suki","name":"Suki","tier":2,"overview":"","why":["Ray Serve handles Suki's multi-model clinical inference pipeline (ASR → entity extraction → note generation) as a unified serving graph with sub-second latency","BYOC deployment on Anyscale is essential for HIPAA compliance — PHI processing in physician documentation cannot leave the health system's cloud environment","Ray Train manages clinical domain fine-tuning of ASR and LLM models on PHI datasets in a compliance-controlled environment"],"signals":["Real-time clinical documentation requires sub-second ASR + LLM inference pipeline — latency directly impacts physician workflow adoption","Healthcare SaaS at $165M raised means institutional infrastructure requirements — HIPAA compliance, audit trails, and uptime SLAs are non-negotiable","Multiple ML models in the inference chain (ASR, entity extraction, note structuring, clinical coding) — multi-model serving is the core architectural challenge"],"products":[{"name":"Ray Train","priority":"SECONDARY"},{"name":"Ray Data","priority":"SECONDARY"}],"mlCases":["Real-time clinical ASR — physician speech-to-text transcription specialized for medical terminology, drug names, and cli","Clinical note structuring — LLM-based transformation of free-form physician dictation into structured EHR-compatible not","Medical entity extraction — NLP models identifying diagnoses, medications, procedures, and lab values from clinical spee"],"timing":["Physician burnout is at historic levels — the ROI case for AI documentation is stronger than ever, accelerating enterprise health system deals","Epic, Oracle (Cerner), and Microsoft (Nuance) are investing heavily in clinical AI — Suki must differentiate on model quality and integration depth"],"contacts":[{"name":"Punit Singh Soni","title":"CEO","email":"","linkedin":"https://linkedin.com/in/punit-singh-soni"},{"name":"Jonathan (VP Infrastructure)","title":"VP Infrastructure","email":"","linkedin":"https://linkedin.com/in/batuhan-taskaya-7803b61a0"},{"name":"Valerii Garnaga","title":"Staff ML Engineer","email":"","linkedin":"https://linkedin.com/in/gorkemy"},{"name":"Jorge Tapias","title":"VP of New Business","email":"","linkedin":"https://linkedin.com/in/gorkemy"}]},{"id":"culture-biosciences","name":"Culture Biosciences","tier":2,"overview":"","why":["Ray Train handles distributed bioprocess ML training across Culture Biosciences' multi-run, multi-sensor time-series datasets — faster iteration on optimization","Ray Tune is purpose-built for the hyperparameter optimization challenge — finding optimal ML model parameters for different bioprocess types (mammalian vs. micr","Ray Data builds the time-series data pipeline — parallel preprocessing of bioreactor sensor streams for ML training without custom ETL code"],"signals":["Cloud bioreactors generate continuous multi-sensor time-series data (pH, dissolved oxygen, temperature, cell density, metabolites) — distributed ML on this data","a16z-backed at $80M signals bioprocess AI is a high-value market — investor expectations create pressure to demonstrate AI capability advantages","Pharma and biotech customers pay premium for AI-guided bioprocess optimization — model quality directly drives customer retention and upsell"],"products":[{"name":"Ray Train","priority":"PRIMARY"},{"name":"Ray Tune","priority":"PRIMARY"},{"name":"Ray Data","priority":"SECONDARY"}],"mlCases":["Bioprocess optimization ML — training regression and classification models that predict optimal process parameters (pH, ","Experimental design automation — ML models (Bayesian optimization, active learning) suggesting the next bioreactor run p","Anomaly detection — time-series anomaly detection on bioreactor sensor streams identifying process deviations before the"],"timing":["FDA is increasing openness to AI/ML in pharmaceutical manufacturing (PAT guidance) — regulatory tailwind for AI-guided bioprocess development","Cell therapy and gene therapy manufacturing scale-up is a massive market need — ML-guided scale-up prediction has multi-million-dollar value per drug program"],"contacts":[{"name":"Chris Williams","title":"Chief Executive Officer","email":"","linkedin":"https://linkedin.com/in/chris-williams-400b0810"},{"name":"Babu Sivaraman","title":"SVP of Product and R&D","email":"","linkedin":"https://linkedin.com/in/babusivaraman"},{"name":"Randy Roushall","title":"Sr. Director of Engineering","email":"","linkedin":"https://linkedin.com/in/randy-roushall"},{"name":"Jason Gu","title":"Director, Commercial Software Product & IT","email":"","linkedin":"https://linkedin.com/in/jasonygu"}]},{"id":"techcyte","name":"Techcyte","tier":2,"overview":"","why":["Ray Data handles TB-scale whole-slide image preprocessing distributed across GPU workers — 10–20x faster than single-node pipelines","Ray Train enables multi-node DDP training on large pathology transformer models that won't fit single-GPU memory","Anyscale's HIPAA-eligible BYOC deployment keeps PHI-adjacent slide data in Techcyte's own AWS environment"],"signals":["AI-powered cytology and pathology platform processing WSI (whole-slide images) — computationally intensive CV workloads","FDA-cleared AI diagnostic tools across multiple cytology categories (urinalysis, pap, hematology)","Growing lab partner network requiring scalable inference for high-throughput slide analysis"],"products":[{"name":"Ray Data","priority":"PRIMARY"},{"name":"Ray Train","priority":"PRIMARY"},{"name":"Ray Tune","priority":"SECONDARY"}],"mlCases":["Whole-slide image (WSI) segmentation and cell classification for cytology screening","Multi-class abnormality detection across urinalysis, hematology, and Pap slides","Federated or multi-site model training on de-identified patient slide libraries"],"timing":["Active FDA submission pipeline means new model training cycles on compressed timelines","Growing lab partner base increasing inference load — current infrastructure showing strain"],"contacts":[{"name":"Rick Smith","title":"Founder & COO","email":"","linkedin":"https://linkedin.com/in/rick-smith-techcyte"},{"name":"Dan Tippetts","title":"VP Product","email":"","linkedin":"https://linkedin.com/in/dan-tippetts"}]},{"id":"cytek-biosciences","name":"Cytek Biosciences","tier":2,"overview":"","why":["Ray Data handles distributed processing of multi-parameter flow cytometry FCS files — scales with growing instrument fleet without redesigning pipeline","Ray Train enables GPU-distributed training of spectral unmixing models on large multi-site datasets","Ray Serve provides the low-latency inference API for instrument-side real-time analysis with built-in batching"],"signals":["Full-spectrum flow cytometry instruments generating 40+ parameter datasets — heavy computational analysis workload","Aurora and Northern Lights instrument lines gaining market share against BD Biosciences and Beckman Coulter","SpectroFlo software platform for spectral unmixing is a key differentiator — AI/ML improvements = competitive moat"],"products":[{"name":"Ray Data","priority":"PRIMARY"},{"name":"Ray Train","priority":"PRIMARY"}],"mlCases":["Automated spectral unmixing of 40+ parameter flow cytometry panels using learned fluorochrome matrices","Cell population classification and gating using deep learning on high-dimensional cytometry data","Anomaly detection for instrument QC and panel design validation across customer instrument fleet"],"timing":["Public company with quarterly earnings pressure — infrastructure investments need clear ROI","Cloud platform launch creates urgency to build scalable backend for customer data processing"],"contacts":[{"name":"Max Gray","title":"Machine Learning Software Engineer","email":"","linkedin":"https://linkedin.com/in/mh-gray"},{"name":"Manasi Kamat","title":"Senior System Engineer","email":"","linkedin":"https://linkedin.com/in/manasikamat87"}]},{"id":"wobot-ai","name":"Wobot AI","tier":2,"overview":"","why":["Ray Serve handles multi-camera concurrent inference with auto-scaling — processes 1000+ simultaneous video streams without fixed GPU overprovisioning","Ray Train enables distributed training on large annotated video datasets across multiple GPUs in parallel","Anyscale's auto-scaling eliminates idle GPU capacity during non-peak hours — significant cost savings for 24/7 inference workloads"],"signals":["Video analytics SaaS platform for restaurant and retail operations compliance — scales with customer camera count","Monitoring 1000+ camera feeds across enterprise QSR (quick service restaurant) customer deployments","Real-time food safety, hygiene, and SOP compliance detection using computer vision"],"products":[{"name":"Ray Train","priority":"PRIMARY"},{"name":"Ray Data","priority":"SECONDARY"}],"mlCases":["Real-time multi-class action detection for food safety compliance (handwashing, glove use, temperature checks)","Person tracking and activity recognition across multi-camera store/restaurant environments","Anomaly detection for SOP violations (missing steps, unsafe food handling, unauthorized access)"],"timing":["QSR enterprise deals are expanding camera footprints — inference infrastructure scaling pressure","Competitive pressure from Envision AI, Chooch, and NVIDIA Metropolis creating urgency to differentiate"],"contacts":[{"name":"Adit Chhabra","title":"CEO","email":"","linkedin":"https://linkedin.com/in/adit-chhabra"},{"name":"CTO / VP Engineering","title":"CTO or VP Engineering","email":"","linkedin":"https://linkedin.com/in/batuhan-taskaya-7803b61a0"}]},{"id":"pyka","name":"Pyka","tier":2,"overview":"","why":["RLlib is the leading production RL framework — directly accelerates Pyka's autonomous flight policy development with SOTA algorithms (PPO, SAC, MADDPG for multi","Ray Train enables distributed multi-node training of large control models that don't fit on single GPU, critical for complex 6-DOF autonomous flight policies","Ray Data handles distributed sensor fusion preprocessing (GPS, IMU, camera streams) at the scale RL training demands"],"signals":["Electric autonomous aircraft for agricultural applications (crop spraying, seeding) — advanced autonomy stack","Autonomous flight across variable terrain, obstacle avoidance, and precision delivery requirements","FAA Part 137 certification for agricultural aviation — safety-critical autonomous system requirements"],"products":[{"name":"Ray Train","priority":"PRIMARY"},{"name":"RLlib","priority":"PRIMARY"},{"name":"Ray Data","priority":"SECONDARY"}],"mlCases":["End-to-end autonomous flight policy learning via RL for agricultural mission profiles","Sensor fusion for GPS-denied navigation using IMU, camera, and LiDAR data streams","Adaptive flight path optimization responding to wind, terrain, and crop canopy variations"],"timing":["Series B milestone gates likely tied to autonomy stack maturity demonstrations","FAA certification timelines require extensive simulation-validated training data"],"contacts":[{"name":"Hannah Droesbeke","title":"Director of Software","email":"","linkedin":"https://linkedin.com/in/hannah-droesbeke"},{"name":"Andrew Schultz","title":"Head of Technology Infrastructure","email":"","linkedin":"https://linkedin.com/in/andrew-schultz-pyka"},{"name":"CEO / VP Autonomy","title":"CEO or VP Autonomy","email":"","linkedin":"https://linkedin.com/in/batuhan-taskaya-7803b61a0"}]},{"id":"appliedvr","name":"AppliedVR","tier":2,"overview":"","why":["Ray Train enables distributed training of outcome prediction models on growing patient session dataset without single-GPU bottlenecks","Ray Tune automates hyperparameter search for biometric response models — critical for maximizing predictive accuracy for FDA submissions","Ray Data handles distributed preprocessing of multi-modal session data (EEG, biometrics, behavioral) feeding training pipelines"],"signals":["FDA De Novo authorization for RelieVRx chronic lower back pain therapeutic — first FDA-authorized VR therapeutic","Real-world outcome data collection from patient treatment sessions generating ML training signal","Personalization of VR therapy sessions based on biometric and behavioral response data"],"products":[{"name":"Ray Train","priority":"PRIMARY"},{"name":"Ray Tune","priority":"SECONDARY"},{"name":"Ray Data","priority":"SECONDARY"}],"mlCases":["Patient response prediction models for adaptive VR therapy session personalization","Biometric signal processing (heart rate, GSR, EEG) for real-time therapeutic effectiveness monitoring","Treatment outcome prediction from early session behavioral patterns for protocol optimization"],"timing":["FDA authorization creates urgency for scaling clinical deployment and data collection","Health system partnership pipeline requires scalable ML platform to deliver on outcome promises"],"contacts":[{"name":"Myles Guanzon","title":"Vice President of Engineering","email":"","linkedin":"https://linkedin.com/in/myles-guanzon"},{"name":"Josh Sackman","title":"President and Co-Founder","email":"","linkedin":"https://linkedin.com/in/joshsackman"},{"name":"Oliver Koechli","title":"Chief Operating Officer","email":"","linkedin":"https://linkedin.com/in/oliverkoechli"}]},{"id":"autonomize-ai","name":"Autonomize AI","tier":2,"overview":"","why":["Ray Serve is the leading production LLM inference framework — handles concurrent clinical assistant API requests with auto-scaling and model multiplexing","Ray Train enables fine-tuning of large clinical LLMs (7B-70B parameters) on multi-GPU clusters without infrastructure complexity","Anyscale's BYOC deployment runs inference inside health system VPCs — PHI never leaves the customer's compliance boundary"],"signals":["AI-powered clinical intelligence platform focused on physician workflow automation and prior authorization","Processing large volumes of unstructured clinical documentation (notes, records, imaging reports)","Healthcare LLM applications requiring HIPAA-compliant inference at scale"],"products":[{"name":"Ray Train","priority":"SECONDARY"},{"name":"Ray Data","priority":"SECONDARY"}],"mlCases":["Clinical document extraction and structured data generation from unstructured physician notes","Prior authorization automation using ML to predict approval probability and generate submissions","LLM-powered clinical assistant for physician query answering and differential diagnosis support"],"timing":["Series A capital available for infrastructure investment to scale healthcare LLM capabilities","Northwell Health strategic investment implies access to large clinical dataset for model training"],"contacts":[{"name":"Kris Nair","title":"Founder & COO","email":"","linkedin":"https://linkedin.com/in/krispnair"},{"name":"Bharath Dandala, PhD","title":"Director of Artificial Intelligence","email":"","linkedin":"https://linkedin.com/in/bharath-dandala-phd-0977842a"},{"name":"Ujjwal Rajbhandari","title":"VP Solutions & Delivery Engineering","email":"","linkedin":"https://linkedin.com/in/ujjwalr"}]},{"id":"uplight","name":"Uplight","tier":2,"overview":"","why":["Ray Data replaces Spark for distributed smart meter preprocessing with GPU acceleration — 5-10x faster feature engineering for time-series ML","Ray Train enables distributed training of large deep learning demand forecasting models across multiple GPUs with simple Python API","Ray Tune automates hyperparameter search for forecasting models — critical for maximizing accuracy across diverse utility customer profiles"],"signals":["AI-powered utility customer engagement platform processing smart meter data for 80+ utility customers","Energy demand forecasting and demand response optimization for grid reliability","Processing billions of smart meter readings, thermostat events, and IoT device signals"],"products":[{"name":"Ray Data","priority":"PRIMARY"},{"name":"Ray Train","priority":"PRIMARY"},{"name":"Ray Tune","priority":"SECONDARY"}],"mlCases":["Short and long-term energy demand forecasting at household, feeder, and grid level","Demand response program targeting — predicting which customers will respond to curtailment events","Customer energy usage anomaly detection and efficiency recommendation generation"],"timing":["Energy transition creating urgency for more sophisticated grid flexibility tools","Inflation Reduction Act incentives for demand response driving utility investment"],"contacts":[{"name":"Alex Bonjour","title":"Sr. Director of Software Engineering","email":"","linkedin":"https://linkedin.com/in/alex-bonjour"},{"name":"Matthew Aeschbacher","title":"Senior ML Engineer","email":"","linkedin":"https://linkedin.com/in/matthew-aeschbacher"},{"name":"VP Data Science / Head of ML Engineering","title":"VP Data Science or Head of ML Engineering","email":"","linkedin":"https://linkedin.com/in/batuhan-taskaya-7803b61a0"}]},{"id":"fulgent-genetics","name":"Fulgent Genetics","tier":2,"overview":"","why":["Ray Data handles distributed variant annotation and feature engineering across TB-scale genomic databases — replaces slow Nextflow preprocessing bottlenecks","Ray Train enables GPU-distributed training of large variant interpretation models that benefit from parallel parameter updates","Ray Tune automates hyperparameter search for variant classification models — directly improves ACMG accuracy benchmarks"],"signals":["Clinical genomics testing processing whole-genome, exome, and panel sequencing at scale","Proprietary variant interpretation AI critical competitive differentiator vs. LabCorp, Quest","Pharmaceutical services division (Fulgent Pharma) requiring ML for drug target identification"],"products":[{"name":"Ray Data","priority":"PRIMARY"},{"name":"Ray Train","priority":"PRIMARY"},{"name":"Ray Tune","priority":"SECONDARY"}],"mlCases":["Automated variant pathogenicity classification (ACMG guidelines) from whole-genome sequencing data","Copy number variation (CNV) detection and classification from array CGH and WGS data","Splice site and regulatory variant effect prediction using deep learning on sequence context"],"timing":["Public company with competitive pressure from Illumina and Sema4 on AI interpretation quality","FDA regulatory framework for AI-based variant classification creating urgency to validate models"],"contacts":[{"name":"Segun Jung","title":"Director of Bioinformatics","email":"","linkedin":"https://linkedin.com/in/segun-jung"},{"name":"VP Data Science / Head of Genomics AI","title":"VP Data Science or Head of Genomics AI","email":"","linkedin":"https://linkedin.com/in/batuhan-taskaya-7803b61a0"}]},{"id":"firefliesai","name":"Fireflies.ai","tier":2,"overview":"","why":["Ray Serve is the leading production LLM inference framework — handles concurrent meeting transcription/summarization with auto-scaling and built-in batching","Self-hosting Whisper and open-source LLMs on Ray Serve cuts OpenAI API costs 60-80% at Fireflies' inference scale","Anyscale's auto-scaling serves meeting peaks (end of business day, Monday mornings) without fixed GPU overprovisioning"],"signals":["AI meeting assistant processing 100M+ meeting minutes — significant inference scale at current ARR level","Real-time transcription and summarization serving concurrent meetings across large user base","Growing LLM-based features (Ask Fred AI assistant, topic tracking, action items) increasing inference cost"],"products":[{"name":"Ray Data","priority":"SECONDARY"},{"name":"Ray Train","priority":"SECONDARY"}],"mlCases":["Real-time speech-to-text transcription optimized for multi-speaker meeting environments","Meeting summarization, action item extraction, and topic segmentation using LLMs","Conversational AI assistant (Ask Fred) for meeting Q&amp;A and search across transcript history"],"timing":["At $15-25M ARR, OpenAI API costs are likely 15-30% of revenue — self-hosting economics are compelling","Enterprise customers requesting on-premise or VPC deployment as security requirement"],"contacts":[{"name":"Krish Ramineni","title":"Co-Founder & CEO","email":"","linkedin":"https://linkedin.com/in/krishramineni"},{"name":"Nishant Kumar","title":"Head of GTM","email":"","linkedin":"https://linkedin.com/in/gorkemy"},{"name":"Sai Girish","title":"Product Lead","email":"","linkedin":"https://linkedin.com/in/gorkemy"}]},{"id":"formant","name":"Formant","tier":2,"overview":"","why":["Ray Data handles distributed multivariate robot telemetry preprocessing at fleet scale — processes TB of sensor data much faster than pandas single-node pipelin","Ray Train enables GPU-distributed training of anomaly detection models on large cross-fleet datasets as customer base grows","Anyscale auto-scales compute for batch training jobs on historical fleet data without idle infrastructure costs"],"signals":["Cloud-based robotics operations platform for managing, monitoring, and analyzing robot fleets","Collecting telemetry from diverse robot types (AMRs, industrial arms, mobile manipulation) across customer fleets","ML-based anomaly detection and fleet performance analytics as key product differentiators"],"products":[{"name":"Ray Data","priority":"PRIMARY"},{"name":"Ray Train","priority":"SECONDARY"}],"mlCases":["Robot anomaly detection and predictive maintenance from multivariate sensor telemetry streams","Fleet performance benchmarking and outlier identification across robot deployments","Operational efficiency recommendations from historical mission and task performance data"],"timing":["Robotics deployment scaling creating demand for fleet intelligence beyond simple monitoring","Series A capital available for ML platform investment to differentiate from simple dashboards"],"contacts":[{"name":"Jeff Linnell","title":"Founder","email":"","linkedin":"https://linkedin.com/in/jeff-linnell-065647ab"},{"name":"Anne Puyt","title":"Vice President of Go-To-Market","email":"","linkedin":"https://linkedin.com/in/anne-puyt"},{"name":"Nick Brachet","title":"Head of Engineering","email":"","linkedin":"https://linkedin.com/in/nick-brachet"},{"name":"Richard Anaya","title":"Head of Artificial Intelligence","email":"","linkedin":"https://linkedin.com/in/richardanaya"}]},{"id":"gorgias","name":"Gorgias","tier":2,"overview":"","why":["Ray Serve is the leading production LLM inference framework — handles concurrent support ticket processing with auto-scaling across 14,000 merchants","Self-hosting Mistral/Llama on Ray Serve cuts OpenAI costs 60-80% — at Gorgias' scale, this is millions in annual savings","Anyscale auto-scales GPU capacity for e-commerce demand peaks (Black Friday, BFCM) without fixed overprovisioning"],"signals":["AI-powered customer support platform processing millions of support tickets for 14,000+ Shopify merchants","Automate &amp; Assist features (automated responses, agent suggestions) requiring real-time LLM inference at scale","Large proprietary e-commerce support conversation dataset enabling fine-tuning advantage"],"products":[{"name":"Ray Train","priority":"SECONDARY"},{"name":"Ray Data","priority":"SECONDARY"}],"mlCases":["Automated customer support response generation for common e-commerce queries (order status, returns, shipping)","Agent assist features providing real-time response suggestions and macro recommendations","Intent classification and routing for support ticket categorization across 50+ intent types"],"timing":["At $50-70M ARR, OpenAI API costs are likely $5-10M+ annually — self-hosting economics are very compelling","Series C capital deployed in AI features and infrastructure to sustain growth"],"contacts":[{"name":"Howard G.","title":"VP, Decision Intelligence","email":"","linkedin":"https://linkedin.com/in/howardgregory"},{"name":"Vianney FOUCAULT","title":"Senior Staff Engineer","email":"","linkedin":"https://linkedin.com/in/vianneyfoucault"},{"name":"Marianne Metais","title":"Data Scientist","email":"","linkedin":"https://linkedin.com/in/marianne-metais"}]},{"id":"weave-robotics","name":"Weave Robotics","tier":2,"overview":"","why":["RLlib provides SOTA RL algorithms (PPO, SAC, TD3) purpose-built for manipulation policy training — no custom RL implementation required","Ray Train enables multi-node distributed training of large transformer manipulation policies that don't fit on single GPU","Anyscale auto-scales parallel simulation workers for fast RL episode collection — 100x more rollouts per hour vs. single-node training"],"signals":["Dexterous manipulation robotics for warehouse/industrial assembly — RL-intensive training workload","YC-backed with focus on learning-based approaches to manipulation (imitation learning + RL)","Early pilot deployments generating real-world demonstration data for training"],"products":[{"name":"Ray Train","priority":"PRIMARY"},{"name":"RLlib","priority":"PRIMARY"},{"name":"Ray Data","priority":"SECONDARY"}],"mlCases":["Dexterous grasping policy learning via RL and imitation learning from human demonstrations","Sim-to-real transfer optimization for manipulation tasks in variable object configurations","Multi-task manipulation policy training for assembly, kitting, and pick-and-place operations"],"timing":["Pre-Series A — infrastructure decisions made now set the foundation for scale","Pilot deployments generating real-world data creating first genuine training dataset"],"contacts":[{"name":"Founder / CEO","title":"Founder & CEO","email":"","linkedin":"https://linkedin.com/in/batuhan-taskaya-7803b61a0"},{"name":"Head of ML / Autonomy","title":"Head of ML or Autonomy","email":"","linkedin":"https://linkedin.com/in/gorkemy"}]}];
+
+// ============================================================
+// STATE
+// ============================================================
+let currentWeek = null; // {year, week}
+let pgData = {};  // keyed by "YYYY-WXX" -> {thisWeek: [...], nextWeek: [...]}
+let addingTo = 'this'; // 'this' or 'next'
+let selectedAccIds = new Set();
+
+// ============================================================
+// WEEK UTILITIES
+// ============================================================
+function getISOWeek(date) {
+  const d = new Date(date);
+  d.setHours(0,0,0,0);
+  d.setDate(d.getDate() + 3 - (d.getDay()+6)%7);
+  const week1 = new Date(d.getFullYear(), 0, 4);
+  return {
+    year: d.getFullYear(),
+    week: 1 + Math.round(((d - week1) / 86400000 - 3 + (week1.getDay()+6)%7) / 7)
+  };
+}
+
+function getWeekDates(year, week) {
+  const jan4 = new Date(year, 0, 4);
+  const startOfWeek1 = new Date(jan4);
+  startOfWeek1.setDate(jan4.getDate() - (jan4.getDay()+6)%7);
+  const mon = new Date(startOfWeek1);
+  mon.setDate(startOfWeek1.getDate() + (week-1)*7);
+  const fri = new Date(mon);
+  fri.setDate(mon.getDate() + 4);
+  return {mon, fri};
+}
+
+function formatWeekLabel(year, week) {
+  const {mon, fri} = getWeekDates(year, week);
+  const opts = {month:'short', day:'numeric'};
+  const cur = getISOWeek(new Date());
+  const isThis = cur.year === year && cur.week === week;
+  const suffix = isThis ? ' (Current)' : '';
+  return `Week of ${mon.toLocaleDateString('en-US', opts)} — ${fri.toLocaleDateString('en-US', opts)}${suffix}`;
+}
+
+function weekKey(year, week) {
+  return `${year}-W${String(week).padStart(2,'0')}`;
+}
+
+function changeWeek(delta) {
+  let {year, week} = currentWeek;
+  week += delta;
+  if (week > 52) { year++; week = 1; }
+  if (week < 1) { year--; week = 52; }
+  currentWeek = {year, week};
+  render();
+}
+
+function goToCurrentWeek() {
+  currentWeek = getISOWeek(new Date());
+  render();
+}
+
+// ============================================================
+// STORAGE
+// ============================================================
+function save() {
+  localStorage.setItem('anyscale-pg-plan-v2', JSON.stringify(pgData));
+}
+
+function load() {
+  try {
+    const d = localStorage.getItem('anyscale-pg-plan-v2');
+    if (d) pgData = JSON.parse(d);
+  } catch(e) { pgData = {}; }
+}
+
+function getWeekData(year, week) {
+  const key = weekKey(year, week);
+  if (!pgData[key]) pgData[key] = {thisWeek: [], nextWeek: []};
+  return pgData[key];
+}
+
+// ============================================================
+// ACCOUNT DATA HELPERS
+// ============================================================
+function getAccount(id) {
+  return ACCOUNTS.find(a => a.id === id);
+}
+
+function getInitials(name) {
+  return name.split(/[\s.]+/).filter(Boolean).map(w=>w[0]).join('').toUpperCase().slice(0,2);
+}
+
+const COLORS = ['#ef4444','#f97316','#f59e0b','#22c55e','#06b6d4','#3b82f6','#8b5cf6','#ec4899','#14b8a6','#a855f7'];
+function getColor(id) {
+  let h = 0; for(let i=0;i<id.length;i++) h = ((h<<5)-h)+id.charCodeAt(i);
+  return COLORS[Math.abs(h) % COLORS.length];
+}
+
+// ============================================================
+// RENDER
+// ============================================================
+function render() {
+  const key = weekKey(currentWeek.year, currentWeek.week);
+  document.getElementById('weekLabel').textContent = formatWeekLabel(currentWeek.year, currentWeek.week);
+  
+  const wd = getWeekData(currentWeek.year, currentWeek.week);
+  
+  renderPanel('thisWeekPanel', wd.thisWeek, 'this');
+  renderPanel('nextWeekPanel', wd.nextWeek, 'next');
+  
+  document.getElementById('thisWeekCount').textContent = wd.thisWeek.length;
+  document.getElementById('nextWeekCount').textContent = wd.nextWeek.length;
+  
+  updateSummary(wd);
+}
+
+function renderPanel(panelId, entries, type) {
+  const panel = document.getElementById(panelId);
+  
+  if (!entries || entries.length === 0) {
+    const icon = type === 'this' ? '📬' : '🗓️';
+    const msg = type === 'this' ? 'No accounts logged yet for this week.' : 'No accounts planned for next week yet.';
+    const hint = type === 'this' ? 'Click <strong>+ Add Account</strong> to log companies you've reached out to.' : 'Click <strong>+ Add Account</strong> to build your pipeline plan.';
+    panel.innerHTML = `<div class="empty-state"><div class="es-icon">${icon}</div><p>${msg}</p><p class="es-hint">${hint}</p></div>`;
+    return;
+  }
+  
+  panel.innerHTML = entries.map((entry, idx) => renderCard(entry, idx, type)).join('');
+}
+
+function renderCard(entry, idx, type) {
+  const acc = getAccount(entry.id);
+  if (!acc) return '';
+  
+  const color = getColor(entry.id);
+  const initials = getInitials(acc.name);
+  const statusClass = `s-${(entry.status||'not-started').replace(/ /g,'-')}`;
+  
+  const statusOptions = [
+    {v:'not-started', l:'Not Started'},
+    {v:'emailed', l:'✉️ Emailed'},
+    {v:'called', l:'📞 Called'},
+    {v:'replied', l:'💬 Replied'},
+    {v:'meeting', l:'📅 Meeting Booked'},
+  ];
+  
+  const statusSel = type === 'this' ? `
+    <select class="status-sel ${statusClass}" onchange="updateStatus('${type}',${idx},this.value)">
+      ${statusOptions.map(o => `<option value="${o.v}" ${entry.status===o.v?'selected':''}>${o.l}</option>`).join('')}
+    </select>` : '';
+  
+  // Why Anyscale - first 2 bullets
+  const whyHtml = (acc.why||[]).slice(0,2).map(w => 
+    `<div class="cs-bullet">${escHtml(w)}</div>`
+  ).join('');
+  
+  // Key signals/pains - first 2
+  const signalsHtml = (acc.signals||[]).slice(0,2).map(s => 
+    `<div class="cs-bullet">${escHtml(s)}</div>`
+  ).join('');
+  
+  // Products
+  const primaryProds = (acc.products||[]).filter(p => p.priority === 'PRIMARY').map(p => p.name);
+  const secondaryProds = (acc.products||[]).filter(p => p.priority !== 'PRIMARY').map(p => p.name);
+  const prodsHtml = [...primaryProds.map(p => `<span class="product-chip" style="background:rgba(34,197,94,.12);color:#86efac;">${escHtml(p)}</span>`),
+                     ...secondaryProds.map(p => `<span class="product-chip">${escHtml(p)}</span>`)].join('');
+  
+  // Contacts
+  const selectedContacts = entry.contacts || (acc.contacts||[]).slice(0,2).map(c => c.name);
+  const contactsToShow = (acc.contacts||[]).filter(c => selectedContacts.includes(c.name));
+  const contactsHtml = contactsToShow.map(c => {
+    const initC = (c.name||'?').split(' ').map(w=>w[0]).join('').toUpperCase().slice(0,2);
+    const emailLink = c.email ? `<a class="cr-link" href="mailto:${c.email}" title="${c.email}">✉</a>` : '';
+    const liLink = c.linkedin ? `<a class="cr-link" href="${c.linkedin}" target="_blank" title="LinkedIn">in</a>` : '';
+    return `<div class="contact-row">
+      <div class="cr-avatar" style="background:${color}22;color:${color};">${initC}</div>
+      <div class="cr-info">
+        <div class="cr-name">${escHtml(c.name)}</div>
+        <div class="cr-title">${escHtml(c.title||'')}</div>
+      </div>
+      <div class="cr-links">${emailLink}${liLink}</div>
+    </div>`;
+  }).join('');
+  
+  // Messaging notes
+  const notesVal = escHtml(entry.notes || '');
+  
+  // Timing
+  const timingHtml = (acc.timing||[]).slice(0,1).map(t => 
+    `<div class="cs-bullet" style="color:#fcd34d;">${escHtml(t)}</div>`
+  ).join('');
+  
+  return `
+  <div class="account-card" id="card-${type}-${idx}">
+    <div class="card-header">
+      <div class="card-icon" style="background:${color}22;color:${color};">${initials}</div>
+      <div class="card-info">
+        <div class="card-name">${escHtml(acc.name)}</div>
+        <div class="card-meta">
+          <span class="tier-badge t${acc.tier}">T${acc.tier}</span>
+          ${prodsHtml}
+        </div>
+      </div>
+      <div class="card-actions">
+        ${statusSel}
+        <button class="remove-btn" onclick="removeAccount('${type}',${idx})" title="Remove">✕</button>
+      </div>
+    </div>
+    <div class="card-body">
+      ${whyHtml ? `<div class="card-section">
+        <div class="cs-label">🎯 Anyscale Hypothesis</div>
+        ${whyHtml}
+      </div>` : ''}
+      ${signalsHtml ? `<div class="card-section">
+        <div class="cs-label">⚡ Key Signals / Pain Points</div>
+        ${signalsHtml}
+      </div>` : ''}
+      ${timingHtml ? `<div class="card-section">
+        <div class="cs-label">⏰ Timing Advantage</div>
+        ${timingHtml}
+      </div>` : ''}
+      ${contactsHtml ? `<div class="card-section">
+        <div class="cs-label">👤 Target Contacts</div>
+        ${contactsHtml}
+      </div>` : ''}
+      <div class="card-section">
+        <div class="cs-label">${type === 'this' ? '📝 Outreach Notes' : '📋 Messaging Plan'}</div>
+        <textarea class="notes-area" 
+          placeholder="${type === 'this' ? 'Add outreach notes (sent date, follow-up, response...)' : 'Add messaging notes (angle, pain to hit, hook...)'}"
+          onchange="updateNotes('${type}',${idx},this.value)"
+          onblur="updateNotes('${type}',${idx},this.value)">${notesVal}</textarea>
+      </div>
+    </div>
+  </div>`;
+}
+
+function escHtml(s) {
+  if (!s) return '';
+  return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');
+}
+
+// ============================================================
+// ACTIONS
+// ============================================================
+function updateStatus(type, idx, value) {
+  const wd = getWeekData(currentWeek.year, currentWeek.week);
+  const arr = type === 'this' ? wd.thisWeek : wd.nextWeek;
+  if (arr[idx]) arr[idx].status = value;
+  save();
+  updateSummary(wd);
+  // Update select class without full re-render
+  const sel = document.querySelector(`#card-${type}-${idx} .status-sel`);
+  if (sel) {
+    sel.className = `status-sel s-${value.replace(/ /g,'-')}`;
+  }
+}
+
+function updateNotes(type, idx, value) {
+  const wd = getWeekData(currentWeek.year, currentWeek.week);
+  const arr = type === 'this' ? wd.thisWeek : wd.nextWeek;
+  if (arr[idx]) arr[idx].notes = value;
+  save();
+}
+
+function removeAccount(type, idx) {
+  const wd = getWeekData(currentWeek.year, currentWeek.week);
+  const arr = type === 'this' ? wd.thisWeek : wd.nextWeek;
+  arr.splice(idx, 1);
+  save();
+  render();
+}
+
+function updateSummary(wd) {
+  const all = [...(wd.thisWeek||[]), ...(wd.nextWeek||[])];
+  const total = all.length;
+  document.getElementById('summaryBar').style.display = total > 0 ? 'flex' : 'none';
+  document.getElementById('statTotal').textContent = total;
+  document.getElementById('statEmailed').textContent = (wd.thisWeek||[]).filter(e=>e.status==='emailed').length;
+  document.getElementById('statReplied').textContent = (wd.thisWeek||[]).filter(e=>e.status==='replied').length;
+  document.getElementById('statMeeting').textContent = (wd.thisWeek||[]).filter(e=>e.status==='meeting').length;
+  document.getElementById('statNextWeek').textContent = (wd.nextWeek||[]).length;
+}
+
+// ============================================================
+// ADD MODAL
+// ============================================================
+function openAddModal(type) {
+  addingTo = type;
+  selectedAccIds = new Set();
+  document.getElementById('addModalTitle').textContent = 
+    type === 'this' ? '➕ Add Accounts — This Week' : '🎯 Add Accounts — Next Week Plan';
+  document.getElementById('accSearch').value = '';
+  document.getElementById('addModal').style.display = 'flex';
+  filterAccounts();
+  document.getElementById('accSearch').focus();
+}
+
+function closeAddModal() {
+  document.getElementById('addModal').style.display = 'none';
+}
+
+function filterAccounts() {
+  const q = document.getElementById('accSearch').value.toLowerCase();
+  const wd = getWeekData(currentWeek.year, currentWeek.week);
+  const existing = new Set([...(wd.thisWeek||[]), ...(wd.nextWeek||[])].map(e => e.id));
+  
+  const filtered = ACCOUNTS.filter(a => {
+    const nameMatch = a.name.toLowerCase().includes(q);
+    const overviewMatch = (a.overview||'').toLowerCase().includes(q);
+    return nameMatch || overviewMatch;
+  });
+  
+  const list = document.getElementById('accountList');
+  list.innerHTML = filtered.map(a => {
+    const color = getColor(a.id);
+    const initials = getInitials(a.name);
+    const selected = selectedAccIds.has(a.id);
+    const alreadyAdded = existing.has(a.id);
+    const prods = (a.products||[]).filter(p=>p.priority==='PRIMARY').map(p=>p.name).slice(0,2).join(', ');
+    const checkmark = selected ? '✓' : '';
+    return `<div class="acc-opt ${selected?'selected':''} ${alreadyAdded?'opacity-50':''}" 
+               onclick="toggleAccount('${a.id}')" style="${alreadyAdded?'opacity:0.4;pointer-events:none;':''}">
+      <div class="acc-opt-icon" style="background:${color}22;color:${color};">${initials}</div>
+      <div class="acc-opt-info">
+        <div class="acc-opt-name">${escHtml(a.name)} ${alreadyAdded ? '<span style="font-size:10px;color:#6b7280;">(added)</span>' : ''}</div>
+        <div class="acc-opt-meta">T${a.tier} · ${prods || 'Ray Platform'}</div>
+      </div>
+      <div class="acc-opt-check" style="color:#fff;font-size:11px;">${checkmark}</div>
+    </div>`;
+  }).join('');
+  
+  updateAddBtn();
+}
+
+function toggleAccount(id) {
+  if (selectedAccIds.has(id)) selectedAccIds.delete(id);
+  else selectedAccIds.add(id);
+  filterAccounts();
+}
+
+function updateAddBtn() {
+  const n = selectedAccIds.size;
+  document.getElementById('addBtn').textContent = `Add Selected (${n})`;
+}
+
+function addSelectedAccounts() {
+  const wd = getWeekData(currentWeek.year, currentWeek.week);
+  const arr = addingTo === 'this' ? wd.thisWeek : wd.nextWeek;
+  
+  for (const id of selectedAccIds) {
+    if (!arr.find(e => e.id === id)) {
+      const acc = getAccount(id);
+      const defaultContacts = (acc?.contacts||[]).slice(0,2).map(c=>c.name);
+      arr.push({
+        id,
+        status: 'not-started',
+        contacts: defaultContacts,
+        notes: '',
+        addedAt: new Date().toISOString()
+      });
+    }
+  }
+  
+  save();
+  closeAddModal();
+  render();
+}
+
+// ============================================================
+// REPORT GENERATION
+// ============================================================
+function showReport() {
+  const wd = getWeekData(currentWeek.year, currentWeek.week);
+  const wLabel = formatWeekLabel(currentWeek.year, currentWeek.week);
+  const nextYear = currentWeek.week === 52 ? currentWeek.year + 1 : currentWeek.year;
+  const nextWeekNum = currentWeek.week === 52 ? 1 : currentWeek.week + 1;
+  const nLabel = formatWeekLabel(nextYear, nextWeekNum);
+  
+  const reportContent = document.getElementById('reportContent');
+  
+  const statusColors = {
+    'not-started': '#6b7280',
+    'emailed': '#3b82f6',
+    'called': '#f59e0b',
+    'replied': '#8b5cf6',
+    'meeting': '#22c55e'
+  };
+  const statusLabels = {
+    'not-started': 'Not Started',
+    'emailed': 'Emailed',
+    'called': 'Called',
+    'replied': 'Replied',
+    'meeting': 'Meeting Booked'
+  };
+  
+  const renderReportRows = (entries) => entries.map(entry => {
+    const acc = getAccount(entry.id);
+    if (!acc) return '';
+    const status = entry.status || 'not-started';
+    const color = statusColors[status] || '#6b7280';
+    const lbl = statusLabels[status] || status;
+    const contacts = (acc.contacts||[]).filter(c => (entry.contacts||[]).includes(c.name));
+    const contactStr = contacts.map(c => `${c.name} (${c.title||''})`).join(', ') || '—';
+    const why = (acc.why||[]).slice(0,1).join('');
+    const prods = (acc.products||[]).filter(p=>p.priority==='PRIMARY').map(p=>p.name).join(', ');
+    const notes = entry.notes || '—';
+    return `<tr>
+      <td><span class="rt-company">${escHtml(acc.name)}</span>
+        <div style="font-size:10px;color:#4f5b78;margin-top:2px;">T${acc.tier} · ${prods}</div>
+      </td>
+      <td style="max-width:220px;font-size:11px;color:#8b98b4;">${escHtml(why.slice(0,140))}${why.length>140?'…':''}</td>
+      <td style="font-size:11px;color:#8b98b4;">${escHtml(contactStr)}</td>
+      ${entries[0].status !== undefined && entry.status !== undefined ? 
+        `<td><span class="rt-status" style="background:${color}20;color:${color};border:1px solid ${color}40;">${lbl}</span></td>` : ''}
+      <td style="font-size:11px;color:#8b98b4;max-width:160px;">${escHtml(notes)}</td>
+    </tr>`;
+  }).join('');
+  
+  const thisHasStatus = wd.thisWeek && wd.thisWeek.length > 0;
+  
+  reportContent.innerHTML = `
+  <div class="report-content">
+    <div class="report-section">
+      <h3>📅 ${wLabel} — Outreach Activity</h3>
+      ${wd.thisWeek && wd.thisWeek.length > 0 ? `
+      <table class="report-table">
+        <thead><tr>
+          <th>Company</th><th>Hypothesis</th><th>Contacts Targeted</th>
+          <th>Status</th><th>Notes</th>
+        </tr></thead>
+        <tbody>${renderReportRows(wd.thisWeek)}</tbody>
+      </table>` : '<p style="color:var(--text3);font-size:13px;">No activity logged for this week.</p>'}
+    </div>
+    
+    <div class="report-section">
+      <h3>🎯 Next Week Plan — ${nLabel}</h3>
+      ${wd.nextWeek && wd.nextWeek.length > 0 ? `
+      <table class="report-table">
+        <thead><tr>
+          <th>Company</th><th>Hypothesis / Why</th><th>Target Contacts</th><th>Messaging Notes</th>
+        </tr></thead>
+        <tbody>${(wd.nextWeek||[]).map(entry => {
+          const acc = getAccount(entry.id);
+          if (!acc) return '';
+          const contacts = (acc.contacts||[]).filter(c => (entry.contacts||[]).includes(c.name));
+          const contactStr = contacts.map(c => `${c.name} (${c.title||''})`).join(', ') || '—';
+          const why = (acc.why||[]).slice(0,1).join('');
+          const prods = (acc.products||[]).filter(p=>p.priority==='PRIMARY').map(p=>p.name).join(', ');
+          const notes = entry.notes || '—';
+          return `<tr>
+            <td><span class="rt-company">${escHtml(acc.name)}</span>
+              <div style="font-size:10px;color:#4f5b78;margin-top:2px;">T${acc.tier} · ${prods}</div>
+            </td>
+            <td style="max-width:220px;font-size:11px;color:#8b98b4;">${escHtml(why.slice(0,140))}${why.length>140?'…':''}</td>
+            <td style="font-size:11px;color:#8b98b4;">${escHtml(contactStr)}</td>
+            <td style="font-size:11px;color:#8b98b4;">${escHtml(notes)}</td>
+          </tr>`;
+        }).join('')}</tbody>
+      </table>` : '<p style="color:var(--text3);font-size:13px;">No accounts planned for next week yet.</p>'}
+    </div>
+  </div>`;
+  
+  document.getElementById('reportModal').style.display = 'flex';
+}
+
+function closeReport() {
+  document.getElementById('reportModal').style.display = 'none';
+}
+
+function copyReportText() {
+  const wd = getWeekData(currentWeek.year, currentWeek.week);
+  const wLabel = formatWeekLabel(currentWeek.year, currentWeek.week);
+  const nextYear = currentWeek.week === 52 ? currentWeek.year + 1 : currentWeek.year;
+  const nextWeekNum = currentWeek.week === 52 ? 1 : currentWeek.week + 1;
+  const nLabel = formatWeekLabel(nextYear, nextWeekNum);
+  
+  const statusLabels = {
+    'not-started': 'Not Started', 'emailed': 'Emailed', 
+    'called': 'Called', 'replied': 'Replied', 'meeting': 'Meeting Booked'
+  };
+  
+  let text = `WEEKLY PG REPORT — ${wLabel}\n${'='.repeat(60)}\n\n`;
+  
+  text += `THIS WEEK — OUTREACH ACTIVITY\n${'-'.repeat(40)}\n`;
+  if (!wd.thisWeek || wd.thisWeek.length === 0) {
+    text += 'No activity logged.\n';
+  } else {
+    wd.thisWeek.forEach(entry => {
+      const acc = getAccount(entry.id);
+      if (!acc) return;
+      const contacts = (acc.contacts||[]).filter(c => (entry.contacts||[]).includes(c.name));
+      const prods = (acc.products||[]).filter(p=>p.priority==='PRIMARY').map(p=>p.name).join(', ');
+      text += `\n• ${acc.name} (T${acc.tier})\n`;
+      text += `  Status: ${statusLabels[entry.status||'not-started']}\n`;
+      text += `  Why Anyscale: ${(acc.why||[]).slice(0,1).join('').slice(0,140)}\n`;
+      text += `  Products: ${prods || 'Ray Platform'}\n`;
+      if (contacts.length) text += `  Contacts: ${contacts.map(c=>`${c.name} — ${c.title}`).join('; ')}\n`;
+      if (entry.notes) text += `  Notes: ${entry.notes}\n`;
+    });
+  }
+  
+  text += `\nNEXT WEEK PLAN — ${nLabel}\n${'-'.repeat(40)}\n`;
+  if (!wd.nextWeek || wd.nextWeek.length === 0) {
+    text += 'No accounts planned.\n';
+  } else {
+    wd.nextWeek.forEach(entry => {
+      const acc = getAccount(entry.id);
+      if (!acc) return;
+      const contacts = (acc.contacts||[]).filter(c => (entry.contacts||[]).includes(c.name));
+      const prods = (acc.products||[]).filter(p=>p.priority==='PRIMARY').map(p=>p.name).join(', ');
+      text += `\n• ${acc.name} (T${acc.tier})\n`;
+      text += `  Why Anyscale: ${(acc.why||[]).slice(0,1).join('').slice(0,140)}\n`;
+      text += `  Products: ${prods || 'Ray Platform'}\n`;
+      if (contacts.length) text += `  Target Contacts: ${contacts.map(c=>`${c.name} — ${c.title}`).join('; ')}\n`;
+      if (entry.notes) text += `  Messaging: ${entry.notes}\n`;
+    });
+  }
+  
+  navigator.clipboard.writeText(text).then(() => {
+    const btns = document.querySelectorAll('.btn-outline');
+    btns.forEach(b => { if (b.textContent.includes('Copy')) { b.textContent = '✅ Copied!'; setTimeout(()=>b.textContent='📎 Copy Report',2000); }});
+  }).catch(() => alert('Copy failed — please use Ctrl+A, Ctrl+C on the report text.'));
+}
+
+function printReport() {
+  window.print();
+}
+
+// ============================================================
+// INIT
+// ============================================================
+function init() {
+  load();
+  currentWeek = getISOWeek(new Date());
+  render();
+  
+  // Close modals on ESC
+  document.addEventListener('keydown', e => {
+    if (e.key === 'Escape') {
+      closeAddModal();
+      closeReport();
+    }
+  });
+  
+  // Click outside modals to close
+  document.getElementById('addModal').addEventListener('click', function(e) {
+    if (e.target === this) closeAddModal();
+  });
+  document.getElementById('reportModal').addEventListener('click', function(e) {
+    if (e.target === this) closeReport();
+  });
+}
+
+init();
+</script>
+</body>
+</html>
