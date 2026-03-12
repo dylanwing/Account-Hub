@@ -645,7 +645,7 @@ function toast(msg,icon='✓'){
 }
 
 // ═══════════ PERSISTENCE ═══════════
-const VER=()=>'v'+DEFAULT_ACCOUNTS.length+'_'+DEFAULT_ACCOUNTS.map(a=>a.file).join('').length;
+const VER=()=>'v2_'+DEFAULT_ACCOUNTS.length+'_'+DEFAULT_ACCOUNTS.map(a=>a.file).join('').length;
 function save(){
   try{
     localStorage.setItem('hub_recents',JSON.stringify(recents));

@@ -222,7 +222,7 @@ I put together some findings on GPU efficiency in AI workloads that might resona
 </div>
 
 <div class="condition">
-<strong>Segment note:</strong> Send to Dalton Varney (Dir. Solutions Eng), Berk Baytar (Cloud/DevOps Lead), and Oleksii Golubov (Sr. Field AI Engineer). These are the people closest to Chooch's inference infrastructure. If recipient clicks through → tag as "engaged" and proceed to Email 2 on Day 3 instead of Day 4.
+<strong>Segment note:</strong> Send to Dalton Varney (Dir. Solutions Eng), Berk Baytar (Cloud/DevOps Lead), and Oleksii Golubov <a href="https://www.linkedin.com/in/oleksiigolubov" target="_blank" rel="noopener" title="LinkedIn Profile" style="display:inline-flex;align-items:center;justify-content:center;width:18px;height:18px;background:#0A66C2;border-radius:3px;text-decoration:none;vertical-align:middle;margin-left:4px;position:relative;top:-1px"><svg width="12" height="12" viewBox="0 0 24 24" fill="white"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433c-1.144 0-2.063-.926-2.063-2.065 0-1.138.92-2.063 2.063-2.063 1.14 0 2.064.925 2.064 2.063 0 1.139-.925 2.065-2.064 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg></a> (Sr. Field AI Engineer). These are the people closest to Chooch's inference infrastructure. If recipient clicks through → tag as "engaged" and proceed to Email 2 on Day 3 instead of Day 4.
 </div>
 </div>
 </div>
@@ -260,7 +260,7 @@ I put together some findings on GPU efficiency in AI workloads that might resona
 
 Quick follow-up on the GPU efficiency piece I shared. Wanted to give you concrete context on who's running multi-model inference on Ray in production — because Chooch's architecture (traditional CV + LLM fusion + edge deployment) is exactly the kind of heterogeneous workload where Ray shines.
 
-<span class="proof">DoorDash uses Ray Serve to run hundreds of ML models in production</span> — from lightweight prediction models to large recommendation engines. They needed a framework that could schedule different model types with different resource requirements on shared GPU infrastructure. Sound familiar?
+<span class="proof">DoorDash uses Ray Serve <a href="https://www.linkedin.com/in/jingsong-wang" target="_blank" rel="noopener" title="LinkedIn Profile" style="display:inline-flex;align-items:center;justify-content:center;width:18px;height:18px;background:#0A66C2;border-radius:3px;text-decoration:none;vertical-align:middle;margin-left:4px;position:relative;top:-1px"><svg width="12" height="12" viewBox="0 0 24 24" fill="white"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433c-1.144 0-2.063-.926-2.063-2.065 0-1.138.92-2.063 2.063-2.063 1.14 0 2.064.925 2.064 2.063 0 1.139-.925 2.065-2.064 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg></a> to run hundreds of ML models in production</span> — from lightweight prediction models to large recommendation engines. They needed a framework that could schedule different model types with different resource requirements on shared GPU infrastructure. Sound familiar?
 
 <span class="proof">OpenAI uses Ray to train its largest models, including those powering ChatGPT.</span> They chose it to manage scheduling complexity across thousands of GPU nodes.
 
@@ -270,7 +270,7 @@ The Pinterest case is particularly relevant to Chooch. They're running CV models
 
 For the edge-to-cloud piece specifically, Ray's architecture supports disaggregated compute — you can define where workloads run (edge, cloud, hybrid) and Ray handles the scheduling, autoscaling, and fault tolerance across environments.
 
-We partnered with NVIDIA on a deep-dive into low-latency serving with Ray Serve + TensorRT-LLM. Given Chooch's focus on real-time vision AI, this might be worth a look.
+We partnered with NVIDIA on a deep-dive into low-latency serving with Ray Serve <a href="https://www.linkedin.com/in/jingsong-wang" target="_blank" rel="noopener" title="LinkedIn Profile" style="display:inline-flex;align-items:center;justify-content:center;width:18px;height:18px;background:#0A66C2;border-radius:3px;text-decoration:none;vertical-align:middle;margin-left:4px;position:relative;top:-1px"><svg width="12" height="12" viewBox="0 0 24 24" fill="white"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433c-1.144 0-2.063-.926-2.063-2.065 0-1.138.92-2.063 2.063-2.063 1.14 0 2.064.925 2.064 2.063 0 1.139-.925 2.065-2.064 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg></a> + TensorRT-LLM. Given Chooch's focus on real-time vision AI, this might be worth a look.
 <span class="cta-line">→ Low-Latency Gen AI Model Serving with Ray + NVIDIA TensorRT-LLM</span></div>
 </div>
 
@@ -318,7 +318,7 @@ We partnered with NVIDIA on a deep-dive into low-latency serving with Ray Serve 
 
 I'll keep this one short and technical.
 
-We benchmarked Ray Serve with continuous batching against standard inference serving. The results:
+We benchmarked Ray Serve <a href="https://www.linkedin.com/in/jingsong-wang" target="_blank" rel="noopener" title="LinkedIn Profile" style="display:inline-flex;align-items:center;justify-content:center;width:18px;height:18px;background:#0A66C2;border-radius:3px;text-decoration:none;vertical-align:middle;margin-left:4px;position:relative;top:-1px"><svg width="12" height="12" viewBox="0 0 24 24" fill="white"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433c-1.144 0-2.063-.926-2.063-2.065 0-1.138.92-2.063 2.063-2.063 1.14 0 2.064.925 2.064 2.063 0 1.139-.925 2.065-2.064 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg></a> with continuous batching against standard inference serving. The results:
 
   <span class="proof">• 23x improvement in LLM inference throughput</span>
   <span class="proof">• Significant p50 latency reduction</span>
@@ -326,7 +326,7 @@ We benchmarked Ray Serve with continuous batching against standard inference ser
 
 Here's why this matters specifically for Chooch:
 
-<strong>1. Multi-model GPU sharing.</strong> Ray Serve lets you run your lightweight CV detection models alongside ImageChat's 11B-parameter LLM on shared GPUs with <span class="highlight">fractional GPU allocation</span>. Your edge CV models that need 0.2 GPUs don't waste an entire card, and your ImageChat inference gets dedicated resources when demand spikes.
+<strong>1. Multi-model GPU sharing.</strong> Ray Serve <a href="https://www.linkedin.com/in/jingsong-wang" target="_blank" rel="noopener" title="LinkedIn Profile" style="display:inline-flex;align-items:center;justify-content:center;width:18px;height:18px;background:#0A66C2;border-radius:3px;text-decoration:none;vertical-align:middle;margin-left:4px;position:relative;top:-1px"><svg width="12" height="12" viewBox="0 0 24 24" fill="white"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433c-1.144 0-2.063-.926-2.063-2.065 0-1.138.92-2.063 2.063-2.063 1.14 0 2.064.925 2.064 2.063 0 1.139-.925 2.065-2.064 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg></a> lets you run your lightweight CV detection models alongside ImageChat's 11B-parameter LLM on shared GPUs with <span class="highlight">fractional GPU allocation</span>. Your edge CV models that need 0.2 GPUs don't waste an entire card, and your ImageChat inference gets dedicated resources when demand spikes.
 
 <strong>2. Edge deployment efficiency.</strong> When you're deploying inference engines to customer sites, every GPU matters. Ray's continuous batching and resource-aware scheduling means you can serve more models per device — which directly reduces the hardware footprint (and cost) of each customer deployment.
 
@@ -382,11 +382,11 @@ Full benchmark methodology below. Written for engineers, not marketers.
 
 Over the past couple weeks I've shared GPU utilization data, the DoorDash/Pinterest multi-model patterns, and the 23x throughput benchmarks. Rather than send another blog post, I want to make a concrete offer.
 
-<strong>Would you be open to a 30-minute technical session where we benchmark Ray Serve against your current inference architecture on a real workload?</strong>
+<strong>Would you be open to a 30-minute technical session where we benchmark Ray Serve <a href="https://www.linkedin.com/in/jingsong-wang" target="_blank" rel="noopener" title="LinkedIn Profile" style="display:inline-flex;align-items:center;justify-content:center;width:18px;height:18px;background:#0A66C2;border-radius:3px;text-decoration:none;vertical-align:middle;margin-left:4px;position:relative;top:-1px"><svg width="12" height="12" viewBox="0 0 24 24" fill="white"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433c-1.144 0-2.063-.926-2.063-2.065 0-1.138.92-2.063 2.063-2.063 1.14 0 2.064.925 2.064 2.063 0 1.139-.925 2.065-2.064 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg></a> against your current inference architecture on a real workload?</strong>
 
 Here's what I'm thinking:
   • We take one of your production CV pipelines — ideally one that combines traditional detection models with ImageChat LLM inference
-  • We run it through Ray Serve with fractional GPU allocation and continuous batching
+  • We run it through Ray Serve <a href="https://www.linkedin.com/in/jingsong-wang" target="_blank" rel="noopener" title="LinkedIn Profile" style="display:inline-flex;align-items:center;justify-content:center;width:18px;height:18px;background:#0A66C2;border-radius:3px;text-decoration:none;vertical-align:middle;margin-left:4px;position:relative;top:-1px"><svg width="12" height="12" viewBox="0 0 24 24" fill="white"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433c-1.144 0-2.063-.926-2.063-2.065 0-1.138.92-2.063 2.063-2.063 1.14 0 2.064.925 2.064 2.063 0 1.139-.925 2.065-2.064 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg></a> with fractional GPU allocation and continuous batching
   • We measure latency, throughput, and GPU utilization side by side
   • You walk away with hard numbers — no obligation, no follow-up if the numbers don't speak for themselves
 
@@ -478,7 +478,7 @@ What does your calendar look like this week or next?
 </div>
 <div class="ab-item">
 <h4>Test 3: Email 4 CTA — POC vs. Architecture Review</h4>
-<p><strong>Variant A:</strong> "Benchmark Ray Serve against your inference stack" (technical POC)<br>
+<p><strong>Variant A:</strong> "Benchmark Ray Serve <a href="https://www.linkedin.com/in/jingsong-wang" target="_blank" rel="noopener" title="LinkedIn Profile" style="display:inline-flex;align-items:center;justify-content:center;width:18px;height:18px;background:#0A66C2;border-radius:3px;text-decoration:none;vertical-align:middle;margin-left:4px;position:relative;top:-1px"><svg width="12" height="12" viewBox="0 0 24 24" fill="white"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433c-1.144 0-2.063-.926-2.063-2.065 0-1.138.92-2.063 2.063-2.063 1.14 0 2.064.925 2.064 2.063 0 1.139-.925 2.065-2.064 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg></a> against your inference stack" (technical POC)<br>
 <strong>Variant B:</strong> "Happy to do an architecture review of your edge-to-cloud inference pipeline" (consulting framing)<br>
 <strong>Measure:</strong> Reply rate + meeting booked. Architecture review framing may feel lower-commitment for a smaller team.</p>
 </div>
@@ -512,7 +512,7 @@ What does your calendar look like this week or next?
 <h3>Multi-Thread Strategy</h3>
 <p>• Dalton Varney (Dir. Solutions Eng): Primary target — owns customer deployment architecture<br>
 • Berk Baytar (DevOps Lead): Secondary — owns cloud/edge infrastructure<br>
-• Oleksii Golubov (Sr. Field AI Eng): Tertiary — hands-on with customer inference deployments<br>
+• Oleksii Golubov <a href="https://www.linkedin.com/in/oleksiigolubov" target="_blank" rel="noopener" title="LinkedIn Profile" style="display:inline-flex;align-items:center;justify-content:center;width:18px;height:18px;background:#0A66C2;border-radius:3px;text-decoration:none;vertical-align:middle;margin-left:4px;position:relative;top:-1px"><svg width="12" height="12" viewBox="0 0 24 24" fill="white"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433c-1.144 0-2.063-.926-2.063-2.065 0-1.138.92-2.063 2.063-2.063 1.14 0 2.064.925 2.064 2.063 0 1.139-.925 2.065-2.064 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg></a> (Sr. Field AI Eng): Tertiary — hands-on with customer inference deployments<br>
 • Stagger sends by 1 day to avoid looking automated</p>
 </div>
 </div>
