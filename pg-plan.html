@@ -530,10 +530,23 @@ function renderCard(entry, idx, type) {
           </div>
         </div>`).join('')}
       </div>` : ''}
+      ${type === 'next' ? `
       <div class="card-section">
-        <div class="cs-label">${type === 'this' ? '📝 Outreach Notes' : '📋 Messaging Plan'}</div>
+        <div class="cs-label" style="color:#f59e0b;">💡 Hypothesis — Pain Points</div>
+        ${(acc.signals||[]).slice(0,3).map(s => `<div class="cs-bullet" style="color:var(--text2);font-size:11px;">${escHtml(s)}</div>`).join('')}
+      </div>
+      <div class="card-section">
+        <div class="cs-label" style="color:#22c55e;">🚀 Why Anyscale</div>
+        ${(acc.why||[]).slice(0,3).map(w => `<div class="cs-bullet" style="color:var(--text2);font-size:11px;">${escHtml(w)}</div>`).join('')}
+      </div>
+      <div class="card-section">
+        <div class="cs-label" style="color:#06b6d4;">🔬 ML Use Cases to Target</div>
+        ${(acc.mlCases||[]).slice(0,2).map(m => `<div class="cs-bullet" style="color:var(--text2);font-size:11px;">${escHtml(m)}</div>`).join('')}
+      </div>` : ''}
+      <div class="card-section">
+        <div class="cs-label">${type === 'this' ? '📝 Outreach Notes' : '📋 Custom Notes'}</div>
         <textarea class="notes-area" 
-          placeholder="${type === 'this' ? 'Add outreach notes (sent date, follow-up, response...)' : 'Add messaging notes (angle, pain to hit, hook...)'}"
+          placeholder="${type === 'this' ? 'Add outreach notes (sent date, follow-up, response...)' : 'Add custom notes (angle, hook, follow-up plan...)'}"
           onchange="updateNotes('${type}',${idx},this.value)"
           onblur="updateNotes('${type}',${idx},this.value)">${notesVal}</textarea>
       </div>
