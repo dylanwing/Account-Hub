@@ -73,7 +73,11 @@ body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif;b
 .remove-btn:hover{background:rgba(239,68,68,.15);color:#ef4444;}
 
 /* CARD BODY */
-.card-body{border-top:1px solid var(--bdr);padding:12px 14px;display:flex;flex-direction:column;gap:10px;}
+.card-body{border-top:1px solid var(--bdr);padding:12px 14px;display:flex;flex-direction:column;gap:10px;overflow:hidden;transition:max-height .3s ease,padding .3s ease,opacity .2s ease;}
+.card-body.collapsed{max-height:0;padding-top:0;padding-bottom:0;border-top:none;opacity:0;pointer-events:none;}
+.card-toggle{width:26px;height:26px;border-radius:5px;border:none;background:transparent;color:var(--text3);cursor:pointer;display:flex;align-items:center;justify-content:center;font-size:14px;transition:all .2s;flex-shrink:0;}
+.card-toggle:hover{background:var(--bg4);color:var(--text);}
+.card-toggle.open{transform:rotate(180deg);color:var(--acc);}
 .card-section{display:flex;flex-direction:column;gap:4px;}
 .cs-label{font-size:9px;font-weight:700;text-transform:uppercase;letter-spacing:.08em;color:var(--text3);}
 .cs-content{font-size:12px;color:var(--text2);line-height:1.5;}
@@ -149,6 +153,8 @@ body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif;b
     <button onclick="goToCurrentWeek()" style="font-size:10px;padding:3px 8px;border:1px solid var(--bdr-l);border-radius:4px;margin-left:4px;" title="Go to current week">Today</button>
   </div>
   <div class="topbar-actions">
+    <button class="btn btn-outline" onclick="collapseAll()" title="Collapse all cards" style="padding:5px 10px;font-size:11px;">▴ Collapse</button>
+    <button class="btn btn-outline" onclick="expandAll()" title="Expand all cards" style="padding:5px 10px;font-size:11px;">▾ Expand</button>
     <button class="btn btn-outline" onclick="showReport()">📋 Generate Report</button>
     <button class="btn btn-outline" onclick="copyReportText()">📎 Copy Report</button>
   </div>
@@ -482,7 +488,7 @@ function renderCard(entry, idx, type) {
   
   return `
   <div class="account-card" id="card-${type}-${idx}">
-    <div class="card-header">
+    <div class="card-header" onclick="toggleCard('${type}',${idx})" style="cursor:pointer;">
       <div class="card-icon" style="background:${color}22;color:${color};">${initials}</div>
       <div class="card-info">
         <div class="card-name">${escHtml(acc.name)}</div>
@@ -491,12 +497,13 @@ function renderCard(entry, idx, type) {
           ${prodsHtml}
         </div>
       </div>
-      <div class="card-actions">
+      <div class="card-actions" onclick="event.stopPropagation()">
         ${statusSel}
+        <button class="card-toggle open" onclick="toggleCard('${type}',${idx})" id="toggle-${type}-${idx}" title="Collapse/Expand">▾</button>
         <button class="remove-btn" onclick="removeAccount('${type}',${idx})" title="Remove">✕</button>
       </div>
     </div>
-    <div class="card-body">
+    <div class="card-body" id="body-${type}-${idx}">
       ${whyHtml ? `<div class="card-section">
         <div class="cs-label">🎯 Anyscale Hypothesis</div>
         ${whyHtml}
@@ -537,6 +544,27 @@ function renderCard(entry, idx, type) {
 function escHtml(s) {
   if (!s) return '';
   return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');
+}
+
+// ============================================================
+// CARD COLLAPSE/EXPAND
+// ============================================================
+function toggleCard(type, idx) {
+  const body = document.getElementById(`body-${type}-${idx}`);
+  const btn = document.getElementById(`toggle-${type}-${idx}`);
+  if (!body || !btn) return;
+  body.classList.toggle('collapsed');
+  btn.classList.toggle('open');
+}
+
+function collapseAll() {
+  document.querySelectorAll('.card-body').forEach(b => b.classList.add('collapsed'));
+  document.querySelectorAll('.card-toggle').forEach(b => b.classList.remove('open'));
+}
+
+function expandAll() {
+  document.querySelectorAll('.card-body').forEach(b => b.classList.remove('collapsed'));
+  document.querySelectorAll('.card-toggle').forEach(b => b.classList.add('open'));
 }
 
 // ============================================================
