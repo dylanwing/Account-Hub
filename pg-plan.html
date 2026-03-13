@@ -504,6 +504,23 @@ function renderCard(entry, idx, type) {
       </div>
     </div>
     <div class="card-body" id="body-${type}-${idx}">
+      ${type === 'next' ? `
+      <div style="background:linear-gradient(135deg,rgba(245,158,11,.08),rgba(34,197,94,.06));border:1px solid rgba(245,158,11,.2);border-radius:8px;padding:10px 12px;margin-bottom:8px;">
+        <div style="font-size:10px;font-weight:700;color:#f59e0b;text-transform:uppercase;letter-spacing:.5px;margin-bottom:8px;">📋 Messaging Plan</div>
+        <div class="card-section" style="margin-bottom:6px;">
+          <div class="cs-label" style="color:#f59e0b;font-size:10px;">💡 Pain Point Hypothesis</div>
+          ${(acc.signals||[]).length > 0 ? (acc.signals||[]).slice(0,3).map(s => `<div class="cs-bullet" style="color:var(--text2);font-size:11px;">${escHtml(s)}</div>`).join('') : '<div style="color:var(--text3);font-size:10px;font-style:italic;">No signals data available</div>'}
+        </div>
+        <div class="card-section" style="margin-bottom:6px;">
+          <div class="cs-label" style="color:#22c55e;font-size:10px;">🚀 Why Anyscale</div>
+          ${(acc.why||[]).length > 0 ? (acc.why||[]).slice(0,3).map(w => `<div class="cs-bullet" style="color:var(--text2);font-size:11px;">${escHtml(w)}</div>`).join('') : '<div style="color:var(--text3);font-size:10px;font-style:italic;">No hypothesis data available</div>'}
+        </div>
+        <div class="card-section">
+          <div class="cs-label" style="color:#06b6d4;font-size:10px;">🔬 ML Use Cases to Target</div>
+          ${(acc.mlCases||[]).length > 0 ? (acc.mlCases||[]).slice(0,2).map(m => `<div class="cs-bullet" style="color:var(--text2);font-size:11px;">${escHtml(m)}</div>`).join('') : '<div style="color:var(--text3);font-size:10px;font-style:italic;">No ML use case data available</div>'}
+        </div>
+      </div>
+      ` : `
       ${whyHtml ? `<div class="card-section">
         <div class="cs-label">🎯 Anyscale Hypothesis</div>
         ${whyHtml}
@@ -512,6 +529,7 @@ function renderCard(entry, idx, type) {
         <div class="cs-label">⚡ Key Signals / Pain Points</div>
         ${signalsHtml}
       </div>` : ''}
+      `}
       ${timingHtml ? `<div class="card-section">
         <div class="cs-label">⏰ Timing Advantage</div>
         ${timingHtml}
@@ -530,22 +548,9 @@ function renderCard(entry, idx, type) {
           </div>
         </div>`).join('')}
       </div>` : ''}
-      ${type === 'next' ? `
-      <div class="card-section">
-        <div class="cs-label" style="color:#f59e0b;">💡 Hypothesis — Pain Points</div>
-        ${(acc.signals||[]).slice(0,3).map(s => `<div class="cs-bullet" style="color:var(--text2);font-size:11px;">${escHtml(s)}</div>`).join('')}
-      </div>
-      <div class="card-section">
-        <div class="cs-label" style="color:#22c55e;">🚀 Why Anyscale</div>
-        ${(acc.why||[]).slice(0,3).map(w => `<div class="cs-bullet" style="color:var(--text2);font-size:11px;">${escHtml(w)}</div>`).join('')}
-      </div>
-      <div class="card-section">
-        <div class="cs-label" style="color:#06b6d4;">🔬 ML Use Cases to Target</div>
-        ${(acc.mlCases||[]).slice(0,2).map(m => `<div class="cs-bullet" style="color:var(--text2);font-size:11px;">${escHtml(m)}</div>`).join('')}
-      </div>` : ''}
       <div class="card-section">
         <div class="cs-label">${type === 'this' ? '📝 Outreach Notes' : '📋 Custom Notes'}</div>
-        <textarea class="notes-area" 
+        <textarea class="notes-area"
           placeholder="${type === 'this' ? 'Add outreach notes (sent date, follow-up, response...)' : 'Add custom notes (angle, hook, follow-up plan...)'}"
           onchange="updateNotes('${type}',${idx},this.value)"
           onblur="updateNotes('${type}',${idx},this.value)">${notesVal}</textarea>
