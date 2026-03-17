@@ -1179,7 +1179,2348 @@
                     { time: '27:00-30:00', topic: 'POC: Space simulation use case + GITAI partnership' }
                 ],
                 customNotes: ''
+            },
+            'Overview.ai': {
+                company: {
+                    industry: 'AI Vision / Robotics',
+                    size: 'See enriched account list',
+                    hq: 'See enriched account list',
+                    funding: 'See enriched account list',
+                    techStack: 'See enriched account list'
+                },
+                keyContacts: [
+                    { name: 'CTO / VP Engineering', title: 'CTO / VP Engineering', status: 'Research' }
+                ],
+                whyAnyscale: [
+                    'Industrial AI vision inspection. Computer vision models running on factory floor. Inference at edge + cloud training pipeline.',
+                    'Factory AI inspection models require rapid retraining on new defect types — managed Ray accelerates the training loop.',
+                    'Ray\'s managed platform reduces infrastructure overhead so the team can focus on model development'
+                ],
+                rayLibraries: [
+                    'Ray Train (PRIMARY) - Distributed model training for robotics/AV',
+                    'Ray Data (PRIMARY) - Sensor data processing pipeline',
+                    'RLlib (SECONDARY) - Reinforcement learning for control policies',
+                    'Ray Tune (SECONDARY) - Hyperparameter optimization'
+                ],
+                proofPoints: [
+                    'Physical Intelligence: 2x faster research iteration, 16+ engineers freed from infra',
+                    'Blue River Technology: 2.5x AV regression testing speedup (24h to 9.5h)',
+                    'Zoox: Distributed AV simulation at scale with parallel scenario evaluation'
+                ],
+                discoveryQuestions: [
+                    'Industrial defect detection requires continuous model retraining — how is your team managing that pipeline?',
+                    'What does your current distributed training infrastructure look like?',
+                    'How many engineers are spending time on infrastructure vs. model development?',
+                    'What are the biggest infrastructure challenges your ML team faces today?'
+                ],
+                objections: [
+                    {
+                        objection: 'We have custom infrastructure optimized for our workload',
+                        response: 'Ray integrates with your existing stack as an orchestration layer. Your custom tools stay intact; Ray handles scheduling and resource management.'
+                    },
+                    {
+                        objection: 'We are a small team and prefer minimal dependencies',
+                        response: 'Ray is Python-native, open-source, and reduces operational overhead. Small teams see the biggest gains by eliminating cluster management work.'
+                    }
+                ],
+                agenda: [
+                    { time: '0:00-3:00', topic: 'Intro: Anyscale fit for Overview.ai ML workloads' },
+                    { time: '3:00-10:00', topic: 'Deep Dive: Current infrastructure and bottlenecks' },
+                    { time: '10:00-18:00', topic: 'Architecture: Ray solution for AI Vision / Robotics use cases' },
+                    { time: '18:00-26:00', topic: 'Proof Points: Customer case studies and benchmarks' },
+                    { time: '26:00-30:00', topic: 'Next Steps: POC scope and timeline' }
+                ],
+                customNotes: ''
+            },
+            'Foxglove': {
+                company: {
+                    industry: 'Robotics Dev Tools',
+                    size: 'See enriched account list',
+                    hq: 'See enriched account list',
+                    funding: 'See enriched account list',
+                    techStack: 'See enriched account list'
+                },
+                keyContacts: [
+                    { name: 'CTO / Head of Engineering', title: 'CTO / Head of Engineering', status: 'Research' }
+                ],
+                whyAnyscale: [
+                    'Robotics data visualization + ops platform. Ingests and processes massive ROS bags. Data pipeline for ML training — massive distributed processing need.',
+                    'Foxglove\'s ROS data pipelines feed ML training — Ray\'s data processing is native to this workflow.',
+                    'Ray\'s managed platform reduces infrastructure overhead so the team can focus on model development'
+                ],
+                rayLibraries: [
+                    'Ray Train (PRIMARY) - Distributed model training for robotics/AV',
+                    'Ray Data (PRIMARY) - Sensor data processing pipeline',
+                    'RLlib (SECONDARY) - Reinforcement learning for control policies',
+                    'Ray Tune (SECONDARY) - Hyperparameter optimization'
+                ],
+                proofPoints: [
+                    'Physical Intelligence: 2x faster research iteration, 16+ engineers freed from infra',
+                    'Blue River Technology: 2.5x AV regression testing speedup (24h to 9.5h)',
+                    'Zoox: Distributed AV simulation at scale with parallel scenario evaluation'
+                ],
+                discoveryQuestions: [
+                    'As Foxglove scales the volume of robot data ingested, what\\\'s the processing pipeline that feeds model training?',
+                    'What does your current distributed training infrastructure look like?',
+                    'How many engineers are spending time on infrastructure vs. model development?',
+                    'What are the biggest infrastructure challenges your ML team faces today?'
+                ],
+                objections: [
+                    {
+                        objection: 'We have custom infrastructure optimized for our workload',
+                        response: 'Ray integrates with your existing stack as an orchestration layer. Your custom tools stay intact; Ray handles scheduling and resource management.'
+                    },
+                    {
+                        objection: 'We are a small team and prefer minimal dependencies',
+                        response: 'Ray is Python-native, open-source, and reduces operational overhead. Small teams see the biggest gains by eliminating cluster management work.'
+                    }
+                ],
+                agenda: [
+                    { time: '0:00-3:00', topic: 'Intro: Anyscale fit for Foxglove ML workloads' },
+                    { time: '3:00-10:00', topic: 'Deep Dive: Current infrastructure and bottlenecks' },
+                    { time: '10:00-18:00', topic: 'Architecture: Ray solution for Robotics Dev Tools use cases' },
+                    { time: '18:00-26:00', topic: 'Proof Points: Customer case studies and benchmarks' },
+                    { time: '26:00-30:00', topic: 'Next Steps: POC scope and timeline' }
+                ],
+                customNotes: ''
+            },
+            'Anyware Robotics': {
+                company: {
+                    industry: 'Robotics',
+                    size: 'See enriched account list',
+                    hq: 'See enriched account list',
+                    funding: 'See enriched account list',
+                    techStack: 'See enriched account list'
+                },
+                keyContacts: [
+                    { name: 'VP Engineering / Head of AI', title: 'VP Engineering / Head of AI', status: 'Research' }
+                ],
+                whyAnyscale: [
+                    'Autonomous piece-picking robots for warehouses. Computer vision + manipulation ML. Real-world deployment at scale.',
+                    'Warehouse picking ML models require retraining on diverse product SKUs — distributed training accelerates this.',
+                    'Ray\'s managed platform reduces infrastructure overhead so the team can focus on model development'
+                ],
+                rayLibraries: [
+                    'Ray Train (PRIMARY) - Distributed model training for robotics/AV',
+                    'Ray Data (PRIMARY) - Sensor data processing pipeline',
+                    'RLlib (SECONDARY) - Reinforcement learning for control policies',
+                    'Ray Tune (SECONDARY) - Hyperparameter optimization'
+                ],
+                proofPoints: [
+                    'Physical Intelligence: 2x faster research iteration, 16+ engineers freed from infra',
+                    'Blue River Technology: 2.5x AV regression testing speedup (24h to 9.5h)',
+                    'Zoox: Distributed AV simulation at scale with parallel scenario evaluation'
+                ],
+                discoveryQuestions: [
+                    'How are you handling model retraining as you add new SKU categories to the piece-picking system?',
+                    'What does your current distributed training infrastructure look like?',
+                    'How many engineers are spending time on infrastructure vs. model development?',
+                    'What are the biggest infrastructure challenges your ML team faces today?'
+                ],
+                objections: [
+                    {
+                        objection: 'We have custom infrastructure optimized for our workload',
+                        response: 'Ray integrates with your existing stack as an orchestration layer. Your custom tools stay intact; Ray handles scheduling and resource management.'
+                    },
+                    {
+                        objection: 'We are a small team and prefer minimal dependencies',
+                        response: 'Ray is Python-native, open-source, and reduces operational overhead. Small teams see the biggest gains by eliminating cluster management work.'
+                    }
+                ],
+                agenda: [
+                    { time: '0:00-3:00', topic: 'Intro: Anyscale fit for Anyware Robotics ML workloads' },
+                    { time: '3:00-10:00', topic: 'Deep Dive: Current infrastructure and bottlenecks' },
+                    { time: '10:00-18:00', topic: 'Architecture: Ray solution for Robotics use cases' },
+                    { time: '18:00-26:00', topic: 'Proof Points: Customer case studies and benchmarks' },
+                    { time: '26:00-30:00', topic: 'Next Steps: POC scope and timeline' }
+                ],
+                customNotes: ''
+            },
+            'Armstrong Robotics': {
+                company: {
+                    industry: 'Robotics',
+                    size: 'See enriched account list',
+                    hq: 'See enriched account list',
+                    funding: 'See enriched account list',
+                    techStack: 'See enriched account list'
+                },
+                keyContacts: [
+                    { name: 'VP Engineering / Head of ML', title: 'VP Engineering / Head of ML', status: 'Research' }
+                ],
+                whyAnyscale: [
+                    'General-purpose robotics. ML-heavy control and perception stack. Distributed sim + training pipeline likely core infrastructure.',
+                    'Distributed sim-to-real training at scale.',
+                    'Ray\'s managed platform reduces infrastructure overhead so the team can focus on model development'
+                ],
+                rayLibraries: [
+                    'Ray Train (PRIMARY) - Distributed model training for robotics/AV',
+                    'Ray Data (PRIMARY) - Sensor data processing pipeline',
+                    'RLlib (SECONDARY) - Reinforcement learning for control policies',
+                    'Ray Tune (SECONDARY) - Hyperparameter optimization'
+                ],
+                proofPoints: [
+                    'Physical Intelligence: 2x faster research iteration, 16+ engineers freed from infra',
+                    'Blue River Technology: 2.5x AV regression testing speedup (24h to 9.5h)',
+                    'Zoox: Distributed AV simulation at scale with parallel scenario evaluation'
+                ],
+                discoveryQuestions: [
+                    'What does the simulation + training pipeline look like for your manipulation stack?',
+                    'What does your current distributed training infrastructure look like?',
+                    'How many engineers are spending time on infrastructure vs. model development?',
+                    'What are the biggest infrastructure challenges your ML team faces today?'
+                ],
+                objections: [
+                    {
+                        objection: 'We have custom infrastructure optimized for our workload',
+                        response: 'Ray integrates with your existing stack as an orchestration layer. Your custom tools stay intact; Ray handles scheduling and resource management.'
+                    },
+                    {
+                        objection: 'We are a small team and prefer minimal dependencies',
+                        response: 'Ray is Python-native, open-source, and reduces operational overhead. Small teams see the biggest gains by eliminating cluster management work.'
+                    }
+                ],
+                agenda: [
+                    { time: '0:00-3:00', topic: 'Intro: Anyscale fit for Armstrong Robotics ML workloads' },
+                    { time: '3:00-10:00', topic: 'Deep Dive: Current infrastructure and bottlenecks' },
+                    { time: '10:00-18:00', topic: 'Architecture: Ray solution for Robotics use cases' },
+                    { time: '18:00-26:00', topic: 'Proof Points: Customer case studies and benchmarks' },
+                    { time: '26:00-30:00', topic: 'Next Steps: POC scope and timeline' }
+                ],
+                customNotes: ''
+            },
+            'Kiwibot': {
+                company: {
+                    industry: 'Delivery Robotics',
+                    size: 'See enriched account list',
+                    hq: 'See enriched account list',
+                    funding: 'See enriched account list',
+                    techStack: 'See enriched account list'
+                },
+                keyContacts: [
+                    { name: 'VP Engineering / Head of AI', title: 'VP Engineering / Head of AI', status: 'Research' }
+                ],
+                whyAnyscale: [
+                    'Autonomous delivery robots on campus/urban environments. Computer vision + ML navigation. Fleet of robots generating continuous training data.',
+                    'Fleet-scale robot data generates continuous training signal — distributed training needed to keep pace.',
+                    'Ray\'s managed platform reduces infrastructure overhead so the team can focus on model development'
+                ],
+                rayLibraries: [
+                    'Ray Train (PRIMARY) - Distributed model training for robotics/AV',
+                    'Ray Data (PRIMARY) - Sensor data processing pipeline',
+                    'RLlib (SECONDARY) - Reinforcement learning for control policies',
+                    'Ray Tune (SECONDARY) - Hyperparameter optimization'
+                ],
+                proofPoints: [
+                    'Physical Intelligence: 2x faster research iteration, 16+ engineers freed from infra',
+                    'Blue River Technology: 2.5x AV regression testing speedup (24h to 9.5h)',
+                    'Zoox: Distributed AV simulation at scale with parallel scenario evaluation'
+                ],
+                discoveryQuestions: [
+                    'With a growing robot fleet, how frequently are you retraining navigation and perception models?',
+                    'What does your current distributed training infrastructure look like?',
+                    'How many engineers are spending time on infrastructure vs. model development?',
+                    'What are the biggest infrastructure challenges your ML team faces today?'
+                ],
+                objections: [
+                    {
+                        objection: 'We have custom infrastructure optimized for our workload',
+                        response: 'Ray integrates with your existing stack as an orchestration layer. Your custom tools stay intact; Ray handles scheduling and resource management.'
+                    },
+                    {
+                        objection: 'We are a small team and prefer minimal dependencies',
+                        response: 'Ray is Python-native, open-source, and reduces operational overhead. Small teams see the biggest gains by eliminating cluster management work.'
+                    }
+                ],
+                agenda: [
+                    { time: '0:00-3:00', topic: 'Intro: Anyscale fit for Kiwibot ML workloads' },
+                    { time: '3:00-10:00', topic: 'Deep Dive: Current infrastructure and bottlenecks' },
+                    { time: '10:00-18:00', topic: 'Architecture: Ray solution for Delivery Robotics use cases' },
+                    { time: '18:00-26:00', topic: 'Proof Points: Customer case studies and benchmarks' },
+                    { time: '26:00-30:00', topic: 'Next Steps: POC scope and timeline' }
+                ],
+                customNotes: ''
+            },
+            'Krisp': {
+                company: {
+                    industry: 'AI Platform / Audio',
+                    size: 'See enriched account list',
+                    hq: 'See enriched account list',
+                    funding: 'See enriched account list',
+                    techStack: 'See enriched account list'
+                },
+                keyContacts: [
+                    { name: 'VP Engineering / Head of ML', title: 'VP Engineering / Head of ML', status: 'Research' }
+                ],
+                whyAnyscale: [
+                    'Real-time AI noise cancellation. Runs inference on 50M+ users\' audio streams. Custom ML models for voice isolation. Scale-intensive inference.',
+                    'Real-time audio ML at 50M+ user scale demands highly optimized inference infrastructure — Ray Serve\'s fractional GPU scheduling applies.',
+                    'Ray\'s managed platform reduces infrastructure overhead so the team can focus on model development'
+                ],
+                rayLibraries: [
+                    'Ray Serve (PRIMARY) - Multi-model inference and serving',
+                    'Ray Train (SECONDARY) - Model fine-tuning and training',
+                    'Ray Data (SECONDARY) - Data processing pipeline',
+                    'Ray Tune (SECONDARY) - Model optimization'
+                ],
+                proofPoints: [
+                    'Samsara: 50% reduction in annual ML inference cost with Ray Serve',
+                    'Coactive AI: 75% GPU spend reduction, 4x lower per-image cost',
+                    'Attentive: 99% AI compute cost reduction at $29B+ revenue scale'
+                ],
+                discoveryQuestions: [
+                    'At 50M+ users doing real-time inference, what does the serving infrastructure look like for Krisp\\\'s audio models?',
+                    'What does your current inference infrastructure look like at scale?',
+                    'How are you managing GPU utilization and cost optimization?',
+                    'What are the biggest infrastructure challenges your ML team faces today?'
+                ],
+                objections: [
+                    {
+                        objection: 'We have built a custom serving/training stack',
+                        response: 'Ray Serve is a foundation layer that handles orchestration, autoscaling, and GPU allocation. Your differentiating features stay on top.'
+                    },
+                    {
+                        objection: 'Adding another layer could impact latency',
+                        response: 'Ray Serve is production-optimized with microsecond-level overhead. Companies at your scale see latency improvements from better GPU scheduling.'
+                    }
+                ],
+                agenda: [
+                    { time: '0:00-3:00', topic: 'Intro: Anyscale fit for Krisp ML workloads' },
+                    { time: '3:00-10:00', topic: 'Deep Dive: Current infrastructure and bottlenecks' },
+                    { time: '10:00-18:00', topic: 'Architecture: Ray solution for AI Platform / Audio use cases' },
+                    { time: '18:00-26:00', topic: 'Proof Points: Customer case studies and benchmarks' },
+                    { time: '26:00-30:00', topic: 'Next Steps: POC scope and timeline' }
+                ],
+                customNotes: ''
+            },
+            'HeadSpin': {
+                company: {
+                    industry: 'Enterprise / DevTools',
+                    size: 'See enriched account list',
+                    hq: 'See enriched account list',
+                    funding: 'See enriched account list',
+                    techStack: 'See enriched account list'
+                },
+                keyContacts: [
+                    { name: 'CTO / VP Engineering', title: 'CTO / VP Engineering', status: 'Research' }
+                ],
+                whyAnyscale: [
+                    'Mobile AI testing platform. AI-powered performance analytics across real devices. ML for anomaly detection + performance prediction at scale.',
+                    'ML-based performance anomaly detection across thousands of device streams requires distributed inference — Anyscale\'s batch inference handles this.',
+                    'Ray\'s managed platform reduces infrastructure overhead so the team can focus on model development'
+                ],
+                rayLibraries: [
+                    'Ray Serve (PRIMARY) - ML model serving at enterprise scale',
+                    'Ray Data (PRIMARY) - Distributed data processing',
+                    'Ray Train (SECONDARY) - Model training pipeline',
+                    'Ray Tune (SECONDARY) - Hyperparameter optimization'
+                ],
+                proofPoints: [
+                    'Canva: 12x faster training (90 min to 6 min per epoch), 50% cost reduction',
+                    'Samsara: 50% reduction in annual ML inference cost',
+                    'Instacart: Ray for large-scale recommendation pipeline'
+                ],
+                discoveryQuestions: [
+                    'Running ML performance analytics across thousands of real device streams is a significant distributed compute challenge — how is that pipeline structured?',
+                    'What does your current ML infrastructure look like?',
+                    'How is your team handling distributed compute as workloads grow?',
+                    'What are the biggest infrastructure challenges your ML team faces today?'
+                ],
+                objections: [
+                    {
+                        objection: 'We already have ML infrastructure in place',
+                        response: 'Anyscale complements existing tools by handling distributed orchestration. Most customers keep their current stack and add Ray for scaling bottlenecks.'
+                    },
+                    {
+                        objection: 'Our ML workloads are not large enough to justify a new platform',
+                        response: 'Ray grows with you — start small with a single use case and expand. Teams often find 2-3x efficiency gains even at modest scale.'
+                    }
+                ],
+                agenda: [
+                    { time: '0:00-3:00', topic: 'Intro: Anyscale fit for HeadSpin ML workloads' },
+                    { time: '3:00-10:00', topic: 'Deep Dive: Current infrastructure and bottlenecks' },
+                    { time: '10:00-18:00', topic: 'Architecture: Ray solution for Enterprise / DevTools use cases' },
+                    { time: '18:00-26:00', topic: 'Proof Points: Customer case studies and benchmarks' },
+                    { time: '26:00-30:00', topic: 'Next Steps: POC scope and timeline' }
+                ],
+                customNotes: ''
+            },
+            'Samba TV': {
+                company: {
+                    industry: 'Ad Tech / Media AI',
+                    size: 'See enriched account list',
+                    hq: 'See enriched account list',
+                    funding: 'See enriched account list',
+                    techStack: 'See enriched account list'
+                },
+                keyContacts: [
+                    { name: 'VP Data Science / Head of ML Engineering', title: 'VP Data Science / Head of ML Engineering', status: 'Research' }
+                ],
+                whyAnyscale: [
+                    'TV audience analytics using ACR (automatic content recognition). ML for content identification across millions of TV streams. Large-scale video ML inference.',
+                    'ACR across millions of concurrent TV streams is a massive distributed inference problem — Ray\'s batch processing is built for this.',
+                    'Ray\'s managed platform reduces infrastructure overhead so the team can focus on model development'
+                ],
+                rayLibraries: [
+                    'Ray Serve (PRIMARY) - ML model serving at enterprise scale',
+                    'Ray Data (PRIMARY) - Distributed data processing',
+                    'Ray Train (SECONDARY) - Model training pipeline',
+                    'Ray Tune (SECONDARY) - Hyperparameter optimization'
+                ],
+                proofPoints: [
+                    'Canva: 12x faster training (90 min to 6 min per epoch), 50% cost reduction',
+                    'Samsara: 50% reduction in annual ML inference cost',
+                    'Instacart: Ray for large-scale recommendation pipeline'
+                ],
+                discoveryQuestions: [
+                    'Real-time content recognition across millions of TV streams — what does the ML inference pipeline look like at Samba TV\\\'s scale?',
+                    'What does your current ML infrastructure look like?',
+                    'How is your team handling distributed compute as workloads grow?',
+                    'What are the biggest infrastructure challenges your ML team faces today?'
+                ],
+                objections: [
+                    {
+                        objection: 'We already have ML infrastructure in place',
+                        response: 'Anyscale complements existing tools by handling distributed orchestration. Most customers keep their current stack and add Ray for scaling bottlenecks.'
+                    },
+                    {
+                        objection: 'Our ML workloads are not large enough to justify a new platform',
+                        response: 'Ray grows with you — start small with a single use case and expand. Teams often find 2-3x efficiency gains even at modest scale.'
+                    }
+                ],
+                agenda: [
+                    { time: '0:00-3:00', topic: 'Intro: Anyscale fit for Samba TV ML workloads' },
+                    { time: '3:00-10:00', topic: 'Deep Dive: Current infrastructure and bottlenecks' },
+                    { time: '10:00-18:00', topic: 'Architecture: Ray solution for Ad Tech / Media AI use cases' },
+                    { time: '18:00-26:00', topic: 'Proof Points: Customer case studies and benchmarks' },
+                    { time: '26:00-30:00', topic: 'Next Steps: POC scope and timeline' }
+                ],
+                customNotes: ''
+            },
+            'Matterport': {
+                company: {
+                    industry: '3D AI / Spatial Data',
+                    size: 'See enriched account list',
+                    hq: 'See enriched account list',
+                    funding: 'See enriched account list',
+                    techStack: 'See enriched account list'
+                },
+                keyContacts: [
+                    { name: 'VP Engineering / Head of Data Science', title: 'VP Engineering / Head of Data Science', status: 'Research' }
+                ],
+                whyAnyscale: [
+                    '3D spatial data platform. ML for 3D reconstruction from images, spatial AI. Processing millions of 3D models. Potential large distributed ML workloads.',
+                    '3D reconstruction ML across millions of spaces requires scalable GPU pipelines — managed Ray reduces operational friction.',
+                    'Ray\'s managed platform reduces infrastructure overhead so the team can focus on model development'
+                ],
+                rayLibraries: [
+                    'Ray Serve (PRIMARY) - Multi-model inference and serving',
+                    'Ray Train (SECONDARY) - Model fine-tuning and training',
+                    'Ray Data (SECONDARY) - Data processing pipeline',
+                    'Ray Tune (SECONDARY) - Model optimization'
+                ],
+                proofPoints: [
+                    'Samsara: 50% reduction in annual ML inference cost with Ray Serve',
+                    'Coactive AI: 75% GPU spend reduction, 4x lower per-image cost',
+                    'Attentive: 99% AI compute cost reduction at $29B+ revenue scale'
+                ],
+                discoveryQuestions: [
+                    'Processing and serving 3D AI models across millions of properties is infrastructure-intensive — how is the ML pipeline structured?',
+                    'What does your current inference infrastructure look like at scale?',
+                    'How are you managing GPU utilization and cost optimization?',
+                    'What are the biggest infrastructure challenges your ML team faces today?'
+                ],
+                objections: [
+                    {
+                        objection: 'We have built a custom serving/training stack',
+                        response: 'Ray Serve is a foundation layer that handles orchestration, autoscaling, and GPU allocation. Your differentiating features stay on top.'
+                    },
+                    {
+                        objection: 'Adding another layer could impact latency',
+                        response: 'Ray Serve is production-optimized with microsecond-level overhead. Companies at your scale see latency improvements from better GPU scheduling.'
+                    }
+                ],
+                agenda: [
+                    { time: '0:00-3:00', topic: 'Intro: Anyscale fit for Matterport ML workloads' },
+                    { time: '3:00-10:00', topic: 'Deep Dive: Current infrastructure and bottlenecks' },
+                    { time: '10:00-18:00', topic: 'Architecture: Ray solution for 3D AI / Spatial Data use cases' },
+                    { time: '18:00-26:00', topic: 'Proof Points: Customer case studies and benchmarks' },
+                    { time: '26:00-30:00', topic: 'Next Steps: POC scope and timeline' }
+                ],
+                customNotes: ''
+            },
+            'Suki': {
+                company: {
+                    industry: 'Health AI',
+                    size: 'See enriched account list',
+                    hq: 'See enriched account list',
+                    funding: 'See enriched account list',
+                    techStack: 'See enriched account list'
+                },
+                keyContacts: [
+                    { name: 'VP Engineering / Head of ML', title: 'VP Engineering / Head of ML', status: 'Research' }
+                ],
+                whyAnyscale: [
+                    'AI voice assistant for clinical documentation. Real-time speech recognition + LLM processing at scale across healthcare systems.',
+                    'Real-time healthcare voice AI requires low-latency, reliable inference infrastructure — Ray Serve\'s fractional GPU model is a natural fit.',
+                    'Ray\'s managed platform reduces infrastructure overhead so the team can focus on model development'
+                ],
+                rayLibraries: [
+                    'Ray Train (PRIMARY) - Distributed model training on medical data',
+                    'Ray Data (PRIMARY) - Medical data processing pipeline',
+                    'Ray Tune (SECONDARY) - HPO for clinical models',
+                    'Ray Serve (SECONDARY) - Serving models for clinical validation'
+                ],
+                proofPoints: [
+                    'Biolexis Therapeutics: 7 days to 5 hours processing on Anyscale for drug discovery',
+                    'Canva: 12x faster training (90 min to 6 min per epoch), 50% cost reduction',
+                    'NHS: Healthcare-grade reliability for clinical ML pipelines'
+                ],
+                discoveryQuestions: [
+                    'Running LLM + speech recognition in real-time for clinical workflows — how is Suki handling inference at scale across health system deployments?',
+                    'What does your current ML training pipeline look like?',
+                    'How are you handling compliance and audit trails in your ML infrastructure?',
+                    'What are the biggest infrastructure challenges your ML team faces today?'
+                ],
+                objections: [
+                    {
+                        objection: 'Healthcare data requires strict compliance; managed platforms add risk',
+                        response: 'Anyscale is HIPAA-compatible with audit trails, encryption, and data governance. We work with multiple healthcare organizations on regulated ML workloads.'
+                    },
+                    {
+                        objection: 'Our ML workloads are modest; we do not need distributed compute yet',
+                        response: 'Starting with Ray early means zero migration pain as data grows. Teams that wait often face costly infrastructure rebuilds when they hit scale.'
+                    }
+                ],
+                agenda: [
+                    { time: '0:00-3:00', topic: 'Intro: Anyscale fit for Suki ML workloads' },
+                    { time: '3:00-10:00', topic: 'Deep Dive: Current infrastructure and bottlenecks' },
+                    { time: '10:00-18:00', topic: 'Architecture: Ray solution for Health AI use cases' },
+                    { time: '18:00-26:00', topic: 'Proof Points: Customer case studies and benchmarks' },
+                    { time: '26:00-30:00', topic: 'Next Steps: POC scope and timeline' }
+                ],
+                customNotes: ''
+            },
+            'Techcyte': {
+                company: {
+                    industry: 'Health AI',
+                    size: 'See enriched account list',
+                    hq: 'See enriched account list',
+                    funding: 'See enriched account list',
+                    techStack: 'See enriched account list'
+                },
+                keyContacts: [
+                    { name: 'CTO / Head of AI', title: 'CTO / Head of AI', status: 'Research' }
+                ],
+                whyAnyscale: [
+                    'Digital pathology AI — ML for cytology and histology slide analysis. Heavy CNN/vision model training on large pathology datasets.',
+                    'Pathology slide analysis requires training on millions of high-res images — distributed GPU training with Anyscale reduces iteration time.',
+                    'Ray\'s managed platform reduces infrastructure overhead so the team can focus on model development'
+                ],
+                rayLibraries: [
+                    'Ray Train (PRIMARY) - Distributed model training on medical data',
+                    'Ray Data (PRIMARY) - Medical data processing pipeline',
+                    'Ray Tune (SECONDARY) - HPO for clinical models',
+                    'Ray Serve (SECONDARY) - Serving models for clinical validation'
+                ],
+                proofPoints: [
+                    'Biolexis Therapeutics: 7 days to 5 hours processing on Anyscale for drug discovery',
+                    'Canva: 12x faster training (90 min to 6 min per epoch), 50% cost reduction',
+                    'NHS: Healthcare-grade reliability for clinical ML pipelines'
+                ],
+                discoveryQuestions: [
+                    'Pathology AI training on large slide datasets is GPU-intensive — what\\\'s the training pipeline architecture at Techcyte?',
+                    'What does your current ML training pipeline look like?',
+                    'How are you handling compliance and audit trails in your ML infrastructure?',
+                    'What are the biggest infrastructure challenges your ML team faces today?'
+                ],
+                objections: [
+                    {
+                        objection: 'Healthcare data requires strict compliance; managed platforms add risk',
+                        response: 'Anyscale is HIPAA-compatible with audit trails, encryption, and data governance. We work with multiple healthcare organizations on regulated ML workloads.'
+                    },
+                    {
+                        objection: 'Our ML workloads are modest; we do not need distributed compute yet',
+                        response: 'Starting with Ray early means zero migration pain as data grows. Teams that wait often face costly infrastructure rebuilds when they hit scale.'
+                    }
+                ],
+                agenda: [
+                    { time: '0:00-3:00', topic: 'Intro: Anyscale fit for Techcyte ML workloads' },
+                    { time: '3:00-10:00', topic: 'Deep Dive: Current infrastructure and bottlenecks' },
+                    { time: '10:00-18:00', topic: 'Architecture: Ray solution for Health AI use cases' },
+                    { time: '18:00-26:00', topic: 'Proof Points: Customer case studies and benchmarks' },
+                    { time: '26:00-30:00', topic: 'Next Steps: POC scope and timeline' }
+                ],
+                customNotes: ''
+            },
+            'Culture Biosciences': {
+                company: {
+                    industry: 'Biotech AI',
+                    size: 'See enriched account list',
+                    hq: 'See enriched account list',
+                    funding: 'See enriched account list',
+                    techStack: 'See enriched account list'
+                },
+                keyContacts: [
+                    { name: 'Head of Data Science / VP Engineering', title: 'Head of Data Science / VP Engineering', status: 'Research' }
+                ],
+                whyAnyscale: [
+                    'Cloud bioreactor platform with AI-driven bioprocess optimization. ML for predicting and optimizing fermentation conditions. Industrial biotech AI.',
+                    'Bioprocess optimization ML requires iterative training on time-series bioreactor data — distributed training accelerates model development cycles.',
+                    'Ray\'s managed platform reduces infrastructure overhead so the team can focus on model development'
+                ],
+                rayLibraries: [
+                    'Ray Train (PRIMARY) - Distributed model training on medical data',
+                    'Ray Data (PRIMARY) - Medical data processing pipeline',
+                    'Ray Tune (SECONDARY) - HPO for clinical models',
+                    'Ray Serve (SECONDARY) - Serving models for clinical validation'
+                ],
+                proofPoints: [
+                    'Biolexis Therapeutics: 7 days to 5 hours processing on Anyscale for drug discovery',
+                    'Canva: 12x faster training (90 min to 6 min per epoch), 50% cost reduction',
+                    'NHS: Healthcare-grade reliability for clinical ML pipelines'
+                ],
+                discoveryQuestions: [
+                    'AI-driven bioprocess optimization is a fascinating application — what does the ML training pipeline look like across your bioreactor network?',
+                    'What does your current ML training pipeline look like?',
+                    'How are you handling compliance and audit trails in your ML infrastructure?',
+                    'What are the biggest infrastructure challenges your ML team faces today?'
+                ],
+                objections: [
+                    {
+                        objection: 'Healthcare data requires strict compliance; managed platforms add risk',
+                        response: 'Anyscale is HIPAA-compatible with audit trails, encryption, and data governance. We work with multiple healthcare organizations on regulated ML workloads.'
+                    },
+                    {
+                        objection: 'Our ML workloads are modest; we do not need distributed compute yet',
+                        response: 'Starting with Ray early means zero migration pain as data grows. Teams that wait often face costly infrastructure rebuilds when they hit scale.'
+                    }
+                ],
+                agenda: [
+                    { time: '0:00-3:00', topic: 'Intro: Anyscale fit for Culture Biosciences ML workloads' },
+                    { time: '3:00-10:00', topic: 'Deep Dive: Current infrastructure and bottlenecks' },
+                    { time: '10:00-18:00', topic: 'Architecture: Ray solution for Biotech AI use cases' },
+                    { time: '18:00-26:00', topic: 'Proof Points: Customer case studies and benchmarks' },
+                    { time: '26:00-30:00', topic: 'Next Steps: POC scope and timeline' }
+                ],
+                customNotes: ''
+            },
+            'Cytek Biosciences': {
+                company: {
+                    industry: 'Health AI / Biotech',
+                    size: 'See enriched account list',
+                    hq: 'See enriched account list',
+                    funding: 'See enriched account list',
+                    techStack: 'See enriched account list'
+                },
+                keyContacts: [
+                    { name: 'VP Engineering / Head of Data Science', title: 'VP Engineering / Head of Data Science', status: 'Research' }
+                ],
+                whyAnyscale: [
+                    'Full-spectrum flow cytometry. ML for spectral unmixing + cell classification. High-dimensional biological data analysis.',
+                    'High-dimensional cytometry ML (spectral unmixing at scale) benefits from distributed GPU processing.',
+                    'Ray\'s managed platform reduces infrastructure overhead so the team can focus on model development'
+                ],
+                rayLibraries: [
+                    'Ray Train (PRIMARY) - Distributed model training on medical data',
+                    'Ray Data (PRIMARY) - Medical data processing pipeline',
+                    'Ray Tune (SECONDARY) - HPO for clinical models',
+                    'Ray Serve (SECONDARY) - Serving models for clinical validation'
+                ],
+                proofPoints: [
+                    'Biolexis Therapeutics: 7 days to 5 hours processing on Anyscale for drug discovery',
+                    'Canva: 12x faster training (90 min to 6 min per epoch), 50% cost reduction',
+                    'NHS: Healthcare-grade reliability for clinical ML pipelines'
+                ],
+                discoveryQuestions: [
+                    'Spectral unmixing on high-dimensional flow cytometry data — how does your ML pipeline scale as instrument throughput grows?',
+                    'What does your current ML training pipeline look like?',
+                    'How are you handling compliance and audit trails in your ML infrastructure?',
+                    'What are the biggest infrastructure challenges your ML team faces today?'
+                ],
+                objections: [
+                    {
+                        objection: 'Healthcare data requires strict compliance; managed platforms add risk',
+                        response: 'Anyscale is HIPAA-compatible with audit trails, encryption, and data governance. We work with multiple healthcare organizations on regulated ML workloads.'
+                    },
+                    {
+                        objection: 'Our ML workloads are modest; we do not need distributed compute yet',
+                        response: 'Starting with Ray early means zero migration pain as data grows. Teams that wait often face costly infrastructure rebuilds when they hit scale.'
+                    }
+                ],
+                agenda: [
+                    { time: '0:00-3:00', topic: 'Intro: Anyscale fit for Cytek Biosciences ML workloads' },
+                    { time: '3:00-10:00', topic: 'Deep Dive: Current infrastructure and bottlenecks' },
+                    { time: '10:00-18:00', topic: 'Architecture: Ray solution for Health AI / Biotech use cases' },
+                    { time: '18:00-26:00', topic: 'Proof Points: Customer case studies and benchmarks' },
+                    { time: '26:00-30:00', topic: 'Next Steps: POC scope and timeline' }
+                ],
+                customNotes: ''
+            },
+            'Ema': {
+                company: {
+                    industry: 'Enterprise AI / Agentic AI',
+                    size: 'See enriched account list',
+                    hq: 'See enriched account list',
+                    funding: 'See enriched account list',
+                    techStack: 'See enriched account list'
+                },
+                keyContacts: [
+                    { name: 'Souvik Sen (CTO) / Alice Li (Head of Engineering)', title: 'Souvik Sen (CTO) / Alice Li (Head of Engineering)', status: 'Research' }
+                ],
+                whyAnyscale: [
+                    'Enterprise agentic AI for customer support, HR, legal, sales. EmaFusion 2T+ parameter multi-model ensemble, 200+ enterprise connectors.',
+                    'EmaFusion multi-model LLM orchestration at enterprise scale — Ray Serve\'s multi-model composition is the native infrastructure pattern.',
+                    'Ray\'s managed platform reduces infrastructure overhead so the team can focus on model development'
+                ],
+                rayLibraries: [
+                    'Ray Serve (PRIMARY) - Multi-model inference and serving',
+                    'Ray Train (SECONDARY) - Model fine-tuning and training',
+                    'Ray Data (SECONDARY) - Data processing pipeline',
+                    'Ray Tune (SECONDARY) - Model optimization'
+                ],
+                proofPoints: [
+                    'Samsara: 50% reduction in annual ML inference cost with Ray Serve',
+                    'Coactive AI: 75% GPU spend reduction, 4x lower per-image cost',
+                    'Attentive: 99% AI compute cost reduction at $29B+ revenue scale'
+                ],
+                discoveryQuestions: [
+                    'With EmaFusion blending outputs across multiple LLMs, how are you currently orchestrating the multi-model inference pipeline?',
+                    'What does your current inference infrastructure look like at scale?',
+                    'How are you managing GPU utilization and cost optimization?',
+                    'What are the biggest infrastructure challenges your ML team faces today?'
+                ],
+                objections: [
+                    {
+                        objection: 'We have built a custom serving/training stack',
+                        response: 'Ray Serve is a foundation layer that handles orchestration, autoscaling, and GPU allocation. Your differentiating features stay on top.'
+                    },
+                    {
+                        objection: 'Adding another layer could impact latency',
+                        response: 'Ray Serve is production-optimized with microsecond-level overhead. Companies at your scale see latency improvements from better GPU scheduling.'
+                    }
+                ],
+                agenda: [
+                    { time: '0:00-3:00', topic: 'Intro: Anyscale fit for Ema ML workloads' },
+                    { time: '3:00-10:00', topic: 'Deep Dive: Current infrastructure and bottlenecks' },
+                    { time: '10:00-18:00', topic: 'Architecture: Ray solution for Enterprise AI / Agentic AI use cases' },
+                    { time: '18:00-26:00', topic: 'Proof Points: Customer case studies and benchmarks' },
+                    { time: '26:00-30:00', topic: 'Next Steps: POC scope and timeline' }
+                ],
+                customNotes: ''
+            },
+            'Wobot AI': {
+                company: {
+                    industry: 'AI Vision',
+                    size: 'See enriched account list',
+                    hq: 'See enriched account list',
+                    funding: 'See enriched account list',
+                    techStack: 'See enriched account list'
+                },
+                keyContacts: [
+                    { name: 'CTO / VP Engineering', title: 'CTO / VP Engineering', status: 'Research' }
+                ],
+                whyAnyscale: [
+                    'Workplace safety AI using computer vision. Monitors compliance and safety from video streams. Multi-camera, multi-model inference at scale.',
+                    'Multi-camera computer vision at scale for workplace safety — Ray Serve handles the multi-model inference pipeline efficiently.',
+                    'Ray\'s managed platform reduces infrastructure overhead so the team can focus on model development'
+                ],
+                rayLibraries: [
+                    'Ray Serve (PRIMARY) - Multi-model inference and serving',
+                    'Ray Train (SECONDARY) - Model fine-tuning and training',
+                    'Ray Data (SECONDARY) - Data processing pipeline',
+                    'Ray Tune (SECONDARY) - Model optimization'
+                ],
+                proofPoints: [
+                    'Samsara: 50% reduction in annual ML inference cost with Ray Serve',
+                    'Coactive AI: 75% GPU spend reduction, 4x lower per-image cost',
+                    'Attentive: 99% AI compute cost reduction at $29B+ revenue scale'
+                ],
+                discoveryQuestions: [
+                    'Running safety AI across hundreds of camera feeds simultaneously — how is the multi-model inference orchestrated?',
+                    'What does your current inference infrastructure look like at scale?',
+                    'How are you managing GPU utilization and cost optimization?',
+                    'What are the biggest infrastructure challenges your ML team faces today?'
+                ],
+                objections: [
+                    {
+                        objection: 'We have built a custom serving/training stack',
+                        response: 'Ray Serve is a foundation layer that handles orchestration, autoscaling, and GPU allocation. Your differentiating features stay on top.'
+                    },
+                    {
+                        objection: 'Adding another layer could impact latency',
+                        response: 'Ray Serve is production-optimized with microsecond-level overhead. Companies at your scale see latency improvements from better GPU scheduling.'
+                    }
+                ],
+                agenda: [
+                    { time: '0:00-3:00', topic: 'Intro: Anyscale fit for Wobot AI ML workloads' },
+                    { time: '3:00-10:00', topic: 'Deep Dive: Current infrastructure and bottlenecks' },
+                    { time: '10:00-18:00', topic: 'Architecture: Ray solution for AI Vision use cases' },
+                    { time: '18:00-26:00', topic: 'Proof Points: Customer case studies and benchmarks' },
+                    { time: '26:00-30:00', topic: 'Next Steps: POC scope and timeline' }
+                ],
+                customNotes: ''
+            },
+            'Pyka': {
+                company: {
+                    industry: 'AV / Robotics',
+                    size: 'See enriched account list',
+                    hq: 'See enriched account list',
+                    funding: 'See enriched account list',
+                    techStack: 'See enriched account list'
+                },
+                keyContacts: [
+                    { name: 'VP Engineering / Head of Autonomy', title: 'VP Engineering / Head of Autonomy', status: 'Research' }
+                ],
+                whyAnyscale: [
+                    'Autonomous electric aircraft for cargo and agriculture. ML for flight control and mission planning. Small team, big ML compute needs.',
+                    'Autonomous aircraft ML training demands fault-tolerant distributed compute — Anyscale\'s managed Ray provides this without the ops burden.',
+                    'Ray\'s managed platform reduces infrastructure overhead so the team can focus on model development'
+                ],
+                rayLibraries: [
+                    'Ray Train (PRIMARY) - Distributed model training for robotics/AV',
+                    'Ray Data (PRIMARY) - Sensor data processing pipeline',
+                    'RLlib (SECONDARY) - Reinforcement learning for control policies',
+                    'Ray Tune (SECONDARY) - Hyperparameter optimization'
+                ],
+                proofPoints: [
+                    'Physical Intelligence: 2x faster research iteration, 16+ engineers freed from infra',
+                    'Blue River Technology: 2.5x AV regression testing speedup (24h to 9.5h)',
+                    'Zoox: Distributed AV simulation at scale with parallel scenario evaluation'
+                ],
+                discoveryQuestions: [
+                    'Flight AI for cargo aircraft requires training on a huge diversity of edge cases — how does the training pipeline scale?',
+                    'What does your current distributed training infrastructure look like?',
+                    'How many engineers are spending time on infrastructure vs. model development?',
+                    'What are the biggest infrastructure challenges your ML team faces today?'
+                ],
+                objections: [
+                    {
+                        objection: 'We have custom infrastructure optimized for our workload',
+                        response: 'Ray integrates with your existing stack as an orchestration layer. Your custom tools stay intact; Ray handles scheduling and resource management.'
+                    },
+                    {
+                        objection: 'We are a small team and prefer minimal dependencies',
+                        response: 'Ray is Python-native, open-source, and reduces operational overhead. Small teams see the biggest gains by eliminating cluster management work.'
+                    }
+                ],
+                agenda: [
+                    { time: '0:00-3:00', topic: 'Intro: Anyscale fit for Pyka ML workloads' },
+                    { time: '3:00-10:00', topic: 'Deep Dive: Current infrastructure and bottlenecks' },
+                    { time: '10:00-18:00', topic: 'Architecture: Ray solution for AV / Robotics use cases' },
+                    { time: '18:00-26:00', topic: 'Proof Points: Customer case studies and benchmarks' },
+                    { time: '26:00-30:00', topic: 'Next Steps: POC scope and timeline' }
+                ],
+                customNotes: ''
+            },
+            'AppliedVR': {
+                company: {
+                    industry: 'Health AI / VR',
+                    size: 'See enriched account list',
+                    hq: 'See enriched account list',
+                    funding: 'See enriched account list',
+                    techStack: 'See enriched account list'
+                },
+                keyContacts: [
+                    { name: 'VP Engineering / Head of Data Science', title: 'VP Engineering / Head of Data Science', status: 'Research' }
+                ],
+                whyAnyscale: [
+                    'VR therapy for chronic pain — FDA authorized. ML for patient outcome prediction and therapy personalization.',
+                    'Patient outcome ML on VR therapy data — distributed training enables faster iteration on personalization models.',
+                    'Ray\'s managed platform reduces infrastructure overhead so the team can focus on model development'
+                ],
+                rayLibraries: [
+                    'Ray Train (PRIMARY) - Distributed model training on medical data',
+                    'Ray Data (PRIMARY) - Medical data processing pipeline',
+                    'Ray Tune (SECONDARY) - HPO for clinical models',
+                    'Ray Serve (SECONDARY) - Serving models for clinical validation'
+                ],
+                proofPoints: [
+                    'Biolexis Therapeutics: 7 days to 5 hours processing on Anyscale for drug discovery',
+                    'Canva: 12x faster training (90 min to 6 min per epoch), 50% cost reduction',
+                    'NHS: Healthcare-grade reliability for clinical ML pipelines'
+                ],
+                discoveryQuestions: [
+                    'How does the patient outcome modeling scale as AppliedVR\\\'s clinical dataset grows?',
+                    'What does your current ML training pipeline look like?',
+                    'How are you handling compliance and audit trails in your ML infrastructure?',
+                    'What are the biggest infrastructure challenges your ML team faces today?'
+                ],
+                objections: [
+                    {
+                        objection: 'Healthcare data requires strict compliance; managed platforms add risk',
+                        response: 'Anyscale is HIPAA-compatible with audit trails, encryption, and data governance. We work with multiple healthcare organizations on regulated ML workloads.'
+                    },
+                    {
+                        objection: 'Our ML workloads are modest; we do not need distributed compute yet',
+                        response: 'Starting with Ray early means zero migration pain as data grows. Teams that wait often face costly infrastructure rebuilds when they hit scale.'
+                    }
+                ],
+                agenda: [
+                    { time: '0:00-3:00', topic: 'Intro: Anyscale fit for AppliedVR ML workloads' },
+                    { time: '3:00-10:00', topic: 'Deep Dive: Current infrastructure and bottlenecks' },
+                    { time: '10:00-18:00', topic: 'Architecture: Ray solution for Health AI / VR use cases' },
+                    { time: '18:00-26:00', topic: 'Proof Points: Customer case studies and benchmarks' },
+                    { time: '26:00-30:00', topic: 'Next Steps: POC scope and timeline' }
+                ],
+                customNotes: ''
+            },
+            'Autonomize AI': {
+                company: {
+                    industry: 'Health AI',
+                    size: 'See enriched account list',
+                    hq: 'See enriched account list',
+                    funding: 'See enriched account list',
+                    techStack: 'See enriched account list'
+                },
+                keyContacts: [
+                    { name: 'CTO / VP Engineering', title: 'CTO / VP Engineering', status: 'Research' }
+                ],
+                whyAnyscale: [
+                    'Healthcare AI platform — clinical NLP, prior auth automation, care coordination. LLM + ML pipeline at enterprise scale.',
+                    'Healthcare NLP pipelines running LLMs at enterprise scale — Anyscale\'s managed Ray handles multi-model serving reliably.',
+                    'Ray\'s managed platform reduces infrastructure overhead so the team can focus on model development'
+                ],
+                rayLibraries: [
+                    'Ray Train (PRIMARY) - Distributed model training on medical data',
+                    'Ray Data (PRIMARY) - Medical data processing pipeline',
+                    'Ray Tune (SECONDARY) - HPO for clinical models',
+                    'Ray Serve (SECONDARY) - Serving models for clinical validation'
+                ],
+                proofPoints: [
+                    'Biolexis Therapeutics: 7 days to 5 hours processing on Anyscale for drug discovery',
+                    'Canva: 12x faster training (90 min to 6 min per epoch), 50% cost reduction',
+                    'NHS: Healthcare-grade reliability for clinical ML pipelines'
+                ],
+                discoveryQuestions: [
+                    'Running LLMs for prior auth and care coordination across multiple health systems — how is the inference pipeline structured?',
+                    'What does your current ML training pipeline look like?',
+                    'How are you handling compliance and audit trails in your ML infrastructure?',
+                    'What are the biggest infrastructure challenges your ML team faces today?'
+                ],
+                objections: [
+                    {
+                        objection: 'Healthcare data requires strict compliance; managed platforms add risk',
+                        response: 'Anyscale is HIPAA-compatible with audit trails, encryption, and data governance. We work with multiple healthcare organizations on regulated ML workloads.'
+                    },
+                    {
+                        objection: 'Our ML workloads are modest; we do not need distributed compute yet',
+                        response: 'Starting with Ray early means zero migration pain as data grows. Teams that wait often face costly infrastructure rebuilds when they hit scale.'
+                    }
+                ],
+                agenda: [
+                    { time: '0:00-3:00', topic: 'Intro: Anyscale fit for Autonomize AI ML workloads' },
+                    { time: '3:00-10:00', topic: 'Deep Dive: Current infrastructure and bottlenecks' },
+                    { time: '10:00-18:00', topic: 'Architecture: Ray solution for Health AI use cases' },
+                    { time: '18:00-26:00', topic: 'Proof Points: Customer case studies and benchmarks' },
+                    { time: '26:00-30:00', topic: 'Next Steps: POC scope and timeline' }
+                ],
+                customNotes: ''
+            },
+            'Uplight': {
+                company: {
+                    industry: 'Energy AI',
+                    size: 'See enriched account list',
+                    hq: 'See enriched account list',
+                    funding: 'See enriched account list',
+                    techStack: 'See enriched account list'
+                },
+                keyContacts: [
+                    { name: 'VP Data Science / Head of ML Engineering', title: 'VP Data Science / Head of ML Engineering', status: 'Research' }
+                ],
+                whyAnyscale: [
+                    'Energy intelligence platform. ML for demand response, customer segmentation, and energy behavior prediction across utility customers.',
+                    'Energy ML across millions of customer accounts requires scalable distributed training — Anyscale reduces the infra overhead.',
+                    'Ray\'s managed platform reduces infrastructure overhead so the team can focus on model development'
+                ],
+                rayLibraries: [
+                    'Ray Serve (PRIMARY) - ML model serving at enterprise scale',
+                    'Ray Data (PRIMARY) - Distributed data processing',
+                    'Ray Train (SECONDARY) - Model training pipeline',
+                    'Ray Tune (SECONDARY) - Hyperparameter optimization'
+                ],
+                proofPoints: [
+                    'Canva: 12x faster training (90 min to 6 min per epoch), 50% cost reduction',
+                    'Samsara: 50% reduction in annual ML inference cost',
+                    'Instacart: Ray for large-scale recommendation pipeline'
+                ],
+                discoveryQuestions: [
+                    'Running demand response and behavior prediction ML across millions of utility accounts — what\\\'s the distributed training setup?',
+                    'What does your current ML infrastructure look like?',
+                    'How is your team handling distributed compute as workloads grow?',
+                    'What are the biggest infrastructure challenges your ML team faces today?'
+                ],
+                objections: [
+                    {
+                        objection: 'We already have ML infrastructure in place',
+                        response: 'Anyscale complements existing tools by handling distributed orchestration. Most customers keep their current stack and add Ray for scaling bottlenecks.'
+                    },
+                    {
+                        objection: 'Our ML workloads are not large enough to justify a new platform',
+                        response: 'Ray grows with you — start small with a single use case and expand. Teams often find 2-3x efficiency gains even at modest scale.'
+                    }
+                ],
+                agenda: [
+                    { time: '0:00-3:00', topic: 'Intro: Anyscale fit for Uplight ML workloads' },
+                    { time: '3:00-10:00', topic: 'Deep Dive: Current infrastructure and bottlenecks' },
+                    { time: '10:00-18:00', topic: 'Architecture: Ray solution for Energy AI use cases' },
+                    { time: '18:00-26:00', topic: 'Proof Points: Customer case studies and benchmarks' },
+                    { time: '26:00-30:00', topic: 'Next Steps: POC scope and timeline' }
+                ],
+                customNotes: ''
+            },
+            'Fulgent Genetics': {
+                company: {
+                    industry: 'Health AI / Genomics',
+                    size: 'See enriched account list',
+                    hq: 'See enriched account list',
+                    funding: 'See enriched account list',
+                    techStack: 'See enriched account list'
+                },
+                keyContacts: [
+                    { name: 'VP Data Science / Head of Bioinformatics', title: 'VP Data Science / Head of Bioinformatics', status: 'Research' }
+                ],
+                whyAnyscale: [
+                    'Genomics + diagnostic testing with AI. ML for genomic variant interpretation. Large bioinformatics + ML pipeline.',
+                    'Genomic variant ML on large sequencing datasets requires high-throughput distributed compute — Anyscale accelerates pipeline iteration.',
+                    'Ray\'s managed platform reduces infrastructure overhead so the team can focus on model development'
+                ],
+                rayLibraries: [
+                    'Ray Train (PRIMARY) - Distributed model training on medical data',
+                    'Ray Data (PRIMARY) - Medical data processing pipeline',
+                    'Ray Tune (SECONDARY) - HPO for clinical models',
+                    'Ray Serve (SECONDARY) - Serving models for clinical validation'
+                ],
+                proofPoints: [
+                    'Biolexis Therapeutics: 7 days to 5 hours processing on Anyscale for drug discovery',
+                    'Canva: 12x faster training (90 min to 6 min per epoch), 50% cost reduction',
+                    'NHS: Healthcare-grade reliability for clinical ML pipelines'
+                ],
+                discoveryQuestions: [
+                    'Genomic variant interpretation at clinical scale — how does your ML pipeline handle the data processing and model training at volume?',
+                    'What does your current ML training pipeline look like?',
+                    'How are you handling compliance and audit trails in your ML infrastructure?',
+                    'What are the biggest infrastructure challenges your ML team faces today?'
+                ],
+                objections: [
+                    {
+                        objection: 'Healthcare data requires strict compliance; managed platforms add risk',
+                        response: 'Anyscale is HIPAA-compatible with audit trails, encryption, and data governance. We work with multiple healthcare organizations on regulated ML workloads.'
+                    },
+                    {
+                        objection: 'Our ML workloads are modest; we do not need distributed compute yet',
+                        response: 'Starting with Ray early means zero migration pain as data grows. Teams that wait often face costly infrastructure rebuilds when they hit scale.'
+                    }
+                ],
+                agenda: [
+                    { time: '0:00-3:00', topic: 'Intro: Anyscale fit for Fulgent Genetics ML workloads' },
+                    { time: '3:00-10:00', topic: 'Deep Dive: Current infrastructure and bottlenecks' },
+                    { time: '10:00-18:00', topic: 'Architecture: Ray solution for Health AI / Genomics use cases' },
+                    { time: '18:00-26:00', topic: 'Proof Points: Customer case studies and benchmarks' },
+                    { time: '26:00-30:00', topic: 'Next Steps: POC scope and timeline' }
+                ],
+                customNotes: ''
+            },
+            'Fireflies.ai': {
+                company: {
+                    industry: 'AI Platform / Productivity',
+                    size: 'See enriched account list',
+                    hq: 'See enriched account list',
+                    funding: 'See enriched account list',
+                    techStack: 'See enriched account list'
+                },
+                keyContacts: [
+                    { name: 'CTO / VP Engineering', title: 'CTO / VP Engineering', status: 'Research' }
+                ],
+                whyAnyscale: [
+                    'AI meeting notes + intelligence. Transcription + LLM processing across millions of meetings. Significant inference workload.',
+                    'NLP + LLM inference across millions of meetings is a Ray Serve use case — fractional GPU scheduling reduces serving costs.',
+                    'Ray\'s managed platform reduces infrastructure overhead so the team can focus on model development'
+                ],
+                rayLibraries: [
+                    'Ray Serve (PRIMARY) - Multi-model inference and serving',
+                    'Ray Train (SECONDARY) - Model fine-tuning and training',
+                    'Ray Data (SECONDARY) - Data processing pipeline',
+                    'Ray Tune (SECONDARY) - Model optimization'
+                ],
+                proofPoints: [
+                    'Samsara: 50% reduction in annual ML inference cost with Ray Serve',
+                    'Coactive AI: 75% GPU spend reduction, 4x lower per-image cost',
+                    'Attentive: 99% AI compute cost reduction at $29B+ revenue scale'
+                ],
+                discoveryQuestions: [
+                    'Processing millions of meetings with transcription + LLM — how is the serving infrastructure handling that scale?',
+                    'What does your current inference infrastructure look like at scale?',
+                    'How are you managing GPU utilization and cost optimization?',
+                    'What are the biggest infrastructure challenges your ML team faces today?'
+                ],
+                objections: [
+                    {
+                        objection: 'We have built a custom serving/training stack',
+                        response: 'Ray Serve is a foundation layer that handles orchestration, autoscaling, and GPU allocation. Your differentiating features stay on top.'
+                    },
+                    {
+                        objection: 'Adding another layer could impact latency',
+                        response: 'Ray Serve is production-optimized with microsecond-level overhead. Companies at your scale see latency improvements from better GPU scheduling.'
+                    }
+                ],
+                agenda: [
+                    { time: '0:00-3:00', topic: 'Intro: Anyscale fit for Fireflies.ai ML workloads' },
+                    { time: '3:00-10:00', topic: 'Deep Dive: Current infrastructure and bottlenecks' },
+                    { time: '10:00-18:00', topic: 'Architecture: Ray solution for AI Platform / Productivity use cases' },
+                    { time: '18:00-26:00', topic: 'Proof Points: Customer case studies and benchmarks' },
+                    { time: '26:00-30:00', topic: 'Next Steps: POC scope and timeline' }
+                ],
+                customNotes: ''
+            },
+            'Formant': {
+                company: {
+                    industry: 'Robotics Ops',
+                    size: 'See enriched account list',
+                    hq: 'See enriched account list',
+                    funding: 'See enriched account list',
+                    techStack: 'See enriched account list'
+                },
+                keyContacts: [
+                    { name: 'VP Engineering / Head of Data', title: 'VP Engineering / Head of Data', status: 'Research' }
+                ],
+                whyAnyscale: [
+                    'Robot fleet management platform. Handles telemetry, data, and ops for robot fleets. Data pipeline feeding ML models.',
+                    'Fleet telemetry data pipeline → ML training loop is a natural Ray use case for distributed data processing.',
+                    'Ray\'s managed platform reduces infrastructure overhead so the team can focus on model development'
+                ],
+                rayLibraries: [
+                    'Ray Train (PRIMARY) - Distributed model training for robotics/AV',
+                    'Ray Data (PRIMARY) - Sensor data processing pipeline',
+                    'RLlib (SECONDARY) - Reinforcement learning for control policies',
+                    'Ray Tune (SECONDARY) - Hyperparameter optimization'
+                ],
+                proofPoints: [
+                    'Physical Intelligence: 2x faster research iteration, 16+ engineers freed from infra',
+                    'Blue River Technology: 2.5x AV regression testing speedup (24h to 9.5h)',
+                    'Zoox: Distributed AV simulation at scale with parallel scenario evaluation'
+                ],
+                discoveryQuestions: [
+                    'Robot fleet telemetry at scale generates continuous ML training signal — how is Formant handling that pipeline?',
+                    'What does your current distributed training infrastructure look like?',
+                    'How many engineers are spending time on infrastructure vs. model development?',
+                    'What are the biggest infrastructure challenges your ML team faces today?'
+                ],
+                objections: [
+                    {
+                        objection: 'We have custom infrastructure optimized for our workload',
+                        response: 'Ray integrates with your existing stack as an orchestration layer. Your custom tools stay intact; Ray handles scheduling and resource management.'
+                    },
+                    {
+                        objection: 'We are a small team and prefer minimal dependencies',
+                        response: 'Ray is Python-native, open-source, and reduces operational overhead. Small teams see the biggest gains by eliminating cluster management work.'
+                    }
+                ],
+                agenda: [
+                    { time: '0:00-3:00', topic: 'Intro: Anyscale fit for Formant ML workloads' },
+                    { time: '3:00-10:00', topic: 'Deep Dive: Current infrastructure and bottlenecks' },
+                    { time: '10:00-18:00', topic: 'Architecture: Ray solution for Robotics Ops use cases' },
+                    { time: '18:00-26:00', topic: 'Proof Points: Customer case studies and benchmarks' },
+                    { time: '26:00-30:00', topic: 'Next Steps: POC scope and timeline' }
+                ],
+                customNotes: ''
+            },
+            'Gorgias': {
+                company: {
+                    industry: 'Enterprise SaaS / AI',
+                    size: 'See enriched account list',
+                    hq: 'See enriched account list',
+                    funding: 'See enriched account list',
+                    techStack: 'See enriched account list'
+                },
+                keyContacts: [
+                    { name: 'VP Engineering / Head of ML', title: 'VP Engineering / Head of ML', status: 'Research' }
+                ],
+                whyAnyscale: [
+                    'AI-powered customer support for e-commerce. LLM + NLP for ticket resolution at scale. 10,000+ merchants.',
+                    'LLM-based support automation at 10K+ merchant scale requires efficient inference infrastructure.',
+                    'Ray\'s managed platform reduces infrastructure overhead so the team can focus on model development'
+                ],
+                rayLibraries: [
+                    'Ray Serve (PRIMARY) - ML model serving at enterprise scale',
+                    'Ray Data (PRIMARY) - Distributed data processing',
+                    'Ray Train (SECONDARY) - Model training pipeline',
+                    'Ray Tune (SECONDARY) - Hyperparameter optimization'
+                ],
+                proofPoints: [
+                    'Canva: 12x faster training (90 min to 6 min per epoch), 50% cost reduction',
+                    'Samsara: 50% reduction in annual ML inference cost',
+                    'Instacart: Ray for large-scale recommendation pipeline'
+                ],
+                discoveryQuestions: [
+                    'Running LLM-based ticket automation across thousands of merchant stores — how is the inference pipeline structured?',
+                    'What does your current ML infrastructure look like?',
+                    'How is your team handling distributed compute as workloads grow?',
+                    'What are the biggest infrastructure challenges your ML team faces today?'
+                ],
+                objections: [
+                    {
+                        objection: 'We already have ML infrastructure in place',
+                        response: 'Anyscale complements existing tools by handling distributed orchestration. Most customers keep their current stack and add Ray for scaling bottlenecks.'
+                    },
+                    {
+                        objection: 'Our ML workloads are not large enough to justify a new platform',
+                        response: 'Ray grows with you — start small with a single use case and expand. Teams often find 2-3x efficiency gains even at modest scale.'
+                    }
+                ],
+                agenda: [
+                    { time: '0:00-3:00', topic: 'Intro: Anyscale fit for Gorgias ML workloads' },
+                    { time: '3:00-10:00', topic: 'Deep Dive: Current infrastructure and bottlenecks' },
+                    { time: '10:00-18:00', topic: 'Architecture: Ray solution for Enterprise SaaS / AI use cases' },
+                    { time: '18:00-26:00', topic: 'Proof Points: Customer case studies and benchmarks' },
+                    { time: '26:00-30:00', topic: 'Next Steps: POC scope and timeline' }
+                ],
+                customNotes: ''
+            },
+            'Weave Robotics': {
+                company: {
+                    industry: 'Robotics',
+                    size: 'See enriched account list',
+                    hq: 'See enriched account list',
+                    funding: 'See enriched account list',
+                    techStack: 'See enriched account list'
+                },
+                keyContacts: [
+                    { name: 'VP Engineering / Head of AI', title: 'VP Engineering / Head of AI', status: 'Research' }
+                ],
+                whyAnyscale: [
+                    'Robotics company — manipulation or weaving automation ML. Distributed sim + training likely needed.',
+                    'Manipulation policy training requires high-throughput simulation and distributed GPU training.',
+                    'Ray\'s managed platform reduces infrastructure overhead so the team can focus on model development'
+                ],
+                rayLibraries: [
+                    'Ray Train (PRIMARY) - Distributed model training for robotics/AV',
+                    'Ray Data (PRIMARY) - Sensor data processing pipeline',
+                    'RLlib (SECONDARY) - Reinforcement learning for control policies',
+                    'Ray Tune (SECONDARY) - Hyperparameter optimization'
+                ],
+                proofPoints: [
+                    'Physical Intelligence: 2x faster research iteration, 16+ engineers freed from infra',
+                    'Blue River Technology: 2.5x AV regression testing speedup (24h to 9.5h)',
+                    'Zoox: Distributed AV simulation at scale with parallel scenario evaluation'
+                ],
+                discoveryQuestions: [
+                    'What does the simulation and training infrastructure look like for your manipulation stack?',
+                    'What does your current distributed training infrastructure look like?',
+                    'How many engineers are spending time on infrastructure vs. model development?',
+                    'What are the biggest infrastructure challenges your ML team faces today?'
+                ],
+                objections: [
+                    {
+                        objection: 'We have custom infrastructure optimized for our workload',
+                        response: 'Ray integrates with your existing stack as an orchestration layer. Your custom tools stay intact; Ray handles scheduling and resource management.'
+                    },
+                    {
+                        objection: 'We are a small team and prefer minimal dependencies',
+                        response: 'Ray is Python-native, open-source, and reduces operational overhead. Small teams see the biggest gains by eliminating cluster management work.'
+                    }
+                ],
+                agenda: [
+                    { time: '0:00-3:00', topic: 'Intro: Anyscale fit for Weave Robotics ML workloads' },
+                    { time: '3:00-10:00', topic: 'Deep Dive: Current infrastructure and bottlenecks' },
+                    { time: '10:00-18:00', topic: 'Architecture: Ray solution for Robotics use cases' },
+                    { time: '18:00-26:00', topic: 'Proof Points: Customer case studies and benchmarks' },
+                    { time: '26:00-30:00', topic: 'Next Steps: POC scope and timeline' }
+                ],
+                customNotes: ''
+            },
+            'Fulfil Solutions': {
+                company: {
+                    industry: 'Robotics / Logistics',
+                    size: 'See enriched account list',
+                    hq: 'See enriched account list',
+                    funding: 'See enriched account list',
+                    techStack: 'See enriched account list'
+                },
+                keyContacts: [
+                    { name: 'VP Engineering', title: 'VP Engineering', status: 'Research' }
+                ],
+                whyAnyscale: [
+                    'Automated micro-fulfillment centers. Computer vision + robotics ML. Modest ML scale.',
+                    'Fulfillment robot vision model retraining for new product categories.',
+                    'Ray\'s managed platform reduces infrastructure overhead so the team can focus on model development'
+                ],
+                rayLibraries: [
+                    'Ray Train (PRIMARY) - Distributed model training for robotics/AV',
+                    'Ray Data (PRIMARY) - Sensor data processing pipeline',
+                    'RLlib (SECONDARY) - Reinforcement learning for control policies',
+                    'Ray Tune (SECONDARY) - Hyperparameter optimization'
+                ],
+                proofPoints: [
+                    'Physical Intelligence: 2x faster research iteration, 16+ engineers freed from infra',
+                    'Blue River Technology: 2.5x AV regression testing speedup (24h to 9.5h)',
+                    'Zoox: Distributed AV simulation at scale with parallel scenario evaluation'
+                ],
+                discoveryQuestions: [
+                    'How often do you retrain the picking/vision models as new product categories are added?',
+                    'What does your current distributed training infrastructure look like?',
+                    'How many engineers are spending time on infrastructure vs. model development?',
+                    'What are the biggest infrastructure challenges your ML team faces today?'
+                ],
+                objections: [
+                    {
+                        objection: 'We have custom infrastructure optimized for our workload',
+                        response: 'Ray integrates with your existing stack as an orchestration layer. Your custom tools stay intact; Ray handles scheduling and resource management.'
+                    },
+                    {
+                        objection: 'We are a small team and prefer minimal dependencies',
+                        response: 'Ray is Python-native, open-source, and reduces operational overhead. Small teams see the biggest gains by eliminating cluster management work.'
+                    }
+                ],
+                agenda: [
+                    { time: '0:00-3:00', topic: 'Intro: Anyscale fit for Fulfil Solutions ML workloads' },
+                    { time: '3:00-10:00', topic: 'Deep Dive: Current infrastructure and bottlenecks' },
+                    { time: '10:00-18:00', topic: 'Architecture: Ray solution for Robotics / Logistics use cases' },
+                    { time: '18:00-26:00', topic: 'Proof Points: Customer case studies and benchmarks' },
+                    { time: '26:00-30:00', topic: 'Next Steps: POC scope and timeline' }
+                ],
+                customNotes: ''
+            },
+            'Medeloop, Inc.': {
+                company: {
+                    industry: 'Health AI',
+                    size: 'See enriched account list',
+                    hq: 'See enriched account list',
+                    funding: 'See enriched account list',
+                    techStack: 'See enriched account list'
+                },
+                keyContacts: [
+                    { name: 'VP Engineering / Head of ML', title: 'VP Engineering / Head of ML', status: 'Research' }
+                ],
+                whyAnyscale: [
+                    'Healthcare ML platform. Some distributed ML potential depending on scale.',
+                    'Healthcare ML pipelines that scale with patient data.',
+                    'Ray\'s managed platform reduces infrastructure overhead so the team can focus on model development'
+                ],
+                rayLibraries: [
+                    'Ray Train (PRIMARY) - Distributed model training on medical data',
+                    'Ray Data (PRIMARY) - Medical data processing pipeline',
+                    'Ray Tune (SECONDARY) - HPO for clinical models',
+                    'Ray Serve (SECONDARY) - Serving models for clinical validation'
+                ],
+                proofPoints: [
+                    'Biolexis Therapeutics: 7 days to 5 hours processing on Anyscale for drug discovery',
+                    'Canva: 12x faster training (90 min to 6 min per epoch), 50% cost reduction',
+                    'NHS: Healthcare-grade reliability for clinical ML pipelines'
+                ],
+                discoveryQuestions: [
+                    'What ML infrastructure are you running today for training and inference?',
+                    'What does your current ML training pipeline look like?',
+                    'How are you handling compliance and audit trails in your ML infrastructure?',
+                    'What are the biggest infrastructure challenges your ML team faces today?'
+                ],
+                objections: [
+                    {
+                        objection: 'Healthcare data requires strict compliance; managed platforms add risk',
+                        response: 'Anyscale is HIPAA-compatible with audit trails, encryption, and data governance. We work with multiple healthcare organizations on regulated ML workloads.'
+                    },
+                    {
+                        objection: 'Our ML workloads are modest; we do not need distributed compute yet',
+                        response: 'Starting with Ray early means zero migration pain as data grows. Teams that wait often face costly infrastructure rebuilds when they hit scale.'
+                    }
+                ],
+                agenda: [
+                    { time: '0:00-3:00', topic: 'Intro: Anyscale fit for Medeloop, Inc. ML workloads' },
+                    { time: '3:00-10:00', topic: 'Deep Dive: Current infrastructure and bottlenecks' },
+                    { time: '10:00-18:00', topic: 'Architecture: Ray solution for Health AI use cases' },
+                    { time: '18:00-26:00', topic: 'Proof Points: Customer case studies and benchmarks' },
+                    { time: '26:00-30:00', topic: 'Next Steps: POC scope and timeline' }
+                ],
+                customNotes: ''
+            },
+            'Resolve AI': {
+                company: {
+                    industry: 'AI Platform',
+                    size: 'See enriched account list',
+                    hq: 'See enriched account list',
+                    funding: 'See enriched account list',
+                    techStack: 'See enriched account list'
+                },
+                keyContacts: [
+                    { name: 'CTO / VP Engineering', title: 'CTO / VP Engineering', status: 'Research' }
+                ],
+                whyAnyscale: [
+                    'AI for IT incident resolution. ML for anomaly detection and root cause analysis. Inference at enterprise scale.',
+                    'IT anomaly ML inference — managed Ray for scalable serving.',
+                    'Ray\'s managed platform reduces infrastructure overhead so the team can focus on model development'
+                ],
+                rayLibraries: [
+                    'Ray Serve (PRIMARY) - Multi-model inference and serving',
+                    'Ray Train (SECONDARY) - Model fine-tuning and training',
+                    'Ray Data (SECONDARY) - Data processing pipeline',
+                    'Ray Tune (SECONDARY) - Model optimization'
+                ],
+                proofPoints: [
+                    'Samsara: 50% reduction in annual ML inference cost with Ray Serve',
+                    'Coactive AI: 75% GPU spend reduction, 4x lower per-image cost',
+                    'Attentive: 99% AI compute cost reduction at $29B+ revenue scale'
+                ],
+                discoveryQuestions: [
+                    'How is the ML inference pipeline structured for real-time IT anomaly detection?',
+                    'What does your current inference infrastructure look like at scale?',
+                    'How are you managing GPU utilization and cost optimization?',
+                    'What are the biggest infrastructure challenges your ML team faces today?'
+                ],
+                objections: [
+                    {
+                        objection: 'We have built a custom serving/training stack',
+                        response: 'Ray Serve is a foundation layer that handles orchestration, autoscaling, and GPU allocation. Your differentiating features stay on top.'
+                    },
+                    {
+                        objection: 'Adding another layer could impact latency',
+                        response: 'Ray Serve is production-optimized with microsecond-level overhead. Companies at your scale see latency improvements from better GPU scheduling.'
+                    }
+                ],
+                agenda: [
+                    { time: '0:00-3:00', topic: 'Intro: Anyscale fit for Resolve AI ML workloads' },
+                    { time: '3:00-10:00', topic: 'Deep Dive: Current infrastructure and bottlenecks' },
+                    { time: '10:00-18:00', topic: 'Architecture: Ray solution for AI Platform use cases' },
+                    { time: '18:00-26:00', topic: 'Proof Points: Customer case studies and benchmarks' },
+                    { time: '26:00-30:00', topic: 'Next Steps: POC scope and timeline' }
+                ],
+                customNotes: ''
+            },
+            'Singulr AI': {
+                company: {
+                    industry: 'AI Platform',
+                    size: 'See enriched account list',
+                    hq: 'See enriched account list',
+                    funding: 'See enriched account list',
+                    techStack: 'See enriched account list'
+                },
+                keyContacts: [
+                    { name: 'CTO / VP Engineering', title: 'CTO / VP Engineering', status: 'Research' }
+                ],
+                whyAnyscale: [
+                    'Enterprise AI platform. Distributed ML potential as they scale.',
+                    'Scalable enterprise AI inference.',
+                    'Ray\'s managed platform reduces infrastructure overhead so the team can focus on model development'
+                ],
+                rayLibraries: [
+                    'Ray Serve (PRIMARY) - Multi-model inference and serving',
+                    'Ray Train (SECONDARY) - Model fine-tuning and training',
+                    'Ray Data (SECONDARY) - Data processing pipeline',
+                    'Ray Tune (SECONDARY) - Model optimization'
+                ],
+                proofPoints: [
+                    'Samsara: 50% reduction in annual ML inference cost with Ray Serve',
+                    'Coactive AI: 75% GPU spend reduction, 4x lower per-image cost',
+                    'Attentive: 99% AI compute cost reduction at $29B+ revenue scale'
+                ],
+                discoveryQuestions: [
+                    'What\\\'s the infrastructure approach as Singulr scales to more enterprise deployments?',
+                    'What does your current inference infrastructure look like at scale?',
+                    'How are you managing GPU utilization and cost optimization?',
+                    'What are the biggest infrastructure challenges your ML team faces today?'
+                ],
+                objections: [
+                    {
+                        objection: 'We have built a custom serving/training stack',
+                        response: 'Ray Serve is a foundation layer that handles orchestration, autoscaling, and GPU allocation. Your differentiating features stay on top.'
+                    },
+                    {
+                        objection: 'Adding another layer could impact latency',
+                        response: 'Ray Serve is production-optimized with microsecond-level overhead. Companies at your scale see latency improvements from better GPU scheduling.'
+                    }
+                ],
+                agenda: [
+                    { time: '0:00-3:00', topic: 'Intro: Anyscale fit for Singulr AI ML workloads' },
+                    { time: '3:00-10:00', topic: 'Deep Dive: Current infrastructure and bottlenecks' },
+                    { time: '10:00-18:00', topic: 'Architecture: Ray solution for AI Platform use cases' },
+                    { time: '18:00-26:00', topic: 'Proof Points: Customer case studies and benchmarks' },
+                    { time: '26:00-30:00', topic: 'Next Steps: POC scope and timeline' }
+                ],
+                customNotes: ''
+            },
+            'Straiker.ai': {
+                company: {
+                    industry: 'AI Security',
+                    size: 'See enriched account list',
+                    hq: 'See enriched account list',
+                    funding: 'See enriched account list',
+                    techStack: 'See enriched account list'
+                },
+                keyContacts: [
+                    { name: 'CTO / VP Engineering', title: 'CTO / VP Engineering', status: 'Research' }
+                ],
+                whyAnyscale: [
+                    'AI security platform. ML for threat detection. Inference at scale.',
+                    'Security ML inference at scale.',
+                    'Ray\'s managed platform reduces infrastructure overhead so the team can focus on model development'
+                ],
+                rayLibraries: [
+                    'Ray Serve (PRIMARY) - Multi-model inference and serving',
+                    'Ray Train (SECONDARY) - Model fine-tuning and training',
+                    'Ray Data (SECONDARY) - Data processing pipeline',
+                    'Ray Tune (SECONDARY) - Model optimization'
+                ],
+                proofPoints: [
+                    'Samsara: 50% reduction in annual ML inference cost with Ray Serve',
+                    'Coactive AI: 75% GPU spend reduction, 4x lower per-image cost',
+                    'Attentive: 99% AI compute cost reduction at $29B+ revenue scale'
+                ],
+                discoveryQuestions: [
+                    'How is Straiker handling the ML inference pipeline for real-time threat detection?',
+                    'What does your current inference infrastructure look like at scale?',
+                    'How are you managing GPU utilization and cost optimization?',
+                    'What are the biggest infrastructure challenges your ML team faces today?'
+                ],
+                objections: [
+                    {
+                        objection: 'We have built a custom serving/training stack',
+                        response: 'Ray Serve is a foundation layer that handles orchestration, autoscaling, and GPU allocation. Your differentiating features stay on top.'
+                    },
+                    {
+                        objection: 'Adding another layer could impact latency',
+                        response: 'Ray Serve is production-optimized with microsecond-level overhead. Companies at your scale see latency improvements from better GPU scheduling.'
+                    }
+                ],
+                agenda: [
+                    { time: '0:00-3:00', topic: 'Intro: Anyscale fit for Straiker.ai ML workloads' },
+                    { time: '3:00-10:00', topic: 'Deep Dive: Current infrastructure and bottlenecks' },
+                    { time: '10:00-18:00', topic: 'Architecture: Ray solution for AI Security use cases' },
+                    { time: '18:00-26:00', topic: 'Proof Points: Customer case studies and benchmarks' },
+                    { time: '26:00-30:00', topic: 'Next Steps: POC scope and timeline' }
+                ],
+                customNotes: ''
+            },
+            'Akool': {
+                company: {
+                    industry: 'AI Media',
+                    size: 'See enriched account list',
+                    hq: 'See enriched account list',
+                    funding: 'See enriched account list',
+                    techStack: 'See enriched account list'
+                },
+                keyContacts: [
+                    { name: 'CTO / VP Engineering', title: 'CTO / VP Engineering', status: 'Research' }
+                ],
+                whyAnyscale: [
+                    'AI video personalization. Some distributed video ML inference.',
+                    'Video generation/AI inference at scale.',
+                    'Ray\'s managed platform reduces infrastructure overhead so the team can focus on model development'
+                ],
+                rayLibraries: [
+                    'Ray Serve (PRIMARY) - Multi-model inference and serving',
+                    'Ray Train (SECONDARY) - Model fine-tuning and training',
+                    'Ray Data (SECONDARY) - Data processing pipeline',
+                    'Ray Tune (SECONDARY) - Model optimization'
+                ],
+                proofPoints: [
+                    'Samsara: 50% reduction in annual ML inference cost with Ray Serve',
+                    'Coactive AI: 75% GPU spend reduction, 4x lower per-image cost',
+                    'Attentive: 99% AI compute cost reduction at $29B+ revenue scale'
+                ],
+                discoveryQuestions: [
+                    'How does the video AI inference pipeline scale as usage grows?',
+                    'What does your current inference infrastructure look like at scale?',
+                    'How are you managing GPU utilization and cost optimization?',
+                    'What are the biggest infrastructure challenges your ML team faces today?'
+                ],
+                objections: [
+                    {
+                        objection: 'We have built a custom serving/training stack',
+                        response: 'Ray Serve is a foundation layer that handles orchestration, autoscaling, and GPU allocation. Your differentiating features stay on top.'
+                    },
+                    {
+                        objection: 'Adding another layer could impact latency',
+                        response: 'Ray Serve is production-optimized with microsecond-level overhead. Companies at your scale see latency improvements from better GPU scheduling.'
+                    }
+                ],
+                agenda: [
+                    { time: '0:00-3:00', topic: 'Intro: Anyscale fit for Akool ML workloads' },
+                    { time: '3:00-10:00', topic: 'Deep Dive: Current infrastructure and bottlenecks' },
+                    { time: '10:00-18:00', topic: 'Architecture: Ray solution for AI Media use cases' },
+                    { time: '18:00-26:00', topic: 'Proof Points: Customer case studies and benchmarks' },
+                    { time: '26:00-30:00', topic: 'Next Steps: POC scope and timeline' }
+                ],
+                customNotes: ''
+            },
+            'Reducto': {
+                company: {
+                    industry: 'AI Platform',
+                    size: 'See enriched account list',
+                    hq: 'See enriched account list',
+                    funding: 'See enriched account list',
+                    techStack: 'See enriched account list'
+                },
+                keyContacts: [
+                    { name: 'CTO / VP Engineering', title: 'CTO / VP Engineering', status: 'Research' }
+                ],
+                whyAnyscale: [
+                    'AI document processing. ML for document extraction at scale.',
+                    'Document ML processing pipeline at enterprise scale.',
+                    'Ray\'s managed platform reduces infrastructure overhead so the team can focus on model development'
+                ],
+                rayLibraries: [
+                    'Ray Serve (PRIMARY) - Multi-model inference and serving',
+                    'Ray Train (SECONDARY) - Model fine-tuning and training',
+                    'Ray Data (SECONDARY) - Data processing pipeline',
+                    'Ray Tune (SECONDARY) - Model optimization'
+                ],
+                proofPoints: [
+                    'Samsara: 50% reduction in annual ML inference cost with Ray Serve',
+                    'Coactive AI: 75% GPU spend reduction, 4x lower per-image cost',
+                    'Attentive: 99% AI compute cost reduction at $29B+ revenue scale'
+                ],
+                discoveryQuestions: [
+                    'How is the document processing pipeline structured at scale?',
+                    'What does your current inference infrastructure look like at scale?',
+                    'How are you managing GPU utilization and cost optimization?',
+                    'What are the biggest infrastructure challenges your ML team faces today?'
+                ],
+                objections: [
+                    {
+                        objection: 'We have built a custom serving/training stack',
+                        response: 'Ray Serve is a foundation layer that handles orchestration, autoscaling, and GPU allocation. Your differentiating features stay on top.'
+                    },
+                    {
+                        objection: 'Adding another layer could impact latency',
+                        response: 'Ray Serve is production-optimized with microsecond-level overhead. Companies at your scale see latency improvements from better GPU scheduling.'
+                    }
+                ],
+                agenda: [
+                    { time: '0:00-3:00', topic: 'Intro: Anyscale fit for Reducto ML workloads' },
+                    { time: '3:00-10:00', topic: 'Deep Dive: Current infrastructure and bottlenecks' },
+                    { time: '10:00-18:00', topic: 'Architecture: Ray solution for AI Platform use cases' },
+                    { time: '18:00-26:00', topic: 'Proof Points: Customer case studies and benchmarks' },
+                    { time: '26:00-30:00', topic: 'Next Steps: POC scope and timeline' }
+                ],
+                customNotes: ''
+            },
+            'Qualify Health': {
+                company: {
+                    industry: 'Health AI',
+                    size: 'See enriched account list',
+                    hq: 'See enriched account list',
+                    funding: 'See enriched account list',
+                    techStack: 'See enriched account list'
+                },
+                keyContacts: [
+                    { name: 'VP Engineering', title: 'VP Engineering', status: 'Research' }
+                ],
+                whyAnyscale: [
+                    'Healthcare AI. Some ML for patient qualification/navigation.',
+                    'Healthcare ML pipelines for patient data.',
+                    'Ray\'s managed platform reduces infrastructure overhead so the team can focus on model development'
+                ],
+                rayLibraries: [
+                    'Ray Train (PRIMARY) - Distributed model training on medical data',
+                    'Ray Data (PRIMARY) - Medical data processing pipeline',
+                    'Ray Tune (SECONDARY) - HPO for clinical models',
+                    'Ray Serve (SECONDARY) - Serving models for clinical validation'
+                ],
+                proofPoints: [
+                    'Biolexis Therapeutics: 7 days to 5 hours processing on Anyscale for drug discovery',
+                    'Canva: 12x faster training (90 min to 6 min per epoch), 50% cost reduction',
+                    'NHS: Healthcare-grade reliability for clinical ML pipelines'
+                ],
+                discoveryQuestions: [
+                    'What does the ML stack look like for patient qualification at scale?',
+                    'What does your current ML training pipeline look like?',
+                    'How are you handling compliance and audit trails in your ML infrastructure?',
+                    'What are the biggest infrastructure challenges your ML team faces today?'
+                ],
+                objections: [
+                    {
+                        objection: 'Healthcare data requires strict compliance; managed platforms add risk',
+                        response: 'Anyscale is HIPAA-compatible with audit trails, encryption, and data governance. We work with multiple healthcare organizations on regulated ML workloads.'
+                    },
+                    {
+                        objection: 'Our ML workloads are modest; we do not need distributed compute yet',
+                        response: 'Starting with Ray early means zero migration pain as data grows. Teams that wait often face costly infrastructure rebuilds when they hit scale.'
+                    }
+                ],
+                agenda: [
+                    { time: '0:00-3:00', topic: 'Intro: Anyscale fit for Qualify Health ML workloads' },
+                    { time: '3:00-10:00', topic: 'Deep Dive: Current infrastructure and bottlenecks' },
+                    { time: '10:00-18:00', topic: 'Architecture: Ray solution for Health AI use cases' },
+                    { time: '18:00-26:00', topic: 'Proof Points: Customer case studies and benchmarks' },
+                    { time: '26:00-30:00', topic: 'Next Steps: POC scope and timeline' }
+                ],
+                customNotes: ''
+            },
+            'Maven Clinic': {
+                company: {
+                    industry: 'Digital Health',
+                    size: 'See enriched account list',
+                    hq: 'See enriched account list',
+                    funding: 'See enriched account list',
+                    techStack: 'See enriched account list'
+                },
+                keyContacts: [
+                    { name: 'VP Engineering / Head of Data Science', title: 'VP Engineering / Head of Data Science', status: 'Research' }
+                ],
+                whyAnyscale: [
+                    'Women\'s health platform. ML for health recommendations and care matching.',
+                    'Recommendation ML at scale for digital health.',
+                    'Ray\'s managed platform reduces infrastructure overhead so the team can focus on model development'
+                ],
+                rayLibraries: [
+                    'Ray Train (PRIMARY) - Distributed model training on medical data',
+                    'Ray Data (PRIMARY) - Medical data processing pipeline',
+                    'Ray Tune (SECONDARY) - HPO for clinical models',
+                    'Ray Serve (SECONDARY) - Serving models for clinical validation'
+                ],
+                proofPoints: [
+                    'Biolexis Therapeutics: 7 days to 5 hours processing on Anyscale for drug discovery',
+                    'Canva: 12x faster training (90 min to 6 min per epoch), 50% cost reduction',
+                    'NHS: Healthcare-grade reliability for clinical ML pipelines'
+                ],
+                discoveryQuestions: [
+                    'How does Maven\\\'s ML stack for care recommendations scale as membership grows?',
+                    'What does your current ML training pipeline look like?',
+                    'How are you handling compliance and audit trails in your ML infrastructure?',
+                    'What are the biggest infrastructure challenges your ML team faces today?'
+                ],
+                objections: [
+                    {
+                        objection: 'Healthcare data requires strict compliance; managed platforms add risk',
+                        response: 'Anyscale is HIPAA-compatible with audit trails, encryption, and data governance. We work with multiple healthcare organizations on regulated ML workloads.'
+                    },
+                    {
+                        objection: 'Our ML workloads are modest; we do not need distributed compute yet',
+                        response: 'Starting with Ray early means zero migration pain as data grows. Teams that wait often face costly infrastructure rebuilds when they hit scale.'
+                    }
+                ],
+                agenda: [
+                    { time: '0:00-3:00', topic: 'Intro: Anyscale fit for Maven Clinic ML workloads' },
+                    { time: '3:00-10:00', topic: 'Deep Dive: Current infrastructure and bottlenecks' },
+                    { time: '10:00-18:00', topic: 'Architecture: Ray solution for Digital Health use cases' },
+                    { time: '18:00-26:00', topic: 'Proof Points: Customer case studies and benchmarks' },
+                    { time: '26:00-30:00', topic: 'Next Steps: POC scope and timeline' }
+                ],
+                customNotes: ''
+            },
+            'Reltio': {
+                company: {
+                    industry: 'Enterprise Data / AI',
+                    size: 'See enriched account list',
+                    hq: 'See enriched account list',
+                    funding: 'See enriched account list',
+                    techStack: 'See enriched account list'
+                },
+                keyContacts: [
+                    { name: 'VP Engineering / Head of Data Science', title: 'VP Engineering / Head of Data Science', status: 'Research' }
+                ],
+                whyAnyscale: [
+                    'Cloud MDM + AI. ML for data matching and enrichment at enterprise scale.',
+                    'Data matching ML at enterprise scale — distributed processing pipeline.',
+                    'Ray\'s managed platform reduces infrastructure overhead so the team can focus on model development'
+                ],
+                rayLibraries: [
+                    'Ray Serve (PRIMARY) - ML model serving at enterprise scale',
+                    'Ray Data (PRIMARY) - Distributed data processing',
+                    'Ray Train (SECONDARY) - Model training pipeline',
+                    'Ray Tune (SECONDARY) - Hyperparameter optimization'
+                ],
+                proofPoints: [
+                    'Canva: 12x faster training (90 min to 6 min per epoch), 50% cost reduction',
+                    'Samsara: 50% reduction in annual ML inference cost',
+                    'Instacart: Ray for large-scale recommendation pipeline'
+                ],
+                discoveryQuestions: [
+                    'How is Reltio handling the distributed ML pipeline for entity resolution at large data volumes?',
+                    'What does your current ML infrastructure look like?',
+                    'How is your team handling distributed compute as workloads grow?',
+                    'What are the biggest infrastructure challenges your ML team faces today?'
+                ],
+                objections: [
+                    {
+                        objection: 'We already have ML infrastructure in place',
+                        response: 'Anyscale complements existing tools by handling distributed orchestration. Most customers keep their current stack and add Ray for scaling bottlenecks.'
+                    },
+                    {
+                        objection: 'Our ML workloads are not large enough to justify a new platform',
+                        response: 'Ray grows with you — start small with a single use case and expand. Teams often find 2-3x efficiency gains even at modest scale.'
+                    }
+                ],
+                agenda: [
+                    { time: '0:00-3:00', topic: 'Intro: Anyscale fit for Reltio ML workloads' },
+                    { time: '3:00-10:00', topic: 'Deep Dive: Current infrastructure and bottlenecks' },
+                    { time: '10:00-18:00', topic: 'Architecture: Ray solution for Enterprise Data / AI use cases' },
+                    { time: '18:00-26:00', topic: 'Proof Points: Customer case studies and benchmarks' },
+                    { time: '26:00-30:00', topic: 'Next Steps: POC scope and timeline' }
+                ],
+                customNotes: ''
+            },
+            'Netapp': {
+                company: {
+                    industry: 'Enterprise Storage',
+                    size: 'See enriched account list',
+                    hq: 'See enriched account list',
+                    funding: 'See enriched account list',
+                    techStack: 'See enriched account list'
+                },
+                keyContacts: [
+                    { name: 'VP Engineering / Head of ML', title: 'VP Engineering / Head of ML', status: 'Research' }
+                ],
+                whyAnyscale: [
+                    'Enterprise storage + cloud. Some ML for storage optimization. Large enterprise — potential for ML infra conversation.',
+                    'Storage AI and ML workload orchestration on hybrid cloud.',
+                    'Ray\'s managed platform reduces infrastructure overhead so the team can focus on model development'
+                ],
+                rayLibraries: [
+                    'Ray Serve (PRIMARY) - ML model serving at enterprise scale',
+                    'Ray Data (PRIMARY) - Distributed data processing',
+                    'Ray Train (SECONDARY) - Model training pipeline',
+                    'Ray Tune (SECONDARY) - Hyperparameter optimization'
+                ],
+                proofPoints: [
+                    'Canva: 12x faster training (90 min to 6 min per epoch), 50% cost reduction',
+                    'Samsara: 50% reduction in annual ML inference cost',
+                    'Instacart: Ray for large-scale recommendation pipeline'
+                ],
+                discoveryQuestions: [
+                    'As Netapp expands ML-driven storage optimization, what does the distributed ML pipeline look like?',
+                    'What does your current ML infrastructure look like?',
+                    'How is your team handling distributed compute as workloads grow?',
+                    'What are the biggest infrastructure challenges your ML team faces today?'
+                ],
+                objections: [
+                    {
+                        objection: 'We already have ML infrastructure in place',
+                        response: 'Anyscale complements existing tools by handling distributed orchestration. Most customers keep their current stack and add Ray for scaling bottlenecks.'
+                    },
+                    {
+                        objection: 'Our ML workloads are not large enough to justify a new platform',
+                        response: 'Ray grows with you — start small with a single use case and expand. Teams often find 2-3x efficiency gains even at modest scale.'
+                    }
+                ],
+                agenda: [
+                    { time: '0:00-3:00', topic: 'Intro: Anyscale fit for Netapp ML workloads' },
+                    { time: '3:00-10:00', topic: 'Deep Dive: Current infrastructure and bottlenecks' },
+                    { time: '10:00-18:00', topic: 'Architecture: Ray solution for Enterprise Storage use cases' },
+                    { time: '18:00-26:00', topic: 'Proof Points: Customer case studies and benchmarks' },
+                    { time: '26:00-30:00', topic: 'Next Steps: POC scope and timeline' }
+                ],
+                customNotes: ''
+            },
+            'Honeybook': {
+                company: {
+                    industry: 'SMB SaaS',
+                    size: 'See enriched account list',
+                    hq: 'See enriched account list',
+                    funding: 'See enriched account list',
+                    techStack: 'See enriched account list'
+                },
+                keyContacts: [
+                    { name: 'VP Engineering / Head of Data', title: 'VP Engineering / Head of Data', status: 'Research' }
+                ],
+                whyAnyscale: [
+                    'SMB business platform with AI automation. NLP for contract/invoice AI. Moderate ML scale.',
+                    'Business document AI at scale — NLP/LLM pipelines.',
+                    'Ray\'s managed platform reduces infrastructure overhead so the team can focus on model development'
+                ],
+                rayLibraries: [
+                    'Ray Serve (PRIMARY) - ML model serving at enterprise scale',
+                    'Ray Data (PRIMARY) - Distributed data processing',
+                    'Ray Train (SECONDARY) - Model training pipeline',
+                    'Ray Tune (SECONDARY) - Hyperparameter optimization'
+                ],
+                proofPoints: [
+                    'Canva: 12x faster training (90 min to 6 min per epoch), 50% cost reduction',
+                    'Samsara: 50% reduction in annual ML inference cost',
+                    'Instacart: Ray for large-scale recommendation pipeline'
+                ],
+                discoveryQuestions: [
+                    'How is Honeybook handling the AI inference pipeline for contract and invoice automation?',
+                    'What does your current ML infrastructure look like?',
+                    'How is your team handling distributed compute as workloads grow?',
+                    'What are the biggest infrastructure challenges your ML team faces today?'
+                ],
+                objections: [
+                    {
+                        objection: 'We already have ML infrastructure in place',
+                        response: 'Anyscale complements existing tools by handling distributed orchestration. Most customers keep their current stack and add Ray for scaling bottlenecks.'
+                    },
+                    {
+                        objection: 'Our ML workloads are not large enough to justify a new platform',
+                        response: 'Ray grows with you — start small with a single use case and expand. Teams often find 2-3x efficiency gains even at modest scale.'
+                    }
+                ],
+                agenda: [
+                    { time: '0:00-3:00', topic: 'Intro: Anyscale fit for Honeybook ML workloads' },
+                    { time: '3:00-10:00', topic: 'Deep Dive: Current infrastructure and bottlenecks' },
+                    { time: '10:00-18:00', topic: 'Architecture: Ray solution for SMB SaaS use cases' },
+                    { time: '18:00-26:00', topic: 'Proof Points: Customer case studies and benchmarks' },
+                    { time: '26:00-30:00', topic: 'Next Steps: POC scope and timeline' }
+                ],
+                customNotes: ''
+            },
+            'Hippo Insurance': {
+                company: {
+                    industry: 'Insurtech',
+                    size: 'See enriched account list',
+                    hq: 'See enriched account list',
+                    funding: 'See enriched account list',
+                    techStack: 'See enriched account list'
+                },
+                keyContacts: [
+                    { name: 'VP Data Science / Head of ML', title: 'VP Data Science / Head of ML', status: 'Research' }
+                ],
+                whyAnyscale: [
+                    'Home insurance with IoT + AI. ML for risk assessment and claims prediction.',
+                    'Insurance risk ML at scale — distributed training on claims + IoT data.',
+                    'Ray\'s managed platform reduces infrastructure overhead so the team can focus on model development'
+                ],
+                rayLibraries: [
+                    'Ray Serve (PRIMARY) - Real-time ML inference for transactions',
+                    'Ray Data (PRIMARY) - Transaction data processing pipeline',
+                    'Ray Train (SECONDARY) - Model training on financial data',
+                    'Ray Tune (SECONDARY) - Model optimization'
+                ],
+                proofPoints: [
+                    'Samsara: 50% reduction in annual ML inference cost',
+                    'Canva: 12x faster training, 50% cost reduction',
+                    'Instacart: Ray for large-scale recommendation and ML pipeline'
+                ],
+                discoveryQuestions: [
+                    'How does Hippo\\\'s ML pipeline for risk assessment scale across its policy book?',
+                    'What does your ML infrastructure look like for real-time decisioning?',
+                    'How is your team managing model training and deployment cycles?',
+                    'What are the biggest infrastructure challenges your ML team faces today?'
+                ],
+                objections: [
+                    {
+                        objection: 'We have regulatory constraints on external platforms',
+                        response: 'Anyscale runs on your own cloud (AWS/GCP) with full data sovereignty. You control everything; we provide the orchestration layer.'
+                    },
+                    {
+                        objection: 'Our ML workloads are not large enough to justify a new platform',
+                        response: 'Ray grows with you — start small with fraud detection or credit scoring and expand. Even modest workloads see 2-3x efficiency gains.'
+                    }
+                ],
+                agenda: [
+                    { time: '0:00-3:00', topic: 'Intro: Anyscale fit for Hippo Insurance ML workloads' },
+                    { time: '3:00-10:00', topic: 'Deep Dive: Current infrastructure and bottlenecks' },
+                    { time: '10:00-18:00', topic: 'Architecture: Ray solution for Insurtech use cases' },
+                    { time: '18:00-26:00', topic: 'Proof Points: Customer case studies and benchmarks' },
+                    { time: '26:00-30:00', topic: 'Next Steps: POC scope and timeline' }
+                ],
+                customNotes: ''
+            },
+            'Parafin': {
+                company: {
+                    industry: 'Fintech',
+                    size: 'See enriched account list',
+                    hq: 'See enriched account list',
+                    funding: 'See enriched account list',
+                    techStack: 'See enriched account list'
+                },
+                keyContacts: [
+                    { name: 'Head of Data Science / VP Engineering', title: 'Head of Data Science / VP Engineering', status: 'Research' }
+                ],
+                whyAnyscale: [
+                    'Embedded capital for SMBs. ML for credit underwriting at scale.',
+                    'Credit ML for embedded finance — distributed training on transaction data.',
+                    'Ray\'s managed platform reduces infrastructure overhead so the team can focus on model development'
+                ],
+                rayLibraries: [
+                    'Ray Serve (PRIMARY) - Real-time ML inference for transactions',
+                    'Ray Data (PRIMARY) - Transaction data processing pipeline',
+                    'Ray Train (SECONDARY) - Model training on financial data',
+                    'Ray Tune (SECONDARY) - Model optimization'
+                ],
+                proofPoints: [
+                    'Samsara: 50% reduction in annual ML inference cost',
+                    'Canva: 12x faster training, 50% cost reduction',
+                    'Instacart: Ray for large-scale recommendation and ML pipeline'
+                ],
+                discoveryQuestions: [
+                    'How is Parafin handling the underwriting ML pipeline at scale?',
+                    'What does your ML infrastructure look like for real-time decisioning?',
+                    'How is your team managing model training and deployment cycles?',
+                    'What are the biggest infrastructure challenges your ML team faces today?'
+                ],
+                objections: [
+                    {
+                        objection: 'We have regulatory constraints on external platforms',
+                        response: 'Anyscale runs on your own cloud (AWS/GCP) with full data sovereignty. You control everything; we provide the orchestration layer.'
+                    },
+                    {
+                        objection: 'Our ML workloads are not large enough to justify a new platform',
+                        response: 'Ray grows with you — start small with fraud detection or credit scoring and expand. Even modest workloads see 2-3x efficiency gains.'
+                    }
+                ],
+                agenda: [
+                    { time: '0:00-3:00', topic: 'Intro: Anyscale fit for Parafin ML workloads' },
+                    { time: '3:00-10:00', topic: 'Deep Dive: Current infrastructure and bottlenecks' },
+                    { time: '10:00-18:00', topic: 'Architecture: Ray solution for Fintech use cases' },
+                    { time: '18:00-26:00', topic: 'Proof Points: Customer case studies and benchmarks' },
+                    { time: '26:00-30:00', topic: 'Next Steps: POC scope and timeline' }
+                ],
+                customNotes: ''
+            },
+            'Viant Technology': {
+                company: {
+                    industry: 'Ad Tech',
+                    size: 'See enriched account list',
+                    hq: 'See enriched account list',
+                    funding: 'See enriched account list',
+                    techStack: 'See enriched account list'
+                },
+                keyContacts: [
+                    { name: 'VP Data Science / Head of ML', title: 'VP Data Science / Head of ML', status: 'Research' }
+                ],
+                whyAnyscale: [
+                    'Programmatic advertising. ML for audience targeting and bid optimization. Large-scale inference.',
+                    'Ad targeting ML inference at scale.',
+                    'Ray\'s managed platform reduces infrastructure overhead so the team can focus on model development'
+                ],
+                rayLibraries: [
+                    'Ray Serve (PRIMARY) - ML model serving at enterprise scale',
+                    'Ray Data (PRIMARY) - Distributed data processing',
+                    'Ray Train (SECONDARY) - Model training pipeline',
+                    'Ray Tune (SECONDARY) - Hyperparameter optimization'
+                ],
+                proofPoints: [
+                    'Canva: 12x faster training (90 min to 6 min per epoch), 50% cost reduction',
+                    'Samsara: 50% reduction in annual ML inference cost',
+                    'Instacart: Ray for large-scale recommendation pipeline'
+                ],
+                discoveryQuestions: [
+                    'How does Viant\\\'s audience ML pipeline scale across its programmatic platform?',
+                    'What does your current ML infrastructure look like?',
+                    'How is your team handling distributed compute as workloads grow?',
+                    'What are the biggest infrastructure challenges your ML team faces today?'
+                ],
+                objections: [
+                    {
+                        objection: 'We already have ML infrastructure in place',
+                        response: 'Anyscale complements existing tools by handling distributed orchestration. Most customers keep their current stack and add Ray for scaling bottlenecks.'
+                    },
+                    {
+                        objection: 'Our ML workloads are not large enough to justify a new platform',
+                        response: 'Ray grows with you — start small with a single use case and expand. Teams often find 2-3x efficiency gains even at modest scale.'
+                    }
+                ],
+                agenda: [
+                    { time: '0:00-3:00', topic: 'Intro: Anyscale fit for Viant Technology ML workloads' },
+                    { time: '3:00-10:00', topic: 'Deep Dive: Current infrastructure and bottlenecks' },
+                    { time: '10:00-18:00', topic: 'Architecture: Ray solution for Ad Tech use cases' },
+                    { time: '18:00-26:00', topic: 'Proof Points: Customer case studies and benchmarks' },
+                    { time: '26:00-30:00', topic: 'Next Steps: POC scope and timeline' }
+                ],
+                customNotes: ''
+            },
+            'American Airlines': {
+                company: {
+                    industry: 'Enterprise / Aviation',
+                    size: 'See enriched account list',
+                    hq: 'See enriched account list',
+                    funding: 'See enriched account list',
+                    techStack: 'See enriched account list'
+                },
+                keyContacts: [
+                    { name: 'VP Data Science / Head of ML Platform', title: 'VP Data Science / Head of ML Platform', status: 'Research' }
+                ],
+                whyAnyscale: [
+                    'Large airline. ML for scheduling, pricing, and operations. Significant ML scale but heavy enterprise procurement.',
+                    'Operations and pricing ML at airline scale — distributed training.',
+                    'Ray\'s managed platform reduces infrastructure overhead so the team can focus on model development'
+                ],
+                rayLibraries: [
+                    'Ray Serve (PRIMARY) - ML model serving at enterprise scale',
+                    'Ray Data (PRIMARY) - Distributed data processing',
+                    'Ray Train (SECONDARY) - Model training pipeline',
+                    'Ray Tune (SECONDARY) - Hyperparameter optimization'
+                ],
+                proofPoints: [
+                    'Canva: 12x faster training (90 min to 6 min per epoch), 50% cost reduction',
+                    'Samsara: 50% reduction in annual ML inference cost',
+                    'Instacart: Ray for large-scale recommendation pipeline'
+                ],
+                discoveryQuestions: [
+                    'What does the ML infrastructure look like for American Airlines\\\' pricing and operations models?',
+                    'What does your current ML infrastructure look like?',
+                    'How is your team handling distributed compute as workloads grow?',
+                    'What are the biggest infrastructure challenges your ML team faces today?'
+                ],
+                objections: [
+                    {
+                        objection: 'We already have ML infrastructure in place',
+                        response: 'Anyscale complements existing tools by handling distributed orchestration. Most customers keep their current stack and add Ray for scaling bottlenecks.'
+                    },
+                    {
+                        objection: 'Our ML workloads are not large enough to justify a new platform',
+                        response: 'Ray grows with you — start small with a single use case and expand. Teams often find 2-3x efficiency gains even at modest scale.'
+                    }
+                ],
+                agenda: [
+                    { time: '0:00-3:00', topic: 'Intro: Anyscale fit for American Airlines ML workloads' },
+                    { time: '3:00-10:00', topic: 'Deep Dive: Current infrastructure and bottlenecks' },
+                    { time: '10:00-18:00', topic: 'Architecture: Ray solution for Enterprise / Aviation use cases' },
+                    { time: '18:00-26:00', topic: 'Proof Points: Customer case studies and benchmarks' },
+                    { time: '26:00-30:00', topic: 'Next Steps: POC scope and timeline' }
+                ],
+                customNotes: ''
+            },
+            'Starbucks': {
+                company: {
+                    industry: 'Enterprise / Retail',
+                    size: 'See enriched account list',
+                    hq: 'See enriched account list',
+                    funding: 'See enriched account list',
+                    techStack: 'See enriched account list'
+                },
+                keyContacts: [
+                    { name: 'VP Data Science / Head of ML Engineering', title: 'VP Data Science / Head of ML Engineering', status: 'Research' }
+                ],
+                whyAnyscale: [
+                    'ML for personalization, deep brew recommendations, supply chain. Large enterprise with active ML team.',
+                    'Personalization ML at scale across millions of daily customers.',
+                    'Ray\'s managed platform reduces infrastructure overhead so the team can focus on model development'
+                ],
+                rayLibraries: [
+                    'Ray Serve (PRIMARY) - ML model serving at enterprise scale',
+                    'Ray Data (PRIMARY) - Distributed data processing',
+                    'Ray Train (SECONDARY) - Model training pipeline',
+                    'Ray Tune (SECONDARY) - Hyperparameter optimization'
+                ],
+                proofPoints: [
+                    'Canva: 12x faster training (90 min to 6 min per epoch), 50% cost reduction',
+                    'Samsara: 50% reduction in annual ML inference cost',
+                    'Instacart: Ray for large-scale recommendation pipeline'
+                ],
+                discoveryQuestions: [
+                    'The deep brew personalization system is interesting — how is the ML pipeline structured at Starbucks\\\' scale?',
+                    'What does your current ML infrastructure look like?',
+                    'How is your team handling distributed compute as workloads grow?',
+                    'What are the biggest infrastructure challenges your ML team faces today?'
+                ],
+                objections: [
+                    {
+                        objection: 'We already have ML infrastructure in place',
+                        response: 'Anyscale complements existing tools by handling distributed orchestration. Most customers keep their current stack and add Ray for scaling bottlenecks.'
+                    },
+                    {
+                        objection: 'Our ML workloads are not large enough to justify a new platform',
+                        response: 'Ray grows with you — start small with a single use case and expand. Teams often find 2-3x efficiency gains even at modest scale.'
+                    }
+                ],
+                agenda: [
+                    { time: '0:00-3:00', topic: 'Intro: Anyscale fit for Starbucks ML workloads' },
+                    { time: '3:00-10:00', topic: 'Deep Dive: Current infrastructure and bottlenecks' },
+                    { time: '10:00-18:00', topic: 'Architecture: Ray solution for Enterprise / Retail use cases' },
+                    { time: '18:00-26:00', topic: 'Proof Points: Customer case studies and benchmarks' },
+                    { time: '26:00-30:00', topic: 'Next Steps: POC scope and timeline' }
+                ],
+                customNotes: ''
+            },
+            'Wrike': {
+                company: {
+                    industry: 'Enterprise SaaS',
+                    size: 'See enriched account list',
+                    hq: 'See enriched account list',
+                    funding: 'See enriched account list',
+                    techStack: 'See enriched account list'
+                },
+                keyContacts: [
+                    { name: 'VP Engineering / Head of ML', title: 'VP Engineering / Head of ML', status: 'Research' }
+                ],
+                whyAnyscale: [
+                    'Project management with AI automation. Some NLP + ML for workflow intelligence.',
+                    'Workflow AI and NLP at enterprise scale.',
+                    'Ray\'s managed platform reduces infrastructure overhead so the team can focus on model development'
+                ],
+                rayLibraries: [
+                    'Ray Serve (PRIMARY) - ML model serving at enterprise scale',
+                    'Ray Data (PRIMARY) - Distributed data processing',
+                    'Ray Train (SECONDARY) - Model training pipeline',
+                    'Ray Tune (SECONDARY) - Hyperparameter optimization'
+                ],
+                proofPoints: [
+                    'Canva: 12x faster training (90 min to 6 min per epoch), 50% cost reduction',
+                    'Samsara: 50% reduction in annual ML inference cost',
+                    'Instacart: Ray for large-scale recommendation pipeline'
+                ],
+                discoveryQuestions: [
+                    'How is Wrike handling AI/ML infrastructure as AI features scale across enterprise customers?',
+                    'What does your current ML infrastructure look like?',
+                    'How is your team handling distributed compute as workloads grow?',
+                    'What are the biggest infrastructure challenges your ML team faces today?'
+                ],
+                objections: [
+                    {
+                        objection: 'We already have ML infrastructure in place',
+                        response: 'Anyscale complements existing tools by handling distributed orchestration. Most customers keep their current stack and add Ray for scaling bottlenecks.'
+                    },
+                    {
+                        objection: 'Our ML workloads are not large enough to justify a new platform',
+                        response: 'Ray grows with you — start small with a single use case and expand. Teams often find 2-3x efficiency gains even at modest scale.'
+                    }
+                ],
+                agenda: [
+                    { time: '0:00-3:00', topic: 'Intro: Anyscale fit for Wrike ML workloads' },
+                    { time: '3:00-10:00', topic: 'Deep Dive: Current infrastructure and bottlenecks' },
+                    { time: '10:00-18:00', topic: 'Architecture: Ray solution for Enterprise SaaS use cases' },
+                    { time: '18:00-26:00', topic: 'Proof Points: Customer case studies and benchmarks' },
+                    { time: '26:00-30:00', topic: 'Next Steps: POC scope and timeline' }
+                ],
+                customNotes: ''
+            },
+            'CareDx, Inc.': {
+                company: {
+                    industry: 'Health AI / Genomics',
+                    size: 'See enriched account list',
+                    hq: 'See enriched account list',
+                    funding: 'See enriched account list',
+                    techStack: 'See enriched account list'
+                },
+                keyContacts: [
+                    { name: 'VP Data Science / Head of Bioinformatics', title: 'VP Data Science / Head of Bioinformatics', status: 'Research' }
+                ],
+                whyAnyscale: [
+                    'Transplant diagnostics using genomics + AI. ML for rejection prediction.',
+                    'Transplant genomics ML — distributed analysis pipeline.',
+                    'Ray\'s managed platform reduces infrastructure overhead so the team can focus on model development'
+                ],
+                rayLibraries: [
+                    'Ray Train (PRIMARY) - Distributed model training on medical data',
+                    'Ray Data (PRIMARY) - Medical data processing pipeline',
+                    'Ray Tune (SECONDARY) - HPO for clinical models',
+                    'Ray Serve (SECONDARY) - Serving models for clinical validation'
+                ],
+                proofPoints: [
+                    'Biolexis Therapeutics: 7 days to 5 hours processing on Anyscale for drug discovery',
+                    'Canva: 12x faster training (90 min to 6 min per epoch), 50% cost reduction',
+                    'NHS: Healthcare-grade reliability for clinical ML pipelines'
+                ],
+                discoveryQuestions: [
+                    'How does CareDx\\\'s ML pipeline for rejection prediction scale across its patient population?',
+                    'What does your current ML training pipeline look like?',
+                    'How are you handling compliance and audit trails in your ML infrastructure?',
+                    'What are the biggest infrastructure challenges your ML team faces today?'
+                ],
+                objections: [
+                    {
+                        objection: 'Healthcare data requires strict compliance; managed platforms add risk',
+                        response: 'Anyscale is HIPAA-compatible with audit trails, encryption, and data governance. We work with multiple healthcare organizations on regulated ML workloads.'
+                    },
+                    {
+                        objection: 'Our ML workloads are modest; we do not need distributed compute yet',
+                        response: 'Starting with Ray early means zero migration pain as data grows. Teams that wait often face costly infrastructure rebuilds when they hit scale.'
+                    }
+                ],
+                agenda: [
+                    { time: '0:00-3:00', topic: 'Intro: Anyscale fit for CareDx, Inc. ML workloads' },
+                    { time: '3:00-10:00', topic: 'Deep Dive: Current infrastructure and bottlenecks' },
+                    { time: '10:00-18:00', topic: 'Architecture: Ray solution for Health AI / Genomics use cases' },
+                    { time: '18:00-26:00', topic: 'Proof Points: Customer case studies and benchmarks' },
+                    { time: '26:00-30:00', topic: 'Next Steps: POC scope and timeline' }
+                ],
+                customNotes: ''
+            },
+            'Zoom': {
+                company: {
+                    industry: 'Enterprise SaaS',
+                    size: 'See enriched account list',
+                    hq: 'See enriched account list',
+                    funding: 'See enriched account list',
+                    techStack: 'See enriched account list'
+                },
+                keyContacts: [
+                    { name: 'VP ML Engineering / Head of AI Platform', title: 'VP ML Engineering / Head of AI Platform', status: 'Research' }
+                ],
+                whyAnyscale: [
+                    'Video conferencing with growing AI features (AI Companion). Heavy ML for noise cancellation, transcription, summarization.',
+                    'Real-time AI features at Zoom\'s scale — inference infrastructure is massive.',
+                    'Ray\'s managed platform reduces infrastructure overhead so the team can focus on model development'
+                ],
+                rayLibraries: [
+                    'Ray Serve (PRIMARY) - ML model serving at enterprise scale',
+                    'Ray Data (PRIMARY) - Distributed data processing',
+                    'Ray Train (SECONDARY) - Model training pipeline',
+                    'Ray Tune (SECONDARY) - Hyperparameter optimization'
+                ],
+                proofPoints: [
+                    'Canva: 12x faster training (90 min to 6 min per epoch), 50% cost reduction',
+                    'Samsara: 50% reduction in annual ML inference cost',
+                    'Instacart: Ray for large-scale recommendation pipeline'
+                ],
+                discoveryQuestions: [
+                    'Zoom\\\'s AI Companion features run inference at massive scale — how is the ML infra team handling that serving layer?',
+                    'What does your current ML infrastructure look like?',
+                    'How is your team handling distributed compute as workloads grow?',
+                    'What are the biggest infrastructure challenges your ML team faces today?'
+                ],
+                objections: [
+                    {
+                        objection: 'We already have ML infrastructure in place',
+                        response: 'Anyscale complements existing tools by handling distributed orchestration. Most customers keep their current stack and add Ray for scaling bottlenecks.'
+                    },
+                    {
+                        objection: 'Our ML workloads are not large enough to justify a new platform',
+                        response: 'Ray grows with you — start small with a single use case and expand. Teams often find 2-3x efficiency gains even at modest scale.'
+                    }
+                ],
+                agenda: [
+                    { time: '0:00-3:00', topic: 'Intro: Anyscale fit for Zoom ML workloads' },
+                    { time: '3:00-10:00', topic: 'Deep Dive: Current infrastructure and bottlenecks' },
+                    { time: '10:00-18:00', topic: 'Architecture: Ray solution for Enterprise SaaS use cases' },
+                    { time: '18:00-26:00', topic: 'Proof Points: Customer case studies and benchmarks' },
+                    { time: '26:00-30:00', topic: 'Next Steps: POC scope and timeline' }
+                ],
+                customNotes: ''
+            },
+            'Reconstruct': {
+                company: {
+                    industry: 'Construction AI',
+                    size: 'See enriched account list',
+                    hq: 'See enriched account list',
+                    funding: 'See enriched account list',
+                    techStack: 'See enriched account list'
+                },
+                keyContacts: [
+                    { name: 'CTO / VP Engineering', title: 'CTO / VP Engineering', status: 'Research' }
+                ],
+                whyAnyscale: [
+                    'AI for construction progress monitoring using imagery. CV ML at scale.',
+                    'Construction CV model training and inference at scale.',
+                    'Ray\'s managed platform reduces infrastructure overhead so the team can focus on model development'
+                ],
+                rayLibraries: [
+                    'Ray Serve (PRIMARY) - ML model serving at enterprise scale',
+                    'Ray Data (PRIMARY) - Distributed data processing',
+                    'Ray Train (SECONDARY) - Model training pipeline',
+                    'Ray Tune (SECONDARY) - Hyperparameter optimization'
+                ],
+                proofPoints: [
+                    'Canva: 12x faster training (90 min to 6 min per epoch), 50% cost reduction',
+                    'Samsara: 50% reduction in annual ML inference cost',
+                    'Instacart: Ray for large-scale recommendation pipeline'
+                ],
+                discoveryQuestions: [
+                    'How does the construction imagery ML pipeline scale across sites?',
+                    'What does your current ML infrastructure look like?',
+                    'How is your team handling distributed compute as workloads grow?',
+                    'What are the biggest infrastructure challenges your ML team faces today?'
+                ],
+                objections: [
+                    {
+                        objection: 'We already have ML infrastructure in place',
+                        response: 'Anyscale complements existing tools by handling distributed orchestration. Most customers keep their current stack and add Ray for scaling bottlenecks.'
+                    },
+                    {
+                        objection: 'Our ML workloads are not large enough to justify a new platform',
+                        response: 'Ray grows with you — start small with a single use case and expand. Teams often find 2-3x efficiency gains even at modest scale.'
+                    }
+                ],
+                agenda: [
+                    { time: '0:00-3:00', topic: 'Intro: Anyscale fit for Reconstruct ML workloads' },
+                    { time: '3:00-10:00', topic: 'Deep Dive: Current infrastructure and bottlenecks' },
+                    { time: '10:00-18:00', topic: 'Architecture: Ray solution for Construction AI use cases' },
+                    { time: '18:00-26:00', topic: 'Proof Points: Customer case studies and benchmarks' },
+                    { time: '26:00-30:00', topic: 'Next Steps: POC scope and timeline' }
+                ],
+                customNotes: ''
             }
+
         };
 
         // Initialize
