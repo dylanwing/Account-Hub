@@ -99,6 +99,47 @@ body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif;b
 
 /* FOOTER */
 .footer{text-align:center;padding:20px;font-size:11px;color:var(--text3);border-top:1px solid var(--border);margin-top:40px}
+
+/* PROOF POINTS SECTION */
+.proof-section{display:none}
+.proof-section.active{display:block}
+.industry-filters{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:24px;padding:16px 0}
+.ind-btn{padding:8px 16px;border-radius:20px;font-size:12px;font-weight:600;border:1px solid var(--border);background:var(--card);color:var(--text2);cursor:pointer;transition:all .2s;white-space:nowrap}
+.ind-btn:hover{border-color:var(--blue);color:var(--text)}
+.ind-btn.active{background:var(--blue);border-color:var(--blue);color:#fff}
+.proof-grid{display:grid;grid-template-columns:1fr;gap:20px}
+.proof-card{background:var(--card);border:1px solid var(--border);border-radius:var(--radius);overflow:hidden;transition:all .25s}
+.proof-card:hover{border-color:var(--blue);transform:translateY(-2px);box-shadow:0 8px 24px rgba(0,0,0,.3)}
+.proof-card.hidden{display:none}
+.proof-top{display:flex;align-items:center;gap:16px;padding:20px 24px;border-bottom:1px solid var(--border)}
+.proof-logo{width:48px;height:48px;border-radius:12px;display:flex;align-items:center;justify-content:center;font-size:22px;flex-shrink:0}
+.proof-info{flex:1}
+.proof-company{font-size:16px;font-weight:700;color:#fff}
+.proof-tags{display:flex;gap:6px;margin-top:4px;flex-wrap:wrap}
+.proof-tag{padding:2px 8px;border-radius:6px;font-size:10px;font-weight:600;text-transform:uppercase;letter-spacing:.04em}
+.proof-tag.ind{background:var(--purple-bg);color:var(--purple)}
+.proof-tag.use{background:var(--teal-bg);color:var(--teal)}
+.proof-body{padding:20px 24px}
+.proof-elevator{font-size:14px;color:var(--text);line-height:1.7;margin-bottom:16px}
+.proof-stats{display:flex;gap:12px;flex-wrap:wrap;margin-bottom:16px}
+.proof-stat{background:var(--bg);border:1px solid var(--border);border-radius:10px;padding:12px 16px;flex:1;min-width:140px;text-align:center}
+.proof-stat-value{font-size:20px;font-weight:800;color:var(--green);display:block}
+.proof-stat-label{font-size:10px;color:var(--text3);text-transform:uppercase;letter-spacing:.06em;margin-top:2px;display:block}
+.proof-personas{display:flex;flex-wrap:wrap;gap:6px;margin-top:12px}
+.proof-persona{padding:4px 10px;border-radius:6px;font-size:10px;font-weight:600;background:var(--blue-bg);color:var(--blue);border:1px solid rgba(59,130,246,.15)}
+.elevator-section{background:var(--bg);border:1px solid var(--border);border-radius:var(--radius);padding:20px 24px;margin-bottom:24px}
+.elevator-title{font-size:14px;font-weight:700;color:var(--text);margin-bottom:12px;display:flex;align-items:center;gap:8px}
+.elevator-grid{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+@media(max-width:700px){.elevator-grid{grid-template-columns:1fr}}
+.elevator-card{padding:16px;border-radius:10px;font-size:13px;line-height:1.6}
+.elevator-card.ray{background:var(--blue-bg);border:1px solid rgba(59,130,246,.2);color:var(--blue)}
+.elevator-card.anyscale{background:var(--green-bg);border:1px solid rgba(16,185,129,.2);color:var(--green)}
+.elevator-label{font-weight:800;font-size:10px;text-transform:uppercase;letter-spacing:.08em;margin-bottom:6px;display:block}
+.sort-bar{display:flex;align-items:center;gap:12px;margin-bottom:8px}
+.sort-bar label{font-size:11px;color:var(--text3);font-weight:600;text-transform:uppercase;letter-spacing:.06em}
+.sort-select{background:var(--card);border:1px solid var(--border);color:var(--text);padding:6px 12px;border-radius:8px;font-size:12px;cursor:pointer}
+.sort-select:focus{outline:none;border-color:var(--blue)}
+.proof-count{font-size:12px;color:var(--text3);margin-left:auto}
 </style>
 </head>
 <body>
@@ -120,6 +161,7 @@ body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif;b
   <div class="nav-tab" onclick="showTab(7)"><span class="tab-icon">👔</span>Head of AI</div>
   <div class="nav-tab" onclick="showTab(8)"><span class="tab-icon">📈</span>Head of Data</div>
   <div class="nav-tab" onclick="showTab(9)"><span class="tab-icon">🖥️</span>Head of AI Platform</div>
+  <div class="nav-tab" onclick="showTab(10)" style="border-left:2px solid var(--border);margin-left:8px;padding-left:22px"><span class="tab-icon">🏆</span>Proof Points</div>
 </div>
 
 <div class="content" id="content"></div>
@@ -590,7 +632,245 @@ function renderPersona(p) {
   return html;
 }
 
-// Build all panels
+// ═══════════ PROOF POINTS DATA ═══════════
+const proofPoints = [
+  {
+    company:"OpenAI",icon:"🤖",iconBg:"#1a1a2e",
+    industries:["AI Research","AI Platform"],
+    useCase:"LLM Training at Scale",
+    elevator:"OpenAI uses Ray to coordinate training of its largest models, including ChatGPT. Ray provides the distributed compute orchestration layer that lets OpenAI push the frontier of large language model training across thousands of GPUs.",
+    rayPitch:"Ray provides the distributed execution framework to orchestrate massive parallel training jobs across thousands of GPUs — letting researchers focus on model architecture, not infrastructure plumbing.",
+    anyscalePitch:"Anyscale delivers the production-grade managed platform that handles cluster orchestration, fault tolerance, and resource scheduling so teams training foundation models can iterate faster without an army of infra engineers.",
+    stats:[{value:"1M+",label:"Clusters/month on Ray"},{value:"1000s",label:"GPUs coordinated"},{value:"#1",label:"LLM training framework"}],
+    personas:["AI Researcher","ML/AI Engineer","Head of AI","AI Platform Engineer"]
+  },
+  {
+    company:"Canva",icon:"🎨",iconBg:"#00c4cc",
+    industries:["Design Tech","E-Commerce"],
+    useCase:"Distributed Training & Fine-Tuning",
+    elevator:"Canva standardized all AI training on Anyscale, achieving 100% GPU utilization and reducing cloud costs by 50%. They fine-tuned 50 LLMs in under 10 days and cut training time by 25x using heterogeneous GPU clusters.",
+    rayPitch:"Ray Train enabled Canva to distribute training of 100+ production ML models across heterogeneous GPU clusters, eliminating the single-machine bottleneck that was crippling their image processing pipeline.",
+    anyscalePitch:"Anyscale gave Canva fully managed distributed training with automatic spot instance management and cluster orchestration — 50% cost reduction, 100% GPU utilization, and 25x faster training cycles.",
+    stats:[{value:"50%",label:"Cloud cost reduction"},{value:"25x",label:"Faster training"},{value:"50",label:"LLMs fine-tuned in 10 days"},{value:"100%",label:"GPU utilization"}],
+    personas:["ML/AI Engineer","Data Scientist","MLOps Engineer","Head of AI Platform"]
+  },
+  {
+    company:"Uber",icon:"🚗",iconBg:"#000000",
+    industries:["Autonomous Vehicles","Logistics & Delivery"],
+    useCase:"Deep Learning & ETA Prediction",
+    elevator:"Uber implemented large-scale deep learning on Ray heterogeneous CPU+GPU clusters, achieving 50% compute savings on ML training. Ray powers Uber's ETA prediction models serving millions of rides daily.",
+    rayPitch:"Ray's heterogeneous cluster support lets Uber run CPU preprocessing and GPU training in a single unified pipeline — eliminating data transfer overhead and cutting compute costs by half.",
+    anyscalePitch:"Anyscale provides the managed infrastructure layer so Uber's ML teams can focus on model quality rather than cluster management, with automatic scaling for bursty training workloads.",
+    stats:[{value:"50%",label:"ML compute savings"},{value:"Millions",label:"Daily ETA predictions"},{value:"CPU+GPU",label:"Heterogeneous clusters"}],
+    personas:["ML/AI Engineer","AI Platform Engineer","Software Engineer","Head of Data"]
+  },
+  {
+    company:"Instacart",icon:"🥕",iconBg:"#43b02a",
+    industries:["E-Commerce","Logistics & Delivery"],
+    useCase:"Batch Model Training at Scale",
+    elevator:"Instacart uses Ray to train tens of thousands of ML models for delivery ETA, courier supply planning, and shopper routing. Ray reduced training from days to hours — 12x faster, 8x cheaper, and capable of handling 100x more data.",
+    rayPitch:"Ray lets Instacart parallelize training of tens of thousands of zone-specific models in hours instead of days — 12x faster than their previous AWS Batch + Celery setup, with 100x more training data.",
+    anyscalePitch:"Anyscale's managed Ray platform eliminates the infrastructure overhead of running massive parallel training jobs, delivering 8x cost reduction while enabling Instacart to scale model count without scaling their infra team.",
+    stats:[{value:"12x",label:"Faster training"},{value:"8x",label:"Cost reduction"},{value:"100x",label:"More training data"},{value:"10,000+",label:"Models trained"}],
+    personas:["ML/AI Engineer","Data Scientist","MLOps Engineer","Head of Data"]
+  },
+  {
+    company:"Coinbase",icon:"💰",iconBg:"#0052ff",
+    industries:["Fintech","Cybersecurity"],
+    useCase:"ML Infrastructure & LLM Deployment",
+    elevator:"Coinbase chose Ray and Anyscale for their ML infrastructure, accelerating model iteration cycles and maximizing hardware efficiency. They deploy LLMs using Ray + vLLM + LiteLLM for trust, security, and reliability at scale.",
+    rayPitch:"Ray provides Coinbase a unified compute layer for both training and serving ML models — from fraud detection to LLM-powered customer experiences — with consistent APIs and battle-tested reliability.",
+    anyscalePitch:"Anyscale eliminated Coinbase's infrastructure overhead, letting their ML team focus on model iteration rather than cluster management. Production-grade security, compliance, and scaling built in.",
+    stats:[{value:"3x",label:"Faster model iteration"},{value:"Ray+vLLM",label:"LLM serving stack"},{value:"Zero",label:"Infra overhead"}],
+    personas:["AI Platform Engineer","MLOps Engineer","Software Engineer","Head of AI Platform"]
+  },
+  {
+    company:"Physical Intelligence",icon:"🦾",iconBg:"#4a1d96",
+    industries:["Robotics","AI Research"],
+    useCase:"Multimodal Robotics Data Processing",
+    elevator:"Physical Intelligence uses Anyscale to process terabytes of multimodal robotics sensor data, eliminating cluster management complexity so their research team can focus on building adaptable robot intelligence.",
+    rayPitch:"Ray Data and Ray Train let Physical Intelligence build end-to-end pipelines that ingest, preprocess, and train on terabytes of multimodal sensor data — video, lidar, force-torque — in a single distributed workflow.",
+    anyscalePitch:"Anyscale removed the burden of managing Ray clusters at scale, giving Physical Intelligence an intuitive developer experience for processing massive robotics datasets with zero infrastructure toil.",
+    stats:[{value:"TBs",label:"Multimodal data processed"},{value:"Zero",label:"Cluster management burden"},{value:"VLA",label:"Vision-Language-Action models"}],
+    personas:["AI Researcher","ML/AI Engineer","CV/Perception Engineer","Head of AI"]
+  },
+  {
+    company:"Bonsai Robotics",icon:"🌱",iconBg:"#2d6a4f",
+    industries:["Robotics","Agriculture Tech"],
+    useCase:"Autonomous Agricultural Equipment",
+    elevator:"Bonsai Robotics uses Anyscale to train large-scale spatiotemporal and VLA models for outdoor autonomy, controlling multi-ton hydraulic agricultural equipment. Managed multi-cloud compute scaled their perception workloads without operational burden.",
+    rayPitch:"Ray scales Bonsai's perception training pipelines across multiple clouds, handling the massive compute demands of spatiotemporal models that power autonomous tractors and harvesters in real-world agriculture.",
+    anyscalePitch:"Anyscale's managed multi-cloud platform lets Bonsai scale model training across clouds without hiring a dedicated infra team — critical for a startup pushing autonomous outdoor robotics.",
+    stats:[{value:"Multi-cloud",label:"Compute platform"},{value:"VLA",label:"Model architecture"},{value:"Multi-ton",label:"Equipment controlled"}],
+    personas:["CV/Perception Engineer","ML/AI Engineer","AI Researcher","Head of AI"]
+  },
+  {
+    company:"Spotify",icon:"🎵",iconBg:"#1db954",
+    industries:["Media & Entertainment","Consumer Tech"],
+    useCase:"Recommendation & Personalization",
+    elevator:"Spotify uses Ray for advanced personalization including podcast recommendation with GNN embeddings and Radio track sequencing with reinforcement learning. Ray powers the ML behind what hundreds of millions of users hear every day.",
+    rayPitch:"Ray lets Spotify scale graph neural network training and reinforcement learning workloads for personalization — from podcast recommendations to dynamic radio sequencing — without rewriting their Python ML code.",
+    anyscalePitch:"Anyscale provides Spotify's ML platform team a managed environment to run distributed GNN and RL workloads at scale, accelerating experimentation velocity for personalization features that serve hundreds of millions of users.",
+    stats:[{value:"600M+",label:"Users served"},{value:"GNN+RL",label:"Advanced ML workloads"},{value:"Podcasts+Radio",label:"Personalization scope"}],
+    personas:["ML/AI Engineer","Data Scientist","AI Platform Engineer","Head of Data"]
+  },
+  {
+    company:"Shopify",icon:"🛍️",iconBg:"#96bf48",
+    industries:["E-Commerce","Developer Tools"],
+    useCase:"ML Platform & Distributed Training",
+    elevator:"Shopify built their Merlin ML platform on Ray after evaluating PySpark and Google AI Platform. Ray Train and Tune power distributed training and hyperparameter tuning for models that serve millions of merchants.",
+    rayPitch:"Ray gave Shopify a unified framework for their entire ML lifecycle — from distributed training with Ray Train to hyperparameter optimization with Ray Tune — replacing fragmented PySpark workflows.",
+    anyscalePitch:"Anyscale accelerates Shopify's Merlin platform with managed infrastructure that handles cluster scaling, spot instances, and resource scheduling so their ML team ships models faster.",
+    stats:[{value:"Millions",label:"Merchants served"},{value:"Train+Tune",label:"Ray libraries used"},{value:"3rd gen",label:"ML platform iteration"}],
+    personas:["AI Platform Engineer","MLOps Engineer","Software Engineer","Head of AI Platform"]
+  },
+  {
+    company:"SewerAI",icon:"🔧",iconBg:"#455a64",
+    industries:["Infrastructure","Computer Vision"],
+    useCase:"AI-Powered Sewer Inspection",
+    elevator:"SewerAI reduced cloud operating costs by 75% with Anyscale while achieving 3x faster batch inference. GPU utilization jumped from 25% to 95%, processing time dropped from 60 minutes to 20 minutes, and they freed up an entire engineering position.",
+    rayPitch:"Ray Serve enabled SewerAI to parallelize batch inference across GPU clusters with near-perfect utilization — 3x faster processing with half the machines compared to their AWS Batch setup.",
+    anyscalePitch:"Anyscale delivered 75% cost reduction by maximizing GPU utilization (25% to 95%), eliminating idle compute, and providing instant code testing vs. the previous 10-minute cycle — freeing an entire engineer to focus on product.",
+    stats:[{value:"75%",label:"Cost reduction"},{value:"95%",label:"GPU utilization (from 25%)"},{value:"3x",label:"Faster inference"},{value:"1 FTE",label:"Engineer freed up"}],
+    personas:["CV/Perception Engineer","MLOps Engineer","Software Engineer","Head of AI"]
+  },
+  {
+    company:"Handshake",icon:"🤝",iconBg:"#ff6b35",
+    industries:["HR Tech","Consumer Tech"],
+    useCase:"LLM-Powered Career Platform",
+    elevator:"Handshake saves 50% on LLM GPU costs with Anyscale, powering AI features that connect students with employers. Managed Ray infrastructure lets their small ML team punch above their weight.",
+    rayPitch:"Ray Serve lets Handshake deploy and scale LLM inference endpoints with automatic batching and GPU sharing — getting 2x the throughput from the same hardware.",
+    anyscalePitch:"Anyscale cuts Handshake's LLM serving costs in half with managed infrastructure, smart scheduling, and spot instance orchestration — letting a lean team run production AI without dedicated infra engineers.",
+    stats:[{value:"50%",label:"GPU cost savings"},{value:"2x",label:"Inference throughput"},{value:"Lean team",label:"No dedicated infra"}],
+    personas:["ML/AI Engineer","Software Engineer","MLOps Engineer","Head of AI"]
+  },
+  {
+    company:"Netflix",icon:"🎬",iconBg:"#e50914",
+    industries:["Media & Entertainment","Consumer Tech"],
+    useCase:"AI Infrastructure & Recommendations",
+    elevator:"Netflix uses Ray as a core component of their AI infrastructure, powering the recommendation and personalization systems that drive engagement for 200M+ subscribers worldwide.",
+    rayPitch:"Ray provides Netflix a scalable distributed compute layer for training and serving the recommendation models that determine what 200M+ subscribers see — handling massive data parallelism natively.",
+    anyscalePitch:"Anyscale offers Netflix-scale teams a managed Ray environment with enterprise security, compliance, and multi-cloud support to run mission-critical AI workloads without infrastructure risk.",
+    stats:[{value:"200M+",label:"Subscribers served"},{value:"Core",label:"AI infra component"},{value:"Global",label:"Scale of deployment"}],
+    personas:["AI Platform Engineer","ML/AI Engineer","Data Scientist","Head of AI Platform"]
+  },
+  {
+    company:"Pinterest",icon:"📌",iconBg:"#e60023",
+    industries:["Consumer Tech","Ad Tech"],
+    useCase:"Visual Search & Recommendations",
+    elevator:"Pinterest was one of the earliest enterprise adopters of Ray, using it to power visual search and recommendation systems that serve billions of Pins to hundreds of millions of users.",
+    rayPitch:"Ray enables Pinterest to distribute computer vision and embedding model workloads across large GPU clusters — powering visual search and content recommendations at massive scale.",
+    anyscalePitch:"Anyscale provides managed Ray infrastructure for Pinterest-scale visual AI workloads with automatic scaling, fault tolerance, and cost optimization across cloud GPU fleets.",
+    stats:[{value:"Billions",label:"Pins served"},{value:"400M+",label:"Monthly users"},{value:"Early adopter",label:"Ray production user"}],
+    personas:["CV/Perception Engineer","ML/AI Engineer","Data Scientist","AI Platform Engineer"]
+  },
+  {
+    company:"Ant Group",icon:"🐜",iconBg:"#1677ff",
+    industries:["Fintech","Financial Services"],
+    useCase:"Large-Scale Financial ML",
+    elevator:"Ant Group was the first major production user of Ray, deploying it for financial machine learning workloads including fraud detection, risk scoring, and real-time decision systems serving over a billion users.",
+    rayPitch:"Ray provides Ant Group a unified framework for financial ML that handles everything from real-time fraud detection to batch risk scoring — scaling across thousands of nodes with built-in fault tolerance.",
+    anyscalePitch:"Anyscale offers financial institutions like Ant Group enterprise-grade Ray with compliance certifications, VPC peering, RBAC, and audit logging — critical for regulated financial AI workloads.",
+    stats:[{value:"1B+",label:"Users served"},{value:"First",label:"Major Ray production user"},{value:"1000s",label:"Nodes in cluster"}],
+    personas:["AI Platform Engineer","Software Engineer","Head of AI Platform","Head of Data"]
+  },
+  {
+    company:"Team New Zealand",icon:"⛵",iconBg:"#003366",
+    industries:["Sports Tech","Simulation"],
+    useCase:"Reinforcement Learning for Racing",
+    elevator:"Team New Zealand used Anyscale's RLlib to run sailing simulations around the clock, applying reinforcement learning to optimize boat design and racing strategy — helping them successfully defend the America's Cup.",
+    rayPitch:"RLlib on Ray enabled Team New Zealand to run thousands of parallel sailing simulations, training RL agents that optimized everything from hull design to tactical racing decisions.",
+    anyscalePitch:"Anyscale provided the managed compute platform for 24/7 RL simulation workloads, handling cluster orchestration and GPU scheduling so the sailing team focused on winning rather than managing infrastructure.",
+    stats:[{value:"24/7",label:"Simulation uptime"},{value:"RL",label:"Reinforcement learning"},{value:"Champion",label:"America's Cup defended"}],
+    personas:["AI Researcher","Data Scientist","ML/AI Engineer"]
+  }
+];
+
+// Industry elevator pitches
+const industryElevators = {
+  "Robotics & AV":{
+    ray:"Ray scales the compute-heavy training pipelines that robotics and AV teams need — from distributed perception model training to massively parallel RL simulation. Your Python code scales from laptop to 1000-GPU cluster with minimal changes.",
+    anyscale:"Anyscale gives robotics teams managed infrastructure for training VLAs, spatiotemporal models, and running large-scale simulations without hiring a platform team. Auto-scaling, multi-cloud, and spot instance management built in."
+  },
+  "Fintech & Financial Services":{
+    ray:"Ray provides a unified compute framework for financial ML — real-time fraud detection, batch risk scoring, portfolio optimization, and LLM-powered assistants — all on one platform with enterprise-grade fault tolerance.",
+    anyscale:"Anyscale delivers SOC 2 compliant, managed Ray infrastructure with VPC peering, RBAC, and audit logging. Financial institutions get the distributed compute they need without the compliance risk of self-managed clusters."
+  },
+  "Healthcare & Life Sciences":{
+    ray:"Ray accelerates drug discovery, genomics, and medical imaging pipelines by distributing compute-intensive workloads across GPU clusters. Ray Data handles massive datasets while Ray Train scales model training seamlessly.",
+    anyscale:"Anyscale provides HIPAA-eligible managed infrastructure for healthcare AI teams, letting them focus on patient outcomes rather than cluster management. Process genomic data, train diagnostic models, and serve predictions at scale."
+  },
+  "E-Commerce & Consumer":{
+    ray:"Ray powers recommendation engines, search ranking, personalization, and demand forecasting at companies like Instacart and Shopify. Train tens of thousands of models in parallel and serve them all through Ray Serve.",
+    anyscale:"Anyscale lets e-commerce teams scale their ML platform without scaling their infra team. Managed Ray handles seasonal traffic spikes, parallel model training, and cost optimization automatically."
+  },
+  "Media & Entertainment":{
+    ray:"Ray enables media companies to build advanced recommendation and content understanding systems — from GNN-based embeddings at Spotify to content moderation pipelines at Netflix — all in familiar Python.",
+    anyscale:"Anyscale provides the managed infrastructure for media-scale AI workloads serving hundreds of millions of users. Auto-scaling, fault tolerance, and cost optimization for always-on recommendation systems."
+  },
+  "Developer Tools & Platforms":{
+    ray:"Ray is the standard distributed compute layer for ML platforms — Shopify's Merlin, Coinbase's ML infra, and hundreds of internal platforms are built on Ray Train, Tune, and Serve.",
+    anyscale:"Anyscale accelerates platform teams by providing managed Ray that eliminates cluster management overhead. Ship your internal ML platform faster with enterprise features: SSO, RBAC, multi-tenancy, and usage metering."
+  },
+  "Infrastructure & Industrial":{
+    ray:"Ray distributes computer vision and batch inference workloads across GPU clusters with near-perfect utilization — turning hour-long processing jobs into minutes while cutting compute costs dramatically.",
+    anyscale:"Anyscale helped SewerAI cut costs 75% and triple inference speed. For industrial AI teams, managed Ray means maximum GPU utilization, instant code testing, and zero infrastructure management overhead."
+  },
+  "Agriculture & Climate":{
+    ray:"Ray and RLlib power autonomous agricultural systems and climate optimization models. Distribute perception training, run thousands of parallel simulations, and scale from prototype to production without code rewrites.",
+    anyscale:"Anyscale provides managed multi-cloud infrastructure for agricultural AI — from training perception models for autonomous equipment to running climate simulations 24/7 with automatic fault recovery."
+  }
+};
+
+// Map proof points to filterable industries
+const industryMap = {
+  "All":()=>true,
+  "Robotics & AV":pp=>pp.industries.some(i=>["Robotics","Autonomous Vehicles","Agriculture Tech"].includes(i)),
+  "Fintech & Financial Services":pp=>pp.industries.some(i=>["Fintech","Financial Services","Cybersecurity"].includes(i)),
+  "Healthcare & Life Sciences":pp=>pp.industries.some(i=>["Healthcare","Life Sciences","Digital Health"].includes(i)),
+  "E-Commerce & Consumer":pp=>pp.industries.some(i=>["E-Commerce","Consumer Tech","HR Tech","Logistics & Delivery"].includes(i)),
+  "Media & Entertainment":pp=>pp.industries.some(i=>["Media & Entertainment","Design Tech"].includes(i)),
+  "Developer Tools & Platforms":pp=>pp.industries.some(i=>["Developer Tools","AI Platform","AI Research"].includes(i)),
+  "Infrastructure & Industrial":pp=>pp.industries.some(i=>["Infrastructure","Computer Vision","Simulation","Sports Tech"].includes(i)),
+  "Agriculture & Climate":pp=>pp.industries.some(i=>["Agriculture Tech"].includes(i))
+};
+
+function renderProofCard(pp){
+  let statsHtml = pp.stats.map(s=>`<div class="proof-stat"><span class="proof-stat-value">${s.value}</span><span class="proof-stat-label">${s.label}</span></div>`).join('');
+  let tagsHtml = pp.industries.map(i=>`<span class="proof-tag ind">${i}</span>`).join('') + `<span class="proof-tag use">${pp.useCase}</span>`;
+  let personasHtml = pp.personas.map(p=>`<span class="proof-persona">${p}</span>`).join('');
+  return `<div class="proof-card" data-industries="${pp.industries.join(',')}" data-company="${pp.company}">
+    <div class="proof-top">
+      <div class="proof-logo" style="background:${pp.iconBg}">${pp.icon}</div>
+      <div class="proof-info">
+        <div class="proof-company">${pp.company}</div>
+        <div class="proof-tags">${tagsHtml}</div>
+      </div>
+    </div>
+    <div class="proof-body">
+      <div class="proof-elevator">${pp.elevator}</div>
+      <div class="proof-stats">${statsHtml}</div>
+      <div style="margin-top:8px">
+        <div style="font-size:10px;color:var(--text3);text-transform:uppercase;letter-spacing:.06em;font-weight:600;margin-bottom:6px">Relevant Personas</div>
+        <div class="proof-personas">${personasHtml}</div>
+      </div>
+    </div>
+  </div>`;
+}
+
+function renderIndustryElevator(indKey){
+  const elev = industryElevators[indKey];
+  if(!elev) return '';
+  return `<div class="elevator-section">
+    <div class="elevator-title"><span>🎯</span> ${indKey} — Elevator Pitch</div>
+    <div class="elevator-grid">
+      <div class="elevator-card ray"><span class="elevator-label">Ray (Open Source)</span>${elev.ray}</div>
+      <div class="elevator-card anyscale"><span class="elevator-label">Anyscale (Managed Platform)</span>${elev.anyscale}</div>
+    </div>
+  </div>`;
+}
+
+// ═══════════ BUILD PANELS ═══════════
 const content = document.getElementById('content');
 personas.forEach((p, i) => {
   const div = document.createElement('div');
@@ -599,6 +879,80 @@ personas.forEach((p, i) => {
   div.innerHTML = renderPersona(p);
   content.appendChild(div);
 });
+
+// Build proof points panel
+const proofPanel = document.createElement('div');
+proofPanel.className = 'persona-panel';
+proofPanel.id = 'panel-10';
+let proofHtml = `<div class="section-title" style="margin-bottom:4px"><span class="icon">🏆</span> Industry Proof Points</div>
+<p style="font-size:13px;color:var(--text2);margin-bottom:20px">Real customer results sorted by industry. Each card includes an elevator pitch and key metrics you can reference on calls.</p>`;
+proofHtml += `<div class="sort-bar">
+  <label>Sort by:</label>
+  <select class="sort-select" id="proofSort" onchange="sortProofs()">
+    <option value="company">Company Name</option>
+    <option value="industry">Industry</option>
+    <option value="impact">Highest Impact</option>
+  </select>
+  <span class="proof-count" id="proofCount">${proofPoints.length} proof points</span>
+</div>`;
+proofHtml += `<div class="industry-filters" id="indFilters"></div>`;
+proofHtml += `<div id="elevatorArea"></div>`;
+proofHtml += `<div class="proof-grid" id="proofGrid"></div>`;
+proofPanel.innerHTML = proofHtml;
+content.appendChild(proofPanel);
+
+// Render industry filter buttons
+const indFilters = document.getElementById('indFilters');
+Object.keys(industryMap).forEach((ind,i)=>{
+  const btn = document.createElement('div');
+  btn.className = 'ind-btn' + (i===0?' active':'');
+  btn.textContent = ind;
+  btn.onclick = ()=>filterIndustry(ind);
+  indFilters.appendChild(btn);
+});
+
+// Render proof cards
+const proofGrid = document.getElementById('proofGrid');
+function renderAllProofs(sorted){
+  proofGrid.innerHTML = '';
+  (sorted||proofPoints).forEach(pp=>{
+    proofGrid.insertAdjacentHTML('beforeend', renderProofCard(pp));
+  });
+}
+renderAllProofs();
+
+let currentIndustry = 'All';
+function filterIndustry(ind){
+  currentIndustry = ind;
+  document.querySelectorAll('.ind-btn').forEach(b=>b.classList.toggle('active',b.textContent===ind));
+  const cards = proofGrid.querySelectorAll('.proof-card');
+  let visible = 0;
+  cards.forEach(card=>{
+    const industries = card.dataset.industries.split(',');
+    const matchFn = industryMap[ind];
+    const show = matchFn({industries});
+    card.classList.toggle('hidden',!show);
+    if(show) visible++;
+  });
+  document.getElementById('proofCount').textContent = visible + ' proof point' + (visible!==1?'s':'');
+  // Show elevator pitch for selected industry
+  const elevArea = document.getElementById('elevatorArea');
+  if(ind !== 'All' && industryElevators[ind]){
+    elevArea.innerHTML = renderIndustryElevator(ind);
+  } else {
+    elevArea.innerHTML = '';
+  }
+}
+
+function sortProofs(){
+  const sortBy = document.getElementById('proofSort').value;
+  let sorted = [...proofPoints];
+  if(sortBy==='company') sorted.sort((a,b)=>a.company.localeCompare(b.company));
+  else if(sortBy==='industry') sorted.sort((a,b)=>a.industries[0].localeCompare(b.industries[0]));
+  else if(sortBy==='impact') sorted.sort((a,b)=>b.stats.length - a.stats.length || a.company.localeCompare(b.company));
+  renderAllProofs(sorted);
+  if(currentIndustry!=='All') filterIndustry(currentIndustry);
+}
 
 function showTab(idx) {
   document.querySelectorAll('.nav-tab').forEach((t, i) => t.classList.toggle('active', i === idx));
