@@ -602,109 +602,581 @@
         let accounts = {};
         const STORAGE_KEY = 'callPrepAccounts';
 
-        // Default accounts data
+        // Default accounts data — Dylan's Tier 1 Accounts
         const defaultAccounts = {
-            'Scale AI': {
+            'comma.ai': {
                 company: {
-                    industry: 'AI/ML Infrastructure',
-                    size: '100-250 employees',
+                    industry: 'Automotive Technology / ADAS & Autonomous Driving',
+                    size: '~30 employees',
                     hq: 'San Francisco, CA',
-                    funding: '$316M (Series D)',
-                    techStack: 'PyTorch, CUDA, Apache Airflow, Kubernetes'
+                    funding: '$8.1M total (bootstrapped, profitable)',
+                    techStack: 'Python (60K+ LOC), PyTorch, ONNX, Linux, C++, custom GPU cluster (~450kW)'
                 },
                 keyContacts: [
-                    { name: 'Alexandr Wang', title: 'CEO & Co-founder', status: 'Warm' },
-                    { name: 'Riley Durkin', title: 'COO', status: 'Contacted' }
+                    { name: 'George Hotz', title: 'CEO, Technical Founder', status: 'Research' },
+                    { name: 'Adeeb Shihadeh', title: 'Lead Engineer', status: 'Research' }
                 ],
                 whyAnyscale: [
-                    'Ray Tune for hyperparameter optimization of data collection workflows',
-                    'Ray Serve for serving multiple ML models at scale',
-                    'Ray Data for distributed data preprocessing and augmentation'
+                    'Python-native Ray scheduler matches comma.ai\'s all-Python stack (60K+ LOC) with zero adoption friction',
+                    'Ray Data handles distributed pipeline for 100M+ miles of fleet data ingestion and featurization',
+                    'Ray actor model is perfect for mlsim on-policy simulator — thousands of parallel rollout workers coordinated by central trainer'
                 ],
                 rayLibraries: [
-                    'Ray Tune - Optimizing data labeling workflows',
-                    'Ray Serve - Serving multiple annotation models',
-                    'Ray Data - Distributed data processing'
+                    'Ray Data (PRIMARY) - 100M+ mile fleet data pipeline',
+                    'Ray Train (PRIMARY) - Distributed PyTorch training for world model',
+                    'RLlib (PRIMARY) - On-policy mlsim rollouts with parallel actors',
+                    'Ray Tune (SECONDARY) - Hyperparameter search across world model variants'
                 ],
                 proofPoints: [
-                    'Scale AI uses Ray for distributed ML pipeline orchestration',
-                    'Ray adoption reduces time to scale data pipelines by 40%',
-                    'OpenAI uses Ray for large-scale model training'
+                    'Physical Intelligence (π): 2× faster research iteration, 16+ engineers freed from infra on massive physical AI sensor data',
+                    'Blue River Technology (John Deere): 2.5× AV regression testing speedup (24h → 9.5h) on parallel sensor data',
+                    'Zoox (Amazon): Distributed AV simulation at scale with parallel scenario evaluation on Ray'
                 ],
                 discoveryQuestions: [
-                    'How do you currently optimize your data labeling pipelines?',
-                    'What are your infrastructure bottlenecks for distributed processing?',
-                    'How do you manage cost and resource allocation across different annotation models?',
-                    'What is your current approach to hyperparameter tuning?'
+                    'When you wrote about mlsim — how are you currently orchestrating the parallel simulator rollouts? Any scheduling bottlenecks?',
+                    'With 100M+ miles of drive data, how long does a full training pipeline run end to end today?',
+                    'How many engineers are spending time on infrastructure vs. actual model development?',
+                    'Are you running multi-node distributed training, or is most training still single-node?'
                 ],
                 objections: [
                     {
-                        objection: 'We already use Airflow for orchestration',
-                        response: 'Ray complements Airflow by handling fine-grained parallelism and dynamic workflows. Many teams use both together—Airflow for DAG scheduling, Ray for in-task parallelism.'
+                        objection: 'We own a $5M datacenter and want full infrastructure control',
+                        response: 'Anyscale managed Ray runs on your existing infrastructure — you keep the hardware, we handle scheduling and cluster ops. This removes ops burden from your small team while preserving cost advantages.'
                     },
                     {
-                        objection: 'We\'re concerned about learning curve',
-                        response: 'Ray has excellent documentation and we offer training support. Many companies see productivity gains within 2-3 weeks of adoption.'
+                        objection: 'We\'re a small team and don\'t want tool dependencies',
+                        response: 'Ray is Python-native (zero rewrite from openpilot), open-source, and embeds in existing workflows. AV teams using Ray reduced infrastructure overhead by 2-3× without forcing architectural changes.'
                     }
                 ],
                 agenda: [
-                    { time: '0:00-2:00', topic: 'Warm-up & Context' },
-                    { time: '2:00-8:00', topic: 'Deep Dive: Current ML Pipelines' },
-                    { time: '8:00-15:00', topic: 'Ray Use Cases & Architecture Demo' },
-                    { time: '15:00-25:00', topic: 'Q&A and Proof of Concept Discussion' },
-                    { time: '25:00-30:00', topic: 'Next Steps & Closing' }
+                    { time: '0:00-3:00', topic: 'Intro: Ray architecture fit for mlsim + openpilot progress' },
+                    { time: '3:00-8:00', topic: 'Deep Dive: Bottlenecks in distributed simulation + training' },
+                    { time: '8:00-15:00', topic: 'Architecture: Ray Data (100M miles) + RLlib for mlsim rollouts' },
+                    { time: '15:00-27:00', topic: 'Case Studies: Physical Intelligence + Zoox relevance' },
+                    { time: '27:00-30:00', topic: 'Next Steps: POC scope, team alignment, timeline' }
                 ],
                 customNotes: ''
             },
-            'Waymo': {
+            'Iambic Therapeutics': {
                 company: {
-                    industry: 'Autonomous Vehicles',
-                    size: '1000+ employees',
-                    hq: 'Mountain View, CA',
-                    funding: 'Public (Alphabet subsidiary)',
-                    techStack: 'Simulation, LIDAR, Python, C++'
+                    industry: 'Pharmaceutical / AI-Driven Drug Discovery',
+                    size: '~100-150 employees',
+                    hq: 'San Diego, CA',
+                    funding: '$300M+ total; $100M Series C (Nov 2025, NVIDIA-backed); Takeda partnership ($1.7B milestone)',
+                    techStack: 'Python, PyTorch, GNN + Transformer (NeuralPLexer/Enchant), NVIDIA A100/H100 clusters'
                 },
                 keyContacts: [
-                    { name: 'John Krafcik', title: 'Former CEO', status: 'Not engaged' },
-                    { name: 'Tekedra Mawakana', title: 'CEO', status: 'Research' }
+                    { name: 'VP Engineering', title: 'VP Engineering', status: 'Target' },
+                    { name: 'Head of ML Platform', title: 'Head of ML Platform', status: 'Target' }
                 ],
                 whyAnyscale: [
-                    'Ray for distributing simulation across GPU clusters',
-                    'Ray Tune - Training models on synthetic data at scale',
-                    'Ray Tune - Optimizing simulation parameters for better dataset diversity'
+                    'Ray Tune handles hyperparameter search across millions of molecular candidates in parallel',
+                    'Ray Train manages NeuralPLexer/Enchant distributed GPU training without custom orchestration',
+                    'Ray Data bridges synthesis results → training datasets in real time, automating the design-make-test loop'
                 ],
                 rayLibraries: [
-                    'Ray Tune - Training models on synthetic data at scale',
-                    'Ray Serve - Serving multiple AV perception models',
-                    'Ray - Distributed simulation orchestration'
+                    'Ray Train (PRIMARY) - NeuralPLexer/Enchant distributed GNN+Transformer training',
+                    'Ray Tune (PRIMARY) - Molecular property HPO (millions of candidates)',
+                    'Ray Data (PRIMARY) - Design-make-test data pipeline connecting wet lab to compute',
+                    'Ray Serve (SECONDARY) - Molecular design API for Takeda collaboration'
                 ],
                 proofPoints: [
-                    'Waymo uses synthetic data at scale for AV model training (industry standard)',
-                    'Scale AI reduced synthetic data generation costs by 3x using distributed simulation',
-                    'Aurora Technology generates millions of miles of synthetic driving data daily'
+                    'Biolexis Therapeutics: 7 days → 5 hours processing on Anyscale for AI drug discovery (500K biochemical datapoints)',
+                    'Recursion Pharmaceuticals: Foundation models for drug discovery at Ray Summit 2024',
+                    'Canva: 12× faster training (90 min → 6 min per epoch), 50% cost reduction'
                 ],
                 discoveryQuestions: [
-                    'How are you currently scaling synthetic data generation, and what are the compute cost drivers?',
-                    'What simulation tools do you use, and how do you orchestrate them across infrastructure?',
-                    'How do you ensure quality and diversity in synthetic datasets?',
-                    'What is your current cost per synthetic mile or training sample?'
+                    'With weekly design-make-test cadence — what\'s the biggest compute bottleneck? NeuralPLexer, Enchant, or data pipeline?',
+                    'Now serving Takeda\'s programs on top of your own — how are you handling workload separation?',
+                    'As you expand to more cancer types, does infrastructure scale linearly or does complexity grow?',
+                    'Is ML infrastructure a current investment priority with $100M fresh capital?'
                 ],
                 objections: [
                     {
-                        objection: 'We\'ve built our own in-house simulation framework',
-                        response: 'We understand. Ray can integrate with custom simulators to handle the distributed orchestration and resource management, saving you engineering time.'
+                        objection: 'We\'re already on NVIDIA infrastructure with optimized GPU utilization',
+                        response: 'Anyscale is optimized for H100/A100 and runs on your existing setup. The value is coordinating NeuralPLexer training + Tune HPO + Enchant serving without custom orchestration.'
                     },
                     {
-                        objection: 'Simulation is not a bottleneck for us',
-                        response: 'That\'s great! Still, as you scale further, Ray can help optimize resource utilization and reduce infrastructure costs significantly.'
+                        objection: 'Takeda partnership requires production-grade reliability we control',
+                        response: 'Anyscale provides SLA guarantees, audit trails, and workload isolation — exactly what partner agreements require. You keep full control; we handle orchestration.'
                     }
                 ],
                 agenda: [
-                    { time: '0:00-3:00', topic: 'Warm-up & Recent AV Developments' },
-                    { time: '3:00-10:00', topic: 'Deep Dive: Simulation & Synthetic Data Strategy' },
-                    { time: '10:00-20:00', topic: 'Ray for Distributed Simulation Demo' },
-                    { time: '20:00-27:00', topic: 'Integration & Cost Analysis Discussion' },
-                    { time: '27:00-30:00', topic: 'Next Steps & Closing' }
+                    { time: '0:00-3:00', topic: 'Intro: $100M round + Takeda partnership; Ray fit for NeuralPLexer' },
+                    { time: '3:00-8:00', topic: 'Deep Dive: Infrastructure bottlenecks + Takeda workload isolation' },
+                    { time: '8:00-15:00', topic: 'Architecture: Ray Tune (molecular HPO) + Ray Train + Ray Data' },
+                    { time: '15:00-27:00', topic: 'Proof Points: Biolexis (7d→5h), Recursion, Canva (12× speedup)' },
+                    { time: '27:00-30:00', topic: 'POC: Takeda pipeline use case + workload isolation demo' }
+                ],
+                customNotes: ''
+            },
+            'Fal.ai': {
+                company: {
+                    industry: 'AI Platform / Infrastructure — Multi-Model Inference',
+                    size: 'Growth stage (Series B)',
+                    hq: 'Bay Area (likely)',
+                    funding: '$49M Series B, a16z-backed',
+                    techStack: 'GPU inference platform, image/video/3D generative models, multi-model orchestration'
+                },
+                keyContacts: [
+                    { name: 'CTO', title: 'CTO / Head of Infrastructure', status: 'Target' },
+                    { name: 'Founder', title: 'Founder / VP Engineering', status: 'Research' }
+                ],
+                whyAnyscale: [
+                    'Ray Serve prefix-aware routing and fractional GPU scheduling built for Fal.ai\'s multi-model bursty inference',
+                    'Automatic GPU autoscaling handles high variance across diverse model catalog without over-provisioning',
+                    'Multi-model composition enables advanced inference features (pipelines, ensemble routing) without custom infra'
+                ],
+                rayLibraries: [
+                    'Ray Serve (PRIMARY) - Multi-model inference with autoscaling across 100M+ daily calls',
+                    'Ray Data (SECONDARY) - Model evaluation and benchmarking',
+                    'Ray Tune (SECONDARY) - Model tuning and inference optimization'
+                ],
+                proofPoints: [
+                    'Samsara: 50% reduction in annual ML inference cost with Ray Serve model multiplexing across 100M+ inputs',
+                    'Coactive AI: 75% GPU spend reduction, 4× lower per-image cost, 2→50 GPU autoscaling',
+                    'Attentive: 99% AI compute cost reduction at $29B+ revenue scale'
+                ],
+                discoveryQuestions: [
+                    'Your platform serves 100M+ calls/day across different model sizes — how do you handle multi-model scheduling?',
+                    'Are you building your own serving layer or evaluating managed options for GPU infrastructure?',
+                    'As you scale to tens of thousands of GPUs, what\'s the serving layer architecture look like?',
+                    'What\'s the breakdown — mostly parallel (multiple small models) or sequential (one model per request)?'
+                ],
+                objections: [
+                    {
+                        objection: 'We\'ve optimized our custom serving stack with domain-specific features',
+                        response: 'Ray Serve is a foundation, not a replacement. It automates orchestration (autoscaling, routing, GPU allocation) so engineers focus on competitive differentiators. Many Fal.ai competitors use Ray Serve as their backbone.'
+                    },
+                    {
+                        objection: 'Our inference is latency-critical; another layer could add overhead',
+                        response: 'Ray Serve is latency-optimized for production inference at Fal.ai\'s scale. Samsara and Wildlife Studios saw p99 latency improvements after migrating. Overhead is measured in microseconds.'
+                    }
+                ],
+                agenda: [
+                    { time: '0:00-3:00', topic: 'Intro: Ray Serve fit for 100M+ daily inference calls' },
+                    { time: '3:00-9:00', topic: 'Deep Dive: Multi-model scheduling, fractional GPU, autoscaling' },
+                    { time: '9:00-18:00', topic: 'Case Studies: Samsara (50% cost), Coactive (75%), Attentive (99%)' },
+                    { time: '18:00-26:00', topic: 'Architecture: Ray Serve routing, GPU multiplexing, Blackwell readiness' },
+                    { time: '26:00-30:00', topic: 'Platform integration + POC scope' }
+                ],
+                customNotes: ''
+            },
+            'Apex.AI': {
+                company: {
+                    industry: 'Autonomous Vehicles / Robotics OS — Safety-Critical',
+                    size: '~100-150 employees',
+                    hq: 'Bay Area (likely)',
+                    funding: 'Series B/C stage',
+                    techStack: 'ROS2, proprietary AV stack, ISO 26262 ASIL-D, QNX partnership (Dec 2025)'
+                },
+                keyContacts: [
+                    { name: 'VP Engineering', title: 'VP Engineering / Head of ML Platform', status: 'Target' }
+                ],
+                whyAnyscale: [
+                    'Apex.AI needs scalable offboard training backend — Anyscale provides managed distributed training paired with deterministic edge runtime',
+                    'Ray heterogeneous compute handles mixed CPU/GPU pipelines common in AV (sensor processing + model training)',
+                    'Production-grade AV OS requires safety-critical infra; Anyscale SLAs reduce operational risk'
+                ],
+                rayLibraries: [
+                    'Ray Train (PRIMARY) - Distributed training for offboard AV models',
+                    'Ray Data (PRIMARY) - Sensor data processing pipeline for training datasets',
+                    'Ray Serve (SECONDARY) - Serving models for validation and offboard inference',
+                    'Ray Tune (SECONDARY) - HPO for safety-critical models'
+                ],
+                proofPoints: [
+                    'Blue River Technology: 2.5× AV regression testing speedup (24h→9.5h) with parallel sensor data',
+                    'Physical Intelligence: Multi-embodiment training handling terabytes of daily sensor data',
+                    'Zoox: Distributed AV simulation at scale with parallel scenario evaluation'
+                ],
+                discoveryQuestions: [
+                    'The QNX partnership signals production AI workloads — what does offboard training infrastructure look like?',
+                    'How are you bridging edge inference runtime and offboard model training infrastructure?',
+                    'What\'s the current training pipeline for safety-critical perception models? Single-node or multi-node?',
+                    'As more manufacturers adopt your AV OS, how does centralized training infrastructure evolve?'
+                ],
+                objections: [
+                    {
+                        objection: 'Safety-critical AV requires absolute control and determinism; managed platforms introduce risk',
+                        response: 'Ray is designed for safety-critical workloads with deterministic scheduling. Your edge runtime stays deterministic; Anyscale manages only the offboard training and simulation infrastructure.'
+                    },
+                    {
+                        objection: 'Customer deployments have varying hardware; we need full infrastructure control',
+                        response: 'Anyscale runs on your infrastructure (AWS/GCP) and provides a management layer without forcing hardware choices. You retain control; we simplify orchestration.'
+                    }
+                ],
+                agenda: [
+                    { time: '0:00-3:00', topic: 'Intro: QNX partnership + Ray fit for offboard AV training' },
+                    { time: '3:00-8:00', topic: 'Deep Dive: Offboard training infra + simulation requirements' },
+                    { time: '8:00-15:00', topic: 'Architecture: Ray Train + Ray Data for sensor pipelines' },
+                    { time: '15:00-24:00', topic: 'Case Studies: Blue River (AV), Zoox (sim), PI (multi-platform)' },
+                    { time: '24:00-30:00', topic: 'Safety-critical infrastructure + partnership options' }
+                ],
+                customNotes: ''
+            },
+            'Chooch': {
+                company: {
+                    industry: 'AI Platform / Computer Vision — Multi-Model Edge+Cloud',
+                    size: '~50-100 employees',
+                    hq: 'United States',
+                    funding: 'Series A/B stage; Microsoft for Startups partner',
+                    techStack: 'Computer vision models, LLM integration, edge+cloud inference, NVIDIA edge devices'
+                },
+                keyContacts: [
+                    { name: 'CTO', title: 'CTO / VP Engineering', status: 'Target' }
+                ],
+                whyAnyscale: [
+                    'Multi-model fusion (vision + LLM at inference) requires Ray Serve fractional GPU allocation and smart scheduling',
+                    'Edge+cloud split creates complex workload orchestration — Ray Serve handles the cloud inference layer',
+                    'Heterogeneous compute ideal for mixed CPU/GPU scheduling across edge and cloud'
+                ],
+                rayLibraries: [
+                    'Ray Serve (PRIMARY) - Multi-model inference for vision+LLM fusion',
+                    'Ray Data (SECONDARY) - Model evaluation and benchmarking pipelines',
+                    'Ray Train (SECONDARY) - Fine-tuning vision models on customer data'
+                ],
+                proofPoints: [
+                    'Wildlife Studios: 15 parallel models per request with multi-model orchestration reducing p95 latency',
+                    'Ray Serve fractional GPU allocation ideal for multi-heavy-model-per-stream pattern',
+                    'Coactive AI: 75% GPU spend reduction with fractional GPU scheduling for multimodal inference'
+                ],
+                discoveryQuestions: [
+                    'Running LLM + CV model fusion at inference — how do you handle compute orchestration across edge and cloud?',
+                    'What\'s your typical model-per-stream load? Parallel models or sequential pipelines?',
+                    'As you expand use cases (security, inspection, monitoring), how does inference infrastructure scale?',
+                    'How are you managing GPU utilization across edge device fleet and cloud?'
+                ],
+                objections: [
+                    {
+                        objection: 'We\'ve built custom vision optimizations tightly coupled to our infrastructure',
+                        response: 'Ray Serve is a scheduling layer beneath your models. Your vision optimizations stay intact; Ray handles GPU allocation, routing, and autoscaling.'
+                    },
+                    {
+                        objection: 'Customers deploy on diverse edge hardware; we can\'t introduce complex dependencies',
+                        response: 'Ray\'s edge runtime is lightweight and portable. The cloud serving layer is separate — you keep control of edge deployments while Ray manages cloud orchestration.'
+                    }
+                ],
+                agenda: [
+                    { time: '0:00-3:00', topic: 'Intro: Ray Serve for vision+LLM fusion pattern' },
+                    { time: '3:00-9:00', topic: 'Deep Dive: Multi-model scheduling, fractional GPU, edge+cloud' },
+                    { time: '9:00-18:00', topic: 'Case Studies: Wildlife Studios (15 models/request), Coactive (75%)' },
+                    { time: '18:00-26:00', topic: 'Architecture: Ray Serve cloud layer + custom edge optimizations' },
+                    { time: '26:00-30:00', topic: 'Customer deployment patterns + POC scope' }
+                ],
+                customNotes: ''
+            },
+            'Lightwheel': {
+                company: {
+                    industry: 'Physical AI / Robotics — Synthetic Data & Simulation',
+                    size: '~100+ employees',
+                    hq: 'United States',
+                    funding: 'Series B stage; NVIDIA case study published',
+                    techStack: 'SimReady assets, synthetic data generation, evaluation platforms, distributed rendering'
+                },
+                keyContacts: [
+                    { name: 'Head of ML Platform', title: 'Head of ML Platform / VP Engineering', status: 'Target' }
+                ],
+                whyAnyscale: [
+                    'SimReady asset pipeline generates massive synthetic datasets requiring distributed processing',
+                    'Heterogeneous CPU/GPU compute designed for sim+training (CPU rendering, GPU model training)',
+                    'NVIDIA partnership creates warm intro path — Anyscale runs optimally on NVIDIA infrastructure'
+                ],
+                rayLibraries: [
+                    'Ray Data (PRIMARY) - SimReady synthetic data pipeline and evaluation',
+                    'Ray Train (PRIMARY) - Distributed robot skill training on synthetic data',
+                    'RLlib (SECONDARY) - Reinforcement learning for robot policies',
+                    'Ray Tune (SECONDARY) - HPO across robot skill variants'
+                ],
+                proofPoints: [
+                    'Physical Intelligence: 2× faster research iteration, 16+ engineers freed from infra on physical AI data pipelines',
+                    'GITAI: Distributed sim+training for space robots handling extreme environment variability',
+                    'Blue River: 2.5× AV regression testing speedup on parallel data processing'
+                ],
+                discoveryQuestions: [
+                    'Saw the NVIDIA case study — as you scale SimReady assets, what\'s the distributed compute stack underneath?',
+                    'Your Real2Sim2Real framework generates massive datasets — how long does data processing + training take end-to-end?',
+                    'How do you handle the heterogeneous compute split between simulation (CPU) and training (GPU)?',
+                    'Seeing bottlenecks in the evaluation platform as you scale to more robot morphologies?'
+                ],
+                objections: [
+                    {
+                        objection: 'Simulation infrastructure is highly specialized; generic platforms don\'t understand our workload',
+                        response: 'Ray\'s actor model is specifically designed for heterogeneous workloads. CPU actors handle rendering/sim, GPU actors handle training, all orchestrated by Ray. Many sim companies use Ray as their backbone.'
+                    },
+                    {
+                        objection: 'We\'ve invested heavily in custom simulation tools; migrating would disrupt the pipeline',
+                        response: 'Anyscale is a scheduling layer. Your simulation tools stay unchanged — Ray coordinates distributed execution so your ML team focuses on algorithms.'
+                    }
+                ],
+                agenda: [
+                    { time: '0:00-3:00', topic: 'Intro: NVIDIA partnership + Ray fit for sim+training pipelines' },
+                    { time: '3:00-8:00', topic: 'Deep Dive: SimReady pipeline bottlenecks + evaluation at scale' },
+                    { time: '8:00-16:00', topic: 'Architecture: Ray Data (sim) + Ray Train (robots) + heterogeneous compute' },
+                    { time: '16:00-25:00', topic: 'Case Studies: PI (2× faster), GITAI (sim+training), Blue River' },
+                    { time: '25:00-30:00', topic: 'POC: SimReady pipeline use case + NVIDIA warm intro' }
+                ],
+                customNotes: ''
+            },
+            'Valar Labs': {
+                company: {
+                    industry: 'Healthcare AI / Digital Pathology',
+                    size: '~30-50 employees',
+                    hq: 'United States',
+                    funding: '$22M Series A (a16z + DCVC); STAT News Feb 2026',
+                    techStack: 'PyTorch, pathology image processing, GPU training pipelines'
+                },
+                keyContacts: [
+                    { name: 'Anirudh Joshi', title: 'Co-founder', status: 'Research' },
+                    { name: 'Viswesh Krishna', title: 'Co-founder', status: 'Research' },
+                    { name: 'Pranav Rajpurkar', title: 'Co-founder (Stanford AI Lab)', status: 'Research' }
+                ],
+                whyAnyscale: [
+                    'Histology model training on 1000+ patient cohorts requires efficient multi-GPU parallel training',
+                    'Managed platform dramatically reduces infra overhead for a founder-led team',
+                    'Healthcare-grade reliability and audit trails built into Anyscale for clinical deployments'
+                ],
+                rayLibraries: [
+                    'Ray Train (PRIMARY) - Distributed pathology model training on large image datasets',
+                    'Ray Data (PRIMARY) - Histology image pipeline and feature extraction',
+                    'Ray Tune (SECONDARY) - HPO for cancer prediction models',
+                    'Ray Serve (SECONDARY) - Serving Vesta models for clinical validation'
+                ],
+                proofPoints: [
+                    'Biolexis Therapeutics: 7 days → 5 hours processing on Anyscale for drug discovery (500K biochemical datapoints)',
+                    'Techcyte: Pathology AI training on millions of high-res slides with distributed GPU training',
+                    'Canva: 12× faster training (90 min → 6 min), 50% cost reduction'
+                ],
+                discoveryQuestions: [
+                    'Congrats on STAT News coverage — as you scale to more cancer types, how is training infrastructure evolving?',
+                    'What\'s your current training pipeline for Vesta? Single-node, multi-node, or cloud?',
+                    'How many patient cohorts are you training on, and what\'s the bottleneck for faster iteration?',
+                    'With clinical-grade requirements, how are you managing audit trails and reproducibility?'
+                ],
+                objections: [
+                    {
+                        objection: 'Healthcare data requires extreme compliance; managed platforms add risk',
+                        response: 'Anyscale is HIPAA-compatible with audit trails, encryption, and data governance for clinical applications. We work with NHS and other healthcare institutions.'
+                    },
+                    {
+                        objection: 'Our team is lean; we want to minimize external dependencies',
+                        response: 'Anyscale reduces operational overhead so your small team focuses on model science. NHS case study shows healthcare teams use Ray for exactly this.'
+                    }
+                ],
+                agenda: [
+                    { time: '0:00-3:00', topic: 'Intro: STAT News coverage + Ray fit for histology training' },
+                    { time: '3:00-9:00', topic: 'Deep Dive: Training infrastructure + clinical validation pipeline' },
+                    { time: '9:00-18:00', topic: 'Case Studies: Biolexis (7d→5h), Canva (12× speedup), healthcare infra' },
+                    { time: '18:00-25:00', topic: 'Architecture: Ray Train for pathology datasets + compliance features' },
+                    { time: '25:00-30:00', topic: 'POC: Vesta training use case + clinical validation integration' }
+                ],
+                customNotes: ''
+            },
+            'Elroy Air': {
+                company: {
+                    industry: 'Autonomous Cargo Drones',
+                    size: '~150+ employees',
+                    hq: 'United States',
+                    funding: 'Series B stage',
+                    techStack: 'Flight control ML, computer vision, distributed training backend'
+                },
+                keyContacts: [
+                    { name: 'VP Engineering', title: 'VP Engineering / Head of Autonomy Software', status: 'Target' }
+                ],
+                whyAnyscale: [
+                    'Autonomous cargo drones require robust ML training for flight control and vision across diverse conditions',
+                    'Distributed data processing and training at scale reduce iteration time on safety-critical ML',
+                    'Heterogeneous compute handles mixed CPU/GPU pipelines for sensor data + model training'
+                ],
+                rayLibraries: [
+                    'Ray Data (PRIMARY) - Flight data and sensor processing pipeline',
+                    'Ray Train (PRIMARY) - Distributed flight control and vision model training',
+                    'Ray Tune (SECONDARY) - HPO for safety-critical models',
+                    'Ray Serve (SECONDARY) - Serving models for validation'
+                ],
+                proofPoints: [
+                    'Blue River Technology: 2.5× AV regression testing speedup with parallel sensor data',
+                    'Zoox: Distributed AV simulation at scale with parallel scenario evaluation',
+                    'Physical Intelligence: Multi-embodiment training handling terabytes of daily sensor data'
+                ],
+                discoveryQuestions: [
+                    'Cargo drone autonomy requires training on diverse real-world data — how is the training pipeline scaling?',
+                    'What\'s the data collection and featurization process? How long does a full training cycle take?',
+                    'How many flight scenarios / failure modes are you simulating and testing?',
+                    'As you expand to more geographies and cargo types, how does infrastructure need to scale?'
+                ],
+                objections: [
+                    {
+                        objection: 'Safety-critical flight AI requires absolute control and determinism',
+                        response: 'Ray is designed for safety-critical workloads with deterministic scheduling. Your flight control logic stays deterministic; Anyscale manages training infrastructure orchestration.'
+                    },
+                    {
+                        objection: 'We operate globally with varying regulatory requirements',
+                        response: 'Anyscale runs on your infrastructure across regions with full transparency and control. You maintain regional compliance; we handle distributed orchestration.'
+                    }
+                ],
+                agenda: [
+                    { time: '0:00-3:00', topic: 'Intro: Ray fit for safety-critical cargo drone ML' },
+                    { time: '3:00-8:00', topic: 'Deep Dive: Flight control training + real-world data challenges' },
+                    { time: '8:00-16:00', topic: 'Architecture: Ray Data (flight pipeline) + Ray Train (distributed)' },
+                    { time: '16:00-25:00', topic: 'Case Studies: Blue River (AV), Zoox (sim), PI (sensor data)' },
+                    { time: '25:00-30:00', topic: 'Safety-critical infrastructure + regulatory considerations' }
+                ],
+                customNotes: ''
+            },
+            'Intrinsic': {
+                company: {
+                    industry: 'Industrial Robotics / Physical AI (Google)',
+                    size: '~200+ employees',
+                    hq: 'Now part of Google (acquired Feb 2026, Alphabet X spinoff)',
+                    funding: 'Google acquisition Feb 2026',
+                    techStack: 'Flowstate platform, Intrinsic Vision Model (IVM), industrial robotics, distributed training'
+                },
+                keyContacts: [
+                    { name: 'Google DeepMind Physical AI', title: 'VP / Head of ML', status: 'Target' },
+                    { name: 'Google Cloud Robotics BD', title: 'Partnership / BD', status: 'Research' }
+                ],
+                whyAnyscale: [
+                    'Flowstate platform + IVM requires large-scale distributed training for robot manipulation skills',
+                    'Google integration creates Anyscale-on-GCP angle through Google Cloud BD',
+                    'Foxconn JV requires production-grade ML infrastructure; Anyscale provides managed scaling'
+                ],
+                rayLibraries: [
+                    'Ray Train (PRIMARY) - Distributed training for Flowstate + IVM',
+                    'Ray Data (PRIMARY) - Robot manipulation dataset processing at scale',
+                    'RLlib (SECONDARY) - Reinforcement learning for manipulation policies',
+                    'Ray Serve (SECONDARY) - Serving IVM for inference at manufacturer sites'
+                ],
+                proofPoints: [
+                    'Physical Intelligence: 2× faster research iteration, multi-embodiment training on massive sensor data',
+                    'GITAI: Distributed sim+training for space robots on Ray (CPU sim + GPU training)',
+                    'Zoox: Distributed simulation at scale for autonomous systems'
+                ],
+                discoveryQuestions: [
+                    'The Google integration is fascinating — as Intrinsic scales Flowstate across Foxconn, what does ML training infra look like?',
+                    'How are you thinking about IVM model serving across multiple manufacturer deployments?',
+                    'What\'s the scale of manipulation datasets you\'re training on? Single-factory or cross-manufacturer?',
+                    'With the Foxconn JV, seeing challenges around data isolation or multi-tenant orchestration?'
+                ],
+                objections: [
+                    {
+                        objection: 'We\'re part of Google; we have access to internal ML infrastructure',
+                        response: 'Anyscale adds specialized ML infrastructure for robotics training patterns. Some Google teams use managed Ray for faster iteration and cost control on specialized workloads.'
+                    },
+                    {
+                        objection: 'Foxconn requires manufacturing-grade reliability; we need vendor independence',
+                        response: 'Anyscale runs on GCP with full transparency and SLA guarantees. You maintain control; we provide managed infrastructure with regulatory-grade compliance.'
+                    }
+                ],
+                agenda: [
+                    { time: '0:00-3:00', topic: 'Intro: Google integration + Ray fit for Flowstate/IVM training' },
+                    { time: '3:00-8:00', topic: 'Deep Dive: Foxconn JV requirements + multi-tenant orchestration' },
+                    { time: '8:00-16:00', topic: 'Architecture: Ray Train for IVM + Ray Data for manipulation datasets' },
+                    { time: '16:00-25:00', topic: 'Case Studies: PI (multi-embodiment), GITAI (sim+training)' },
+                    { time: '25:00-30:00', topic: 'GCP partnership angle + Foxconn collaboration patterns' }
+                ],
+                customNotes: ''
+            },
+            'Wing': {
+                company: {
+                    industry: 'Autonomous Drone Delivery (Alphabet)',
+                    size: '~200+ employees (Alphabet subsidiary)',
+                    hq: 'Mountain View, CA',
+                    funding: 'Alphabet subsidiary',
+                    techStack: 'Flight AI, obstacle avoidance ML, distributed training infrastructure'
+                },
+                keyContacts: [
+                    { name: 'Head of ML', title: 'Head of ML / VP Autonomy Engineering', status: 'Target' }
+                ],
+                whyAnyscale: [
+                    'Expanding drone fleet requires continuous ML model updates for flight safety and logistics optimization',
+                    'Managed Ray provides scalable, fault-tolerant training backbone for safety-critical ML at operational scale',
+                    'Managed platform reduces complexity in a large org, freeing teams to focus on safety improvements'
+                ],
+                rayLibraries: [
+                    'Ray Data (PRIMARY) - Flight data and logistics pipeline',
+                    'Ray Train (PRIMARY) - Distributed flight AI model training',
+                    'Ray Tune (SECONDARY) - HPO for obstacle avoidance',
+                    'Ray Serve (SECONDARY) - Serving models for validation and deployment'
+                ],
+                proofPoints: [
+                    'Zoox: Distributed AV simulation at scale with parallel scenario evaluation',
+                    'Blue River: 2.5× AV regression testing speedup with parallel data processing',
+                    'Physical Intelligence: Managing massive sensor data from thousands of robots on Anyscale'
+                ],
+                discoveryQuestions: [
+                    'As Wing scales commercial operations, how is the ML pipeline evolving for continuous model improvement?',
+                    'What\'s your approach to safety validation? Distributed simulations or real-world testing?',
+                    'With US, AU, and expanding — how do you handle geographically distributed training and serving?',
+                    'How many concurrent training jobs for different flight stack aspects (path planning, obstacle avoidance)?'
+                ],
+                objections: [
+                    {
+                        objection: 'We\'re part of Alphabet with unlimited internal infrastructure',
+                        response: 'Anyscale adds specialized ML infrastructure on top. Some Alphabet teams find managed Ray provides faster iteration and better cost control for specialized workloads.'
+                    },
+                    {
+                        objection: 'Safety-critical flight infrastructure requires maximum control and visibility',
+                        response: 'Anyscale provides full transparency, audit trails, and SLAs for safety-critical systems. Your flight control stays in-house; we manage distributed training with regulatory-grade compliance.'
+                    }
+                ],
+                agenda: [
+                    { time: '0:00-3:00', topic: 'Intro: Commercial expansion + Ray fit for continuous model improvement' },
+                    { time: '3:00-9:00', topic: 'Deep Dive: ML pipeline + safety validation infrastructure' },
+                    { time: '9:00-18:00', topic: 'Architecture: Ray Data (flight logs) + Ray Train + distributed validation' },
+                    { time: '18:00-27:00', topic: 'Case Studies: Zoox (sim), Blue River (AV pipeline), PI (fleet ops)' },
+                    { time: '27:00-30:00', topic: 'Managed infrastructure value + operational scale considerations' }
+                ],
+                customNotes: ''
+            },
+            'GITAI': {
+                company: {
+                    industry: 'Space Robotics / Orbital Operations',
+                    size: '~100+ employees',
+                    hq: 'Tokyo, Japan (with US operations)',
+                    funding: 'Series B/C stage',
+                    techStack: 'Robotics manipulation ML, simulation-heavy pipelines, distributed training; NASA & JAXA partnerships'
+                },
+                keyContacts: [
+                    { name: 'VP Engineering', title: 'VP Engineering / Head of AI/ML', status: 'Target' }
+                ],
+                whyAnyscale: [
+                    'Space robots require training on vast simulation data for extreme environment variability — Ray heterogeneous CPU/GPU compute architected for this',
+                    'Sim-heavy, safety-critical ML training needs distributed orchestration of rendering (CPU) + training (GPU)',
+                    'Strong robotics simulation references give Anyscale credibility with space robotics teams'
+                ],
+                rayLibraries: [
+                    'Ray Data (PRIMARY) - Simulation data processing for space environments',
+                    'Ray Train (PRIMARY) - Distributed manipulation policy training',
+                    'RLlib (PRIMARY) - Reinforcement learning for extreme environment adaptation',
+                    'Ray Tune (SECONDARY) - HPO for space robot policies'
+                ],
+                proofPoints: [
+                    'Physical Intelligence: Multi-embodiment training handling terabytes of daily sensor data from diverse platforms',
+                    'Blue River: 2.5× AV regression testing speedup with distributed data processing',
+                    'Intrinsic/Flowstate: Distributed training for industrial manipulation at scale'
+                ],
+                discoveryQuestions: [
+                    'Training manipulation for space requires enormous diversity of simulated scenarios — how is GITAI handling distributed compute?',
+                    'What\'s the scale of simulation workloads? How many scenarios and how long do training cycles take?',
+                    'How do you handle the heterogeneous split between physics simulation (CPU) and RL training (GPU)?',
+                    'With NASA and JAXA partnerships, are there specific infrastructure or compliance requirements?'
+                ],
+                objections: [
+                    {
+                        objection: 'Space robotics requires extreme reliability; can\'t depend on commercial cloud',
+                        response: 'Anyscale runs on your infrastructure with full transparency and SLA guarantees. You maintain control; we handle orchestration with aerospace-grade reliability.'
+                    },
+                    {
+                        objection: 'Our simulation infrastructure is highly specialized for space environments',
+                        response: 'Ray\'s actor model is designed for heterogeneous sim+training workloads. We have strong robotics references (Lightwheel, PI). Your physics sim stays unchanged — Ray coordinates execution.'
+                    }
+                ],
+                agenda: [
+                    { time: '0:00-3:00', topic: 'Intro: NASA/JAXA partnerships + Ray fit for space robotics training' },
+                    { time: '3:00-9:00', topic: 'Deep Dive: Simulation diversity + distributed compute challenges' },
+                    { time: '9:00-18:00', topic: 'Architecture: Ray Data (sim) + Ray Train (policy) + CPU/GPU heterogeneity' },
+                    { time: '18:00-27:00', topic: 'Case Studies: PI (multi-platform), Lightwheel (sim), aerospace-grade infra' },
+                    { time: '27:00-30:00', topic: 'POC: Space simulation use case + GITAI partnership' }
                 ],
                 customNotes: ''
             }
