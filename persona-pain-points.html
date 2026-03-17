@@ -647,11 +647,11 @@ const proofPoints = [
   {
     company:"Canva",icon:"🎨",iconBg:"#00c4cc",
     industries:["Design Tech","E-Commerce"],
-    useCase:"Distributed Training & Fine-Tuning",
-    elevator:"Canva standardized all AI training on Anyscale, achieving 100% GPU utilization and reducing cloud costs by 50%. They fine-tuned 50 LLMs in under 10 days and cut training time by 25x using heterogeneous GPU clusters.",
-    rayPitch:"Ray Train enabled Canva to distribute training of 100+ production ML models across heterogeneous GPU clusters, eliminating the single-machine bottleneck that was crippling their image processing pipeline.",
-    anyscalePitch:"Anyscale gave Canva fully managed distributed training with automatic spot instance management and cluster orchestration — 50% cost reduction, 100% GPU utilization, and 25x faster training cycles.",
-    stats:[{value:"50%",label:"Cloud cost reduction"},{value:"25x",label:"Faster training"},{value:"50",label:"LLMs fine-tuned in 10 days"},{value:"100%",label:"GPU utilization"}],
+    useCase:"Scaling AI Vision for 170M Users",
+    elevator:"Canva achieved 12x faster innovation velocity and 50% lower cloud costs by standardizing on Anyscale. GPUs are now fully saturated at peak load with zero data ingestion bottlenecks, enabling new AI features like Magic Switch and Studio for 170M users.",
+    rayPitch:"Ray Data and Ray Train with fractional heterogeneous resources eliminated Canva's single-machine constraint, enabling 4-6x faster model training across 80+ AWS GPU instances with zero data ingestion bottlenecks.",
+    anyscalePitch:"Anyscale's Unified AI Platform with RayTurbo unified infrastructure across all AI workloads. Developer Workspaces let teams self-serve model development, and Job Queues with elastic spot training drove 50% cost reduction.",
+    stats:[{value:"12x",label:"Faster iteration"},{value:"50%",label:"Lower cloud costs"},{value:"100%",label:"GPU utilization"},{value:"170M",label:"Canva users served"}],
     personas:["ML/AI Engineer","Data Scientist","MLOps Engineer","Head of AI Platform"]
   },
   {
@@ -677,21 +677,21 @@ const proofPoints = [
   {
     company:"Coinbase",icon:"💰",iconBg:"#0052ff",
     industries:["Fintech","Cybersecurity"],
-    useCase:"ML Infrastructure & LLM Deployment",
-    elevator:"Coinbase chose Ray and Anyscale for their ML infrastructure, accelerating model iteration cycles and maximizing hardware efficiency. They deploy LLMs using Ray + vLLM + LiteLLM for trust, security, and reliability at scale.",
-    rayPitch:"Ray provides Coinbase a unified compute layer for both training and serving ML models — from fraud detection to LLM-powered customer experiences — with consistent APIs and battle-tested reliability.",
-    anyscalePitch:"Anyscale eliminated Coinbase's infrastructure overhead, letting their ML team focus on model iteration rather than cluster management. Production-grade security, compliance, and scaling built in.",
-    stats:[{value:"3x",label:"Faster model iteration"},{value:"Ray+vLLM",label:"LLM serving stack"},{value:"Zero",label:"Infra overhead"}],
+    useCase:"AI at Scale for 120M+ Users",
+    elevator:"Coinbase migrated from SageMaker to Anyscale, reducing iteration cycles from 2 hours to seconds and scaling to 50x larger training datasets. Ray Train and Anyscale Jobs power fraud detection, time series, and LLM workloads across 70+ distributed workers with 70% cost reduction.",
+    rayPitch:"Ray's distributed architecture enabled Coinbase to process 50x larger datasets with 70+ workers for distributed preprocessing, replacing their single-instance SageMaker bottleneck. Ray Data shared preprocessing across all HPO trials, eliminating redundant compute.",
+    anyscalePitch:"Anyscale streamlined Coinbase's workflow to three steps: create directory, write config, trigger job. Workspaces and Images simplified experimentation, Job Queues enabled resource sharing across concurrent jobs, and full migration completed in under 1 year.",
+    stats:[{value:"100x+",label:"Faster iteration"},{value:"50x",label:"Larger training data"},{value:"70%",label:"Cost reduction"},{value:"8x",label:"Faster data transforms"}],
     personas:["AI Platform Engineer","MLOps Engineer","Software Engineer","Head of AI Platform"]
   },
   {
     company:"Physical Intelligence",icon:"🦾",iconBg:"#4a1d96",
     industries:["Robotics","AI Research"],
-    useCase:"Multimodal Robotics Data Processing",
-    elevator:"Physical Intelligence uses Anyscale to process terabytes of multimodal robotics sensor data, eliminating cluster management complexity so their research team can focus on building adaptable robot intelligence.",
-    rayPitch:"Ray Data and Ray Train let Physical Intelligence build end-to-end pipelines that ingest, preprocess, and train on terabytes of multimodal sensor data — video, lidar, force-torque — in a single distributed workflow.",
-    anyscalePitch:"Anyscale removed the burden of managing Ray clusters at scale, giving Physical Intelligence an intuitive developer experience for processing massive robotics datasets with zero infrastructure toil.",
-    stats:[{value:"TBs",label:"Multimodal data processed"},{value:"Zero",label:"Cluster management burden"},{value:"VLA",label:"Vision-Language-Action models"}],
+    useCase:"Distributed Data Processing for Robot Intelligence",
+    elevator:"Physical Intelligence chose Anyscale over self-managed KubeRay to process terabytes of multimodal robotics sensor data with just 1-2 engineers managing their entire ML platform. Anyscale delivered 2x faster research iteration and freed engineers to focus on product development.",
+    rayPitch:"Ray Data lets Physical Intelligence build end-to-end pipelines that ingest, preprocess, and train on terabytes of multimodal sensor data — video, lidar, force-torque — in a single distributed workflow without worrying about infrastructure.",
+    anyscalePitch:"Anyscale's fully managed experience let PI run their entire ML platform with just 1-2 DevOps engineers. 2x faster research iteration, zero time on cluster management, and positioned them to pursue truly adaptable robot intelligence.",
+    stats:[{value:"TBs",label:"Multimodal data processed"},{value:"2x",label:"Faster research iteration"},{value:"1-2",label:"Engineers for entire ML platform"},{value:"VLA",label:"Vision-Language-Action models"}],
     personas:["AI Researcher","ML/AI Engineer","CV/Perception Engineer","Head of AI"]
   },
   {
@@ -783,6 +783,136 @@ const proofPoints = [
     anyscalePitch:"Anyscale provided the managed compute platform for 24/7 RL simulation workloads, handling cluster orchestration and GPU scheduling so the sailing team focused on winning rather than managing infrastructure.",
     stats:[{value:"24/7",label:"Simulation uptime"},{value:"RL",label:"Reinforcement learning"},{value:"Champion",label:"America's Cup defended"}],
     personas:["AI Researcher","Data Scientist","ML/AI Engineer"]
+  },
+  {
+    company:"Recursion",icon:"🧬",iconBg:"#5c2d91",
+    industries:["Healthcare","Life Sciences"],
+    useCase:"Drug Discovery at Petabyte Scale",
+    elevator:"Recursion processed 180M+ images (1.3 PB of data) on ~4,500 GPUs in just 5 days using Anyscale. Inference runtimes dropped from months to 1 day, 95% of workloads now run on spot instances delivering ~75% savings, and their new 1.8B-parameter model detected 20-25% more gene effects.",
+    rayPitch:"Ray enables Recursion to seamlessly run large inference workloads across 4,500+ cloud GPUs and 500+ on-prem H100 GPUs with elastic heterogeneous scaling. Cluster Controller launches large clusters in under 60 seconds.",
+    anyscalePitch:"Anyscale's Unified Control Plane provides a single pane of glass for hybrid cloud deployment. Workspaces with W&B integration, CLI for production management, and Machine Pools enable seamless cloud + on-prem operation.",
+    stats:[{value:"180M+",label:"Images processed (1.3 PB)"},{value:"75%",label:"Cost savings (spot)"},{value:"4,500",label:"GPUs coordinated"},{value:"5 days",label:"For full inference run"}],
+    personas:["AI Researcher","ML/AI Engineer","Data Scientist","Head of AI"]
+  },
+  {
+    company:"Blue River (John Deere)",icon:"🚜",iconBg:"#367c2b",
+    industries:["Agriculture Tech","Robotics"],
+    useCase:"AI-Powered Precision Agriculture",
+    elevator:"Blue River Technology (John Deere subsidiary) uses Anyscale to power See & Spray autonomous tractors. Developers iterate 2.5x faster on AI computer vision workloads, and full regression testing dropped from 24 hours to under 9.5 hours — enabling 77% herbicide reduction through precision spraying.",
+    rayPitch:"Ray distributes Blue River's computer vision training and regression testing across GPU clusters, cutting full regression runs from 24 hours to under 9.5 hours while handling the massive image datasets from field operations.",
+    anyscalePitch:"Anyscale's managed platform enabled Blue River to cut regression testing time by more than half and achieve 2.5x faster developer iteration — critical velocity for shipping AI features to John Deere's autonomous See & Spray tractors.",
+    stats:[{value:"2.5x",label:"Faster developer iteration"},{value:"60%",label:"Faster regression testing"},{value:"77%",label:"Herbicide reduction"},{value:"$305M",label:"Acquired by John Deere"}],
+    personas:["CV/Perception Engineer","ML/AI Engineer","MLOps Engineer","Head of AI"]
+  },
+  {
+    company:"Motional",icon:"🚕",iconBg:"#1a1a2e",
+    industries:["Autonomous Vehicles","Robotics"],
+    useCase:"Level 4 Autonomous Driving",
+    elevator:"Motional (Hyundai/Aptiv JV) is building Level 4 driverless robotaxis using a Continuous Learning Framework powered by distributed AI infrastructure. Their AI-first approach integrates perception, decision-making, and control into end-to-end learned driving models trained on massive fleet data.",
+    rayPitch:"Ray provides the distributed compute backbone for Motional's Continuous Learning Framework — processing massive sensor datasets from fleet operations and scaling end-to-end model training across large GPU clusters.",
+    anyscalePitch:"Anyscale's managed infrastructure handles the petabyte-scale data processing and multi-node training that Motional's Large Driving Models demand, with fault tolerance and auto-scaling critical for safety-first AV development.",
+    stats:[{value:"Level 4",label:"Autonomous driving"},{value:"2026",label:"Driverless launch target"},{value:"E2E",label:"End-to-end learned models"},{value:"Fleet-scale",label:"Continuous learning"}],
+    personas:["CV/Perception Engineer","AI Researcher","ML/AI Engineer","Head of AI"]
+  },
+  {
+    company:"Applied Intuition",icon:"🏎️",iconBg:"#2d3436",
+    industries:["Autonomous Vehicles","Simulation"],
+    useCase:"Physical AI Simulation & ML Platform",
+    elevator:"Applied Intuition uses Ray to scale GPU-accelerated workloads operating on petabytes of raw sensor data for autonomous vehicle development. Ray Train serves as the backbone for distributed training, hyperparameter sweeps, and both open-loop and closed-loop RL training.",
+    rayPitch:"Ray Train powers Applied Intuition's ML platform for distributed training and hyperparameter sweeps across petabyte-scale sensor data. Users run open-loop and closed-loop RL training with Ray handling the distributed compute orchestration.",
+    anyscalePitch:"Anyscale provides the managed infrastructure for Applied Intuition's GPU-accelerated simulation and training workloads, enabling their customers to shorten the AV development loop from weeks to days.",
+    stats:[{value:"PBs",label:"Sensor data processed"},{value:"10x",label:"Faster AI agent tasks"},{value:"Train+RL",label:"Ray libraries used"},{value:"Weeks→Days",label:"Development loop"}],
+    personas:["CV/Perception Engineer","AI Researcher","AI Platform Engineer","Head of AI Platform"]
+  },
+  {
+    company:"Coactive AI",icon:"👁️",iconBg:"#6c5ce7",
+    industries:["Computer Vision","AI Platform"],
+    useCase:"Multimodal Visual Analytics Platform",
+    elevator:"Coactive AI runs its multimodal visual analytics platform on Anyscale, achieving 75% reduction in GPU spend and 4x drop in per-image processing cost. Fractional GPU allocations increase workload density while fast autoscaling handles bursts without paying for idle capacity.",
+    rayPitch:"Ray processes Coactive's massive unstructured visual data — images, videos, and audio — across distributed GPU clusters with fractional GPU allocations that maximize workload density and throughput.",
+    anyscalePitch:"Anyscale's managed platform with fractional GPU support and fast autoscaling cut Coactive's GPU spend by 75% and per-image cost by 4x. Multi-cloud support across AWS and Azure gives them deployment flexibility.",
+    stats:[{value:"75%",label:"GPU spend reduction"},{value:"4x",label:"Lower per-image cost"},{value:"Multi-cloud",label:"AWS + Azure"},{value:"Fractional GPU",label:"Workload density"}],
+    personas:["CV/Perception Engineer","ML/AI Engineer","AI Platform Engineer","Head of AI"]
+  },
+  {
+    company:"DoorDash",icon:"🔴",iconBg:"#ff3008",
+    industries:["E-Commerce","Logistics & Delivery"],
+    useCase:"ML Training & Model Serving at Scale",
+    elevator:"DoorDash uses Ray for both model training and serving, achieving 46% reduction in training time and 42% reduction in cost. Ray Serve powers their prediction services for supply-demand balancing, NLP, and image processing across their delivery platform.",
+    rayPitch:"Ray Train handles DoorDash's distributed forecasting and training pipelines with 46% faster training and 42% lower cost. Ray Serve replaced legacy prediction services with a data-scientist-friendly framework supporting NLP and image processing workloads.",
+    anyscalePitch:"Anyscale's managed Ray Serve provides DoorDash a unified model serving platform that scales with traffic demand. Enhanced autoscaling and observability reduced operational overhead while supporting their expanding ML use cases.",
+    stats:[{value:"46%",label:"Faster training"},{value:"42%",label:"Cost reduction"},{value:"Ray Serve",label:"Unified model serving"},{value:"Supply+Demand",label:"ML-powered balancing"}],
+    personas:["ML/AI Engineer","Data Scientist","AI Platform Engineer","Software Engineer"]
+  },
+  {
+    company:"Attentive",icon:"📱",iconBg:"#000000",
+    industries:["E-Commerce","Ad Tech"],
+    useCase:"Custom Messaging for Every Customer",
+    elevator:"Attentive achieved 5x reduction in training time, 7x cost reduction, and 10x data volume increase after migrating to Anyscale. Their small engineering team onboarded in just 3 days, replacing fragmented Spark/PyTorch/Kubernetes infrastructure with Anyscale's unified platform.",
+    rayPitch:"Ray's unified platform replaced Attentive's fragmented infrastructure of Spark, PyTorch, and self-managed Kubernetes. Ray Turbo with autoscaling and Smart Instance Management optimized cost efficiency with built-in fault tolerance.",
+    anyscalePitch:"Anyscale delivered 7x cost reduction with managed Ray, spot instance support, and unified observability. Professional services enabled pair programming for best practices, and the team was fully onboarded in just 3 days.",
+    stats:[{value:"5x",label:"Faster training"},{value:"7x",label:"Cost reduction"},{value:"10x",label:"Data volume increase"},{value:"3 days",label:"To full onboarding"}],
+    personas:["MLOps Engineer","ML/AI Engineer","AI Platform Engineer","Head of AI Platform"]
+  },
+  {
+    company:"Runway",icon:"🎥",iconBg:"#000000",
+    industries:["Media & Entertainment","AI Research"],
+    useCase:"Gen-3 Alpha Video Generation Model",
+    elevator:"Runway uses Anyscale to train their Gen-3 Alpha model for next-generation AI video generation. They achieved 16x lower TCO vs. self-managing Ray, 35% cost reduction from spot instances, and 4x faster iteration on new models with clusters scaling to 10,000+ nodes.",
+    rayPitch:"Ray handles Runway's massive multimodal data processing pipelines and distributed training for their Gen-3 Alpha video generation model, with clusters scaling to 10,000+ nodes for the compute demands of generative video AI.",
+    anyscalePitch:"Anyscale delivered 16x lower TCO compared to self-managed Ray. Fast node autoscaling launches 1,000+ node clusters in 60 seconds, Anyscale Jobs automates retries with dedicated resources, and managed observability streamlines debugging.",
+    stats:[{value:"16x",label:"Lower TCO vs self-managed"},{value:"35%",label:"Savings from spot instances"},{value:"4x",label:"Faster model iteration"},{value:"10K+",label:"Node cluster scale"}],
+    personas:["AI Researcher","ML/AI Engineer","AI Platform Engineer","Head of AI"]
+  },
+  {
+    company:"Discord",icon:"💬",iconBg:"#5865f2",
+    industries:["Consumer Tech","Media & Entertainment"],
+    useCase:"ML Platform for Safety & Ads",
+    elevator:"Discord uses Anyscale for Ads Scoring, Safety models, voice filters, and LLM workloads. Training is 17% faster, scoring 40% faster, warm starts improved from 5 minutes to 30 seconds (10x), and 30% monthly cost reduction from 100% GPU utilization.",
+    rayPitch:"Managed Ray runtime with smarter task scheduling and fused Ray Dataset ops delivered 17% faster training and 40% faster scoring. Warm compute pools provide instant job submission with zero cold-start delays.",
+    anyscalePitch:"Anyscale's integrated dashboards, structured logs, and job-level cost metrics gave Discord full observability. Py_modules with persistent Workspaces eliminated slow image rebuilds, enabling instant code iteration and rerun cycles.",
+    stats:[{value:"40%",label:"Faster scoring"},{value:"10x",label:"Faster warm starts"},{value:"30%",label:"Monthly cost reduction"},{value:"100%",label:"GPU utilization"}],
+    personas:["ML/AI Engineer","MLOps Engineer","AI Platform Engineer","Software Engineer"]
+  },
+  {
+    company:"Nubank",icon:"💜",iconBg:"#820ad1",
+    industries:["Fintech","Financial Services"],
+    useCase:"Personalized Banking for 114M+ Customers",
+    elevator:"Nubank uses Anyscale to train and fine-tune billion-parameter models across 64+ H100 GPUs, achieving 57% faster training, 240% increase in transaction context capacity, and ~60% reduction in compute costs serving 114M+ customers.",
+    rayPitch:"Ray Data and Ray Train enable seamless scaling for both distributed training and batch inference. Anyscale's Global Resource Scheduler and Job Queues allow cost-effective sharing across multiple teams and workloads.",
+    anyscalePitch:"Anyscale Workspaces streamline experimentation in a regulated environment. Observability suite provides troubleshooting, utilization monitoring, and cost attribution critical for financial compliance.",
+    stats:[{value:"57%",label:"Faster training"},{value:"60%",label:"Compute cost reduction"},{value:"240%",label:"More transaction context"},{value:"114M+",label:"Customers served"}],
+    personas:["AI Platform Engineer","ML/AI Engineer","Head of Data","Head of AI Platform"]
+  },
+  {
+    company:"Motive",icon:"📹",iconBg:"#000000",
+    industries:["Computer Vision","Logistics & Delivery"],
+    useCase:"Driver Safety Analytics & Dash Cams",
+    elevator:"Motive uses Anyscale for CV-powered driver safety analytics, achieving 10.4x faster batch inference, 2x faster prototype-to-production, and 15% lift in developer productivity. They scaled back infra headcount by 2 FTEs while improving compute utilization across cloud and on-prem.",
+    rayPitch:"Ray's scalable infrastructure eliminated bottlenecks in Motive's single-threaded execution and ad-hoc scaling, delivering 10x faster infrastructure for model updates and 2-5x pipeline velocity acceleration.",
+    anyscalePitch:"Anyscale increased Motive's productivity per FTE by freeing engineers from infrastructure management. 10.4x faster batch inference and 2x faster time-to-production directly impacted top-line revenue growth.",
+    stats:[{value:"10.4x",label:"Faster batch inference"},{value:"2x",label:"Faster to production"},{value:"15%",label:"Developer productivity lift"},{value:"2 FTE",label:"Infra headcount saved"}],
+    personas:["CV/Perception Engineer","MLOps Engineer","Software Engineer","Head of AI"]
+  },
+  {
+    company:"Bedrock Robotics",icon:"🏗️",iconBg:"#455a64",
+    industries:["Robotics","Construction Tech"],
+    useCase:"Autonomous Construction Equipment",
+    elevator:"Bedrock Robotics uses Anyscale to train simulation and evaluation models on 5+ PBs of Video/LiDAR data for autonomous construction equipment. Training epochs dropped from 12 hours to 2 hours, 15+ MLEs self-serve compute, and 40%+ savings on compute.",
+    rayPitch:"Ray Data handles heterogeneous compute and flexible data processing at scale across parquet, mcap, and mp4 formats. Spot Instance Reliability with Async Checkpointing enables cost-effective experimentation on massive datasets.",
+    anyscalePitch:"Anyscale's Global Resource Scheduler and Job Queues enable cost-effective sharing across ML, Hardware, and Site Testing teams. Observability dashboards provide full multi-cloud compute visibility, saving 10s of hours of monthly downtime.",
+    stats:[{value:"6x",label:"Faster training epochs"},{value:"40%+",label:"Compute savings"},{value:"5+ PB",label:"Video/LiDAR data"},{value:"15+",label:"Self-serve MLEs"}],
+    personas:["CV/Perception Engineer","ML/AI Engineer","AI Platform Engineer","Head of AI"]
+  },
+  {
+    company:"Palo Alto Networks",icon:"🛡️",iconBg:"#00295b",
+    industries:["Cybersecurity","Enterprise SaaS"],
+    useCase:"Anomaly Detection & Firewall Health",
+    elevator:"Palo Alto Networks migrated from Ray on Vertex AI to Anyscale for AIOps anomaly detection workloads, reducing startup times from ~15 minutes to ~1 minute and increasing job completion reliability. Better developer tools and RayTurbo performance delivered faster job processing overall.",
+    rayPitch:"Ray Core OOM improvements, enhanced automation, and autoscaling replaced PANW's manual Vertex AI setup. Job checkpointing enables jobs to resume from interruption with zero wasted compute.",
+    anyscalePitch:"Anyscale decreased startup times from 15 min to 1 min, improved job reliability, and provided enterprise support (vs. 90+ day unanswered GCP tickets). Faster node startup and RayTurbo performance optimized batch inference.",
+    stats:[{value:"15x",label:"Faster startup times"},{value:"Reliable",label:"Job completion guarantee"},{value:"Enterprise",label:"Support SLA"},{value:"AIOps",label:"Firewall Health Insights"}],
+    personas:["MLOps Engineer","Software Engineer","AI Platform Engineer","Head of AI Platform"]
   }
 ];
 
@@ -825,13 +955,13 @@ const industryElevators = {
 // Map proof points to filterable industries
 const industryMap = {
   "All":()=>true,
-  "Robotics & AV":pp=>pp.industries.some(i=>["Robotics","Autonomous Vehicles","Agriculture Tech"].includes(i)),
+  "Robotics & AV":pp=>pp.industries.some(i=>["Robotics","Autonomous Vehicles","Agriculture Tech","Construction Tech"].includes(i)),
   "Fintech & Financial Services":pp=>pp.industries.some(i=>["Fintech","Financial Services","Cybersecurity"].includes(i)),
   "Healthcare & Life Sciences":pp=>pp.industries.some(i=>["Healthcare","Life Sciences","Digital Health"].includes(i)),
-  "E-Commerce & Consumer":pp=>pp.industries.some(i=>["E-Commerce","Consumer Tech","HR Tech","Logistics & Delivery"].includes(i)),
+  "E-Commerce & Consumer":pp=>pp.industries.some(i=>["E-Commerce","Consumer Tech","HR Tech","Logistics & Delivery","Ad Tech"].includes(i)),
   "Media & Entertainment":pp=>pp.industries.some(i=>["Media & Entertainment","Design Tech"].includes(i)),
-  "Developer Tools & Platforms":pp=>pp.industries.some(i=>["Developer Tools","AI Platform","AI Research"].includes(i)),
-  "Infrastructure & Industrial":pp=>pp.industries.some(i=>["Infrastructure","Computer Vision","Simulation","Sports Tech"].includes(i)),
+  "Developer Tools & Platforms":pp=>pp.industries.some(i=>["Developer Tools","AI Platform","AI Research","Enterprise SaaS"].includes(i)),
+  "Infrastructure & Industrial":pp=>pp.industries.some(i=>["Infrastructure","Computer Vision","Simulation","Sports Tech","Construction Tech"].includes(i)),
   "Agriculture & Climate":pp=>pp.industries.some(i=>["Agriculture Tech"].includes(i))
 };
 
