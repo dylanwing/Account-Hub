@@ -1,0 +1,1053 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Anyscale Discovery Guide</title>
+    <style>
+        :root {
+            --blue-primary: #0078D4;
+            --blue-dark: #005a9e;
+            --blue-light: #e3f2fd;
+            --green-light: #e8f5e9;
+            --green-accent: #2e7d32;
+            --orange-light: #fff3e0;
+            --orange-accent: #e65100;
+            --gray-50: #f8f9fa;
+            --gray-100: #f0f0f0;
+            --gray-200: #e0e0e0;
+            --gray-500: #6c757d;
+            --gray-700: #495057;
+            --gray-900: #212529;
+            --shadow-sm: 0 1px 3px rgba(0,0,0,0.08);
+            --shadow-md: 0 4px 12px rgba(0,0,0,0.1);
+            --shadow-lg: 0 8px 24px rgba(0,0,0,0.12);
+            --radius: 12px;
+            --radius-sm: 8px;
+            --transition: all 0.25s ease;
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background: var(--gray-50);
+            color: var(--gray-900);
+            line-height: 1.6;
+        }
+
+        /* HEADER */
+        .hero {
+            background: linear-gradient(135deg, #0078D4 0%, #005a9e 50%, #003f6b 100%);
+            color: white;
+            padding: 40px 24px 32px;
+            position: relative;
+            overflow: hidden;
+        }
+        .hero::after {
+            content: '';
+            position: absolute;
+            top: -50%;
+            right: -10%;
+            width: 500px;
+            height: 500px;
+            border-radius: 50%;
+            background: rgba(255,255,255,0.04);
+        }
+        .hero-inner {
+            max-width: 1200px;
+            margin: 0 auto;
+            position: relative;
+            z-index: 1;
+        }
+        .hero h1 {
+            font-size: 28px;
+            font-weight: 700;
+            margin-bottom: 6px;
+        }
+        .hero p {
+            font-size: 15px;
+            opacity: 0.85;
+            max-width: 700px;
+        }
+        .hero-stats {
+            display: flex;
+            gap: 32px;
+            margin-top: 20px;
+            flex-wrap: wrap;
+        }
+        .hero-stat {
+            text-align: center;
+        }
+        .hero-stat .num {
+            font-size: 28px;
+            font-weight: 700;
+        }
+        .hero-stat .label {
+            font-size: 12px;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            opacity: 0.8;
+        }
+
+        /* CONTROLS */
+        .controls {
+            max-width: 1200px;
+            margin: -20px auto 0;
+            padding: 0 24px;
+            position: relative;
+            z-index: 2;
+        }
+        .controls-bar {
+            background: white;
+            border-radius: var(--radius);
+            box-shadow: var(--shadow-lg);
+            padding: 16px 20px;
+            display: flex;
+            gap: 12px;
+            align-items: center;
+            flex-wrap: wrap;
+        }
+        .search-box {
+            flex: 1;
+            min-width: 200px;
+            position: relative;
+        }
+        .search-box input {
+            width: 100%;
+            padding: 10px 12px 10px 38px;
+            border: 2px solid var(--gray-200);
+            border-radius: var(--radius-sm);
+            font-size: 14px;
+            outline: none;
+            transition: var(--transition);
+        }
+        .search-box input:focus {
+            border-color: var(--blue-primary);
+            box-shadow: 0 0 0 3px rgba(0,120,212,0.15);
+        }
+        .search-box svg {
+            position: absolute;
+            left: 12px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: var(--gray-500);
+            width: 16px;
+            height: 16px;
+        }
+        .filter-btn {
+            padding: 10px 16px;
+            border: 2px solid var(--gray-200);
+            border-radius: var(--radius-sm);
+            background: white;
+            font-size: 13px;
+            font-weight: 500;
+            cursor: pointer;
+            transition: var(--transition);
+            white-space: nowrap;
+        }
+        .filter-btn:hover {
+            border-color: var(--blue-primary);
+            color: var(--blue-primary);
+        }
+        .filter-btn.active {
+            background: var(--blue-primary);
+            border-color: var(--blue-primary);
+            color: white;
+        }
+        .view-toggle {
+            display: flex;
+            border: 2px solid var(--gray-200);
+            border-radius: var(--radius-sm);
+            overflow: hidden;
+        }
+        .view-toggle button {
+            padding: 8px 14px;
+            border: none;
+            background: white;
+            cursor: pointer;
+            font-size: 14px;
+            transition: var(--transition);
+        }
+        .view-toggle button.active {
+            background: var(--blue-primary);
+            color: white;
+        }
+
+        /* MAIN CONTENT */
+        .main {
+            max-width: 1200px;
+            margin: 24px auto;
+            padding: 0 24px;
+        }
+        .results-count {
+            font-size: 13px;
+            color: var(--gray-500);
+            margin-bottom: 16px;
+        }
+
+        /* CARD VIEW */
+        .cards-grid {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 16px;
+        }
+        .card {
+            background: white;
+            border-radius: var(--radius);
+            box-shadow: var(--shadow-sm);
+            overflow: hidden;
+            transition: var(--transition);
+            border: 1px solid var(--gray-100);
+        }
+        .card:hover {
+            box-shadow: var(--shadow-md);
+            transform: translateY(-1px);
+        }
+        .card-header {
+            display: flex;
+            align-items: center;
+            padding: 18px 20px;
+            cursor: pointer;
+            gap: 14px;
+            user-select: none;
+        }
+        .card-icon {
+            width: 44px;
+            height: 44px;
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 20px;
+            flex-shrink: 0;
+        }
+        .card-title-area {
+            flex: 1;
+        }
+        .card-title {
+            font-size: 16px;
+            font-weight: 600;
+            color: var(--gray-900);
+        }
+        .card-subtitle {
+            font-size: 12px;
+            color: var(--gray-500);
+            margin-top: 2px;
+        }
+        .card-chevron {
+            width: 24px;
+            height: 24px;
+            transition: transform 0.3s ease;
+            color: var(--gray-500);
+            flex-shrink: 0;
+        }
+        .card.open .card-chevron {
+            transform: rotate(180deg);
+        }
+        .card-body {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.4s ease;
+        }
+        .card.open .card-body {
+            max-height: 2000px;
+        }
+        .card-content {
+            padding: 0 20px 20px;
+        }
+
+        /* FOUR-COLUMN GRID INSIDE CARD */
+        .detail-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 14px;
+        }
+        .detail-panel {
+            border-radius: var(--radius-sm);
+            padding: 16px;
+            border: 1px solid transparent;
+        }
+        .detail-panel.questions {
+            background: white;
+            border-color: var(--gray-200);
+            grid-column: 1;
+        }
+        .detail-panel.metrics {
+            background: var(--orange-light);
+            border-color: #ffe0b2;
+            grid-column: 2;
+        }
+        .detail-panel.ray {
+            background: var(--green-light);
+            border-color: #c8e6c9;
+            grid-column: 1;
+        }
+        .detail-panel.anyscale {
+            background: var(--blue-light);
+            border-color: #bbdefb;
+            grid-column: 2;
+        }
+        .panel-header {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            margin-bottom: 10px;
+        }
+        .panel-badge {
+            font-size: 11px;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            padding: 3px 8px;
+            border-radius: 4px;
+        }
+        .panel-badge.q { background: var(--gray-200); color: var(--gray-700); }
+        .panel-badge.m { background: #ffe0b2; color: var(--orange-accent); }
+        .panel-badge.r { background: #c8e6c9; color: var(--green-accent); }
+        .panel-badge.a { background: #bbdefb; color: var(--blue-dark); }
+        .panel-title {
+            font-size: 13px;
+            font-weight: 600;
+            color: var(--gray-700);
+        }
+        .detail-panel ul {
+            list-style: none;
+            padding: 0;
+        }
+        .detail-panel li {
+            font-size: 13px;
+            line-height: 1.5;
+            padding: 5px 0;
+            padding-left: 18px;
+            position: relative;
+            color: var(--gray-700);
+        }
+        .detail-panel li::before {
+            content: '';
+            position: absolute;
+            left: 0;
+            top: 12px;
+            width: 6px;
+            height: 6px;
+            border-radius: 50%;
+        }
+        .detail-panel.questions li::before { background: var(--gray-500); }
+        .detail-panel.metrics li::before { background: var(--orange-accent); }
+        .detail-panel.ray li::before { background: var(--green-accent); }
+        .detail-panel.anyscale li::before { background: var(--blue-primary); }
+
+        .proof-point {
+            margin-top: 8px;
+            padding: 8px 12px;
+            border-radius: 6px;
+            font-size: 12px;
+            font-weight: 500;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+        .detail-panel.ray .proof-point {
+            background: rgba(46,125,50,0.1);
+            color: var(--green-accent);
+        }
+        .detail-panel.anyscale .proof-point {
+            background: rgba(0,120,212,0.1);
+            color: var(--blue-dark);
+        }
+
+        /* TABLE VIEW */
+        .table-view {
+            display: none;
+            overflow-x: auto;
+        }
+        .table-view.active { display: block; }
+        .cards-grid.hidden { display: none; }
+
+        .data-table {
+            width: 100%;
+            border-collapse: collapse;
+            background: white;
+            border-radius: var(--radius);
+            overflow: hidden;
+            box-shadow: var(--shadow-sm);
+            font-size: 13px;
+        }
+        .data-table thead th {
+            background: var(--blue-primary);
+            color: white;
+            padding: 12px 14px;
+            text-align: left;
+            font-weight: 600;
+            font-size: 12px;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            white-space: nowrap;
+            cursor: pointer;
+            user-select: none;
+        }
+        .data-table thead th:hover {
+            background: var(--blue-dark);
+        }
+        .data-table tbody td {
+            padding: 12px 14px;
+            border-bottom: 1px solid var(--gray-100);
+            vertical-align: top;
+        }
+        .data-table tbody tr:hover {
+            background: var(--gray-50);
+        }
+        .data-table tbody td:nth-child(4) { background: rgba(232,245,233,0.4); }
+        .data-table tbody td:nth-child(5) { background: rgba(227,242,253,0.4); }
+        .data-table .challenge-cell {
+            font-weight: 600;
+            color: var(--blue-primary);
+            white-space: nowrap;
+        }
+
+        /* FOOTER */
+        .footer {
+            max-width: 1200px;
+            margin: 40px auto 24px;
+            padding: 0 24px;
+            text-align: center;
+            font-size: 12px;
+            color: var(--gray-500);
+        }
+
+        /* PRINT STYLES */
+        @media print {
+            .hero { padding: 20px; }
+            .controls { display: none; }
+            .card { break-inside: avoid; }
+            .card-body { max-height: none !important; }
+            .card.open .card-body, .card-body { max-height: 2000px !important; }
+        }
+
+        /* RESPONSIVE */
+        @media (max-width: 768px) {
+            .hero h1 { font-size: 22px; }
+            .hero-stats { gap: 20px; }
+            .detail-grid {
+                grid-template-columns: 1fr;
+            }
+            .detail-panel.questions,
+            .detail-panel.metrics,
+            .detail-panel.ray,
+            .detail-panel.anyscale {
+                grid-column: 1;
+            }
+            .controls-bar { flex-direction: column; align-items: stretch; }
+            .filter-btn { text-align: center; }
+        }
+
+        /* Highlight matched text */
+        mark {
+            background: #fff176;
+            color: inherit;
+            padding: 1px 2px;
+            border-radius: 2px;
+        }
+
+        /* Expand/Collapse All */
+        .expand-all-btn {
+            padding: 8px 14px;
+            border: 2px solid var(--gray-200);
+            border-radius: var(--radius-sm);
+            background: white;
+            font-size: 13px;
+            font-weight: 500;
+            cursor: pointer;
+            transition: var(--transition);
+            white-space: nowrap;
+        }
+        .expand-all-btn:hover {
+            border-color: var(--blue-primary);
+            color: var(--blue-primary);
+        }
+    </style>
+</head>
+<body>
+    <div class="hero">
+        <div class="hero-inner">
+            <h1>Anyscale Discovery Guide</h1>
+            <p>Comprehensive reference for discovery questions, customer pain points, and how Ray + Anyscale solve them. Build stronger business cases with quantified metrics.</p>
+            <div class="hero-stats">
+                <div class="hero-stat"><div class="num" id="stat-areas">11</div><div class="label">Challenge Areas</div></div>
+                <div class="hero-stat"><div class="num" id="stat-questions">44</div><div class="label">Discovery Questions</div></div>
+                <div class="hero-stat"><div class="num" id="stat-metrics">53</div><div class="label">Metrics to Track</div></div>
+                <div class="hero-stat"><div class="num" id="stat-solutions">88</div><div class="label">Solution Points</div></div>
+            </div>
+        </div>
+    </div>
+
+    <div class="controls">
+        <div class="controls-bar">
+            <div class="search-box">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><path d="M21 21l-4.35-4.35"/></svg>
+                <input type="text" id="search" placeholder="Search questions, metrics, solutions..." oninput="handleSearch()">
+            </div>
+            <button class="filter-btn active" data-filter="all" onclick="setFilter('all')">All</button>
+            <button class="filter-btn" data-filter="infrastructure" onclick="setFilter('infrastructure')">Infrastructure</button>
+            <button class="filter-btn" data-filter="training" onclick="setFilter('training')">Training</button>
+            <button class="filter-btn" data-filter="serving" onclick="setFilter('serving')">Serving</button>
+            <button class="filter-btn" data-filter="operations" onclick="setFilter('operations')">Operations</button>
+            <button class="filter-btn" data-filter="business" onclick="setFilter('business')">Business</button>
+            <button class="expand-all-btn" id="expandBtn" onclick="toggleAll()">Expand All</button>
+            <div class="view-toggle">
+                <button class="active" onclick="setView('cards', this)">Cards</button>
+                <button onclick="setView('table', this)">Table</button>
+            </div>
+        </div>
+    </div>
+
+    <div class="main">
+        <div class="results-count" id="resultsCount">Showing 11 of 11 challenge areas</div>
+        <div class="cards-grid" id="cardsGrid"></div>
+        <div class="table-view" id="tableView"></div>
+    </div>
+
+    <div class="footer">
+        Anyscale Discovery Guide &middot; Last updated January 2026 &middot; For additional resources visit <a href="https://docs.ray.io" target="_blank">docs.ray.io</a> and <a href="https://anyscale.com/resources" target="_blank">anyscale.com/resources</a>
+    </div>
+
+<script>
+const DATA = [
+    {
+        id: 1,
+        challenge: "AI/ML Infrastructure",
+        icon: "&#9881;",
+        iconBg: "#e3f2fd",
+        iconColor: "#0078D4",
+        category: "infrastructure",
+        questions: [
+            "Walk me through your current infrastructure for training and deploying AI/ML models",
+            "How do you see compute costs changing as your AI workloads scale?",
+            "What existing GPU/compute costs are you hoping to optimize?",
+            "How are you currently managing distributed computing across your cluster?"
+        ],
+        metrics: [
+            "($) GPU/compute costs (cloud or on-prem)",
+            "($) Storage costs for training data & model artifacts",
+            "($) Costs related to idle GPU resources",
+            "(#) Number of GPUs/nodes in cluster",
+            "(#) GPU utilization rates"
+        ],
+        ray: [
+            "Unified distributed computing framework — one stack for training, serving, and data processing",
+            "Automatic resource management across heterogeneous hardware (CPUs, GPUs, TPUs)",
+            "Scales seamlessly from laptop to multi-node clusters with minimal code changes",
+            "Open-source with 500K+ monthly downloads and battle-tested at enterprise scale"
+        ],
+        rayProof: null,
+        anyscale: [
+            "Managed Ray runtime eliminates infrastructure management overhead entirely",
+            "Multi-cloud support (AWS, GCP, Azure) with unified API — no cloud lock-in",
+            "Automated cluster provisioning, scaling, and lifecycle management",
+            "Built-in monitoring and observability across the entire stack"
+        ],
+        anyscaleProof: "Spotify reduced infrastructure costs by 60%+ on recommendation systems"
+    },
+    {
+        id: 2,
+        challenge: "Distributed Computing",
+        icon: "&#128300;",
+        iconBg: "#e8f5e9",
+        iconColor: "#2e7d32",
+        category: "infrastructure",
+        questions: [
+            "Help me understand how you currently scale Python workloads across multiple machines",
+            "What challenges do you face with task scheduling and resource allocation?",
+            "How much engineering time is spent on distributed systems plumbing vs. actual ML work?"
+        ],
+        metrics: [
+            "($) Engineering time on infra vs. ML work",
+            "(#) Time to scale from 1 to N nodes",
+            "(#) Failed jobs due to scaling issues",
+            "($) Cost of custom distributed solutions"
+        ],
+        ray: [
+            "ray.remote decorator turns any Python function into a distributed task — no rewriting needed",
+            "Actor model for stateful distributed services with dynamic task scheduling",
+            "Data locality optimization reduces data movement across nodes",
+            "Native support for distributed workflows and microservices patterns"
+        ],
+        rayProof: null,
+        anyscale: [
+            "High-availability setups with automatic failover for production workloads",
+            "Advanced scheduling for heterogeneous workloads across GPU types",
+            "Network optimization for multi-region deployments",
+            "Built-in service mesh and observability with call tracing and lineage"
+        ],
+        anyscaleProof: "Canva reduced infra engineering time from 60% to <10%"
+    },
+    {
+        id: 3,
+        challenge: "Model Training",
+        icon: "&#129504;",
+        iconBg: "#f3e5f5",
+        iconColor: "#7b1fa2",
+        category: "training",
+        questions: [
+            "What type of models are you training? (LLMs, computer vision, RL, etc.)",
+            "How long does a typical training run take? What's the cost per run?",
+            "How do you handle training job failures? What's your checkpoint/recovery strategy?",
+            "What's the financial impact of a failed training run?"
+        ],
+        metrics: [
+            "(#) Training time per model iteration",
+            "($) Cost per training run",
+            "(#) Number of failed training jobs",
+            "($) Wasted compute from failures",
+            "(#) Time to recover from failures"
+        ],
+        ray: [
+            "Ray Train: distributed training for PyTorch, TensorFlow, and Hugging Face",
+            "Automatic setup for data parallelism, model parallelism, and pipeline parallelism",
+            "Built-in fault tolerance with checkpointing during training runs",
+            "Ray Tune integration for automated hyperparameter optimization"
+        ],
+        rayProof: "Canva achieved 12x faster training on complex ML workloads",
+        anyscale: [
+            "Managed training environments with pre-configured optimizations",
+            "Cost tracking and budget controls per training job",
+            "Collaborative notebooks in Developer Central for team iteration",
+            "Experiment tracking and comparison across training runs"
+        ],
+        anyscaleProof: "Coactive AI saw 4x faster model deployment and iteration"
+    },
+    {
+        id: 4,
+        challenge: "Model Serving & Inference",
+        icon: "&#9889;",
+        iconBg: "#fff3e0",
+        iconColor: "#e65100",
+        category: "serving",
+        questions: [
+            "How are you currently serving ML models in production?",
+            "What's your average inference latency? How does it impact user experience?",
+            "How do you handle traffic spikes and auto-scaling for inference?",
+            "What's the cost of serving models at your current scale?"
+        ],
+        metrics: [
+            "(#) Inference latency (p50, p95, p99)",
+            "(#) Requests per second served",
+            "($) Cost per inference request",
+            "(#) Model deployment time",
+            "(%) GPU utilization during serving"
+        ],
+        ray: [
+            "Ray Serve: production-grade inference serving with automatic scaling",
+            "vLLM integration for optimized LLM serving",
+            "Canary deployments and traffic splitting for safe rollouts",
+            "Multi-model composition and ensemble serving"
+        ],
+        rayProof: "Agreena achieved 10,000x inference scalability improvement",
+        anyscale: [
+            "Automatic scaling based on demand with cost optimization",
+            "Built-in monitoring and alerting for SLA compliance",
+            "Multi-model serving with resource isolation per model",
+            "One-click deployment from notebooks to production endpoints"
+        ],
+        anyscaleProof: "Coinbase — 50x cost reduction in inference infrastructure"
+    },
+    {
+        id: 5,
+        challenge: "Data Processing",
+        icon: "&#128202;",
+        iconBg: "#e0f2f1",
+        iconColor: "#00695c",
+        category: "infrastructure",
+        questions: [
+            "How do you process large datasets for training? (images, video, text, etc.)",
+            "What's your data pipeline latency from raw data to training-ready?",
+            "How do you handle streaming data for real-time ML applications?",
+            "What bottlenecks exist in your current data processing workflow?"
+        ],
+        metrics: [
+            "(#) Data processing throughput (GB/hour)",
+            "(#) Pipeline latency",
+            "($) Storage and compute costs for ETL",
+            "(#) Time spent on data preprocessing",
+            "(#) Data modalities handled"
+        ],
+        ray: [
+            "Ray Data: distributed data processing for ETL, feature engineering, and data prep",
+            "Lazy evaluation and automatic task optimization for efficiency",
+            "Seamless integration with training and inference pipelines (no data silos)",
+            "Support for Parquet, CSV, images, text, and custom formats"
+        ],
+        rayProof: "Pinterest achieved 50x increase in data processing volume",
+        anyscale: [
+            "Managed data pipelines with automatic optimization",
+            "Cost tracking for all data operations",
+            "Integration with data warehouses and lakes",
+            "Automatic data lineage tracking"
+        ],
+        anyscaleProof: "Agreena — 78% cost reduction in data processing"
+    },
+    {
+        id: 6,
+        challenge: "Fault Tolerance & Reliability",
+        icon: "&#128737;",
+        iconBg: "#fce4ec",
+        iconColor: "#c62828",
+        category: "operations",
+        questions: [
+            "How do you handle spot instance interruptions or node failures?",
+            "What's your strategy for checkpointing long-running jobs?",
+            "Walk me through a time when a critical ML job failed. What was the business impact?",
+            "How much compute cost could you save with better spot instance management?"
+        ],
+        metrics: [
+            "(#) Job failures per month",
+            "($) Wasted compute from failures",
+            "(%) Spot vs. on-demand usage",
+            "($) Potential savings from spot instances",
+            "(#) Recovery time after failures"
+        ],
+        ray: [
+            "Automatic task re-execution on failures — no manual intervention needed",
+            "Checkpoint/restore for long-running distributed applications",
+            "Data replication across nodes for distributed state durability",
+            "Automatic recovery from node failures mid-job"
+        ],
+        rayProof: "Spot instance support enables 70-80% compute savings",
+        anyscale: [
+            "Multi-zone deployments for high availability",
+            "Automatic cluster self-healing when nodes fail",
+            "Managed job checkpointing and seamless resumption",
+            "Data persistence with automatic recovery"
+        ],
+        anyscaleProof: "Automatic spot instance management maximizes savings while maintaining reliability"
+    },
+    {
+        id: 7,
+        challenge: "ML Platform & Operations",
+        icon: "&#128736;",
+        iconBg: "#ede7f6",
+        iconColor: "#4527a0",
+        category: "operations",
+        questions: [
+            "What does your current MLOps stack look like? How many tools are you managing?",
+            "How much time do your ML engineers spend on infrastructure vs. building models?",
+            "What's the onboarding time for new ML engineers to your platform?",
+            "How do you track lineage from data to deployed models?"
+        ],
+        metrics: [
+            "(#) Number of tools in ML stack",
+            "(#) % time on infra vs. ML work",
+            "(#) Onboarding time for new engineers",
+            "($) Operational overhead costs",
+            "(#) FTEs managing ML infrastructure"
+        ],
+        ray: [
+            "Unified framework replaces multiple tools: consolidates Spark, custom training infra, and serving",
+            "Rich library ecosystem: Ray Train, Serve, Data, Tune, RLlib",
+            "Simple Python API reduces learning curve dramatically",
+            "Open-source community with extensive documentation and support"
+        ],
+        rayProof: null,
+        anyscale: [
+            "Developer Central: integrated IDE with notebooks, code editors, and real-time collaboration",
+            "Cluster Controller: centralized management, RBAC, budget controls, monitoring dashboards",
+            "Anyscale Runtime: managed Ray clusters with optimized performance and multi-tenancy",
+            "Model versioning, artifact storage, and data lineage visualization built in"
+        ],
+        anyscaleProof: null
+    },
+    {
+        id: 8,
+        challenge: "Developer Productivity",
+        icon: "&#128187;",
+        iconBg: "#e8eaf6",
+        iconColor: "#283593",
+        category: "operations",
+        questions: [
+            "What are the challenges your ML team faces when iterating on models?",
+            "How quickly can developers go from experiment to production?",
+            "What would it mean if your team could run 10x more experiments?",
+            "How do you handle the transition from single-machine to distributed training?"
+        ],
+        metrics: [
+            "(#) Time from experiment to production",
+            "(#) Number of experiments per week",
+            "(#) Number of ML Engineers / Data Scientists",
+            "($) Cost of delayed model improvements",
+            "(#) Code changes needed for scaling"
+        ],
+        ray: [
+            "Minimal code changes from single-machine to distributed: just add @ray.remote",
+            "Scientists focus on models, not infrastructure plumbing",
+            "Ray Tune automates hyperparameter search — run 10x more experiments",
+            "Unified API: train, tune, serve, and process data in the same framework"
+        ],
+        rayProof: null,
+        anyscale: [
+            "Interactive notebooks with managed environment configuration",
+            "Real-time collaboration reducing feedback loops between team members",
+            "Integrated debugging and observability tools",
+            "Pre-built templates for common workloads accelerate onboarding"
+        ],
+        anyscaleProof: "Teams deploy complex AI applications in weeks instead of months"
+    },
+    {
+        id: 9,
+        challenge: "Time to Market",
+        icon: "&#128640;",
+        iconBg: "#e1f5fe",
+        iconColor: "#0277bd",
+        category: "business",
+        questions: [
+            "How long does it take to deploy a new model from development to production?",
+            "What's in your ML feature backlog? How much is blocked by infrastructure?",
+            "What's the business impact of delayed AI feature releases?",
+            "If you could ship AI features 50% faster, how would that impact revenue?"
+        ],
+        metrics: [
+            "(#) Model deployment cycle time",
+            "(#) Features in backlog",
+            "($) Revenue impact of delays",
+            "(#) Blocked initiatives due to infra",
+            "($) Competitive cost of late features"
+        ],
+        ray: [
+            "Ray Tune enables fast automated hyperparameter optimization",
+            "Ray Train abstracts distributed training complexity — no PhD in distributed systems required",
+            "Ray Serve enables immediate model deployment from training to production",
+            "No infrastructure expertise required to go from prototype to scale"
+        ],
+        rayProof: null,
+        anyscale: [
+            "Pre-configured environments eliminate setup time",
+            "One-click deployment from notebooks to production endpoints",
+            "Built-in CI/CD integration for automated model pipelines",
+            "Managed infrastructure removes deployment bottlenecks entirely"
+        ],
+        anyscaleProof: "Coactive AI — 4x faster model deployment cycle"
+    },
+    {
+        id: 10,
+        challenge: "Cost Optimization",
+        icon: "&#128176;",
+        iconBg: "#e8f5e9",
+        iconColor: "#2e7d32",
+        category: "business",
+        questions: [
+            "What's your current monthly spend on AI/ML compute?",
+            "How do you optimize GPU utilization across your workloads?",
+            "Are you taking advantage of spot instances? What's blocking broader adoption?",
+            "How do you allocate costs across different teams or projects?"
+        ],
+        metrics: [
+            "($) Monthly AI/ML compute spend",
+            "(%) GPU utilization rate",
+            "(%) Spot instance adoption",
+            "($) Potential cost savings identified",
+            "($) Cost per model trained/served"
+        ],
+        ray: [
+            "Efficient resource utilization through intelligent distributed scheduling",
+            "Automatic scaling prevents overprovisioning — only use what you need",
+            "Spot instance support for cost-sensitive batch workloads",
+            "Shared cluster architecture eliminates resource silos between teams"
+        ],
+        rayProof: "GPU utilization rates 3-5x higher than alternatives",
+        anyscale: [
+            "Real-time cost tracking per job, team, and project",
+            "Automatic right-sizing of clusters based on workload",
+            "Budget controls and spending alerts prevent overruns",
+            "Cost attribution for chargeback models across teams"
+        ],
+        anyscaleProof: "Coinbase — 50x cost reduction; Coactive AI — 75% cost reduction"
+    },
+    {
+        id: 11,
+        challenge: "Competitive Advantage",
+        icon: "&#127942;",
+        iconBg: "#fff8e1",
+        iconColor: "#f57f17",
+        category: "business",
+        questions: [
+            "How is AI/ML differentiation impacting your competitive position?",
+            "What AI capabilities do competitors have that you're trying to match?",
+            "If you could deploy more sophisticated models, what business outcomes would that unlock?",
+            "How do you measure the ROI of your AI/ML investments?"
+        ],
+        metrics: [
+            "(#) AI-driven features vs. competitors",
+            "($) Revenue from AI-powered products",
+            "(%) Customer satisfaction improvement",
+            "($) New revenue opportunities enabled",
+            "(#) Market share in AI-first segments"
+        ],
+        ray: [
+            "Only unified framework spanning data processing, training, and serving — faster innovation",
+            "Production-grade maturity with 1000+ enterprise customers",
+            "Smaller engineering teams can manage massive-scale workloads",
+            "Advantages vs. Spark (iterative ML), K8s (abstracted complexity), Databricks (unified compute+serving)"
+        ],
+        rayProof: null,
+        anyscale: [
+            "Single platform eliminates tool sprawl — consolidate Spark, TF Serving, K8s training into one",
+            "Faster time-to-value vs. custom solutions or competing platforms",
+            "Framework-agnostic and multi-cloud — no vendor lock-in",
+            "Enterprise support, SLAs, and security certifications"
+        ],
+        anyscaleProof: "100+ case studies including Uber, Spotify, Coinbase, Pinterest, Canva"
+    }
+];
+
+let currentFilter = 'all';
+let currentSearch = '';
+let allExpanded = false;
+
+function getFilteredData() {
+    return DATA.filter(item => {
+        const matchesFilter = currentFilter === 'all' || item.category === currentFilter;
+        if (!matchesFilter) return false;
+        if (!currentSearch) return true;
+        const searchLower = currentSearch.toLowerCase();
+        const allText = [
+            item.challenge,
+            ...item.questions,
+            ...item.metrics,
+            ...item.ray,
+            ...item.anyscale,
+            item.rayProof || '',
+            item.anyscaleProof || ''
+        ].join(' ').toLowerCase();
+        return allText.includes(searchLower);
+    });
+}
+
+function highlightText(text, query) {
+    if (!query) return text;
+    const regex = new RegExp(`(${query.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')})`, 'gi');
+    return text.replace(regex, '<mark>$1</mark>');
+}
+
+function renderCards() {
+    const filtered = getFilteredData();
+    const grid = document.getElementById('cardsGrid');
+    document.getElementById('resultsCount').textContent = `Showing ${filtered.length} of ${DATA.length} challenge areas`;
+
+    grid.innerHTML = filtered.map(item => `
+        <div class="card ${allExpanded ? 'open' : ''}" data-id="${item.id}">
+            <div class="card-header" onclick="toggleCard(${item.id})">
+                <div class="card-icon" style="background:${item.iconBg};color:${item.iconColor}">${item.icon}</div>
+                <div class="card-title-area">
+                    <div class="card-title">${highlightText(item.challenge, currentSearch)}</div>
+                    <div class="card-subtitle">${item.questions.length} questions &middot; ${item.metrics.length} metrics &middot; ${item.ray.length + item.anyscale.length} solution points</div>
+                </div>
+                <svg class="card-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 9l6 6 6-6"/></svg>
+            </div>
+            <div class="card-body">
+                <div class="card-content">
+                    <div class="detail-grid">
+                        <div class="detail-panel questions">
+                            <div class="panel-header">
+                                <span class="panel-badge q">Discovery</span>
+                                <span class="panel-title">Questions to Ask</span>
+                            </div>
+                            <ul>${item.questions.map(q => `<li>${highlightText(q, currentSearch)}</li>`).join('')}</ul>
+                        </div>
+                        <div class="detail-panel metrics">
+                            <div class="panel-header">
+                                <span class="panel-badge m">Metrics</span>
+                                <span class="panel-title">Listen For</span>
+                            </div>
+                            <ul>${item.metrics.map(m => `<li>${highlightText(m, currentSearch)}</li>`).join('')}</ul>
+                        </div>
+                        <div class="detail-panel ray">
+                            <div class="panel-header">
+                                <span class="panel-badge r">Ray</span>
+                                <span class="panel-title">How Ray Helps (Open Source)</span>
+                            </div>
+                            <ul>${item.ray.map(r => `<li>${highlightText(r, currentSearch)}</li>`).join('')}</ul>
+                            ${item.rayProof ? `<div class="proof-point">&#9989; ${highlightText(item.rayProof, currentSearch)}</div>` : ''}
+                        </div>
+                        <div class="detail-panel anyscale">
+                            <div class="panel-header">
+                                <span class="panel-badge a">Anyscale</span>
+                                <span class="panel-title">How Anyscale Helps (Platform)</span>
+                            </div>
+                            <ul>${item.anyscale.map(a => `<li>${highlightText(a, currentSearch)}</li>`).join('')}</ul>
+                            ${item.anyscaleProof ? `<div class="proof-point">&#9989; ${highlightText(item.anyscaleProof, currentSearch)}</div>` : ''}
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    `).join('');
+}
+
+function renderTable() {
+    const filtered = getFilteredData();
+    const tv = document.getElementById('tableView');
+    tv.innerHTML = `
+        <table class="data-table">
+            <thead>
+                <tr>
+                    <th style="min-width:140px">Challenge</th>
+                    <th style="min-width:280px">Discovery Questions</th>
+                    <th style="min-width:220px">Metrics</th>
+                    <th style="min-width:280px">How Ray Helps</th>
+                    <th style="min-width:280px">How Anyscale Helps</th>
+                </tr>
+            </thead>
+            <tbody>
+                ${filtered.map(item => `
+                    <tr>
+                        <td class="challenge-cell">${highlightText(item.challenge, currentSearch)}</td>
+                        <td>${item.questions.map(q => `&bull; ${highlightText(q, currentSearch)}`).join('<br>')}</td>
+                        <td>${item.metrics.map(m => highlightText(m, currentSearch)).join('<br>')}</td>
+                        <td>${item.ray.map(r => `&bull; ${highlightText(r, currentSearch)}`).join('<br>')}${item.rayProof ? `<br><br><strong>&#9989; ${highlightText(item.rayProof, currentSearch)}</strong>` : ''}</td>
+                        <td>${item.anyscale.map(a => `&bull; ${highlightText(a, currentSearch)}`).join('<br>')}${item.anyscaleProof ? `<br><br><strong>&#9989; ${highlightText(item.anyscaleProof, currentSearch)}</strong>` : ''}</td>
+                    </tr>
+                `).join('')}
+            </tbody>
+        </table>
+    `;
+}
+
+function toggleCard(id) {
+    const card = document.querySelector(`.card[data-id="${id}"]`);
+    if (card) card.classList.toggle('open');
+}
+
+function toggleAll() {
+    allExpanded = !allExpanded;
+    document.getElementById('expandBtn').textContent = allExpanded ? 'Collapse All' : 'Expand All';
+    document.querySelectorAll('.card').forEach(c => {
+        if (allExpanded) c.classList.add('open');
+        else c.classList.remove('open');
+    });
+}
+
+function setFilter(filter) {
+    currentFilter = filter;
+    document.querySelectorAll('.filter-btn').forEach(b => b.classList.toggle('active', b.dataset.filter === filter));
+    renderCards();
+    renderTable();
+}
+
+function handleSearch() {
+    currentSearch = document.getElementById('search').value.trim();
+    renderCards();
+    renderTable();
+}
+
+function setView(view, btn) {
+    document.querySelectorAll('.view-toggle button').forEach(b => b.classList.remove('active'));
+    btn.classList.add('active');
+    document.getElementById('cardsGrid').classList.toggle('hidden', view === 'table');
+    document.getElementById('tableView').classList.toggle('active', view === 'table');
+}
+
+// Initialize
+renderCards();
+renderTable();
+</script>
+</body>
+</html>
