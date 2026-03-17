@@ -1,0 +1,609 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Persona Pain Points — Ray & Anyscale Solutions</title>
+<style>
+:root{
+  --bg:#0b0f1a;--card:#131929;--border:#1e2d42;--text:#f0f4ff;--text2:#a0afc0;--text3:#6b7a8d;
+  --blue:#3b82f6;--blue-bg:rgba(59,130,246,.12);--green:#10b981;--green-bg:rgba(16,185,129,.12);
+  --orange:#f59e0b;--orange-bg:rgba(245,158,11,.12);--purple:#a78bfa;--purple-bg:rgba(167,139,250,.12);
+  --teal:#14b8a6;--teal-bg:rgba(20,184,166,.12);--red:#ef4444;--red-bg:rgba(239,68,68,.10);
+  --radius:12px;
+}
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif;background:var(--bg);color:var(--text);line-height:1.6}
+
+/* HEADER */
+.hero{background:linear-gradient(135deg,#1a56db 0%,#3b82f6 50%,#60a5fa 100%);padding:40px 48px 32px;position:relative;overflow:hidden}
+.hero::after{content:'';position:absolute;top:-50%;right:-20%;width:600px;height:600px;border-radius:50%;background:rgba(255,255,255,.04)}
+.hero-label{font-size:11px;text-transform:uppercase;letter-spacing:.12em;color:rgba(255,255,255,.65);margin-bottom:6px;font-weight:600}
+.hero h1{font-size:28px;font-weight:700;color:#fff}
+.hero .sub{font-size:14px;color:rgba(255,255,255,.75);margin-top:6px;max-width:700px}
+
+/* NAV TABS */
+.nav-wrap{background:var(--card);border-bottom:1px solid var(--border);padding:0 48px;overflow-x:auto;display:flex;gap:0;position:sticky;top:0;z-index:100}
+.nav-tab{padding:14px 18px;font-size:12px;font-weight:600;color:var(--text2);cursor:pointer;border-bottom:2px solid transparent;white-space:nowrap;transition:all .2s}
+.nav-tab:hover{color:var(--text);background:rgba(255,255,255,.03)}
+.nav-tab.active{color:var(--blue);border-bottom-color:var(--blue);background:rgba(59,130,246,.06)}
+.nav-tab .tab-icon{margin-right:6px;font-size:14px}
+
+/* PERSONA CATEGORY BADGES */
+.cat-badge{display:inline-block;padding:3px 10px;border-radius:12px;font-size:10px;font-weight:700;letter-spacing:.04em;text-transform:uppercase;margin-left:8px;vertical-align:middle}
+.cat-practitioner{background:var(--blue-bg);color:var(--blue)}
+.cat-platform{background:var(--teal-bg);color:var(--teal)}
+.cat-leader{background:var(--purple-bg);color:var(--purple)}
+
+/* CONTENT */
+.content{padding:32px 48px;max-width:1300px;margin:0 auto}
+.persona-panel{display:none}
+.persona-panel.active{display:block}
+
+/* PERSONA HEADER */
+.persona-header{display:flex;align-items:center;gap:20px;margin-bottom:32px}
+.persona-icon{width:56px;height:56px;border-radius:16px;display:flex;align-items:center;justify-content:center;font-size:28px;flex-shrink:0}
+.persona-title{font-size:22px;font-weight:700}
+.persona-desc{font-size:13px;color:var(--text2);margin-top:3px}
+
+/* ELEVATOR PITCH CARDS */
+.pitch-row{display:grid;grid-template-columns:1fr 1fr;gap:20px;margin-bottom:32px}
+.pitch-card{background:var(--card);border:1px solid var(--border);border-radius:var(--radius);padding:24px;position:relative;overflow:hidden}
+.pitch-card::before{content:'';position:absolute;top:0;left:0;right:0;height:3px}
+.pitch-card.ray::before{background:linear-gradient(90deg,#3b82f6,#60a5fa)}
+.pitch-card.anyscale::before{background:linear-gradient(90deg,#10b981,#34d399)}
+.pitch-label{font-size:10px;text-transform:uppercase;letter-spacing:.1em;font-weight:700;margin-bottom:8px}
+.pitch-card.ray .pitch-label{color:var(--blue)}
+.pitch-card.anyscale .pitch-label{color:var(--green)}
+.pitch-text{font-size:14px;line-height:1.7;color:var(--text)}
+.pitch-text strong{color:#fff}
+
+/* PAIN POINTS */
+.section-title{font-size:16px;font-weight:700;color:var(--text);margin-bottom:16px;display:flex;align-items:center;gap:8px}
+.section-title .icon{font-size:18px}
+
+.pain-grid{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-bottom:36px}
+.pain-card{background:var(--card);border:1px solid var(--border);border-radius:var(--radius);padding:20px;transition:all .2s}
+.pain-card:hover{border-color:var(--blue);transform:translateY(-2px);box-shadow:0 8px 24px rgba(0,0,0,.3)}
+.pain-header{display:flex;align-items:flex-start;gap:12px;margin-bottom:12px}
+.pain-number{width:28px;height:28px;border-radius:8px;background:var(--red-bg);color:var(--red);display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:700;flex-shrink:0}
+.pain-name{font-size:14px;font-weight:600;color:#fff}
+.pain-desc{font-size:12px;color:var(--text2);margin-bottom:14px;padding-left:40px}
+
+.solution-row{display:grid;grid-template-columns:1fr 1fr;gap:10px;padding-left:40px}
+.sol-box{padding:10px 12px;border-radius:8px;font-size:11px;line-height:1.5}
+.sol-ray{background:var(--blue-bg);color:var(--blue);border:1px solid rgba(59,130,246,.2)}
+.sol-anyscale{background:var(--green-bg);color:var(--green);border:1px solid rgba(16,185,129,.2)}
+.sol-label{font-weight:700;font-size:10px;text-transform:uppercase;letter-spacing:.06em;margin-bottom:3px;display:block}
+
+/* KEY METRICS */
+.metrics-bar{display:flex;gap:16px;margin-bottom:32px;flex-wrap:wrap}
+.metric{background:var(--card);border:1px solid var(--border);border-radius:var(--radius);padding:16px 20px;flex:1;min-width:180px}
+.metric-label{font-size:10px;text-transform:uppercase;letter-spacing:.08em;color:var(--text3);font-weight:600;margin-bottom:4px}
+.metric-value{font-size:14px;font-weight:600;color:var(--text)}
+
+/* DISCOVERY QUESTIONS */
+.questions-section{margin-bottom:32px}
+.question-list{display:flex;flex-direction:column;gap:8px}
+.question-item{background:var(--card);border:1px solid var(--border);border-radius:var(--radius);padding:14px 18px;font-size:13px;color:var(--text);cursor:pointer;transition:all .15s;display:flex;align-items:flex-start;gap:10px}
+.question-item:hover{border-color:var(--blue);background:rgba(59,130,246,.04)}
+.q-icon{color:var(--blue);font-size:14px;margin-top:1px;flex-shrink:0}
+
+/* RESPONSIVE */
+@media(max-width:900px){
+  .pain-grid,.pitch-row{grid-template-columns:1fr}
+  .content{padding:20px 16px}
+  .hero{padding:28px 16px 20px}
+  .nav-wrap{padding:0 16px}
+}
+
+/* FOOTER */
+.footer{text-align:center;padding:20px;font-size:11px;color:var(--text3);border-top:1px solid var(--border);margin-top:40px}
+</style>
+</head>
+<body>
+
+<div class="hero">
+  <div class="hero-label">Anyscale · Sales Intelligence</div>
+  <h1>Persona Pain Points & Solutions Guide</h1>
+  <div class="sub">Pain points by persona with elevator pitches for how Ray (open-source) and Anyscale (managed platform) solve them. Built from Anyscale's 2025 persona cards.</div>
+</div>
+
+<div class="nav-wrap" id="navWrap">
+  <div class="nav-tab active" onclick="showTab(0)"><span class="tab-icon">🧠</span>ML / AI Engineer</div>
+  <div class="nav-tab" onclick="showTab(1)"><span class="tab-icon">📊</span>Data Scientist</div>
+  <div class="nav-tab" onclick="showTab(2)"><span class="tab-icon">👁️</span>CV / Perception</div>
+  <div class="nav-tab" onclick="showTab(3)"><span class="tab-icon">🔬</span>AI Researcher</div>
+  <div class="nav-tab" onclick="showTab(4)"><span class="tab-icon">⚙️</span>MLOps Engineer</div>
+  <div class="nav-tab" onclick="showTab(5)"><span class="tab-icon">🏗️</span>AI Platform Eng</div>
+  <div class="nav-tab" onclick="showTab(6)"><span class="tab-icon">💻</span>Software Engineer</div>
+  <div class="nav-tab" onclick="showTab(7)"><span class="tab-icon">👔</span>Head of AI</div>
+  <div class="nav-tab" onclick="showTab(8)"><span class="tab-icon">📈</span>Head of Data</div>
+  <div class="nav-tab" onclick="showTab(9)"><span class="tab-icon">🖥️</span>Head of AI Platform</div>
+</div>
+
+<div class="content" id="content"></div>
+
+<div class="footer">Anyscale Persona Pain Points Guide · Built for Dylan Wingrove · March 2026</div>
+
+<script>
+const personas = [
+  {
+    name: "Machine Learning / AI Engineer",
+    icon: "🧠", iconBg: "#1e3a5f", cat: "Practitioner", catClass: "cat-practitioner",
+    desc: "Translates business needs into AI solutions. Runs end-to-end model development lifecycle.",
+    rayPitch: "Ray lets you <strong>scale any Python ML code from laptop to cluster with minimal changes</strong>. Ray Train distributes PyTorch/TensorFlow training across GPUs with a few lines of code. Ray Tune runs thousands of hyperparameter experiments in parallel. No rewriting, no boilerplate — just add a decorator and scale.",
+    anyscalePitch: "Anyscale gives you a <strong>fully managed Ray platform so you never touch infrastructure</strong>. Launch distributed training jobs on hundreds of GPUs in minutes. Auto-scaling, spot instance management, and experiment tracking built in. You focus on model quality — Anyscale handles everything underneath.",
+    metrics: ["Speed of iteration (experiments/week)", "Model performance (accuracy, latency)", "Time from prototype to production", "GPU utilization rate"],
+    pains: [
+      {
+        name: "Training takes too long on single machines",
+        desc: "Large models and datasets mean training runs take days or weeks on a single GPU, killing iteration velocity.",
+        ray: "Ray Train parallelizes PyTorch/TF training across multi-node GPU clusters with near-linear scaling. A few lines of code turn single-GPU scripts into distributed training jobs.",
+        anyscale: "Anyscale auto-provisions GPU clusters on demand, manages fault tolerance, and provides real-time experiment dashboards — no DevOps needed."
+      },
+      {
+        name: "Hyperparameter tuning is manual and slow",
+        desc: "Grid search on one machine means weeks of experimentation. Most engineers settle for 'good enough' parameters.",
+        ray: "Ray Tune runs thousands of HP trials in parallel across a cluster with ASHA early stopping, Population-Based Training, and Bayesian optimization built in.",
+        anyscale: "Anyscale manages the underlying compute so massive Tune sweeps auto-scale to hundreds of workers, then scale down to zero when done — you only pay for what you use."
+      },
+      {
+        name: "Dev-to-production gap is painful",
+        desc: "Code that works in Jupyter doesn't work in production. Different environments, different dependencies, different scale.",
+        ray: "Ray provides a single programming model from development to production. The same Ray script runs locally, on a cluster, and in production with Ray Serve — no rewrite needed.",
+        anyscale: "Anyscale Workspaces give you an IDE-like environment that matches production exactly. Push to production with a single command — same environment, same scale."
+      },
+      {
+        name: "Waiting for infra team to provision GPUs",
+        desc: "Need more compute? Submit a ticket, wait days. GPU allocation is a bottleneck for experimentation velocity.",
+        ray: "Ray's resource-aware scheduler lets you request GPUs programmatically within your training script — no tickets, no waiting.",
+        anyscale: "Anyscale auto-scales GPU clusters in minutes from cloud inventory. Self-serve compute access with quotas and governance built in."
+      }
+    ],
+    questions: [
+      "How long does a typical training run take end-to-end, and what's limiting faster iteration?",
+      "How do you currently distribute training across multiple GPUs or nodes?",
+      "What's your process for hyperparameter tuning — manual, grid search, or automated?",
+      "How many experiments can your team run per week, and what would 10x that look like?"
+    ]
+  },
+  {
+    name: "Data Scientist",
+    icon: "📊", iconBg: "#1e3a5f", cat: "Practitioner", catClass: "cat-practitioner",
+    desc: "Builds models, analyzes data, and communicates insights. Heavy Python user with statistics background.",
+    rayPitch: "Ray lets you <strong>scale your pandas, scikit-learn, and XGBoost workflows to datasets that don't fit in memory</strong> — without learning Spark or rewriting code. Ray Data processes terabytes with familiar Python APIs, and Ray Tune automates your model selection.",
+    anyscalePitch: "Anyscale gives you <strong>instant access to distributed compute so you can work with any size dataset</strong>, not just what fits on your laptop. Managed notebooks, auto-scaling clusters, and seamless collaboration — like Jupyter but with unlimited compute behind it.",
+    metrics: ["No. of experiments completed", "Completion # and impact of AI projects", "Model accuracy impact on business metrics", "Data pipeline throughput"],
+    pains: [
+      {
+        name: "Datasets too large for a single machine",
+        desc: "Data is growing exponentially. Pandas crashes on 50GB+ datasets. Switching to Spark means learning a new paradigm.",
+        ray: "Ray Data provides distributed DataFrames with a pandas-like API. Process terabytes across a cluster without changing your mental model. Native integration with PyArrow and Parquet.",
+        anyscale: "Anyscale auto-provisions clusters sized to your data. Upload a dataset, Anyscale figures out the right cluster size and processes it — no cluster management required."
+      },
+      {
+        name: "Slow iteration from prototype to results",
+        desc: "Feature engineering, model training, and evaluation loops take hours. Waiting kills the creative exploration process.",
+        ray: "Ray parallelizes every stage — data preprocessing with Ray Data, training with Ray Train, tuning with Ray Tune, evaluation with Ray — all in one script, all distributed.",
+        anyscale: "Anyscale Workspaces give you an interactive notebook backed by a cluster. Iterate at laptop speed on cluster-scale data."
+      },
+      {
+        name: "Reproducibility and experiment tracking",
+        desc: "Hard to reproduce results across different environments. 'It works on my machine' is a constant problem.",
+        ray: "Ray provides deterministic execution with consistent environments. Same script, same results, from laptop to cluster.",
+        anyscale: "Anyscale provides versioned environments, experiment lineage tracking, and one-click result reproduction across your team."
+      },
+      {
+        name: "Collaboration across data science teams",
+        desc: "Sharing notebooks, data, and models across team members is ad-hoc. No consistent compute environment.",
+        ray: "Ray's shared object store lets team members share large datasets and model artifacts in-memory across a cluster without serialization overhead.",
+        anyscale: "Anyscale Workspaces provide shared team environments with consistent dependencies, shared storage, and collaborative debugging."
+      }
+    ],
+    questions: [
+      "What's the largest dataset you work with regularly, and does it fit on a single machine?",
+      "How do you currently handle data processing that exceeds your local resources?",
+      "What's your experiment-to-insight cycle time, and what would cutting it in half unlock?",
+      "How does your team share models, data, and environments today?"
+    ]
+  },
+  {
+    name: "Computer Vision / Perception Engineer",
+    icon: "👁️", iconBg: "#1e3a5f", cat: "Practitioner", catClass: "cat-practitioner",
+    desc: "Builds perception models for image, video, and 3D data. Works with large multimodal datasets.",
+    rayPitch: "Ray handles the <strong>massive data pipelines and distributed GPU training that CV workloads demand</strong>. Ray Data streams terabytes of images/video without loading everything into memory. Ray Train scales PyTorch vision models across multi-node GPU clusters with automatic sharding.",
+    anyscalePitch: "Anyscale gives CV teams <strong>instant access to GPU clusters with optimized data loading for image/video workloads</strong>. Auto-scale from 1 to 100+ GPUs as your training runs demand. Built-in support for large-scale data ingestion from S3/GCS with smart caching and prefetching.",
+    metrics: ["Model accuracy (mAP, IoU)", "Training throughput (images/sec)", "Inference latency (ms)", "Data pipeline efficiency"],
+    pains: [
+      {
+        name: "Massive image/video datasets overwhelm pipelines",
+        desc: "CV datasets are hundreds of GBs to TBs. Loading, augmenting, and feeding data to GPUs is the #1 bottleneck — GPUs sit idle waiting for data.",
+        ray: "Ray Data provides streaming data loading with pipelining — data preprocessing runs in parallel with GPU training. Zero idle GPU time with automatic prefetching and batching.",
+        anyscale: "Anyscale's managed storage layer integrates with S3/GCS for smart caching and prefetching. Data loading is never the bottleneck — GPUs stay saturated."
+      },
+      {
+        name: "Multi-GPU training is complex and brittle",
+        desc: "Distributed training with DDP/FSDP requires careful configuration. OOM errors, NCCL timeouts, and node failures waste days of engineering time.",
+        ray: "Ray Train wraps PyTorch DDP/FSDP with automatic fault tolerance. If a node fails, Ray restarts training from the last checkpoint — no manual intervention.",
+        anyscale: "Anyscale handles the cluster provisioning, networking, and fault recovery. Multi-node GPU training is a single API call with automatic checkpointing."
+      },
+      {
+        name: "Serving vision models at low latency is hard",
+        desc: "Production CV requires <50ms inference on high-throughput streams. Batching, GPU sharing, and auto-scaling are complex to build.",
+        ray: "Ray Serve provides dynamic batching, fractional GPU allocation, and model composition for multi-stage CV pipelines (detection → classification → tracking).",
+        anyscale: "Anyscale auto-scales Ray Serve deployments based on traffic. GPU sharing across models means high utilization without over-provisioning."
+      },
+      {
+        name: "Annotation and evaluation at scale",
+        desc: "Running inference on millions of images for evaluation or pseudo-labeling takes forever on single machines.",
+        ray: "Ray's distributed map operation parallelizes batch inference across a cluster. Process millions of images in minutes instead of hours.",
+        anyscale: "Anyscale spins up evaluation clusters on demand, runs batch inference, and tears down automatically — pay only for the minutes you use."
+      }
+    ],
+    questions: [
+      "What's your dataset size, and is data loading currently the bottleneck in your training pipeline?",
+      "How are you handling multi-GPU or multi-node distributed training today?",
+      "What does your model serving architecture look like for production inference?",
+      "How long does a full evaluation run take across your test set?"
+    ]
+  },
+  {
+    name: "AI Researcher",
+    icon: "🔬", iconBg: "#1e3a5f", cat: "Practitioner", catClass: "cat-practitioner",
+    desc: "Pushes the frontier of AI capabilities. Runs large-scale experiments and publishes results.",
+    rayPitch: "Ray gives you <strong>the scale of a cluster with the simplicity of Python</strong>. Run hundreds of experiments in parallel with Ray Tune, scale RL training with RLlib, and distribute custom research code with Ray Core — all without learning distributed systems.",
+    anyscalePitch: "Anyscale lets researchers <strong>focus on research, not infrastructure</strong>. Get immediate access to large GPU clusters, run massive experiment sweeps, and reproduce results across your team — no ops overhead, no waiting for IT.",
+    metrics: ["No. of experiments completed", "Time to publication-quality results", "Model performance on benchmarks", "Research iteration velocity"],
+    pains: [
+      {
+        name: "Experiments are compute-bottlenecked",
+        desc: "Novel architectures need large-scale compute for validation. Waiting weeks for training runs means slower research cycles and missed deadlines.",
+        ray: "Ray Train + Ray Tune let you run dozens of training configurations simultaneously across a cluster. What took weeks sequentially takes hours in parallel.",
+        anyscale: "Anyscale provides on-demand access to hundreds of GPUs. Launch a massive experiment sweep in minutes — no cluster setup, no IT tickets."
+      },
+      {
+        name: "Custom research code is hard to distribute",
+        desc: "Research code is often non-standard — custom training loops, novel architectures, unusual data flows. Standard frameworks don't fit.",
+        ray: "Ray Core's flexible task and actor APIs let you distribute any Python function across a cluster. No framework constraints — just add @ray.remote.",
+        anyscale: "Anyscale runs your custom Ray code at scale with managed environments, dependency tracking, and automatic resource allocation."
+      },
+      {
+        name: "Reproducibility across experiments",
+        desc: "Different hardware, different seeds, different results. Reproducing a colleague's experiment is surprisingly hard.",
+        ray: "Ray provides deterministic scheduling and consistent execution environments. Pin versions, fix seeds, get reproducible results.",
+        anyscale: "Anyscale snapshots the full environment (code, deps, data, config) for every run. One-click reproduction of any historical experiment."
+      },
+      {
+        name: "RL training requires complex orchestration",
+        desc: "Reinforcement learning needs parallel environment rollouts, centralized training, and careful resource management — hard to build from scratch.",
+        ray: "RLlib provides production-grade RL algorithms (PPO, SAC, DQN, etc.) with distributed rollout workers, multi-GPU training, and custom environment support out of the box.",
+        anyscale: "Anyscale manages the heterogeneous compute (CPU for rollouts, GPU for training) and auto-scales RLlib workloads based on throughput targets."
+      }
+    ],
+    questions: [
+      "How many experiments can your team run per week, and what's the bottleneck?",
+      "Do you have custom training loops that don't fit standard framework patterns?",
+      "How do you handle reproducibility when sharing results with collaborators?",
+      "Are you doing any RL or simulation-heavy work that requires heterogeneous compute?"
+    ]
+  },
+  {
+    name: "MLOps Engineer",
+    icon: "⚙️", iconBg: "#0d3b4f", cat: "Platform", catClass: "cat-platform",
+    desc: "Automates ML pipelines from dev to production. Manages model deployment, monitoring, and resource costs.",
+    rayPitch: "Ray provides a <strong>single unified compute layer for training, serving, and data processing</strong> — replacing the patchwork of Airflow + Kubeflow + custom serving code. One framework, one set of APIs, one operational surface to manage.",
+    anyscalePitch: "Anyscale is a <strong>fully managed ML platform that eliminates the infrastructure toil</strong> your team spends 60%+ of their time on. Auto-scaling, monitoring, cost optimization, and deployment — all handled. Your MLOps team shifts from firefighting to building.",
+    metrics: ["Model avg. time to production (days)", "Mean time to recovery (MTTR)", "Compute spend vs. ROI", "Pipeline reliability (uptime %)"],
+    pains: [
+      {
+        name: "Too many tools stitched together",
+        desc: "Airflow for orchestration, Kubeflow for training, custom code for serving, Spark for data — each with its own failure modes and ops overhead.",
+        ray: "Ray unifies training (Ray Train), serving (Ray Serve), data processing (Ray Data), and orchestration in a single framework. One system to operate, one set of logs, one debugging surface.",
+        anyscale: "Anyscale manages the entire Ray stack as a service. Unified monitoring, alerting, and cost dashboards across all workloads — training, serving, and data."
+      },
+      {
+        name: "GPU cost management is a nightmare",
+        desc: "GPUs are expensive and often underutilized. Teams over-provision for peak demand, waste money during idle periods, and lack visibility into spending.",
+        ray: "Ray's resource-aware scheduler maximizes GPU utilization by bin-packing workloads. Fractional GPU support means multiple jobs share a single GPU efficiently.",
+        anyscale: "Anyscale auto-scales clusters to exact demand, uses spot/preemptible instances with automatic fallback, and provides per-team cost attribution dashboards."
+      },
+      {
+        name: "Pipeline failures at 3am",
+        desc: "Training pipelines fail from OOM errors, node failures, or dependency issues. On-call rotations eat into engineering productivity.",
+        ray: "Ray provides automatic fault tolerance — tasks retry on failure, training resumes from checkpoints, and the system self-heals across node failures.",
+        anyscale: "Anyscale manages cluster health, auto-replaces failed nodes, and provides SLA-backed uptime guarantees. Built-in alerting catches issues before they become outages."
+      },
+      {
+        name: "Slow model deployment cycles",
+        desc: "Getting a model from 'notebook works' to 'serving in production' takes weeks of packaging, testing, and infrastructure setup.",
+        ray: "Ray Serve deploys models from Python with zero infrastructure code. Canary deployments, A/B testing, and rollback are built-in primitives.",
+        anyscale: "Anyscale provides one-command deployment from development to production. CI/CD integration, automated rollout, and instant rollback."
+      }
+    ],
+    questions: [
+      "How many different tools does your ML pipeline currently depend on?",
+      "What's your current GPU utilization rate, and do you have visibility into per-team spending?",
+      "How often do training or serving pipelines fail, and what's the typical recovery time?",
+      "How long does it take to get a model from 'notebook works' to 'serving in production'?"
+    ]
+  },
+  {
+    name: "AI Platform Engineer",
+    icon: "🏗️", iconBg: "#0d3b4f", cat: "Platform", catClass: "cat-platform",
+    desc: "Builds and maintains the internal ML platform. Provides compute access and tooling to ML teams.",
+    rayPitch: "Ray is the <strong>compute foundation for your ML platform</strong>. Instead of building custom orchestration, Ray provides a unified API for all ML workloads — training, serving, data, and custom compute. Your platform team builds on Ray rather than reinventing the wheel.",
+    anyscalePitch: "Anyscale is a <strong>managed ML platform your team can deploy in weeks, not quarters</strong>. Multi-tenant compute, self-serve access for ML teams, governance, and cost controls — all built on Ray. Your platform engineers become enablers, not operators.",
+    metrics: ["Platform adoption (% of ML teams using it)", "Compute cost per model trained", "Self-serve ratio (tickets vs. self-serve)", "Platform uptime and reliability"],
+    pains: [
+      {
+        name: "Building an ML platform from scratch is years of work",
+        desc: "Internal ML platforms require scheduling, resource management, multi-tenancy, monitoring, and governance — each taking months to build well.",
+        ray: "Ray provides the compute layer (scheduling, resource management, fault tolerance) out of the box. Build your platform on Ray instead of Kubernetes primitives — 10x faster to production.",
+        anyscale: "Anyscale is a production-ready ML platform on day one. Multi-tenant compute, RBAC, quotas, cost attribution, and monitoring — all managed."
+      },
+      {
+        name: "Maintenance consumes the team",
+        desc: "80% of platform eng time goes to maintenance — upgrading Kubernetes, fixing scheduling bugs, managing GPU drivers — leaving no time for new features.",
+        ray: "Ray abstracts away the distributed systems complexity. Upgrades, patches, and GPU driver management are at the framework level, not your problem.",
+        anyscale: "Anyscale handles all infrastructure maintenance — upgrades, security patches, driver updates, scaling optimizations. Your team builds platform features, not infrastructure."
+      },
+      {
+        name: "Multi-tenancy and resource isolation",
+        desc: "Different ML teams have different needs and budgets. Providing isolated compute with fair sharing and cost attribution is technically hard.",
+        ray: "Ray namespaces and resource groups provide logical isolation. Priority scheduling ensures high-priority jobs get resources first.",
+        anyscale: "Anyscale provides enterprise multi-tenancy — per-team quotas, cost attribution, RBAC, and isolated compute environments with shared cluster efficiency."
+      },
+      {
+        name: "Supporting diverse ML workloads",
+        desc: "Teams want training, serving, data processing, RL, and batch inference — each with different compute profiles. Supporting all of them is exhausting.",
+        ray: "Ray natively supports all ML workload types in a single framework. Training, serving, data, RL, batch inference — all share the same cluster and APIs.",
+        anyscale: "Anyscale's unified platform handles all workload types with automatic resource allocation. One platform for every ML team, regardless of their workload."
+      }
+    ],
+    questions: [
+      "How long did it take to build your current ML platform, and what's the maintenance burden?",
+      "How do you currently handle multi-tenancy and cost attribution across ML teams?",
+      "What percentage of your team's time goes to maintenance vs. building new platform features?",
+      "What ML workload types do your teams need — training, serving, data processing, all of the above?"
+    ]
+  },
+  {
+    name: "Software Engineer (ML-adjacent)",
+    icon: "💻", iconBg: "#0d3b4f", cat: "Platform", catClass: "cat-platform",
+    desc: "Integrates ML models into applications. Builds production systems around ML capabilities.",
+    rayPitch: "Ray Serve lets you <strong>deploy ML models as production microservices with standard Python</strong> — no custom serving infrastructure needed. Compose multiple models, add business logic, handle traffic spikes — all in familiar Python code.",
+    anyscalePitch: "Anyscale provides <strong>production-grade model serving with the reliability your application needs</strong>. Auto-scaling, health checks, canary deployments, and 99.9% uptime — ML serving that meets the same bar as the rest of your production stack.",
+    metrics: ["API latency (p50, p95, p99)", "Uptime / availability", "Deployment frequency", "Integration complexity"],
+    pains: [
+      {
+        name: "ML model integration is unpredictable",
+        desc: "ML models are black boxes with variable latency, memory spikes, and occasional failures. Building reliable systems around them is hard.",
+        ray: "Ray Serve provides dynamic batching, request queuing, and circuit breakers. Models behave like reliable microservices with predictable latency profiles.",
+        anyscale: "Anyscale's managed serving provides SLA-backed latency and uptime guarantees. Auto-scaling handles traffic spikes without manual intervention."
+      },
+      {
+        name: "Serving infrastructure is ML-team's problem",
+        desc: "Software engineers are asked to productionize models but lack ML-specific serving knowledge. GPU allocation, batching, and model loading are unfamiliar.",
+        ray: "Ray Serve abstracts away ML-specific complexity. Deploy a model with standard Python APIs — no GPU management, no batching logic, no custom infrastructure.",
+        anyscale: "Anyscale handles all ML serving infrastructure. Software engineers interact with a standard API endpoint — everything underneath is managed."
+      },
+      {
+        name: "Multi-model pipelines are complex",
+        desc: "Real applications chain multiple models (e.g., detection → classification → ranking). Building reliable pipelines with error handling is tedious.",
+        ray: "Ray Serve's deployment graph composes models into DAGs with built-in error handling, retries, and fallbacks. Define pipelines in Python, deploy as one unit.",
+        anyscale: "Anyscale manages the entire pipeline as a single deployment with unified monitoring, scaling, and rollback across all models in the chain."
+      },
+      {
+        name: "Scaling from demo to production traffic",
+        desc: "A model that works for 10 requests/sec fails at 10,000. Scaling requires infrastructure expertise the team doesn't have.",
+        ray: "Ray Serve auto-scales replicas based on traffic. From 10 to 10,000 RPS with zero code changes — Ray handles the load balancing and replica management.",
+        anyscale: "Anyscale auto-scales from zero to thousands of replicas across GPU clusters. Pay-per-use pricing means no cost when traffic is low."
+      }
+    ],
+    questions: [
+      "How do ML models get deployed into your production applications today?",
+      "What's your current model serving latency, and what would your application need?",
+      "Do you have multi-model pipelines, and how are they orchestrated?",
+      "What happens to your serving infrastructure during traffic spikes?"
+    ]
+  },
+  {
+    name: "Head of AI",
+    icon: "👔", iconBg: "#0d4d4d", cat: "AI Lead", catClass: "cat-leader",
+    desc: "Defines AI vision and strategy. Leads cross-org alignment and oversees delivery of high-impact AI products.",
+    rayPitch: "Ray is the <strong>open-source standard for scalable AI compute</strong> — used by OpenAI, Uber, Spotify, and thousands of companies. Adopting Ray gives your team a portable, vendor-neutral compute layer with the largest distributed ML ecosystem and community.",
+    anyscalePitch: "Anyscale <strong>accelerates your AI roadmap by removing infrastructure as a bottleneck</strong>. Your team ships AI products faster, controls compute costs, and maintains governance — all while staying on the industry-standard Ray platform. Typical customers see 2-3x faster time-to-production.",
+    metrics: ["Business impact (revenue, cost savings)", "Team velocity (experiments/month)", "Time to production for AI products", "AI team retention & satisfaction"],
+    pains: [
+      {
+        name: "AI projects take too long to deliver ROI",
+        desc: "Leadership expects AI to drive business results, but projects stall in infrastructure setup and scaling challenges. 6-month timelines stretch to 18 months.",
+        ray: "Ray eliminates the distributed systems learning curve. ML teams are productive on day one — no 3-month infrastructure setup phase. Same code from prototype to production.",
+        anyscale: "Anyscale customers typically see 2-3x faster time-to-production. Managed infrastructure means your team ships AI products, not infrastructure."
+      },
+      {
+        name: "Balancing innovation vs. risk",
+        desc: "Want to push AI capabilities but need governance, compliance, and reliability. Moving fast without breaking things is a constant tension.",
+        ray: "Ray is production-battle-tested at OpenAI, Uber, and Spotify scale. Enterprise-grade reliability with cutting-edge capabilities.",
+        anyscale: "Anyscale provides enterprise governance — RBAC, audit trails, compliance controls, SOC2 — without slowing down innovation. Move fast with guardrails."
+      },
+      {
+        name: "Proving ROI to leadership",
+        desc: "AI compute costs are high and hard to justify. Need clear metrics showing business impact relative to infrastructure investment.",
+        ray: "Ray's efficient resource utilization means more experiments per dollar. Typical Ray adoption reduces compute costs 30-50% through better GPU utilization.",
+        anyscale: "Anyscale provides per-project cost attribution, ROI dashboards, and cost optimization recommendations. Clear visibility into AI spend vs. business outcomes."
+      },
+      {
+        name: "Retaining top AI talent",
+        desc: "AI engineers leave when they spend time on infrastructure instead of model development. Losing talent is the #1 risk to your AI strategy.",
+        ray: "Ray lets engineers focus on ML, not distributed systems. Teams report higher satisfaction and faster onboarding when using Ray.",
+        anyscale: "Anyscale eliminates infrastructure toil entirely. Your best engineers work on the hardest ML problems, not cluster management. This is a retention advantage."
+      }
+    ],
+    questions: [
+      "What's your team's current time from AI concept to production deployment?",
+      "How much of your AI budget goes to infrastructure vs. actual model development?",
+      "What governance and compliance requirements do you need for AI workloads?",
+      "How are you measuring ROI on your AI infrastructure investment?"
+    ]
+  },
+  {
+    name: "Head of Data",
+    icon: "📈", iconBg: "#0d4d4d", cat: "AI Lead", catClass: "cat-leader",
+    desc: "Oversees data strategy, data science teams, and the intersection of data engineering and ML.",
+    rayPitch: "Ray bridges the gap between <strong>data engineering and machine learning</strong>. Ray Data replaces the Spark-to-PyTorch handoff with a single framework — your data scientists process and train in one pipeline without switching tools or serializing data between systems.",
+    anyscalePitch: "Anyscale gives your data organization a <strong>unified platform for data processing and ML</strong> — eliminating the tool sprawl and handoff friction that slows your team down. One platform, one cost center, one set of skills for your entire data → ML pipeline.",
+    metrics: ["Data-to-insight cycle time", "Data science team productivity", "Infrastructure cost per insight", "Cross-team collaboration efficiency"],
+    pains: [
+      {
+        name: "Tool sprawl across data and ML teams",
+        desc: "Data engineers use Spark, data scientists use pandas, ML engineers use PyTorch — three ecosystems with painful handoffs and data serialization between each.",
+        ray: "Ray Data provides a unified data processing layer that integrates natively with both data engineering (Parquet, S3, databases) and ML (PyTorch, TensorFlow). One tool, zero handoffs.",
+        anyscale: "Anyscale runs both data processing and ML training on the same managed clusters. No separate Spark and GPU clusters — unified compute with cost attribution."
+      },
+      {
+        name: "Data science teams blocked by infrastructure",
+        desc: "Data scientists submit tickets for compute, wait for data pipelines, and fight for GPU access. Productivity is throttled by infrastructure bottlenecks.",
+        ray: "Ray provides self-serve compute access. Data scientists request resources programmatically in their scripts — no tickets, no waiting.",
+        anyscale: "Anyscale gives data scientists self-serve access to managed clusters with quotas and governance. Leaders maintain cost control while teams move fast."
+      },
+      {
+        name: "Scaling data processing for growing datasets",
+        desc: "Data is growing 10x year over year. Current pipelines can't keep up. Processing that took hours now takes days.",
+        ray: "Ray Data scales linearly with cluster size. Double your data? Double your cluster. Ray handles the distribution, shuffling, and fault tolerance.",
+        anyscale: "Anyscale auto-scales data processing clusters based on dataset size. Elastic compute means you handle 10x data growth without re-architecting."
+      },
+      {
+        name: "Proving the value of AI investment to the business",
+        desc: "Hard to draw a line from data infrastructure spending to business outcomes. Leadership questions the ROI of AI/ML investments.",
+        ray: "Ray's unified platform means every dollar of compute directly supports model development. No wasted spending on redundant infrastructure layers.",
+        anyscale: "Anyscale provides project-level cost tracking, experiment-to-outcome lineage, and executive dashboards showing AI ROI."
+      }
+    ],
+    questions: [
+      "How many different tools and frameworks does your data → ML pipeline span?",
+      "What's the handoff process between data engineering and data science teams?",
+      "How fast is your data growing, and can your current infrastructure keep up?",
+      "How do you currently attribute infrastructure costs to specific AI projects?"
+    ]
+  },
+  {
+    name: "Head of AI Platform",
+    icon: "🖥️", iconBg: "#0d4d4d", cat: "AI Lead", catClass: "cat-leader",
+    desc: "Owns the ML platform strategy. Responsible for enabling all AI teams with scalable, reliable infrastructure.",
+    rayPitch: "Ray is the <strong>industry-standard compute layer for ML platforms</strong> — the foundation that OpenAI, Uber, and hundreds of companies built their platforms on. Adopting Ray means your platform team builds on proven infrastructure rather than reinventing distributed compute.",
+    anyscalePitch: "Anyscale is a <strong>managed ML platform that gives you enterprise-grade capabilities in weeks, not years</strong>. Multi-tenancy, cost governance, unified workload management, and SLA-backed reliability — all built on the same Ray your teams already know.",
+    metrics: ["Platform adoption across AI org", "Cost per model trained/served", "Platform team efficiency (build vs. maintain)", "Time to onboard new ML teams"],
+    pains: [
+      {
+        name: "Build vs. buy — years of platform development ahead",
+        desc: "Building an internal ML platform requires 5-10 engineers for 1-2 years. Meanwhile, ML teams are blocked and productivity suffers.",
+        ray: "Ray provides 80% of what an ML platform needs — scheduling, resource management, fault tolerance, multi-workload support. Build the last 20% on top.",
+        anyscale: "Anyscale is the platform, ready today. Multi-tenancy, governance, monitoring, cost controls — production-ready in weeks. Your team builds integrations, not infrastructure."
+      },
+      {
+        name: "Platform team is understaffed and overwhelmed",
+        desc: "Every ML team has different needs, and a small platform team can't keep up. Feature requests pile up while maintenance consumes all bandwidth.",
+        ray: "Ray's unified API serves all workload types — training, serving, data, batch. One framework to support instead of five. Dramatically reduces platform team surface area.",
+        anyscale: "Anyscale offloads infrastructure management entirely. Your platform team focuses on ML team enablement and custom integrations — the high-leverage work."
+      },
+      {
+        name: "Compute costs growing faster than value",
+        desc: "GPU spend is the fastest-growing line item. Finance wants answers, but you lack visibility into who's spending what and why.",
+        ray: "Ray's efficient scheduling and GPU bin-packing typically reduce compute costs 30-50%. Fractional GPU support means no wasted capacity.",
+        anyscale: "Anyscale provides per-team, per-project cost dashboards with optimization recommendations. Spot instance management and auto-scaling reduce spend 40-60%."
+      },
+      {
+        name: "Vendor lock-in concerns",
+        desc: "Don't want to bet the platform on a proprietary solution. Need portability and the ability to run on any cloud or on-prem.",
+        ray: "Ray is fully open-source (Apache 2.0) with a massive community. No lock-in — runs on AWS, GCP, Azure, and on-prem with the same code.",
+        anyscale: "Anyscale is built on open-source Ray. Your code is portable. If you ever leave Anyscale, your Ray applications run anywhere — zero migration cost."
+      }
+    ],
+    questions: [
+      "What's your current platform strategy — build, buy, or a combination?",
+      "How much of your platform team's time is spent on maintenance vs. new capabilities?",
+      "What's your current GPU spend trajectory, and do you have per-team cost visibility?",
+      "How important is avoiding vendor lock-in in your platform decision?"
+    ]
+  }
+];
+
+function renderPersona(p) {
+  let html = '';
+  // Header
+  html += `<div class="persona-header">
+    <div class="persona-icon" style="background:${p.iconBg}">${p.icon}</div>
+    <div>
+      <div class="persona-title">${p.name} <span class="cat-badge ${p.catClass}">${p.cat}</span></div>
+      <div class="persona-desc">${p.desc}</div>
+    </div>
+  </div>`;
+
+  // Elevator pitches
+  html += `<div class="pitch-row">
+    <div class="pitch-card ray">
+      <div class="pitch-label">⚡ Ray (Open-Source) Elevator Pitch</div>
+      <div class="pitch-text">${p.rayPitch}</div>
+    </div>
+    <div class="pitch-card anyscale">
+      <div class="pitch-label">🚀 Anyscale (Managed Platform) Elevator Pitch</div>
+      <div class="pitch-text">${p.anyscalePitch}</div>
+    </div>
+  </div>`;
+
+  // Metrics
+  html += `<div class="metrics-bar">`;
+  p.metrics.forEach(m => {
+    html += `<div class="metric"><div class="metric-label">Measured By</div><div class="metric-value">${m}</div></div>`;
+  });
+  html += `</div>`;
+
+  // Pain points
+  html += `<div class="section-title"><span class="icon">🔥</span> Key Pain Points & How We Solve Them</div>`;
+  html += `<div class="pain-grid">`;
+  p.pains.forEach((pain, i) => {
+    html += `<div class="pain-card">
+      <div class="pain-header">
+        <div class="pain-number">${i+1}</div>
+        <div class="pain-name">${pain.name}</div>
+      </div>
+      <div class="pain-desc">${pain.desc}</div>
+      <div class="solution-row">
+        <div class="sol-box sol-ray"><span class="sol-label">⚡ Ray Solves It</span>${pain.ray}</div>
+        <div class="sol-box sol-anyscale"><span class="sol-label">🚀 Anyscale Solves It</span>${pain.anyscale}</div>
+      </div>
+    </div>`;
+  });
+  html += `</div>`;
+
+  // Discovery questions
+  html += `<div class="questions-section">
+    <div class="section-title"><span class="icon">💬</span> Discovery Questions for This Persona</div>
+    <div class="question-list">`;
+  p.questions.forEach(q => {
+    html += `<div class="question-item"><span class="q-icon">→</span>${q}</div>`;
+  });
+  html += `</div></div>`;
+
+  return html;
+}
+
+// Build all panels
+const content = document.getElementById('content');
+personas.forEach((p, i) => {
+  const div = document.createElement('div');
+  div.className = 'persona-panel' + (i === 0 ? ' active' : '');
+  div.id = 'panel-' + i;
+  div.innerHTML = renderPersona(p);
+  content.appendChild(div);
+});
+
+function showTab(idx) {
+  document.querySelectorAll('.nav-tab').forEach((t, i) => t.classList.toggle('active', i === idx));
+  document.querySelectorAll('.persona-panel').forEach((p, i) => p.classList.toggle('active', i === idx));
+}
+</script>
+</body>
+</html>
