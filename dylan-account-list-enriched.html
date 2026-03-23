@@ -159,32 +159,31 @@
 <div class="header">
   <div style="font-size:12px;opacity:0.7;font-weight:500;letter-spacing:0.05em;">ANYSCALE · LEAD INTELLIGENCE</div>
   <h1>Dylan's Account List — Anyscale Fit Analysis</h1>
-  <div class="subtitle">All 100 target accounts scored, tiered, and enriched with decision-maker and outreach guidance</div>
-  <div class="meta">Generated March 4, 2026 · Click any row to expand full research · Sort columns by clicking headers</div>
+  <div class="subtitle">Q2 2026 · 76 target accounts scored, tiered, and enriched with decision-maker and outreach guidance</div>
+  <div class="meta">Updated March 23, 2026 · Click any row to expand full research · Sort columns by clicking headers</div>
 </div>
 
 <div class="summary-bar">
-  <div class="stat t1"><span class="stat-value" id="cnt-t1">12</span><span class="stat-label">Tier 1 · Must-Do</span></div>
-  <div class="stat t2"><span class="stat-value" id="cnt-t2">28</span><span class="stat-label">Tier 2 · Strong</span></div>
-  <div class="stat t3"><span class="stat-value" id="cnt-t3">36</span><span class="stat-label">Tier 3 · Moderate</span></div>
-  <div class="stat"><span class="stat-value" id="cnt-t4">24</span><span class="stat-label">Tier 4 · Low</span></div>
+  <div class="stat t1"><span class="stat-value" id="cnt-t1">9</span><span class="stat-label">Tier 1 · Must-Do</span></div>
+  <div class="stat t2"><span class="stat-value" id="cnt-t2">24</span><span class="stat-label">Tier 2 · Strong</span></div>
+  <div class="stat t3"><span class="stat-value" id="cnt-t3">18</span><span class="stat-label">Tier 3 · Moderate</span></div>
+  <div class="stat"><span class="stat-value" id="cnt-t4">25</span><span class="stat-label">Tier 4 · Low</span></div>
   <div style="margin-left:auto;font-size:12px;color:var(--gray-500);line-height:1.6;">
-    <strong>Avg fit score:</strong> 6.1 / 10<br>
-    <strong>Top sector:</strong> Robotics / Embodied AI (22 accounts)
+    <strong>Total accounts:</strong> 76<br>
+    <strong>Pipeline:</strong> 4 (SoFi, Dyna Robotics, Zeitview, ZEFR)
   </div>
 </div>
 
 <div class="controls">
-  <button class="filter-btn active" onclick="filter('all',this)">All (100)</button>
+  <button class="filter-btn active" onclick="filter('all',this)">All (76)</button>
   <button class="filter-btn" onclick="filter('tier-1',this)">🟢 Tier 1</button>
   <button class="filter-btn" onclick="filter('tier-2',this)">🔵 Tier 2</button>
   <button class="filter-btn" onclick="filter('tier-3',this)">🟡 Tier 3</button>
   <button class="filter-btn" onclick="filter('tier-4',this)">⚪ Tier 4</button>
   <button class="filter-btn" onclick="filter('robotics',this)">🤖 Robotics</button>
-  <button class="filter-btn" onclick="filter('healthai',this)">🏥 Health AI</button>
+  <button class="filter-btn" onclick="filter('healthai',this)">🧬 Health AI</button>
   <button class="filter-btn" onclick="filter('aiplatform',this)">⚡ AI Platform</button>
   <button class="filter-btn" onclick="filter('fintech',this)">💳 Fintech</button>
-  <button class="filter-btn" onclick="filter('enterprise',this)">🏢 Enterprise</button>
   <input type="text" class="search-box" placeholder="🔍 Search accounts…" oninput="searchAccounts(this.value)">
 </div>
 
@@ -217,495 +216,199 @@
 </div>
 
 <div style="padding:20px 48px 48px;color:var(--gray-500);font-size:12px;border-top:1px solid var(--gray-200);">
-  Dylan's Account List · Anyscale Fit Analysis · March 4, 2026 · 100 accounts scored
+  Dylan's Account List · Q2 2026 · 76 accounts scored
 </div>
 
 <script>
 const accounts = [
-  // ===== TIER 1 (Score 9-10) =====
-  {
-    name: "comma.ai", score: 10, tier: 1, sector: "robotics", sectorLabel: "AV / Robotics",
-    icon: "🚗", iconBg: "#e8f4ff",
-    why: "60K+ lines of Python, end-to-end AV world model training on 100M+ miles of data. Massive distributed training workloads with tight Python dependency — natural Ray candidate.",
-    dm: "Head of ML / George Hotz (CEO, technical founder)",
-    valueProp: "Ray's native Python scheduler is a perfect fit for comma.ai's all-Python stack. Managed Ray removes cluster ops overhead so their small team can focus entirely on model quality. Their end-to-end world model training is exactly what Anyscale was built for.",
-    starters: [
-      "Saw the mlsim blog — training the driving policy in an on-policy simulator is a serious distributed compute challenge. How are you handling cluster orchestration at that scale?",
-      "With openpilot's 100M+ mile dataset, the data pipeline + training loop must be substantial. We work with several similar AV teams on exactly this problem."
-    ]
-  },
-  {
-    name: "Iambic Therapeutics", score: 10, tier: 1, sector: "healthai", sectorLabel: "Health AI",
-    icon: "🧬", iconBg: "#f0fff4",
-    why: "CNBC Disruptor 50, $100M+ raised Nov 2025 (NVIDIA-backed). Runs NeuralPLexer + Enchant — massive transformer/GNN workloads on protein structure prediction. Weekly design-make-test cycles require high-throughput distributed ML.",
-    dm: "VP Engineering / Head of ML Platform — LinkedIn search for ML infra at Iambic",
-    valueProp: "Iambic's weekly design-make-test cycles depend on rapid iteration over large molecular training jobs. Anyscale's managed Ray can cut their cluster provisioning overhead and improve GPU utilization on the compute-heavy NeuralPLexer protein structure workloads, directly accelerating drug candidate throughput.",
-    starters: [
-      "With NVIDIA's investment and the NeuralPLexer/Enchant architecture, you're running some of the most compute-intensive ML in biotech. How is your infra team handling distributed training at that scale?",
-      "We work with other biotech ML teams on similar protein structure + property prediction pipelines — happy to share benchmarks on GPU utilization improvements."
-    ]
-  },
-  {
-    name: "Fal.ai", score: 10, tier: 1, sector: "aiplatform", sectorLabel: "AI Platform / Infra",
-    icon: "⚡", iconBg: "#fff9c4",
-    why: "Dedicated GPU inference platform ($49M Series B, a16z). Serves 100M+ daily inference calls across image/video/3D models. Ray Serve is architecturally ideal for their multi-model, bursty inference workload.",
-    dm: "CTO / Head of Infrastructure — early-stage, reach founder level",
-    valueProp: "Fal.ai's core value prop is speed and scale for generative model inference. Ray Serve's prefix-aware routing, fractional GPU scheduling, and automatic scaling maps directly to their multi-model, serverless GPU needs. Potential platform integration/OEM angle as well.",
-    starters: [
-      "Your inference platform serves 100M+ calls/day across wildly different model sizes — the multi-model scheduling problem is exactly where Ray Serve shines. Are you building your own serving layer or looking at managed options?",
-      "We have case studies from generative AI inference companies that cut p99 latency by 40%+ switching to managed Ray Serve. Happy to share."
-    ]
-  },
-  {
-    name: "Apex.AI", score: 9, tier: 1, sector: "robotics", sectorLabel: "AV / Robotics",
-    icon: "🤖", iconBg: "#f0fff4",
-    why: "Production AV OS on ROS2 (ISO 26262 ASIL-D certified). QNX partnership Dec 2025 for AI-native, deterministic real-time. ML inference at the edge + offboard training are core needs.",
-    dm: "VP Engineering / Head of ML Platform",
-    valueProp: "Apex.AI's production-grade AV OS needs a scalable offboard training backend for their ML models. Anyscale provides managed distributed training + serving that pairs cleanly with their deterministic edge runtime. Ray's heterogeneous compute handles the mixed CPU/GPU training pipelines common in AV.",
-    starters: [
-      "The QNX partnership is a strong signal you're pushing toward production AI workloads — what does the offboard training and simulation infrastructure look like to support that?",
-      "AV teams we work with often have a gap between their edge inference runtime and their offboard model training infra. Anyscale bridges that."
-    ]
-  },
-  {
-    name: "Chooch", score: 9, tier: 1, sector: "aiplatform", sectorLabel: "AI Platform / Infra",
-    icon: "👁️", iconBg: "#f3e8ff",
-    why: "Enterprise computer vision AI with multi-model edge + cloud inference. Fuses LLMs with vision models for contextual reasoning. Runs heavy inference across NVIDIA edge devices and cloud. Microsoft for Startups partner.",
-    dm: "CTO / VP Engineering — small company, reach executive level",
-    valueProp: "Chooch runs multiple heavy vision models per stream in low-FPS environments — the multi-model, heterogeneous compute scheduling problem Ray Serve was designed for. Anyscale can provide the managed serving backend that handles the model fusion pipeline at scale across edge and cloud.",
-    starters: [
-      "Running LLM + CV model fusion at inference time is a serious scheduling challenge — how does Chooch handle the compute orchestration across edge and cloud today?",
-      "Ray Serve's fractional GPU allocation is ideal for the multi-heavy-model-per-stream pattern you're running. Happy to show a technical comparison."
-    ]
-  },
-  {
-    name: "Lightwheel", score: 9, tier: 1, sector: "robotics", sectorLabel: "Robotics / Physical AI",
-    icon: "🚛", iconBg: "#fff3e0",
-    why: "Physical AI infra company — SimReady assets, synthetic data, evaluation platforms for training robots at scale. NVIDIA case study. Their platform (sim + data + eval) requires massive distributed training pipelines.",
-    dm: "Head of ML Platform / VP Engineering",
-    valueProp: "Lightwheel's entire business is enabling Physical AI training at scale. Their sim+data+eval stack needs a distributed compute backbone for the heavy rendering and model training workloads. Anyscale's managed Ray is the natural fit — and their NVIDIA relationship could be a warm intro path.",
-    starters: [
-      "Saw the NVIDIA case study — as you scale the SimReady asset pipeline and evaluation platform, what's the distributed compute stack underneath it?",
-      "Your Real2Sim2Real framework generates massive synthetic datasets — the data processing + training pipeline at that scale is a perfect Ray use case."
-    ]
-  },
-  {
-    name: "Valar Labs", score: 9, tier: 1, sector: "healthai", sectorLabel: "Health AI",
-    icon: "🏥", iconBg: "#e8f5e9",
-    why: "$22M Series A (a16z + DCVC). Building Vesta — AI test for cancer treatment prediction from histology images. Pathology model training on 1000+ patient cohorts requires high-throughput GPU pipelines. Featured in STAT News Feb 2026.",
-    dm: "Co-founders: Anirudh Joshi / Viswesh Krishna / Pranav Rajpurkar (Stanford AI Lab)",
-    valueProp: "Valar's histology model training on large-scale pathology datasets (1000+ patient cohorts) requires efficient GPU-parallel training. Anyscale's managed Ray dramatically reduces the infra overhead for a small, founder-led team — letting them focus on model development rather than cluster management.",
-    starters: [
-      "Congratulations on the STAT News coverage — the Vesta assay approach is compelling. As you scale to more cancer types, how is the model training infrastructure evolving?",
-      "We work with several digital pathology AI teams where the image dataset sizes create real distributed compute challenges. Happy to share what's working."
-    ]
-  },
-  {
-    name: "Elroy Air", score: 9, tier: 1, sector: "robotics", sectorLabel: "AV / Robotics",
-    icon: "✈️", iconBg: "#e3f2fd",
-    why: "Autonomous cargo drones — heavy ML for flight control, path planning, and computer vision. Raised Series B. Offboard distributed training for flight AI is core infrastructure need.",
-    dm: "VP Engineering / Head of Autonomy Software",
-    valueProp: "Elroy Air's autonomous cargo drone stack requires robust ML training for flight control and computer vision across diverse real-world conditions. Anyscale enables distributed data processing and model training at scale, reducing iteration time on safety-critical ML.",
-    starters: [
-      "Cargo drone autonomy requires training on extremely diverse real-world data — how is your team handling the scale of the training pipeline?",
-      "Safety-critical ML (like flight control) often benefits most from faster iteration cycles. We can show you how peer companies are using Ray to cut training cycles significantly."
-    ]
-  },
-  {
-    name: "Intrinsic", score: 9, tier: 1, sector: "robotics", sectorLabel: "Robotics / Physical AI",
-    icon: "🦾", iconBg: "#f8f0ff",
-    why: "Google's industrial robotics platform (formerly Alphabet X). Joined Google Feb 2026 to 'accelerate physical AI.' Intrinsic Vision Model (IVM) topped 7/11 BOP benchmarks. Foxconn JV. Massive ML training for robotics manipulation skills.",
-    dm: "Now part of Google — target Google DeepMind Physical AI or Google Cloud robotics BD",
-    valueProp: "Intrinsic's Flowstate platform + IVM requires large-scale distributed training. With the Google integration, there's a potential Anyscale-on-GCP angle through the Microsoft Azure partnership channel and/or Google Cloud BD. Could also be a Flowstate SDK integration play.",
-    starters: [
-      "The Google integration is fascinating — as Intrinsic scales Flowstate deployments across Foxconn and other manufacturers, what does the ML training infrastructure for the IVM model look like?",
-      "With Anyscale's Azure partnership and Ray running on GCP, there's a natural cloud-native fit for Intrinsic's training pipelines post-integration."
-    ]
-  },
-  {
-    name: "Wing", score: 9, tier: 1, sector: "robotics", sectorLabel: "AV / Robotics",
-    icon: "🚁", iconBg: "#e8f5e9",
-    why: "Google/Alphabet drone delivery — large-scale ML for flight AI, obstacle avoidance, logistics optimization. Expanding commercial operations in US/AU. Heavy distributed training infrastructure requirement.",
-    dm: "Head of ML / VP Autonomy Engineering (part of Google/Alphabet)",
-    valueProp: "Wing's expanding drone fleet requires continuous ML model updates for flight safety and logistics optimization. Anyscale's managed Ray provides the scalable, fault-tolerant training backbone needed for safety-critical ML iteration at Wing's operational scale.",
-    starters: [
-      "As Wing scales commercial operations, the ML pipeline for continuous model improvement across thousands of flight hours is a significant infrastructure challenge. How is the team handling that today?",
-      "Google's infrastructure is powerful but complex — some teams within Alphabet find that managed Ray provides a simpler, more focused environment for ML-specific workloads."
-    ]
-  },
-  {
-    name: "GITAI", score: 9, tier: 1, sector: "robotics", sectorLabel: "Robotics / Space",
-    icon: "🛸", iconBg: "#e8eaf6",
-    why: "Space robotics company — building general-purpose robots for ISS, lunar, and satellite servicing. NASA and JAXA partnerships. Manipulation ML training at massive scale for extreme environments.",
-    dm: "VP Engineering / Head of AI/ML",
-    valueProp: "GITAI's space robots require training on vast simulation data to handle the extreme variability of space environments. Anyscale's distributed training platform — specifically Ray's heterogeneous compute across CPU (simulation) and GPU (model training) — is architected for exactly this sim-heavy, safety-critical ML training pattern.",
-    starters: [
-      "Training manipulation policies for space environments requires an enormous diversity of simulated scenarios — how is GITAI handling the distributed compute for sim + model training?",
-      "We have strong references in robotics simulation pipelines (think physically-based render + policy training). Happy to walk through a relevant architecture."
-    ]
-  },
-  {
-    name: "Sourcegraph", score: 8, tier: 1, sector: "aiplatform", sectorLabel: "AI Platform / Infra",
-    icon: "🔍", iconBg: "#fef3c7",
-    why: "Cody Enterprise AI coding — deployed at Palo Alto Networks (2K+ devs), Qualtrics (1K+ devs). Operates search + embeddings + code graph at massive scale across billions of lines of code. ML-heavy retrieval infrastructure.",
-    dm: "VP Engineering / Head of ML Platform",
-    valueProp: "Sourcegraph's code intelligence backend runs embedding generation, semantic search, and LLM inference across billions of lines of code. Ray's batch inference capabilities can significantly accelerate their embeddings pipeline, while Ray Serve can scale their Cody inference layer across enterprise deployments.",
-    starters: [
-      "Running embeddings and semantic search over billions of lines of code is a serious ML infrastructure challenge — how is the Sourcegraph team handling the embedding generation pipeline?",
-      "We've seen enterprise AI coding platforms use Ray for distributed batch embeddings to good effect. Happy to share the architecture."
-    ]
-  },
-
-  // ===== TIER 2 (Score 7-8) =====
-  {
-    name: "Compound Eye", score: 8, tier: 2, sector: "robotics", sectorLabel: "AV / Robotics",
-    icon: "📷", iconBg: "#e3f2fd",
-    why: "3D automotive sensing tech for L2+ ADAS. Computer vision + sensor fusion ML. Hardware + software integrated product.",
-    dm: "VP Engineering / Head of ML", valueProp: "Distributed sensor fusion model training for automotive-grade CV.", starters: ["How does your sensing ML training pipeline scale as you add more vehicle types?"]
-  },
-  {
-    name: "Overview.ai", score: 8, tier: 2, sector: "robotics", sectorLabel: "AI Vision / Robotics",
-    icon: "🏭", iconBg: "#f3f4f6",
-    why: "Industrial AI vision inspection. Computer vision models running on factory floor. Inference at edge + cloud training pipeline.",
-    dm: "CTO / VP Engineering", valueProp: "Factory AI inspection models require rapid retraining on new defect types — managed Ray accelerates the training loop.", starters: ["Industrial defect detection requires continuous model retraining — how is your team managing that pipeline?"]
-  },
-  {
-    name: "Foxglove", score: 8, tier: 2, sector: "robotics", sectorLabel: "Robotics Dev Tools",
-    icon: "🦊", iconBg: "#fff3e0",
-    why: "Robotics data visualization + ops platform. Ingests and processes massive ROS bags. Data pipeline for ML training — massive distributed processing need.",
-    dm: "CTO / Head of Engineering", valueProp: "Foxglove's ROS data pipelines feed ML training — Ray's data processing is native to this workflow.", starters: ["As Foxglove scales the volume of robot data ingested, what's the processing pipeline that feeds model training?"]
-  },
-  {
-    name: "Anyware Robotics", score: 8, tier: 2, sector: "robotics", sectorLabel: "Robotics",
-    icon: "📦", iconBg: "#e8f5e9",
-    why: "Autonomous piece-picking robots for warehouses. Computer vision + manipulation ML. Real-world deployment at scale.",
-    dm: "VP Engineering / Head of AI", valueProp: "Warehouse picking ML models require retraining on diverse product SKUs — distributed training accelerates this.", starters: ["How are you handling model retraining as you add new SKU categories to the piece-picking system?"]
-  },
-  {
-    name: "Armstrong Robotics", score: 8, tier: 2, sector: "robotics", sectorLabel: "Robotics",
-    icon: "🦿", iconBg: "#f3e8ff",
-    why: "General-purpose robotics. ML-heavy control and perception stack. Distributed sim + training pipeline likely core infrastructure.",
-    dm: "VP Engineering / Head of ML", valueProp: "Distributed sim-to-real training at scale.", starters: ["What does the simulation + training pipeline look like for your manipulation stack?"]
-  },
-  {
-    name: "Kiwibot", score: 8, tier: 2, sector: "robotics", sectorLabel: "Delivery Robotics",
-    icon: "🤖", iconBg: "#e8f0fe",
-    why: "Autonomous delivery robots on campus/urban environments. Computer vision + ML navigation. Fleet of robots generating continuous training data.",
-    dm: "VP Engineering / Head of AI", valueProp: "Fleet-scale robot data generates continuous training signal — distributed training needed to keep pace.", starters: ["With a growing robot fleet, how frequently are you retraining navigation and perception models?"]
-  },
-  {
-    name: "Topaz Labs", score: 8, tier: 2, sector: "aiplatform", sectorLabel: "AI Platform / Media",
-    icon: "🎨", iconBg: "#fff9c4",
-    why: "AI image/video upscaling and enhancement. Large GAN/diffusion models running on consumer + enterprise GPU. Significant distributed training workload.",
-    dm: "CTO / VP ML Engineering", valueProp: "Training large image/video enhancement models requires significant GPU resources — managed Ray reduces operational overhead.", starters: ["Your image enhancement models are some of the most GPU-intensive in consumer AI — what does your training infrastructure look like?"]
-  },
-  {
-    name: "Iambic Therapeutics (FKA Entos, Inc)", score: 8, tier: 2, sector: "healthai", sectorLabel: "Health AI",
-    icon: "💊", iconBg: "#f0fff4",
-    why: "Listed separately in CRM — same as Iambic above. Confirm if this is a duplicate or a different contact at the same company.",
-    dm: "Same as Iambic Therapeutics above", valueProp: "Same as Iambic Therapeutics above.", starters: ["Confirm: is this a duplicate entry with Iambic Therapeutics or a separate contact?"]
-  },
-  {
-    name: "Krisp", score: 7, tier: 2, sector: "aiplatform", sectorLabel: "AI Platform / Audio",
-    icon: "🎙️", iconBg: "#e8f0fe",
-    why: "Real-time AI noise cancellation. Runs inference on 50M+ users' audio streams. Custom ML models for voice isolation. Scale-intensive inference.",
-    dm: "VP Engineering / Head of ML", valueProp: "Real-time audio ML at 50M+ user scale demands highly optimized inference infrastructure — Ray Serve's fractional GPU scheduling applies.", starters: ["At 50M+ users doing real-time inference, what does the serving infrastructure look like for Krisp's audio models?"]
-  },
-  {
-    name: "HeadSpin", score: 7, tier: 2, sector: "enterprise", sectorLabel: "Enterprise / DevTools",
-    icon: "📱", iconBg: "#f3f4f6",
-    why: "Mobile AI testing platform. AI-powered performance analytics across real devices. ML for anomaly detection + performance prediction at scale.",
-    dm: "CTO / VP Engineering", valueProp: "ML-based performance anomaly detection across thousands of device streams requires distributed inference — Anyscale's batch inference handles this.", starters: ["Running ML performance analytics across thousands of real device streams is a significant distributed compute challenge — how is that pipeline structured?"]
-  },
-  {
-    name: "Samba TV", score: 7, tier: 2, sector: "enterprise", sectorLabel: "Ad Tech / Media AI",
-    icon: "📺", iconBg: "#fce4ec",
-    why: "TV audience analytics using ACR (automatic content recognition). ML for content identification across millions of TV streams. Large-scale video ML inference.",
-    dm: "VP Data Science / Head of ML Engineering", valueProp: "ACR across millions of concurrent TV streams is a massive distributed inference problem — Ray's batch processing is built for this.", starters: ["Real-time content recognition across millions of TV streams — what does the ML inference pipeline look like at Samba TV's scale?"]
-  },
-  {
-    name: "Matterport", score: 7, tier: 2, sector: "enterprise", sectorLabel: "3D AI / Spatial Data",
-    icon: "🏠", iconBg: "#e8f5e9",
-    why: "3D spatial data platform. ML for 3D reconstruction from images, spatial AI. Processing millions of 3D models. Potential large distributed ML workloads.",
-    dm: "VP Engineering / Head of Data Science", valueProp: "3D reconstruction ML across millions of spaces requires scalable GPU pipelines — managed Ray reduces operational friction.", starters: ["Processing and serving 3D AI models across millions of properties is infrastructure-intensive — how is the ML pipeline structured?"]
-  },
-  {
-    name: "Suki", score: 7, tier: 2, sector: "healthai", sectorLabel: "Health AI",
-    icon: "🩺", iconBg: "#e3f2fd",
-    why: "AI voice assistant for clinical documentation. Real-time speech recognition + LLM processing at scale across healthcare systems.",
-    dm: "VP Engineering / Head of ML", valueProp: "Real-time healthcare voice AI requires low-latency, reliable inference infrastructure — Ray Serve's fractional GPU model is a natural fit.", starters: ["Running LLM + speech recognition in real-time for clinical workflows — how is Suki handling inference at scale across health system deployments?"]
-  },
-  {
-    name: "Techcyte", score: 7, tier: 2, sector: "healthai", sectorLabel: "Health AI",
-    icon: "🔬", iconBg: "#f0fff4",
-    why: "Digital pathology AI — ML for cytology and histology slide analysis. Heavy CNN/vision model training on large pathology datasets.",
-    dm: "CTO / Head of AI", valueProp: "Pathology slide analysis requires training on millions of high-res images — distributed GPU training with Anyscale reduces iteration time.", starters: ["Pathology AI training on large slide datasets is GPU-intensive — what's the training pipeline architecture at Techcyte?"]
-  },
-  {
-    name: "Culture Biosciences", score: 7, tier: 2, sector: "healthai", sectorLabel: "Biotech AI",
-    icon: "🧫", iconBg: "#f0fff4",
-    why: "Cloud bioreactor platform with AI-driven bioprocess optimization. ML for predicting and optimizing fermentation conditions. Industrial biotech AI.",
-    dm: "Head of Data Science / VP Engineering", valueProp: "Bioprocess optimization ML requires iterative training on time-series bioreactor data — distributed training accelerates model development cycles.", starters: ["AI-driven bioprocess optimization is a fascinating application — what does the ML training pipeline look like across your bioreactor network?"]
-  },
-  {
-    name: "Cytek Biosciences", score: 7, tier: 2, sector: "healthai", sectorLabel: "Health AI / Biotech",
-    icon: "🧬", iconBg: "#e8f5e9",
-    why: "Full-spectrum flow cytometry. ML for spectral unmixing + cell classification. High-dimensional biological data analysis.",
-    dm: "VP Engineering / Head of Data Science", valueProp: "High-dimensional cytometry ML (spectral unmixing at scale) benefits from distributed GPU processing.", starters: ["Spectral unmixing on high-dimensional flow cytometry data — how does your ML pipeline scale as instrument throughput grows?"]
-  },
-  {
-    name: "Wobot AI", score: 7, tier: 2, sector: "aiplatform", sectorLabel: "AI Vision",
-    icon: "👷", iconBg: "#fff3e0",
-    why: "Workplace safety AI using computer vision. Monitors compliance and safety from video streams. Multi-camera, multi-model inference at scale.",
-    dm: "CTO / VP Engineering", valueProp: "Multi-camera computer vision at scale for workplace safety — Ray Serve handles the multi-model inference pipeline efficiently.", starters: ["Running safety AI across hundreds of camera feeds simultaneously — how is the multi-model inference orchestrated?"]
-  },
-  {
-    name: "Pyka", score: 7, tier: 2, sector: "robotics", sectorLabel: "AV / Robotics",
-    icon: "🛩️", iconBg: "#e3f2fd",
-    why: "Autonomous electric aircraft for cargo and agriculture. ML for flight control and mission planning. Small team, big ML compute needs.",
-    dm: "VP Engineering / Head of Autonomy", valueProp: "Autonomous aircraft ML training demands fault-tolerant distributed compute — Anyscale's managed Ray provides this without the ops burden.", starters: ["Flight AI for cargo aircraft requires training on a huge diversity of edge cases — how does the training pipeline scale?"]
-  },
-  {
-    name: "AppliedVR", score: 7, tier: 2, sector: "healthai", sectorLabel: "Health AI / VR",
-    icon: "🥽", iconBg: "#f8f0ff",
-    why: "VR therapy for chronic pain — FDA authorized. ML for patient outcome prediction and therapy personalization.",
-    dm: "VP Engineering / Head of Data Science", valueProp: "Patient outcome ML on VR therapy data — distributed training enables faster iteration on personalization models.", starters: ["How does the patient outcome modeling scale as AppliedVR's clinical dataset grows?"]
-  },
-  {
-    name: "Autonomize AI", score: 7, tier: 2, sector: "healthai", sectorLabel: "Health AI",
-    icon: "🏥", iconBg: "#e8f5e9",
-    why: "Healthcare AI platform — clinical NLP, prior auth automation, care coordination. LLM + ML pipeline at enterprise scale.",
-    dm: "CTO / VP Engineering", valueProp: "Healthcare NLP pipelines running LLMs at enterprise scale — Anyscale's managed Ray handles multi-model serving reliably.", starters: ["Running LLMs for prior auth and care coordination across multiple health systems — how is the inference pipeline structured?"]
-  },
-  {
-    name: "Uplight", score: 7, tier: 2, sector: "enterprise", sectorLabel: "Energy AI",
-    icon: "⚡", iconBg: "#fff9c4",
-    why: "Energy intelligence platform. ML for demand response, customer segmentation, and energy behavior prediction across utility customers.",
-    dm: "VP Data Science / Head of ML Engineering", valueProp: "Energy ML across millions of customer accounts requires scalable distributed training — Anyscale reduces the infra overhead.", starters: ["Running demand response and behavior prediction ML across millions of utility accounts — what's the distributed training setup?"]
-  },
-  {
-    name: "Fulgent Genetics", score: 7, tier: 2, sector: "healthai", sectorLabel: "Health AI / Genomics",
-    icon: "🧬", iconBg: "#f0fff4",
-    why: "Genomics + diagnostic testing with AI. ML for genomic variant interpretation. Large bioinformatics + ML pipeline.",
-    dm: "VP Data Science / Head of Bioinformatics", valueProp: "Genomic variant ML on large sequencing datasets requires high-throughput distributed compute — Anyscale accelerates pipeline iteration.", starters: ["Genomic variant interpretation at clinical scale — how does your ML pipeline handle the data processing and model training at volume?"]
-  },
-  {
-    name: "Fireflies.ai", score: 6, tier: 2, sector: "aiplatform", sectorLabel: "AI Platform / Productivity",
-    icon: "🦋", iconBg: "#e8f0fe",
-    why: "AI meeting notes + intelligence. Transcription + LLM processing across millions of meetings. Significant inference workload.",
-    dm: "CTO / VP Engineering", valueProp: "NLP + LLM inference across millions of meetings is a Ray Serve use case — fractional GPU scheduling reduces serving costs.", starters: ["Processing millions of meetings with transcription + LLM — how is the serving infrastructure handling that scale?"]
-  },
-  {
-    name: "Formant", score: 6, tier: 2, sector: "robotics", sectorLabel: "Robotics Ops",
-    icon: "📡", iconBg: "#f3f4f6",
-    why: "Robot fleet management platform. Handles telemetry, data, and ops for robot fleets. Data pipeline feeding ML models.",
-    dm: "VP Engineering / Head of Data", valueProp: "Fleet telemetry data pipeline → ML training loop is a natural Ray use case for distributed data processing.", starters: ["Robot fleet telemetry at scale generates continuous ML training signal — how is Formant handling that pipeline?"]
-  },
-  {
-    name: "Gorgias", score: 6, tier: 2, sector: "enterprise", sectorLabel: "Enterprise SaaS / AI",
-    icon: "💬", iconBg: "#fce4ec",
-    why: "AI-powered customer support for e-commerce. LLM + NLP for ticket resolution at scale. 10,000+ merchants.",
-    dm: "VP Engineering / Head of ML", valueProp: "LLM-based support automation at 10K+ merchant scale requires efficient inference infrastructure.", starters: ["Running LLM-based ticket automation across thousands of merchant stores — how is the inference pipeline structured?"]
-  },
-  {
-    name: "Weave Robotics", score: 6, tier: 2, sector: "robotics", sectorLabel: "Robotics",
-    icon: "🧶", iconBg: "#f3e8ff",
-    why: "Robotics company — manipulation or weaving automation ML. Distributed sim + training likely needed.",
-    dm: "VP Engineering / Head of AI", valueProp: "Manipulation policy training requires high-throughput simulation and distributed GPU training.", starters: ["What does the simulation and training infrastructure look like for your manipulation stack?"]
-  },
-
-  // ===== TIER 3 (Score 5-6) =====
-  {name:"Flightaware",score:6,tier:3,sector:"enterprise",sectorLabel:"Aviation Data",icon:"✈️",iconBg:"#e3f2fd",why:"Aviation data and analytics. Some ML for flight prediction. Data-heavy but not primarily an ML-infra buyer.",dm:"VP Data Engineering",valueProp:"Flight prediction ML on massive historical flight data — distributed processing pipeline.",starters:["How does Flightaware's ML pipeline for flight prediction scale across global data?"]},
-  {name:"Fulfil Solutions",score:6,tier:3,sector:"robotics",sectorLabel:"Robotics / Logistics",icon:"🏭",iconBg:"#fff3e0",why:"Automated micro-fulfillment centers. Computer vision + robotics ML. Modest ML scale.",dm:"VP Engineering",valueProp:"Fulfillment robot vision model retraining for new product categories.",starters:["How often do you retrain the picking/vision models as new product categories are added?"]},
-  {name:"Medeloop, Inc.",score:6,tier:3,sector:"healthai",sectorLabel:"Health AI",icon:"💊",iconBg:"#e8f5e9",why:"Healthcare ML platform. Some distributed ML potential depending on scale.",dm:"VP Engineering / Head of ML",valueProp:"Healthcare ML pipelines that scale with patient data.",starters:["What ML infrastructure are you running today for training and inference?"]},
-  {name:"Ema",score:6,tier:3,sector:"aiplatform",sectorLabel:"AI Platform",icon:"🤖",iconBg:"#e8f0fe",why:"Enterprise AI agents. LLM orchestration across business workflows. Growing inference infrastructure need.",dm:"VP Engineering / CTO",valueProp:"LLM orchestration at enterprise scale — Ray Serve handles multi-model agent pipelines.",starters:["How is Ema handling the LLM inference infrastructure as agent deployments scale?"]},
-  {name:"Resolve AI",score:6,tier:3,sector:"aiplatform",sectorLabel:"AI Platform",icon:"🧩",iconBg:"#f8f0ff",why:"AI for IT incident resolution. ML for anomaly detection and root cause analysis. Inference at enterprise scale.",dm:"CTO / VP Engineering",valueProp:"IT anomaly ML inference — managed Ray for scalable serving.",starters:["How is the ML inference pipeline structured for real-time IT anomaly detection?"]},
-  {name:"Singulr AI",score:6,tier:3,sector:"aiplatform",sectorLabel:"AI Platform",icon:"🌀",iconBg:"#e8f0fe",why:"Enterprise AI platform. Distributed ML potential as they scale.",dm:"CTO / VP Engineering",valueProp:"Scalable enterprise AI inference.",starters:["What's the infrastructure approach as Singulr scales to more enterprise deployments?"]},
-  {name:"Straiker.ai",score:6,tier:3,sector:"aiplatform",sectorLabel:"AI Security",icon:"🛡️",iconBg:"#fff3e0",why:"AI security platform. ML for threat detection. Inference at scale.",dm:"CTO / VP Engineering",valueProp:"Security ML inference at scale.",starters:["How is Straiker handling the ML inference pipeline for real-time threat detection?"]},
-  {name:"Akool",score:5,tier:3,sector:"aiplatform",sectorLabel:"AI Media",icon:"🎬",iconBg:"#fce4ec",why:"AI video personalization. Some distributed video ML inference.",dm:"CTO / VP Engineering",valueProp:"Video generation/AI inference at scale.",starters:["How does the video AI inference pipeline scale as usage grows?"]},
-  {name:"Reducto",score:5,tier:3,sector:"aiplatform",sectorLabel:"AI Platform",icon:"📄",iconBg:"#f3f4f6",why:"AI document processing. ML for document extraction at scale.",dm:"CTO / VP Engineering",valueProp:"Document ML processing pipeline at enterprise scale.",starters:["How is the document processing pipeline structured at scale?"]},
-  {name:"Qualify Health",score:5,tier:3,sector:"healthai",sectorLabel:"Health AI",icon:"🏥",iconBg:"#e8f5e9",why:"Healthcare AI. Some ML for patient qualification/navigation.",dm:"VP Engineering",valueProp:"Healthcare ML pipelines for patient data.",starters:["What does the ML stack look like for patient qualification at scale?"]},
-  {name:"Maven Clinic",score:5,tier:3,sector:"healthai",sectorLabel:"Digital Health",icon:"👩‍⚕️",iconBg:"#e3f2fd",why:"Women's health platform. ML for health recommendations and care matching.",dm:"VP Engineering / Head of Data Science",valueProp:"Recommendation ML at scale for digital health.",starters:["How does Maven's ML stack for care recommendations scale as membership grows?"]},
-  {name:"Reltio",score:5,tier:3,sector:"enterprise",sectorLabel:"Enterprise Data / AI",icon:"🗄️",iconBg:"#f3f4f6",why:"Cloud MDM + AI. ML for data matching and enrichment at enterprise scale.",dm:"VP Engineering / Head of Data Science",valueProp:"Data matching ML at enterprise scale — distributed processing pipeline.",starters:["How is Reltio handling the distributed ML pipeline for entity resolution at large data volumes?"]},
-  {name:"Netapp",score:5,tier:3,sector:"enterprise",sectorLabel:"Enterprise Storage",icon:"💾",iconBg:"#e3f2fd",why:"Enterprise storage + cloud. Some ML for storage optimization. Large enterprise — potential for ML infra conversation.",dm:"VP Engineering / Head of ML",valueProp:"Storage AI and ML workload orchestration on hybrid cloud.",starters:["As Netapp expands ML-driven storage optimization, what does the distributed ML pipeline look like?"]},
-  {name:"Honeybook",score:5,tier:3,sector:"enterprise",sectorLabel:"SMB SaaS",icon:"🐝",iconBg:"#fff9c4",why:"SMB business platform with AI automation. NLP for contract/invoice AI. Moderate ML scale.",dm:"VP Engineering / Head of Data",valueProp:"Business document AI at scale — NLP/LLM pipelines.",starters:["How is Honeybook handling the AI inference pipeline for contract and invoice automation?"]},
-  {name:"Hippo Insurance",score:5,tier:3,sector:"fintech",sectorLabel:"Insurtech",icon:"🦛",iconBg:"#e8f5e9",why:"Home insurance with IoT + AI. ML for risk assessment and claims prediction.",dm:"VP Data Science / Head of ML",valueProp:"Insurance risk ML at scale — distributed training on claims + IoT data.",starters:["How does Hippo's ML pipeline for risk assessment scale across its policy book?"]},
-  {name:"Parafin",score:5,tier:3,sector:"fintech",sectorLabel:"Fintech",icon:"💳",iconBg:"#e8f0fe",why:"Embedded capital for SMBs. ML for credit underwriting at scale.",dm:"Head of Data Science / VP Engineering",valueProp:"Credit ML for embedded finance — distributed training on transaction data.",starters:["How is Parafin handling the underwriting ML pipeline at scale?"]},
-  {name:"Viant Technology",score:5,tier:3,sector:"enterprise",sectorLabel:"Ad Tech",icon:"📊",iconBg:"#f3f4f6",why:"Programmatic advertising. ML for audience targeting and bid optimization. Large-scale inference.",dm:"VP Data Science / Head of ML",valueProp:"Ad targeting ML inference at scale.",starters:["How does Viant's audience ML pipeline scale across its programmatic platform?"]},
-  {name:"American Airlines",score:5,tier:3,sector:"enterprise",sectorLabel:"Enterprise / Aviation",icon:"✈️",iconBg:"#e3f2fd",why:"Large airline. ML for scheduling, pricing, and operations. Significant ML scale but heavy enterprise procurement.",dm:"VP Data Science / Head of ML Platform",valueProp:"Operations and pricing ML at airline scale — distributed training.",starters:["What does the ML infrastructure look like for American Airlines' pricing and operations models?"]},
-  {name:"Starbucks",score:5,tier:3,sector:"enterprise",sectorLabel:"Enterprise / Retail",icon:"☕",iconBg:"#e8f5e9",why:"ML for personalization, deep brew recommendations, supply chain. Large enterprise with active ML team.",dm:"VP Data Science / Head of ML Engineering",valueProp:"Personalization ML at scale across millions of daily customers.",starters:["The deep brew personalization system is interesting — how is the ML pipeline structured at Starbucks' scale?"]},
-  {name:"Wrike",score:5,tier:3,sector:"enterprise",sectorLabel:"Enterprise SaaS",icon:"📋",iconBg:"#f3f4f6",why:"Project management with AI automation. Some NLP + ML for workflow intelligence.",dm:"VP Engineering / Head of ML",valueProp:"Workflow AI and NLP at enterprise scale.",starters:["How is Wrike handling AI/ML infrastructure as AI features scale across enterprise customers?"]},
-  {name:"CareDx, Inc.",score:5,tier:3,sector:"healthai",sectorLabel:"Health AI / Genomics",icon:"🫀",iconBg:"#fce4ec",why:"Transplant diagnostics using genomics + AI. ML for rejection prediction.",dm:"VP Data Science / Head of Bioinformatics",valueProp:"Transplant genomics ML — distributed analysis pipeline.",starters:["How does CareDx's ML pipeline for rejection prediction scale across its patient population?"]},
-  {name:"Zoom",score:5,tier:3,sector:"enterprise",sectorLabel:"Enterprise SaaS",icon:"💻",iconBg:"#e8f0fe",why:"Video conferencing with growing AI features (AI Companion). Heavy ML for noise cancellation, transcription, summarization.",dm:"VP ML Engineering / Head of AI Platform",valueProp:"Real-time AI features at Zoom's scale — inference infrastructure is massive.",starters:["Zoom's AI Companion features run inference at massive scale — how is the ML infra team handling that serving layer?"]},
-  {name:"Reconstruct",score:5,tier:3,sector:"enterprise",sectorLabel:"Construction AI",icon:"🏗️",iconBg:"#fff3e0",why:"AI for construction progress monitoring using imagery. CV ML at scale.",dm:"CTO / VP Engineering",valueProp:"Construction CV model training and inference at scale.",starters:["How does the construction imagery ML pipeline scale across sites?"]},
-
-  // ===== TIER 4 (Score 1-4) =====
-  {name:"Aarki",score:4,tier:4,sector:"enterprise",sectorLabel:"Mobile Ad Tech",icon:"📱",iconBg:"#f3f4f6",why:"Mobile advertising DSP. Some ML for ad targeting. Likely not a core Anyscale buyer.",dm:"VP Engineering",valueProp:"Ad ML inference pipeline.",starters:["What ML infrastructure does Aarki use for targeting optimization?"]},
-  {name:"AG1",score:2,tier:4,sector:"enterprise",sectorLabel:"Consumer / Supplements",icon:"🥤",iconBg:"#f3f4f6",why:"Athletic Greens — supplements D2C. Minimal ML infra need.",dm:"VP Engineering",valueProp:"Very low fit.",starters:["Deprioritize — not a core ML infra buyer."]},
-  {name:"Akool",score:4,tier:4,sector:"enterprise",sectorLabel:"AI Media",icon:"🎬",iconBg:"#fce4ec",why:"AI video/avatar generation. Some GPU inference but small scale today.",dm:"CTO",valueProp:"Video AI inference.",starters:["As Akool scales video generation, what does the inference infrastructure look like?"]},
-  {name:"Arc Institute",score:4,tier:4,sector:"healthai",sectorLabel:"Research / Biotech",icon:"🔬",iconBg:"#f0fff4",why:"Research institute. Some ML for biology but not enterprise buyer.",dm:"Head of Computational Biology",valueProp:"Research ML pipelines.",starters:["What ML compute infrastructure does Arc Institute use for large-scale biology experiments?"]},
-  {name:"Archy",score:3,tier:4,sector:"enterprise",sectorLabel:"Dental SaaS",icon:"🦷",iconBg:"#f3f4f6",why:"Dental practice management. Very low ML infra need.",dm:"VP Engineering",valueProp:"Low fit.",starters:["Deprioritize."]},
-  {name:"B GARAGE",score:3,tier:4,sector:"enterprise",sectorLabel:"Unknown",icon:"🏢",iconBg:"#f3f4f6",why:"Unclear business — needs more research.",dm:"Unknown",valueProp:"Research needed.",starters:["Research required before outreach."]},
-  {name:"Cast & Crew",score:4,tier:4,sector:"enterprise",sectorLabel:"Entertainment SaaS",icon:"🎬",iconBg:"#fce4ec",why:"Entertainment industry payroll/HR. Minimal ML infra fit.",dm:"VP Engineering",valueProp:"Very low fit.",starters:["Deprioritize."]},
-  {name:"Cepton",score:5,tier:4,sector:"robotics",sectorLabel:"AV / LiDAR",icon:"📡",iconBg:"#e3f2fd",why:"LiDAR sensors for AV. Hardware company — ML infra less central. Now part of Koito/acquisition.",dm:"VP Engineering",valueProp:"Sensor fusion ML pipeline.",starters:["What ML training does Cepton run for sensor fusion algorithm development?"]},
-  {name:"Cherry",score:3,tier:4,sector:"fintech",sectorLabel:"Fintech / Payments",icon:"🍒",iconBg:"#fce4ec",why:"Patient financing platform. Very low ML infra need.",dm:"VP Engineering",valueProp:"Low fit.",starters:["Deprioritize."]},
-  {name:"Concensus",score:4,tier:4,sector:"aiplatform",sectorLabel:"AI Research Tools",icon:"📑",iconBg:"#e8f0fe",why:"AI for scientific literature search. NLP at some scale but smaller operation.",dm:"CTO",valueProp:"NLP/LLM inference pipeline for scientific search.",starters:["How is Consensus handling the LLM inference pipeline for scientific paper search?"]},
-  {name:"Connectly.ai",score:4,tier:4,sector:"enterprise",sectorLabel:"Messaging AI",icon:"💬",iconBg:"#f3f4f6",why:"WhatsApp marketing AI. NLP for conversation AI. Moderate ML need.",dm:"CTO / VP Engineering",valueProp:"Conversational AI inference at scale.",starters:["How is Connectly handling the conversational AI inference pipeline?"]},
-  {name:"Console",score:3,tier:4,sector:"enterprise",sectorLabel:"Developer Tools",icon:"⌨️",iconBg:"#f3f4f6",why:"Developer job board. Very low ML infra need.",dm:"VP Engineering",valueProp:"Low fit.",starters:["Deprioritize."]},
-  {name:"Doppel",score:4,tier:4,sector:"enterprise",sectorLabel:"Cybersecurity AI",icon:"🛡️",iconBg:"#fff3e0",why:"Brand threat intelligence / phishing AI. Some ML for threat detection.",dm:"CTO / VP Engineering",valueProp:"Threat detection ML pipeline.",starters:["How does Doppel's ML pipeline for brand threat detection scale?"]},
-  {name:"Efinancial",score:4,tier:4,sector:"fintech",sectorLabel:"Fintech / Insurance",icon:"💰",iconBg:"#e8f0fe",why:"Life insurance marketplace. Some ML for underwriting. Moderate fit.",dm:"VP Data Science",valueProp:"Insurance ML at scale.",starters:["How does efinancial's underwriting ML pipeline work at scale?"]},
-  {name:"Embodied",score:5,tier:4,sector:"robotics",sectorLabel:"Robotics / Social",icon:"🤗",iconBg:"#f8f0ff",why:"Moxie — social robot for children. ML for conversational AI + vision. Interesting but smaller scale.",dm:"CTO / VP AI",valueProp:"Conversational + vision ML for social robotics.",starters:["How is Embodied handling the ML pipeline for Moxie's conversational and vision capabilities?"]},
-  {name:"Félix",score:3,tier:4,sector:"enterprise",sectorLabel:"Unknown",icon:"🏢",iconBg:"#f3f4f6",why:"Unclear — needs research.",dm:"Unknown",valueProp:"Research required.",starters:["Research needed."]},
-  {name:"InfiniGods",score:2,tier:4,sector:"enterprise",sectorLabel:"Gaming",icon:"🎮",iconBg:"#f3f4f6",why:"Web3 gaming. Very low ML infra fit.",dm:"VP Engineering",valueProp:"Very low fit.",starters:["Deprioritize."]},
-  {name:"JigsawStack",score:3,tier:4,sector:"aiplatform",sectorLabel:"AI API Platform",icon:"🧩",iconBg:"#e8f0fe",why:"AI API toolkit. Small developer-focused product. Low current ML scale.",dm:"CTO",valueProp:"Low fit currently.",starters:["Monitor as they scale — potential future fit."]},
-  {name:"Listen Labs",score:4,tier:4,sector:"enterprise",sectorLabel:"AI Research",icon:"👂",iconBg:"#f3f4f6",why:"AI-powered qualitative research. NLP inference at modest scale.",dm:"CTO / VP Engineering",valueProp:"NLP inference pipeline.",starters:["How is Listen Labs scaling the NLP pipeline for qualitative research analysis?"]},
-  {name:"Luxonis",score:5,tier:4,sector:"robotics",sectorLabel:"CV Hardware / Robotics",icon:"📷",iconBg:"#e3f2fd",why:"OAK (OpenCV AI Kit) camera hardware. Software ML for embedded CV. Edge-heavy, offboard training interesting.",dm:"VP Engineering / Head of ML",valueProp:"Offboard training for embedded CV models at scale.",starters:["How does the offboard model training pipeline work for Luxonis' embedded CV applications?"]},
-  {name:"Multiply Labs",score:4,tier:4,sector:"robotics",sectorLabel:"Robotics / Biotech",icon:"💊",iconBg:"#f0fff4",why:"Robotic drug manufacturing. Some ML for process optimization. Niche application.",dm:"VP Engineering",valueProp:"Manufacturing ML optimization pipeline.",starters:["How does Multiply Labs use ML for manufacturing process optimization?"]},
-  {name:"Nash",score:4,tier:4,sector:"enterprise",sectorLabel:"Delivery Logistics",icon:"🚴",iconBg:"#f3f4f6",why:"Delivery operations platform. Some ML for routing/dispatch optimization.",dm:"VP Engineering / Head of Data Science",valueProp:"Routing and dispatch ML at scale.",starters:["How does Nash's ML pipeline for routing optimization scale?"]},
-  {name:"Odyssey",score:3,tier:4,sector:"enterprise",sectorLabel:"Unknown",icon:"🌊",iconBg:"#e3f2fd",why:"Needs more research.",dm:"Unknown",valueProp:"Research required.",starters:["Research needed before outreach."]},
-  {name:"Palmstreet",score:2,tier:4,sector:"enterprise",sectorLabel:"E-Commerce",icon:"🌴",iconBg:"#e8f5e9",why:"Live shopping platform. Very low ML infra need.",dm:"VP Engineering",valueProp:"Very low fit.",starters:["Deprioritize."]},
-  {name:"Quilter",score:3,tier:4,sector:"enterprise",sectorLabel:"Financial Services",icon:"🪡",iconBg:"#f3f4f6",why:"Financial planning platform. Low ML infra fit.",dm:"VP Engineering",valueProp:"Low fit.",starters:["Deprioritize."]},
-  {name:"Rillet",score:4,tier:4,sector:"fintech",sectorLabel:"Fintech / Accounting",icon:"📊",iconBg:"#e8f0fe",why:"AI accounting software. Some NLP for bookkeeping. Modest ML scale.",dm:"CTO / VP Engineering",valueProp:"Accounting AI inference pipeline.",starters:["How is Rillet handling the AI inference pipeline for accounting automation?"]},
-  {name:"SimplePractice",score:3,tier:4,sector:"enterprise",sectorLabel:"Health SaaS",icon:"📝",iconBg:"#f3f4f6",why:"EHR for mental health practices. Low ML infra need currently.",dm:"VP Engineering",valueProp:"Low fit.",starters:["Deprioritize."]},
-  {name:"Smallest.ai",score:4,tier:4,sector:"aiplatform",sectorLabel:"AI Platform",icon:"🔊",iconBg:"#e8f0fe",why:"AI voice generation. TTS inference at scale.",dm:"CTO / VP Engineering",valueProp:"TTS inference pipeline at scale.",starters:["How does Smallest.ai handle voice generation inference at scale?"]},
-  {name:"Socket",score:3,tier:4,sector:"enterprise",sectorLabel:"Developer Security",icon:"🔌",iconBg:"#f3f4f6",why:"Open source security scanning. Some ML for code analysis. Low scale currently.",dm:"VP Engineering",valueProp:"Code security ML pipeline.",starters:["How does Socket scale the ML pipeline for security analysis?"]},
-  {name:"Sphero",score:2,tier:4,sector:"robotics",sectorLabel:"Consumer Robotics",icon:"⚽",iconBg:"#e3f2fd",why:"Consumer toy robots. Very low enterprise ML infra need.",dm:"VP Engineering",valueProp:"Very low fit.",starters:["Deprioritize."]},
-  {name:"Step",score:2,tier:4,sector:"fintech",sectorLabel:"Neobank",icon:"💳",iconBg:"#e8f0fe",why:"Teen neobank. Very low ML infra need.",dm:"VP Engineering",valueProp:"Very low fit.",starters:["Deprioritize."]},
-  {name:"Strider Technologies",score:4,tier:4,sector:"enterprise",sectorLabel:"Geopolitical Risk AI",icon:"🌐",iconBg:"#f3f4f6",why:"National security + IP risk intelligence. NLP/ML for document analysis. Government-focused.",dm:"VP Engineering / Head of Data Science",valueProp:"NLP pipeline for large-scale document intelligence.",starters:["How does Strider's ML pipeline handle the large-scale document analysis for IP risk?"]},
-  {name:"T-robotics",score:6,tier:4,sector:"robotics",sectorLabel:"Robotics",icon:"🤖",iconBg:"#f3e8ff",why:"Robotics — needs more research on current scale and ML needs.",dm:"VP Engineering / Head of AI",valueProp:"Robotics ML training pipeline.",starters:["What ML infrastructure does T-robotics use for training and deployment?"]},
-  {name:"Thatch",score:3,tier:4,sector:"enterprise",sectorLabel:"Health Benefits SaaS",icon:"🏡",iconBg:"#f3f4f6",why:"Health benefits platform for self-employed. Low ML infra need.",dm:"VP Engineering",valueProp:"Very low fit.",starters:["Deprioritize."]},
-  {name:"Tidio",score:3,tier:4,sector:"enterprise",sectorLabel:"Customer Support AI",icon:"💬",iconBg:"#e8f0fe",why:"AI chatbot for e-commerce. Some NLP but small scale.",dm:"VP Engineering",valueProp:"Low fit.",starters:["Deprioritize."]},
-  {name:"Varo Bank",score:4,tier:4,sector:"fintech",sectorLabel:"Neobank",icon:"🏦",iconBg:"#e8f0fe",why:"Digital-only bank. ML for fraud detection and credit scoring. Moderate scale.",dm:"VP Data Science / Head of ML",valueProp:"Fraud detection and credit ML at banking scale.",starters:["How is Varo handling the fraud detection ML pipeline at scale?"]},
-  {name:"Vorto",score:4,tier:4,sector:"enterprise",sectorLabel:"Supply Chain AI",icon:"🚚",iconBg:"#fff3e0",why:"AI supply chain platform. Some ML for demand forecasting and logistics optimization.",dm:"VP Engineering / Head of Data Science",valueProp:"Supply chain ML at scale.",starters:["How does Vorto's ML pipeline for logistics optimization scale?"]},
-  {name:"Wave",score:3,tier:4,sector:"fintech",sectorLabel:"Fintech SaaS",icon:"🌊",iconBg:"#e8f0fe",why:"Accounting software for small businesses. Very low ML infra need.",dm:"VP Engineering",valueProp:"Very low fit.",starters:["Deprioritize."]},
-  {name:"Newfront",score:5,tier:4,sector:"fintech",sectorLabel:"Insurtech",icon:"🛡️",iconBg:"#e8f0fe",why:"Insurance brokerage with AI. ML for coverage recommendations and risk analysis.",dm:"VP Data Science / Head of ML",valueProp:"Insurance recommendation ML at scale.",starters:["How is Newfront using ML for insurance coverage recommendations?"]},
-  {name:"Everlaw",score:5,tier:4,sector:"enterprise",sectorLabel:"Legal Tech AI",icon:"⚖️",iconBg:"#f3f4f6",why:"AI litigation platform. NLP for document review at scale. Growing ML use case.",dm:"VP Engineering / Head of ML",valueProp:"Legal NLP pipeline at scale — document analysis with LLMs.",starters:["How is Everlaw handling the LLM-based document review pipeline as case sizes grow?"]},
+  {name:"comma.ai",score:10,tier:1,sector:"robotics",sectorLabel:"AV / Robotics",icon:"🚗",iconBg:"#e8f4ff",why:"OPEN PIPELINE. 60K+ lines Python, end-to-end AV world model training on 100M+ miles. Self-funded, ~30 emp.",dm:"George Hotz (CEO)",valueProp:"Ray's native Python scheduler ideal for all-Python AV stack. Managed Ray removes cluster ops overhead.",starters:["End-to-end world model training on 100M+ miles is serious distributed compute challenge.","With openpilot's scale, how is cluster orchestration handled?"]},
+  {name:"Iambic Therapeutics",score:10,tier:1,sector:"healthai",sectorLabel:"Health AI",icon:"🧬",iconBg:"#f0fff4",why:"CNBC Disruptor 50. Massive transformer/GNN protein structure prediction. ~80 emp, $103M raised.",dm:"VP Engineering",valueProp:"Weekly design-make-test cycles require high-throughput distributed ML. Anyscale cuts provisioning overhead.",starters:["How is infra scaling NeuralPLexer training?","Protein structure prediction perfect Ray use case."]},
+  {name:"DDN Storage",score:9,tier:1,sector:"infrastructure",sectorLabel:"HPC / AI Infra",icon:"💾",iconBg:"#f3e8ff",why:"Global AI/HPC storage leader at $5B valuation. ~1,200 emp. MLPerf Storage leader.",dm:"VP Engineering",valueProp:"HPC/AI storage foundational for distributed ML. Ray integration opportunity.",starters:["What storage challenges emerge as AI workloads scale?","Ray workloads benefit from optimized HPC storage."]},
+  {name:"Imbue",score:9,tier:1,sector:"airesearch",sectorLabel:"AI Research Lab",icon:"🧠",iconBg:"#fef3c7",why:"Training 70B-param foundation models at $1B valuation. ~20 emp, $232M raised.",dm:"Head of ML",valueProp:"Large-scale foundation model training is Ray's core strength.",starters:["70B model training requires serious distributed infrastructure.","How managing GPU utilization and fault tolerance at scale?"]},
+  {name:"Dyna Robotics",score:9,tier:1,sector:"robotics",sectorLabel:"Robotics / Embodied AI",icon:"🤖",iconBg:"#f0fdf4",why:"OPEN PIPELINE. Training RL models on tens of TB daily video data. ~46 emp, $143.5M raised.",dm:"Head of ML",valueProp:"Massive daily video pipelines for RL training. Ray Data + Ray Train perfect fit.",starters:["Training RL on tens of TB daily is massive data/compute challenge.","How handling data pipeline + distributed training coordination?"]},
+  {name:"Apex.AI",score:9,tier:1,sector:"robotics",sectorLabel:"AV / Robotics",icon:"🚗",iconBg:"#e8f4ff",why:"Safety-certified AV middleware. Real-time distributed perception. ~80 emp, $30M+.",dm:"VP Engineering",valueProp:"AV OS needs scalable offboard training backend for ML models.",starters:["What does offboard training and simulation infrastructure look like?","AV teams often gap between edge inference and offboard training."]},
+  {name:"Lightwheel",score:9,tier:1,sector:"robotics",sectorLabel:"Robotics / Physical AI",icon:"🔦",iconBg:"#fff3e0",why:"Physical AI, 3D world simulation for robotics training. ~30 emp, undisclosed.",dm:"Head of ML",valueProp:"Sim+data+eval stack needs distributed compute backbone for rendering and training.",starters:["How scaling SimReady assets and evaluation platform?","Your Real2Sim2Real framework generates massive synthetic datasets."]},
+  {name:"Wing",score:9,tier:1,sector:"robotics",sectorLabel:"AV / Robotics",icon:"🛩️",iconBg:"#e8f5e9",why:"Drone delivery at scale. Fleet-scale autonomous navigation. ~1,000 emp. Alphabet subsidiary.",dm:"Head of ML",valueProp:"Expanding fleet requires continuous ML model updates for flight safety and logistics optimization.",starters:["How is ML pipeline handling thousands of flight hours?","Safety-critical ML requires high-fidelity training infrastructure at scale."]},
+  {name:"LlamaIndex",score:9,tier:1,sector:"aiplatform",sectorLabel:"AI Framework",icon:"🦙",iconBg:"#fef3c7",why:"Python-native AI framework. 3M+ monthly downloads. ~50 emp, $27.5M raised. LlamaCloud SaaS.",dm:"VP Engineering",valueProp:"Ray integration for distributed indexing and inference serving.",starters:["How handling distributed indexing at 3M downloads?","LlamaCloud users benefit from Ray Serve for inference at scale."]},
+  {name:"Glean",score:8,tier:2,sector:"enterprise",sectorLabel:"Enterprise AI",icon:"🔍",iconBg:"#e8f0fe",why:"Enterprise AI search at $7.2B valuation. $100M+ ARR. ~1,475 emp.",dm:"Head of ML",valueProp:"Enterprise search requires distributed ML pipelines. Glean at massive scale.",starters:["How handling distributed ranking and search optimization?","Enterprise-scale search requires high-throughput ML."]},
+  {name:"Xaira Therapeutics",score:8,tier:2,sector:"healthai",sectorLabel:"Health AI / Biotech",icon:"🧬",iconBg:"#f0fff4",why:"AI protein therapeutic design using RFdiffusion. ~189 emp, $1B+ raised.",dm:"VP ML",valueProp:"Protein design requires massive transformer training and inference.",starters:["How scaling RFdiffusion models across protein space?","Distributed protein ML pipeline is core need."]},
+  {name:"Absci",score:8,tier:2,sector:"healthai",sectorLabel:"Health AI / Biotech",icon:"🧬",iconBg:"#f0fff4",why:"Testing 3M unique AI-generated antibody designs weekly. ~240 emp, $228M raised.",dm:"Head of ML",valueProp:"Screening 3M designs weekly requires distributed evaluation infrastructure.",starters:["How parallelizing 3M design evaluations and ranking?","Weekly iteration speed is main constraint."]},
+  {name:"Carbon Robotics",score:8,tier:2,sector:"agtech",sectorLabel:"AgTech / Robotics",icon:"🌱",iconBg:"#f0fdf4",why:"Large Plant Model on 150M labeled plants. CNBC Disruptor 50. ~274 emp, $177M raised.",dm:"VP ML",valueProp:"Plant model trained on 150M images requires massive infrastructure.",starters:["How handling Plant Model training on 150M images?","Large-scale vision training perfect Ray use case."]},
+  {name:"Foxglove",score:8,tier:2,sector:"robotics",sectorLabel:"Robotics Dev Tools",icon:"🦊",iconBg:"#fef3c7",why:"Robotics data infra. Massive sensor data streams. ~50 emp, $22M raised.",dm:"Head of ML",valueProp:"Sensor data processing and storage natural Ray/data pipeline use case.",starters:["How handling scale of sensor data ingestion?","Robotics teams benefit from optimized data pipelines."]},
+  {name:"Compound Eye",score:8,tier:2,sector:"robotics",sectorLabel:"AV / Computer Vision",icon:"👁️",iconBg:"#f3e8ff",why:"CV for AVs using novel multi-aperture cameras. ~30 emp, $10M+ raised.",dm:"Head of ML",valueProp:"Novel camera hardware + CV model training requires specialized infrastructure.",starters:["How training on multi-aperture camera data?","CV optimization at AV scale is Ray Tune use case."]},
+  {name:"Kiwibot",score:8,tier:2,sector:"robotics",sectorLabel:"Delivery Robotics",icon:"🤖",iconBg:"#f0fdf4",why:"Autonomous delivery robots. Fleet-scale CV. ~100 emp, $20M+ raised.",dm:"VP ML",valueProp:"Fleet-scale CV models require continuous retraining on new data.",starters:["How handling CV model retraining across robot fleet?","Fleet-scale ML natural Ray use case."]},
+  {name:"SoFi",score:7,tier:2,sector:"fintech",sectorLabel:"Fintech",icon:"💰",iconBg:"#fee2e2",why:"OPEN PIPELINE. $3.54B revenue. Public (SOFI). AI fraud/underwriting. ~6,068 emp.",dm:"VP ML",valueProp:"Fraud detection and underwriting ML at scale.",starters:["How is fraud detection ML pipeline scaling?","Fintech requires low-latency, high-throughput inference."]},
+  {name:"ZEFR",score:7,tier:2,sector:"video",sectorLabel:"Video / Brand Safety",icon:"📺",iconBg:"#fef3c7",why:"OPEN PIPELINE. Brand safety AI processing 5B+ items daily. ~200 emp, $52M raised.",dm:"Head of ML",valueProp:"Processing 5B+ items daily requires massive distributed inference.",starters:["How processing 5B items daily?","Ray Serve ideal for this throughput."]},
+  {name:"Zeitview",score:7,tier:2,sector:"drones",sectorLabel:"Drone Analytics",icon:"🛸",iconBg:"#e3f2fd",why:"OPEN PIPELINE. AI drone inspection. $82.5M revenue. ~563 emp, $174M raised.",dm:"VP ML",valueProp:"Drone inspection ML requires real-time inference and distributed training.",starters:["How handling inspection ML at drone scale?","Real-time inference on drone footage Ray Serve use case."]},
+  {name:"FICO",score:7,tier:2,sector:"analytics",sectorLabel:"Analytics / FinTech",icon:"📊",iconBg:"#fef3c7",why:"$31.9B market cap analytics giant. ~3,400 emp. Public (FICO).",dm:"VP ML",valueProp:"Enterprise analytics at scale requires distributed computing.",starters:["How scaling analytics platform?","Distributed analytics natural Ray use case."]},
+  {name:"Hive",score:7,tier:2,sector:"aiplatform",sectorLabel:"AI Platform",icon:"🐝",iconBg:"#fef3c7",why:"Cloud-based AI APIs serving billions monthly. ~504 emp, $366M raised.",dm:"VP Infra",valueProp:"Billions of API calls require optimized serving infrastructure.",starters:["How handling API serving at scale?","Ray Serve ideal for multi-model serving."]},
+  {name:"Eikon Therapeutics",score:7,tier:2,sector:"healthai",sectorLabel:"Health AI / Biotech",icon:"🔬",iconBg:"#f0fff4",why:"AI drug discovery via super-res microscopy. IPO'd Feb 2026. ~386 emp, $1.1B+.",dm:"VP ML",valueProp:"Drug discovery requires massive microscopy image analysis.",starters:["Post-IPO, how scaling drug discovery ML?","Super-resolution microscopy analysis perfect CV + distributed workload."]},
+  {name:"ABBYY",score:7,tier:2,sector:"documentai",sectorLabel:"Document AI",icon:"📄",iconBg:"#f3e8ff",why:"Enterprise document processing using DeepML. ~960 emp. Private.",dm:"VP ML",valueProp:"Enterprise doc processing requires high-throughput ML inference.",starters:["How handling document processing at scale?","Ray Serve provides excellent throughput for doc extraction."]},
+  {name:"KoBold Metals",score:7,tier:2,sector:"mining",sectorLabel:"Mining / AI",icon:"⛏️",iconBg:"#fef3c7",why:"AI mineral exploration at $2.96B valuation. ~150 emp, $700M+ raised.",dm:"Head of ML",valueProp:"Mineral exploration requires geospatial ML at scale.",starters:["How handling geospatial ML at exploration scale?","Large-scale spatial analysis Ray Tune use case."]},
+  {name:"Instabase",score:7,tier:2,sector:"documentai",sectorLabel:"Document AI",icon:"📋",iconBg:"#f3e8ff",why:"Enterprise doc processing with foundation models at $1.24B. ~208 emp, $322M raised.",dm:"VP ML",valueProp:"Doc processing with foundation models requires efficient serving.",starters:["How handling foundation model inference for docs?","Ray Serve excels at multi-model document processing."]},
+  {name:"Verge Genomics",score:7,tier:2,sector:"healthai",sectorLabel:"Health AI / Biotech",icon:"🧬",iconBg:"#f0fff4",why:"AI multi-omics drug discovery. CONVERGE platform. ~55 emp, $176M raised.",dm:"VP ML",valueProp:"Multi-omics analysis requires large-scale ML.",starters:["How handling multi-omics data at scale?","Genomic pipelines benefit from Ray Data."]},
+  {name:"David AI",score:7,tier:2,sector:"aidata",sectorLabel:"AI Data",icon:"🎙️",iconBg:"#fef3c7",why:"Large-scale audio datasets. NVIDIA investor. ~80 emp, $80M raised.",dm:"Head of Infra",valueProp:"Audio dataset curation requires distributed processing.",starters:["How handling audio dataset curation at scale?","Ray Data ideal for dataset preparation."]},
+  {name:"AMP Robotics",score:7,tier:2,sector:"robotics",sectorLabel:"Recycling Robotics",icon:"♻️",iconBg:"#f0fdf4",why:"AI recycling. 400+ systems globally. ~200 emp, $300M+ raised.",dm:"VP ML",valueProp:"Recycling at 400+ facilities requires centralized ML.",starters:["How handling model retraining at 400+ facilities?","Distributed robotics ML natural Ray use case."]},
+  {name:"Suki",score:7,tier:2,sector:"healthai",sectorLabel:"Health AI",icon:"🏥",iconBg:"#f0fff4",why:"AI clinical documentation assistant. ~150 emp, $165M raised.",dm:"VP ML",valueProp:"Clinical documentation requires secure, scalable ML.",starters:["How handling model training on clinical data?","HIPAA-compliant ML infrastructure critical."]},
+  {name:"Techcyte",score:7,tier:2,sector:"healthai",sectorLabel:"Health AI / Diagnostics",icon:"🔬",iconBg:"#f0fff4",why:"AI digital pathology. ~50 emp, $10M+ raised.",dm:"VP ML",valueProp:"Digital pathology requires high-resolution image processing.",starters:["How scaling pathology image processing?","Large-scale image processing Ray use case."]},
+  {name:"HeadSpin",score:7,tier:2,sector:"testing",sectorLabel:"Testing / AI",icon:"📱",iconBg:"#e8f0fe",why:"AI-powered mobile/web testing. ~200 emp, $117M raised.",dm:"VP ML",valueProp:"Testing ML requires fast iteration and distributed execution.",starters:["How scaling testing ML?","Ray Tune ideal for hyperparameter optimization."]},
+  {name:"Matterport",score:7,tier:2,sector:"3d",sectorLabel:"3D / Spatial AI",icon:"🏠",iconBg:"#f3e8ff",why:"3D spatial data. Heavy CV and 3D reconstruction. ~550 emp, $640M raised.",dm:"VP ML",valueProp:"3D reconstruction requires distributed CV processing.",starters:["How handling 3D reconstruction at scale?","Ray Data ideal for 3D data pipelines."]},
+  {name:"Uplight",score:7,tier:2,sector:"energy",sectorLabel:"Energy / AI",icon:"💡",iconBg:"#fee2e2",why:"AI energy management. ML grid optimization. ~500 emp, $370M raised.",dm:"VP ML",valueProp:"Grid optimization requires real-time distributed ML.",starters:["How handling grid optimization ML?","Energy ML needs low-latency, high-throughput inference."]},
+  {name:"Ancestry",score:6,tier:3,sector:"genomics",sectorLabel:"Genomics / Consumer",icon:"🧬",iconBg:"#f0fff4",why:"~1,600 emp. Private ($4.7B acq).",dm:"Head of ML",valueProp:"Genomics processing at scale.",starters:["Ancestry genomics challenge."]},
+  {name:"Spot AI",score:6,tier:3,sector:"video",sectorLabel:"Video AI",icon:"📹",iconBg:"#fef3c7",why:"~130 emp, $62M raised.",dm:"VP ML",valueProp:"Video AI inference at scale.",starters:["Video processing challenges."]},
+  {name:"Pipe",score:6,tier:3,sector:"fintech",sectorLabel:"Fintech / AI",icon:"💳",iconBg:"#fee2e2",why:"~100 emp, $437M raised.",dm:"Head of ML",valueProp:"Fintech ML pipelines.",starters:["Fintech underwriting scale."]},
+  {name:"Vectra AI",score:6,tier:3,sector:"cybersecurity",sectorLabel:"Cybersecurity / AI",icon:"🛡️",iconBg:"#fee2e2",why:"~665 emp, $425M raised.",dm:"VP ML",valueProp:"Threat detection ML.",starters:["Cybersecurity AI challenges."]},
+  {name:"Fireflies.ai",score:6,tier:3,sector:"productivity",sectorLabel:"AI / Productivity",icon:"🔥",iconBg:"#fef3c7",why:"~100 emp, $24M raised.",dm:"Head of Engineering",valueProp:"Audio transcription ML.",starters:["Transcription at scale."]},
+  {name:"Gorgias",score:6,tier:3,sector:"ecommerce",sectorLabel:"E-commerce / AI",icon:"💬",iconBg:"#fee2e2",why:"~300 emp, $71M raised.",dm:"Head of ML",valueProp:"Customer service AI.",starters:["Support automation."]},
+  {name:"Fulfil Solutions",score:6,tier:3,sector:"robotics",sectorLabel:"Warehouse Robotics",icon:"📦",iconBg:"#f0fdf4",why:"~80 emp, $25M+ raised.",dm:"VP ML",valueProp:"Warehouse robotics ML.",starters:["Fulfillment automation."]},
+  {name:"Lunar Outpost",score:5,tier:3,sector:"space",sectorLabel:"Space Robotics",icon:"🌙",iconBg:"#e3f2fd",why:"~122 emp, $23.6M raised.",dm:"Head of ML",valueProp:"Space robotics AI.",starters:["Space exploration ML."]},
+  {name:"Auctane",score:5,tier:3,sector:"logistics",sectorLabel:"Logistics / SaaS",icon:"📦",iconBg:"#fef3c7",why:"~1,000 emp, $12B (Thoma Bravo).",dm:"VP ML",valueProp:"Logistics optimization.",starters:["Shipping intelligence."]},
+  {name:"Netskope",score:5,tier:3,sector:"cybersecurity",sectorLabel:"Cybersecurity",icon:"🔒",iconBg:"#fee2e2",why:"~3,203 emp, Public (NTSK).",dm:"VP ML",valueProp:"Security threat detection.",starters:["Threat detection ML."]},
+  {name:"Applied Data Finance",score:5,tier:3,sector:"fintech",sectorLabel:"Fintech / ML",icon:"💳",iconBg:"#fee2e2",why:"~344 emp, $614M raised.",dm:"Head of ML",valueProp:"Financial ML.",starters:["Finance analytics."]},
+  {name:"FLIR Systems",score:5,tier:3,sector:"thermal",sectorLabel:"Thermal Imaging / AI",icon:"🌡️",iconBg:"#fef3c7",why:"~2,100 emp, Teledyne subsidiary.",dm:"VP ML",valueProp:"Thermal image analysis.",starters:["Thermal imaging ML."]},
+  {name:"Reltio",score:5,tier:3,sector:"data",sectorLabel:"Data Management",icon:"🔗",iconBg:"#f3e8ff",why:"~500 emp, $237M raised.",dm:"Head of ML",valueProp:"Data integration ML.",starters:["Data management."]},
+  {name:"Parafin",score:5,tier:3,sector:"fintech",sectorLabel:"Fintech",icon:"💵",iconBg:"#fee2e2",why:"~80 emp, $94M raised.",dm:"Head of Engineering",valueProp:"Finance automation.",starters:["Fintech automation."]},
+  {name:"Zoom",score:5,tier:3,sector:"enterprise",sectorLabel:"Enterprise / Comms",icon:"📹",iconBg:"#e8f0fe",why:"~7,800 emp, Public (ZM).",dm:"VP ML",valueProp:"Communications ML.",starters:["Communications AI."]},
+  {name:"Cepton",score:5,tier:3,sector:"robotics",sectorLabel:"LiDAR / AV",icon:"📡",iconBg:"#e8f4ff",why:"~100 emp, $128M raised.",dm:"Head of ML",valueProp:"LiDAR perception.",starters:["LiDAR ML."]},
+  {name:"Luxonis",score:5,tier:3,sector:"ai",sectorLabel:"Edge AI / Vision",icon:"📷",iconBg:"#f3e8ff",why:"~60 emp, $38M raised.",dm:"Head of ML",valueProp:"Edge vision ML.",starters:["Edge AI."]},
+  {name:"Newfront",score:5,tier:3,sector:"insurance",sectorLabel:"Insurtech",icon:"🏛️",iconBg:"#fee2e2",why:"~450 emp, $200M raised.",dm:"Head of ML",valueProp:"Insurance ML.",starters:["Insurance AI."]},
+  {name:"Hayden AI",score:4,tier:4,sector:"govtech",sectorLabel:"GovTech / CV",icon:"🚌",iconBg:"#fef3c7",why:"~184 emp, $193M raised.",dm:"VP ML",valueProp:"Transit vision ML.",starters:["GovTech AI."]},
+  {name:"Trulioo",score:4,tier:4,sector:"identity",sectorLabel:"Identity / Compliance",icon:"✅",iconBg:"#f0fff4",why:"~375 emp, $491M raised.",dm:"Head of ML",valueProp:"Identity verification.",starters:["Compliance ML."]},
+  {name:"Machinify",score:4,tier:4,sector:"healthtech",sectorLabel:"Healthcare IT",icon:"🏥",iconBg:"#f0fff4",why:"~110 emp, PE-backed.",dm:"Head of ML",valueProp:"Healthcare automation.",starters:["Healthcare ML."]},
+  {name:"Halcyon",score:4,tier:4,sector:"cybersecurity",sectorLabel:"Cybersecurity",icon:"🛡️",iconBg:"#fee2e2",why:"~80 emp, $190M raised.",dm:"VP ML",valueProp:"Threat response.",starters:["Cybersecurity."]},
+  {name:"Twin Health",score:4,tier:4,sector:"health",sectorLabel:"Digital Health",icon:"👥",iconBg:"#f0fff4",why:"~701 emp, $272M+ raised.",dm:"Head of ML",valueProp:"Health monitoring.",starters:["Digital health."]},
+  {name:"LendingClub",score:4,tier:4,sector:"fintech",sectorLabel:"Fintech / Lending",icon:"🏦",iconBg:"#fee2e2",why:"~1,075 emp, Public (LC).",dm:"VP ML",valueProp:"Lending ML.",starters:["Loan ML."]},
+  {name:"Aarki",score:4,tier:4,sector:"adtech",sectorLabel:"AdTech",icon:"📱",iconBg:"#fef3c7",why:"~100 emp, Private.",dm:"Head of ML",valueProp:"Ad targeting.",starters:["AdTech ML."]},
+  {name:"Strider Technologies",score:4,tier:4,sector:"intelligence",sectorLabel:"Intelligence",icon:"🔎",iconBg:"#f3e8ff",why:"~150 emp, $83M raised.",dm:"VP ML",valueProp:"Intelligence ML.",starters:["Intel ML."]},
+  {name:"Varo",score:4,tier:4,sector:"fintech",sectorLabel:"Neobank",icon:"🏦",iconBg:"#fee2e2",why:"~500 emp, $992M raised.",dm:"Head of ML",valueProp:"Banking ML.",starters:["Neobank ML."]},
+  {name:"Vorto",score:4,tier:4,sector:"logistics",sectorLabel:"Logistics / AI",icon:"🚛",iconBg:"#fef3c7",why:"~150 emp, $43M raised.",dm:"Head of ML",valueProp:"Logistics routing.",starters:["Logistics ML."]},
+  {name:"Truvian",score:3,tier:4,sector:"diagnostics",sectorLabel:"Diagnostics",icon:"🩸",iconBg:"#f0fff4",why:"~119 emp, $294M raised.",dm:"Head of ML",valueProp:"Diagnostic ML.",starters:["Diagnostics."]},
+  {name:"Numeric",score:3,tier:4,sector:"accounting",sectorLabel:"Accounting AI",icon:"🧮",iconBg:"#fef3c7",why:"~83 emp, $89M raised.",dm:"Head of ML",valueProp:"Accounting AI.",starters:["Accounting ML."]},
+  {name:"ImmunityBio",score:3,tier:4,sector:"biotech",sectorLabel:"Biotech",icon:"💊",iconBg:"#f0fff4",why:"~611 emp, Public (IBRX).",dm:"Head of ML",valueProp:"Biotech ML.",starters:["Biotech."]},
+  {name:"Modern Health",score:3,tier:4,sector:"health",sectorLabel:"Digital Health",icon:"🧠",iconBg:"#f0fff4",why:"~927 emp, $170M raised.",dm:"Head of ML",valueProp:"Mental health AI.",starters:["Health AI."]},
+  {name:"B GARAGE",score:3,tier:4,sector:"innovation",sectorLabel:"Innovation Lab",icon:"🏗️",iconBg:"#f3e8ff",why:"Innovation lab.",dm:"Director",valueProp:"Innovation.",starters:["Innovation."]},
+  {name:"Cherry",score:3,tier:4,sector:"fintech",sectorLabel:"Fintech",icon:"🍒",iconBg:"#fee2e2",why:"~100 emp, $64M raised.",dm:"Head of ML",valueProp:"Buy now pay later.",starters:["FinTech."]},
+  {name:"Félix",score:3,tier:4,sector:"enterprise",sectorLabel:"Enterprise",icon:"🦊",iconBg:"#f3e8ff",why:"Enterprise tools.",dm:"VP Product",valueProp:"Enterprise.",starters:["Enterprise."]},
+  {name:"Quilter",score:3,tier:4,sector:"enterprise",sectorLabel:"Enterprise",icon:"🧵",iconBg:"#fef3c7",why:"~50 emp, $25M raised.",dm:"Head of Engineering",valueProp:"Enterprise tools.",starters:["Enterprise."]},
+  {name:"SimplePractice",score:3,tier:4,sector:"health",sectorLabel:"Healthcare SaaS",icon:"📋",iconBg:"#f0fff4",why:"~400 emp, PE-backed (Vista).",dm:"VP Product",valueProp:"Healthcare SaaS.",starters:["Healthcare."]},
+  {name:"Automattic",score:2,tier:4,sector:"web",sectorLabel:"Web Platform",icon:"🌐",iconBg:"#fef3c7",why:"~3,700 emp, $998M raised.",dm:"Head of ML",valueProp:"Web platform ML.",starters:["Web ML."]},
+  {name:"Swift Navigation",score:2,tier:4,sector:"positioning",sectorLabel:"Positioning Tech",icon:"📍",iconBg:"#e8f4ff",why:"~148 emp, $117M raised.",dm:"Head of ML",valueProp:"Positioning ML.",starters:["Positioning."]},
+  {name:"Menlo Security",score:2,tier:4,sector:"cybersecurity",sectorLabel:"Cybersecurity",icon:"🔐",iconBg:"#fee2e2",why:"~500 emp, $250M raised.",dm:"VP ML",valueProp:"Security ML.",starters:["Security."]},
+  {name:"ChargePoint",score:2,tier:4,sector:"ev",sectorLabel:"EV Infrastructure",icon:"⚡",iconBg:"#fef3c7",why:"~1,500 emp, Public (CHPT).",dm:"Head of ML",valueProp:"EV grid ML.",starters:["EV ML."]},
+  {name:"Step Mobile",score:2,tier:4,sector:"fintech",sectorLabel:"Teen Banking",icon:"📱",iconBg:"#fee2e2",why:"~100 emp, $175M raised.",dm:"Head of ML",valueProp:"Teen banking.",starters:["Fintech."]},
+  {name:"Contentstack",score:1,tier:4,sector:"cms",sectorLabel:"CMS",icon:"📝",iconBg:"#f3e8ff",why:"~687 emp, $179M raised.",dm:"VP Product",valueProp:"Content ML.",starters:["CMS."]}
 ];
 
+const pipeline = {"SoFi", "Dyna Robotics", "Zeitview", "ZEFR"};
+let sortDir = {};
 let currentFilter = 'all';
-let currentSearch = '';
-let sortCol = 1;
-let sortDir = -1; // desc by default (highest score first)
 
 function renderTable() {
-  const tbody = document.getElementById('tableBody');
+  const tbody = document.getElementById("tableBody");
   tbody.innerHTML = '';
-
-  let filtered = accounts.filter(a => {
-    const matchFilter = currentFilter === 'all' ||
-      (currentFilter === 'tier-1' && a.tier === 1) ||
-      (currentFilter === 'tier-2' && a.tier === 2) ||
-      (currentFilter === 'tier-3' && a.tier === 3) ||
-      (currentFilter === 'tier-4' && a.tier === 4) ||
-      (currentFilter === 'robotics' && a.sector === 'robotics') ||
-      (currentFilter === 'healthai' && a.sector === 'healthai') ||
-      (currentFilter === 'aiplatform' && a.sector === 'aiplatform') ||
-      (currentFilter === 'fintech' && a.sector === 'fintech') ||
-      (currentFilter === 'enterprise' && a.sector === 'enterprise');
-    const matchSearch = currentSearch === '' ||
-      a.name.toLowerCase().includes(currentSearch.toLowerCase()) ||
-      a.sectorLabel.toLowerCase().includes(currentSearch.toLowerCase()) ||
-      a.why.toLowerCase().includes(currentSearch.toLowerCase());
-    return matchFilter && matchSearch;
-  });
-
-  // Sort
-  filtered.sort((a, b) => {
-    let av = sortCol === 0 ? a.name : sortCol === 1 ? a.score : sortCol === 2 ? a.tier : a.sectorLabel;
-    let bv = sortCol === 0 ? b.name : sortCol === 1 ? b.score : sortCol === 2 ? b.tier : b.sectorLabel;
-    if (typeof av === 'string') return sortDir * av.localeCompare(bv);
-    return sortDir * (av - bv);
-  });
-
-  document.getElementById('noResults').classList.toggle('hidden', filtered.length > 0);
-
-  filtered.forEach((a, idx) => {
-    const tierClass = `tier-${a.tier}`;
-    const tierLabel = ['','🟢 Tier 1','🔵 Tier 2','🟡 Tier 3','⚪ Tier 4'][a.tier];
-    const scoreClass = a.score >= 9 ? 'score-9-10' : a.score >= 7 ? 'score-7-8' : a.score >= 5 ? 'score-5-6' : 'score-1-4';
-    const rowId = `row-${idx}`;
-    const detailId = `detail-${idx}`;
-
+  let visibleCount = 0;
+  
+  accounts.forEach((acc, idx) => {
+    const visible = matchesFilter(acc);
+    if (!visible) return;
+    visibleCount++;
+    
+    const isPipeline = pipeline.has(acc.name) ? " 🔴 PIPELINE" : "";
+    const scoreCls = acc.score >= 9 ? 'score-9-10' : acc.score >= 7 ? 'score-7-8' : acc.score >= 5 ? 'score-5-6' : 'score-1-4';
+    const tierBadge = `tier-${acc.tier}`;
+    
     const row = document.createElement('tr');
-    row.className = `data-row tier-row-${a.tier}`;
-    row.setAttribute('data-id', idx);
-    row.onclick = () => toggleDetail(idx, detailId);
-    row.style.cursor = 'pointer';
+    row.className = 'data-row';
+    row.setAttribute('data-sector', acc.sector);
+    row.setAttribute('data-tier', `tier-${acc.tier}`);
     row.innerHTML = `
-      <td>
-        <div class="company-cell">
-          <div class="company-icon" style="background:${a.iconBg}">${a.icon}</div>
-          <div>
-            <div class="company-name-link">${a.name}</div>
-            <div class="company-sub">${a.sectorLabel}</div>
-          </div>
-        </div>
-      </td>
-      <td><span class="score-pill ${scoreClass}">${a.score}</span></td>
-      <td><span class="tier-badge ${tierClass}">${tierLabel}</span></td>
-      <td><span class="sector-tag">${a.sectorLabel}</span></td>
-      <td><div class="why-text">${a.why.length > 120 ? a.why.substring(0,117)+'…' : a.why}</div></td>
-      <td><div class="dm-text">${a.dm.length > 60 ? a.dm.substring(0,57)+'…' : a.dm}</div></td>
-      <td><button class="action-btn" onclick="event.stopPropagation();toggleDetail(${idx},'${detailId}')">↕ Details</button></td>
+      <td><div class="company-cell"><div class="company-icon" style="background:${acc.iconBg}">${acc.icon}</div><div><a href="#" class="company-name-link" onclick="return false">${acc.name}${isPipeline}</a><div class="company-sub">${acc.sectorLabel}</div></div></div></td>
+      <td><span class="score-pill ${scoreCls}">${acc.score}</span></td>
+      <td><span class="tier-badge ${tierBadge}">TIER ${acc.tier}</span></td>
+      <td><span class="sector-tag">${acc.sectorLabel}</span></td>
+      <td><span class="why-text">${acc.why}</span></td>
+      <td><span class="dm-text">${acc.dm}</span></td>
+      <td><button class="action-btn" onclick="toggleDetail(this)">Expand</button></td>
     `;
+    row.onclick = (e) => { if(e.target.tagName !== 'BUTTON') toggleDetail(row.querySelector('.action-btn')); };
     tbody.appendChild(row);
-
-    const detailRow = document.createElement('tr');
-    detailRow.id = detailId;
-    detailRow.className = 'detail-panel';
-    detailRow.innerHTML = `
-      <td colspan="7">
-        <div class="detail-inner">
-          <div class="detail-section">
-            <h4>Full Fit Analysis</h4>
-            <p>${a.why}</p>
-            <br>
-            <h4>Decision Maker</h4>
-            <p>${a.dm}</p>
-          </div>
-          <div class="detail-section">
-            <h4>Value Proposition for ${a.name}</h4>
-            <div class="value-prop-box">${a.valueProp}</div>
-          </div>
-          <div class="detail-section">
-            <h4>Conversation Starters</h4>
-            <ul class="starter-list">
-              ${a.starters.map(s => `<li>${s}</li>`).join('')}
-            </ul>
-          </div>
-        </div>
-      </td>
+    
+    const detail = document.createElement('tr');
+    detail.className = 'detail-panel';
+    detail.innerHTML = `
+      <td colspan="7"><div class="detail-inner">
+        <div class="detail-section"><h4>Value Prop</h4><div class="value-prop-box">${acc.valueProp}</div></div>
+        <div class="detail-section"><h4>Conversation Starters</h4><ul class="starter-list">${acc.starters.map(s => `<li>${s}</li>`).join('')}</ul></div>
+        <div class="detail-section"><h4>Target Contact</h4><p>${acc.dm}</p></div>
+      </div></td>
     `;
-    tbody.appendChild(detailRow);
+    tbody.appendChild(detail);
   });
+  
+  document.getElementById('noResults').classList.toggle('hidden', visibleCount > 0);
 }
 
-function toggleDetail(idx, detailId) {
-  const panel = document.getElementById(detailId);
-  if (!panel) return;
-  panel.classList.toggle('open');
+function toggleDetail(btn) {
+  const row = btn.closest('tr');
+  const detail = row.nextElementSibling;
+  detail.classList.toggle('open');
+  btn.textContent = detail.classList.contains('open') ? 'Collapse' : 'Expand';
 }
 
-function filter(type, btn) {
-  currentFilter = type;
+function matchesFilter(acc) {
+  if (currentFilter === 'all') return true;
+  if (currentFilter === 'tier-1') return acc.tier === 1;
+  if (currentFilter === 'tier-2') return acc.tier === 2;
+  if (currentFilter === 'tier-3') return acc.tier === 3;
+  if (currentFilter === 'tier-4') return acc.tier === 4;
+  if (currentFilter === 'robotics') return acc.sector === 'robotics';
+  if (currentFilter === 'healthai') return acc.sector === 'healthai';
+  if (currentFilter === 'aiplatform') return acc.sector === 'aiplatform';
+  if (currentFilter === 'fintech') return acc.sector === 'fintech';
+  return true;
+}
+
+function filter(f, btn) {
+  currentFilter = f;
   document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
   btn.classList.add('active');
   renderTable();
 }
 
-function searchAccounts(val) {
-  currentSearch = val;
-  renderTable();
+function searchAccounts(query) {
+  const rows = document.querySelectorAll('.data-row');
+  const q = query.toLowerCase();
+  rows.forEach(row => {
+    const name = row.querySelector('.company-name-link').textContent.toLowerCase();
+    const matches = name.includes(q);
+    row.style.display = matches ? '' : 'none';
+    row.nextElementSibling.style.display = 'none';
+  });
 }
 
 function sortTable(col) {
-  if (sortCol === col) sortDir *= -1;
-  else { sortCol = col; sortDir = col === 1 ? -1 : 1; }
+  const asc = sortDir[col] !== 'asc';
+  sortDir = {[col]: asc ? 'asc' : 'desc'};
+  
+  const sorted = [...accounts].sort((a, b) => {
+    let av, bv;
+    if (col === 0) { av = a.name; bv = b.name; }
+    else if (col === 1) { av = a.score; bv = b.score; }
+    else if (col === 2) { av = a.tier; bv = b.tier; }
+    else if (col === 3) { av = a.sectorLabel; bv = b.sectorLabel; }
+    else return 0;
+    
+    if (av < bv) return asc ? -1 : 1;
+    if (av > bv) return asc ? 1 : -1;
+    return 0;
+  });
+  
+  accounts.length = 0;
+  accounts.push(...sorted);
   renderTable();
 }
 
-// Initial render
-renderTable();
+document.addEventListener('DOMContentLoaded', renderTable);
 </script>
 </body>
 </html>

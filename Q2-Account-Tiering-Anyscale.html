@@ -1,0 +1,1234 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Q2 Account Tiering - Anyscale AE Dashboard</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+            background: #f8fafc;
+            color: #1e293b;
+        }
+
+        .container {
+            max-width: 1600px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        header {
+            margin-bottom: 24px;
+        }
+
+        h1 {
+            font-size: 28px;
+            font-weight: 700;
+            margin-bottom: 8px;
+            color: #0f172a;
+        }
+
+        .subtitle {
+            font-size: 14px;
+            color: #64748b;
+        }
+
+        /* Summary Bar */
+        .summary-bar {
+            background: white;
+            border: 1px solid #e2e8f0;
+            border-radius: 8px;
+            padding: 16px 20px;
+            margin-bottom: 20px;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 16px;
+            font-size: 13px;
+        }
+
+        .summary-item {
+            display: flex;
+            flex-direction: column;
+            gap: 4px;
+        }
+
+        .summary-label {
+            color: #64748b;
+            font-weight: 500;
+        }
+
+        .summary-value {
+            font-size: 16px;
+            font-weight: 700;
+            color: #0f172a;
+        }
+
+        .summary-breakdown {
+            font-size: 12px;
+            color: #94a3b8;
+            line-height: 1.4;
+        }
+
+        /* Controls */
+        .controls {
+            background: white;
+            border: 1px solid #e2e8f0;
+            border-radius: 8px;
+            padding: 16px 20px;
+            margin-bottom: 20px;
+            display: flex;
+            flex-wrap: wrap;
+            gap: 12px;
+            align-items: center;
+        }
+
+        .filter-group {
+            display: flex;
+            gap: 8px;
+            flex-wrap: wrap;
+            align-items: center;
+        }
+
+        .filter-label {
+            font-size: 12px;
+            font-weight: 600;
+            color: #64748b;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        button {
+            padding: 6px 12px;
+            border: 1px solid #cbd5e1;
+            border-radius: 4px;
+            background: white;
+            color: #334155;
+            font-size: 13px;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+
+        button:hover {
+            border-color: #0ea5e9;
+            color: #0ea5e9;
+            background: #f0f9ff;
+        }
+
+        button.active {
+            background: #0ea5e9;
+            color: white;
+            border-color: #0ea5e9;
+        }
+
+        .search-box {
+            flex: 1;
+            min-width: 200px;
+            padding: 6px 12px;
+            border: 1px solid #cbd5e1;
+            border-radius: 4px;
+            font-size: 13px;
+        }
+
+        .search-box::placeholder {
+            color: #94a3b8;
+        }
+
+        .export-btn {
+            background: #10b981;
+            color: white;
+            border-color: #10b981;
+            margin-left: auto;
+        }
+
+        .export-btn:hover {
+            background: #059669;
+            border-color: #059669;
+        }
+
+        /* Table */
+        .table-wrapper {
+            background: white;
+            border: 1px solid #e2e8f0;
+            border-radius: 8px;
+            overflow: hidden;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 12px;
+        }
+
+        thead {
+            background: #f1f5f9;
+            border-bottom: 1px solid #e2e8f0;
+        }
+
+        th {
+            padding: 10px 8px;
+            text-align: left;
+            font-weight: 600;
+            color: #475569;
+            cursor: pointer;
+            user-select: none;
+            white-space: nowrap;
+        }
+
+        th:hover {
+            background: #e2e8f0;
+        }
+
+        th.sortable::after {
+            content: ' ↕';
+            color: #cbd5e1;
+            font-size: 11px;
+        }
+
+        th.sorted-asc::after {
+            content: ' ↑';
+            color: #0ea5e9;
+        }
+
+        th.sorted-desc::after {
+            content: ' ↓';
+            color: #0ea5e9;
+        }
+
+        tbody tr {
+            border-bottom: 1px solid #f1f5f9;
+            transition: background 0.15s;
+        }
+
+        tbody tr:hover {
+            background: #f8fafc;
+        }
+
+        tbody tr.expanded {
+            background: #f0f9ff;
+        }
+
+        td {
+            padding: 8px;
+            vertical-align: top;
+        }
+
+        /* Company Cell */
+        .company-cell {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-weight: 600;
+            color: #0f172a;
+        }
+
+        .icon {
+            font-size: 16px;
+        }
+
+        .expand-btn {
+            width: 20px;
+            height: 20px;
+            padding: 0;
+            border: none;
+            background: #f1f5f9;
+            color: #64748b;
+            cursor: pointer;
+            border-radius: 3px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 12px;
+        }
+
+        .expand-btn:hover {
+            background: #e2e8f0;
+            color: #0f172a;
+        }
+
+        /* Status Badge */
+        .status-badge {
+            display: inline-block;
+            padding: 4px 8px;
+            border-radius: 3px;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.2s;
+            font-size: 11px;
+            white-space: nowrap;
+        }
+
+        .status-not-started {
+            background: #fef3c7;
+            color: #92400e;
+        }
+
+        .status-researching {
+            background: #dbeafe;
+            color: #1e3a8a;
+        }
+
+        .status-contacted {
+            background: #ddd6fe;
+            color: #4c1d95;
+        }
+
+        .status-engaged {
+            background: #dcfce7;
+            color: #15803d;
+        }
+
+        .status-badge:hover {
+            filter: brightness(0.95);
+        }
+
+        /* Tier Badge */
+        .tier-badge {
+            display: inline-block;
+            padding: 3px 6px;
+            border-radius: 3px;
+            font-weight: 600;
+            font-size: 11px;
+            text-align: center;
+            min-width: 30px;
+        }
+
+        .tier-1 { background: #fee2e2; color: #991b1b; }
+        .tier-2 { background: #fcd34d; color: #78350f; }
+        .tier-3 { background: #dbeafe; color: #1e3a8a; }
+        .tier-4 { background: #e5e7eb; color: #374151; }
+
+        /* Last Touch */
+        .touch-cell {
+            cursor: pointer;
+            padding: 6px 8px;
+            border-radius: 3px;
+            transition: all 0.2s;
+            font-weight: 500;
+            font-size: 11px;
+            min-width: 60px;
+            text-align: center;
+        }
+
+        .touch-none {
+            background: #f5f5f5;
+            color: #999;
+        }
+
+        .touch-fresh {
+            background: #dcfce7;
+            color: #15803d;
+        }
+
+        .touch-warm {
+            background: #fef3c7;
+            color: #92400e;
+        }
+
+        .touch-cold {
+            background: #fee2e2;
+            color: #991b1b;
+        }
+
+        .touch-cell:hover {
+            filter: brightness(0.95);
+        }
+
+        /* Pipeline Badge */
+        .pipeline-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 4px;
+            padding: 3px 6px;
+            background: #fee2e2;
+            color: #991b1b;
+            border-radius: 3px;
+            font-size: 10px;
+            font-weight: 600;
+        }
+
+        .pipeline-dot {
+            width: 6px;
+            height: 6px;
+            background: #dc2626;
+            border-radius: 50%;
+            animation: pulse 2s infinite;
+        }
+
+        @keyframes pulse {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.4; }
+        }
+
+        /* Competitor Tags */
+        .competitor-tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 4px;
+        }
+
+        .competitor-tag {
+            display: inline-block;
+            padding: 2px 6px;
+            background: #fbbf24;
+            color: #78350f;
+            border-radius: 3px;
+            font-size: 10px;
+            font-weight: 500;
+        }
+
+        /* Detail Row */
+        .detail-row {
+            display: none;
+            background: #f0f9ff;
+        }
+
+        .detail-row.visible {
+            display: table-row;
+        }
+
+        .detail-section {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+
+        .detail-label {
+            font-size: 11px;
+            font-weight: 700;
+            color: #475569;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            margin-top: 12px;
+        }
+
+        .detail-label:first-child {
+            margin-top: 0;
+        }
+
+        .detail-text {
+            font-size: 13px;
+            color: #334155;
+            line-height: 1.5;
+        }
+
+        /* Contacts */
+        .contacts-container {
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+        }
+
+        .contact-card {
+            background: white;
+            border: 1px solid #cbd5e1;
+            border-radius: 4px;
+            padding: 8px;
+            display: flex;
+            justify-content: space-between;
+            align-items: start;
+            font-size: 12px;
+        }
+
+        .contact-info {
+            flex: 1;
+        }
+
+        .contact-name {
+            font-weight: 600;
+            color: #0f172a;
+        }
+
+        .contact-title {
+            color: #64748b;
+            font-size: 11px;
+        }
+
+        .contact-role {
+            display: inline-block;
+            margin-top: 3px;
+            padding: 2px 4px;
+            background: #e0e7ff;
+            color: #3730a3;
+            border-radius: 2px;
+            font-size: 10px;
+            font-weight: 600;
+        }
+
+        .contact-link {
+            color: #0ea5e9;
+            text-decoration: none;
+            font-size: 11px;
+        }
+
+        .contact-link:hover {
+            text-decoration: underline;
+        }
+
+        .delete-btn {
+            padding: 2px 6px;
+            font-size: 10px;
+            background: #fee2e2;
+            color: #991b1b;
+            border: 1px solid #fca5a5;
+        }
+
+        .delete-btn:hover {
+            background: #fecaca;
+        }
+
+        /* Add Contact Form */
+        .add-contact-form {
+            display: grid;
+            grid-template-columns: 1fr 1fr 1fr 1fr 80px;
+            gap: 8px;
+            margin-top: 8px;
+        }
+
+        .form-input {
+            padding: 6px 8px;
+            border: 1px solid #cbd5e1;
+            border-radius: 4px;
+            font-size: 12px;
+        }
+
+        .form-input::placeholder {
+            color: #cbd5e1;
+        }
+
+        .form-select {
+            padding: 6px 8px;
+            border: 1px solid #cbd5e1;
+            border-radius: 4px;
+            font-size: 12px;
+        }
+
+        .add-contact-btn {
+            padding: 6px 8px;
+            background: #3b82f6;
+            color: white;
+            border: 1px solid #3b82f6;
+            font-weight: 600;
+        }
+
+        .add-contact-btn:hover {
+            background: #2563eb;
+            border-color: #2563eb;
+        }
+
+        /* Notes */
+        .notes-textarea {
+            width: 100%;
+            min-height: 80px;
+            padding: 8px;
+            border: 1px solid #cbd5e1;
+            border-radius: 4px;
+            font-size: 12px;
+            font-family: inherit;
+            resize: vertical;
+        }
+
+        .notes-textarea::placeholder {
+            color: #cbd5e1;
+        }
+
+        .notes-status {
+            font-size: 11px;
+            color: #64748b;
+            margin-top: 4px;
+        }
+
+        /* Docs Links */
+        .docs-section { margin-top: 12px; padding-top: 12px; border-top: 1px solid #e2e8f0; grid-column: 1 / -1; }
+        .docs-row { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 6px; }
+        .doc-link {
+            display: inline-flex; align-items: center; gap: 4px;
+            padding: 4px 10px; border-radius: 6px; font-size: 11px; font-weight: 500;
+            text-decoration: none; transition: all 0.15s; border: 1px solid;
+        }
+        .doc-link:hover { filter: brightness(0.92); transform: translateY(-1px); }
+        .doc-link.doc-sequence { background: #eff6ff; color: #1d4ed8; border-color: #bfdbfe; }
+        .doc-link.doc-docx { background: #f0fdf4; color: #166534; border-color: #bbf7d0; }
+        .doc-link.doc-plan { background: #fefce8; color: #854d0e; border-color: #fde68a; }
+        .doc-link.doc-proof { background: #faf5ff; color: #7c3aed; border-color: #ddd6fe; }
+        .doc-link.doc-brief { background: #fff1f2; color: #be123c; border-color: #fecdd3; }
+        .no-docs { font-size: 11px; color: #94a3b8; font-style: italic; margin-top: 6px; }
+        .doc-count-badge {
+            display: inline-flex; align-items: center; gap: 2px;
+            font-size: 9px; padding: 1px 5px; border-radius: 4px;
+            background: #eff6ff; color: #3b82f6; border: 1px solid #bfdbfe;
+            margin-left: 3px; font-weight: 600;
+        }
+
+        /* Detail Grid */
+        .detail-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+            padding: 20px;
+        }
+
+        @media (max-width: 1200px) {
+            th, td {
+                padding: 6px 4px;
+                font-size: 11px;
+            }
+
+            .detail-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        .no-results {
+            text-align: center;
+            padding: 40px;
+            color: #94a3b8;
+            font-size: 14px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>Q2 Account Tiering Dashboard</h1>
+            <p class="subtitle">Anyscale AE Account Management • 76 Accounts</p>
+        </header>
+
+        <div class="summary-bar">
+            <div class="summary-item">
+                <span class="summary-label">Total Accounts</span>
+                <span class="summary-value"><span id="summary-total">76</span></span>
+            </div>
+            <div class="summary-item">
+                <span class="summary-label">By Tier</span>
+                <span class="summary-breakdown">T1: <span id="tier-1-count">0</span> | T2: <span id="tier-2-count">0</span> | T3: <span id="tier-3-count">0</span> | T4: <span id="tier-4-count">0</span></span>
+            </div>
+            <div class="summary-item">
+                <span class="summary-label">Status</span>
+                <span class="summary-breakdown">Not Started: <span id="status-not-started">0</span> | Researching: <span id="status-researching">0</span> | Contacted: <span id="status-contacted">0</span> | Engaged: <span id="status-engaged">0</span></span>
+            </div>
+            <div class="summary-item">
+                <span class="summary-label">Staleness</span>
+                <span class="summary-breakdown">Fresh (<7d): <span id="stale-fresh">0</span> | Warm (7-13d): <span id="stale-warm">0</span> | Cold (14d+): <span id="stale-cold">0</span></span>
+            </div>
+            <div class="summary-item">
+                <span class="summary-label">Pipeline Accounts</span>
+                <span class="summary-value"><span id="pipeline-count">0</span></span>
+            </div>
+        </div>
+
+        <div class="controls">
+            <div class="filter-group">
+                <span class="filter-label">Tier</span>
+                <button class="filter-btn tier-filter active" data-tier="all">All</button>
+                <button class="filter-btn tier-filter" data-tier="1">T1</button>
+                <button class="filter-btn tier-filter" data-tier="2">T2</button>
+                <button class="filter-btn tier-filter" data-tier="3">T3</button>
+                <button class="filter-btn tier-filter" data-tier="4">T4</button>
+            </div>
+
+            <div class="filter-group">
+                <span class="filter-label">Status</span>
+                <button class="filter-btn status-filter active" data-status="all">All</button>
+                <button class="filter-btn status-filter" data-status="not-started">Not Started</button>
+                <button class="filter-btn status-filter" data-status="researching">Researching</button>
+                <button class="filter-btn status-filter" data-status="contacted">Contacted</button>
+                <button class="filter-btn status-filter" data-status="engaged">Engaged</button>
+            </div>
+
+            <div class="filter-group">
+                <span class="filter-label">Staleness</span>
+                <button class="filter-btn stale-filter active" data-stale="all">All</button>
+                <button class="filter-btn stale-filter" data-stale="fresh">Fresh (<7d)</button>
+                <button class="filter-btn stale-filter" data-stale="warm">Warm (7-13d)</button>
+                <button class="filter-btn stale-filter" data-stale="cold">Cold (14d+)</button>
+            </div>
+
+            <div class="filter-group">
+                <button class="filter-btn pipeline-filter" data-pipeline="true">Pipeline Only</button>
+            </div>
+
+            <input type="text" class="search-box" id="search-box" placeholder="Search by name, sector, why, notes, competitors...">
+            <button class="export-btn" onclick="exportToCSV()">Export CSV</button>
+        </div>
+
+        <div class="table-wrapper">
+            <table id="accounts-table">
+                <thead>
+                    <tr>
+                        <th style="width: 24px;"></th>
+                        <th style="width: 180px;" class="sortable" data-sort="name">Company</th>
+                        <th style="width: 50px;" class="sortable" data-sort="score">Score</th>
+                        <th style="width: 50px;" class="sortable" data-sort="tier">Tier</th>
+                        <th style="width: 100px;">Sector</th>
+                        <th style="width: 70px;">Employees</th>
+                        <th style="width: 80px;">Funding</th>
+                        <th style="width: 120px;">Competitors</th>
+                        <th style="width: 280px;">Why It Fits</th>
+                        <th style="width: 80px;" class="sortable" data-sort="last-touch">Last Touch</th>
+                        <th style="width: 100px;" class="sortable" data-sort="status">Status</th>
+                    </tr>
+                </thead>
+                <tbody id="accounts-tbody">
+                </tbody>
+            </table>
+            <div id="no-results" class="no-results" style="display: none;">No accounts match your filters.</div>
+        </div>
+    </div>
+
+    <script>
+        // Global error trap — shows any crash visibly on the page
+        window.onerror = function(msg, src, line, col, err) {
+            var banner = document.createElement('div');
+            banner.style.cssText = 'background:#dc2626;color:white;padding:12px 16px;position:fixed;top:0;left:0;right:0;z-index:9999;font-family:monospace;font-size:13px;';
+            banner.textContent = '⚠ JS Error (line ' + line + '): ' + msg;
+            document.body.prepend(banner);
+        };
+
+        // 76 account data - all fields populated
+        const accountsData = [
+            {"name":"comma.ai","score":10,"tier":1,"sector":"robotics","sectorLabel":"AV / Robotics","icon":"🚗","why":"OPEN PIPELINE. 60K+ lines of Python, end-to-end AV world model training on 100M+ miles of data. Massive distributed training workloads.","painPoints":"Small team (~30) managing own datacenter + ML pipeline; massive ops overhead for cluster orchestration.","whyAnyscale":"Ray's native Python scheduler fits comma.ai's all-Python stack. Managed Ray removes cluster ops overhead.","dm":"Head of ML / George Hotz (CEO)","employees":"~30","funding":"Self-funded","competitors":["Self-managed GPU"],"hasPipeline":false},
+            {"name":"Iambic Therapeutics","score":10,"tier":1,"sector":"healthai","sectorLabel":"Health AI","icon":"🧬","why":"CNBC Disruptor 50. Massive transformer/GNN workloads on protein structure prediction.","painPoints":"Weekly design-make-test cycles demand rapid iteration; GPU utilization overhead.","whyAnyscale":"Managed Ray improves GPU utilization on NeuralPLexer protein workloads.","dm":"VP Engineering / Head of ML","employees":"~80","funding":"$103M","competitors":["AWS SageMaker"],"hasPipeline":false},
+            {"name":"DDN Storage","score":9,"tier":1,"sector":"enterprise","sectorLabel":"HPC / AI Infra","icon":"💾","why":"Global AI/HPC storage leader at $5B valuation. MLPerf Storage leader.","painPoints":"Customers need optimized GPU utilization with storage I/O.","whyAnyscale":"DDN storage + Anyscale managed Ray = complete AI training infrastructure stack.","dm":"VP Product / Head of AI Solutions","employees":"~1,200","funding":"$300M (Blackstone)","competitors":["Weka","VAST Data"],"hasPipeline":false},
+            {"name":"Imbue","score":9,"tier":1,"sector":"aiplatform","sectorLabel":"AI Research Lab","icon":"🧠","why":"Training 70B-parameter foundation models. $232M raised at $1B valuation. ~20 person team.","painPoints":"Massive distributed compute orchestration for foundation models.","whyAnyscale":"Foundation model training is exactly Anyscale's sweet spot.","dm":"CEO / CTO","employees":"~20","funding":"$232M","competitors":["Self-managed HPC","Modal"],"hasPipeline":false},
+            {"name":"Dyna Robotics","score":9,"tier":1,"sector":"robotics","sectorLabel":"Robotics / Embodied AI","icon":"🤖","why":"OPEN PIPELINE. $120M Series A. Training RL models on tens of TB of daily video data.","painPoints":"Processing tens of terabytes of daily video data; distributed RL training loops.","whyAnyscale":"Ray distributed training + RLlib + Ray Data = complete stack. ACTIVE PIPELINE.","dm":"Head of ML Infra / CTO","employees":"~46","funding":"$143.5M","competitors":["Self-managed GPU","Alluxio"],"hasPipeline":true},
+            {"name":"Apex.AI","score":9,"tier":1,"sector":"robotics","sectorLabel":"AV / Robotics","icon":"🚗","why":"Safety-certified AV middleware. Real-time distributed compute for perception.","painPoints":"Managing distributed perception pipelines across heterogeneous compute.","whyAnyscale":"Ray's heterogeneous compute scheduling fits AV middleware needs.","dm":"VP Engineering","employees":"~80","funding":"$30M+","competitors":["AWS RoboMaker"],"hasPipeline":false},
+            {"name":"Lightwheel","score":9,"tier":1,"sector":"robotics","sectorLabel":"Robotics / Physical AI","icon":"🔦","why":"Physical AI company building 3D world simulation for robotics training.","painPoints":"Distributed 3D rendering + ML training workloads.","whyAnyscale":"Ray orchestrates heterogeneous workloads (rendering + training) on same cluster.","dm":"CTO / Head of Infra","employees":"~30","funding":"Undisclosed","competitors":[],"hasPipeline":false},
+            {"name":"Wing","score":9,"tier":1,"sector":"robotics","sectorLabel":"AV / Robotics","icon":"🛩️","why":"Alphabet's drone delivery. Fleet-scale autonomous navigation and logistics.","painPoints":"Fleet-wide ML model training from drone sensor data.","whyAnyscale":"Ray Data for fleet sensor ingestion + Ray Train + Ray Serve.","dm":"Head of ML / Eng Director","employees":"~1,000","funding":"Alphabet subsidiary","competitors":["GCP Vertex AI"],"hasPipeline":false},
+            {"name":"LlamaIndex","score":9,"tier":1,"sector":"aiplatform","sectorLabel":"AI Framework","icon":"🦙","why":"Python-native AI framework. 3M+ monthly downloads. LlamaCloud SaaS.","painPoints":"Scaling distributed data indexing for enterprise RAG.","whyAnyscale":"Natural integration for scaling RAG pipelines with Ray.","dm":"CEO / CTO (Jerry Liu)","employees":"~50","funding":"$27.5M","competitors":["Modal","AWS Bedrock"],"hasPipeline":false},
+            {"name":"Glean","score":8,"tier":2,"sector":"aiplatform","sectorLabel":"Enterprise AI","icon":"🔍","why":"Enterprise AI search at $7.2B valuation. $100M+ ARR. Multi-tenant LLM orchestration.","painPoints":"Scaling vector operations across 100+ connectors; multi-tenant inference.","whyAnyscale":"Ray Serve for multi-model inference; Ray Data for distributed indexing.","dm":"VP Infra / Head of ML","employees":"~1,475","funding":"$800M+","competitors":["GCP Vertex AI","Databricks"],"hasPipeline":false},
+            {"name":"Xaira Therapeutics","score":8,"tier":2,"sector":"healthai","sectorLabel":"Health AI / Biotech","icon":"🧬","why":"$1B+ funding. AI protein therapeutic design using RFdiffusion models.","painPoints":"Foundation model training for protein design; multi-omics data processing.","whyAnyscale":"Ray Train for distributed foundation model training on protein data.","dm":"Head of ML / VP Eng","employees":"~189","funding":"$1B+","competitors":["AWS SageMaker"],"hasPipeline":false},
+            {"name":"Absci","score":8,"tier":2,"sector":"healthai","sectorLabel":"Health AI / Biotech","icon":"🧬","why":"Testing 3M unique AI-generated antibody designs weekly, analyzing 1B+ molecules.","painPoints":"Processing 1B+ molecules weekly; GPU utilization optimization.","whyAnyscale":"Ray distributed computing for massive-scale molecular evaluation.","dm":"VP Eng / Head of Compute","employees":"~240","funding":"$228M","competitors":["AMD ROCm"],"hasPipeline":false},
+            {"name":"Carbon Robotics","score":8,"tier":2,"sector":"robotics","sectorLabel":"AgTech / Robotics","icon":"🌱","why":"Large Plant Model trained on 150M labeled plants. $177M raised. CNBC Disruptor 50.","painPoints":"Training CV models on 150M+ labeled plant images.","whyAnyscale":"Ray Train for distributed CV model training; Ray Data for field imagery.","dm":"VP Engineering / Head of ML","employees":"~274","funding":"$177M","competitors":["AWS SageMaker"],"hasPipeline":false},
+            {"name":"Foxglove","score":8,"tier":2,"sector":"robotics","sectorLabel":"Robotics Dev Tools","icon":"🦊","why":"Robotics data infrastructure. Processes massive sensor data streams.","painPoints":"Processing high-frequency sensor data from robot fleets.","whyAnyscale":"Ray Data for distributed robotics sensor data processing.","dm":"CTO / Head of Infra","employees":"~50","funding":"$22M","competitors":[],"hasPipeline":false},
+            {"name":"Compound Eye","score":8,"tier":2,"sector":"robotics","sectorLabel":"AV / Computer Vision","icon":"👁️","why":"Computer vision for AVs using novel multi-aperture camera systems.","painPoints":"Distributed image processing for 3D scene reconstruction.","whyAnyscale":"Ray distributed compute for CV pipelines; Ray Train for perception models.","dm":"CTO / VP Engineering","employees":"~30","funding":"$10M+","competitors":[],"hasPipeline":false},
+            {"name":"Kiwibot","score":8,"tier":2,"sector":"robotics","sectorLabel":"Delivery Robotics","icon":"🤖","why":"Autonomous delivery robots. Fleet-scale CV and navigation training.","painPoints":"Fleet-scale autonomous navigation model training.","whyAnyscale":"Ray for distributed fleet ML training; Ray Data for sensor processing.","dm":"CTO / Head of Autonomy","employees":"~100","funding":"$20M+","competitors":[],"hasPipeline":false},
+            {"name":"SoFi","score":7,"tier":2,"sector":"fintech","sectorLabel":"Fintech","icon":"💰","why":"OPEN PIPELINE. Digital finance, $3.54B revenue. AI for fraud detection, underwriting.","painPoints":"Fraud detection at financial-services scale; ML inference across product lines.","whyAnyscale":"Ray Serve for real-time fraud/underwriting inference. ACTIVE PIPELINE.","dm":"VP Data Science / Head of ML","employees":"~6,068","funding":"Public (SOFI)","competitors":["Databricks","SageMaker"],"hasPipeline":true},
+            {"name":"ZEFR","score":7,"tier":2,"sector":"enterprise","sectorLabel":"Video / Brand Safety","icon":"📺","why":"OPEN PIPELINE. Brand safety AI processing 5B+ content items daily.","painPoints":"Processing 5B+ content items daily; multi-modal classification at massive scale.","whyAnyscale":"Ray Serve for high-throughput content classification. ACTIVE PIPELINE.","dm":"VP Engineering / CTO","employees":"~200","funding":"$52M","competitors":["Self-managed GPU"],"hasPipeline":true},
+            {"name":"Zeitview","score":7,"tier":2,"sector":"enterprise","sectorLabel":"Drone Analytics","icon":"🛸","why":"OPEN PIPELINE. AI drone inspection. $174M raised. $82.5M revenue.","painPoints":"Processing large volumes of drone imagery; CV model training.","whyAnyscale":"Ray Data for drone image processing; Ray Train for defect detection. ACTIVE PIPELINE.","dm":"VP Engineering / Head of AI","employees":"~563","funding":"$174M","competitors":["AWS","GCP"],"hasPipeline":true},
+            {"name":"FICO","score":7,"tier":2,"sector":"fintech","sectorLabel":"Analytics / FinTech","icon":"📊","why":"$31.9B market cap analytics giant. FICO Platform focused on getting AI models into production — only 10% of orgs succeed at this. Heavy ML for credit scoring, fraud detection, and decision optimization. Python support via Xpress Insight. Distributed computing in optimization platform.","painPoints":"Getting AI models into production reliably (their stated gap); scaling ML model training and serving across global financial institutions; distributed optimization workloads; Python integration with existing analytics platform.","whyAnyscale":"Ray's model serving + training infrastructure directly addresses FICO's stated challenge of getting AI models into production. Ray Serve for real-time scoring at financial-services scale; Ray Train for distributed model training across their analytics platform.","dm":"VP Engineering / Head of ML Platform / CTO","employees":"~3,400","funding":"Public (FICO)","competitors":["Databricks","AWS SageMaker","Self-managed"],"hasPipeline":false},
+            {"name":"Hive","score":7,"tier":2,"sector":"aiplatform","sectorLabel":"AI Platform","icon":"🐝","why":"Cloud-based AI APIs serving billions of monthly requests. PyTorch stack.","painPoints":"Scaling inference to billions of monthly API requests.","whyAnyscale":"Ray Serve for high-throughput API inference scaling.","dm":"VP Eng / Head of ML Infra","employees":"~504","funding":"$366M","competitors":["Self-managed GPU"],"hasPipeline":false},
+            {"name":"Eikon Therapeutics","score":7,"tier":2,"sector":"healthai","sectorLabel":"Health AI / Biotech","icon":"🔬","why":"AI drug discovery via super-resolution microscopy + ML. IPO'd Feb 2026.","painPoints":"Large-scale microscopy image processing; HPC workloads.","whyAnyscale":"Ray Data for distributed image processing; Ray Train for molecular models.","dm":"VP Eng / Head of Comp Bio","employees":"~386","funding":"$1.1B+","competitors":["Self-managed HPC"],"hasPipeline":false},
+            {"name":"ABBYY","score":7,"tier":2,"sector":"aiplatform","sectorLabel":"Document AI","icon":"📄","why":"Enterprise document processing using DeepML. Containerized K8s microservices.","painPoints":"Scaling document processing pipelines; training custom OCR/NLP models.","whyAnyscale":"Ray Serve for distributed document inference; K8s-native deployment.","dm":"VP Product / Head of AI Labs","employees":"~960","funding":"Private","competitors":["Kubernetes"],"hasPipeline":false},
+            {"name":"KoBold Metals","score":7,"tier":2,"sector":"enterprise","sectorLabel":"Mining / AI","icon":"⛏️","why":"AI mineral exploration. $700M+ raised at $2.96B valuation.","painPoints":"Processing massive geospatial datasets spanning 100+ years.","whyAnyscale":"Ray Data for distributed geospatial processing; Ray Train for geological ML.","dm":"VP Data Science / Head of ML","employees":"~150","funding":"$700M+","competitors":["Databricks","AWS"],"hasPipeline":false},
+            {"name":"Instabase","score":7,"tier":2,"sector":"aiplatform","sectorLabel":"Document AI","icon":"📋","why":"Enterprise doc processing with foundation models. $1.24B valuation.","painPoints":"Foundation model fine-tuning for document understanding.","whyAnyscale":"Ray Serve for distributed doc processing; Ray Train for fine-tuning.","dm":"VP Engineering / Head of ML","employees":"~208","funding":"$322M","competitors":["Self-managed GPU"],"hasPipeline":false},
+            {"name":"Verge Genomics","score":7,"tier":2,"sector":"healthai","sectorLabel":"Health AI / Biotech","icon":"🧬","why":"AI multi-omics drug discovery. CONVERGE platform. Pivoting to PaaS.","painPoints":"Multi-omics data processing; foundation model training on biomedical data.","whyAnyscale":"Ray Data for multi-omics processing; Ray Train for biomedical models.","dm":"VP Eng / Head of Data Sci","employees":"~55","funding":"$176M","competitors":["AWS SageMaker"],"hasPipeline":false},
+            {"name":"David AI","score":7,"tier":2,"sector":"aiplatform","sectorLabel":"AI Data","icon":"🎙️","why":"AI data company building large-scale audio datasets. $80M raised. NVIDIA investor.","painPoints":"Distributed audio data processing and annotation at scale.","whyAnyscale":"Ray Data for distributed audio processing pipelines.","dm":"CTO / Head of Data Eng","employees":"~80","funding":"$80M","competitors":[],"hasPipeline":false},
+            {"name":"AMP Robotics","score":7,"tier":2,"sector":"robotics","sectorLabel":"Recycling Robotics","icon":"♻️","why":"AI recycling robotics. $300M+ raised. 400+ systems deployed globally.","painPoints":"Training CV models on growing material dataset; continuous model updates.","whyAnyscale":"Ray Train for distributed material classification; Ray Data for deployment data.","dm":"VP Eng / Head of ML","employees":"~200","funding":"$300M+","competitors":["AWS SageMaker"],"hasPipeline":false},
+            {"name":"Suki","score":7,"tier":2,"sector":"healthai","sectorLabel":"Health AI","icon":"🏥","why":"AI clinical documentation assistant. NLP-heavy workloads.","painPoints":"NLP model training on clinical docs; scaling real-time inference.","whyAnyscale":"Ray Serve for distributed NLP inference; Ray Train for clinical models.","dm":"VP Engineering / CTO","employees":"~150","funding":"$165M","competitors":[],"hasPipeline":false},
+            {"name":"Techcyte","score":7,"tier":2,"sector":"healthai","sectorLabel":"Health AI / Diagnostics","icon":"🔬","why":"AI digital pathology. CV for microscopy image analysis.","painPoints":"Training CV models on large pathology image datasets.","whyAnyscale":"Ray Data for distributed pathology image processing.","dm":"CTO / VP Engineering","employees":"~50","funding":"$10M+","competitors":[],"hasPipeline":false},
+            {"name":"HeadSpin","score":7,"tier":2,"sector":"enterprise","sectorLabel":"Testing / AI","icon":"📱","why":"AI-powered mobile/web testing with ML for performance analysis.","painPoints":"Distributed test execution across global device farms.","whyAnyscale":"Ray for distributed test data processing.","dm":"VP Engineering / CTO","employees":"~200","funding":"$117M","competitors":[],"hasPipeline":false},
+            {"name":"Matterport","score":7,"tier":2,"sector":"enterprise","sectorLabel":"3D / Spatial AI","icon":"🏠","why":"3D spatial data. Heavy CV and 3D reconstruction workloads.","painPoints":"Distributed 3D reconstruction from imagery.","whyAnyscale":"Ray Data for distributed 3D point cloud processing.","dm":"VP Engineering / Head of ML","employees":"~550","funding":"$640M","competitors":["AWS"],"hasPipeline":false},
+            {"name":"Uplight","score":7,"tier":2,"sector":"enterprise","sectorLabel":"Energy / AI","icon":"💡","why":"AI energy management. ML for grid optimization at utility scale.","painPoints":"Time-series forecasting at utility scale.","whyAnyscale":"Ray Train for distributed energy forecasting; Ray Serve for recommendations.","dm":"VP Eng / Head of Data Sci","employees":"~500","funding":"$370M","competitors":[],"hasPipeline":false},
+            {"name":"Ancestry","score":6,"tier":3,"sector":"enterprise","sectorLabel":"Genomics / Consumer","icon":"🧬","why":"Millions of genomic samples. Large-scale data analysis for ancestry inference.","painPoints":"Processing millions of genomic samples; ML model training.","whyAnyscale":"Ray Data for distributed genomic data processing.","dm":"VP Eng / Head of Data Sci","employees":"~1,600","funding":"Private ($4.7B acq)","competitors":["Databricks"],"hasPipeline":false},
+            {"name":"Spot AI","score":6,"tier":3,"sector":"aiplatform","sectorLabel":"Video AI","icon":"📹","why":"Video intelligence platform. $62M raised. Multimodal AI for video.","painPoints":"Real-time video processing at scale; training CV models.","whyAnyscale":"Ray Serve for distributed video inference; moderate fit.","dm":"VP Engineering / CTO","employees":"~130","funding":"$62M","competitors":["Self-managed GPU"],"hasPipeline":false},
+            {"name":"Pipe","score":6,"tier":3,"sector":"fintech","sectorLabel":"Fintech / AI","icon":"💳","why":"AI-first fintech with AI agents. $437M raised. Recent 50% layoff Nov 2025.","painPoints":"AI agent orchestration; real-time fraud detection inference.","whyAnyscale":"Ray Serve for AI agent orchestration. Company trajectory uncertain.","dm":"CTO / VP Engineering","employees":"~100","funding":"$437M","competitors":[],"hasPipeline":false},
+            {"name":"Vectra AI","score":6,"tier":3,"sector":"enterprise","sectorLabel":"Cybersecurity / AI","icon":"🛡️","why":"AI cybersecurity. $425M raised. Gartner Leader in NDR.","painPoints":"Real-time threat detection; ML model training on threat patterns.","whyAnyscale":"Ray Serve for real-time threat inference; moderate training fit.","dm":"VP Eng / Head of ML","employees":"~665","funding":"$425M","competitors":["AWS"],"hasPipeline":false},
+            {"name":"Fireflies.ai","score":6,"tier":3,"sector":"aiplatform","sectorLabel":"AI / Productivity","icon":"🔥","why":"AI meeting assistant with speech-to-text, NLP summarization.","painPoints":"Scaling real-time speech-to-text inference.","whyAnyscale":"Ray Serve for inference scaling; moderate fit.","dm":"CTO / VP Engineering","employees":"~100","funding":"$24M","competitors":[],"hasPipeline":false},
+            {"name":"Gorgias","score":6,"tier":3,"sector":"enterprise","sectorLabel":"E-commerce / AI","icon":"💬","why":"AI e-commerce customer support. NLP for automated responses.","painPoints":"NLP model training for support automation.","whyAnyscale":"Ray Serve for NLP inference; moderate fit.","dm":"VP Engineering / CTO","employees":"~300","funding":"$71M","competitors":[],"hasPipeline":false},
+            {"name":"Fulfil Solutions","score":6,"tier":3,"sector":"robotics","sectorLabel":"Warehouse Robotics","icon":"📦","why":"Warehouse automation robotics. CV for pick-and-place.","painPoints":"Training object recognition models.","whyAnyscale":"Ray Train for CV model training; moderate fit.","dm":"VP Engineering / CTO","employees":"~80","funding":"$25M+","competitors":[],"hasPipeline":false},
+            {"name":"Lunar Outpost","score":5,"tier":3,"sector":"robotics","sectorLabel":"Space Robotics","icon":"🌙","why":"Lunar rover robotics. Simulation-based training.","painPoints":"Autonomous navigation via simulation; sim-to-real transfer.","whyAnyscale":"Ray for simulation scaling. Moderate fit.","dm":"CTO / Head of Autonomy","employees":"~122","funding":"$23.6M","competitors":[],"hasPipeline":false},
+            {"name":"Auctane","score":5,"tier":3,"sector":"enterprise","sectorLabel":"Logistics / SaaS","icon":"📦","why":"Shipping logistics in $12B Thoma Bravo acquisition. AI for route optimization.","painPoints":"Route optimization ML; predictive analytics.","whyAnyscale":"Limited fit — logistics optimization moderate.","dm":"VP Eng / Head of Data","employees":"~1,000","funding":"$12B (Thoma Bravo)","competitors":[],"hasPipeline":false},
+            {"name":"Netskope","score":5,"tier":3,"sector":"enterprise","sectorLabel":"Cybersecurity","icon":"🔒","why":"Cloud security at $707M revenue. Public (NTSK). Inference-focused.","painPoints":"Scaling threat detection inference.","whyAnyscale":"Ray Serve for inference. Limited training needs.","dm":"VP ML / Head of AI","employees":"~3,203","funding":"Public (NTSK)","competitors":["GCP"],"hasPipeline":false},
+            {"name":"Applied Data Finance","score":5,"tier":3,"sector":"fintech","sectorLabel":"Fintech / ML","icon":"💳","why":"AI lending platform. $614M raised. ML credit risk modeling.","painPoints":"Real-time underwriting inference; credit risk model training.","whyAnyscale":"Potential for Ray Serve; moderate training needs.","dm":"VP Data Sci / Head of ML","employees":"~344","funding":"$614M","competitors":[],"hasPipeline":false},
+            {"name":"FLIR Systems","score":5,"tier":3,"sector":"enterprise","sectorLabel":"Thermal Imaging / AI","icon":"🌡️","why":"Teledyne FLIR thermal imaging. Edge AI focus.","painPoints":"Training thermal detection models; edge optimization.","whyAnyscale":"Moderate fit for model training. Edge focus limits cloud needs.","dm":"VP Engineering / Head of AI","employees":"~2,100","funding":"Teledyne subsidiary","competitors":[],"hasPipeline":false},
+            {"name":"Reltio","score":5,"tier":3,"sector":"enterprise","sectorLabel":"Data Management","icon":"🔗","why":"Cloud data management. ML for entity resolution.","painPoints":"Entity resolution ML at enterprise scale.","whyAnyscale":"Moderate fit for distributed data processing.","dm":"VP Engineering / CTO","employees":"~500","funding":"$237M","competitors":[],"hasPipeline":false},
+            {"name":"Parafin","score":5,"tier":3,"sector":"fintech","sectorLabel":"Fintech","icon":"💵","why":"Embedded finance. ML for risk assessment.","painPoints":"Risk model training; real-time lending inference.","whyAnyscale":"Limited fit — traditional fintech ML.","dm":"VP Eng / Head of Data","employees":"~80","funding":"$94M","competitors":[],"hasPipeline":false},
+            {"name":"Zoom","score":5,"tier":3,"sector":"enterprise","sectorLabel":"Enterprise / Comms","icon":"📹","why":"Video communications. Growing AI features (AI Companion).","painPoints":"Scaling AI Companion inference; training speech models.","whyAnyscale":"Potential for Ray Serve at Zoom scale. AI workloads growing.","dm":"VP AI / Head of ML Platform","employees":"~7,800","funding":"Public (ZM)","competitors":["SageMaker"],"hasPipeline":false},
+            {"name":"Cepton","score":5,"tier":3,"sector":"robotics","sectorLabel":"LiDAR / AV","icon":"📡","why":"LiDAR tech for automotive. Point cloud processing.","painPoints":"Point cloud processing; 3D perception training.","whyAnyscale":"Moderate fit for 3D point cloud processing.","dm":"VP Engineering / CTO","employees":"~100","funding":"$128M","competitors":[],"hasPipeline":false},
+            {"name":"Luxonis","score":5,"tier":3,"sector":"robotics","sectorLabel":"Edge AI / Vision","icon":"📷","why":"Edge AI vision hardware (OAK cameras). Edge inference focused.","painPoints":"Training CV models for edge deployment.","whyAnyscale":"Moderate fit for model training pipeline.","dm":"CTO / Head of ML","employees":"~60","funding":"$38M","competitors":[],"hasPipeline":false},
+            {"name":"Newfront","score":5,"tier":3,"sector":"fintech","sectorLabel":"Insurtech","icon":"🏛️","why":"Tech-enabled insurance brokerage. Some ML for risk assessment.","painPoints":"Insurance risk modeling; limited ML depth.","whyAnyscale":"Limited fit — insurance analytics moderate.","dm":"VP Engineering / CTO","employees":"~450","funding":"$200M","competitors":[],"hasPipeline":false},
+            {"name":"Hayden AI","score":4,"tier":4,"sector":"enterprise","sectorLabel":"GovTech / CV","icon":"🚌","why":"AI bus lane enforcement. Edge-focused inference.","painPoints":"Edge ML inference on transit vehicles.","whyAnyscale":"Low fit — edge focus.","dm":"VP Engineering / CTO","employees":"~184","funding":"$193M","competitors":[],"hasPipeline":false},
+            {"name":"Trulioo","score":4,"tier":4,"sector":"enterprise","sectorLabel":"Identity / Compliance","icon":"✅","why":"Identity verification. $491M raised. Real-time scoring.","painPoints":"Real-time verification inference.","whyAnyscale":"Low fit — transactional ML.","dm":"VP Engineering / CTO","employees":"~375","funding":"$491M","competitors":[],"hasPipeline":false},
+            {"name":"Machinify","score":4,"tier":4,"sector":"healthai","sectorLabel":"Healthcare IT","icon":"🏥","why":"Healthcare claims processing. Operational ML.","painPoints":"Claims automation; rule-based ML.","whyAnyscale":"Low fit — operational ML.","dm":"VP Engineering","employees":"~110","funding":"PE-backed","competitors":[],"hasPipeline":false},
+            {"name":"Halcyon","score":4,"tier":4,"sector":"enterprise","sectorLabel":"Cybersecurity","icon":"🛡️","why":"Anti-ransomware. $190M raised at $1B. Edge/endpoint focused.","painPoints":"Ransomware detection model training.","whyAnyscale":"Low fit — endpoint security.","dm":"VP Engineering / CTO","employees":"~80","funding":"$190M","competitors":[],"hasPipeline":false},
+            {"name":"Twin Health","score":4,"tier":4,"sector":"healthai","sectorLabel":"Digital Health","icon":"👥","why":"Digital twin health platform. $272M+. Inference-heavy.","painPoints":"Real-time digital twin inference.","whyAnyscale":"Low fit — primarily inference.","dm":"VP Engineering / CTO","employees":"~701","funding":"$272M+","competitors":[],"hasPipeline":false},
+            {"name":"LendingClub","score":4,"tier":4,"sector":"fintech","sectorLabel":"Fintech / Lending","icon":"🏦","why":"Public fintech lending. Inference-focused, static models.","painPoints":"Credit risk serving; fraud detection.","whyAnyscale":"Low fit — traditional fintech ML.","dm":"VP Data Science","employees":"~1,075","funding":"Public (LC)","competitors":[],"hasPipeline":false},
+            {"name":"Aarki","score":4,"tier":4,"sector":"enterprise","sectorLabel":"AdTech","icon":"📱","why":"Mobile advertising. Standard adtech ML.","painPoints":"Ad bidding model training.","whyAnyscale":"Low fit — standard adtech.","dm":"VP Engineering","employees":"~100","funding":"Private","competitors":[],"hasPipeline":false},
+            {"name":"Strider Technologies","score":4,"tier":4,"sector":"enterprise","sectorLabel":"Intelligence","icon":"🔎","why":"Strategic intelligence. Some NLP/ML.","painPoints":"NLP for intelligence analysis.","whyAnyscale":"Low fit — limited distributed training.","dm":"VP Eng / CTO","employees":"~150","funding":"$83M","competitors":[],"hasPipeline":false},
+            {"name":"Varo","score":4,"tier":4,"sector":"fintech","sectorLabel":"Neobank","icon":"🏦","why":"Digital bank. Standard fintech ML.","painPoints":"Fraud detection; risk scoring.","whyAnyscale":"Low fit — traditional banking ML.","dm":"VP Data Science","employees":"~500","funding":"$992M","competitors":[],"hasPipeline":false},
+            {"name":"Vorto","score":4,"tier":4,"sector":"enterprise","sectorLabel":"Logistics / AI","icon":"🚛","why":"AI logistics. ML for supply chain optimization.","painPoints":"Supply chain optimization.","whyAnyscale":"Low fit — logistics ML.","dm":"VP Engineering","employees":"~150","funding":"$43M","competitors":[],"hasPipeline":false},
+            {"name":"Truvian","score":3,"tier":4,"sector":"healthai","sectorLabel":"Diagnostics","icon":"🩸","why":"Automated blood testing device. Hardware-focused.","painPoints":"Hardware/device software; limited ML.","whyAnyscale":"Poor fit — hardware-centric.","dm":"VP Engineering","employees":"~119","funding":"$294M","competitors":[],"hasPipeline":false},
+            {"name":"Numeric","score":3,"tier":4,"sector":"fintech","sectorLabel":"Accounting AI","icon":"🧮","why":"AI accounting automation. $89M raised.","painPoints":"Accounting automation; limited scale.","whyAnyscale":"Poor fit — lightweight ML.","dm":"VP Eng / CTO","employees":"~83","funding":"$89M","competitors":[],"hasPipeline":false},
+            {"name":"ImmunityBio, Inc.","score":3,"tier":4,"sector":"healthai","sectorLabel":"Biotech","icon":"💊","why":"Clinical biotech. AI secondary to drug development.","painPoints":"Drug manufacturing optimization.","whyAnyscale":"Poor fit — clinical biotech.","dm":"VP Manufacturing","employees":"~611","funding":"Public (IBRX)","competitors":[],"hasPipeline":false},
+            {"name":"Modern Health","score":3,"tier":4,"sector":"healthai","sectorLabel":"Digital Health","icon":"🧠","why":"Mental health platform. AI chatbot for therapy.","painPoints":"Chatbot inference scaling.","whyAnyscale":"Poor fit — LLM inference only.","dm":"VP Engineering","employees":"~927","funding":"$170M","competitors":[],"hasPipeline":false},
+            {"name":"B GARAGE","score":3,"tier":4,"sector":"enterprise","sectorLabel":"Innovation Lab","icon":"🏗️","why":"Corporate innovation lab. Limited ML.","painPoints":"R&D experimentation.","whyAnyscale":"Poor fit — small-scale.","dm":"CTO / Innovation Lead","employees":"—","funding":"—","competitors":[],"hasPipeline":false},
+            {"name":"Cherry","score":3,"tier":4,"sector":"fintech","sectorLabel":"Fintech","icon":"🍒","why":"Patient financing. Standard fintech ML.","painPoints":"Underwriting ML.","whyAnyscale":"Poor fit — small-scale fintech.","dm":"VP Engineering","employees":"~100","funding":"$64M","competitors":[],"hasPipeline":false},
+            {"name":"Félix","score":3,"tier":4,"sector":"enterprise","sectorLabel":"Enterprise","icon":"🦊","why":"Limited ML workloads.","painPoints":"Limited ML identified.","whyAnyscale":"Poor fit.","dm":"VP Eng / CTO","employees":"—","funding":"—","competitors":[],"hasPipeline":false},
+            {"name":"Quilter","score":3,"tier":4,"sector":"enterprise","sectorLabel":"Enterprise","icon":"🧵","why":"Limited distributed ML workloads.","painPoints":"Limited ML identified.","whyAnyscale":"Poor fit.","dm":"VP Engineering","employees":"~50","funding":"$25M","competitors":[],"hasPipeline":false},
+            {"name":"SimplePractice","score":3,"tier":4,"sector":"enterprise","sectorLabel":"Healthcare SaaS","icon":"📋","why":"Practice management SaaS. Minimal ML.","painPoints":"SaaS management; minimal ML.","whyAnyscale":"Poor fit — SaaS, no ML.","dm":"VP Engineering","employees":"~400","funding":"PE-backed (Vista)","competitors":[],"hasPipeline":false},
+            {"name":"Automattic","score":2,"tier":4,"sector":"enterprise","sectorLabel":"Web Platform","icon":"🌐","why":"WordPress.com parent. PHP/JS-centric. AI emerging.","painPoints":"Emerging AI features; PHP stack.","whyAnyscale":"Poor fit — non-ML core, PHP stack.","dm":"VP Engineering","employees":"~3,700","funding":"$998M","competitors":[],"hasPipeline":false},
+            {"name":"Swift Navigation","score":2,"tier":4,"sector":"enterprise","sectorLabel":"Positioning Tech","icon":"📍","why":"GNSS positioning. Algorithmic, not ML. C/C++ stack.","painPoints":"Signal processing algorithms.","whyAnyscale":"Poor fit — not ML, C/C++ stack.","dm":"VP Engineering","employees":"~148","funding":"$117M","competitors":[],"hasPipeline":false},
+            {"name":"Menlo Security Inc.","score":2,"tier":4,"sector":"enterprise","sectorLabel":"Cybersecurity","icon":"🔐","why":"Internet isolation security. Rule/signature-based.","painPoints":"Minimal ML workloads.","whyAnyscale":"Poor fit — rule-based security.","dm":"VP Engineering","employees":"~500","funding":"$250M","competitors":[],"hasPipeline":false},
+            {"name":"ChargePoint","score":2,"tier":4,"sector":"enterprise","sectorLabel":"EV Infrastructure","icon":"⚡","why":"EV charging network. Hardware/IoT company.","painPoints":"IoT device management; minimal ML.","whyAnyscale":"Poor fit — hardware/IoT.","dm":"VP Engineering","employees":"~1,500","funding":"Public (CHPT)","competitors":[],"hasPipeline":false},
+            {"name":"Step Mobile","score":2,"tier":4,"sector":"fintech","sectorLabel":"Teen Banking","icon":"📱","why":"Teen banking app. Minimal ML.","painPoints":"Basic fintech operations.","whyAnyscale":"Poor fit — consumer banking, no ML.","dm":"VP Engineering","employees":"~100","funding":"$175M","competitors":[],"hasPipeline":false},
+            {"name":"Contentstack","score":1,"tier":4,"sector":"enterprise","sectorLabel":"CMS","icon":"📝","why":"Headless CMS. Node.js/React. No ML.","painPoints":"Content delivery; no ML.","whyAnyscale":"No fit — zero ML needs.","dm":"VP Engineering","employees":"~687","funding":"$179M","competitors":[],"hasPipeline":false}
+        ];
+
+        const pipelineAccounts = ["SoFi", "Dyna Robotics", "Zeitview", "ZEFR"];
+
+        // Document mapping - links to outbound engine docs per account
+        const T1 = 'Tier%201%20Accounts/';
+        const T2 = 'Tier%202%20Accounts/';
+        const T3 = 'Tier%203%20Accounts/';
+        const T4 = 'Tier%204%20Accounts/';
+        const accountDocs = {
+            // Tier 1 - individual sequences + shared tier docs
+            "comma.ai": [
+                {label:"Email Sequences",url:T1+"commaai-personalized-sequences.html",type:"sequence"},
+                {label:"Email Sequences (.docx)",url:T1+"commaai-personalized-sequences.docx",type:"docx"},
+                {label:"Account Plans",url:T1+"tier1-account-plans.html",type:"plan"},
+                {label:"Proof Points",url:T1+"tier1-proof-points.html",type:"proof"},
+                {label:"Prospect Brief",url:T1+"detailed-prospect-brief.html",type:"brief"},
+            ],
+            "Iambic Therapeutics": [
+                {label:"Email Sequences",url:T1+"iambic-personalized-sequences.html",type:"sequence"},
+                {label:"Email Sequences (.docx)",url:T1+"iambic-personalized-sequences.docx",type:"docx"},
+                {label:"Account Plans",url:T1+"tier1-account-plans.html",type:"plan"},
+                {label:"Proof Points",url:T1+"tier1-proof-points.html",type:"proof"},
+                {label:"Prospect Brief",url:T1+"detailed-prospect-brief.html",type:"brief"},
+            ],
+            "Apex.AI": [
+                {label:"Email Sequences",url:T1+"apexai-personalized-sequences.html",type:"sequence"},
+                {label:"Email Sequences (.docx)",url:T1+"apexai-personalized-sequences.docx",type:"docx"},
+                {label:"Account Plans",url:T1+"tier1-account-plans.html",type:"plan"},
+                {label:"Proof Points",url:T1+"tier1-proof-points.html",type:"proof"},
+                {label:"Prospect Brief",url:T1+"detailed-prospect-brief.html",type:"brief"},
+            ],
+            "Lightwheel": [
+                {label:"Email Sequences",url:T1+"lightwheel-personalized-sequences.html",type:"sequence"},
+                {label:"Email Sequences (.docx)",url:T1+"lightwheel-personalized-sequences.docx",type:"docx"},
+                {label:"Account Plans",url:T1+"tier1-account-plans.html",type:"plan"},
+                {label:"Proof Points",url:T1+"tier1-proof-points.html",type:"proof"},
+                {label:"Prospect Brief",url:T1+"detailed-prospect-brief.html",type:"brief"},
+            ],
+            "Wing": [
+                {label:"Account Plans",url:T1+"tier1-account-plans.html",type:"plan"},
+                {label:"Proof Points",url:T1+"tier1-proof-points.html",type:"proof"},
+                {label:"Prospect Brief",url:T1+"detailed-prospect-brief.html",type:"brief"},
+            ],
+            "DDN Storage": [{label:"Prospect Brief",url:T1+"detailed-prospect-brief.html",type:"brief"},{label:"Proof Points",url:T1+"tier1-proof-points.html",type:"proof"}],
+            "Imbue": [{label:"Prospect Brief",url:T1+"detailed-prospect-brief.html",type:"brief"},{label:"Proof Points",url:T1+"tier1-proof-points.html",type:"proof"}],
+            "Dyna Robotics": [{label:"Prospect Brief",url:T1+"detailed-prospect-brief.html",type:"brief"},{label:"Proof Points",url:T1+"tier1-proof-points.html",type:"proof"}],
+            "LlamaIndex": [{label:"Prospect Brief",url:T1+"detailed-prospect-brief.html",type:"brief"},{label:"Proof Points",url:T1+"tier1-proof-points.html",type:"proof"}],
+            // Tier 2
+            "Compound Eye": [{label:"Account Plans",url:T2+"tier2-account-plans.html",type:"plan"},{label:"Proof Points",url:T2+"tier2-proof-points.html",type:"proof"},{label:"Prospect Brief",url:T2+"detailed-prospect-brief-tier2.html",type:"brief"}],
+            "Foxglove": [{label:"Account Plans",url:T2+"tier2-account-plans.html",type:"plan"},{label:"Proof Points",url:T2+"tier2-proof-points.html",type:"proof"},{label:"Prospect Brief",url:T2+"detailed-prospect-brief-tier2.html",type:"brief"}],
+            "Kiwibot": [{label:"Account Plans",url:T2+"tier2-account-plans.html",type:"plan"},{label:"Proof Points",url:T2+"tier2-proof-points.html",type:"proof"},{label:"Prospect Brief",url:T2+"detailed-prospect-brief-tier2.html",type:"brief"}],
+            "HeadSpin": [{label:"Account Plans",url:T2+"tier2-account-plans.html",type:"plan"},{label:"Proof Points",url:T2+"tier2-proof-points.html",type:"proof"},{label:"Prospect Brief",url:T2+"detailed-prospect-brief-tier2.html",type:"brief"}],
+            "Matterport": [{label:"Account Plans",url:T2+"tier2-account-plans.html",type:"plan"},{label:"Proof Points",url:T2+"tier2-proof-points.html",type:"proof"},{label:"Prospect Brief",url:T2+"detailed-prospect-brief-tier2.html",type:"brief"}],
+            "Suki": [{label:"Account Plans",url:T2+"tier2-account-plans.html",type:"plan"},{label:"Proof Points",url:T2+"tier2-proof-points.html",type:"proof"},{label:"Prospect Brief",url:T2+"detailed-prospect-brief-tier2.html",type:"brief"}],
+            "Techcyte": [{label:"Account Plans",url:T2+"tier2-account-plans.html",type:"plan"},{label:"Proof Points",url:T2+"tier2-proof-points.html",type:"proof"},{label:"Prospect Brief",url:T2+"detailed-prospect-brief-tier2.html",type:"brief"}],
+            "Uplight": [{label:"Account Plans",url:T2+"tier2-account-plans.html",type:"plan"},{label:"Proof Points",url:T2+"tier2-proof-points.html",type:"proof"},{label:"Prospect Brief",url:T2+"detailed-prospect-brief-tier2.html",type:"brief"}],
+            "Fireflies.ai": [{label:"Account Plans",url:T2+"tier2-account-plans.html",type:"plan"},{label:"Proof Points",url:T2+"tier2-proof-points.html",type:"proof"},{label:"Prospect Brief",url:T2+"detailed-prospect-brief-tier2.html",type:"brief"}],
+            "Gorgias": [{label:"Account Plans",url:T2+"tier2-account-plans.html",type:"plan"},{label:"Proof Points",url:T2+"tier2-proof-points.html",type:"proof"},{label:"Prospect Brief",url:T2+"detailed-prospect-brief-tier2.html",type:"brief"}],
+            // Tier 3
+            "Ancestry": [{label:"Account Plans",url:T3+"tier3-account-plans.html",type:"plan"},{label:"Proof Points",url:T3+"tier3-proof-points.html",type:"proof"},{label:"Prospect Brief",url:T3+"detailed-prospect-brief-tier3.html",type:"brief"}],
+            "Spot AI": [{label:"Account Plans",url:T3+"tier3-account-plans.html",type:"plan"},{label:"Proof Points",url:T3+"tier3-proof-points.html",type:"proof"},{label:"Prospect Brief",url:T3+"detailed-prospect-brief-tier3.html",type:"brief"}],
+            "Pipe": [{label:"Account Plans",url:T3+"tier3-account-plans.html",type:"plan"},{label:"Proof Points",url:T3+"tier3-proof-points.html",type:"proof"},{label:"Prospect Brief",url:T3+"detailed-prospect-brief-tier3.html",type:"brief"}],
+            "Vectra AI": [{label:"Account Plans",url:T3+"tier3-account-plans.html",type:"plan"},{label:"Proof Points",url:T3+"tier3-proof-points.html",type:"proof"},{label:"Prospect Brief",url:T3+"detailed-prospect-brief-tier3.html",type:"brief"}],
+            "Fulfil Solutions": [{label:"Account Plans",url:T3+"tier3-account-plans.html",type:"plan"},{label:"Proof Points",url:T3+"tier3-proof-points.html",type:"proof"},{label:"Prospect Brief",url:T3+"detailed-prospect-brief-tier3.html",type:"brief"}],
+            // Tier 4
+            "Aarki": [{label:"Account Plans",url:T4+"tier4-account-plans.html",type:"plan"},{label:"Proof Points",url:T4+"tier4-proof-points.html",type:"proof"},{label:"Prospect Brief",url:T4+"tier4-detailed-prospect-brief.html",type:"brief"}],
+            "Strider Technologies": [{label:"Account Plans",url:T4+"tier4-account-plans.html",type:"plan"},{label:"Proof Points",url:T4+"tier4-proof-points.html",type:"proof"},{label:"Prospect Brief",url:T4+"tier4-detailed-prospect-brief.html",type:"brief"}],
+            "Varo": [{label:"Account Plans",url:T4+"tier4-account-plans.html",type:"plan"},{label:"Proof Points",url:T4+"tier4-proof-points.html",type:"proof"},{label:"Prospect Brief",url:T4+"tier4-detailed-prospect-brief.html",type:"brief"}],
+            "Vorto": [{label:"Account Plans",url:T4+"tier4-account-plans.html",type:"plan"},{label:"Proof Points",url:T4+"tier4-proof-points.html",type:"proof"},{label:"Prospect Brief",url:T4+"tier4-detailed-prospect-brief.html",type:"brief"}],
+        };
+
+        let accounts = accountsData.map(a => ({...a, hasPipeline: pipelineAccounts.includes(a.name)}));
+        let filteredAccounts = [...accounts];
+        let expandedRows = new Set();
+        let currentSort = { field: null, direction: 'asc' };
+        let activeFilters = { tier: 'all', status: 'all', stale: 'all', pipeline: false };
+        let searchTerm = '';
+
+        function loadState() {
+            try {
+                return {
+                    statuses: JSON.parse(localStorage.getItem('q2-statuses') || '{}'),
+                    touches: JSON.parse(localStorage.getItem('q2-touches') || '{}'),
+                    contacts: JSON.parse(localStorage.getItem('q2-contacts') || '{}'),
+                    notes: JSON.parse(localStorage.getItem('q2-notes') || '{}')
+                };
+            } catch(e) {
+                return { statuses: {}, touches: {}, contacts: {}, notes: {} };
+            }
+        }
+
+        const savedState = loadState();
+
+        function initializeState() {
+            accounts.forEach(acc => {
+                acc.status = savedState.statuses[acc.name] || 'not-started';
+                acc.lastTouch = savedState.touches[acc.name] ? parseInt(savedState.touches[acc.name]) : null;
+                acc.contacts = savedState.contacts[acc.name] || [];
+                acc.notes = savedState.notes[acc.name] || '';
+            });
+        }
+
+        function saveState() {
+            try {
+                const statuses = {}, touches = {}, contacts = {}, notes = {};
+                accounts.forEach(acc => {
+                    statuses[acc.name] = acc.status;
+                    if (acc.lastTouch) touches[acc.name] = acc.lastTouch.toString();
+                    contacts[acc.name] = acc.contacts;
+                    notes[acc.name] = acc.notes;
+                });
+                localStorage.setItem('q2-statuses', JSON.stringify(statuses));
+                localStorage.setItem('q2-touches', JSON.stringify(touches));
+                localStorage.setItem('q2-contacts', JSON.stringify(contacts));
+                localStorage.setItem('q2-notes', JSON.stringify(notes));
+            } catch(e) {
+                // localStorage unavailable — state stored in memory only this session
+            }
+        }
+
+        function daysSince(timestamp) {
+            if (!timestamp) return null;
+            const days = Math.floor((new Date() - new Date(timestamp)) / (1000 * 60 * 60 * 24));
+            return days;
+        }
+
+        function touchClass(days) {
+            if (days === null) return 'touch-none';
+            if (days < 7) return 'touch-fresh';
+            if (days < 14) return 'touch-warm';
+            return 'touch-cold';
+        }
+
+        function touchText(days) {
+            return days === null ? 'No Touch' : `${days}d ago`;
+        }
+
+        function updateSummary() {
+            const visible = filteredAccounts;
+            const tierCounts = { 1: 0, 2: 0, 3: 0, 4: 0 };
+            const statusCounts = { 'not-started': 0, 'researching': 0, 'contacted': 0, 'engaged': 0 };
+            const staleCounts = { fresh: 0, warm: 0, cold: 0 };
+            let pipelineCount = 0;
+
+            visible.forEach(acc => {
+                tierCounts[acc.tier]++;
+                statusCounts[acc.status]++;
+                const days = daysSince(acc.lastTouch);
+                if (days !== null) {
+                    if (days < 7) staleCounts.fresh++;
+                    else if (days < 14) staleCounts.warm++;
+                    else staleCounts.cold++;
+                }
+                if (acc.hasPipeline) pipelineCount++;
+            });
+
+            document.getElementById('summary-total').textContent = visible.length;
+            ['1', '2', '3', '4'].forEach(t => document.getElementById(`tier-${t}-count`).textContent = tierCounts[t]);
+            ['not-started', 'researching', 'contacted', 'engaged'].forEach(s => document.getElementById(`status-${s}`).textContent = statusCounts[s]);
+            ['fresh', 'warm', 'cold'].forEach(s => document.getElementById(`stale-${s}`).textContent = staleCounts[s]);
+            document.getElementById('pipeline-count').textContent = pipelineCount;
+        }
+
+        function applyFilters() {
+            filteredAccounts = accounts.filter(acc => {
+                if (activeFilters.tier !== 'all' && acc.tier !== parseInt(activeFilters.tier)) return false;
+                if (activeFilters.status !== 'all' && acc.status !== activeFilters.status) return false;
+                if (activeFilters.stale !== 'all') {
+                    const days = daysSince(acc.lastTouch);
+                    if (activeFilters.stale === 'fresh' && (days === null || days >= 7)) return false;
+                    if (activeFilters.stale === 'warm' && (days === null || days < 7 || days >= 14)) return false;
+                    if (activeFilters.stale === 'cold' && (days === null || days < 14)) return false;
+                }
+                if (activeFilters.pipeline && !acc.hasPipeline) return false;
+                if (searchTerm) {
+                    const term = searchTerm.toLowerCase();
+                    const compText = `${acc.name} ${acc.sectorLabel} ${acc.why} ${acc.notes} ${acc.competitors.join(' ')}`.toLowerCase();
+                    if (!compText.includes(term)) return false;
+                }
+                return true;
+            });
+            applySort();
+            render();
+            updateSummary();
+        }
+
+        function applySort() {
+            if (!currentSort.field) return;
+            filteredAccounts.sort((a, b) => {
+                let aVal = a[currentSort.field], bVal = b[currentSort.field];
+                if (currentSort.field === 'name') return currentSort.direction === 'asc' ? aVal.localeCompare(bVal) : bVal.localeCompare(aVal);
+                if (currentSort.field === 'score' || currentSort.field === 'tier') return currentSort.direction === 'asc' ? aVal - bVal : bVal - aVal;
+                if (currentSort.field === 'last-touch') {
+                    const aDays = daysSince(aVal) || 999, bDays = daysSince(bVal) || 999;
+                    return currentSort.direction === 'asc' ? aDays - bDays : bDays - aDays;
+                }
+                if (currentSort.field === 'status') {
+                    const order = ['not-started', 'researching', 'contacted', 'engaged'];
+                    return currentSort.direction === 'asc' ? order.indexOf(aVal) - order.indexOf(bVal) : order.indexOf(bVal) - order.indexOf(aVal);
+                }
+                return 0;
+            });
+        }
+
+        function render() {
+            const tbody = document.getElementById('accounts-tbody');
+            tbody.innerHTML = '';
+            if (filteredAccounts.length === 0) {
+                document.getElementById('no-results').style.display = 'block';
+                return;
+            }
+            document.getElementById('no-results').style.display = 'none';
+
+            filteredAccounts.forEach((acc, idx) => {
+                const days = daysSince(acc.lastTouch);
+                const compText = acc.competitors.map(c => `<span class="competitor-tag">${c}</span>`).join('');
+                const pipelineBadge = acc.hasPipeline ? '<span class="pipeline-badge"><span class="pipeline-dot"></span>PIPE</span>' : '';
+
+                const row = document.createElement('tr');
+                row.id = `row-${idx}`;
+                if (expandedRows.has(idx)) row.classList.add('expanded');
+
+                row.innerHTML = `
+                    <td><button class="expand-btn" onclick="toggleExpand(${idx})">${expandedRows.has(idx) ? '▼' : '▶'}</button></td>
+                    <td><div class="company-cell"><span class="icon">${acc.icon}</span><strong>${acc.name}</strong>${pipelineBadge}${getDocCount(acc.name) > 0 ? `<span class="doc-count-badge">📁${getDocCount(acc.name)}</span>` : ''}</div></td>
+                    <td>${acc.score}</td>
+                    <td><span class="tier-badge tier-${acc.tier}">T${acc.tier}</span></td>
+                    <td>${acc.sectorLabel}</td>
+                    <td>${acc.employees}</td>
+                    <td style="font-size: 11px; color: #64748b;">${acc.funding}</td>
+                    <td><div class="competitor-tags">${compText || '—'}</div></td>
+                    <td style="color: #64748b; font-size: 11px;">${acc.why}</td>
+                    <td><div class="touch-cell ${touchClass(days)}" onclick="setTouch(${idx})">${touchText(days)}</div></td>
+                    <td><span class="status-badge status-${acc.status.replace(/ /g, '-')}" onclick="cycleStatus(${idx})">${acc.status.split('-').map(w => w[0].toUpperCase() + w.slice(1)).join(' ')}</span></td>
+                `;
+                tbody.appendChild(row);
+
+                if (expandedRows.has(idx)) {
+                    const detailRow = document.createElement('tr');
+                    detailRow.className = 'detail-row visible';
+                    detailRow.innerHTML = `
+                        <td colspan="11">
+                            <div class="detail-grid">
+                                <div class="detail-section">
+                                    <div class="detail-label">Why It Fits</div>
+                                    <div class="detail-text">${acc.why}</div>
+                                    <div class="detail-label">Pain Points</div>
+                                    <div class="detail-text">${acc.painPoints}</div>
+                                    <div class="detail-label">Anyscale Value Prop</div>
+                                    <div class="detail-text">${acc.whyAnyscale}</div>
+                                    <div class="detail-label">Decision Maker</div>
+                                    <div class="detail-text">${acc.dm}</div>
+                                </div>
+                                <div class="detail-section">
+                                    <div class="detail-label">Contacts</div>
+                                    <div class="contacts-container" id="contacts-${idx}"></div>
+                                    <div class="add-contact-form" style="margin-top: 8px;">
+                                        <input type="text" class="form-input contact-name-${idx}" placeholder="Name">
+                                        <input type="text" class="form-input contact-title-${idx}" placeholder="Title">
+                                        <input type="text" class="form-input contact-linkedin-${idx}" placeholder="LinkedIn URL">
+                                        <select class="form-select contact-role-${idx}"><option>Champion</option><option>Econ Buyer</option><option>Technical</option><option>Other</option></select>
+                                        <button class="add-contact-btn" onclick="addContact(${idx})">+ Add</button>
+                                    </div>
+                                    <div class="detail-label" style="margin-top: 16px;">Notes</div>
+                                    <textarea class="notes-textarea" id="notes-${idx}">${acc.notes}</textarea>
+                                    <div class="notes-status" id="notes-status-${idx}"></div>
+                                </div>
+                                ${renderDocsSection(acc.name)}
+                            </div>
+                        </td>
+                    `;
+                    tbody.appendChild(detailRow);
+                    renderContacts(idx);
+                    setupNotesListener(idx);
+                }
+            });
+        }
+
+        function renderDocsSection(name) {
+            const docs = accountDocs[name];
+            if (!docs || docs.length === 0) {
+                return `<div class="docs-section"><div class="detail-label">Account Documents</div><div class="no-docs">No documents yet — use the outbound engine skill to generate</div></div>`;
+            }
+            const links = docs.map(d =>
+                `<a href="${d.url}" class="doc-link doc-${d.type}" onclick="event.stopPropagation()">${d.label}</a>`
+            ).join('');
+            return `<div class="docs-section"><div class="detail-label">Account Documents (${docs.length})</div><div class="docs-row">${links}</div></div>`;
+        }
+
+        function getDocCount(name) {
+            const docs = accountDocs[name];
+            return docs ? docs.length : 0;
+        }
+
+        function renderContacts(idx) {
+            const acc = filteredAccounts[idx];
+            const container = document.getElementById(`contacts-${idx}`);
+            if (!container) return;
+            container.innerHTML = acc.contacts.map((c, cIdx) => `
+                <div class="contact-card">
+                    <div class="contact-info">
+                        <div class="contact-name">${c.name}</div>
+                        <div class="contact-title">${c.title}</div>
+                        <a href="${c.linkedin}" target="_blank" class="contact-link">LinkedIn</a>
+                        <div class="contact-role">${c.role}</div>
+                    </div>
+                    <button class="delete-btn" onclick="deleteContact(${idx}, ${cIdx})">Delete</button>
+                </div>
+            `).join('');
+        }
+
+        function addContact(idx) {
+            const acc = filteredAccounts[idx];
+            const name = document.querySelector(`.contact-name-${idx}`).value.trim();
+            const title = document.querySelector(`.contact-title-${idx}`).value.trim();
+            const linkedin = document.querySelector(`.contact-linkedin-${idx}`).value.trim();
+            const role = document.querySelector(`.contact-role-${idx}`).value;
+            if (!name || !title) { alert('Name and Title required'); return; }
+            acc.contacts.push({ name, title, linkedin, role });
+            saveState();
+            renderContacts(idx);
+            document.querySelector(`.contact-name-${idx}`).value = '';
+            document.querySelector(`.contact-title-${idx}`).value = '';
+            document.querySelector(`.contact-linkedin-${idx}`).value = '';
+        }
+
+        function deleteContact(idx, cIdx) {
+            const acc = filteredAccounts[idx];
+            acc.contacts.splice(cIdx, 1);
+            saveState();
+            renderContacts(idx);
+        }
+
+        function setupNotesListener(idx) {
+            const textarea = document.getElementById(`notes-${idx}`);
+            if (!textarea) return;
+            const acc = filteredAccounts[idx];
+            let timeout;
+            textarea.addEventListener('input', () => {
+                clearTimeout(timeout);
+                const status = document.getElementById(`notes-status-${idx}`);
+                if (status) status.textContent = 'Saving...';
+                timeout = setTimeout(() => {
+                    acc.notes = textarea.value;
+                    saveState();
+                    if (status) status.textContent = 'Saved';
+                    setTimeout(() => { if (status) status.textContent = ''; }, 2000);
+                }, 400);
+            });
+        }
+
+        function toggleExpand(idx) {
+            if (expandedRows.has(idx)) expandedRows.delete(idx);
+            else expandedRows.add(idx);
+            render();
+        }
+
+        function cycleStatus(idx) {
+            const acc = filteredAccounts[idx];
+            const statuses = ['not-started', 'researching', 'contacted', 'engaged'];
+            const current = statuses.indexOf(acc.status);
+            acc.status = statuses[(current + 1) % statuses.length];
+            saveState();
+            render();
+            updateSummary();
+        }
+
+        function setTouch(idx) {
+            const acc = filteredAccounts[idx];
+            acc.lastTouch = new Date().getTime();
+            saveState();
+            render();
+            updateSummary();
+        }
+
+        document.addEventListener('click', (e) => {
+            if (e.target.classList.contains('tier-filter')) {
+                document.querySelectorAll('.tier-filter').forEach(b => b.classList.remove('active'));
+                e.target.classList.add('active');
+                activeFilters.tier = e.target.dataset.tier;
+                applyFilters();
+            }
+            if (e.target.classList.contains('status-filter')) {
+                document.querySelectorAll('.status-filter').forEach(b => b.classList.remove('active'));
+                e.target.classList.add('active');
+                activeFilters.status = e.target.dataset.status;
+                applyFilters();
+            }
+            if (e.target.classList.contains('stale-filter')) {
+                document.querySelectorAll('.stale-filter').forEach(b => b.classList.remove('active'));
+                e.target.classList.add('active');
+                activeFilters.stale = e.target.dataset.stale;
+                applyFilters();
+            }
+            if (e.target.classList.contains('pipeline-filter')) {
+                e.target.classList.toggle('active');
+                activeFilters.pipeline = e.target.classList.contains('active');
+                applyFilters();
+            }
+            if (e.target.classList.contains('sortable')) {
+                const field = e.target.dataset.sort;
+                if (currentSort.field === field) currentSort.direction = currentSort.direction === 'asc' ? 'desc' : 'asc';
+                else { currentSort.field = field; currentSort.direction = 'asc'; }
+                document.querySelectorAll('th.sortable').forEach(h => h.classList.remove('sorted-asc', 'sorted-desc'));
+                e.target.classList.add(currentSort.direction === 'asc' ? 'sorted-asc' : 'sorted-desc');
+                applyFilters();
+            }
+        });
+
+        document.getElementById('search-box').addEventListener('input', (e) => {
+            searchTerm = e.target.value;
+            applyFilters();
+        });
+
+        function exportToCSV() {
+            const headers = ['Company', 'Score', 'Tier', 'Sector', 'Employees', 'Funding', 'Why It Fits', 'Pain Points', 'Anyscale Value', 'Decision Maker', 'Competitors', 'Status', 'Last Touch', 'Contacts', 'Notes'];
+            const rows = accounts.map(acc => {
+                const days = daysSince(acc.lastTouch);
+                const lastTouchStr = days === null ? 'No Touch' : `${days}d ago`;
+                const contactsStr = acc.contacts.map(c => `${c.name} (${c.title}) - ${c.role}`).join(' | ');
+                return [acc.name, acc.score, acc.tier, acc.sectorLabel, acc.employees, acc.funding, acc.why, acc.painPoints, acc.whyAnyscale, acc.dm, acc.competitors.join(', '), acc.status, lastTouchStr, contactsStr, acc.notes];
+            });
+            const csv = [headers, ...rows].map(row => row.map(cell => `"${String(cell).replace(/"/g, '""')}"`).join(',')).join('\n');
+            const blob = new Blob([csv], { type: 'text/csv' });
+            const url = URL.createObjectURL(blob);
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = 'Q2-Account-Tiering-Anyscale.csv';
+            document.body.appendChild(a);
+            a.click();
+            document.body.removeChild(a);
+            URL.revokeObjectURL(url);
+        }
+
+        try {
+            initializeState();
+        } catch(e) {
+            // If initializeState fails, still give every account defaults so the table renders
+            accounts.forEach(function(acc) {
+                if (!acc.status) acc.status = 'not-started';
+                if (acc.lastTouch === undefined) acc.lastTouch = null;
+                if (!acc.contacts) acc.contacts = [];
+                if (!acc.notes) acc.notes = '';
+            });
+        }
+
+        try {
+            applyFilters();
+        } catch(e) {
+            // Last-resort: directly populate tbody so accounts are always visible
+            var tbody = document.getElementById('accounts-tbody');
+            if (tbody) {
+                accounts.forEach(function(acc) {
+                    var tr = document.createElement('tr');
+                    tr.innerHTML = '<td></td><td><strong>' + acc.name + '</strong></td><td>' + acc.score + '</td><td>T' + acc.tier + '</td><td>' + acc.sectorLabel + '</td><td>' + acc.employees + '</td><td>' + acc.funding + '</td><td>' + (acc.competitors.join(', ') || '—') + '</td><td>' + acc.why + '</td><td>—</td><td>Not Started</td>';
+                    tbody.appendChild(tr);
+                });
+            }
+        }
+    </script>
+</body>
+</html>
