@@ -887,6 +887,27 @@ Open when the timing makes sense.</pre>
   </div>
 
   <div class="sections-grid">
+
+    <div class="plan-section full-width" style="border-left: 3px solid #3fb950;">
+      <h3 class="section-title">🏢 Company Overview</h3>
+      <p style="font-size:13px;line-height:1.7;color:#c9d1d9;">Glean is the leading enterprise AI search and knowledge platform, headquartered in Palo Alto, CA. Founded by Arvind Jain (ex-Google Distinguished Engineer) in 2019, Glean connects to 100+ enterprise SaaS applications to provide unified search, knowledge discovery, and autonomous AI agents across the enterprise. The company reached $208M ARR in 2025 (nearly doubling from $110M in 2024) and is valued at $7.2B after a $150M Series F. Glean serves Fortune 500 companies including Databricks, Grammarly, and Duolingo, and recently launched its autonomous agent platform Glean:GO processing 100M+ actions annually.</p>
+    </div>
+
+    <div class="plan-section">
+      <h3 class="section-title">📦 Products &amp; Offerings</h3>
+      <ul class="signal-list"><li>Glean Search — AI-powered enterprise search across 100+ SaaS connectors (Google Workspace, Slack, Confluence, Salesforce, etc.)</li><li>Glean Chat — conversational AI assistant for enterprise knowledge retrieval and question answering</li><li>Glean:GO — autonomous agent platform for workflow automation, vibe coding, and enterprise task completion</li><li>Glean Apps — custom AI applications built on enterprise Knowledge Graph</li><li>Glean for Security — data governance, oversharing detection, and compliance scanning</li><li>Knowledge Graph — unified enterprise context layer connecting people, documents, and organizational structure</li></ul>
+    </div>
+
+    <div class="plan-section">
+      <h3 class="section-title">⚔️ Competitors</h3>
+      <ul class="plan-list"><li>Microsoft Copilot (enterprise AI assistant)</li><li>Google Cloud Search / Vertex AI Search</li><li>Coveo (enterprise search)</li><li>Elastic (enterprise search)</li><li>Moveworks (enterprise AI)</li><li>Guru (knowledge management)</li><li>Perplexity Enterprise</li></ul>
+    </div>
+
+    <div class="plan-section full-width" style="border-left: 3px solid #3fb950;">
+      <h3 class="section-title">🏭 Industry</h3>
+      <p style="font-size:13px;line-height:1.7;color:#c9d1d9;font-weight:600;">Enterprise AI Search &amp; Knowledge Management — Autonomous Agent Platform</p>
+    </div>
+
     <div class="plan-section ray-section full-width">
       <h3 class="section-title">🔬 Ray Libraries & Workload Fit</h3>
       <div class="ray-content">
@@ -962,6 +983,26 @@ Open when the timing makes sense.</pre>
       </ul>
     </div>
 
+    <div class="plan-section">
+      <h3 class="section-title">⏰ Timing Advantages (Why Now)</h3>
+      <ul class="timing-list"><li>Series F just closed ($150M June 2025) with explicit plan to double R&amp;D — infrastructure budget is available and being deployed now</li><li>ARR doubling trajectory ($110M→$208M) means infrastructure scaling is an immediate operational priority, not a future concern</li><li>Agent platform launch (100M+ actions/year) created a step-function increase in inference compute requirements overnight</li><li>Global expansion into EMEA/APAC requires distributed serving infrastructure across regions with data residency constraints</li><li>Aggressively hiring infrastructure engineers — signals they're in the build vs. buy decision window right now</li></ul>
+    </div>
+
+    <div class="plan-section">
+      <h3 class="section-title">🎯 Business Objectives</h3>
+      <ul class="plan-list"><li>Scale to $500M+ ARR by expanding the enterprise agent platform beyond search into comprehensive workflow automation</li><li>Establish Glean as the default enterprise AI assistant across Fortune 500 companies globally</li><li>Grow autonomous agent adoption to billions of actions annually across enterprise customers</li><li>Expand globally into EMEA and APAC markets with localized infrastructure and data residency compliance</li><li>Monetize agent platform with premium pricing tiers for advanced reasoning and governance capabilities</li></ul>
+    </div>
+
+    <div class="plan-section">
+      <h3 class="section-title">💻 Tech Initiatives</h3>
+      <ul class="plan-list"><li>Distributed inference infrastructure optimization to serve 15+ LLMs at enterprise scale with sub-second latency</li><li>Embedding pipeline modernization for continuous re-indexing of billions of documents across 100+ SaaS connectors</li><li>Multi-tenant model serving architecture to isolate customer data while sharing compute efficiently</li><li>Enterprise Knowledge Graph scaling to handle cross-organization context for agent reasoning</li><li>Cost optimization for TPU/GPU inference clusters as agent actions scale beyond 100M annually</li></ul>
+    </div>
+
+    <div class="plan-section">
+      <h3 class="section-title">❓ Discovery Questions</h3>
+      <ol class="discovery-list"><li>With 15+ LLMs serving thousands of concurrent enterprise users, what does your current model serving architecture look like — are you managing each model endpoint independently or through a unified serving layer?</li><li>As you scale from 100M to billions of agent actions annually, where do you anticipate the first infrastructure bottlenecks — inference latency, GPU utilization, or multi-tenant isolation?</li><li>Your re-indexing pipeline processes billions of documents from 100+ connectors — how do you handle connector failures, data freshness, and incremental updates without full re-embeds?</li><li>With the Series F earmarked for doubling R&amp;D, how are you thinking about build vs. buy for your ML infrastructure — is managing distributed serving in-house a strategic advantage or a distraction?</li><li>As you expand into EMEA and APAC, are you planning regional inference clusters, or serving globally from US infrastructure — and what are the latency and data residency constraints?</li><li>What's the biggest cost driver in your current ML infrastructure — model inference, embedding computation, or data processing — and how much visibility do you have into GPU/TPU utilization?</li></ol>
+    </div>
+
     <div class="plan-section highlight-section">
       <h3 class="section-title">⚡ Why Anyscale? (Platform Outcomes)</h3>
       <ul class="why-list">
@@ -978,24 +1019,36 @@ Open when the timing makes sense.</pre>
       <h3 class="section-title">✉️ 4-Step Email Outreach Sequence</h3>
       <div class="emails-container">
         <div class="email-card">
-          <div class="email-step">Step 1</div>
-          <div class="email-subject">Subject: "Serving 15 LLMs to enterprise — Ray Serve"</div>
-          <div class="email-body">Hi [Name] — $208M ARR and 100M+ agent actions annually is remarkable scale. At that volume, managing 15+ model inference endpoints independently becomes an operational bottleneck. Ray Serve unifies multi-model serving with auto-scaling and intelligent routing — natively on GCP. Worth 20 minutes to compare approaches?</div>
+          <div class="email-header">
+            <span class="email-step">Step 1</span>
+            <span class="email-subject">Subject: Serving 15 LLMs to enterprise — Ray Serve</span>
+            <button class="copy-btn" onclick="copyEmail(this)">Copy</button>
+          </div>
+          <pre class="email-body">Hi [Name] — $208M ARR and 100M+ agent actions annually is remarkable scale. At that volume, managing 15+ model inference endpoints independently becomes an operational bottleneck. Ray Serve unifies multi-model serving with auto-scaling and intelligent routing — natively on GCP. Worth 20 minutes to compare approaches?</pre>
         </div>
         <div class="email-card">
-          <div class="email-step">Step 2</div>
-          <div class="email-subject">Subject: "Re-indexing billions of docs — streaming pipeline"</div>
-          <div class="email-body">Following up — your re-indexing pipeline across 100+ SaaS connectors is essentially an embarrassingly parallel data problem. Ray Data handles streaming ingestion with built-in fault tolerance, replacing custom ETL. Several teams at similar scale reduced pipeline failures by 80%. Happy to walk through the architecture.</div>
+          <div class="email-header">
+            <span class="email-step">Step 2</span>
+            <span class="email-subject">Subject: Re-indexing billions of docs — streaming pipeline</span>
+            <button class="copy-btn" onclick="copyEmail(this)">Copy</button>
+          </div>
+          <pre class="email-body">Following up — your re-indexing pipeline across 100+ SaaS connectors is essentially an embarrassingly parallel data problem. Ray Data handles streaming ingestion with built-in fault tolerance, replacing custom ETL. Several teams at similar scale reduced pipeline failures by 80%. Happy to walk through the architecture.</pre>
         </div>
         <div class="email-card">
-          <div class="email-step">Step 3</div>
-          <div class="email-subject">Subject: "Agent infrastructure at billion-action scale"</div>
-          <div class="email-body">As Glean scales from 100M to billions of agent actions, the inference infrastructure has to scale proportionally — but cost-efficiently. Managed Ray on GCP handles bursty multi-tenant workloads with GPU/TPU spot instance optimization. Happy to share how similar-stage companies approach this.</div>
+          <div class="email-header">
+            <span class="email-step">Step 3</span>
+            <span class="email-subject">Subject: Agent infrastructure at billion-action scale</span>
+            <button class="copy-btn" onclick="copyEmail(this)">Copy</button>
+          </div>
+          <pre class="email-body">As Glean scales from 100M to billions of agent actions, the inference infrastructure has to scale proportionally — but cost-efficiently. Managed Ray on GCP handles bursty multi-tenant workloads with GPU/TPU spot instance optimization. Happy to share how similar-stage companies approach this.</pre>
         </div>
         <div class="email-card">
-          <div class="email-step">Step 4</div>
-          <div class="email-subject">Subject: "Anyscale + Glean — open when timing makes sense"</div>
-          <div class="email-body">Last note — when scaling inference infrastructure for the next growth phase comes up, I'd love to be in that conversation. GCP-native, multi-model serving, streaming data pipelines — all in your existing stack. Open whenever it makes sense.</div>
+          <div class="email-header">
+            <span class="email-step">Step 4</span>
+            <span class="email-subject">Subject: Anyscale + Glean — open when timing makes sense</span>
+            <button class="copy-btn" onclick="copyEmail(this)">Copy</button>
+          </div>
+          <pre class="email-body">Last note — when scaling inference infrastructure for the next growth phase comes up, I'd love to be in that conversation. GCP-native, multi-model serving, streaming data pipelines — all in your existing stack. Open whenever it makes sense.</pre>
         </div>
       </div>
     </div>
@@ -1027,6 +1080,27 @@ Open when the timing makes sense.</pre>
   </div>
 
   <div class="sections-grid">
+
+    <div class="plan-section full-width" style="border-left: 3px solid #d2a8ff;">
+      <h3 class="section-title">🏢 Company Overview</h3>
+      <p style="font-size:13px;line-height:1.7;color:#c9d1d9;">Xaira Therapeutics is a clinical-stage AI drug discovery company headquartered in South San Francisco, CA. Founded in 2024 with a landmark $1B Series A — the largest single investment in Arch Venture Partners' 39-year history — Xaira combines world-class computational biology with massive proprietary datasets to design first-in-class therapeutics. The company launched its X-Cell virtual cell model (March 2026) trained on the largest-ever genome-wide perturbation dataset (25.6M single-cell transcriptomes from X-Atlas/Pisces), and uses RFdiffusion and RFantibody for de novo protein therapeutic design. Led by CEO Marc Tessier-Lavigne (former Stanford president) with recent additions of CMO Dr. Paulo Fontoura (ex-Roche) and COO Jeff Jonker.</p>
+    </div>
+
+    <div class="plan-section">
+      <h3 class="section-title">📦 Products &amp; Offerings</h3>
+      <ul class="signal-list"><li>X-Cell — 4.9B parameter virtual cell foundation model predicting cellular responses to CRISPR knockout, drugs, and genetic perturbations</li><li>X-Atlas / Pisces — largest genome-wide single-cell perturbation dataset (25.6M transcriptomes from FiCS Perturb-seq platform)</li><li>RFdiffusion / RFantibody — diffusion-based generative models for de novo therapeutic antibody design</li><li>IgDesign2 — CDR design system for computationally-designed therapeutic antibodies</li><li>FiCS Perturb-seq — proprietary high-throughput single-cell perturbation screening platform</li><li>ABS-101 (anti-TL1A for IBD) — first AI-designed molecule entering Phase 1 clinical trials</li></ul>
+    </div>
+
+    <div class="plan-section">
+      <h3 class="section-title">⚔️ Competitors</h3>
+      <ul class="plan-list"><li>Recursion Pharmaceuticals (AI drug discovery)</li><li>Isomorphic Labs (Google DeepMind spin-out)</li><li>Generate:Biomedicines (generative protein design)</li><li>Absci (generative antibody design)</li><li>Relay Therapeutics (computational drug design)</li><li>Insilico Medicine (AI pharma)</li><li>Evotec (AI-integrated drug discovery)</li></ul>
+    </div>
+
+    <div class="plan-section full-width" style="border-left: 3px solid #d2a8ff;">
+      <h3 class="section-title">🏭 Industry</h3>
+      <p style="font-size:13px;line-height:1.7;color:#c9d1d9;font-weight:600;">AI-First Drug Discovery &amp; Computational Biology — Foundation Model-Driven Therapeutics</p>
+    </div>
+
     <div class="plan-section ray-section full-width">
       <h3 class="section-title">🔬 Ray Libraries & Workload Fit</h3>
       <div class="ray-content">
@@ -1101,6 +1175,26 @@ Open when the timing makes sense.</pre>
       </ul>
     </div>
 
+    <div class="plan-section">
+      <h3 class="section-title">⏰ Timing Advantages (Why Now)</h3>
+      <ul class="timing-list"><li>$1B in committed funding being actively deployed with new C-suite (CMO, COO) signaling immediate infrastructure scale-up needs</li><li>X-Cell launch (March 2026) demonstrates they're pushing toward larger, more complex models requiring distributed computing solutions</li><li>Active hiring for cloud infrastructure and data engineering roles at $160K-$220K indicates heavy investment in computational capabilities right now</li><li>Oracle OCI partnership suggests they're evaluating infrastructure optimization — creating an opening for best-in-class distributed computing</li><li>Transition from research to clinical-stage programs (ABS-101 Phase 1) means they need production-grade infrastructure, not just research prototypes</li></ul>
+    </div>
+
+    <div class="plan-section">
+      <h3 class="section-title">🎯 Business Objectives</h3>
+      <ul class="plan-list"><li>Deliver first-in-class medicines targeting previously "undruggable" targets through AI-powered discovery in inflammatory and immunological diseases</li><li>Compress the typical 10-15 year drug discovery cycle using virtual cell models and AI-designed molecules</li><li>Establish market leadership as the premier AI-first drug discovery platform with clinical-stage validation</li><li>Build defensible intellectual property through massive proprietary datasets (X-Atlas/Pisces) and world-class foundation models</li><li>Demonstrate ROI for $1B in venture capital through clinical program milestones and potential pharma partnerships</li></ul>
+    </div>
+
+    <div class="plan-section">
+      <h3 class="section-title">💻 Tech Initiatives</h3>
+      <ul class="plan-list"><li>X-Cell virtual cell model expansion from research to production-grade predictions across diverse cellular contexts and primary cells</li><li>Foundation model fine-tuning at scale — developing specialized models for specific cell types, disease contexts, and perturbation types</li><li>Real-time perturbation prediction engine serving X-Cell predictions to research teams with low-latency multi-tenant inference</li><li>Data pipeline automation and QC for processing raw sequencing data into training datasets with distributed quality control</li><li>Cross-modal biological models integrating transcriptomic, proteomic, imaging, and clinical data into unified AI models</li></ul>
+    </div>
+
+    <div class="plan-section">
+      <h3 class="section-title">❓ Discovery Questions</h3>
+      <ol class="discovery-list"><li>What is the largest single model Xaira has trained to date, and how is that workload currently distributed across your OCI infrastructure — are you hitting scaling bottlenecks?</li><li>As you expand X-Atlas from 25.6M to even larger datasets, where do you see the biggest engineering challenges in processing and versioning biological data at scale?</li><li>Beyond research use, are you planning to expose X-Cell predictions via APIs for internal teams or external partners, and what are your latency and multi-tenancy requirements?</li><li>How many parallel model training experiments do you typically run simultaneously, and is GPU scheduling and resource allocation a bottleneck?</li><li>Do you have full visibility into GPU utilization across your OCI clusters, and are there opportunities to reduce compute costs through better scheduling?</li><li>Beyond GPU-heavy training, do you run CPU-intensive data preprocessing or validation workflows that benefit from a unified orchestration platform?</li></ol>
+    </div>
+
     <div class="plan-section highlight-section">
       <h3 class="section-title">⚡ Why Anyscale? (Platform Outcomes)</h3>
       <ul class="why-list">
@@ -1117,24 +1211,36 @@ Open when the timing makes sense.</pre>
       <h3 class="section-title">✉️ 4-Step Email Outreach Sequence</h3>
       <div class="emails-container">
         <div class="email-card">
-          <div class="email-step">Step 1</div>
-          <div class="email-subject">Subject: "X-Cell at scale — distributed training on OCI"</div>
-          <div class="email-body">Hi [Name] — congratulations on the X-Cell launch. Training a 4.9B parameter virtual cell model on 25.6M transcriptomes is serious computational scale. As you expand to more cellular contexts and larger datasets, distributed training orchestration becomes the bottleneck. Ray Train handles this natively on OCI. Worth 20 minutes?</div>
+          <div class="email-header">
+            <span class="email-step">Step 1</span>
+            <span class="email-subject">Subject: X-Cell at scale — distributed training on OCI</span>
+            <button class="copy-btn" onclick="copyEmail(this)">Copy</button>
+          </div>
+          <pre class="email-body">Hi [Name] — congratulations on the X-Cell launch. Training a 4.9B parameter virtual cell model on 25.6M transcriptomes is serious computational scale. As you expand to more cellular contexts and larger datasets, distributed training orchestration becomes the bottleneck. Ray Train handles this natively on OCI. Worth 20 minutes?</pre>
         </div>
         <div class="email-card">
-          <div class="email-step">Step 2</div>
-          <div class="email-subject">Subject: "Biotech teams reducing training time by 60%"</div>
-          <div class="email-body">Following up — teams scaling foundation models across distributed GPUs find that a unified platform (Ray) reduces engineering overhead so they focus on biology, not infrastructure. Ray Data also handles your X-Atlas data pipeline at scale. Curious if this resonates with your current challenges?</div>
+          <div class="email-header">
+            <span class="email-step">Step 2</span>
+            <span class="email-subject">Subject: Biotech teams reducing training time by 60%</span>
+            <button class="copy-btn" onclick="copyEmail(this)">Copy</button>
+          </div>
+          <pre class="email-body">Following up — teams scaling foundation models across distributed GPUs find that a unified platform (Ray) reduces engineering overhead so they focus on biology, not infrastructure. Ray Data also handles your X-Atlas data pipeline at scale. Curious if this resonates with your current challenges?</pre>
         </div>
         <div class="email-card">
-          <div class="email-step">Step 3</div>
-          <div class="email-subject">Subject: "Quick question: X-Cell production inference"</div>
-          <div class="email-body">Are you planning to serve X-Cell predictions to internal research teams or external partners? Production model serving and multi-model orchestration are areas where Ray Serve excels. Would love a 20-minute technical conversation with your ML infrastructure lead.</div>
+          <div class="email-header">
+            <span class="email-step">Step 3</span>
+            <span class="email-subject">Subject: Quick question: X-Cell production inference</span>
+            <button class="copy-btn" onclick="copyEmail(this)">Copy</button>
+          </div>
+          <pre class="email-body">Are you planning to serve X-Cell predictions to internal research teams or external partners? Production model serving and multi-model orchestration are areas where Ray Serve excels. Would love a 20-minute technical conversation with your ML infrastructure lead.</pre>
         </div>
         <div class="email-card">
-          <div class="email-step">Step 4</div>
-          <div class="email-subject">Subject: "Anyscale + Xaira — when scaling comes up"</div>
-          <div class="email-body">Last note — when the compute scaling conversation comes up (foundation model expansion, data pipeline growth, inference serving), I'd love to be involved. Happy to bring a technical expert familiar with distributed PyTorch and biological data processing. Open whenever.</div>
+          <div class="email-header">
+            <span class="email-step">Step 4</span>
+            <span class="email-subject">Subject: Anyscale + Xaira — when scaling comes up</span>
+            <button class="copy-btn" onclick="copyEmail(this)">Copy</button>
+          </div>
+          <pre class="email-body">Last note — when the compute scaling conversation comes up (foundation model expansion, data pipeline growth, inference serving), I'd love to be involved. Happy to bring a technical expert familiar with distributed PyTorch and biological data processing. Open whenever.</pre>
         </div>
       </div>
     </div>
@@ -1166,6 +1272,27 @@ Open when the timing makes sense.</pre>
   </div>
 
   <div class="sections-grid">
+
+    <div class="plan-section full-width" style="border-left: 3px solid #f78166;">
+      <h3 class="section-title">🏢 Company Overview</h3>
+      <p style="font-size:13px;line-height:1.7;color:#c9d1d9;">Carbon Robotics is an AI-powered agricultural robotics company headquartered in Seattle, WA. Founded by CEO Paul Mikesell, the company builds the LaserWeeder — a precision weed control system that uses computer vision and high-powered lasers to eliminate weeds with sub-millimeter accuracy at the meristem growth point. Their proprietary Large Plant Model is trained on 150M+ labeled plant images collected from three continents, enabling real-time identification across diverse crops, weed species, and growing conditions. Carbon Robotics serves 100+ growers globally, delivering 80% labor cost savings with 1-3 year payback periods. Named to the CNBC Disruptor 50 (2025) and TIME's America's Top Greentech Companies (2024), the company recently launched Carbon ATK, an autonomous tractor platform extending their AI into full farm automation.</p>
+    </div>
+
+    <div class="plan-section">
+      <h3 class="section-title">📦 Products &amp; Offerings</h3>
+      <ul class="signal-list"><li>LaserWeeder G2 — precision weed control system available in 5 models (8ft to 40ft width) using computer vision and high-powered lasers</li><li>Carbon ATK — autonomous tractor autonomy solution extending AI beyond weed control into broader farm automation</li><li>Large Plant Model — proprietary CV model trained on 150M+ labeled plant images across three continents</li><li>Carbon Cloud — fleet management and data analytics platform for monitoring field operations</li><li>Field Intelligence — data products for weed pressure mapping, yield prediction, and application timing optimization</li></ul>
+    </div>
+
+    <div class="plan-section">
+      <h3 class="section-title">⚔️ Competitors</h3>
+      <ul class="plan-list"><li>John Deere (See &amp; Spray)</li><li>Blue River Technology (acquired by Deere)</li><li>Verdant Robotics</li><li>FarmWise (acquired by iRobot)</li><li>Bilberry (precision spraying)</li><li>Naio Technologies (farm robots)</li><li>Ecorobotix</li></ul>
+    </div>
+
+    <div class="plan-section full-width" style="border-left: 3px solid #f78166;">
+      <h3 class="section-title">🏭 Industry</h3>
+      <p style="font-size:13px;line-height:1.7;color:#c9d1d9;font-weight:600;">Precision Agriculture — AI-Powered Weed Control &amp; Autonomous Farm Robotics</p>
+    </div>
+
     <div class="plan-section ray-section full-width">
       <h3 class="section-title">🔬 Ray Libraries & Workload Fit</h3>
       <div class="ray-content">
@@ -1240,6 +1367,21 @@ Open when the timing makes sense.</pre>
       </ul>
     </div>
 
+    <div class="plan-section">
+      <h3 class="section-title">⏰ Timing Advantages (Why Now)</h3>
+      <ul class="timing-list"><li>$70M Series D just closed (2025) with capital earmarked for R&amp;D, global expansion, and infrastructure scaling — budget is available and being deployed now</li><li>Growing from 100 to 1000+ growers globally means data pipelines, model training, and inference infrastructure must scale 10x in the near term</li><li>Product line proliferation (5 LaserWeeder models + Carbon ATK) increases complexity in managing inference and training across diverse hardware platforms</li><li>Competitive pressure in agricultural robotics (John Deere See &amp; Spray) means faster model iteration cycles are a critical strategic advantage</li><li>Exponential data growth from expanding customer base creates critical data engineering challenges that need scalable solutions immediately</li></ul>
+    </div>
+
+    <div class="plan-section">
+      <h3 class="section-title">🎯 Business Objectives</h3>
+      <ul class="plan-list"><li>Scale from 100+ growers to thousands globally, establishing LaserWeeder and Carbon ATK as the industry standard for precision weed control</li><li>Expand geographically into Asia, Latin America, and Africa requiring region-specific Large Plant Model variants trained on local crops and weeds</li><li>Grow product portfolio beyond weed control into comprehensive farm automation with Carbon ATK autonomous tractor platform</li><li>Achieve margin expansion through AI-powered solutions that reduce hand labor costs by 80% with strong unit economics and recurring revenue</li><li>Build data intelligence products (yield prediction, weed forecasting, optimization) creating high-margin SaaS revenue streams alongside hardware sales</li></ul>
+    </div>
+
+    <div class="plan-section">
+      <h3 class="section-title">💻 Tech Initiatives</h3>
+      <ul class="plan-list"><li>Large Plant Model scaling and versioning — managing crop-specific, regional, and hardware-optimized model variants simultaneously across the fleet</li><li>Real-time processing pipeline modernization — reducing inference latency and improving throughput for the expanding fleet of LaserWeeders and Carbon ATK units</li><li>Field data lake infrastructure — aggregating telemetry, device logs, images, and operational metrics from thousands of machines operating globally</li><li>MLOps and model governance framework — implementing CI/CD for models, A/B testing, monitoring, and continuous retraining pipelines across product lines</li><li>Hardware-software co-optimization — designing efficient edge inference architectures for LaserWeeder and Carbon ATK with optimized model quantization</li></ul>
+    </div>
+
     <div class="plan-section highlight-section">
       <h3 class="section-title">⚡ Why Anyscale? (Platform Outcomes)</h3>
       <ul class="why-list">
@@ -1252,30 +1394,46 @@ Open when the timing makes sense.</pre>
       </ul>
     </div>
 
+    <div class="plan-section">
+      <h3 class="section-title">❓ Discovery Questions</h3>
+      <ol class="discovery-list"><li>Your Large Plant Model is trained on 150M+ labeled plants across three continents — can you walk through your current training pipeline and how frequently you retrain for new crops and regions?</li><li>What are your latency requirements for real-time weed detection on LaserWeeder units, and how do you manage inference performance across your growing fleet of machines?</li><li>With 100+ growers and plans to expand globally, how are you managing the exponential growth in raw field data and the model training infrastructure to keep up?</li><li>Carbon ATK requires SLAM, navigation, and multi-task decision-making — what are the biggest computational bottlenecks in bringing that product to market alongside LaserWeeder?</li><li>As you scale from one core model to multiple product lines and regional variants, how are you approaching model versioning, deployment, and continuous retraining?</li><li>What's preventing your team from iterating faster on the AI systems today — is it training time, data processing throughput, or deployment complexity?</li></ol>
+    </div>
+
     <div class="plan-section email-section full-width">
       <h3 class="section-title">✉️ 4-Step Email Outreach Sequence</h3>
       <div class="emails-container">
-        <div class="email-card">
-          <div class="email-step">Step 1</div>
-          <div class="email-subject">Subject: "Large Plant Model + Ray Train — distributed CV training"</div>
-          <div class="email-body">Hi [Name] — 150M+ labeled plant images across three continents is serious training scale. Most teams building CV systems at that data volume hit walls with training time and regional model adaptation. Ray Train reduces distributed training cycles from weeks to days. With your Series D momentum and Carbon ATK launch, worth 20 minutes?</div>
-        </div>
-        <div class="email-card">
-          <div class="email-step">Step 2</div>
-          <div class="email-subject">Subject: "Scaling from 100 farms to 1000"</div>
-          <div class="email-body">Following up — 10x growth in your grower base means 10x growth in field data, model variants, and inference demand. Most robotics companies underestimate the infrastructure requirement. Ray Data + Ray Serve handle the training pipeline and fleet inference scaling so your team focuses on model quality. Curious if this resonates?</div>
-        </div>
-        <div class="email-card">
-          <div class="email-step">Step 3</div>
-          <div class="email-subject">Subject: "Regional model variants — distributed training"</div>
-          <div class="email-body">Quick thought: scaling your Large Plant Model to new geographies requires retraining on regional data and validating across diverse conditions. Ray Train handles distributed training at scale, reducing week-long cycles to days — critical for competitive speed-to-market. Worth a technical conversation?</div>
-        </div>
-        <div class="email-card">
-          <div class="email-step">Step 4</div>
-          <div class="email-subject">Subject: "Anyscale + Carbon Robotics — when scale matters"</div>
-          <div class="email-body">Last note — when scaling AI infrastructure for the next growth phase comes up (new regions, Carbon ATK, 1000+ farms), I'd love to be in that conversation. Happy to bring a technical expert familiar with distributed CV workloads. Open whenever.</div>
-        </div>
-      </div>
+<div class="email-card">
+  <div class="email-header">
+    <span class="email-step">Step 1</span>
+    <span class="email-subject">Subject: Large Plant Model + Ray Train — distributed CV training</span>
+    <button class="copy-btn" onclick="copyEmail(this)">Copy</button>
+  </div>
+  <pre class="email-body">Hi [Name] — 150M+ labeled plant images across three continents is serious training scale. Most teams building CV systems at that data volume hit walls with training time and regional model adaptation. Ray Train reduces distributed training cycles from weeks to days. With your Series D momentum and Carbon ATK launch, worth 20 minutes?</pre>
+</div>
+<div class="email-card">
+  <div class="email-header">
+    <span class="email-step">Step 2</span>
+    <span class="email-subject">Subject: Scaling from 100 farms to 1000</span>
+    <button class="copy-btn" onclick="copyEmail(this)">Copy</button>
+  </div>
+  <pre class="email-body">Following up — 10x growth in your grower base means 10x growth in field data, model variants, and inference demand. Most robotics companies underestimate the infrastructure requirement. Ray Data + Ray Serve handle the training pipeline and fleet inference scaling so your team focuses on model quality. Curious if this resonates?</pre>
+</div>
+<div class="email-card">
+  <div class="email-header">
+    <span class="email-step">Step 3</span>
+    <span class="email-subject">Subject: Regional model variants — distributed training</span>
+    <button class="copy-btn" onclick="copyEmail(this)">Copy</button>
+  </div>
+  <pre class="email-body">Quick thought: scaling your Large Plant Model to new geographies requires retraining on regional data and validating across diverse conditions. Ray Train handles distributed training at scale, reducing week-long cycles to days — critical for competitive speed-to-market. Worth a technical conversation?</pre>
+</div>
+<div class="email-card">
+  <div class="email-header">
+    <span class="email-step">Step 4</span>
+    <span class="email-subject">Subject: Anyscale + Carbon Robotics — when scale matters</span>
+    <button class="copy-btn" onclick="copyEmail(this)">Copy</button>
+  </div>
+  <pre class="email-body">Last note — when scaling AI infrastructure for the next growth phase comes up (new regions, Carbon ATK, 1000+ farms), I'd love to be in that conversation. Happy to bring a technical expert familiar with distributed CV workloads. Open whenever.</pre>
+</div></div>
     </div>
 
     <div class="plan-section funding-section">
@@ -1305,6 +1463,27 @@ Open when the timing makes sense.</pre>
   </div>
 
   <div class="sections-grid">
+
+    <div class="plan-section full-width" style="border-left: 3px solid #3fb950;">
+      <h3 class="section-title">🏢 Company Overview</h3>
+      <p style="font-size:13px;line-height:1.7;color:#c9d1d9;">Absci Corporation (NASDAQ: ABSI) is a generative AI drug creation company headquartered in Vancouver, WA. Founded in 2011, Absci has built the Origin-1 platform — combining generative AI models (AbsciDiff for diffusion-based structure prediction, AbsciGen for sequence generation, and IgDesign2 for CDR design) with the SoluPro synthetic biology platform and ACE Assay (4,000x higher throughput than traditional screening) to design novel therapeutic antibodies entirely computationally. The company has two AI-designed molecules in clinical trials: ABS-101 (anti-TL1A for IBD, Phase 1 May 2025) and ABS-201 (HEADLINE trial December 2025). Absci recently partnered with Oracle Cloud Infrastructure and AMD for bare-metal compute with 2.5µs GPU latency, and received a $20M strategic investment from AMD. The company has $143M in cash runway extending to H1 2028.</p>
+    </div>
+
+    <div class="plan-section">
+      <h3 class="section-title">📦 Products &amp; Offerings</h3>
+      <ul class="signal-list"><li>Origin-1 Platform — integrated AI drug creation platform combining generative models, synthetic biology, and high-throughput screening</li><li>AbsciDiff — diffusion-based model for all-atom antibody-antigen structure prediction at atomic-level precision</li><li>AbsciGen — generative AI model for novel therapeutic antibody sequence design with optimized affinity and developability</li><li>IgDesign2 — CDR (complementarity-determining region) design system for computationally-designed therapeutics</li><li>SoluPro — synthetic biology platform for high-throughput protein expression and screening of billions of variants</li><li>ACE Assay — proprietary screening technology with 4,000x higher throughput than traditional methods</li></ul>
+    </div>
+
+    <div class="plan-section">
+      <h3 class="section-title">⚔️ Competitors</h3>
+      <ul class="plan-list"><li>Xaira Therapeutics (AI protein design)</li><li>Generate:Biomedicines (generative protein therapeutics)</li><li>Recursion Pharmaceuticals (AI drug discovery platform)</li><li>Isomorphic Labs (Google DeepMind, protein structure)</li><li>Evotec (AI-integrated drug discovery)</li><li>BigHat Biosciences (ML antibody engineering)</li><li>Insilico Medicine (AI pharma)</li></ul>
+    </div>
+
+    <div class="plan-section full-width" style="border-left: 3px solid #3fb950;">
+      <h3 class="section-title">🏭 Industry</h3>
+      <p style="font-size:13px;line-height:1.7;color:#c9d1d9;font-weight:600;">Generative AI Drug Creation — Computational Antibody Design &amp; Synthetic Biology</p>
+    </div>
+
     <div class="plan-section ray-section full-width">
       <h3 class="section-title">🔬 Ray Libraries & Workload Fit</h3>
       <div class="ray-content">
@@ -1381,6 +1560,21 @@ Open when the timing makes sense.</pre>
       </ul>
     </div>
 
+    <div class="plan-section">
+      <h3 class="section-title">⏰ Timing Advantages (Why Now)</h3>
+      <ul class="timing-list"><li>Oracle/AMD infrastructure partnership just began (September 2025) — creating immediate needs for distributed computing optimization on new bare-metal clusters</li><li>Two clinical programs (ABS-101, ABS-201) generating validation data that will drive demand for accelerated model training as they expand indications</li><li>$143M cash runway extending into H1 2028 — resources available to invest in infrastructure optimization now without runway pressure</li><li>Transition from NVIDIA-only to AMD infrastructure signals openness to new technical partnerships and optimization approaches</li><li>Pursuing "one or more large pharma partnerships" in 2025 — requiring platform scaling for multiple concurrent partner projects on shared compute</li></ul>
+    </div>
+
+    <div class="plan-section">
+      <h3 class="section-title">🎯 Business Objectives</h3>
+      <ul class="plan-list"><li>Validate AI Drug Creation platform's clinical efficacy through ABS-101 and ABS-201 development milestones and interim readouts</li><li>Secure large pharma collaborations providing upfront fees, research payments, and milestone-driven revenue to diversify revenue streams</li><li>Reduce per-candidate discovery costs by optimizing computational infrastructure on Oracle/AMD to compress 14-month design timelines further</li><li>Establish Origin-1 as the de facto standard platform for generative AI drug creation across antibodies, enzymes, and other biologics</li><li>Demonstrate shareholder value through clinical program progress, partnership announcements, and efficient capital deployment of $143M runway</li></ul>
+    </div>
+
+    <div class="plan-section">
+      <h3 class="section-title">💻 Tech Initiatives</h3>
+      <ul class="plan-list"><li>Origin-1 AI model development combining diffusion-based structure prediction, sequence generation, and CDR design into a unified generative pipeline</li><li>Infrastructure modernization on Oracle OCI with AMD hardware enabling terabyte-per-second throughput and sub-microsecond GPU latency</li><li>SoluPro platform and ACE Assay scaling to increase screening throughput for validating AI-designed variants at billions-per-week capacity</li><li>Data engineering for processing massive biological datasets from proprietary experiments into high-quality training datasets with versioning</li><li>Multi-indication expansion requiring platform adaptation for different therapeutic modalities with target-specific objective functions</li></ul>
+    </div>
+
     <div class="plan-section highlight-section">
       <h3 class="section-title">⚡ Why Anyscale? (Platform Outcomes)</h3>
       <ul class="why-list">
@@ -1393,30 +1587,46 @@ Open when the timing makes sense.</pre>
       </ul>
     </div>
 
+    <div class="plan-section">
+      <h3 class="section-title">❓ Discovery Questions</h3>
+      <ol class="discovery-list"><li>You've consolidated onto Oracle OCI with AMD infrastructure — what were the primary pain points with your previous setup, and are you experiencing throughput constraints as you scale training?</li><li>How frequently are you retraining Origin-1 models with new SoluPro/ACE Assay data, and what's your target turnaround time from data collection to model update?</li><li>With your strategy to pursue large pharma partnerships, how do you plan to manage computational demands for multiple concurrent partner projects and multi-tenant safety?</li><li>Your SoluPro platform generates billions of variants weekly — where do you see bottlenecks in processing this volume into training-ready datasets for model improvement?</li><li>As ABS-101 and ABS-201 advance clinically, what are your inference serving requirements for scoring and ranking candidate molecules in production workflows?</li><li>Beyond raw compute cost, what other ML infrastructure costs (data management, MLOps tooling, engineering time) are you targeting for optimization?</li></ol>
+    </div>
+
     <div class="plan-section email-section full-width">
       <h3 class="section-title">✉️ 4-Step Email Outreach Sequence</h3>
       <div class="emails-container">
-        <div class="email-card">
-          <div class="email-step">Step 1</div>
-          <div class="email-subject">Subject: "Scaling Origin-1 on Oracle + AMD — Ray Train"</div>
-          <div class="email-body">Hi [Name] — congratulations on the Oracle/AMD infrastructure partnership. Bare-metal compute with 2.5µs GPU latency is impressive for molecular dynamics. As you scale Origin-1 training and inference across these clusters, distributed computing orchestration becomes the bottleneck. Ray Train handles this natively. Worth 20 minutes?</div>
-        </div>
-        <div class="email-card">
-          <div class="email-step">Step 2</div>
-          <div class="email-subject">Subject: "Biotech teams reducing ML engineering overhead by 60%"</div>
-          <div class="email-body">Following up — with ABS-101 and ABS-201 advancing clinically, every week of engineering productivity matters. Teams at your stage find managed Ray reduces distributed training overhead so they can focus on model quality. Ray Data also handles your SoluPro variant processing pipeline at scale. Happy to share how.</div>
-        </div>
-        <div class="email-card">
-          <div class="email-step">Step 3</div>
-          <div class="email-subject">Subject: "Multi-partner compute scaling"</div>
-          <div class="email-body">Quick thought: as you pursue large pharma partnerships, you'll need multi-tenant compute for concurrent partner projects. Ray's scheduling and isolation handle this natively — different training and inference workloads sharing the same cluster efficiently. Worth a technical conversation?</div>
-        </div>
-        <div class="email-card">
-          <div class="email-step">Step 4</div>
-          <div class="email-subject">Subject: "Anyscale + Absci — when scaling comes up"</div>
-          <div class="email-body">Last note — when compute optimization on your Oracle/AMD infrastructure comes up as a priority, I'd love to be involved. Distributed training, data pipelines, production inference — all unified on Ray. Open whenever timing makes sense.</div>
-        </div>
-      </div>
+<div class="email-card">
+  <div class="email-header">
+    <span class="email-step">Step 1</span>
+    <span class="email-subject">Subject: Scaling Origin-1 on Oracle + AMD — Ray Train</span>
+    <button class="copy-btn" onclick="copyEmail(this)">Copy</button>
+  </div>
+  <pre class="email-body">Hi [Name] — congratulations on the Oracle/AMD infrastructure partnership. Bare-metal compute with 2.5µs GPU latency is impressive for molecular dynamics. As you scale Origin-1 training and inference across these clusters, distributed computing orchestration becomes the bottleneck. Ray Train handles this natively. Worth 20 minutes?</pre>
+</div>
+<div class="email-card">
+  <div class="email-header">
+    <span class="email-step">Step 2</span>
+    <span class="email-subject">Subject: Biotech teams reducing ML engineering overhead by 60%</span>
+    <button class="copy-btn" onclick="copyEmail(this)">Copy</button>
+  </div>
+  <pre class="email-body">Following up — with ABS-101 and ABS-201 advancing clinically, every week of engineering productivity matters. Teams at your stage find managed Ray reduces distributed training overhead so they can focus on model quality. Ray Data also handles your SoluPro variant processing pipeline at scale. Happy to share how.</pre>
+</div>
+<div class="email-card">
+  <div class="email-header">
+    <span class="email-step">Step 3</span>
+    <span class="email-subject">Subject: Multi-partner compute scaling</span>
+    <button class="copy-btn" onclick="copyEmail(this)">Copy</button>
+  </div>
+  <pre class="email-body">Quick thought: as you pursue large pharma partnerships, you'll need multi-tenant compute for concurrent partner projects. Ray's scheduling and isolation handle this natively — different training and inference workloads sharing the same cluster efficiently. Worth a technical conversation?</pre>
+</div>
+<div class="email-card">
+  <div class="email-header">
+    <span class="email-step">Step 4</span>
+    <span class="email-subject">Subject: Anyscale + Absci — when scaling comes up</span>
+    <button class="copy-btn" onclick="copyEmail(this)">Copy</button>
+  </div>
+  <pre class="email-body">Last note — when compute optimization on your Oracle/AMD infrastructure comes up as a priority, I'd love to be involved. Distributed training, data pipelines, production inference — all unified on Ray. Open whenever timing makes sense.</pre>
+</div></div>
     </div>
 
     <div class="plan-section funding-section">
