@@ -299,7 +299,7 @@ const accounts = [
   {name:"Contentstack",score:1,tier:4,sector:"cms",sectorLabel:"CMS",icon:"📝",iconBg:"#f3e8ff",why:"~687 emp, $179M raised.",dm:"VP Product",valueProp:"Content ML.",starters:["CMS."]}
 ];
 
-const pipeline = {"SoFi", "Dyna Robotics", "Zeitview", "ZEFR"};
+const pipeline = new Set(["SoFi", "Dyna Robotics", "Zeitview", "ZEFR"]);
 let sortDir = {};
 let currentFilter = 'all';
 
