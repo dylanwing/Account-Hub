@@ -567,7 +567,7 @@
         <header>
             <div class="header-left">
                 <h1>Call Prep Generator</h1>
-                <p class="subtitle">Q2 2026 Tier 1 Accounts</p>
+                <p class="subtitle">Q2 2026 Tier 1 Accounts (11)</p>
             </div>
             <div class="header-buttons">
                 <button class="btn btn-danger" onclick="resetToDefaults()">Reset to Defaults</button>
@@ -730,70 +730,6 @@
                     { time: '15:00-23:00', topic: 'Case Studies: Biolexis (7d→5h), Recursion, Canva (12×)' },
                     { time: '23:00-28:00', topic: 'POC: Takeda pipeline workload isolation + SLA demo' },
                     { time: '28:00-30:00', topic: 'Partnership alignment: Timeline + scaling plan' }
-                ],
-                customNotes: ''
-            },            'DDN Storage': {
-                company: {
-                    industry: 'HPC / AI Infrastructure',
-                    size: '~1,200 employees',
-                    hq: 'Santa Clara, CA',
-                    funding: '$300M (acquired by Blackstone)',
-                    techStack: 'DDN A3I, EXAScaler, IntelliFlash, MLPerf Storage, GPU-native architecture'
-                },
-                keyContacts: [
-                    { name: 'VP Product', title: 'VP Product', status: 'Tier 1' }
-                ],
-                whyAnyscale: [
-                    'Ray Tune on DDN A3I for massively parallel hyperparameter search across AI workloads',
-                    'Ray Data integrates with EXAScaler for high-throughput training data pipelines',
-                    'Ray Train optimizes GPU utilization across DDN\'s next-gen storage + compute architecture'
-                ],
-                rayLibraries: [
-                    'Ray Tune (PRIMARY) — HPO for storage + compute optimization across AI workloads',
-                    'Ray Data (PRIMARY) — High-throughput training data pipelines on EXAScaler',
-                    'Ray Train (PRIMARY) — Distributed training leveraging DDN\'s GPU-native architecture',
-                    'Ray Serve (SECONDARY) — Model serving on DDN infrastructure'
-                ],
-                proofPoints: [
-                    'Recursion: 75% lower compute, 4× inference runs, 1.3PB on 4,500 GPUs',
-                    'Canva: 12× faster iteration, 100% GPU utilization',
-                    'Bedrock Robotics: 40%+ cost savings, 15+ MLEs self-serve infrastructure'
-                ],
-                discoveryQuestions: [
-                    'How are your customers currently handling distributed training on A3I—do they have orchestration gaps?',
-                    'What\'s the typical workload mix for DDN customers—compute-intensive or storage-bound?',
-                    'Are there integration points where Ray could streamline the storage-to-compute pipeline?',
-                    'What\'s the next evolution for EXAScaler—are you planning tighter Ray integration?',
-                    'How do your enterprise customers measure ROI on their infrastructure investments?'
-                ],
-                talkTracks: [
-                    'Ray Tune is built for massively parallel workloads—it maximizes utilization on DDN\'s GPU-native architecture',
-                    'Ray Data abstracts storage complexity, letting customers focus on model innovation rather than infrastructure tuning',
-                    'DDN + Ray is a powerful combination: best-in-class storage meets best-in-class orchestration',
-                    'Enable customer success stories: show how Ray unlocks value in DDN infrastructure investments',
-                    'Joint GTM opportunity: Ray Tune for AI workloads is a natural fit for A3I customers'
-                ],
-                competitorHandling: [
-                    { competitor: 'Custom storage orchestration', handling: 'Ray Data + Ray Tune provide standardized, proven orchestration—reduces customer engineering burden' },
-                    { competitor: 'Competing AI infrastructure stacks', handling: 'Ray is storage-agnostic and works with EXAScaler\'s advantages—this is a partnership, not a replacement' }
-                ],
-                landmines: [
-                    'Enterprise customer complexity—position Ray as simplifying, not adding, operational overhead',
-                    'Storage optimization is core DDN value prop—emphasize Ray as complementary, not competitive',
-                    'HPO at scale is hard—use Recursion and Bedrock as proof that Ray solves this'
-                ],
-                openingHooks: [
-                    'DDN A3I is purpose-built for AI—Ray Tune is built for massively parallel HPO on exactly this infrastructure',
-                    'Your customers are spending millions on storage + compute—Ray helps them maximize ROI through orchestration',
-                    'HPO at scale is a customer bottleneck—Ray Tune lets enterprises iterate 12× faster'
-                ],
-                agenda: [
-                    { time: '0:00-3:00', topic: 'Intro: Ray + DDN A3I for customer AI workloads' },
-                    { time: '3:00-8:00', topic: 'Deep Dive: Customer orchestration gaps + EXAScaler integration points' },
-                    { time: '8:00-15:00', topic: 'Architecture: Ray Tune + Ray Data on DDN infrastructure' },
-                    { time: '15:00-22:00', topic: 'Case Studies: Recursion (75%), Canva (12×), Bedrock (40%)' },
-                    { time: '22:00-27:00', topic: 'GTM Opportunity: Joint customer success stories + co-marketing' },
-                    { time: '27:00-30:00', topic: 'Next Steps: Customer beta + integration roadmap' }
                 ],
                 customNotes: ''
             },            'Imbue': {
@@ -1052,70 +988,6 @@
                     { time: '28:00-30:00', topic: 'Next Steps: Integration + scaling roadmap' }
                 ],
                 customNotes: ''
-            },            'Wing': {
-                company: {
-                    industry: 'Autonomous Vehicles / Delivery Drones',
-                    size: '~1,000 employees',
-                    hq: 'Palo Alto, CA',
-                    funding: 'Alphabet (parent company)',
-                    techStack: 'Autonomous flight, sensor data fusion, real-time compute, GCP'
-                },
-                keyContacts: [
-                    { name: 'Head of ML', title: 'Head of ML / ML Infrastructure', status: 'Tier 1' }
-                ],
-                whyAnyscale: [
-                    'Ray Train coordinates distributed training for autonomous flight perception models',
-                    'Ray Data processes terabytes of sensor data from global drone fleet for training',
-                    'Ray Serve enables real-time model serving validation before edge deployment'
-                ],
-                rayLibraries: [
-                    'Ray Train (PRIMARY) — Distributed training for autonomous flight models',
-                    'Ray Data (PRIMARY) — Sensor data pipeline from global drone fleet',
-                    'Ray Serve (PRIMARY) — Real-time model serving for validation + offboard inference',
-                    'Ray Tune (SECONDARY) — Hyperparameter optimization for flight models'
-                ],
-                proofPoints: [
-                    'Motive: 10.4× faster batch inference, 2× faster prototype-to-production',
-                    'Physical Intelligence: Multi-embodiment training on terabytes of daily sensor data',
-                    'Discord: 30% cost reduction, 10× reduced MLE wait time'
-                ],
-                discoveryQuestions: [
-                    'At Alphabet scale with global delivery operations, how are you scaling the training data pipeline?',
-                    'What\'s the latency requirement for autonomous flight perception models?',
-                    'How many drone platforms are you supporting, and does each require separate model training?',
-                    'Are you using Ray anywhere in your ML stack today?',
-                    'What\'s the biggest bottleneck—data processing, model training, or serving validation?'
-                ],
-                talkTracks: [
-                    'Ray Data handles terabytes of sensor data from your global fleet so ML teams focus on algorithms',
-                    'Ray Serve enables rapid validation cycles before deploying models to drones at scale',
-                    'At Alphabet scale, coordinating training across regions is complex—Ray simplifies that orchestration',
-                    'Motive reduced inference latency and accelerated iteration—similar wins available for Wing\'s flight models',
-                    'Self-serve infrastructure: scale your ML team without scaling infrastructure burden'
-                ],
-                competitorHandling: [
-                    { competitor: 'Alphabet internal infrastructure teams', handling: 'Ray is proven for large-scale training at tech giants—complements GCP investments and simplifies ML ops' },
-                    { competitor: 'Custom drone-specific orchestration', handling: 'Ray is flexible and works with GCP—integrate without forcing architectural changes' }
-                ],
-                landmines: [
-                    'Alphabet-scale complexity and risk aversion—emphasize proven reliability at scale',
-                    'Real-time constraints for autonomous flight—position Ray as latency-optimized for validation',
-                    'Large internal teams—position Ray as enabling, not replacing, existing infrastructure'
-                ],
-                openingHooks: [
-                    'Global drone delivery at Alphabet scale requires massive training data infrastructure—Ray coordinates that complexity',
-                    'Autonomous flight perception is mission-critical; Ray Serve enables rapid validation before edge deployment',
-                    'Motive accelerated iteration 2×—imagine what similar optimizations unlock for Wing\'s flight models'
-                ],
-                agenda: [
-                    { time: '0:00-3:00', topic: 'Intro: Ray for autonomous flight perception at global scale' },
-                    { time: '3:00-8:00', topic: 'Deep Dive: Global fleet data pipeline + training bottlenecks' },
-                    { time: '8:00-15:00', topic: 'Architecture: Ray Train + Ray Data + Ray Serve for validation' },
-                    { time: '15:00-22:00', topic: 'Case Studies: Motive (2×), Physical Intelligence, Discord (10×)' },
-                    { time: '22:00-27:00', topic: 'Real-time validation: Ray Serve for pre-deployment inference' },
-                    { time: '27:00-30:00', topic: 'Partnership: GCP integration + global rollout' }
-                ],
-                customNotes: ''
             },            'LlamaIndex': {
                 company: {
                     industry: 'AI Framework / Data Indexing',
@@ -1180,21 +1052,296 @@
                     { time: '27:00-30:00', topic: 'Partnership: Joint GTM + customer proof points' }
                 ],
                 customNotes: ''
+            },
+            'Glean': {
+                company: {
+                    industry: 'Enterprise AI / Search',
+                    size: '~1,475 employees',
+                    hq: 'Palo Alto, CA',
+                    funding: '$150M Series F, $7.2B valuation',
+                    techStack: 'Multi-model LLM inference, Knowledge Graph, 100+ SaaS connectors, Glean:GO agents'
+                },
+                keyContacts: [
+                    { name: 'Arvind Jain', title: 'CEO & Co-founder (ex-Google Distinguished Engineer)', status: 'Tier 1' },
+                    { name: 'Piyush Patel', title: 'CTO', status: 'Tier 1' },
+                    { name: 'T.R. Vishwanath', title: 'VP Engineering', status: 'Tier 2' }
+                ],
+                whyAnyscale: [
+                    'Ray Serve handles multi-model inference pipeline at $208M ARR scale: search ranking + LLM generation + agent orchestration',
+                    'Ray Data enables distributed knowledge graph processing across 100+ enterprise SaaS connectors',
+                    'Ray Train supports continuous model improvement on enterprise-specific training data'
+                ],
+                rayLibraries: [
+                    'Ray Serve (PRIMARY) - Multi-model inference: search ranking + LLM generation + Glean:GO agents',
+                    'Ray Data (PRIMARY) - Distributed knowledge graph processing across 100+ connectors',
+                    'Ray Train (SECONDARY) - Enterprise-specific model fine-tuning and improvement'
+                ],
+                proofPoints: [
+                    'LinkedIn: Ray Serve handles 500K+ queries/sec for search ranking at enterprise scale',
+                    'Shopify: 3x faster model iteration cycles with Ray Train distributed training',
+                    'Canva: 12x faster iteration, 100% GPU utilization with managed Ray'
+                ],
+                discoveryQuestions: [
+                    'With $208M ARR doubling, how are inference costs scaling relative to revenue growth?',
+                    'How are you managing GPU allocation across search ranking, LLM generation, and Glean:GO agents?',
+                    'What does the knowledge graph processing pipeline look like across 100+ connectors?',
+                    'As Glean:GO scales to 100M+ actions, whats the biggest infrastructure bottleneck?',
+                    'How many models are running concurrently per customer tenant?'
+                ],
+                talkTracks: [
+                    'At $208M ARR with multi-model inference, Ray Serve fractional GPU scheduling directly reduces cost per query',
+                    'Glean:GO autonomous agents need the same orchestration layer as your search - Ray Serve unifies both',
+                    'Knowledge graph processing across 100+ connectors is a distributed data problem Ray Data was built to solve',
+                    'Enterprise customers expect sub-second latency - Ray Serve autoscaling handles peak loads without overprovisioning',
+                    'Ray is already powering similar enterprise AI platforms at comparable scale'
+                ],
+                competitorHandling: [
+                    { competitor: 'GCP Vertex AI', handling: 'Ray provides ML-specific scheduling that Vertex AI lacks - fractional GPU allocation and multi-model serving in a single framework' },
+                    { competitor: 'Custom in-house orchestration', handling: 'At $208M ARR growth rate, engineering time on infra has massive opportunity cost - managed Ray frees ML engineers for model work' }
+                ],
+                landmines: [
+                    'Glean may already have strong internal ML platform team - position Ray as accelerating their roadmap, not replacing it',
+                    'Enterprise security requirements are paramount - emphasize BYOC and data isolation capabilities',
+                    'Multi-tenant architecture adds complexity - show how Ray handles tenant isolation natively'
+                ],
+                openingHooks: [
+                    'Your inference costs are scaling faster than $208M ARR growth - Ray Serve fractional GPU scheduling cuts cost per query significantly',
+                    'Glean:GO processing 100M+ actions needs the same serving layer as search - Ray Serve unifies both workloads on shared GPU fleet',
+                    'LinkedIn uses Ray Serve for 500K+ queries/sec - similar enterprise search scale to where Glean is heading'
+                ],
+                agenda: [
+                    { time: '0:00-3:00', topic: 'Intro: Ray for enterprise-scale multi-model inference' },
+                    { time: '3:00-8:00', topic: 'Deep Dive: Inference cost challenges at $208M ARR scale' },
+                    { time: '8:00-15:00', topic: 'Architecture: Ray Serve (multi-model) + Ray Data (knowledge graph) + Ray Train (fine-tuning)' },
+                    { time: '15:00-22:00', topic: 'Case Studies: LinkedIn (500K qps), Shopify (3x), Canva (12x)' },
+                    { time: '22:00-27:00', topic: 'Glean:GO agent orchestration on Ray Serve' },
+                    { time: '27:00-30:00', topic: 'Next Steps: Architecture review + proof of concept' }
+                ],
+                customNotes: ''
+            },
+            'Xaira Therapeutics': {
+                company: {
+                    industry: 'AI Drug Discovery / Biotech',
+                    size: '~189 employees',
+                    hq: 'San Francisco, CA',
+                    funding: '$1B+ Series A (largest biotech Series A ever)',
+                    techStack: 'RFdiffusion, 4.9B-param virtual cell model, PyTorch, protein structure prediction'
+                },
+                keyContacts: [
+                    { name: 'Marc Bhatt', title: 'CEO', status: 'Tier 1' },
+                    { name: 'David Baker', title: 'Co-founder (Nobel Prize, computational protein design)', status: 'Tier 1' },
+                    { name: 'Berton Earnshaw', title: 'VP Machine Learning', status: 'Tier 2' }
+                ],
+                whyAnyscale: [
+                    'Ray Train handles distributed training of 4.9B-param virtual cell models across GPU clusters',
+                    'Ray Data manages protein structure data pipelines from experimental results to training datasets',
+                    'Ray Tune optimizes hyperparameters across diverse protein design objectives'
+                ],
+                rayLibraries: [
+                    'Ray Train (PRIMARY) - Distributed training of 4.9B-param virtual cell models',
+                    'Ray Data (PRIMARY) - Protein structure data pipeline management',
+                    'Ray Tune (SECONDARY) - Hyperparameter optimization for protein design'
+                ],
+                proofPoints: [
+                    'Recursion: 75% lower compute costs, 4x inference throughput, 1.3PB across 4,500 GPUs',
+                    'Physical Intelligence: 2x faster research iteration, 16+ engineers freed from infra',
+                    'Canva: 12x faster iteration, 100% GPU utilization with managed Ray'
+                ],
+                discoveryQuestions: [
+                    'How is your training infrastructure evolving post-$1B Series A?',
+                    'What does the RFdiffusion training pipeline look like end-to-end?',
+                    'How are you managing the experimental validation feedback loop into model retraining?',
+                    'Whats the biggest bottleneck in your virtual cell model training pipeline?',
+                    'How many GPU hours per training run for the 4.9B-param models?'
+                ],
+                talkTracks: [
+                    '4.9B-param models are exactly the scale where managed Ray eliminates weeks of infrastructure work',
+                    'Protein structure data pipelines need the same distributed processing as genomics - Ray Data handles both',
+                    'With $1B in funding, infrastructure buildout is happening now - Ray accelerates time to first clinical candidate',
+                    'RFdiffusion training runs benefit from Ray Tune multi-objective optimization across protein design space',
+                    'Recursion runs 4,500 GPUs on Ray for similar drug discovery workloads'
+                ],
+                competitorHandling: [
+                    { competitor: 'AWS SageMaker', handling: 'SageMaker lacks the fine-grained GPU scheduling needed for protein model training - Ray Train handles heterogeneous workloads natively' },
+                    { competitor: 'Custom HPC infrastructure', handling: 'At this funding level, engineering time on custom infra has enormous opportunity cost - managed Ray lets ML researchers focus on science' }
+                ],
+                landmines: [
+                    'David Baker team may have strong preferences for existing tools - position Ray as complementary to their research workflow',
+                    'Biotech timelines are long - focus on near-term infrastructure pain rather than distant clinical outcomes',
+                    'IP sensitivity around protein designs - emphasize BYOC deployment and data isolation'
+                ],
+                openingHooks: [
+                    'Training 4.9B-param virtual cell models is exactly the distributed compute challenge Ray was built for',
+                    'Recursion runs 4,500 GPUs on Ray for drug discovery - similar scale to what Xaira is building toward',
+                    'Post-$1B raise, your infrastructure buildout timeline is compressed - managed Ray accelerates by months'
+                ],
+                agenda: [
+                    { time: '0:00-3:00', topic: 'Intro: Ray for large-scale protein model training' },
+                    { time: '3:00-8:00', topic: 'Deep Dive: Virtual cell model training infrastructure challenges' },
+                    { time: '8:00-15:00', topic: 'Architecture: Ray Train (4.9B models) + Ray Data (protein pipelines) + Ray Tune (design optimization)' },
+                    { time: '15:00-22:00', topic: 'Case Studies: Recursion (75% lower compute, 4,500 GPUs)' },
+                    { time: '22:00-27:00', topic: 'BYOC deployment for IP-sensitive protein data' },
+                    { time: '27:00-30:00', topic: 'Next Steps: Infrastructure assessment + proof of concept' }
+                ],
+                customNotes: ''
+            },
+            'Absci': {
+                company: {
+                    industry: 'AI Drug Discovery / Biotech',
+                    size: '~240 employees',
+                    hq: 'Vancouver, WA',
+                    funding: '$228M raised, Public (ABSI)',
+                    techStack: 'Generative protein models, Oracle Cloud + AMD Instinct, zero-shot antibody design'
+                },
+                keyContacts: [
+                    { name: 'Sean McClain', title: 'CEO & Founder', status: 'Tier 1' },
+                    { name: 'Joshua Meier', title: 'Head of AI (ex-Meta FAIR)', status: 'Tier 1' },
+                    { name: 'Amir Shanehsazzadeh', title: 'Director of Machine Learning', status: 'Tier 2' }
+                ],
+                whyAnyscale: [
+                    'Ray Data processes 3M unique AI-generated antibody designs weekly through the evaluation pipeline',
+                    'Ray Train handles distributed generative protein model training with Oracle/AMD partnership compute',
+                    'Ray Serve enables high-throughput design scoring and ranking at production scale'
+                ],
+                rayLibraries: [
+                    'Ray Data (PRIMARY) - 3M design/week evaluation and screening pipeline',
+                    'Ray Train (PRIMARY) - Distributed generative protein model training',
+                    'Ray Serve (SECONDARY) - High-throughput design scoring at production scale'
+                ],
+                proofPoints: [
+                    'Recursion: 75% lower compute costs, 4x inference throughput on drug discovery workloads',
+                    'Physical Intelligence: 2x faster research iteration, 16+ engineers freed from infra',
+                    'Canva: 100% GPU utilization with Ray managed infrastructure'
+                ],
+                discoveryQuestions: [
+                    'What does the evaluation pipeline look like for screening 3M designs per week?',
+                    'How is the Oracle/AMD partnership changing your compute infrastructure?',
+                    'Whats the biggest bottleneck in your design-evaluate-retrain cycle?',
+                    'How are you managing the wet-lab feedback integration into model retraining?',
+                    'What fraction of compute goes to training vs. inference for design evaluation?'
+                ],
+                talkTracks: [
+                    '3M designs per week is a massive distributed evaluation challenge - Ray Data was built for exactly this throughput',
+                    'New Oracle/AMD infrastructure means new ML platform decisions - Ray integrates with both cloud and AMD GPUs',
+                    'The design-evaluate-retrain loop is where Ray shines - unified pipeline from data processing through training to serving',
+                    'Public company scrutiny means compute efficiency directly impacts margins - Ray optimizes GPU utilization',
+                    'Recursion proves Ray works for drug discovery at scale - 75% lower compute, 4x throughput'
+                ],
+                competitorHandling: [
+                    { competitor: 'Oracle Cloud native tools', handling: 'Ray runs on any cloud including Oracle - adds ML-specific scheduling that OCI native tools lack' },
+                    { competitor: 'AMD ROCm ecosystem', handling: 'Ray supports AMD GPUs natively - managed Ray handles the AMD-specific optimization automatically' }
+                ],
+                landmines: [
+                    'Public company dynamics - focus on cost efficiency and margin improvement angles',
+                    'Oracle partnership may come with infrastructure commitments - position Ray as complementary to OCI',
+                    'Joshua Meier ex-Meta FAIR may have strong opinions on ML tooling - lead with research productivity angle'
+                ],
+                openingHooks: [
+                    'Screening 3M antibody designs weekly is exactly the distributed evaluation challenge Ray Data solves',
+                    'With the Oracle/AMD partnership bringing new infrastructure, now is the time to get the ML platform layer right',
+                    'Recursion runs similar drug discovery workloads on Ray at 75% lower compute cost'
+                ],
+                agenda: [
+                    { time: '0:00-3:00', topic: 'Intro: Ray for high-throughput drug design evaluation' },
+                    { time: '3:00-8:00', topic: 'Deep Dive: 3M design/week pipeline and evaluation bottlenecks' },
+                    { time: '8:00-15:00', topic: 'Architecture: Ray Data (evaluation) + Ray Train (generative models) + Ray Serve (scoring)' },
+                    { time: '15:00-22:00', topic: 'Case Studies: Recursion (75% lower compute, 4x throughput)' },
+                    { time: '22:00-27:00', topic: 'Oracle/AMD integration and BYOC deployment' },
+                    { time: '27:00-30:00', topic: 'Next Steps: Pipeline assessment + proof of concept' }
+                ],
+                customNotes: ''
+            },
+            'Carbon Robotics': {
+                company: {
+                    industry: 'AgTech / Robotics',
+                    size: '~274 employees',
+                    hq: 'Seattle, WA',
+                    funding: '$177M raised ($70M Series D)',
+                    techStack: 'Large Plant Model, 150M+ labeled plant images, LaserWeeder fleet, real-time CV inference'
+                },
+                keyContacts: [
+                    { name: 'Paul Mikesell', title: 'CEO & Founder', status: 'Tier 1' },
+                    { name: 'VP of Machine Learning', title: 'VP ML', status: 'Tier 1' }
+                ],
+                whyAnyscale: [
+                    'Ray Data processes the 150M+ labeled plant image dataset for Large Plant Model training',
+                    'Ray Train enables distributed vision model training across GPU clusters for agricultural AI',
+                    'Ray Serve handles real-time weed detection inference on LaserWeeder fleet at field speed'
+                ],
+                rayLibraries: [
+                    'Ray Data (PRIMARY) - 150M+ labeled plant image dataset processing',
+                    'Ray Train (PRIMARY) - Distributed Large Plant Model training across GPU clusters',
+                    'Ray Serve (SECONDARY) - Real-time weed detection on LaserWeeder fleet'
+                ],
+                proofPoints: [
+                    'Blue River Technology: 2.5x AV regression testing speedup (24h to 9.5h) - similar agricultural CV',
+                    'Physical Intelligence: 2x faster research iteration with managed Ray',
+                    'Bedrock Robotics: Training time reduced 12h to 2h, 40%+ cost savings'
+                ],
+                discoveryQuestions: [
+                    'What does the Large Plant Model training pipeline look like on 150M+ images?',
+                    'How is the training dataset growing each season, and how does that affect infrastructure?',
+                    'Whats the model update cycle for the LaserWeeder fleet - how do you push new models to deployed units?',
+                    'Are you running distributed training across multiple nodes, or single-node with large GPUs?',
+                    'What fraction of labeled data comes from field deployment vs. manual annotation?'
+                ],
+                talkTracks: [
+                    '150M+ labeled images is the exact scale where distributed training with Ray Train pays for itself immediately',
+                    'The LaserWeeder fleet generates continuous training data - Ray Data automates the ingestion pipeline',
+                    'Every growing season adds millions more images - your training infrastructure needs to scale with the dataset',
+                    'Real-time weed detection at field speed requires optimized inference - Ray Serve autoscaling handles variable fleet loads',
+                    'Blue River Technology uses similar agricultural CV architecture on Ray - proven in production'
+                ],
+                competitorHandling: [
+                    { competitor: 'AWS SageMaker', handling: 'SageMaker lacks the data processing + training + serving integration that agricultural CV pipelines need - Ray provides the full stack' },
+                    { competitor: 'Custom training infrastructure', handling: 'At 274 employees with a growing fleet, engineering time on custom infra slows model iteration - managed Ray lets ML team focus on plant science' }
+                ],
+                landmines: [
+                    'Agricultural seasonality means training workloads are bursty - emphasize Ray autoscaling and cost efficiency',
+                    'Field deployment adds edge inference complexity - clarify Ray Serve handles cloud-side model serving, not edge',
+                    'Hardware team may be separate from ML team - make sure to engage the right stakeholders'
+                ],
+                openingHooks: [
+                    'Training the Large Plant Model on 150M+ labeled images is a serious distributed CV challenge - Ray Data + Ray Train were built for this exact workload',
+                    'Blue River Technology runs similar agricultural CV on Ray - 2.5x faster regression testing',
+                    'Every season your dataset grows and training takes longer - managed Ray scales with you automatically'
+                ],
+                agenda: [
+                    { time: '0:00-3:00', topic: 'Intro: Ray for large-scale agricultural computer vision' },
+                    { time: '3:00-8:00', topic: 'Deep Dive: Large Plant Model training on 150M+ images' },
+                    { time: '8:00-15:00', topic: 'Architecture: Ray Data (image pipeline) + Ray Train (distributed CV) + Ray Serve (fleet inference)' },
+                    { time: '15:00-22:00', topic: 'Case Studies: Blue River (2.5x), Physical Intelligence (2x), Bedrock (40%)' },
+                    { time: '22:00-27:00', topic: 'Fleet model update cycle and continuous training pipeline' },
+                    { time: '27:00-30:00', topic: 'Next Steps: Dataset assessment + proof of concept' }
+                ],
+                customNotes: ''
             }
         };
 
+        const DATA_VERSION = 'v2-q2-2026-retiered';
+
         function init() {
             const stored = localStorage.getItem(STORAGE_KEY);
-            if (stored) {
+            const storedVersion = localStorage.getItem(STORAGE_KEY + '_version');
+            
+            if (stored && storedVersion === DATA_VERSION) {
                 try {
                     accounts = JSON.parse(stored);
+                    // Merge any new default accounts that aren't in storage
+                    Object.keys(defaultAccounts).forEach(key => {
+                        if (!accounts[key]) {
+                            accounts[key] = defaultAccounts[key];
+                        }
+                    });
                 } catch (e) {
                     accounts = { ...defaultAccounts };
                 }
             } else {
+                // Version mismatch or no stored data - use defaults
                 accounts = { ...defaultAccounts };
+                localStorage.setItem(STORAGE_KEY + '_version', DATA_VERSION);
             }
-
+            saveToStorage();
             setupSearchInput();
         }
 
@@ -1591,6 +1738,7 @@
         function resetToDefaults() {
             if (confirm('Reset all accounts to default data? This will erase any custom changes.')) {
                 accounts = { ...defaultAccounts };
+                localStorage.setItem(STORAGE_KEY + '_version', DATA_VERSION);
                 saveToStorage();
                 document.getElementById('accountInput').value = '';
                 document.getElementById('prepContent').innerHTML = '';
